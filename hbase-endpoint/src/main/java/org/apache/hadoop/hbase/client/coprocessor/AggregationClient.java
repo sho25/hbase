@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -273,40 +273,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -521,6 +487,40 @@ name|Pair
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * This client class is for invoking the aggregate functions deployed on the  * Region Server side via the AggregateService. This class will implement the  * supporting functionality for summing/processing the individual results  * obtained from the AggregateService for each region.  *<p>  * This will serve as the client side handler for invoking the aggregate  * functions.  * For all aggregate functions,  *<ul>  *<li>start row&lt; end row is an essential condition (if they are not  * {@link HConstants#EMPTY_BYTE_ARRAY})  *<li>Column family can't be null. In case where multiple families are  * provided, an IOException will be thrown. An optional column qualifier can  * also be defined.</li>  *<li>For methods to find maximum, minimum, sum, rowcount, it returns the  * parameter type. For average and std, it returns a double value. For row  * count, it returns a long value.</li>  *</ul>  *<p>Call {@link #close()} when done.  */
 end_comment
@@ -702,7 +702,7 @@ literal|true
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor with Conf object    * @param cfg    */
+comment|/**    * Constructor with Conf object    * @param cfg Configuration to use    */
 specifier|public
 name|AggregationClient
 parameter_list|(
@@ -775,7 +775,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return max val&lt;R&gt;    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
+comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return max val&lt;R&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -848,7 +848,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return max val&lt;&gt;    * @throws Throwable    *           The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
+comment|/**    * It gives the maximum value of a column for a given column family for the    * given range. In case qualifier is null, a max of all values for the given    * family is returned.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return max val&lt;&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1150,7 +1150,7 @@ name|getMax
 argument_list|()
 return|;
 block|}
-comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param tableName    * @param ci    * @param scan    * @return min val&lt;R&gt;    * @throws Throwable    */
+comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return min val&lt;R&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1223,7 +1223,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param table    * @param ci    * @param scan    * @return min val&lt;R&gt;    * @throws Throwable    */
+comment|/**    * It gives the minimum value of a column for a given column family for the    * given range. In case qualifier is null, a min of all values for the given    * family is returned.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return min val&lt;R&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1539,7 +1539,7 @@ name|getMinimum
 argument_list|()
 return|;
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1612,7 +1612,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * It gives the row count, by summing up the individual results obtained from    * regions. In case the qualifier is null, FirstKeyValueFilter is used to    * optimised the operation. In case qualifier is provided, I can't use the    * filter as it may set the flag to skip to next row, but the value read is    * not of the given filter: in this case, this particular row will not be    * counted ==&gt; an error.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1897,7 +1897,7 @@ name|getRowNumCount
 argument_list|()
 return|;
 block|}
-comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param tableName    * @param ci    * @param scan    * @return sum&lt;S&gt;    * @throws Throwable    */
+comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return sum&lt;S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -1970,7 +1970,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param table    * @param ci    * @param scan    * @return sum&lt;S&gt;    * @throws Throwable    */
+comment|/**    * It sums up the value returned from various regions. In case qualifier is    * null, summation of all the column qualifiers in the given family is done.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return sum&lt;S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -2261,7 +2261,7 @@ name|getSumResult
 argument_list|()
 return|;
 block|}
-comment|/**    * It computes average while fetching sum and row count from all the    * corresponding regions. Approach is to compute a global sum of region level    * sum and rowcount and then compute the average.    * @param tableName    * @param scan    * @throws Throwable    */
+comment|/**    * It computes average while fetching sum and row count from all the    * corresponding regions. Approach is to compute a global sum of region level    * sum and rowcount and then compute the average.    * @param tableName the name of the table to scan    * @param scan the HBase scan object to use to read data from HBase    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|private
 parameter_list|<
 name|R
@@ -2339,7 +2339,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * It computes average while fetching sum and row count from all the    * corresponding regions. Approach is to compute a global sum of region level    * sum and rowcount and then compute the average.    * @param table    * @param scan    * @throws Throwable    */
+comment|/**    * It computes average while fetching sum and row count from all the    * corresponding regions. Approach is to compute a global sum of region level    * sum and rowcount and then compute the average.    * @param table table to scan.    * @param scan the HBase scan object to use to read data from HBase    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|private
 parameter_list|<
 name|R
@@ -2428,7 +2428,7 @@ decl_stmt|;
 name|Long
 name|rowCount
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 specifier|public
 specifier|synchronized
@@ -2742,7 +2742,7 @@ name|getAvgArgs
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -2823,7 +2823,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the average method for    * a given cf-cq combination. It was necessary to add one more call stack as    * its return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the average and returs the double value.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -2904,7 +2904,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * It computes a global standard deviation for a given column and its value.    * Standard deviation is square root of (average of squares -    * average*average). From individual regions, it obtains sum, square sum and    * number of rows. With these, the above values are computed to get the global    * std.    * @param table    * @param scan    * @return standard deviations    * @throws Throwable    */
+comment|/**    * It computes a global standard deviation for a given column and its value.    * Standard deviation is square root of (average of squares -    * average*average). From individual regions, it obtains sum, square sum and    * number of rows. With these, the above values are computed to get the global    * std.    * @param table table to scan.    * @param scan the HBase scan object to use to read data from HBase    * @return standard deviations    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|private
 parameter_list|<
 name|R
@@ -2994,7 +2994,7 @@ block|{
 name|long
 name|rowCountVal
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 name|S
 name|sumVal
@@ -3450,7 +3450,7 @@ name|getStdParams
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -3521,7 +3521,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param table    * @param ci    * @param scan    * @return&lt;R, S&gt;    * @throws Throwable    */
+comment|/**    * This is the client side interface/handle for calling the std method for a    * given cf-cq combination. It was necessary to add one more call stack as its    * return type should be a decimal value, irrespective of what    * columninterpreter says. So, this methods collects the necessary parameters    * to compute the std and returns the double value.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return&lt;R, S&gt;    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -3666,7 +3666,7 @@ return|return
 name|res
 return|;
 block|}
-comment|/**    * It helps locate the region with median for a given column whose weight    * is specified in an optional column.    * From individual regions, it obtains sum of values and sum of weights.    * @param table    * @param ci    * @param scan    * @return pair whose first element is a map between start row of the region    *  and (sum of values, sum of weights) for the region, the second element is    *  (sum of values, sum of weights) for all the regions chosen    * @throws Throwable    */
+comment|/**    * It helps locate the region with median for a given column whose weight    * is specified in an optional column.    * From individual regions, it obtains sum of values and sum of weights.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return pair whose first element is a map between start row of the region    *   and (sum of values, sum of weights) for the region, the second element is    *   (sum of values, sum of weights) for all the regions chosen    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|private
 parameter_list|<
 name|R
@@ -4138,7 +4138,7 @@ name|getMedianParams
 argument_list|()
 return|;
 block|}
-comment|/**    * This is the client side interface/handler for calling the median method for a    * given cf-cq combination. This method collects the necessary parameters    * to compute the median and returns the median.    * @param tableName    * @param ci    * @param scan    * @return R the median    * @throws Throwable    */
+comment|/**    * This is the client side interface/handler for calling the median method for a    * given cf-cq combination. This method collects the necessary parameters    * to compute the median and returns the median.    * @param tableName the name of the table to scan    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return R the median    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -4209,7 +4209,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * This is the client side interface/handler for calling the median method for a    * given cf-cq combination. This method collects the necessary parameters    * to compute the median and returns the median.    * @param table    * @param ci    * @param scan    * @return R the median    * @throws Throwable    */
+comment|/**    * This is the client side interface/handler for calling the median method for a    * given cf-cq combination. This method collects the necessary parameters    * to compute the median and returns the median.    * @param table table to scan.    * @param ci the user's ColumnInterpreter implementation    * @param scan the HBase scan object to use to read data from HBase    * @return R the median    * @throws Throwable The caller is supposed to handle the exception as they are thrown    *&amp; propagated to it.    */
 specifier|public
 parameter_list|<
 name|R
@@ -4477,8 +4477,10 @@ name|newSumVal
 operator|>
 name|halfSumVal
 condition|)
-break|break;
+block|{
 comment|// we found the region with the median
+break|break;
+block|}
 name|movingSumVal
 operator|=
 name|newSumVal
@@ -4508,6 +4510,7 @@ name|startRow
 operator|!=
 literal|null
 condition|)
+block|{
 name|scan2
 operator|.
 name|setStartRow
@@ -4515,6 +4518,7 @@ argument_list|(
 name|startRow
 argument_list|)
 expr_stmt|;
+block|}
 name|ResultScanner
 name|scanner
 init|=

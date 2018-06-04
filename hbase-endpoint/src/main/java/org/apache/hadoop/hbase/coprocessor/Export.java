@@ -19,6 +19,42 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcCallback
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|RpcController
+import|;
+end_import
+
+begin_import
+import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -846,42 +882,6 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcCallback
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcController
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
 import|;
 end_import
 
@@ -2071,9 +2071,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Why the RegionScanner#nextRaw returns the data of different rows??"
+literal|"Why the RegionScanner#nextRaw returns the data of different"
 operator|+
-literal|" first row="
+literal|" rows?? first row="
 operator|+
 name|Bytes
 operator|.
@@ -3690,6 +3690,7 @@ expr_stmt|;
 block|}
 block|}
 specifier|public
+specifier|final
 specifier|static
 class|class
 name|Response

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -121,20 +121,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -213,6 +199,20 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Helper class for constructing aggregation request and response.  */
 end_comment
@@ -223,10 +223,15 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|AggregationHelper
 block|{
-comment|/**    * @param scan    * @param canFamilyBeAbsent whether column family can be absent in familyMap of scan    */
+specifier|private
+name|AggregationHelper
+parameter_list|()
+block|{}
+comment|/**    * @param scan the HBase scan object to use to read data from HBase    * @param canFamilyBeAbsent whether column family can be absent in familyMap of scan    */
 specifier|private
 specifier|static
 name|void
@@ -432,18 +437,14 @@ expr_stmt|;
 name|P
 name|columnInterpreterSpecificData
 init|=
-literal|null
-decl_stmt|;
-if|if
-condition|(
-operator|(
-name|columnInterpreterSpecificData
-operator|=
 name|ci
 operator|.
 name|getRequestData
 argument_list|()
-operator|)
+decl_stmt|;
+if|if
+condition|(
+name|columnInterpreterSpecificData
 operator|!=
 literal|null
 condition|)
@@ -478,7 +479,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Get an instance of the argument type declared in a class's signature. The argument type is    * assumed to be a PB Message subclass, and the instance is created using parseFrom method on the    * passed ByteString.    * @param runtimeClass the runtime type of the class    * @param position the position of the argument in the class declaration    * @param b the ByteString which should be parsed to get the instance created    * @return the instance    * @throws IOException    */
+comment|/**    * Get an instance of the argument type declared in a class's signature. The argument type is    * assumed to be a PB Message subclass, and the instance is created using parseFrom method on the    * passed ByteString.    * @param runtimeClass the runtime type of the class    * @param position the position of the argument in the class declaration    * @param b the ByteString which should be parsed to get the instance created    * @return the instance    * @throws IOException Either we couldn't instantiate the method object, or "parseFrom" failed.    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
