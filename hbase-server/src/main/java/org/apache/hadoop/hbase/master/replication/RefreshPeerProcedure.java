@@ -111,6 +111,22 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|FailedRemoteDispatchException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|Procedure
 import|;
 end_import
@@ -918,9 +934,8 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-if|if
-condition|(
-operator|!
+try|try
+block|{
 name|env
 operator|.
 name|getRemoteDispatcher
@@ -932,7 +947,13 @@ name|targetServer
 argument_list|,
 name|this
 argument_list|)
-condition|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FailedRemoteDispatchException
+name|frde
+parameter_list|)
 block|{
 name|LOG
 operator|.
@@ -940,7 +961,7 @@ name|info
 argument_list|(
 literal|"Can not add remote operation for refreshing peer {} for {} to {}, "
 operator|+
-literal|"this usually because the server is already dead, "
+literal|"this is usually because the server is already dead, "
 operator|+
 literal|"give up and mark the procedure as complete"
 argument_list|,
@@ -949,6 +970,8 @@ argument_list|,
 name|type
 argument_list|,
 name|targetServer
+argument_list|,
+name|frde
 argument_list|)
 expr_stmt|;
 return|return
