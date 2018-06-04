@@ -2326,6 +2326,15 @@ name|e
 argument_list|)
 throw|;
 block|}
+name|String
+name|newQueueId
+init|=
+name|queueId
+operator|+
+literal|"-"
+operator|+
+name|sourceServerName
+decl_stmt|;
 try|try
 block|{
 name|String
@@ -2352,15 +2361,6 @@ name|zookeeper
 argument_list|,
 name|oldQueueNode
 argument_list|)
-decl_stmt|;
-name|String
-name|newQueueId
-init|=
-name|queueId
-operator|+
-literal|"-"
-operator|+
-name|sourceServerName
 decl_stmt|;
 if|if
 condition|(
@@ -2622,8 +2622,9 @@ name|e
 parameter_list|)
 block|{
 comment|// Multi call failed; it looks like some other regionserver took away the logs.
-comment|// These exceptions mean that zk tells us the request can not be execute so it is safe to just
-comment|// return a null. For other types of exception should be thrown out to notify the upper layer.
+comment|// These exceptions mean that zk tells us the request can not be execute. So return an empty
+comment|// queue to tell the upper layer that claim nothing. For other types of exception should be
+comment|// thrown out to notify the upper layer.
 name|LOG
 operator|.
 name|info
@@ -2643,7 +2644,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
-literal|null
+operator|new
+name|Pair
+argument_list|<>
+argument_list|(
+name|newQueueId
+argument_list|,
+name|Collections
+operator|.
+name|emptySortedSet
+argument_list|()
+argument_list|)
 return|;
 block|}
 catch|catch
