@@ -1662,7 +1662,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the stop row of the scan.    *<p>    * The scan will include rows that are lexicographically less than the provided stopRow.    *<p>    *<b>Note:</b> When doing a filter for a rowKey<u>Prefix</u> use    * {@link #setRowPrefixFilter(byte[])}. The 'trailing 0' will not yield the desired result.    *</p>    * @param stopRow row to end at (exclusive)    * @return this    * @throws IllegalArgumentException if stopRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated use {@link #withStartRow(byte[])} instead. This method may change the inclusive of    *             the stop row to keep compatible with the old behavior.    */
+comment|/**    * Set the stop row of the scan.    *<p>    * The scan will include rows that are lexicographically less than the provided stopRow.    *<p>    *<b>Note:</b> When doing a filter for a rowKey<u>Prefix</u> use    * {@link #setRowPrefixFilter(byte[])}. The 'trailing 0' will not yield the desired result.    *</p>    * @param stopRow row to end at (exclusive)    * @return this    * @throws IllegalArgumentException if stopRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated use {@link #withStopRow(byte[])} instead. This method may change the inclusive of    *             the stop row to keep compatible with the old behavior.    */
 annotation|@
 name|Deprecated
 specifier|public
