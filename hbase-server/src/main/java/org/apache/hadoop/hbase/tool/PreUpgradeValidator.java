@@ -302,9 +302,9 @@ specifier|private
 name|boolean
 name|validateDBE
 decl_stmt|;
-comment|/**    * Check DataBlockEncodings for column families.    *    * @return DataBlockEncoding compatible with HBase 2    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Check DataBlockEncodings of column families are compatible.    *    * @return number of column families with incompatible DataBlockEncoding    * @throws IOException if a remote or network exception occurs    */
 specifier|private
-name|boolean
+name|int
 name|validateDBE
 parameter_list|()
 throws|throws
@@ -472,9 +472,6 @@ operator|+
 literal|"for instructions."
 argument_list|)
 expr_stmt|;
-return|return
-literal|false
-return|;
 block|}
 else|else
 block|{
@@ -485,10 +482,10 @@ argument_list|(
 literal|"The used Data Block Encodings are compatible with HBase 2.0."
 argument_list|)
 expr_stmt|;
-return|return
-literal|true
-return|;
 block|}
+return|return
+name|incompatibilities
+return|;
 block|}
 annotation|@
 name|Override
@@ -508,7 +505,7 @@ name|addOptNoArg
 argument_list|(
 literal|"validateDBE"
 argument_list|,
-literal|"Validate DataBlockEncoding are compatible on the cluster"
+literal|"Validate DataBlockEncodings are compatible"
 argument_list|)
 expr_stmt|;
 block|}
@@ -566,6 +563,8 @@ if|if
 condition|(
 name|validateDBE
 argument_list|()
+operator|>
+literal|0
 condition|)
 block|{
 name|validationFailed
