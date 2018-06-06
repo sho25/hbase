@@ -1564,7 +1564,7 @@ literal|". This is harmless and can happen in rare cases (see HBASE-8547)"
 expr_stmt|;
 name|LOG
 operator|.
-name|warn
+name|debug
 argument_list|(
 name|msg
 argument_list|)
