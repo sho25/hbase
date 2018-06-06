@@ -175,7 +175,7 @@ operator|+
 literal|" which contain this table will be listed."
 decl_stmt|;
 name|String
-name|OPTION_TABLE_LIST
+name|OPTION_LIST
 init|=
 literal|"l"
 decl_stmt|;
@@ -183,6 +183,11 @@ name|String
 name|OPTION_TABLE_LIST_DESC
 init|=
 literal|"Table name list, comma-separated."
+decl_stmt|;
+name|String
+name|OPTION_BACKUP_LIST_DESC
+init|=
+literal|"Backup ids list, comma-separated."
 decl_stmt|;
 name|String
 name|OPTION_BANDWIDTH
@@ -223,6 +228,16 @@ name|String
 name|OPTION_PATH_DESC
 init|=
 literal|"Backup destination root directory path"
+decl_stmt|;
+name|String
+name|OPTION_KEEP
+init|=
+literal|"k"
+decl_stmt|;
+name|String
+name|OPTION_KEEP_DESC
+init|=
+literal|"Specifies maximum age of backup (in days) to keep during bulk delete"
 decl_stmt|;
 name|String
 name|OPTION_TABLE_MAPPING
