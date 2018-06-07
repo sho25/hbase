@@ -2670,6 +2670,28 @@ name|boolean
 name|preserveSplits
 parameter_list|)
 function_decl|;
+comment|/**    * Turn the compaction on or off. Disabling compactions will also interrupt any currently ongoing    * compactions. This state is ephemeral. The setting will be lost on restart. Compaction    * can also be enabled/disabled by modifying configuration hbase.regionserver.compaction.enabled    * in hbase-site.xml.    *    * @param switchState     Set to<code>true</code> to enable,<code>false</code> to disable.    * @param serverNamesList list of region servers.    * @return Previous compaction states for region servers    */
+name|CompletableFuture
+argument_list|<
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|Boolean
+argument_list|>
+argument_list|>
+name|compactionSwitch
+parameter_list|(
+name|boolean
+name|switchState
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|serverNamesList
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

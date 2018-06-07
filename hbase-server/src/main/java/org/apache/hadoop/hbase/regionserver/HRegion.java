@@ -39399,6 +39399,12 @@ operator|==
 name|Operation
 operator|.
 name|COMPACT_REGION
+operator|||
+name|op
+operator|==
+name|Operation
+operator|.
+name|COMPACT_SWITCH
 condition|)
 block|{
 comment|// split, merge or compact region doesn't need to check the closing/closed state or lock the

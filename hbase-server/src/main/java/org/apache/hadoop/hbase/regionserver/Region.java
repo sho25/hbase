@@ -648,6 +648,8 @@ block|,
 name|REPLAY_EVENT
 block|,
 name|SNAPSHOT
+block|,
+name|COMPACT_SWITCH
 block|}
 comment|/**    * This method needs to be called before any public call that reads or    * modifies data.    * Acquires a read lock and checks if the region is closing or closed.    *<p>{@link #closeRegionOperation} MUST then always be called after    * the operation has completed, whether it succeeded or failed.    * @throws IOException    */
 comment|// TODO Exposing this and closeRegionOperation() as we have getRowLock() exposed.

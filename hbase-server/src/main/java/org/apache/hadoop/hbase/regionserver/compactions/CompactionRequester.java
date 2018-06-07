@@ -171,6 +171,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * on/off compaction    */
+name|void
+name|switchCompaction
+parameter_list|(
+name|boolean
+name|onOrOff
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
