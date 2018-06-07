@@ -557,6 +557,9 @@ block|{
 name|void
 name|visitRegionState
 parameter_list|(
+name|Result
+name|result
+parameter_list|,
 name|RegionInfo
 name|regionInfo
 parameter_list|,
@@ -890,6 +893,8 @@ name|visitor
 operator|.
 name|visitRegionState
 argument_list|(
+name|result
+argument_list|,
 name|regionInfo
 argument_list|,
 name|state
