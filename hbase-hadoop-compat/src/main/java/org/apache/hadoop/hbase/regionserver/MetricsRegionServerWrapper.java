@@ -149,6 +149,11 @@ name|long
 name|getCpRequestsCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the rate of read requests per second to regions hosted on this region server.    */
+name|double
+name|getReadRequestsRatePerSecond
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of filtered read requests to regions hosted on this region server.    */
 name|long
 name|getFilteredReadRequestsCount
@@ -157,6 +162,11 @@ function_decl|;
 comment|/**    * Get the number of write requests to regions hosted on this region server.    */
 name|long
 name|getWriteRequestsCount
+parameter_list|()
+function_decl|;
+comment|/**    * Get the rate of write requests per second to regions hosted on this region server.    */
+name|double
+name|getWriteRequestsRatePerSecond
 parameter_list|()
 function_decl|;
 comment|/**    * Get the number of CAS operations that failed.    */
