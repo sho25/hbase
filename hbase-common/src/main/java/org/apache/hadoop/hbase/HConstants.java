@@ -2696,13 +2696,23 @@ name|WAL_STORAGE_POLICY
 init|=
 literal|"hbase.wal.storage.policy"
 decl_stmt|;
+comment|/**    * "NONE" is not a valid storage policy and means we defer the policy to HDFS. @see    *<a href="https://issues.apache.org/jira/browse/HBASE-20691">HBASE-20691</a>    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFER_TO_HDFS_STORAGE_POLICY
+init|=
+literal|"NONE"
+decl_stmt|;
+comment|/** By default we defer the WAL storage policy to HDFS */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|DEFAULT_WAL_STORAGE_POLICY
 init|=
-literal|"HOT"
+name|DEFER_TO_HDFS_STORAGE_POLICY
 decl_stmt|;
 comment|/** Region in Transition metrics threshold time */
 specifier|public

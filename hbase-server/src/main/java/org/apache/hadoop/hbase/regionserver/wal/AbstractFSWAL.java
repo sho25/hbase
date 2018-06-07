@@ -1752,18 +1752,13 @@ throw|;
 block|}
 comment|// Now that it exists, set the storage policy for the entire directory of wal files related to
 comment|// this FSHLog instance
-name|CommonFSUtils
-operator|.
-name|setStoragePolicy
-argument_list|(
-name|fs
-argument_list|,
+name|String
+name|storagePolicy
+init|=
 name|conf
-argument_list|,
-name|this
 operator|.
-name|walDir
-argument_list|,
+name|get
+argument_list|(
 name|HConstants
 operator|.
 name|WAL_STORAGE_POLICY
@@ -1771,6 +1766,19 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_WAL_STORAGE_POLICY
+argument_list|)
+decl_stmt|;
+name|CommonFSUtils
+operator|.
+name|setStoragePolicy
+argument_list|(
+name|fs
+argument_list|,
+name|this
+operator|.
+name|walDir
+argument_list|,
+name|storagePolicy
 argument_list|)
 expr_stmt|;
 name|this

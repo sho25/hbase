@@ -1343,16 +1343,13 @@ throw|;
 block|}
 block|}
 comment|// Now that it exists, set the log policy
-name|CommonFSUtils
-operator|.
-name|setStoragePolicy
-argument_list|(
-name|fs
-argument_list|,
+name|String
+name|storagePolicy
+init|=
 name|conf
-argument_list|,
-name|walDir
-argument_list|,
+operator|.
+name|get
+argument_list|(
 name|HConstants
 operator|.
 name|WAL_STORAGE_POLICY
@@ -1360,6 +1357,17 @@ argument_list|,
 name|HConstants
 operator|.
 name|DEFAULT_WAL_STORAGE_POLICY
+argument_list|)
+decl_stmt|;
+name|CommonFSUtils
+operator|.
+name|setStoragePolicy
+argument_list|(
+name|fs
+argument_list|,
+name|walDir
+argument_list|,
+name|storagePolicy
 argument_list|)
 expr_stmt|;
 comment|// Create archive dir up front. Rename won't work w/o it up on HDFS.
