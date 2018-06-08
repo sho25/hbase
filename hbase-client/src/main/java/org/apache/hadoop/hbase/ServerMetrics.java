@@ -124,6 +124,16 @@ name|ServerName
 name|getServerName
 parameter_list|()
 function_decl|;
+comment|/**    * @return the version number of a regionserver.    */
+specifier|default
+name|int
+name|getVersionNumber
+parameter_list|()
+block|{
+return|return
+literal|0
+return|;
+block|}
 comment|/**    * @return the number of requests per second.    */
 name|long
 name|getRequestCountPerSecond

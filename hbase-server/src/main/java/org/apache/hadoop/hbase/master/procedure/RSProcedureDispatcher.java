@@ -806,7 +806,7 @@ name|rsVersion
 init|=
 name|master
 operator|.
-name|getAssignmentManager
+name|getServerManager
 argument_list|()
 operator|.
 name|getServerVersion

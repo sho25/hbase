@@ -1149,8 +1149,6 @@ name|reportOnlineRegions
 argument_list|(
 name|serverName
 argument_list|,
-literal|0
-argument_list|,
 name|regions
 operator|==
 literal|null

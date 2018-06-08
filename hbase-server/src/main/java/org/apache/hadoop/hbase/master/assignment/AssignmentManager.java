@@ -5051,15 +5051,15 @@ expr_stmt|;
 comment|// If the RS is< 2.0 throw an exception to abort the operation, we are handling the split
 if|if
 condition|(
-name|regionStates
+name|master
 operator|.
-name|getOrCreateServer
+name|getServerManager
+argument_list|()
+operator|.
+name|getServerVersion
 argument_list|(
 name|serverName
 argument_list|)
-operator|.
-name|getVersionNumber
-argument_list|()
 operator|<
 literal|0x0200000
 condition|)
@@ -5193,15 +5193,15 @@ expr_stmt|;
 comment|// If the RS is< 2.0 throw an exception to abort the operation, we are handling the merge
 if|if
 condition|(
-name|regionStates
+name|master
 operator|.
-name|getOrCreateServer
+name|getServerManager
+argument_list|()
+operator|.
+name|getServerVersion
 argument_list|(
 name|serverName
 argument_list|)
-operator|.
-name|getVersionNumber
-argument_list|()
 operator|<
 literal|0x0200000
 condition|)
@@ -5231,7 +5231,7 @@ block|}
 comment|// ============================================================================================
 comment|//  RS Status update (report online regions) helpers
 comment|// ============================================================================================
-comment|/**    * the master will call this method when the RS send the regionServerReport().    * the report will contains the "hbase version" and the "online regions".    * this method will check the the online regions against the in-memory state of the AM,    * if there is a mismatch we will try to fence out the RS with the assumption    * that something went wrong on the RS side.    */
+comment|/**    * the master will call this method when the RS send the regionServerReport().    * the report will contains the "online regions".    * this method will check the the online regions against the in-memory state of the AM,    * if there is a mismatch we will try to fence out the RS with the assumption    * that something went wrong on the RS side.    */
 specifier|public
 name|void
 name|reportOnlineRegions
@@ -5239,10 +5239,6 @@ parameter_list|(
 specifier|final
 name|ServerName
 name|serverName
-parameter_list|,
-specifier|final
-name|int
-name|versionNumber
 parameter_list|,
 specifier|final
 name|Set
@@ -5330,19 +5326,11 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
-comment|// update the server version number. This will be used for live upgrades.
 synchronized|synchronized
 init|(
 name|serverNode
 init|)
 block|{
-name|serverNode
-operator|.
-name|setVersionNumber
-argument_list|(
-name|versionNumber
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|serverNode
@@ -10106,39 +10094,6 @@ argument_list|(
 name|serverNode
 argument_list|)
 expr_stmt|;
-block|}
-specifier|public
-name|int
-name|getServerVersion
-parameter_list|(
-specifier|final
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-specifier|final
-name|ServerStateNode
-name|node
-init|=
-name|regionStates
-operator|.
-name|getServerNode
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-return|return
-name|node
-operator|!=
-literal|null
-condition|?
-name|node
-operator|.
-name|getVersionNumber
-argument_list|()
-else|:
-literal|0
-return|;
 block|}
 specifier|private
 name|void
