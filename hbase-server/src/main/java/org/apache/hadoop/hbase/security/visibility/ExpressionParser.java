@@ -1911,10 +1911,11 @@ name|Operator
 operator|.
 name|NOT
 return|;
-block|}
+default|default:
 return|return
 literal|null
 return|;
+block|}
 block|}
 block|}
 end_class

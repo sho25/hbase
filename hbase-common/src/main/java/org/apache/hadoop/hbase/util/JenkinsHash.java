@@ -273,7 +273,11 @@ comment|/**    * taken from  hashlittle() -- hash a variable-length key into a 3
 annotation|@
 name|SuppressWarnings
 argument_list|(
+block|{
 literal|"fallthrough"
+block|,
+literal|"MissingDefault"
+block|}
 argument_list|)
 annotation|@
 name|Override

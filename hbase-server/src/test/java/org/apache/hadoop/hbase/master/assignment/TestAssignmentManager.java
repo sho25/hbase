@@ -4781,6 +4781,8 @@ argument_list|,
 literal|"unexpected exception"
 argument_list|)
 throw|;
+default|default:
+comment|// fall out
 block|}
 return|return
 name|super
@@ -4912,6 +4914,8 @@ name|RegionOpeningState
 operator|.
 name|FAILED_OPENING
 return|;
+default|default:
+comment|// fall out
 block|}
 comment|// The procedure on master will just hang forever because nothing comes back
 comment|// from the RS in this case.

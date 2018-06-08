@@ -380,6 +380,8 @@ name|h1
 operator|^=
 name|k1
 expr_stmt|;
+default|default:
+comment|// fall out
 block|}
 comment|// finalization
 name|h1

@@ -335,6 +335,11 @@ name|ClusterStatusPublisher
 argument_list|()
 block|{
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"MissingDefault"
+argument_list|)
+annotation|@
 name|Override
 specifier|protected
 name|List
