@@ -4800,6 +4800,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * May return 0 when server is not online.    */
 specifier|public
 name|int
 name|getServerVersion
