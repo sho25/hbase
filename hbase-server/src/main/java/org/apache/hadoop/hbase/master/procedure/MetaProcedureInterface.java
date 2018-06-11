@@ -25,20 +25,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ServerName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -47,10 +33,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_comment
-comment|/**  * Procedures that handle servers -- e.g. server crash -- must implement this Interface.  * It is used by the procedure runner to figure locking and what queuing.  */
-end_comment
-
 begin_interface
 annotation|@
 name|InterfaceAudience
@@ -58,29 +40,24 @@ operator|.
 name|Private
 specifier|public
 interface|interface
-name|ServerProcedureInterface
+name|MetaProcedureInterface
 block|{
-specifier|public
 enum|enum
-name|ServerOperationType
+name|MetaOperationType
 block|{
-name|CRASH_HANDLER
+name|RECOVER
 block|}
-comment|/**    * @return Name of this server instance.    */
-name|ServerName
-name|getServerName
+specifier|default
+name|MetaOperationType
+name|getMetaOperationType
 parameter_list|()
-function_decl|;
-comment|/**    * @return True if this server has an hbase:meta table region.    */
-name|boolean
-name|hasMetaTableRegion
-parameter_list|()
-function_decl|;
-comment|/**    * Given an operation type we can take decisions about what to do with pending operations.    * e.g. if we get a crash handler and we have some assignment operation pending    * we can abort those operations.    * @return the operation type that the procedure is executing.    */
-name|ServerOperationType
-name|getServerOperationType
-parameter_list|()
-function_decl|;
+block|{
+return|return
+name|MetaOperationType
+operator|.
+name|RECOVER
+return|;
+block|}
 block|}
 end_interface
 

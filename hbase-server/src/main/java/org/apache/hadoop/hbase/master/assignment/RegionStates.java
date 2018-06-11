@@ -1414,10 +1414,16 @@ block|{
 comment|/**      * Initial state. Available.      */
 name|ONLINE
 block|,
+comment|/**      * Only server which carries meta can have this state. We will split wal for meta and then      * assign meta first before splitting other wals.      */
+name|SPLITTING_META
+block|,
+comment|/**      * Indicate that the meta splitting is done. We need this state so that the UnassignProcedure      * for meta can safely quit. See the comments in UnassignProcedure.remoteCallFailed for more      * details.      */
+name|SPLITTING_META_DONE
+block|,
 comment|/**      * Server expired/crashed. Currently undergoing WAL splitting.      */
 name|SPLITTING
 block|,
-comment|/**      * WAL splitting done.      */
+comment|/**      * WAL splitting done. This state will be used to tell the UnassignProcedure that it can safely      * quit. See the comments in UnassignProcedure.remoteCallFailed for more details.      */
 name|OFFLINE
 block|}
 comment|/**    * State of Server; list of hosted regions, etc.    */
@@ -1524,24 +1530,6 @@ return|;
 block|}
 specifier|public
 name|boolean
-name|isOffline
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|state
-operator|.
-name|equals
-argument_list|(
-name|ServerState
-operator|.
-name|OFFLINE
-argument_list|)
-return|;
-block|}
-specifier|public
-name|boolean
 name|isInState
 parameter_list|(
 specifier|final
@@ -1596,7 +1584,7 @@ return|return
 name|expectedState
 return|;
 block|}
-specifier|public
+specifier|private
 name|void
 name|setState
 parameter_list|(
@@ -2845,19 +2833,21 @@ return|;
 block|}
 block|}
 comment|// ============================================================================================
-comment|//  TODO: split helpers
+comment|// Split helpers
+comment|// These methods will only be called in ServerCrashProcedure, and at the end of SCP we will remove
+comment|// the ServerStateNode by calling removeServer.
 comment|// ============================================================================================
-comment|/**    * Call this when we start log splitting a crashed Server.    * @see #logSplit(ServerName)    */
-specifier|public
+specifier|private
 name|void
-name|logSplitting
+name|setServerState
 parameter_list|(
-specifier|final
 name|ServerName
 name|serverName
+parameter_list|,
+name|ServerState
+name|state
 parameter_list|)
 block|{
-specifier|final
 name|ServerStateNode
 name|serverNode
 init|=
@@ -2875,12 +2865,68 @@ name|serverNode
 operator|.
 name|setState
 argument_list|(
+name|state
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Call this when we start meta log splitting a crashed Server.    * @see #metaLogSplit(ServerName)    */
+specifier|public
+name|void
+name|metaLogSplitting
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+name|setServerState
+argument_list|(
+name|serverName
+argument_list|,
+name|ServerState
+operator|.
+name|SPLITTING_META
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Called after we've split the meta logs on a crashed Server.    * @see #metaLogSplitting(ServerName)    */
+specifier|public
+name|void
+name|metaLogSplit
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+name|setServerState
+argument_list|(
+name|serverName
+argument_list|,
+name|ServerState
+operator|.
+name|SPLITTING_META_DONE
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Call this when we start log splitting for a crashed Server.    * @see #logSplit(ServerName)    */
+specifier|public
+name|void
+name|logSplitting
+parameter_list|(
+specifier|final
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+name|setServerState
+argument_list|(
+name|serverName
+argument_list|,
 name|ServerState
 operator|.
 name|SPLITTING
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Called after we've split all logs on a crashed Server.    * @see #logSplitting(ServerName)    */
 specifier|public
@@ -2892,64 +2938,15 @@ name|ServerName
 name|serverName
 parameter_list|)
 block|{
-specifier|final
-name|ServerStateNode
-name|serverNode
-init|=
-name|getOrCreateServer
+name|setServerState
 argument_list|(
 name|serverName
-argument_list|)
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|serverNode
-init|)
-block|{
-name|serverNode
-operator|.
-name|setState
-argument_list|(
+argument_list|,
 name|ServerState
 operator|.
 name|OFFLINE
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-specifier|public
-name|void
-name|logSplit
-parameter_list|(
-specifier|final
-name|RegionInfo
-name|regionInfo
-parameter_list|)
-block|{
-specifier|final
-name|RegionStateNode
-name|regionNode
-init|=
-name|getRegionStateNode
-argument_list|(
-name|regionInfo
-argument_list|)
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|regionNode
-init|)
-block|{
-name|regionNode
-operator|.
-name|setState
-argument_list|(
-name|State
-operator|.
-name|SPLIT
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|VisibleForTesting

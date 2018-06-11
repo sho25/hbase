@@ -5888,11 +5888,7 @@ name|MasterMetaBootstrap
 name|metaBootstrap
 init|=
 name|createMetaBootstrap
-argument_list|(
-name|this
-argument_list|,
-name|status
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|metaBootstrap
 operator|.
@@ -6605,18 +6601,13 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a {@link MasterMetaBootstrap} instance.    */
+comment|/**    *<p>    * Create a {@link MasterMetaBootstrap} instance.    *</p>    *<p>    * Will be overridden in tests.    *</p>    */
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|MasterMetaBootstrap
 name|createMetaBootstrap
-parameter_list|(
-specifier|final
-name|HMaster
-name|master
-parameter_list|,
-specifier|final
-name|MonitoredTask
-name|status
-parameter_list|)
+parameter_list|()
 block|{
 comment|// We put this out here in a method so can do a Mockito.spy and stub it out
 comment|// w/ a mocked up MasterMetaBootstrap.
@@ -6624,9 +6615,7 @@ return|return
 operator|new
 name|MasterMetaBootstrap
 argument_list|(
-name|master
-argument_list|,
-name|status
+name|this
 argument_list|)
 return|;
 block|}
@@ -18197,6 +18186,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|// we need to block here so the latch should be greater than the current version to make sure
+comment|// that we will block.
 name|ProcedurePrepareLatch
 name|latch
 init|=
@@ -18204,7 +18195,9 @@ name|ProcedurePrepareLatch
 operator|.
 name|createLatch
 argument_list|(
-literal|2
+name|Integer
+operator|.
+name|MAX_VALUE
 argument_list|,
 literal|0
 argument_list|)
@@ -18233,8 +18226,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"hbase:meta deployed at="
-operator|+
+literal|"hbase:meta deployed at={}"
+argument_list|,
 name|getMetaTableLocator
 argument_list|()
 operator|.

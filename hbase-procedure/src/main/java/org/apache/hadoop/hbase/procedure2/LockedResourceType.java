@@ -49,6 +49,8 @@ block|,
 name|REGION
 block|,
 name|PEER
+block|,
+name|META
 block|}
 end_enum
 

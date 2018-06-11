@@ -805,6 +805,7 @@ function_decl|;
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|remoteCallFailed
 parameter_list|(

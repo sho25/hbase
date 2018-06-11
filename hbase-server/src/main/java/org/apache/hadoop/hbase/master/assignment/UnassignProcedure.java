@@ -1537,8 +1537,25 @@ argument_list|)
 condition|)
 block|{
 comment|// Failed to queue an expire. Lots of possible reasons including it may be already expired.
-comment|// If so, is it beyond the state where we will be woken-up if go ahead and suspend the
-comment|// procedure. Look for this rare condition.
+comment|// In ServerCrashProcedure and RecoverMetaProcedure, there is a handleRIT stage where we
+comment|// will iterator over all the RIT procedures for the related regions of a crashed RS and
+comment|// fail them with ServerCrashException. You can see the isSafeToProceed method above for
+comment|// more details.
+comment|// This can work for most cases, but since we do not hold the region lock in handleRIT,
+comment|// there could be race that we arrive here after the handleRIT stage of the SCP. So here we
+comment|// need to check whether it is safe to quit.
+comment|// Notice that, the first assumption is that we can only quit after the log splitting is
+comment|// done, as MRP can schedule an AssignProcedure right after us, and if the log splitting has
+comment|// not been done then there will be data loss. And in SCP, we will change the state from
+comment|// SPLITTING to OFFLINE(or SPLITTING_META_DONE for meta log processing) after finishing the
+comment|// log splitting, and then calling handleRIT, so checking the state here can be a safe
+comment|// fence. If the state is not OFFLINE(or SPLITTING_META_DONE), then we can just leave this
+comment|// procedure in suspended state as we can make sure that the handleRIT has not been executed
+comment|// yet and it will wake us up later. And if the state is OFFLINE(or SPLITTING_META_DONE), we
+comment|// can safely quit since there will be no data loss. There could be duplicated
+comment|// AssignProcedures for the same region but it is OK as we will do a check at the beginning
+comment|// of AssignProcedure to prevent double assign. And there we have region lock so there will
+comment|// be no race.
 if|if
 condition|(
 name|env
@@ -1546,9 +1563,12 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|isDeadServerProcessed
+name|isLogSplittingDone
 argument_list|(
 name|serverName
+argument_list|,
+name|isMeta
+argument_list|()
 argument_list|)
 condition|)
 block|{

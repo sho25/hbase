@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -743,11 +743,11 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Handle RIT against crashed server. Will cancel any ongoing assigns/unassigns.
-comment|// Returns list of regions we need to reassign. NOTE: there is nothing to stop a
-comment|// dispatch happening AFTER this point. Check for the condition if a dispatch RPC fails
-comment|// inside in AssignProcedure/UnassignProcedure. AssignProcedure just keeps retrying.
-comment|// UnassignProcedure is more complicated. See where it does the check by calling
-comment|// am#isDeadServerProcessed.
+comment|// Returns list of regions we need to reassign.
+comment|// NOTE: there is nothing to stop a dispatch happening AFTER this point. Check for the
+comment|// condition if a dispatch RPC fails inside in AssignProcedure/UnassignProcedure.
+comment|// AssignProcedure just keeps retrying. UnassignProcedure is more complicated. See where
+comment|// it does the check by calling am#isLogSplittingDone.
 name|List
 argument_list|<
 name|RegionInfo
