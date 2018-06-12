@@ -2350,12 +2350,24 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Throw a system error exception to let upper level handle it
-throw|throw
+name|KeeperException
+name|keeperException
+init|=
 operator|new
 name|KeeperException
 operator|.
 name|SystemErrorException
 argument_list|()
+decl_stmt|;
+name|keeperException
+operator|.
+name|initCause
+argument_list|(
+name|ie
+argument_list|)
+expr_stmt|;
+throw|throw
+name|keeperException
 throw|;
 block|}
 comment|/**    * Log the InterruptedException and interrupt current thread    * @param ie The IterruptedException to log    * @param throwLater Whether we will throw the exception latter    */
