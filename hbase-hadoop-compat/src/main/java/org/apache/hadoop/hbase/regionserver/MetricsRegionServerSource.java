@@ -474,16 +474,6 @@ init|=
 literal|"Number of read requests with non-empty Results that this RegionServer has answered."
 decl_stmt|;
 name|String
-name|READ_REQUEST_RATE_PER_SECOND
-init|=
-literal|"readRequestRatePerSecond"
-decl_stmt|;
-name|String
-name|READ_REQUEST_RATE_DESC
-init|=
-literal|"Rate of answering the read requests by this region server per second."
-decl_stmt|;
-name|String
 name|FILTERED_READ_REQUEST_COUNT
 init|=
 literal|"filteredReadRequestCount"
@@ -502,16 +492,6 @@ name|String
 name|WRITE_REQUEST_COUNT_DESC
 init|=
 literal|"Number of mutation requests this RegionServer has answered."
-decl_stmt|;
-name|String
-name|WRITE_REQUEST_RATE_PER_SECOND
-init|=
-literal|"writeRequestRatePerSecond"
-decl_stmt|;
-name|String
-name|WRITE_REQUEST_RATE_DESC
-init|=
-literal|"Rate of answering the mutation requests by this region server per second."
 decl_stmt|;
 name|String
 name|CHECK_MUTATE_FAILED_COUNT
