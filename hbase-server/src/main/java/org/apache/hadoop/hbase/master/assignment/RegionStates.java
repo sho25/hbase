@@ -179,6 +179,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|function
+operator|.
+name|Predicate
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -2573,6 +2585,52 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
+comment|/**    * @return Returns regions for a table which are open or about to be open (OPEN or OPENING)    */
+specifier|public
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getOpenRegionsOfTable
+parameter_list|(
+specifier|final
+name|TableName
+name|table
+parameter_list|)
+block|{
+comment|// We want to get regions which are already open on the cluster or are about to be open.
+comment|// The use-case is for identifying regions which need to be re-opened to ensure they see some
+comment|// new configuration. Regions in OPENING now are presently being opened by a RS, so we can
+comment|// assume that they will imminently be OPEN but may not see our configuration change
+return|return
+name|getRegionsOfTable
+argument_list|(
+name|table
+argument_list|,
+parameter_list|(
+name|state
+parameter_list|)
+lambda|->
+name|state
+operator|.
+name|isInState
+argument_list|(
+name|State
+operator|.
+name|OPEN
+argument_list|)
+operator|||
+name|state
+operator|.
+name|isInState
+argument_list|(
+name|State
+operator|.
+name|OPENING
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * @return Return online regions of table; does not include OFFLINE or SPLITTING regions.    */
 specifier|public
 name|List
@@ -2595,6 +2653,40 @@ literal|false
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Return online regions of table; does not include OFFLINE or SPLITTING regions.    */
+specifier|public
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getRegionsOfTable
+parameter_list|(
+specifier|final
+name|TableName
+name|table
+parameter_list|,
+name|boolean
+name|offline
+parameter_list|)
+block|{
+return|return
+name|getRegionsOfTable
+argument_list|(
+name|table
+argument_list|,
+parameter_list|(
+name|state
+parameter_list|)
+lambda|->
+name|include
+argument_list|(
+name|state
+argument_list|,
+name|offline
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * @return Return the regions of the table; does not include OFFLINE unless you set    *<code>offline</code> to true. Does not include regions that are in the    * {@link State#SPLIT} state.    */
 specifier|public
 name|List
@@ -2607,9 +2699,11 @@ specifier|final
 name|TableName
 name|table
 parameter_list|,
-specifier|final
-name|boolean
-name|offline
+name|Predicate
+argument_list|<
+name|RegionStateNode
+argument_list|>
+name|filter
 parameter_list|)
 block|{
 specifier|final
@@ -2653,13 +2747,14 @@ control|)
 block|{
 if|if
 condition|(
-name|include
+name|filter
+operator|.
+name|test
 argument_list|(
 name|node
-argument_list|,
-name|offline
 argument_list|)
 condition|)
+block|{
 name|hris
 operator|.
 name|add
@@ -2670,6 +2765,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|hris
