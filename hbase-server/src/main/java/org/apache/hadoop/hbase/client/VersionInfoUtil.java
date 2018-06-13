@@ -377,7 +377,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Pack the full number version in a int. by shifting each component by 8bit,    * except the dot release which has 12bit.    * Examples: (1.3.4 is 0x0103004, 2.1.0 is 0x0201000)    * @param versionInfo the VersionInfo object to pack    * @return the version number as int. (e.g. 0x0103004 is 1.3.4)    */
-specifier|private
+specifier|public
 specifier|static
 name|int
 name|getVersionNumber
