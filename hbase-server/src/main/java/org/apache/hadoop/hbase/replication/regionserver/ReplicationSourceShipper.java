@@ -117,6 +117,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|replication
 operator|.
 name|ReplicationEndpoint
@@ -847,6 +861,38 @@ name|getEdit
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|TableName
+name|tableName
+init|=
+name|entry
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+decl_stmt|;
+name|source
+operator|.
+name|getSourceMetrics
+argument_list|()
+operator|.
+name|setAgeOfLastShippedOpByTable
+argument_list|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getWriteTime
+argument_list|()
+argument_list|,
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|// Log and clean up WAL logs
 name|updateLogPosition
@@ -928,23 +974,18 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Replicated "
-operator|+
+literal|"Replicated {} entries or {} operations in {} ms"
+argument_list|,
 name|entries
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" entries or "
-operator|+
+argument_list|,
 name|entryBatch
 operator|.
 name|getNbOperations
 argument_list|()
-operator|+
-literal|" operations in "
-operator|+
-operator|(
+argument_list|,
 operator|(
 name|endTimeNs
 operator|-
@@ -952,9 +993,6 @@ name|startTimeNs
 operator|)
 operator|/
 literal|1000000
-operator|)
-operator|+
-literal|" ms"
 argument_list|)
 expr_stmt|;
 block|}
