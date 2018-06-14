@@ -820,6 +820,15 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
+name|byteStringUncompressor
+operator|=
+name|WALCellCodec
+operator|.
+name|getNoneUncompressor
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
 name|hasCompression
 operator|=
 literal|false

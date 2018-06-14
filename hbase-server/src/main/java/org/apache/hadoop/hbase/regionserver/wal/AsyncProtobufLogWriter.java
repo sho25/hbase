@@ -682,13 +682,6 @@ operator|.
 name|buffered
 argument_list|()
 decl_stmt|;
-name|entry
-operator|.
-name|setCompressionContext
-argument_list|(
-name|compressionContext
-argument_list|)
-expr_stmt|;
 try|try
 block|{
 name|entry

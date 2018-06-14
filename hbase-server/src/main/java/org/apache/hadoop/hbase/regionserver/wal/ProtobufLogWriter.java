@@ -293,13 +293,6 @@ name|IOException
 block|{
 name|entry
 operator|.
-name|setCompressionContext
-argument_list|(
-name|compressionContext
-argument_list|)
-expr_stmt|;
-name|entry
-operator|.
 name|getKey
 argument_list|()
 operator|.

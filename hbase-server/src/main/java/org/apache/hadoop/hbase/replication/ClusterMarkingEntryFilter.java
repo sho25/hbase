@@ -261,14 +261,6 @@ argument_list|(
 name|clusterId
 argument_list|)
 expr_stmt|;
-comment|// We need to set the CC to null else it will be compressed when sent to the sink
-name|entry
-operator|.
-name|setCompressionContext
-argument_list|(
-literal|null
-argument_list|)
-expr_stmt|;
 return|return
 name|entry
 return|;
