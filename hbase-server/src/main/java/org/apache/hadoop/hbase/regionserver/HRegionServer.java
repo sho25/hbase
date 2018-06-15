@@ -10130,6 +10130,31 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
+comment|// Always create wal directory as now we need this when master restarts to find out the live
+comment|// region servers.
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|walFs
+operator|.
+name|mkdirs
+argument_list|(
+name|logDir
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Can not create wal directory "
+operator|+
+name|logDir
+argument_list|)
+throw|;
+block|}
 comment|// Instantiate replication if replication enabled. Pass it the log directories.
 name|createNewReplicationInstance
 argument_list|(
