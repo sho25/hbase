@@ -8244,7 +8244,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Worker stuck {} run time {}"
+literal|"Worker stuck {}, run time {}"
 argument_list|,
 name|worker
 argument_list|,

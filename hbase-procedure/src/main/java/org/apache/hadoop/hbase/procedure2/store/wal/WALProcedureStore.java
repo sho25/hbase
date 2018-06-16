@@ -5422,24 +5422,15 @@ literal|". check running procedures to see if something is stuck."
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Roll new state log: "
-operator|+
+literal|"Rolled new Procedure Store WAL, id={}"
+argument_list|,
 name|logId
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;

@@ -1287,7 +1287,7 @@ specifier|final
 name|int
 name|DEFAULT_RIT_CHORE_INTERVAL_MSEC
 init|=
-literal|5
+literal|60
 operator|*
 literal|1000
 decl_stmt|;
