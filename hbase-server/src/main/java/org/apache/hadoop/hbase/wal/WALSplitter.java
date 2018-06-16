@@ -1256,7 +1256,7 @@ comment|// Parameters for split process
 specifier|protected
 specifier|final
 name|Path
-name|rootDir
+name|walDir
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -1363,7 +1363,7 @@ name|Configuration
 name|conf
 parameter_list|,
 name|Path
-name|rootDir
+name|walDir
 parameter_list|,
 name|FileSystem
 name|fs
@@ -1420,9 +1420,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|rootDir
+name|walDir
 operator|=
-name|rootDir
+name|walDir
 expr_stmt|;
 name|this
 operator|.
@@ -1548,7 +1548,7 @@ name|boolean
 name|splitLogFile
 parameter_list|(
 name|Path
-name|rootDir
+name|walDir
 parameter_list|,
 name|FileStatus
 name|logfile
@@ -1585,7 +1585,7 @@ name|factory
 argument_list|,
 name|conf
 argument_list|,
-name|rootDir
+name|walDir
 argument_list|,
 name|fs
 argument_list|,
@@ -2414,7 +2414,7 @@ name|splitLogWorkerCoordination
 operator|.
 name|markCorrupted
 argument_list|(
-name|rootDir
+name|walDir
 argument_list|,
 name|logfile
 operator|.
@@ -2435,7 +2435,7 @@ name|ZKSplitLog
 operator|.
 name|markCorrupted
 argument_list|(
-name|rootDir
+name|walDir
 argument_list|,
 name|logfile
 operator|.
@@ -3075,7 +3075,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param fs    * @param logEntry    * @param rootDir HBase root dir.    * @param fileNameBeingSplit the file being split currently. Used to generate tmp file name.    * @return Path to file into which to dump split log edits.    * @throws IOException    */
+comment|/**    * Path to a file under RECOVERED_EDITS_DIR directory of the region found in    *<code>logEntry</code> named for the sequenceid in the passed    *<code>logEntry</code>: e.g. /hbase/some_table/2323432434/recovered.edits/2332.    * This method also ensures existence of RECOVERED_EDITS_DIR under the region    * creating it if necessary.    * @param logEntry    * @param fileNameBeingSplit the file being split currently. Used to generate tmp file name.    * @param conf    * @return Path to file into which to dump split log edits.    * @throws IOException    */
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -3088,23 +3088,38 @@ name|Path
 name|getRegionSplitEditsPath
 parameter_list|(
 specifier|final
-name|FileSystem
-name|fs
-parameter_list|,
-specifier|final
 name|Entry
 name|logEntry
 parameter_list|,
-specifier|final
-name|Path
-name|rootDir
-parameter_list|,
 name|String
 name|fileNameBeingSplit
+parameter_list|,
+name|Configuration
+name|conf
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|FileSystem
+name|fs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
+name|Path
+name|rootDir
+init|=
+name|FSUtils
+operator|.
+name|getRootDir
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 name|Path
 name|tableDir
 init|=
@@ -6337,6 +6352,9 @@ specifier|private
 name|void
 name|deleteOneWithFewerEntries
 parameter_list|(
+name|FileSystem
+name|rootFs
+parameter_list|,
 name|WriterAndPath
 name|wap
 parameter_list|,
@@ -6495,7 +6513,7 @@ name|p
 operator|+
 literal|", length="
 operator|+
-name|fs
+name|rootFs
 operator|.
 name|getFileStatus
 argument_list|(
@@ -6511,7 +6529,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|rootFs
 operator|.
 name|delete
 argument_list|(
@@ -6999,6 +7017,16 @@ operator|.
 name|p
 argument_list|)
 expr_stmt|;
+name|FileSystem
+name|rootFs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|wap
@@ -7097,7 +7125,7 @@ block|{
 comment|// just remove the empty recovered.edits file
 if|if
 condition|(
-name|fs
+name|rootFs
 operator|.
 name|exists
 argument_list|(
@@ -7107,7 +7135,7 @@ name|p
 argument_list|)
 operator|&&
 operator|!
-name|fs
+name|rootFs
 operator|.
 name|delete
 argument_list|(
@@ -7177,7 +7205,7 @@ operator|.
 name|p
 argument_list|)
 operator|&&
-name|fs
+name|rootFs
 operator|.
 name|exists
 argument_list|(
@@ -7187,6 +7215,8 @@ condition|)
 block|{
 name|deleteOneWithFewerEntries
 argument_list|(
+name|rootFs
+argument_list|,
 name|wap
 argument_list|,
 name|dst
@@ -7198,7 +7228,7 @@ comment|// writes the data without touching disk.
 comment|// TestHLogSplit#testThreading is an example.
 if|if
 condition|(
-name|fs
+name|rootFs
 operator|.
 name|exists
 argument_list|(
@@ -7211,7 +7241,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|fs
+name|rootFs
 operator|.
 name|rename
 argument_list|(
@@ -7582,8 +7612,6 @@ argument_list|(
 name|region
 argument_list|,
 name|entry
-argument_list|,
-name|rootDir
 argument_list|)
 expr_stmt|;
 if|if
@@ -7633,9 +7661,6 @@ name|region
 parameter_list|,
 name|Entry
 name|entry
-parameter_list|,
-name|Path
-name|rootdir
 parameter_list|)
 throws|throws
 name|IOException
@@ -7645,11 +7670,7 @@ name|regionedits
 init|=
 name|getRegionSplitEditsPath
 argument_list|(
-name|fs
-argument_list|,
 name|entry
-argument_list|,
-name|rootdir
 argument_list|,
 name|fileBeingSplit
 operator|.
@@ -7658,6 +7679,8 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 if|if
@@ -7671,9 +7694,19 @@ return|return
 literal|null
 return|;
 block|}
+name|FileSystem
+name|rootFs
+init|=
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|conf
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-name|fs
+name|rootFs
 operator|.
 name|exists
 argument_list|(
@@ -7693,7 +7726,7 @@ name|regionedits
 operator|+
 literal|", length="
 operator|+
-name|fs
+name|rootFs
 operator|.
 name|getFileStatus
 argument_list|(
@@ -7707,7 +7740,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|rootFs
 operator|.
 name|delete
 argument_list|(
