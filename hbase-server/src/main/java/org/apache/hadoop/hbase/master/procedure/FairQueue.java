@@ -137,8 +137,10 @@ expr_stmt|;
 return|return;
 block|}
 comment|// Find the one which priority is less than us
-comment|// For now only TableQueue has priority, and there are only a small number of tables which
-comment|// have higher priority so this will not be an expensive operation.
+comment|// For now only TableQueue and ServerQueue has priority. For TableQueue there are only a small
+comment|// number of tables which have higher priority, and for ServerQueue there is only one server
+comment|// which could carry meta which leads to a higher priority, so this will not be an expensive
+comment|// operation.
 name|Queue
 argument_list|<
 name|T

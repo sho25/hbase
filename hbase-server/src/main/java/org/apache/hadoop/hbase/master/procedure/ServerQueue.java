@@ -98,6 +98,9 @@ parameter_list|(
 name|ServerName
 name|serverName
 parameter_list|,
+name|int
+name|priority
+parameter_list|,
 name|LockStatus
 name|serverLock
 parameter_list|)
@@ -105,6 +108,8 @@ block|{
 name|super
 argument_list|(
 name|serverName
+argument_list|,
+name|priority
 argument_list|,
 name|serverLock
 argument_list|)

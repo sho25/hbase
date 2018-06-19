@@ -741,15 +741,25 @@ literal|1
 return|;
 block|}
 block|}
-comment|/**    * Return the total levels of table priority. Now we have 3 levels, for meta table, other system    * tables and user tables. Notice that the actual value of priority should be decreased from this    * value down to 1.    */
+comment|/**    * Return the priority for the given procedure. For now we only have two priorities, 100 for    * server carrying meta, and 1 for others.    */
 specifier|public
 specifier|static
 name|int
-name|getTablePriorityLevels
-parameter_list|()
+name|getServerPriority
+parameter_list|(
+name|ServerProcedureInterface
+name|proc
+parameter_list|)
 block|{
 return|return
-literal|3
+name|proc
+operator|.
+name|hasMetaTableRegion
+argument_list|()
+condition|?
+literal|100
+else|:
+literal|1
 return|;
 block|}
 block|}
