@@ -5683,6 +5683,41 @@ expr_stmt|;
 name|initializeZKBasedSystemTrackers
 argument_list|()
 expr_stmt|;
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Loading last flushed sequence id of regions"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|this
+operator|.
+name|serverManager
+operator|.
+name|loadLastFlushedSequenceIds
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Failed to load last flushed sequence id of regions"
+operator|+
+literal|" from file system"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Set ourselves as active Master now our claim has succeeded up in zk.
 name|this
 operator|.
@@ -6029,6 +6064,13 @@ name|scheduleChore
 argument_list|(
 name|catalogJanitorChore
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|serverManager
+operator|.
+name|startChore
+argument_list|()
 expr_stmt|;
 name|status
 operator|.
