@@ -2488,6 +2488,9 @@ name|waitTableExclusiveLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -2627,6 +2630,9 @@ name|wakeTableExclusiveLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -2741,6 +2747,9 @@ name|waitTableSharedLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -2871,6 +2880,9 @@ name|wakeTableSharedLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3088,6 +3100,9 @@ name|waitRegion
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3116,6 +3131,9 @@ name|waitRegions
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3399,6 +3417,9 @@ name|wakeRegion
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3426,6 +3447,9 @@ name|wakeRegions
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3662,6 +3686,9 @@ name|waitNamespaceExclusiveLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -3786,6 +3813,9 @@ name|wakeNamespaceExclusiveLock
 parameter_list|(
 specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|procedure
 parameter_list|,
 specifier|final
@@ -4200,7 +4230,9 @@ block|}
 comment|// ============================================================================
 comment|// Meta Locking Helpers
 comment|// ============================================================================
-comment|/**    * Try to acquire the exclusive lock on meta.    * @see #wakeMetaExclusiveLock(Procedure)    * @param procedure the procedure trying to acquire the lock    * @return true if the procedure has to wait for meta to be available    */
+comment|/**    * Try to acquire the exclusive lock on meta.    * @see #wakeMetaExclusiveLock(Procedure)    * @param procedure the procedure trying to acquire the lock    * @return true if the procedure has to wait for meta to be available    * @deprecated only used for {@link RecoverMetaProcedure}. Should be removed along with    *             {@link RecoverMetaProcedure}.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|waitMetaExclusiveLock
@@ -4280,7 +4312,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Wake the procedures waiting for meta.    * @see #waitMetaExclusiveLock(Procedure)    * @param procedure the procedure releasing the lock    */
+comment|/**    * Wake the procedures waiting for meta.    * @see #waitMetaExclusiveLock(Procedure)    * @param procedure the procedure releasing the lock    * @deprecated only used for {@link RecoverMetaProcedure}. Should be removed along with    *             {@link RecoverMetaProcedure}.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|wakeMetaExclusiveLock

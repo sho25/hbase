@@ -33,7 +33,13 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_comment
+comment|/**  * @deprecated only used for {@link RecoverMetaProcedure}. Should be removed along with  *             {@link RecoverMetaProcedure}.  */
+end_comment
+
 begin_interface
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

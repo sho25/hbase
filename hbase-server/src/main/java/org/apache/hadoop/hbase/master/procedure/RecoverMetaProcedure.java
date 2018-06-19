@@ -380,10 +380,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This procedure recovers meta from prior shutdown/ crash of a server, and brings meta online by  * assigning meta region/s. Any place where meta is accessed and requires meta to be online, need to  * submit this procedure instead of duplicating steps to recover meta in the code.  */
+comment|/**  * This procedure recovers meta from prior shutdown/ crash of a server, and brings meta online by  * assigning meta region/s. Any place where meta is accessed and requires meta to be online, need to  * submit this procedure instead of duplicating steps to recover meta in the code.  *<p/>  * @deprecated Do not use any more, leave it here only for compatible. The recovery work will be  *             done in {@link ServerCrashProcedure} directly, and the initial work for meta table  *             will be done by {@link InitMetaProcedure}.  * @see ServerCrashProcedure  * @see InitMetaProcedure  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1511,7 +1513,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|isMetaInitialized
+name|isMetaAssigned
 argument_list|()
 return|;
 block|}

@@ -362,7 +362,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Tracks the online region servers via ZK.  *</p>  *<p>  * Handling of new RSs checking in is done via RPC. This class is only responsible for watching for  * expired nodes. It handles listening for changes in the RS node list. The only exception is when  * master restart, we will use the list fetched from zk to construct the initial set of live region  * servers.  *</p>  *<p>  * If an RS node gets deleted, this automatically handles calling of  * {@link ServerManager#expireServer(ServerName)}  *</p>  */
+comment|/**  * Tracks the online region servers via ZK.  *<p/>  * Handling of new RSs checking in is done via RPC. This class is only responsible for watching for  * expired nodes. It handles listening for changes in the RS node list. The only exception is when  * master restart, we will use the list fetched from zk to construct the initial set of live region  * servers.  *<p/>  * If an RS node gets deleted, this automatically handles calling of  * {@link ServerManager#expireServer(ServerName)}  */
 end_comment
 
 begin_class
@@ -452,6 +452,8 @@ name|serverManager
 operator|=
 name|serverManager
 expr_stmt|;
+name|this
+operator|.
 name|executor
 operator|=
 name|Executors
@@ -679,11 +681,23 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    *<p>    * Starts the tracking of online RegionServers.    *</p>    *<p>    * All RSs will be tracked after this method is called.    *</p>    */
+comment|/**    * Starts the tracking of online RegionServers. All RSes will be tracked after this method is    * called.    *<p/>    * In this method, we will also construct the region server sets in {@link ServerManager}. If a    * region server is dead between the crash of the previous master instance and the start of the    * current master instance, we will schedule a SCP for it. This is done in    * {@link ServerManager#findOutDeadServersAndProcess(Set, Set)}, we call it here under the lock    * protection to prevent concurrency issues with server expiration operation.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
 specifier|public
 name|void
 name|start
-parameter_list|()
+parameter_list|(
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|deadServersFromPE
+parameter_list|,
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|liveServersFromWALDir
+parameter_list|)
 throws|throws
 name|KeeperException
 throws|,
@@ -806,6 +820,15 @@ name|serverMetrics
 argument_list|)
 expr_stmt|;
 block|}
+name|serverManager
+operator|.
+name|findOutDeadServersAndProcess
+argument_list|(
+name|deadServersFromPE
+argument_list|,
+name|liveServersFromWALDir
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 specifier|public

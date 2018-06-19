@@ -3155,7 +3155,7 @@ parameter_list|)
 block|{
 name|env
 operator|.
-name|getAssignmentManager
+name|getMasterServices
 argument_list|()
 operator|.
 name|getRegionNormalizer

@@ -39,16 +39,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -244,7 +234,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 class|class
 name|MasterMetaBootstrap
 block|{
@@ -282,83 +271,7 @@ operator|=
 name|master
 expr_stmt|;
 block|}
-specifier|public
-name|void
-name|recoverMeta
-parameter_list|()
-throws|throws
-name|InterruptedException
-throws|,
-name|IOException
-block|{
-comment|// This is a blocking call that waits until hbase:meta is deployed.
-name|master
-operator|.
-name|recoverMeta
-argument_list|()
-expr_stmt|;
-comment|// Now we can start the TableStateManager. It is backed by hbase:meta.
-name|master
-operator|.
-name|getTableStateManager
-argument_list|()
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
-comment|// Enable server crash procedure handling
-name|enableCrashedServerProcessing
-argument_list|()
-expr_stmt|;
-block|}
-specifier|public
-name|void
-name|processDeadServers
-parameter_list|()
-block|{
-comment|// get a list for previously failed RS which need log splitting work
-comment|// we recover hbase:meta region servers inside master initialization and
-comment|// handle other failed servers in SSH in order to start up master node ASAP
-name|Set
-argument_list|<
-name|ServerName
-argument_list|>
-name|previouslyFailedServers
-init|=
-name|master
-operator|.
-name|getMasterWalManager
-argument_list|()
-operator|.
-name|getFailedServersFromLogFolders
-argument_list|()
-decl_stmt|;
-comment|// Master has recovered hbase:meta region server and we put
-comment|// other failed region servers in a queue to be handled later by SSH
-for|for
-control|(
-name|ServerName
-name|tmpServer
-range|:
-name|previouslyFailedServers
-control|)
-block|{
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|processDeadServer
-argument_list|(
-name|tmpServer
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 comment|/**    * For assigning hbase:meta replicas only.    * TODO: The way this assign runs, nothing but chance to stop all replicas showing up on same    * server as the hbase:meta region.    */
-specifier|protected
 name|void
 name|assignMetaReplicas
 parameter_list|()
@@ -412,7 +325,7 @@ condition|(
 operator|!
 name|assignmentManager
 operator|.
-name|isMetaInitialized
+name|isMetaLoaded
 argument_list|()
 condition|)
 block|{
@@ -725,43 +638,6 @@ literal|"Ignoring exception "
 operator|+
 name|ex
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-specifier|private
-name|void
-name|enableCrashedServerProcessing
-parameter_list|()
-throws|throws
-name|InterruptedException
-block|{
-comment|// If crashed server processing is disabled, we enable it and expire those dead but not expired
-comment|// servers. This is required so that if meta is assigning to a server which dies after
-comment|// assignMeta starts assignment, ServerCrashProcedure can re-assign it. Otherwise, we will be
-comment|// stuck here waiting forever if waitForMeta is specified.
-if|if
-condition|(
-operator|!
-name|master
-operator|.
-name|isServerCrashProcessingEnabled
-argument_list|()
-condition|)
-block|{
-name|master
-operator|.
-name|setServerCrashProcessingEnabled
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|processQueuedDeadServers
-argument_list|()
 expr_stmt|;
 block|}
 block|}

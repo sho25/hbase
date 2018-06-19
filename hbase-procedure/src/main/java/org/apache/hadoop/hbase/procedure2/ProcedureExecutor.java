@@ -2593,10 +2593,10 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * Start the procedure executor.    * It calls ProcedureStore.recoverLease() and ProcedureStore.load() to    * recover the lease, and ensure a single executor, and start the procedure    * replay to resume and recover the previous pending and in-progress perocedures.    *    * @param numThreads number of threads available for procedure execution.    * @param abortOnCorruption true if you want to abort your service in case    *          a corrupted procedure is found on replay. otherwise false.    */
+comment|/**    * Initialize the procedure executor, but do not start workers. We will start them later.    *<p/>    * It calls ProcedureStore.recoverLease() and ProcedureStore.load() to recover the lease, and    * ensure a single executor, and start the procedure replay to resume and recover the previous    * pending and in-progress procedures.    * @param numThreads number of threads available for procedure execution.    * @param abortOnCorruption true if you want to abort your service in case a corrupted procedure    *          is found on replay. otherwise false.    */
 specifier|public
 name|void
-name|start
+name|init
 parameter_list|(
 name|int
 name|numThreads
@@ -2607,28 +2607,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|running
-operator|.
-name|compareAndSet
-argument_list|(
-literal|false
-argument_list|,
-literal|true
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Already running"
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 comment|// We have numThreads executor + one timer thread used for timing out
 comment|// procedures and triggering periodic procedures.
 name|this
@@ -2728,9 +2706,9 @@ decl_stmt|;
 comment|// Acquire the store lease.
 name|st
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
-name|currentTime
+name|nanoTime
 argument_list|()
 expr_stmt|;
 name|store
@@ -2740,9 +2718,9 @@ argument_list|()
 expr_stmt|;
 name|et
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
-name|currentTime
+name|nanoTime
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2763,9 +2741,16 @@ name|StringUtils
 operator|.
 name|humanTimeDiff
 argument_list|(
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+operator|.
+name|toMillis
+argument_list|(
 name|et
 operator|-
 name|st
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2782,9 +2767,9 @@ comment|// so we can start the threads and accept new procedures.
 comment|// The second step will do the actual load of old procedures.
 name|st
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
-name|currentTime
+name|nanoTime
 argument_list|()
 expr_stmt|;
 name|load
@@ -2794,9 +2779,9 @@ argument_list|)
 expr_stmt|;
 name|et
 operator|=
-name|EnvironmentEdgeManager
+name|System
 operator|.
-name|currentTime
+name|nanoTime
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2817,12 +2802,50 @@ name|StringUtils
 operator|.
 name|humanTimeDiff
 argument_list|(
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+operator|.
+name|toMillis
+argument_list|(
 name|et
 operator|-
 name|st
 argument_list|)
 argument_list|)
+argument_list|)
 expr_stmt|;
+block|}
+comment|/**    * Start the workers.    */
+specifier|public
+name|void
+name|startWorkers
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|running
+operator|.
+name|compareAndSet
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Already running"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 comment|// Start the executors. Here we must have the lastProcId set.
 name|LOG
 operator|.
@@ -3862,16 +3885,6 @@ operator|>=
 literal|0
 argument_list|)
 expr_stmt|;
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
-name|isRunning
-argument_list|()
-argument_list|,
-literal|"executor not running"
-argument_list|)
-expr_stmt|;
 name|prepareProcedure
 argument_list|(
 name|proc
@@ -3999,16 +4012,6 @@ name|get
 argument_list|()
 operator|>=
 literal|0
-argument_list|)
-expr_stmt|;
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
-name|isRunning
-argument_list|()
-argument_list|,
-literal|"executor not running"
 argument_list|)
 expr_stmt|;
 if|if
@@ -4139,16 +4142,6 @@ operator|==
 name|ProcedureState
 operator|.
 name|INITIALIZING
-argument_list|)
-expr_stmt|;
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
-name|isRunning
-argument_list|()
-argument_list|,
-literal|"executor not running"
 argument_list|)
 expr_stmt|;
 name|Preconditions

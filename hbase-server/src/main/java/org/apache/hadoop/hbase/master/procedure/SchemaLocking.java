@@ -450,6 +450,9 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated only used for {@link RecoverMetaProcedure}. Should be removed along with    *             {@link RecoverMetaProcedure}.    */
+annotation|@
+name|Deprecated
 name|LockAndQueue
 name|getMetaLock
 parameter_list|()

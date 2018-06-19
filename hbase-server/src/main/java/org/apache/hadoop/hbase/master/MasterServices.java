@@ -900,11 +900,6 @@ name|TableDescriptors
 name|getTableDescriptors
 parameter_list|()
 function_decl|;
-comment|/**    * @return true if master enables ServerShutdownHandler;    */
-name|boolean
-name|isServerCrashProcessingEnabled
-parameter_list|()
-function_decl|;
 comment|/**    * Registers a new protocol buffer {@link Service} subclass as a master coprocessor endpoint.    *    *<p>    * Only a single instance may be registered for a given {@link Service} subclass (the    * instances are keyed on {@link com.google.protobuf.Descriptors.ServiceDescriptor#getFullName()}.    * After the first registration, subsequent calls with the same service name will fail with    * a return value of {@code false}.    *</p>    * @param instance the {@code Service} subclass instance to expose as a coprocessor endpoint    * @return {@code true} if the registration was successful, {@code false}    * otherwise    */
 name|boolean
 name|registerService
@@ -1161,13 +1156,6 @@ specifier|public
 name|void
 name|checkIfShouldMoveSystemRegionAsync
 parameter_list|()
-function_decl|;
-comment|/**    * Recover meta table. Will result in no-op is meta is already initialized. Any code that has    * access to master and requires to access meta during process initialization can call this    * method to make sure meta is initialized.    */
-name|boolean
-name|recoverMeta
-parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 name|String
 name|getClientIdAuditPrefix

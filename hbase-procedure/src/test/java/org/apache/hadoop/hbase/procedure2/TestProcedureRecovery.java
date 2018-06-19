@@ -526,6 +526,7 @@ name|procExecutor
 operator|=
 operator|new
 name|ProcedureExecutor
+argument_list|<>
 argument_list|(
 name|htu
 operator|.
@@ -554,10 +555,12 @@ argument_list|(
 name|PROCEDURE_EXECUTOR_SLOTS
 argument_list|)
 expr_stmt|;
-name|procExecutor
+name|ProcedureTestingUtility
 operator|.
-name|start
+name|initAndStartWorkers
 argument_list|(
+name|procExecutor
+argument_list|,
 name|PROCEDURE_EXECUTOR_SLOTS
 argument_list|,
 literal|true

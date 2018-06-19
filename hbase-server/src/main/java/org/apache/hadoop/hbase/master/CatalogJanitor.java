@@ -774,7 +774,7 @@ literal|null
 operator|&&
 name|am
 operator|.
-name|isFailoverCleanupDone
+name|isMetaLoaded
 argument_list|()
 operator|&&
 operator|!
@@ -816,7 +816,7 @@ literal|", am="
 operator|+
 name|am
 operator|+
-literal|", failoverCleanupDone="
+literal|", metaLoaded="
 operator|+
 operator|(
 name|am
@@ -825,7 +825,7 @@ literal|null
 operator|&&
 name|am
 operator|.
-name|isFailoverCleanupDone
+name|isMetaLoaded
 argument_list|()
 operator|)
 operator|+
