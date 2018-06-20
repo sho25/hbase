@@ -1525,9 +1525,11 @@ name|offset
 argument_list|,
 name|onDiskSize
 argument_list|,
+comment|/*cacheBlock=*/
 literal|true
 argument_list|,
-literal|false
+comment|/*pread=*/
+literal|true
 argument_list|,
 literal|false
 argument_list|,
