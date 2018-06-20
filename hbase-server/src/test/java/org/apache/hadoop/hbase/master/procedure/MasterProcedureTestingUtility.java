@@ -2810,7 +2810,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run through all procedure flow states TWICE while also restarting    * procedure executor at each step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent. Use this version of the test when the order in which flow steps are executed is    * not start to finish; where the procedure may vary the flow steps dependent on circumstance    * found.    * @see #testRecoveryAndDoubleExecution(ProcedureExecutor, long, int, boolean)    */
+comment|/**    * Run through all procedure flow states TWICE while also restarting    * procedure executor at each step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Executes hook for each step twice    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent. Use this version of the test when the order in which flow steps are executed is    * not start to finish; where the procedure may vary the flow steps dependent on circumstance    * found.    * @see #testRecoveryAndDoubleExecution(ProcedureExecutor, long, int, boolean)    */
 specifier|public
 specifier|static
 name|void
@@ -2826,6 +2826,10 @@ parameter_list|,
 specifier|final
 name|long
 name|procId
+parameter_list|,
+specifier|final
+name|StepHook
+name|hook
 parameter_list|)
 throws|throws
 name|Exception
@@ -2886,6 +2890,24 @@ name|procId
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|hook
+operator|!=
+literal|null
+condition|)
+block|{
+name|assertTrue
+argument_list|(
+name|hook
+operator|.
+name|execute
+argument_list|(
+name|i
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|restartMasterProcedureExecutor
 argument_list|(
 name|procExec
@@ -2920,6 +2942,51 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|testRecoveryAndDoubleExecution
+parameter_list|(
+specifier|final
+name|ProcedureExecutor
+argument_list|<
+name|MasterProcedureEnv
+argument_list|>
+name|procExec
+parameter_list|,
+specifier|final
+name|long
+name|procId
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|testRecoveryAndDoubleExecution
+argument_list|(
+name|procExec
+argument_list|,
+name|procId
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Hook which will be executed on each step    */
+specifier|public
+interface|interface
+name|StepHook
+block|{
+comment|/**      * @param step Step no. at which this will be executed      * @return false if test should fail otherwise true      * @throws IOException      */
+name|boolean
+name|execute
+parameter_list|(
+name|int
+name|step
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 comment|/**    * Execute the procedure up to "lastStep" and then the ProcedureExecutor    * is restarted and an abort() is injected.    * If the procedure implement abort() this should result in rollback being triggered.    * Each rollback step is called twice, by restarting the executor after every step.    * At the end of this call the procedure should be finished and rolledback.    * This method assert on the procedure being terminated with an AbortException.    */
 specifier|public
