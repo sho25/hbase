@@ -1027,14 +1027,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|=
-operator|new
-name|HBaseTestingUtility
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * Perform WAL.append() of Put object, for the number of iterations requested.    * Keys and Vaues are generated randomly, the number of column families,    * qualifiers and key/value size is tunable by the user.    */
 class|class
@@ -2313,6 +2305,32 @@ argument_list|,
 name|numThreads
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|rootRegionDir
+operator|==
+literal|null
+condition|)
+block|{
+name|TEST_UTIL
+operator|=
+operator|new
+name|HBaseTestingUtility
+argument_list|(
+name|getConf
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|rootRegionDir
+operator|=
+name|TEST_UTIL
+operator|.
+name|getDataTestDirOnTestFS
+argument_list|(
+literal|"WALPerformanceEvaluation"
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Run WAL Performance Evaluation
 comment|// First set the fs from configs.  In case we are on hadoop1
 name|FSUtils
@@ -2346,9 +2364,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"FileSystem: "
-operator|+
+literal|"FileSystem={}, rootDir={}"
+argument_list|,
 name|fs
+argument_list|,
+name|rootRegionDir
 argument_list|)
 expr_stmt|;
 name|SpanReceiverHost
@@ -2399,23 +2419,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-if|if
-condition|(
-name|rootRegionDir
-operator|==
-literal|null
-condition|)
-block|{
-name|rootRegionDir
-operator|=
-name|TEST_UTIL
-operator|.
-name|getDataTestDirOnTestFS
-argument_list|(
-literal|"WALPerformanceEvaluation"
-argument_list|)
-expr_stmt|;
-block|}
 name|rootRegionDir
 operator|=
 name|rootRegionDir
