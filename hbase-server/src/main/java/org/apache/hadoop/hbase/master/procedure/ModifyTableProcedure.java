@@ -456,12 +456,6 @@ specifier|private
 name|boolean
 name|deleteColumnFamilyInModify
 decl_stmt|;
-specifier|private
-name|Boolean
-name|traceEnabled
-init|=
-literal|null
-decl_stmt|;
 specifier|public
 name|ModifyTableProcedure
 parameter_list|()
@@ -553,12 +547,6 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|traceEnabled
-operator|=
-literal|null
-expr_stmt|;
-name|this
-operator|.
 name|deleteColumnFamilyInModify
 operator|=
 literal|false
@@ -581,24 +569,17 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-if|if
-condition|(
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} execute state={}"
+argument_list|,
 name|this
-operator|+
-literal|" execute state="
-operator|+
+argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 switch|switch
@@ -749,17 +730,11 @@ condition|)
 block|{
 name|addChildProcedure
 argument_list|(
-name|env
-operator|.
-name|getAssignmentManager
+operator|new
+name|ReopenTableRegionsProcedure
+argument_list|(
+name|getTableName
 argument_list|()
-operator|.
-name|createReopenProcedures
-argument_list|(
-name|getOpenRegionInfoList
-argument_list|(
-name|env
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -809,16 +784,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Retriable error trying to modify table="
-operator|+
+literal|"Retriable error trying to modify table={} (in state={})"
+argument_list|,
 name|getTableName
 argument_list|()
-operator|+
-literal|" (in state="
-operator|+
+argument_list|,
 name|state
-operator|+
-literal|")"
 argument_list|,
 name|e
 argument_list|)
@@ -938,7 +909,7 @@ block|{
 return|return
 name|ModifyTableState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -1424,45 +1395,6 @@ name|modifiedTableDescriptor
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Undo the descriptor change (for rollback)    * @param env MasterProcedureEnv    * @throws IOException    **/
-specifier|private
-name|void
-name|restoreTableDescriptor
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getTableDescriptors
-argument_list|()
-operator|.
-name|add
-argument_list|(
-name|unmodifiedTableDescriptor
-argument_list|)
-expr_stmt|;
-comment|// delete any new column families from the modifiedTableDescriptor.
-name|deleteFromFs
-argument_list|(
-name|env
-argument_list|,
-name|modifiedTableDescriptor
-argument_list|,
-name|unmodifiedTableDescriptor
-argument_list|)
-expr_stmt|;
-comment|// Make sure regions are opened after table descriptor is updated.
-comment|//reOpenAllRegionsIfTableIsOnline(env);
-comment|// TODO: NUKE ROLLBACK!!!!
-block|}
 comment|/**    * Removes from hdfs the families that are not longer present in the new table descriptor.    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|private
 name|void
@@ -1851,31 +1783,6 @@ name|state
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The procedure could be restarted from a different machine. If the variable is null, we need to    * retrieve it.    * @return traceEnabled whether the trace is enabled    */
-specifier|private
-name|Boolean
-name|isTraceEnabled
-parameter_list|()
-block|{
-if|if
-condition|(
-name|traceEnabled
-operator|==
-literal|null
-condition|)
-block|{
-name|traceEnabled
-operator|=
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-name|traceEnabled
-return|;
-block|}
 comment|/**    * Coprocessor Action.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
 specifier|private
 name|void
@@ -1993,37 +1900,6 @@ name|getRegionStates
 argument_list|()
 operator|.
 name|getRegionsOfTable
-argument_list|(
-name|getTableName
-argument_list|()
-argument_list|)
-return|;
-block|}
-comment|/**    * Fetches all open or soon to be open Regions for a table. Cache the result of this method if    * you need to use it multiple times. Be aware that it may change over in between calls to this    * procedure.    */
-specifier|private
-name|List
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|getOpenRegionInfoList
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|env
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getOpenRegionsOfTable
 argument_list|(
 name|getTableName
 argument_list|()

@@ -297,17 +297,18 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @throws IOException If the cluster is offline or master is stopping or if table is disabled    *   or non-existent.    */
+comment|/**    * @param check whether we should do some checks in the constructor. We will skip the checks if we    *          are reopening a region as this may fail the whole procedure and cause stuck. We will    *          do the check later when actually executing the procedure so not a big problem.    * @throws IOException If the cluster is offline or master is stopping or if table is disabled or    *           non-existent.    */
 specifier|public
 name|MoveRegionProcedure
 parameter_list|(
-specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|,
-specifier|final
 name|RegionPlan
 name|plan
+parameter_list|,
+name|boolean
+name|check
 parameter_list|)
 throws|throws
 name|HBaseIOException
@@ -363,26 +364,17 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} execute state={}"
+argument_list|,
 name|this
-operator|+
-literal|" execute state="
-operator|+
+argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-block|}
 switch|switch
 condition|(
 name|state

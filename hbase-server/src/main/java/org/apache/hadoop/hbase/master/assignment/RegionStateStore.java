@@ -865,8 +865,10 @@ specifier|final
 name|long
 name|openSeqNum
 init|=
-operator|-
-literal|1
+name|hrl
+operator|.
+name|getSeqNum
+argument_list|()
 decl_stmt|;
 comment|// TODO: move under trace, now is visible for debugging
 name|LOG
@@ -875,7 +877,7 @@ name|info
 argument_list|(
 literal|"Load hbase:meta entry region={}, regionState={}, lastHost={}, "
 operator|+
-literal|"regionLocation={}"
+literal|"regionLocation={}, openSeqNum={}"
 argument_list|,
 name|regionInfo
 operator|.
@@ -887,6 +889,8 @@ argument_list|,
 name|lastHost
 argument_list|,
 name|regionLocation
+argument_list|,
+name|openSeqNum
 argument_list|)
 expr_stmt|;
 name|visitor
