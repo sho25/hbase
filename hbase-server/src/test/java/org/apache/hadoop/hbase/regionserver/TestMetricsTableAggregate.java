@@ -269,6 +269,17 @@ name|HELPER
 operator|.
 name|assertCounter
 argument_list|(
+literal|"Namespace_default_table_testTableMetrics_metric_cpRequestCount"
+argument_list|,
+literal|15
+argument_list|,
+name|agg
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
+name|assertCounter
+argument_list|(
 literal|"Namespace_default_table_testTableMetrics_metric_writeRequestCount"
 argument_list|,
 literal|20

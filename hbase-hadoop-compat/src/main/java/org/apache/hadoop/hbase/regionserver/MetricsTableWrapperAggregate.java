@@ -52,6 +52,14 @@ name|String
 name|table
 parameter_list|)
 function_decl|;
+comment|/**    * Get the number of CoprocessorService requests that have been issued against this table    */
+name|long
+name|getCpRequestsCount
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
 comment|/**    * Get the number of write requests that have been issued against this table    */
 name|long
 name|getWriteRequestsCount

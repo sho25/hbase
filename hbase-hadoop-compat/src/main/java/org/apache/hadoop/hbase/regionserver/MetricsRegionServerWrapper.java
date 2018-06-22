@@ -144,6 +144,11 @@ name|long
 name|getReadRequestsCount
 parameter_list|()
 function_decl|;
+comment|/**    * Get the number of coprocessor requests to regions hosted on this region server.    */
+name|long
+name|getCpRequestsCount
+parameter_list|()
+function_decl|;
 comment|/**    * Get the number of filtered read requests to regions hosted on this region server.    */
 name|long
 name|getFilteredReadRequestsCount

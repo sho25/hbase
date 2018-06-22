@@ -671,6 +671,11 @@ argument_list|()
 argument_list|,
 name|region
 operator|.
+name|getCpRequestCount
+argument_list|()
+argument_list|,
+name|region
+operator|.
 name|getWriteRequestCount
 argument_list|()
 argument_list|,

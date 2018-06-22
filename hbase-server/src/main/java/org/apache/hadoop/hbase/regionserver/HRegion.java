@@ -3098,6 +3098,14 @@ argument_list|()
 decl_stmt|;
 specifier|final
 name|LongAdder
+name|cpRequestsCount
+init|=
+operator|new
+name|LongAdder
+argument_list|()
+decl_stmt|;
+specifier|final
+name|LongAdder
 name|filteredReadRequestsCount
 init|=
 operator|new
@@ -7135,6 +7143,20 @@ parameter_list|()
 block|{
 return|return
 name|readRequestsCount
+operator|.
+name|sum
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getCpRequestsCount
+parameter_list|()
+block|{
+return|return
+name|cpRequestsCount
 operator|.
 name|sum
 argument_list|()
@@ -38351,7 +38373,7 @@ operator|.
 name|SIZEOF_INT
 operator|+
 operator|(
-literal|14
+literal|15
 operator|*
 name|Bytes
 operator|.
@@ -38369,7 +38391,7 @@ comment|// woefully out of date - currently missing:
 comment|// 1 x HashMap - coprocessorServiceHandlers
 comment|// 6 x LongAdder - numMutationsWithoutWAL, dataInMemoryWithoutWAL,
 comment|//   checkAndMutateChecksPassed, checkAndMutateChecksFailed, readRequestsCount,
-comment|//   writeRequestsCount
+comment|//   writeRequestsCount, cpRequestsCount
 comment|// 1 x HRegion$WriteState - writestate
 comment|// 1 x RegionCoprocessorHost - coprocessorHost
 comment|// 1 x RegionSplitPolicy - splitPolicy
@@ -38708,6 +38730,11 @@ operator|.
 name|getDescriptorForType
 argument_list|()
 decl_stmt|;
+name|cpRequestsCount
+operator|.
+name|increment
+argument_list|()
+expr_stmt|;
 name|String
 name|methodName
 init|=

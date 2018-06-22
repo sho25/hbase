@@ -9399,6 +9399,14 @@ name|getReadRequestsCount
 argument_list|()
 argument_list|)
 operator|.
+name|setCpRequestsCount
+argument_list|(
+name|r
+operator|.
+name|getCpRequestsCount
+argument_list|()
+argument_list|)
+operator|.
 name|setFilteredReadRequestsCount
 argument_list|(
 name|r

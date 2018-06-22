@@ -559,6 +559,11 @@ name|long
 name|getReadRequestsCount
 parameter_list|()
 function_decl|;
+comment|/** @return coprocessor requests count for this region */
+name|long
+name|getCpRequestsCount
+parameter_list|()
+function_decl|;
 comment|/** @return filtered read requests count for this region */
 name|long
 name|getFilteredReadRequestsCount

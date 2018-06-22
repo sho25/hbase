@@ -104,7 +104,13 @@ name|long
 name|getWriteRequestCount
 parameter_list|()
 function_decl|;
-comment|/**    * @return the number of write requests and read requests made to region    */
+comment|/**    * @return the number of coprocessor service requests made to region    */
+specifier|public
+name|long
+name|getCpRequestCount
+parameter_list|()
+function_decl|;
+comment|/**    * @return the number of write requests and read requests and coprocessor    *         service requests made to region    */
 specifier|default
 name|long
 name|getRequestCount
@@ -115,6 +121,9 @@ name|getReadRequestCount
 argument_list|()
 operator|+
 name|getWriteRequestCount
+argument_list|()
+operator|+
+name|getCpRequestCount
 argument_list|()
 return|;
 block|}

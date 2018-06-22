@@ -230,6 +230,17 @@ annotation|@
 name|Override
 specifier|public
 name|long
+name|getCpRequestsCount
+parameter_list|()
+block|{
+return|return
+literal|998
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
 name|getFilteredReadRequestsCount
 parameter_list|()
 block|{

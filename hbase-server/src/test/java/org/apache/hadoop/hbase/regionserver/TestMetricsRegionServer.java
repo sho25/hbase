@@ -528,6 +528,17 @@ name|HELPER
 operator|.
 name|assertCounter
 argument_list|(
+literal|"cpRequestCount"
+argument_list|,
+literal|998
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
+name|assertCounter
+argument_list|(
 literal|"filteredReadRequestCount"
 argument_list|,
 literal|1997

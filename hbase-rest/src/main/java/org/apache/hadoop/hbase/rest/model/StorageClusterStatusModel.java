@@ -230,7 +230,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  *  *<pre>  *&lt;complexType name="StorageClusterStatus"&gt;  *&lt;sequence&gt;  *&lt;element name="liveNode" type="tns:Node"  *       maxOccurs="unbounded" minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;element name="deadNode" type="string" maxOccurs="unbounded"  *       minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="regions" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="averageLoad" type="float"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Node"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:Region"  *       maxOccurs="unbounded" minOccurs="0"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;attribute name="startCode" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="heapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxHeapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Region"&gt;  *&lt;attribute name="name" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="stores" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefiles" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="memstoreSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileIndexSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="readRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="writeRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="rootIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticBloomSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalCompactingKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="currentCompactedKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
+comment|/**  * Representation of the status of a storage cluster:  *<p>  *<ul>  *<li>regions: the total number of regions served by the cluster</li>  *<li>requests: the total number of requests per second handled by the  * cluster in the last reporting interval</li>  *<li>averageLoad: the average load of the region servers in the cluster</li>  *<li>liveNodes: detailed status of the live region servers</li>  *<li>deadNodes: the names of region servers declared dead</li>  *</ul>  *  *<pre>  *&lt;complexType name="StorageClusterStatus"&gt;  *&lt;sequence&gt;  *&lt;element name="liveNode" type="tns:Node"  *       maxOccurs="unbounded" minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;element name="deadNode" type="string" maxOccurs="unbounded"  *       minOccurs="0"&gt;  *&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="regions" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="averageLoad" type="float"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Node"&gt;  *&lt;sequence&gt;  *&lt;element name="region" type="tns:Region"  *       maxOccurs="unbounded" minOccurs="0"&gt;&lt;/element&gt;  *&lt;/sequence&gt;  *&lt;attribute name="name" type="string"&gt;&lt;/attribute&gt;  *&lt;attribute name="startCode" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="requests" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="heapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="maxHeapSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *  *&lt;complexType name="Region"&gt;  *&lt;attribute name="name" type="base64Binary"&gt;&lt;/attribute&gt;  *&lt;attribute name="stores" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefiles" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="memstoreSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="storefileIndexSizeMB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="readRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="cpRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="writeRequestsCount" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="rootIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticIndexSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalStaticBloomSizeKB" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="totalCompactingKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;attribute name="currentCompactedKVs" type="int"&gt;&lt;/attribute&gt;  *&lt;/complexType&gt;  *</pre>  */
 end_comment
 
 begin_class
@@ -325,6 +325,10 @@ name|readRequestsCount
 decl_stmt|;
 specifier|private
 name|long
+name|cpRequestsCount
+decl_stmt|;
+specifier|private
+name|long
 name|writeRequestsCount
 decl_stmt|;
 specifier|private
@@ -395,6 +399,9 @@ name|long
 name|readRequestsCount
 parameter_list|,
 name|long
+name|cpRequestsCount
+parameter_list|,
+name|long
 name|writeRequestsCount
 parameter_list|,
 name|int
@@ -454,6 +461,12 @@ operator|.
 name|readRequestsCount
 operator|=
 name|readRequestsCount
+expr_stmt|;
+name|this
+operator|.
+name|cpRequestsCount
+operator|=
+name|cpRequestsCount
 expr_stmt|;
 name|this
 operator|.
@@ -577,6 +590,18 @@ return|return
 name|readRequestsCount
 return|;
 block|}
+comment|/**        * @return the current total read requests made to region        */
+annotation|@
+name|XmlAttribute
+specifier|public
+name|long
+name|getCpRequestsCount
+parameter_list|()
+block|{
+return|return
+name|cpRequestsCount
+return|;
+block|}
 comment|/**        * @return the current total write requests made to region        */
 annotation|@
 name|XmlAttribute
@@ -663,6 +688,22 @@ operator|.
 name|readRequestsCount
 operator|=
 name|readRequestsCount
+expr_stmt|;
+block|}
+comment|/**        * @param cpRequestsCount The current total read requests made to region        */
+specifier|public
+name|void
+name|setCpRequestsCount
+parameter_list|(
+name|long
+name|cpRequestsCount
+parameter_list|)
+block|{
+name|this
+operator|.
+name|cpRequestsCount
+operator|=
+name|cpRequestsCount
 expr_stmt|;
 block|}
 comment|/**        * @param rootIndexSizeKB The current total size of root-level indexes        *                        for the region, in KB        */
@@ -919,6 +960,9 @@ name|long
 name|readRequestsCount
 parameter_list|,
 name|long
+name|cpRequestsCount
+parameter_list|,
+name|long
 name|writeRequestsCount
 parameter_list|,
 name|int
@@ -957,6 +1001,8 @@ argument_list|,
 name|storefileIndexSizeKB
 argument_list|,
 name|readRequestsCount
+argument_list|,
+name|cpRequestsCount
 argument_list|,
 name|writeRequestsCount
 argument_list|,
@@ -1850,6 +1896,22 @@ name|sb
 operator|.
 name|append
 argument_list|(
+literal|"\n            cpRequestsCount="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|region
+operator|.
+name|cpRequestsCount
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
 literal|"\n            writeRequestsCount="
 argument_list|)
 expr_stmt|;
@@ -2232,6 +2294,15 @@ argument_list|)
 expr_stmt|;
 name|regionBuilder
 operator|.
+name|setCpRequestsCount
+argument_list|(
+name|region
+operator|.
+name|cpRequestsCount
+argument_list|)
+expr_stmt|;
+name|regionBuilder
+operator|.
 name|setWriteRequestsCount
 argument_list|(
 name|region
@@ -2535,6 +2606,11 @@ argument_list|,
 name|region
 operator|.
 name|getReadRequestsCount
+argument_list|()
+argument_list|,
+name|region
+operator|.
+name|getCpRequestsCount
 argument_list|()
 argument_list|,
 name|region

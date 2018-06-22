@@ -474,6 +474,16 @@ init|=
 literal|"Number of read requests with non-empty Results that this RegionServer has answered."
 decl_stmt|;
 name|String
+name|CP_REQUEST_COUNT
+init|=
+literal|"cpRequestCount"
+decl_stmt|;
+name|String
+name|CP_REQUEST_COUNT_DESC
+init|=
+literal|"Number of coprocessor service requests this region server has answered."
+decl_stmt|;
+name|String
 name|FILTERED_READ_REQUEST_COUNT
 init|=
 literal|"filteredReadRequestCount"

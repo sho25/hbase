@@ -60,6 +60,16 @@ init|=
 literal|"Number of read requests"
 decl_stmt|;
 name|String
+name|CP_REQUEST_COUNT
+init|=
+literal|"cpRequestCount"
+decl_stmt|;
+name|String
+name|CP_REQUEST_COUNT_DESC
+init|=
+literal|"Number of coprocessor service requests"
+decl_stmt|;
+name|String
 name|WRITE_REQUEST_COUNT
 init|=
 literal|"writeRequestCount"
