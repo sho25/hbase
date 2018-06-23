@@ -415,22 +415,6 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|LoadBalancer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
 name|RegionPlan
 import|;
 end_import
@@ -805,20 +789,8 @@ name|getCanonicalName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|LoadBalancer
-operator|.
-name|TABLES_ON_MASTER
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
+comment|// Disable table on master for now as the feature is broken
+comment|//UTIL.getConfiguration().setBoolean(LoadBalancer.TABLES_ON_MASTER, true);
 comment|// We used to ask for system tables on Master exclusively but not needed by test and doesn't
 comment|// work anyways -- so commented out.
 comment|// UTIL.getConfiguration().setBoolean(LoadBalancer.SYSTEM_TABLES_ON_MASTER, true);
@@ -1281,7 +1253,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * This is for testing the active number of threads that were used while    * doing a batch operation. It inserts one row per region via the batch    * operation, and then checks the number of active threads.    * For HBASE-3553    * @throws IOException    * @throws InterruptedException    * @throws NoSuchFieldException    * @throws SecurityException    */
+comment|/**    * This is for testing the active number of threads that were used while    * doing a batch operation. It inserts one row per region via the batch    * operation, and then checks the number of active threads.    *<p/>    * For HBASE-3553    */
 annotation|@
 name|Test
 specifier|public
@@ -1997,7 +1969,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    *    * @throws Exception    */
+comment|/**    * Only run one Multi test with a forced RegionServer abort. Otherwise, the    * unit tests will take an unnecessarily long time to run.    */
 annotation|@
 name|Test
 specifier|public
@@ -2020,7 +1992,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Set table auto flush to false and test flushing commits    * @param doAbort true if abort one regionserver in the testing    * @throws Exception    */
+comment|/**    * Set table auto flush to false and test flushing commits    * @param doAbort true if abort one regionserver in the testing    */
 specifier|private
 name|void
 name|doTestFlushCommits
@@ -2322,7 +2294,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// Master is also a regionserver, so the count is liveRScount
+comment|// We disable regions on master so the count should be liveRScount - 1
 return|return
 name|UTIL
 operator|.
@@ -2342,6 +2314,8 @@ name|size
 argument_list|()
 operator|==
 name|liveRScount
+operator|-
+literal|1
 return|;
 block|}
 block|}
@@ -4429,6 +4403,9 @@ name|rm
 operator|.
 name|add
 argument_list|(
+operator|(
+name|Mutation
+operator|)
 name|put
 argument_list|)
 expr_stmt|;
@@ -4480,6 +4457,9 @@ name|rm
 operator|.
 name|add
 argument_list|(
+operator|(
+name|Mutation
+operator|)
 name|put
 argument_list|)
 expr_stmt|;
