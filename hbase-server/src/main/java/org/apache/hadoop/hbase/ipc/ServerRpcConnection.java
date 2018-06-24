@@ -2188,29 +2188,18 @@ condition|(
 name|saslContextEstablished
 condition|)
 block|{
-if|if
-condition|(
-name|RpcServer
-operator|.
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|RpcServer
 operator|.
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Have read input token of size "
-operator|+
+literal|"Read input token of size={} for processing by saslServer.unwrap()"
+argument_list|,
 name|saslToken
 operator|.
 name|limit
 argument_list|()
-operator|+
-literal|" for processing by saslServer.unwrap()"
 argument_list|)
 expr_stmt|;
 if|if
@@ -2328,24 +2317,14 @@ operator|.
 name|secretManager
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|RpcServer
-operator|.
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|RpcServer
 operator|.
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created SASL server with mechanism = "
-operator|+
+literal|"Created SASL server with mechanism={}"
+argument_list|,
 name|authMethod
 operator|.
 name|getMechanismName
@@ -2353,34 +2332,22 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-if|if
-condition|(
-name|RpcServer
-operator|.
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|RpcServer
 operator|.
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Have read input token of size "
+literal|"Read input token of size={} for processing by saslServer."
 operator|+
+literal|"evaluateResponse()"
+argument_list|,
 name|saslToken
 operator|.
 name|limit
 argument_list|()
-operator|+
-literal|" for processing by saslServer.evaluateResponse()"
 argument_list|)
 expr_stmt|;
-block|}
 name|replyToken
 operator|=
 name|saslServer
@@ -3314,30 +3281,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Allowed fallback to SIMPLE auth for "
-operator|+
+literal|"Allowed fallback to SIMPLE auth for {} connecting from {}"
+argument_list|,
 name|ugi
-operator|+
-literal|" connecting from "
-operator|+
+argument_list|,
 name|getHostAddress
 argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|RpcServer
-operator|.
-name|AUDITLOG
-operator|.
-name|info
-argument_list|(
-name|RpcServer
-operator|.
-name|AUTH_SUCCESSFUL_FOR
-operator|+
-name|ugi
-argument_list|)
-expr_stmt|;
 block|}
 else|else
 block|{
@@ -3442,8 +3394,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|String
+name|version
+decl_stmt|;
 if|if
 condition|(
+name|this
+operator|.
 name|connectionHeader
 operator|.
 name|hasVersionInfo
@@ -3451,6 +3408,8 @@ argument_list|()
 condition|)
 block|{
 comment|// see if this connection will support RetryImmediatelyException
+name|this
+operator|.
 name|retryImmediatelySupported
 operator|=
 name|VersionInfoUtil
@@ -3465,62 +3424,55 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-name|RpcServer
-operator|.
-name|AUDITLOG
-operator|.
-name|info
-argument_list|(
-literal|"Connection from "
-operator|+
+name|version
+operator|=
 name|this
 operator|.
-name|hostAddress
-operator|+
-literal|" port: "
-operator|+
-name|this
-operator|.
-name|remotePort
-operator|+
-literal|" with version info: "
-operator|+
-name|TextFormat
-operator|.
-name|shortDebugString
-argument_list|(
 name|connectionHeader
 operator|.
 name|getVersionInfo
 argument_list|()
-argument_list|)
-argument_list|)
+operator|.
+name|getVersion
+argument_list|()
 expr_stmt|;
 block|}
 else|else
 block|{
+name|version
+operator|=
+literal|"UNKNOWN"
+expr_stmt|;
+block|}
 name|RpcServer
 operator|.
 name|AUDITLOG
 operator|.
 name|info
 argument_list|(
-literal|"Connection from "
-operator|+
+literal|"Connection from {}:{}, version={}, sasl={}, ugi={}, service={}"
+argument_list|,
 name|this
 operator|.
 name|hostAddress
-operator|+
-literal|" port: "
-operator|+
+argument_list|,
 name|this
 operator|.
 name|remotePort
-operator|+
-literal|" with unknown version info"
+argument_list|,
+name|version
+argument_list|,
+name|this
+operator|.
+name|useSasl
+argument_list|,
+name|this
+operator|.
+name|ugi
+argument_list|,
+name|serviceName
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Send the response for connection header    */
 specifier|private
