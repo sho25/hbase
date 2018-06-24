@@ -1162,7 +1162,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Removing {}"
 argument_list|,
@@ -1292,7 +1292,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Deleted more than Long.MAX_VALUE large files, reset counter to 0"
 argument_list|)
@@ -1327,7 +1327,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Deleted more than Long.MAX_VALUE small files, reset counter to 0"
 argument_list|)

@@ -1405,14 +1405,6 @@ name|runCleaner
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -1423,16 +1415,7 @@ name|oldFileDir
 argument_list|)
 expr_stmt|;
 block|}
-block|}
 else|else
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 block|{
 name|LOG
 operator|.
@@ -1443,7 +1426,6 @@ argument_list|,
 name|oldFileDir
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 finally|finally
@@ -1497,14 +1479,6 @@ block|}
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -1512,7 +1486,6 @@ argument_list|(
 literal|"Cleaner chore disabled! Not cleaning."
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 specifier|private
@@ -2321,7 +2294,7 @@ parameter_list|()
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Cleaning under {}"
 argument_list|,

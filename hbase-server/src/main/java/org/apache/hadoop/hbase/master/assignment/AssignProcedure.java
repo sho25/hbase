@@ -1475,6 +1475,14 @@ name|getOpenSeqNum
 argument_list|()
 condition|)
 block|{
+comment|// Don't bother logging if openSeqNum == 0
+if|if
+condition|(
+name|openSeqNum
+operator|!=
+literal|0
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
@@ -1491,6 +1499,7 @@ name|getOpenSeqNum
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{

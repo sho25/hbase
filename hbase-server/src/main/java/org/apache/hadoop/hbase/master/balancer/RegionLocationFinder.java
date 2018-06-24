@@ -1199,10 +1199,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"FileNotFoundException during getTableDescriptors."
-operator|+
-literal|" Current table name = "
-operator|+
+literal|"tableName={}"
+argument_list|,
 name|tableName
 argument_list|,
 name|fnfe
@@ -1458,10 +1456,10 @@ else|else
 block|{
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"HDFSBlocksDistribution not found in cache for region "
-operator|+
+literal|"HDFSBlocksDistribution not found in cache for {}"
+argument_list|,
 name|hri
 operator|.
 name|getRegionNameAsString

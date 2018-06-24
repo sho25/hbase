@@ -240,24 +240,15 @@ operator|.
 name|QOP
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"SASL client context established. Negotiated QoP: "
-operator|+
+literal|"SASL client context established. Negotiated QoP {}"
+argument_list|,
 name|qop
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|qop

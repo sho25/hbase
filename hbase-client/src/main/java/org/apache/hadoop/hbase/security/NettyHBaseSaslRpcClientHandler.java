@@ -394,28 +394,17 @@ index|[]
 name|response
 parameter_list|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Will send token of size "
-operator|+
+literal|"Sending token size={} from initSASLContext."
+argument_list|,
 name|response
 operator|.
 name|length
-operator|+
-literal|" from initSASLContext."
 argument_list|)
 expr_stmt|;
-block|}
 name|ctx
 operator|.
 name|writeAndFlush
@@ -688,26 +677,15 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Will read input token of size "
-operator|+
+literal|"Reading input token size={} for processing by initSASLContext"
+argument_list|,
 name|len
-operator|+
-literal|" for processing by initSASLContext"
 argument_list|)
 expr_stmt|;
-block|}
 specifier|final
 name|byte
 index|[]
