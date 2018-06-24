@@ -1691,16 +1691,21 @@ operator|.
 name|rollWriter
 argument_list|()
 expr_stmt|;
-name|assertEquals
-argument_list|(
-literal|2
-argument_list|,
+name|int
+name|count
+init|=
 name|AbstractFSWALProvider
 operator|.
 name|getNumRolledLogFiles
 argument_list|(
 name|log
 argument_list|)
+decl_stmt|;
+name|assertEquals
+argument_list|(
+literal|2
+argument_list|,
+name|count
 argument_list|)
 expr_stmt|;
 comment|// Flush the second region, which removes all the remaining output files

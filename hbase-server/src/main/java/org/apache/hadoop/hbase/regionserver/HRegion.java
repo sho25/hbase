@@ -14865,7 +14865,7 @@ name|int
 name|index
 parameter_list|)
 function_decl|;
-comment|/** This method is potentially expensive and useful mostly for non-replay CP path. */
+comment|/**      * This method is potentially expensive and useful mostly for non-replay CP path.      */
 specifier|public
 specifier|abstract
 name|Mutation
@@ -14923,7 +14923,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      *  If necessary, calls preBatchMutate() CP hook for a mini-batch and updates metrics, cell      *  count, tags and timestamp for all cells of all operations in a mini-batch.      */
+comment|/**      * If necessary, calls preBatchMutate() CP hook for a mini-batch and updates metrics, cell      * count, tags and timestamp for all cells of all operations in a mini-batch.      */
 specifier|public
 specifier|abstract
 name|void
@@ -16148,7 +16148,7 @@ operator|.
 name|getSecond
 argument_list|()
 decl_stmt|;
-comment|// Add WAL edits by CP
+comment|// Add WAL edits from CPs.
 name|WALEdit
 name|fromCP
 init|=
@@ -16184,14 +16184,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|addFamilyMapToWALEdit
+name|walEdit
+operator|.
+name|add
 argument_list|(
 name|familyCellMaps
 index|[
 name|index
 index|]
-argument_list|,
-name|walEdit
 argument_list|)
 expr_stmt|;
 return|return
@@ -16459,91 +16459,6 @@ argument_list|,
 name|memstoreAccounting
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-comment|/**      * Append the given map of family->edits to a WALEdit data structure.      * This does not write to the WAL itself.      * @param familyMap map of family->edits      * @param walEdit the destination entry to append into      */
-specifier|private
-name|void
-name|addFamilyMapToWALEdit
-parameter_list|(
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-argument_list|>
-name|familyMap
-parameter_list|,
-name|WALEdit
-name|walEdit
-parameter_list|)
-block|{
-for|for
-control|(
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-name|edits
-range|:
-name|familyMap
-operator|.
-name|values
-argument_list|()
-control|)
-block|{
-comment|// Optimization: 'foreach' loop is not used. See:
-comment|// HBASE-12023 HRegion.applyFamilyMapToMemstore creates too many iterator objects
-assert|assert
-name|edits
-operator|instanceof
-name|RandomAccess
-assert|;
-name|int
-name|listSize
-init|=
-name|edits
-operator|.
-name|size
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|listSize
-condition|;
-name|i
-operator|++
-control|)
-block|{
-name|Cell
-name|cell
-init|=
-name|edits
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-decl_stmt|;
-name|walEdit
-operator|.
-name|add
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 block|}
