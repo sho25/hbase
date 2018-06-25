@@ -1540,7 +1540,7 @@ init|=
 literal|1
 decl_stmt|;
 comment|// Other constants
-comment|/**    * An empty instance.    */
+comment|/**    * An empty byte array instance.    */
 specifier|public
 specifier|static
 specifier|final
@@ -1553,6 +1553,15 @@ name|byte
 index|[
 literal|0
 index|]
+decl_stmt|;
+comment|/**    * An empty string instance.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|EMPTY_STRING
+init|=
+literal|""
 decl_stmt|;
 specifier|public
 specifier|static
