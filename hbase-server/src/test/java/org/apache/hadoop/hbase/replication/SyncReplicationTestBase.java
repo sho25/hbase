@@ -37,6 +37,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertFalse
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -478,16 +490,6 @@ operator|.
 name|junit
 operator|.
 name|AfterClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -1793,7 +1795,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|NullPointerException
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -1816,7 +1818,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|NullPointerException
+name|ReplicationException
 name|e
 parameter_list|)
 block|{
@@ -1833,8 +1835,6 @@ name|getTestFileSystem
 argument_list|()
 init|)
 block|{
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|fs
@@ -1850,8 +1850,6 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertFalse
 argument_list|(
 name|fs
@@ -2010,8 +2008,6 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|fail
 argument_list|(
 literal|"Should throw IOException when sync-replication state is in A or DA"
@@ -2024,8 +2020,6 @@ name|DoNotRetryIOException
 name|e
 parameter_list|)
 block|{
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|e
@@ -2039,8 +2033,6 @@ literal|"Reject to apply to sink cluster"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertTrue
 argument_list|(
 name|e
