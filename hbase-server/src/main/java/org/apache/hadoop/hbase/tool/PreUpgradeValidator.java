@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tool for validating that cluster can be upgraded from HBase 1.x to 2.0  *<p>  * Available validations:  *<ul>  *<li>validate-cp: Validates Co-processors compatibility</li>  *<li>validate-dbe: Check Data Block Encoding for column families</li>  *</ul>  *</p>  */
+comment|/**  * Tool for validating that cluster can be upgraded from HBase 1.x to 2.0  *<p>  * Available validations:  *<ul>  *<li>validate-cp: Validates Co-processors compatibility</li>  *<li>validate-dbe: Check Data Block Encoding for column families</li>  *<li>validate-hfile: Check for corrupted HFiles</li>  *</ul>  *</p>  */
 end_comment
 
 begin_class
@@ -223,6 +223,14 @@ name|String
 name|VALIDATE_DBE_NAME
 init|=
 literal|"validate-dbe"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|VALIDATE_HFILE
+init|=
+literal|"validate-hfile"
 decl_stmt|;
 specifier|private
 name|Configuration
@@ -309,6 +317,17 @@ name|System
 operator|.
 name|out
 operator|.
+name|printf
+argument_list|(
+literal|" %-15s Validate HFile contents are readable%n"
+argument_list|,
+name|VALIDATE_HFILE
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
 name|println
 argument_list|(
 literal|"For further information, please use command -h"
@@ -374,6 +393,16 @@ name|tool
 operator|=
 operator|new
 name|DataBlockEncodingValidator
+argument_list|()
+expr_stmt|;
+break|break;
+case|case
+name|VALIDATE_HFILE
+case|:
+name|tool
+operator|=
+operator|new
+name|HFileContentValidator
 argument_list|()
 expr_stmt|;
 break|break;
