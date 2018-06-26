@@ -187,6 +187,8 @@ operator|(
 name|ByteBufferKeyValue
 operator|)
 name|r
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -222,6 +224,9 @@ name|left
 parameter_list|,
 name|ByteBufferKeyValue
 name|right
+parameter_list|,
+name|boolean
+name|ignoreSequenceid
 parameter_list|)
 block|{
 comment|// NOTE: Same method is in CellComparatorImpl, also private, not shared, intentionally. Not
@@ -622,6 +627,10 @@ return|;
 block|}
 comment|// Negate following comparisons so later edits show up first mvccVersion: later sorts first
 return|return
+name|ignoreSequenceid
+condition|?
+name|diff
+else|:
 name|Longs
 operator|.
 name|compare

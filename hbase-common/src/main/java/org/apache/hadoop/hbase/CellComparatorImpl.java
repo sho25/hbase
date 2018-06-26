@@ -296,6 +296,8 @@ operator|(
 name|ByteBufferKeyValue
 operator|)
 name|b
+argument_list|,
+name|ignoreSequenceid
 argument_list|)
 expr_stmt|;
 if|if
