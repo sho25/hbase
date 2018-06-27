@@ -1375,9 +1375,9 @@ name|tabledir
 init|=
 name|FSUtils
 operator|.
-name|getTableDir
+name|getWALTableDir
 argument_list|(
-name|hbaseDir
+name|conf
 argument_list|,
 name|tableName
 argument_list|)

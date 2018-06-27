@@ -1982,7 +1982,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -2008,8 +2008,6 @@ name|logfiles
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|region
@@ -3026,7 +3024,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -3063,8 +3061,6 @@ name|splitLog
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|REGION
@@ -3141,7 +3137,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -3178,8 +3174,6 @@ name|splitLog
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|REGION
@@ -3358,7 +3352,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -3406,8 +3400,6 @@ name|splitLog
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|hri
@@ -3478,7 +3470,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -3510,8 +3502,6 @@ name|logfiles
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|region
@@ -4283,7 +4273,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -4500,7 +4490,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -4519,8 +4509,6 @@ name|splitLog
 init|=
 name|getLogForRegion
 argument_list|(
-name|HBASEDIR
-argument_list|,
 name|TABLE_NAME
 argument_list|,
 name|REGION
@@ -4698,7 +4686,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -4781,7 +4769,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -4956,7 +4944,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -5061,7 +5049,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -5475,7 +5463,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -6648,7 +6636,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -6711,7 +6699,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -6864,7 +6852,7 @@ name|WALSplitter
 operator|.
 name|split
 argument_list|(
-name|HBASEDIR
+name|HBASELOGDIR
 argument_list|,
 name|WALDIR
 argument_list|,
@@ -7037,7 +7025,7 @@ name|createRecoveredEditsWriter
 argument_list|(
 name|this
 operator|.
-name|fs
+name|walFS
 argument_list|,
 name|logfile
 argument_list|)
@@ -7086,7 +7074,7 @@ condition|(
 operator|!
 name|this
 operator|.
-name|fs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -7538,9 +7526,6 @@ name|Path
 index|[]
 name|getLogForRegion
 parameter_list|(
-name|Path
-name|rootdir
-parameter_list|,
 name|TableName
 name|table
 parameter_list|,
@@ -7555,9 +7540,9 @@ name|tdir
 init|=
 name|FSUtils
 operator|.
-name|getTableDir
+name|getWALTableDir
 argument_list|(
-name|rootdir
+name|conf
 argument_list|,
 name|table
 argument_list|)

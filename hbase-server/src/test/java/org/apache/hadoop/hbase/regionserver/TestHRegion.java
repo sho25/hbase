@@ -5659,8 +5659,6 @@ name|region
 operator|.
 name|replayRecoveredEditsIfAny
 argument_list|(
-name|regiondir
-argument_list|,
 name|maxSeqIdInStores
 argument_list|,
 literal|null
@@ -6115,8 +6113,6 @@ name|region
 operator|.
 name|replayRecoveredEditsIfAny
 argument_list|(
-name|regiondir
-argument_list|,
 name|maxSeqIdInStores
 argument_list|,
 literal|null
@@ -6493,8 +6489,6 @@ name|region
 operator|.
 name|replayRecoveredEditsIfAny
 argument_list|(
-name|regiondir
-argument_list|,
 name|maxSeqIdInStores
 argument_list|,
 literal|null
@@ -6967,8 +6961,6 @@ name|region
 operator|.
 name|replayRecoveredEditsIfAny
 argument_list|(
-name|regiondir
-argument_list|,
 name|maxSeqIdInStores
 argument_list|,
 literal|null

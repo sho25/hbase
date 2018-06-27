@@ -318,7 +318,7 @@ decl_stmt|;
 specifier|private
 specifier|static
 name|FileSystem
-name|FS
+name|walFS
 decl_stmt|;
 specifier|private
 specifier|static
@@ -335,7 +335,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|FS
+name|walFS
 operator|=
 name|FileSystem
 operator|.
@@ -384,7 +384,7 @@ name|WALSplitter
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|,
@@ -399,7 +399,7 @@ name|WALSplitter
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|)
@@ -409,7 +409,7 @@ name|WALSplitter
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|,
@@ -424,7 +424,7 @@ name|WALSplitter
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|)
@@ -437,7 +437,7 @@ name|WALSplitter
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|,
@@ -480,7 +480,7 @@ name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|editsdir
 argument_list|,
@@ -531,7 +531,7 @@ name|WALSplitter
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
-name|FS
+name|walFS
 argument_list|,
 name|REGION_DIR
 argument_list|)

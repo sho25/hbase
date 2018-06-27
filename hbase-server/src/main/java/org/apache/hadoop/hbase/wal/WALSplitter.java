@@ -1277,7 +1277,7 @@ decl_stmt|;
 specifier|protected
 specifier|final
 name|FileSystem
-name|fs
+name|walFS
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -1382,7 +1382,7 @@ name|Path
 name|walDir
 parameter_list|,
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|LastSequenceId
 name|idChecker
@@ -1442,9 +1442,9 @@ name|walDir
 expr_stmt|;
 name|this
 operator|.
-name|fs
+name|walFS
 operator|=
-name|fs
+name|walFS
 expr_stmt|;
 name|this
 operator|.
@@ -1570,7 +1570,7 @@ name|FileStatus
 name|logfile
 parameter_list|,
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|Configuration
 name|conf
@@ -1603,7 +1603,7 @@ name|conf
 argument_list|,
 name|walDir
 argument_list|,
-name|fs
+name|walFS
 argument_list|,
 name|idChecker
 argument_list|,
@@ -1645,7 +1645,7 @@ name|Path
 name|oldLogDir
 parameter_list|,
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|Configuration
 name|conf
@@ -1719,7 +1719,7 @@ name|conf
 argument_list|,
 name|rootDir
 argument_list|,
-name|fs
+name|walFS
 argument_list|,
 literal|null
 argument_list|,
@@ -1781,7 +1781,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -2440,7 +2440,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|fs
+name|walFS
 argument_list|)
 expr_stmt|;
 block|}
@@ -2461,7 +2461,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|fs
+name|walFS
 argument_list|)
 expr_stmt|;
 block|}
@@ -2640,7 +2640,7 @@ throws|throws
 name|IOException
 block|{
 name|Path
-name|rootdir
+name|walDir
 init|=
 name|FSUtils
 operator|.
@@ -2655,7 +2655,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|HConstants
 operator|.
@@ -2671,7 +2671,7 @@ name|FSUtils
 operator|.
 name|isStartingWithPath
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|logfile
 argument_list|)
@@ -2693,7 +2693,7 @@ operator|=
 operator|new
 name|Path
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|logfile
 argument_list|)
@@ -2701,7 +2701,7 @@ expr_stmt|;
 block|}
 name|finishSplitLogFile
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|oldLogDir
 argument_list|,
@@ -2717,7 +2717,7 @@ name|void
 name|finishSplitLogFile
 parameter_list|(
 name|Path
-name|rootdir
+name|walDir
 parameter_list|,
 name|Path
 name|oldLogDir
@@ -2754,31 +2754,29 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 name|FileSystem
-name|fs
-decl_stmt|;
-name|fs
-operator|=
-name|rootdir
+name|walFS
+init|=
+name|walDir
 operator|.
 name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|ZKSplitLog
 operator|.
 name|isCorrupted
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|logPath
 operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|fs
+name|walFS
 argument_list|)
 condition|)
 block|{
@@ -2808,7 +2806,7 @@ name|processedLogs
 argument_list|,
 name|oldLogDir
 argument_list|,
-name|fs
+name|walFS
 argument_list|,
 name|conf
 argument_list|)
@@ -2820,7 +2818,7 @@ name|ZKSplitLog
 operator|.
 name|getSplitLogDir
 argument_list|(
-name|rootdir
+name|walDir
 argument_list|,
 name|logPath
 operator|.
@@ -2828,7 +2826,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|fs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -2838,7 +2836,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Moves processed logs to a oldLogDir after successful processing Moves    * corrupted logs (any log that couldn't be successfully parsed to corruptDir    * (.corrupt) for later investigation    *    * @param corruptedLogs    * @param processedLogs    * @param oldLogDir    * @param fs    * @param conf    * @throws IOException    */
+comment|/**    * Moves processed logs to a oldLogDir after successful processing Moves    * corrupted logs (any log that couldn't be successfully parsed to corruptDir    * (.corrupt) for later investigation    *    * @param corruptedLogs    * @param processedLogs    * @param oldLogDir    * @param walFS WAL FileSystem to archive files on.    * @param conf    * @throws IOException    */
 specifier|private
 specifier|static
 name|void
@@ -2864,7 +2862,7 @@ name|oldLogDir
 parameter_list|,
 specifier|final
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 specifier|final
 name|Configuration
@@ -2917,7 +2915,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|mkdirs
 argument_list|(
@@ -2935,7 +2933,7 @@ name|corruptDir
 argument_list|)
 expr_stmt|;
 block|}
-name|fs
+name|walFS
 operator|.
 name|mkdirs
 argument_list|(
@@ -2968,7 +2966,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -2979,7 +2977,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|rename
 argument_list|(
@@ -3039,7 +3037,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -3054,7 +3052,7 @@ name|FSUtils
 operator|.
 name|renameAndSetModifyTime
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|p
 argument_list|,
@@ -3120,21 +3118,11 @@ throws|throws
 name|IOException
 block|{
 name|FileSystem
-name|fs
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
-name|Path
-name|rootDir
+name|walFS
 init|=
 name|FSUtils
 operator|.
-name|getRootDir
+name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)
@@ -3144,9 +3132,9 @@ name|tableDir
 init|=
 name|FSUtils
 operator|.
-name|getTableDir
+name|getWALTableDir
 argument_list|(
-name|rootDir
+name|conf
 argument_list|,
 name|logEntry
 operator|.
@@ -3174,7 +3162,7 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|Path
-name|regiondir
+name|regionDir
 init|=
 name|HRegion
 operator|.
@@ -3190,47 +3178,19 @@ name|dir
 init|=
 name|getRegionDirRecoveredEditsDir
 argument_list|(
-name|regiondir
+name|regionDir
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-operator|!
-name|fs
-operator|.
-name|exists
-argument_list|(
-name|regiondir
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"This region's directory does not exist: {}."
-operator|+
-literal|"It is very likely that it was already split so it is "
-operator|+
-literal|"safe to discard those edits."
-argument_list|,
-name|regiondir
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
-if|if
-condition|(
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
 name|dir
 argument_list|)
 operator|&&
-name|fs
+name|walFS
 operator|.
 name|isFile
 argument_list|(
@@ -3250,7 +3210,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -3258,7 +3218,7 @@ name|tmp
 argument_list|)
 condition|)
 block|{
-name|fs
+name|walFS
 operator|.
 name|mkdirs
 argument_list|(
@@ -3300,7 +3260,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|rename
 argument_list|(
@@ -3324,7 +3284,7 @@ block|}
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -3332,7 +3292,7 @@ name|dir
 argument_list|)
 operator|&&
 operator|!
-name|fs
+name|walFS
 operator|.
 name|mkdirs
 argument_list|(
@@ -3480,7 +3440,7 @@ name|RECOVERED_LOG_TMPFILE_SUFFIX
 init|=
 literal|".temp"
 decl_stmt|;
-comment|/**    * @param regiondir    *          This regions directory in the filesystem.    * @return The directory that holds recovered edits files for the region    *<code>regiondir</code>    */
+comment|/**    * @param regionDir    *          This regions directory in the filesystem.    * @return The directory that holds recovered edits files for the region    *<code>regionDir</code>    */
 specifier|public
 specifier|static
 name|Path
@@ -3488,14 +3448,14 @@ name|getRegionDirRecoveredEditsDir
 parameter_list|(
 specifier|final
 name|Path
-name|regiondir
+name|regionDir
 parameter_list|)
 block|{
 return|return
 operator|new
 name|Path
 argument_list|(
-name|regiondir
+name|regionDir
 argument_list|,
 name|HConstants
 operator|.
@@ -3503,7 +3463,7 @@ name|RECOVERED_EDITS_DIR
 argument_list|)
 return|;
 block|}
-comment|/**    * Check whether there is recovered.edits in the region dir    * @param fs FileSystem    * @param conf conf    * @param regionInfo the region to check    * @throws IOException IOException    * @return true if recovered.edits exist in the region dir    */
+comment|/**    * Check whether there is recovered.edits in the region dir    * @param walFS FileSystem    * @param conf conf    * @param regionInfo the region to check    * @throws IOException IOException    * @return true if recovered.edits exist in the region dir    */
 specifier|public
 specifier|static
 name|boolean
@@ -3511,7 +3471,7 @@ name|hasRecoveredEdits
 parameter_list|(
 specifier|final
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 specifier|final
 name|Configuration
@@ -3541,28 +3501,26 @@ return|return
 literal|false
 return|;
 block|}
-name|Path
-name|rootDir
-init|=
-name|FSUtils
-operator|.
-name|getRootDir
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 comment|//Only default replica region can reach here, so we can use regioninfo
 comment|//directly without converting it to default replica's regioninfo.
 name|Path
 name|regionDir
 init|=
-name|HRegion
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getWALRegionDir
 argument_list|(
-name|rootDir
+name|conf
 argument_list|,
 name|regionInfo
+operator|.
+name|getTable
+argument_list|()
+argument_list|,
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|NavigableSet
@@ -3573,7 +3531,7 @@ name|files
 init|=
 name|getSplitEditFilesSorted
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|regionDir
 argument_list|)
@@ -3590,7 +3548,7 @@ name|isEmpty
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns sorted set of edit files made by splitter, excluding files    * with '.temp' suffix.    *    * @param fs    * @param regiondir    * @return Files in passed<code>regiondir</code> as a sorted set.    * @throws IOException    */
+comment|/**    * Returns sorted set of edit files made by splitter, excluding files    * with '.temp' suffix.    *    * @param walFS WAL FileSystem used to retrieving split edits files.    * @param regionDir WAL region dir to look for recovered edits files under.    * @return Files in passed<code>regionDir</code> as a sorted set.    * @throws IOException    */
 specifier|public
 specifier|static
 name|NavigableSet
@@ -3601,11 +3559,11 @@ name|getSplitEditFilesSorted
 parameter_list|(
 specifier|final
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 specifier|final
 name|Path
-name|regiondir
+name|regionDir
 parameter_list|)
 throws|throws
 name|IOException
@@ -3626,13 +3584,13 @@ name|editsdir
 init|=
 name|getRegionDirRecoveredEditsDir
 argument_list|(
-name|regiondir
+name|regionDir
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -3652,7 +3610,7 @@ name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|editsdir
 argument_list|,
@@ -3696,7 +3654,7 @@ argument_list|)
 decl_stmt|;
 name|result
 operator|=
-name|fs
+name|walFS
 operator|.
 name|isFile
 argument_list|(
@@ -3805,7 +3763,7 @@ return|return
 name|filesSorted
 return|;
 block|}
-comment|/**    * Move aside a bad edits file.    *    * @param fs    * @param edits    *          Edits file to move aside.    * @return The name of the moved aside file.    * @throws IOException    */
+comment|/**    * Move aside a bad edits file.    *    * @param walFS WAL FileSystem used to rename bad edits file.    * @param edits    *          Edits file to move aside.    * @return The name of the moved aside file.    * @throws IOException    */
 specifier|public
 specifier|static
 name|Path
@@ -3813,7 +3771,7 @@ name|moveAsideBadEditsFile
 parameter_list|(
 specifier|final
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 specifier|final
 name|Path
@@ -3849,7 +3807,7 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|rename
 argument_list|(
@@ -3944,7 +3902,7 @@ index|[]
 name|getSequenceIdFiles
 parameter_list|(
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|Path
 name|regionDir
@@ -3970,7 +3928,7 @@ name|FileStatus
 index|[]
 name|files
 init|=
-name|fs
+name|walFS
 operator|.
 name|listStatus
 argument_list|(
@@ -4104,7 +4062,7 @@ name|long
 name|getMaxRegionSequenceId
 parameter_list|(
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|Path
 name|regionDir
@@ -4117,7 +4075,7 @@ name|getMaxSequenceId
 argument_list|(
 name|getSequenceIdFiles
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|regionDir
 argument_list|)
@@ -4131,7 +4089,7 @@ name|void
 name|writeRegionSequenceIdFile
 parameter_list|(
 name|FileSystem
-name|fs
+name|walFS
 parameter_list|,
 name|Path
 name|regionDir
@@ -4148,7 +4106,7 @@ name|files
 init|=
 name|getSequenceIdFiles
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|regionDir
 argument_list|)
@@ -4213,7 +4171,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|createNewFile
 argument_list|(
@@ -4221,7 +4179,7 @@ name|newSeqIdFile
 argument_list|)
 operator|&&
 operator|!
-name|fs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -4285,7 +4243,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|fs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -4364,14 +4322,14 @@ name|FSUtils
 operator|.
 name|getInstance
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|conf
 argument_list|)
 operator|.
 name|recoverFileLease
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|path
 argument_list|,
@@ -4658,7 +4616,7 @@ name|walFactory
 operator|.
 name|createRecoveredEditsWriter
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|logfile
 argument_list|)
@@ -4683,7 +4641,7 @@ name|walFactory
 operator|.
 name|createReader
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|curLogFile
 argument_list|,
@@ -6458,9 +6416,6 @@ specifier|private
 name|void
 name|deleteOneWithFewerEntries
 parameter_list|(
-name|FileSystem
-name|rootFs
-parameter_list|,
 name|WriterAndPath
 name|wap
 parameter_list|,
@@ -6487,7 +6442,7 @@ name|walFactory
 operator|.
 name|createReader
 argument_list|(
-name|fs
+name|walFS
 argument_list|,
 name|dst
 argument_list|)
@@ -6561,7 +6516,7 @@ name|dst
 operator|+
 literal|", length="
 operator|+
-name|fs
+name|walFS
 operator|.
 name|getFileStatus
 argument_list|(
@@ -6575,7 +6530,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|fs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -6619,7 +6574,7 @@ name|p
 operator|+
 literal|", length="
 operator|+
-name|rootFs
+name|walFS
 operator|.
 name|getFileStatus
 argument_list|(
@@ -6635,7 +6590,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|rootFs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -7123,16 +7078,6 @@ operator|.
 name|p
 argument_list|)
 expr_stmt|;
-name|FileSystem
-name|rootFs
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 try|try
 block|{
 name|wap
@@ -7231,7 +7176,7 @@ block|{
 comment|// just remove the empty recovered.edits file
 if|if
 condition|(
-name|rootFs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -7241,7 +7186,7 @@ name|p
 argument_list|)
 operator|&&
 operator|!
-name|rootFs
+name|walFS
 operator|.
 name|delete
 argument_list|(
@@ -7311,7 +7256,7 @@ operator|.
 name|p
 argument_list|)
 operator|&&
-name|rootFs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -7321,8 +7266,6 @@ condition|)
 block|{
 name|deleteOneWithFewerEntries
 argument_list|(
-name|rootFs
-argument_list|,
 name|wap
 argument_list|,
 name|dst
@@ -7334,7 +7277,7 @@ comment|// writes the data without touching disk.
 comment|// TestHLogSplit#testThreading is an example.
 if|if
 condition|(
-name|rootFs
+name|walFS
 operator|.
 name|exists
 argument_list|(
@@ -7347,7 +7290,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|rootFs
+name|walFS
 operator|.
 name|rename
 argument_list|(
@@ -7819,18 +7762,18 @@ literal|null
 return|;
 block|}
 name|FileSystem
-name|rootFs
+name|walFs
 init|=
-name|FileSystem
+name|FSUtils
 operator|.
-name|get
+name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|rootFs
+name|walFs
 operator|.
 name|exists
 argument_list|(
@@ -7850,7 +7793,7 @@ name|regionedits
 operator|+
 literal|", length="
 operator|+
-name|rootFs
+name|walFs
 operator|.
 name|getFileStatus
 argument_list|(
@@ -7864,7 +7807,7 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
-name|rootFs
+name|walFs
 operator|.
 name|delete
 argument_list|(
