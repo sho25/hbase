@@ -7502,6 +7502,11 @@ expr_stmt|;
 name|stopChores
 argument_list|()
 expr_stmt|;
+name|CleanerChore
+operator|.
+name|shutDownChorePool
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|debug

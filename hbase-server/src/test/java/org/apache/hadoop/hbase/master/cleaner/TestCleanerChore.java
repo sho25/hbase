@@ -285,7 +285,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|After
+name|AfterClass
 import|;
 end_import
 
@@ -295,7 +295,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
+name|BeforeClass
 import|;
 end_import
 
@@ -448,13 +448,12 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 annotation|@
-name|Before
+name|BeforeClass
 specifier|public
+specifier|static
 name|void
 name|setup
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|CleanerChore
 operator|.
@@ -468,8 +467,9 @@ argument_list|)
 expr_stmt|;
 block|}
 annotation|@
-name|After
+name|AfterClass
 specifier|public
+specifier|static
 name|void
 name|cleanup
 parameter_list|()
@@ -480,6 +480,11 @@ comment|// delete and recreate the test directory, ensuring a clean test dir bet
 name|UTIL
 operator|.
 name|cleanupTestDir
+argument_list|()
+expr_stmt|;
+name|CleanerChore
+operator|.
+name|shutDownChorePool
 argument_list|()
 expr_stmt|;
 block|}
@@ -1859,6 +1864,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|UTIL
+operator|.
+name|cleanupTestDir
+argument_list|()
+expr_stmt|;
 name|Stoppable
 name|stop
 init|=
