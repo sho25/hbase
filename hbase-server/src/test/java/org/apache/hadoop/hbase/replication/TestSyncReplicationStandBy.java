@@ -66,6 +66,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -450,6 +462,11 @@ operator|.
 name|call
 argument_list|(
 name|table
+argument_list|)
+expr_stmt|;
+name|fail
+argument_list|(
+literal|"Should not allow the action"
 argument_list|)
 expr_stmt|;
 block|}
