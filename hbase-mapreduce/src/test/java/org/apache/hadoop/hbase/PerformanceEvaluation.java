@@ -6659,6 +6659,13 @@ name|ScanMetrics
 name|metrics
 parameter_list|)
 block|{
+if|if
+condition|(
+name|metrics
+operator|==
+literal|null
+condition|)
+return|return;
 name|Map
 argument_list|<
 name|String
