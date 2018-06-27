@@ -1729,9 +1729,9 @@ name|getPeerUUID
 parameter_list|()
 block|{
 return|return
-name|UUID
+name|utility1
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 return|;
 block|}

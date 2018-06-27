@@ -2672,9 +2672,9 @@ specifier|static
 name|UUID
 name|uuid
 init|=
-name|UUID
+name|utility1
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 decl_stmt|;
 specifier|static

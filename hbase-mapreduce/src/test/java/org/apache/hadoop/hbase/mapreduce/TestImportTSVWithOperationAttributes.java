@@ -93,16 +93,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -898,9 +888,9 @@ operator|.
 name|getMethodName
 argument_list|()
 operator|+
-name|UUID
+name|util
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1002,9 +992,9 @@ operator|.
 name|getMethodName
 argument_list|()
 operator|+
-name|UUID
+name|util
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 argument_list|)
 decl_stmt|;

@@ -1180,9 +1180,9 @@ decl_stmt|;
 name|UUID
 name|uuid
 init|=
-name|UUID
+name|util
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 decl_stmt|;
 comment|//create a random UUID.
@@ -1279,9 +1279,9 @@ decl_stmt|;
 name|UUID
 name|uuid
 init|=
-name|UUID
+name|util
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 decl_stmt|;
 comment|//create a random UUID.

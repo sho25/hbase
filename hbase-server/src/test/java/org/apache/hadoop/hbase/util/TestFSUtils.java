@@ -131,16 +131,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -1546,9 +1536,9 @@ name|File
 operator|.
 name|separator
 operator|+
-name|UUID
+name|htu
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString
@@ -1679,9 +1669,9 @@ comment|// then that the correct file is created
 name|String
 name|file
 init|=
-name|UUID
+name|htu
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString
@@ -1960,9 +1950,9 @@ decl_stmt|;
 name|String
 name|file
 init|=
-name|UUID
+name|htu
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString
@@ -2059,9 +2049,9 @@ block|{
 name|String
 name|dstFile
 init|=
-name|UUID
+name|htu
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString
@@ -2293,9 +2283,9 @@ expr_stmt|;
 name|String
 name|file
 init|=
-name|UUID
+name|htu
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString

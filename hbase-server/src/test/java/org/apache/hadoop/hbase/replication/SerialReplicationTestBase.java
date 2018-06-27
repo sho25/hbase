@@ -487,9 +487,9 @@ specifier|final
 name|UUID
 name|PEER_UUID
 init|=
-name|UUID
+name|UTIL
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 decl_stmt|;
 annotation|@

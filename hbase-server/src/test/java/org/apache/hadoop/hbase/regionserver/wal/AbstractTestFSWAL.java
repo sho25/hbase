@@ -3014,9 +3014,9 @@ name|clusterIds
 operator|.
 name|add
 argument_list|(
-name|UUID
+name|TEST_UTIL
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 argument_list|)
 expr_stmt|;

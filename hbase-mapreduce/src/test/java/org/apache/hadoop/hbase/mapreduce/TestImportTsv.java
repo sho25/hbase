@@ -135,16 +135,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -925,9 +915,9 @@ name|valueOf
 argument_list|(
 literal|"test-"
 operator|+
-name|UUID
+name|util
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 argument_list|)
 expr_stmt|;

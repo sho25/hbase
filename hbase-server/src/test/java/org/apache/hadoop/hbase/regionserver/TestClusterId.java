@@ -43,16 +43,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|UUID
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -632,9 +622,9 @@ name|s
 operator|.
 name|writeUTF
 argument_list|(
-name|UUID
+name|TEST_UTIL
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString

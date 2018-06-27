@@ -87,11 +87,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|UUID
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -105,7 +109,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseClassTestRule
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -231,6 +235,16 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|static
+specifier|final
+name|HBaseTestingUtility
+name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+specifier|private
 name|String
 name|uuid
 decl_stmt|;
@@ -263,9 +277,9 @@ argument_list|()
 decl_stmt|;
 name|uuid
 operator|=
-name|UUID
+name|TEST_UTIL
 operator|.
-name|randomUUID
+name|getRandomUUID
 argument_list|()
 operator|.
 name|toString
