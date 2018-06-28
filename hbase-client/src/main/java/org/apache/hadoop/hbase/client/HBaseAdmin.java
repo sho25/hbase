@@ -19793,7 +19793,7 @@ specifier|final
 name|HBaseAdmin
 name|admin
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|Long
 name|procId
@@ -20873,6 +20873,10 @@ name|tableName
 operator|.
 name|getNameWithNamespaceInclAsString
 argument_list|()
+operator|+
+literal|", procId: "
+operator|+
+name|procId
 return|;
 block|}
 specifier|protected
@@ -20895,16 +20899,9 @@ throw|throw
 operator|new
 name|InterruptedIOException
 argument_list|(
-literal|"Interrupted while waiting for operation: "
+literal|"Interrupted while waiting for "
 operator|+
-name|getOperationType
-argument_list|()
-operator|+
-literal|" on table: "
-operator|+
-name|tableName
-operator|.
-name|getNameWithNamespaceInclAsString
+name|getDescription
 argument_list|()
 argument_list|)
 throw|;
@@ -20925,16 +20922,7 @@ throw|throw
 operator|new
 name|TimeoutException
 argument_list|(
-literal|"The operation: "
-operator|+
-name|getOperationType
-argument_list|()
-operator|+
-literal|" on table: "
-operator|+
-name|tableName
-operator|.
-name|getNameAsString
+name|getDescription
 argument_list|()
 operator|+
 literal|" has not completed after "
