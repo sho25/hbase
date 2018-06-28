@@ -1310,6 +1310,50 @@ name|BLOCK_SIZE
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
+name|void
+name|waitUntilFlushedToBucket
+parameter_list|(
+name|BucketCache
+name|cache
+parameter_list|,
+name|BlockCacheKey
+name|cacheKey
+parameter_list|)
+throws|throws
+name|InterruptedException
+block|{
+while|while
+condition|(
+operator|!
+name|cache
+operator|.
+name|backingMap
+operator|.
+name|containsKey
+argument_list|(
+name|cacheKey
+argument_list|)
+operator|||
+name|cache
+operator|.
+name|ramCache
+operator|.
+name|containsKey
+argument_list|(
+name|cacheKey
+argument_list|)
+condition|)
+block|{
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|100
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// BucketCache.cacheBlock is async, it first adds block to ramCache and writeQueue, then writer
 comment|// threads will flush it to the bucket and put reference entry in backingMap.
 specifier|private
@@ -1337,27 +1381,13 @@ argument_list|,
 name|block
 argument_list|)
 expr_stmt|;
-while|while
-condition|(
-operator|!
-name|cache
-operator|.
-name|backingMap
-operator|.
-name|containsKey
+name|waitUntilFlushedToBucket
 argument_list|(
+name|cache
+argument_list|,
 name|cacheKey
 argument_list|)
-condition|)
-block|{
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|100
-argument_list|)
 expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Test
@@ -2867,6 +2897,8 @@ specifier|public
 name|void
 name|testCacheBlockNextBlockMetadataMissing
 parameter_list|()
+throws|throws
+name|Exception
 block|{
 name|int
 name|size
@@ -3044,7 +3076,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|//Add blockWithNextBlockMetadata, expect blockWithNextBlockMetadata back.
+comment|// Add blockWithNextBlockMetadata, expect blockWithNextBlockMetadata back.
 name|CacheTestUtils
 operator|.
 name|getBlockAndAssertEquals
@@ -3060,7 +3092,14 @@ argument_list|,
 name|block1Buffer
 argument_list|)
 expr_stmt|;
-comment|//Add blockWithoutNextBlockMetada, expect blockWithNextBlockMetadata back.
+name|waitUntilFlushedToBucket
+argument_list|(
+name|cache
+argument_list|,
+name|key
+argument_list|)
+expr_stmt|;
+comment|// Add blockWithoutNextBlockMetada, expect blockWithNextBlockMetadata back.
 name|CacheTestUtils
 operator|.
 name|getBlockAndAssertEquals
@@ -3076,7 +3115,7 @@ argument_list|,
 name|block1Buffer
 argument_list|)
 expr_stmt|;
-comment|//Clear and add blockWithoutNextBlockMetadata
+comment|// Clear and add blockWithoutNextBlockMetadata
 name|cache
 operator|.
 name|evictBlock
@@ -3115,7 +3154,14 @@ argument_list|,
 name|block2Buffer
 argument_list|)
 expr_stmt|;
-comment|//Add blockWithNextBlockMetadata, expect blockWithNextBlockMetadata to replace.
+name|waitUntilFlushedToBucket
+argument_list|(
+name|cache
+argument_list|,
+name|key
+argument_list|)
+expr_stmt|;
+comment|// Add blockWithNextBlockMetadata, expect blockWithNextBlockMetadata to replace.
 name|CacheTestUtils
 operator|.
 name|getBlockAndAssertEquals
