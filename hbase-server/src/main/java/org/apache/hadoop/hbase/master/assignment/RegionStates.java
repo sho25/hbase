@@ -632,6 +632,9 @@ name|regionLocation
 init|=
 literal|null
 decl_stmt|;
+comment|// notice that, the lastHost will only be updated when a region is successfully CLOSED through
+comment|// UnassignProcedure, so do not use it for critical condition as the data maybe stale and unsync
+comment|// with the data in meta.
 specifier|private
 specifier|volatile
 name|ServerName

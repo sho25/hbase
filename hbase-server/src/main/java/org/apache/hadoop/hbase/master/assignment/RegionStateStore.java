@@ -994,11 +994,6 @@ operator|.
 name|getRegionLocation
 argument_list|()
 argument_list|,
-name|regionStateNode
-operator|.
-name|getLastHost
-argument_list|()
-argument_list|,
 name|openSeqNum
 argument_list|,
 comment|// The regionStateNode may have no procedure in a test scenario; allow for this.
@@ -1081,27 +1076,18 @@ specifier|private
 name|void
 name|updateUserRegionLocation
 parameter_list|(
-specifier|final
 name|RegionInfo
 name|regionInfo
 parameter_list|,
-specifier|final
 name|State
 name|state
 parameter_list|,
-specifier|final
 name|ServerName
 name|regionLocation
 parameter_list|,
-specifier|final
-name|ServerName
-name|lastHost
-parameter_list|,
-specifier|final
 name|long
 name|openSeqNum
 parameter_list|,
-specifier|final
 name|long
 name|pid
 parameter_list|)
@@ -1300,14 +1286,6 @@ condition|(
 name|regionLocation
 operator|!=
 literal|null
-operator|&&
-operator|!
-name|regionLocation
-operator|.
-name|equals
-argument_list|(
-name|lastHost
-argument_list|)
 condition|)
 block|{
 comment|// Ideally, if no regionLocation, write null to the hbase:meta but this will confuse clients
