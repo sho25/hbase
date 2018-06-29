@@ -75,6 +75,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|NotImplementedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|conf
@@ -254,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection} and call {@link #close()} afterwards.  *  *<p>Table can be used to get, put, delete or scan data from a table.  * @see ConnectionFactory  * @see Connection  * @see Admin  * @see RegionLocator  * @since 0.99.0  */
+comment|/**  * Used to communicate with a single HBase table.  * Obtain an instance from a {@link Connection} and call {@link #close()} afterwards.  *  *<p><code>Table</code> can be used to get, put, delete or scan data from a table.  * @see ConnectionFactory  * @see Connection  * @see Admin  * @see RegionLocator  * @since 0.99.0  */
 end_comment
 
 begin_interface
@@ -295,6 +309,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Test for the existence of columns in the table, as specified by the Get.    *<p>    *    * This will return true if the Get matches one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transfered to    * the client.    *    * @param get the Get    * @return true if the specified Get matches one or more keys, false if not    * @throws IOException e    */
+specifier|default
 name|boolean
 name|exists
 parameter_list|(
@@ -303,8 +318,17 @@ name|get
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Test for the existence of columns in the table, as specified by the Gets.    *<p>    *    * This will return an array of booleans. Each value will be true if the related Get matches    * one or more keys, false if not.    *<p>    *    * This is a server-side call so it prevents any data from being transferred to    * the client.    *    * @param gets the Gets    * @return Array of boolean.  True if the specified Get matches one or more keys, false if not.    * @throws IOException e    */
+specifier|default
 name|boolean
 index|[]
 name|exists
@@ -317,7 +341,15 @@ name|gets
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Test for the existence of columns in the table, as specified by the Gets.    * This will return an array of booleans. Each value will be true if the related Get matches    * one or more keys, false if not.    * This is a server-side call so it prevents any data from being transferred to    * the client.    *    * @param gets the Gets    * @return Array of boolean.  True if the specified Get matches one or more keys, false if not.    * @throws IOException e    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #exists(List)}    */
 annotation|@
 name|Deprecated
@@ -343,6 +375,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Method that does a batch call on Deletes, Gets, Puts, Increments, Appends, RowMutations.    * The ordering of execution of the actions is not defined. Meaning if you do a Put and a    * Get in the same {@link #batch} call, you will not necessarily be    * guaranteed that the Get returns what the Put had put.    *    * @param actions list of Get, Put, Delete, Increment, Append, RowMutations.    * @param results Empty Object[], same size as actions. Provides access to partial    *                results, in case an exception is thrown. A null in the result array means that    *                the call for that action failed, even after retries. The order of the objects    *                in the results array corresponds to the order of actions in the request list.    * @throws IOException    * @since 0.90.0    */
+specifier|default
 name|void
 name|batch
 parameter_list|(
@@ -364,8 +397,17 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Same as {@link #batch(List, Object[])}, but with a callback.    * @since 0.96.0    */
+specifier|default
 parameter_list|<
 name|R
 parameter_list|>
@@ -399,8 +441,17 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
-function_decl|;
-comment|/**    * Extracts certain cells from a given row.    * @param get The object that specifies what data to fetch and from which row.    * @return The data coming from the specified row, if it exists.  If the row    * specified doesn't exist, the {@link Result} instance returned won't    * contain any {@link org.apache.hadoop.hbase.KeyValue}, as indicated by {@link Result#isEmpty()}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Extracts certain cells from a given row.    * @param get The object that specifies what data to fetch and from which row.    * @return The data coming from the specified row, if it exists.  If the row    *   specified doesn't exist, the {@link Result} instance returned won't    *   contain any {@link org.apache.hadoop.hbase.KeyValue}, as indicated by    *   {@link Result#isEmpty()}.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|Result
 name|get
 parameter_list|(
@@ -409,8 +460,17 @@ name|get
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Extracts specified cells from the given rows, as a batch.    *    * @param gets The objects that specify what data to fetch and from which rows.    * @return The data coming from the specified rows, if it exists.  If the row specified doesn't    * exist, the {@link Result} instance returned won't contain any {@link    * org.apache.hadoop.hbase.Cell}s, as indicated by {@link Result#isEmpty()}. If there are any    * failures even after retries, there will be a<code>null</code> in the results' array for those    * Gets, AND an exception will be thrown. The ordering of the Result array corresponds to the order    * of the list of passed in Gets.    * @throws IOException if a remote or network exception occurs.    * @since 0.90.0    * @apiNote {@link #put(List)} runs pre-flight validations on the input list on client.    * Currently {@link #get(List)} doesn't run any validations on the client-side, currently there    * is no need, but this may change in the future. An    * {@link IllegalArgumentException} will be thrown in this case.    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Extracts specified cells from the given rows, as a batch.    *    * @param gets The objects that specify what data to fetch and from which rows.    * @return The data coming from the specified rows, if it exists.  If the row specified doesn't    *   exist, the {@link Result} instance returned won't contain any    *   {@link org.apache.hadoop.hbase.Cell}s, as indicated by {@link Result#isEmpty()}. If there    *   are any failures even after retries, there will be a<code>null</code> in the results' array    *   for  those Gets, AND an exception will be thrown. The ordering of the Result array    *   corresponds to  the order of the list of passed in Gets.    * @throws IOException if a remote or network exception occurs.    * @since 0.90.0    * @apiNote {@link #put(List)} runs pre-flight validations on the input list on client.    *   Currently {@link #get(List)} doesn't run any validations on the client-side, currently there    *   is no need, but this may change in the future. An    * {@link IllegalArgumentException} will be thrown in this case.    */
+specifier|default
 name|Result
 index|[]
 name|get
@@ -423,8 +483,17 @@ name|gets
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Returns a scanner on the current table as specified by the {@link Scan}    * object.    * Note that the passed {@link Scan}'s start row and caching properties    * maybe changed.    *    * @param scan A configured {@link Scan} object.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -433,8 +502,17 @@ name|scan
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Gets a scanner on the current table for the given family.    *    * @param family The column family to scan.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -444,8 +522,17 @@ name|family
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Gets a scanner on the current table for the given family and qualifier.    *    * @param family The column family to scan.    * @param qualifier The column qualifier to scan.    * @return A scanner.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|ResultScanner
 name|getScanner
 parameter_list|(
@@ -459,8 +546,17 @@ name|qualifier
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Puts some data in the table.    *    * @param put The data to put.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|void
 name|put
 parameter_list|(
@@ -469,8 +565,17 @@ name|put
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Batch puts the specified data into the table.    *<p>    * This can be used for group commit, or for submitting user defined batches. Before sending    * a batch of mutations to the server, the client runs a few validations on the input list. If an    * error is found, for example, a mutation was supplied but was missing it's column an    * {@link IllegalArgumentException} will be thrown and no mutations will be applied. If there    * are any failures even after retries, a {@link RetriesExhaustedWithDetailsException} will be    * thrown. RetriesExhaustedWithDetailsException contains lists of failed mutations and    * corresponding remote exceptions. The ordering of mutations and exceptions in the    * encapsulating exception corresponds to the order of the input list of Put requests.    *    * @param puts The list of mutations to apply.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|void
 name|put
 parameter_list|(
@@ -482,10 +587,19 @@ name|puts
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -510,10 +624,19 @@ name|put
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -543,10 +666,19 @@ name|put
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the put.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the put.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op comparison operator to use    * @param value the expected value    * @param put data to put if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndPut
 parameter_list|(
@@ -574,8 +706,17 @@ name|put
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Deletes the specified cells/row.    *    * @param delete The object that specifies what to delete.    * @throws IOException if a remote or network exception occurs.    * @since 0.20.0    */
+specifier|default
 name|void
 name|delete
 parameter_list|(
@@ -584,8 +725,17 @@ name|delete
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Batch Deletes the specified cells/rows from the table.    *<p>    * If a specified row does not exist, {@link Delete} will report as though sucessful    * delete; no exception will be thrown. If there are any failures even after retries,    * a * {@link RetriesExhaustedWithDetailsException} will be thrown.    * RetriesExhaustedWithDetailsException contains lists of failed {@link Delete}s and    * corresponding remote exceptions.    *    * @param deletes List of things to delete. The input list gets modified by this    * method. All successfully applied {@link Delete}s in the list are removed (in particular it    * gets re-ordered, so the order in which the elements are inserted in the list gives no    * guarantee as to the order in which the {@link Delete}s are executed).    * @throws IOException if a remote or network exception occurs. In that case    * the {@code deletes} argument will contain the {@link Delete} instances    * that have not be successfully applied.    * @since 0.20.1    * @apiNote In 3.0.0 version, the input list {@code deletes} will no longer be modified. Also,    * {@link #put(List)} runs pre-flight validations on the input list on client. Currently    * {@link #delete(List)} doesn't run validations on the client, there is no need currently,    * but this may change in the future. An * {@link IllegalArgumentException} will be thrown    * in this case.    */
+specifier|default
 name|void
 name|delete
 parameter_list|(
@@ -597,10 +747,19 @@ name|deletes
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existance)    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -625,10 +784,19 @@ name|delete
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -658,10 +826,19 @@ name|delete
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected    * value. If it does, it adds the delete.  If the passed value is null, the    * check is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> add the delete.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op comparison operator to use    * @param value the expected value    * @param delete data to delete if check succeeds    * @throws IOException e    * @return true if the new delete was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndDelete
 parameter_list|(
@@ -689,8 +866,17 @@ name|delete
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value. If it does, it    * adds the Put/Delete/RowMutations.    *<p>    * Use the returned {@link CheckAndMutateBuilder} to construct your request and then execute it.    * This is a fluent style API, the code is like:    *    *<pre>    *<code>    * table.checkAndMutate(row, family).qualifier(qualifier).ifNotExists().thenPut(put);    *</code>    *</pre>    */
+specifier|default
 name|CheckAndMutateBuilder
 name|checkAndMutate
 parameter_list|(
@@ -702,7 +888,15 @@ name|byte
 index|[]
 name|family
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * A helper class for sending checkAndMutate request.    */
 interface|interface
 name|CheckAndMutateBuilder
@@ -794,6 +988,7 @@ name|IOException
 function_decl|;
 block|}
 comment|/**    * Performs multiple mutations atomically on a single row. Currently    * {@link Put} and {@link Delete} are supported.    *    * @param rm object that specifies the set of mutations to perform atomically    * @throws IOException    */
+specifier|default
 name|void
 name|mutateRow
 parameter_list|(
@@ -803,8 +998,17 @@ name|rm
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Appends values to one or more columns within a single row.    *<p>    * This operation guaranteed atomicity to readers. Appends are done    * under a single row lock, so write operations to a row are synchronized, and    * readers are guaranteed to see this operation fully completed.    *    * @param append object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the append operation (maybe null)    */
+specifier|default
 name|Result
 name|append
 parameter_list|(
@@ -814,8 +1018,17 @@ name|append
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Increments one or more columns within a single row.    *<p>    * This operation ensures atomicity to readers. Increments are done    * under a single row lock, so write operations to a row are synchronized, and    * readers are guaranteed to see this operation fully completed.    *    * @param increment object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the increment    */
+specifier|default
 name|Result
 name|increment
 parameter_list|(
@@ -825,8 +1038,17 @@ name|increment
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * See {@link #incrementColumnValue(byte[], byte[], byte[], long, Durability)}    *<p>    * The {@link Durability} is defaulted to {@link Durability#SYNC_WAL}.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
+specifier|default
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -847,8 +1069,17 @@ name|amount
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically increments a column value. If the column value already exists    * and is not a big-endian long, this could throw an exception. If the column    * value does not yet exist it is initialized to<code>amount</code> and    * written to the specified column.    *    *<p>Setting durability to {@link Durability#SKIP_WAL} means that in a fail    * scenario you will lose any increments that have not been flushed.    * @param row The row that contains the cell to increment.    * @param family The column family of the cell to increment.    * @param qualifier The column qualifier of the cell to increment.    * @param amount The amount to increment the cell with (or decrement, if the    * amount is negative).    * @param durability The persistence guarantee for this increment.    * @return The new value, post increment.    * @throws IOException if a remote or network exception occurs.    */
+specifier|default
 name|long
 name|incrementColumnValue
 parameter_list|(
@@ -872,17 +1103,35 @@ name|durability
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Releases any resources held or pending changes in internal buffers.    *    * @throws IOException if a remote or network exception occurs.    */
 annotation|@
 name|Override
+specifier|default
 name|void
 name|close
 parameter_list|()
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the    * table region containing the specified row.  The row given does not actually have    * to exist.  Whichever region would contain the row based on start and end keys will    * be used.  Note that the {@code row} parameter is also not passed to the    * coprocessor handler registered for this protocol, unless the {@code row}    * is separately passed as an argument in the service request.  The parameter    * here is only used to locate the region used to handle the call.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myTable.coprocessorService(rowkey);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param row The row key used to identify the remote region location    * @return A CoprocessorRpcChannel instance    */
+specifier|default
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|(
@@ -890,8 +1139,17 @@ name|byte
 index|[]
 name|row
 parameter_list|)
-function_decl|;
-comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), and    * invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * with each {@link com.google.protobuf.Service} instance.    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    * selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row. If {@code    * null}, selection will continue through the last table region.    * @param callable this instance's {@link org.apache.hadoop.hbase.client.coprocessor.Batch    * .Call#call}    * method will be invoked once per table region, using the {@link com.google.protobuf.Service}    * instance connected to that region.    * @param<T> the {@link com.google.protobuf.Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's {@link    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * @return a map of result values keyed by region name    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), and    * invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * with each {@link com.google.protobuf.Service} instance.    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    *   selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row. If    *   {@code null}, selection will continue through the last table region.    * @param callable this instance's    *   {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call}    *   method will be invoked once per table region, using the {@link com.google.protobuf.Service}    *   instance connected to that region.    * @param<T> the {@link com.google.protobuf.Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's {@link    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * @return a map of result values keyed by region name    */
+specifier|default
 parameter_list|<
 name|T
 extends|extends
@@ -938,8 +1196,17 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), and    * invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * with each {@link Service} instance.    *    *<p> The given {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[],    * byte[], Object)} method will be called with the return value from each region's {@link    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} invocation.</p>    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    * selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row. If {@code    * null}, selection will continue through the last table region.    * @param callable this instance's {@link org.apache.hadoop.hbase.client.coprocessor.Batch    * .Call#call}    * method will be invoked once per table region, using the {@link Service} instance connected to    * that region.    * @param callback    * @param<T> the {@link Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's {@link    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), and    * invokes the passed {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    * with each {@link Service} instance.    *    *<p> The given    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[],byte[],Object)}    * method will be called with the return value from each region's    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} invocation.</p>    *    * @param service the protocol buffer {@code Service} implementation to call    * @param startKey start region selection with region containing this row.  If {@code null}, the    *   selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row. If    *   {@code null}, selection will continue through the last table region.    * @param callable this instance's    *   {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call}    *   method will be invoked once per table region, using the {@link Service} instance connected to    *   that region.    * @param<T> the {@link Service} subclass to connect to    * @param<R> Return type for the {@code callable} parameter's {@link    * org.apache.hadoop.hbase.client.coprocessor.Batch.Call#call} method    */
+specifier|default
 parameter_list|<
 name|T
 extends|extends
@@ -989,8 +1256,17 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *    * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param<R>    *          the response type for the coprocessor Service method    * @throws ServiceException    * @throws Throwable    * @return a map of result values keyed by region name    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *    * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param<R>    *          the response type for the coprocessor Service method    * @return a map of result values keyed by region name    */
+specifier|default
 parameter_list|<
 name|R
 extends|extends
@@ -1028,8 +1304,17 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
-comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *    *<p>    * The given    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[],byte[],Object)}    * method will be called with the return value from each region's invocation.    *</p>    *    * @param methodDescriptor    *          the descriptor for the protobuf service method to call.    * @param request    *          the method call parameters    * @param startKey    *          start region selection with region containing this row. If {@code null}, the    *          selection will start with the first table region.    * @param endKey    *          select regions up to and including the region containing this row. If {@code null},    *          selection will continue through the last table region.    * @param responsePrototype    *          the proto type of the response of the method in Service.    * @param callback    *          callback to invoke with the response for each region    * @param<R>    *          the response type for the coprocessor Service method    * @throws ServiceException    * @throws Throwable    */
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Creates an instance of the given {@link com.google.protobuf.Service} subclass for each table    * region spanning the range from the {@code startKey} row to {@code endKey} row (inclusive), all    * the invocations to the same region server will be batched into one call. The coprocessor    * service is invoked according to the service instance, method name and parameters.    *    *<p>    * The given    * {@link org.apache.hadoop.hbase.client.coprocessor.Batch.Callback#update(byte[],byte[],Object)}    * method will be called with the return value from each region's invocation.    *</p>    *    * @param methodDescriptor the descriptor for the protobuf service method to call.    * @param request the method call parameters    * @param startKey start region selection with region containing this row.    *   If {@code null}, the selection will start with the first table region.    * @param endKey select regions up to and including the region containing this row.    *   If {@code null}, selection will continue through the last table region.    * @param responsePrototype the proto type of the response of the method in Service.    * @param callback callback to invoke with the response for each region    * @param<R>    *          the response type for the coprocessor Service method    */
+specifier|default
 parameter_list|<
 name|R
 extends|extends
@@ -1069,10 +1354,19 @@ throws|throws
 name|ServiceException
 throws|,
 name|Throwable
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param compareOp the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndMutate
 parameter_list|(
@@ -1102,10 +1396,19 @@ name|mutation
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Atomically checks if a row/family/qualifier value matches the expected value.    * If it does, it performs the row mutations.  If the passed value is null, the check    * is for the lack of column (ie: non-existence)    *    * The expected value argument of this call is on the left and the current    * value of the cell is on the right side of the comparison operator.    *    * Ie. eg. GREATER operator means expected value> existing<=> perform row mutations.    *    * @param row to check    * @param family column family to check    * @param qualifier column qualifier to check    * @param op the comparison operator    * @param value the expected value    * @param mutation  mutations to perform if check succeeds    * @throws IOException e    * @return true if the new put was executed, false otherwise    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use {@link #checkAndMutate(byte[], byte[])}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|checkAndMutate
 parameter_list|(
@@ -1133,107 +1436,223 @@ name|mutation
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout of each rpc request in this Table instance. It will be overridden by a more    * specific rpc timeout config such as readRpcTimeout or writeRpcTimeout.    * @see #getReadRpcTimeout(TimeUnit)    * @see #getWriteRpcTimeout(TimeUnit)    * @param unit the unit of time the timeout to be represented in    * @return rpc timeout in the specified time unit    */
+specifier|default
 name|long
 name|getRpcTimeout
 parameter_list|(
 name|TimeUnit
 name|unit
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout (millisecond) of each rpc request in this Table instance.    *    * @return Currently configured read timeout    * @deprecated use {@link #getReadRpcTimeout(TimeUnit)} or    *             {@link #getWriteRpcTimeout(TimeUnit)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|int
 name|getRpcTimeout
 parameter_list|()
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Set timeout (millisecond) of each rpc request in operations of this Table instance, will    * override the value of hbase.rpc.timeout in configuration.    * If a rpc request waiting too long, it will stop waiting and send a new request to retry until    * retries exhausted or operation timeout reached.    *<p>    * NOTE: This will set both the read and write timeout settings to the provided value.    *    * @param rpcTimeout the timeout of each rpc request in millisecond.    *    * @deprecated Use setReadRpcTimeout or setWriteRpcTimeout instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|setRpcTimeout
 parameter_list|(
 name|int
 name|rpcTimeout
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout of each rpc read request in this Table instance.    * @param unit the unit of time the timeout to be represented in    * @return read rpc timeout in the specified time unit    */
+specifier|default
 name|long
 name|getReadRpcTimeout
 parameter_list|(
 name|TimeUnit
 name|unit
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout (millisecond) of each rpc read request in this Table instance.    * @deprecated since 2.0 and will be removed in 3.0 version    *             use {@link #getReadRpcTimeout(TimeUnit)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|int
 name|getReadRpcTimeout
 parameter_list|()
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Set timeout (millisecond) of each rpc read request in operations of this Table instance, will    * override the value of hbase.rpc.read.timeout in configuration.    * If a rpc read request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param readRpcTimeout the timeout for read rpc request in milliseconds    * @deprecated since 2.0.0, use {@link TableBuilder#setReadRpcTimeout} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|setReadRpcTimeout
 parameter_list|(
 name|int
 name|readRpcTimeout
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout of each rpc write request in this Table instance.    * @param unit the unit of time the timeout to be represented in    * @return write rpc timeout in the specified time unit    */
+specifier|default
 name|long
 name|getWriteRpcTimeout
 parameter_list|(
 name|TimeUnit
 name|unit
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout (millisecond) of each rpc write request in this Table instance.    * @deprecated since 2.0 and will be removed in 3.0 version    *             use {@link #getWriteRpcTimeout(TimeUnit)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|int
 name|getWriteRpcTimeout
 parameter_list|()
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Set timeout (millisecond) of each rpc write request in operations of this Table instance, will    * override the value of hbase.rpc.write.timeout in configuration.    * If a rpc write request waiting too long, it will stop waiting and send a new request to retry    * until retries exhausted or operation timeout reached.    *    * @param writeRpcTimeout the timeout for write rpc request in milliseconds    * @deprecated since 2.0.0, use {@link TableBuilder#setWriteRpcTimeout} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|setWriteRpcTimeout
 parameter_list|(
 name|int
 name|writeRpcTimeout
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout of each operation in Table instance.    * @param unit the unit of time the timeout to be represented in    * @return operation rpc timeout in the specified time unit    */
+specifier|default
 name|long
 name|getOperationTimeout
 parameter_list|(
 name|TimeUnit
 name|unit
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Get timeout (millisecond) of each operation for in Table instance.    * @deprecated since 2.0 and will be removed in 3.0 version    *             use {@link #getOperationTimeout(TimeUnit)} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|int
 name|getOperationTimeout
 parameter_list|()
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 comment|/**    * Set timeout (millisecond) of each operation in this Table instance, will override the value    * of hbase.client.operation.timeout in configuration.    * Operation timeout is a top-level restriction that makes sure a blocking method will not be    * blocked more than this. In each operation, if rpc request fails because of timeout or    * other reason, it will retry until success or throw a RetriesExhaustedException. But if the    * total time being blocking reach the operation timeout before retries exhausted, it will break    * early and throw SocketTimeoutException.    * @param operationTimeout the total timeout of each operation in millisecond.    * @deprecated since 2.0.0, use {@link TableBuilder#setOperationTimeout} instead    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|setOperationTimeout
 parameter_list|(
 name|int
 name|operationTimeout
 parameter_list|)
-function_decl|;
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
 block|}
 end_interface
 
