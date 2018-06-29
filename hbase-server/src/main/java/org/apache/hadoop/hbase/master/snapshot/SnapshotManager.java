@@ -3479,7 +3479,7 @@ name|ProtobufUtil
 operator|.
 name|createSnapshotDesc
 argument_list|(
-name|reqSnapshot
+name|snapshot
 argument_list|)
 expr_stmt|;
 name|cpHost
@@ -4074,7 +4074,7 @@ name|ProtobufUtil
 operator|.
 name|createSnapshotDesc
 argument_list|(
-name|reqSnapshot
+name|snapshot
 argument_list|)
 expr_stmt|;
 name|cpHost
