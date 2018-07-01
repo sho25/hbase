@@ -259,7 +259,7 @@ name|CellComparator
 name|comparator
 decl_stmt|;
 comment|// active segment absorbs write operations
-specifier|protected
+specifier|private
 specifier|volatile
 name|MutableSegment
 name|active
@@ -446,8 +446,6 @@ name|resetActive
 parameter_list|()
 block|{
 comment|// Reset heap to not include any keys
-name|this
-operator|.
 name|active
 operator|=
 name|SegmentFactory
@@ -462,8 +460,6 @@ argument_list|,
 name|comparator
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
 name|timeOfOldestEdit
 operator|=
 name|Long
@@ -527,11 +523,155 @@ name|MemStoreSizing
 name|memstoreSizing
 parameter_list|)
 block|{
+name|doAddOrUpsert
+argument_list|(
+name|cell
+argument_list|,
+literal|0
+argument_list|,
+name|memstoreSizing
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+comment|/*    * Inserts the specified Cell into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified Cell.    *<p>    * First, the specified Cell is inserted into the Memstore.    *<p>    * If there are any existing Cell in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param cell the cell to be updated    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @param memstoreSizing object to accumulate changed size    */
+specifier|private
+name|void
+name|upsert
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|,
+name|long
+name|readpoint
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
+block|{
+name|doAddOrUpsert
+argument_list|(
+name|cell
+argument_list|,
+name|readpoint
+argument_list|,
+name|memstoreSizing
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|void
+name|doAddOrUpsert
+parameter_list|(
+name|Cell
+name|cell
+parameter_list|,
+name|long
+name|readpoint
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|,
+name|boolean
+name|doAdd
+parameter_list|)
+block|{
+name|MutableSegment
+name|currentActive
+decl_stmt|;
+name|boolean
+name|succ
+init|=
+literal|false
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|succ
+condition|)
+block|{
+name|currentActive
+operator|=
+name|getActive
+argument_list|()
+expr_stmt|;
+name|succ
+operator|=
+name|preUpdate
+argument_list|(
+name|currentActive
+argument_list|,
+name|cell
+argument_list|,
+name|memstoreSizing
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|succ
+condition|)
+block|{
+if|if
+condition|(
+name|doAdd
+condition|)
+block|{
+name|doAdd
+argument_list|(
+name|currentActive
+argument_list|,
+name|cell
+argument_list|,
+name|memstoreSizing
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|doUpsert
+argument_list|(
+name|currentActive
+argument_list|,
+name|cell
+argument_list|,
+name|readpoint
+argument_list|,
+name|memstoreSizing
+argument_list|)
+expr_stmt|;
+block|}
+name|postUpdate
+argument_list|(
+name|currentActive
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|}
+specifier|private
+name|void
+name|doAdd
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
+name|Cell
+name|cell
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
+block|{
 name|Cell
 name|toAdd
 init|=
 name|maybeCloneWithAllocator
 argument_list|(
+name|currentActive
+argument_list|,
 name|cell
 argument_list|,
 literal|false
@@ -546,10 +686,10 @@ operator|!=
 name|cell
 operator|)
 decl_stmt|;
-comment|// This cell data is backed by the same byte[] where we read request in RPC(See HBASE-15180). By
-comment|// default MSLAB is ON and we might have copied cell to MSLAB area. If not we must do below deep
-comment|// copy. Or else we will keep referring to the bigger chunk of memory and prevent it from
-comment|// getting GCed.
+comment|// This cell data is backed by the same byte[] where we read request in RPC(See
+comment|// HBASE-15180). By default MSLAB is ON and we might have copied cell to MSLAB area. If
+comment|// not we must do below deep copy. Or else we will keep referring to the bigger chunk of
+comment|// memory and prevent it from getting GCed.
 comment|// Copy to MSLAB would not have happened if
 comment|// 1. MSLAB is turned OFF. See "hbase.hregion.memstore.mslab.enabled"
 comment|// 2. When the size of the cell is bigger than the max size supported by MSLAB. See
@@ -571,6 +711,8 @@ expr_stmt|;
 block|}
 name|internalAdd
 argument_list|(
+name|currentActive
+argument_list|,
 name|toAdd
 argument_list|,
 name|mslabUsed
@@ -579,6 +721,88 @@ name|memstoreSizing
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
+name|void
+name|doUpsert
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
+name|Cell
+name|cell
+parameter_list|,
+name|long
+name|readpoint
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
+block|{
+comment|// Add the Cell to the MemStore
+comment|// Use the internalAdd method here since we (a) already have a lock
+comment|// and (b) cannot safely use the MSLAB here without potentially
+comment|// hitting OOME - see TestMemStore.testUpsertMSLAB for a
+comment|// test that triggers the pathological case if we don't avoid MSLAB
+comment|// here.
+comment|// This cell data is backed by the same byte[] where we read request in RPC(See
+comment|// HBASE-15180). We must do below deep copy. Or else we will keep referring to the bigger
+comment|// chunk of memory and prevent it from getting GCed.
+name|cell
+operator|=
+name|deepCopyIfNeeded
+argument_list|(
+name|cell
+argument_list|)
+expr_stmt|;
+name|boolean
+name|sizeAddedPreOperation
+init|=
+name|sizeAddedPreOperation
+argument_list|()
+decl_stmt|;
+name|currentActive
+operator|.
+name|upsert
+argument_list|(
+name|cell
+argument_list|,
+name|readpoint
+argument_list|,
+name|memstoreSizing
+argument_list|,
+name|sizeAddedPreOperation
+argument_list|)
+expr_stmt|;
+name|setOldestEditTimeToNow
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**      * Issue any synchronization and test needed before applying the update      * @param currentActive the segment to be updated      * @param cell the cell to be added      * @param memstoreSizing object to accumulate region size changes      * @return true iff can proceed with applying the update      */
+specifier|protected
+specifier|abstract
+name|boolean
+name|preUpdate
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
+name|Cell
+name|cell
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
+function_decl|;
+comment|/**    * Issue any post update synchronization and tests    * @param currentActive updated segment    */
+specifier|protected
+specifier|abstract
+name|void
+name|postUpdate
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|)
+function_decl|;
 specifier|private
 specifier|static
 name|Cell
@@ -865,7 +1089,8 @@ name|Logger
 name|log
 parameter_list|)
 block|{
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|dump
 argument_list|(
@@ -878,57 +1103,6 @@ name|dump
 argument_list|(
 name|log
 argument_list|)
-expr_stmt|;
-block|}
-comment|/*    * Inserts the specified Cell into MemStore and deletes any existing    * versions of the same row/family/qualifier as the specified Cell.    *<p>    * First, the specified Cell is inserted into the Memstore.    *<p>    * If there are any existing Cell in this MemStore with the same row,    * family, and qualifier, they are removed.    *<p>    * Callers must hold the read lock.    *    * @param cell the cell to be updated    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @param memstoreSize    */
-specifier|private
-name|void
-name|upsert
-parameter_list|(
-name|Cell
-name|cell
-parameter_list|,
-name|long
-name|readpoint
-parameter_list|,
-name|MemStoreSizing
-name|memstoreSizing
-parameter_list|)
-block|{
-comment|// Add the Cell to the MemStore
-comment|// Use the internalAdd method here since we (a) already have a lock
-comment|// and (b) cannot safely use the MSLAB here without potentially
-comment|// hitting OOME - see TestMemStore.testUpsertMSLAB for a
-comment|// test that triggers the pathological case if we don't avoid MSLAB
-comment|// here.
-comment|// This cell data is backed by the same byte[] where we read request in RPC(See HBASE-15180). We
-comment|// must do below deep copy. Or else we will keep referring to the bigger chunk of memory and
-comment|// prevent it from getting GCed.
-name|cell
-operator|=
-name|deepCopyIfNeeded
-argument_list|(
-name|cell
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|active
-operator|.
-name|upsert
-argument_list|(
-name|cell
-argument_list|,
-name|readpoint
-argument_list|,
-name|memstoreSizing
-argument_list|)
-expr_stmt|;
-name|setOldestEditTimeToNow
-argument_list|()
-expr_stmt|;
-name|checkActiveSize
-argument_list|()
 expr_stmt|;
 block|}
 comment|/*    * @param a    * @param b    * @return Return lowest of a or b or null if both a and b are null    */
@@ -1067,6 +1241,9 @@ specifier|private
 name|Cell
 name|maybeCloneWithAllocator
 parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
 name|Cell
 name|cell
 parameter_list|,
@@ -1075,7 +1252,7 @@ name|forceCloneOfBigCell
 parameter_list|)
 block|{
 return|return
-name|active
+name|currentActive
 operator|.
 name|maybeCloneWithAllocator
 argument_list|(
@@ -1085,11 +1262,14 @@ name|forceCloneOfBigCell
 argument_list|)
 return|;
 block|}
-comment|/*    * Internal version of add() that doesn't clone Cells with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    * @param toAdd the cell to add    * @param mslabUsed whether using MSLAB    * @param memstoreSize    */
+comment|/*    * Internal version of add() that doesn't clone Cells with the    * allocator, and doesn't take the lock.    *    * Callers should ensure they already have the read lock taken    * @param toAdd the cell to add    * @param mslabUsed whether using MSLAB    * @param memstoreSizing object to accumulate changed size    */
 specifier|private
 name|void
 name|internalAdd
 parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
 specifier|final
 name|Cell
 name|toAdd
@@ -1102,7 +1282,13 @@ name|MemStoreSizing
 name|memstoreSizing
 parameter_list|)
 block|{
-name|active
+name|boolean
+name|sizeAddedPreOperation
+init|=
+name|sizeAddedPreOperation
+argument_list|()
+decl_stmt|;
+name|currentActive
 operator|.
 name|add
 argument_list|(
@@ -1111,15 +1297,20 @@ argument_list|,
 name|mslabUsed
 argument_list|,
 name|memstoreSizing
+argument_list|,
+name|sizeAddedPreOperation
 argument_list|)
 expr_stmt|;
 name|setOldestEditTimeToNow
 argument_list|()
 expr_stmt|;
-name|checkActiveSize
-argument_list|()
-expr_stmt|;
 block|}
+specifier|protected
+specifier|abstract
+name|boolean
+name|sizeAddedPreOperation
+parameter_list|()
+function_decl|;
 specifier|private
 name|void
 name|setOldestEditTimeToNow
@@ -1186,13 +1377,6 @@ return|return
 name|snapshot
 return|;
 block|}
-comment|/**    * Check whether anything need to be done based on the current active set size    */
-specifier|protected
-specifier|abstract
-name|void
-name|checkActiveSize
-parameter_list|()
-function_decl|;
 comment|/**    * @return an ordered list of segments from most recent to oldest in memstore    */
 specifier|protected
 specifier|abstract

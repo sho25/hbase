@@ -63,28 +63,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|base
-operator|.
-name|Preconditions
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -874,6 +852,12 @@ name|canBeFlattened
 argument_list|()
 condition|)
 block|{
+name|s
+operator|.
+name|waitForUpdates
+argument_list|()
+expr_stmt|;
+comment|// to ensure all updates preceding s in-memory flush have completed
 comment|// size to be updated
 name|MemStoreSizing
 name|newMemstoreAccounting
@@ -928,20 +912,6 @@ operator|.
 name|getMemStoreSize
 argument_list|()
 decl_stmt|;
-name|Preconditions
-operator|.
-name|checkArgument
-argument_list|(
-name|mss
-operator|.
-name|getDataSize
-argument_list|()
-operator|==
-literal|0
-argument_list|,
-literal|"Not zero!"
-argument_list|)
-expr_stmt|;
 name|region
 operator|.
 name|addMemStoreSize

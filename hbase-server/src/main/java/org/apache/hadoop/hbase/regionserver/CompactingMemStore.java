@@ -344,10 +344,10 @@ decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
-name|double
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
+name|int
+name|IN_MEMORY_FLUSH_MULTIPLIER
 init|=
-literal|0.014
+literal|1
 decl_stmt|;
 specifier|private
 specifier|static
@@ -388,7 +388,7 @@ comment|// the threshold on active size for in-memory flush
 specifier|private
 specifier|final
 name|AtomicBoolean
-name|inMemoryFlushInProgress
+name|inMemoryCompactionInProgress
 init|=
 operator|new
 name|AtomicBoolean
@@ -465,8 +465,8 @@ name|ClassSize
 operator|.
 name|REFERENCE
 comment|// Store, RegionServicesForStores, CompactionPipeline,
-comment|// MemStoreCompactor, inMemoryFlushInProgress, allowCompaction,
-comment|// indexType
+comment|// MemStoreCompactor, inMemoryCompactionInProgress,
+comment|// allowCompaction, indexType
 operator|+
 name|Bytes
 operator|.
@@ -485,7 +485,7 @@ operator|*
 name|ClassSize
 operator|.
 name|ATOMIC_BOOLEAN
-comment|// inMemoryFlushInProgress and allowCompaction
+comment|// inMemoryCompactionInProgress and allowCompaction
 operator|+
 name|CompactionPipeline
 operator|.
@@ -710,13 +710,6 @@ operator|=
 literal|1
 expr_stmt|;
 block|}
-name|inmemoryFlushSize
-operator|=
-name|memstoreFlushSize
-operator|/
-name|numStores
-expr_stmt|;
-comment|// multiply by a factor (the same factor for all index types)
 name|factor
 operator|=
 name|conf
@@ -725,20 +718,57 @@ name|getDouble
 argument_list|(
 name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_KEY
 argument_list|,
-name|IN_MEMORY_FLUSH_THRESHOLD_FACTOR_DEFAULT
+literal|0.0
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|factor
+operator|!=
+literal|0.0
+condition|)
+block|{
+comment|// multiply by a factor (the same factor for all index types)
 name|inmemoryFlushSize
 operator|=
 call|(
 name|long
 call|)
 argument_list|(
-name|inmemoryFlushSize
-operator|*
 name|factor
+operator|*
+name|memstoreFlushSize
+argument_list|)
+operator|/
+name|numStores
+expr_stmt|;
+block|}
+else|else
+block|{
+name|inmemoryFlushSize
+operator|=
+name|IN_MEMORY_FLUSH_MULTIPLIER
+operator|*
+name|conf
+operator|.
+name|getLong
+argument_list|(
+name|MemStoreLAB
+operator|.
+name|CHUNK_SIZE_KEY
+argument_list|,
+name|MemStoreLAB
+operator|.
+name|CHUNK_SIZE_DEFAULT
 argument_list|)
 expr_stmt|;
+name|inmemoryFlushSize
+operator|-=
+name|ChunkCreator
+operator|.
+name|SIZEOF_CHUNK_HEADER
+expr_stmt|;
+block|}
 block|}
 comment|/**    * @return Total memory occupied by this MemStore. This won't include any size occupied by the    *         snapshot. We assume the snapshot will get cleared soon. This is not thread safe and    *         the memstore may be changed while computing its size. It is the responsibility of the    *         caller to make sure this doesn't happen.    */
 annotation|@
@@ -759,7 +789,8 @@ name|memstoreSizing
 operator|.
 name|incMemStoreSize
 argument_list|(
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|getMemStoreSize
 argument_list|()
@@ -905,11 +936,12 @@ expr_stmt|;
 name|stopCompaction
 argument_list|()
 expr_stmt|;
+comment|// region level lock ensures pushing active to pipeline is done in isolation
+comment|// no concurrent update operations trying to flush the active segment
 name|pushActiveToPipeline
 argument_list|(
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|snapshotId
@@ -994,18 +1026,32 @@ name|getPipelineSize
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|MutableSegment
+name|currActive
+init|=
+name|getActive
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|currActive
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|memStoreSizing
 operator|.
 name|incMemStoreSize
 argument_list|(
-name|this
-operator|.
-name|active
+name|currActive
 operator|.
 name|getMemStoreSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|mss
 operator|=
 name|memStoreSizing
@@ -1035,9 +1081,8 @@ literal|0
 condition|?
 name|mss
 else|:
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|getMemStoreSize
 argument_list|()
@@ -1054,9 +1099,8 @@ comment|// Need to consider dataSize/keySize of all segments in pipeline and act
 name|long
 name|keySize
 init|=
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
@@ -1097,9 +1141,8 @@ comment|// Need to consider heapOverhead of all segments in pipeline and active
 name|long
 name|h
 init|=
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|getHeapSize
 argument_list|()
@@ -1234,6 +1277,84 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
+comment|/**    * Issue any synchronization and test needed before applying the update    * For compacting memstore this means checking the update can increase the size without    * overflow    * @param currentActive the segment to be updated    * @param cell the cell to be added    * @param memstoreSizing object to accumulate region size changes    * @return true iff can proceed with applying the update    */
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|preUpdate
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|,
+name|Cell
+name|cell
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
+block|{
+if|if
+condition|(
+name|currentActive
+operator|.
+name|sharedLock
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|checkAndAddToActiveSize
+argument_list|(
+name|currentActive
+argument_list|,
+name|cell
+argument_list|,
+name|memstoreSizing
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+name|currentActive
+operator|.
+name|sharedUnlock
+argument_list|()
+expr_stmt|;
+block|}
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|postUpdate
+parameter_list|(
+name|MutableSegment
+name|currentActive
+parameter_list|)
+block|{
+name|currentActive
+operator|.
+name|sharedUnlock
+argument_list|()
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|sizeAddedPreOperation
+parameter_list|()
+block|{
+return|return
+literal|true
+return|;
+block|}
 comment|// the getSegments() method is used for tests only
 annotation|@
 name|VisibleForTesting
@@ -1282,9 +1403,8 @@ name|list
 operator|.
 name|add
 argument_list|(
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|list
@@ -1298,8 +1418,6 @@ name|list
 operator|.
 name|addAll
 argument_list|(
-name|this
-operator|.
 name|snapshot
 operator|.
 name|getAllSegments
@@ -1489,7 +1607,8 @@ block|{
 name|MutableSegment
 name|activeTmp
 init|=
-name|active
+name|getActive
+argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
@@ -1600,26 +1719,64 @@ name|capacity
 argument_list|)
 return|;
 block|}
-comment|/**    * Check whether anything need to be done based on the current active set size.    * The method is invoked upon every addition to the active set.    * For CompactingMemStore, flush the active set to the read-only memory if it's    * size is above threshold    */
-annotation|@
-name|Override
-specifier|protected
-name|void
-name|checkActiveSize
-parameter_list|()
+comment|/**    * Check whether anything need to be done based on the current active set size.    * The method is invoked upon every addition to the active set.    * For CompactingMemStore, flush the active set to the read-only memory if it's    * size is above threshold    * @param currActive intended segment to update    * @param cellToAdd cell to be added to the segment    * @param memstoreSizing object to accumulate changed size    * @return true if the cell can be added to the    */
+specifier|private
+name|boolean
+name|checkAndAddToActiveSize
+parameter_list|(
+name|MutableSegment
+name|currActive
+parameter_list|,
+name|Cell
+name|cellToAdd
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
 block|{
 if|if
 condition|(
 name|shouldFlushInMemory
+argument_list|(
+name|currActive
+argument_list|,
+name|cellToAdd
+argument_list|,
+name|memstoreSizing
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|currActive
+operator|.
+name|setInMemoryFlushed
 argument_list|()
 condition|)
 block|{
-comment|/* The thread is dispatched to flush-in-memory. This cannot be done       * on the same thread, because for flush-in-memory we require updatesLock       * in exclusive mode while this method (checkActiveSize) is invoked holding updatesLock       * in the shared mode. */
-name|InMemoryFlushRunnable
+name|flushInMemory
+argument_list|(
+name|currActive
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|inMemoryCompactionInProgress
+operator|.
+name|compareAndSet
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
+condition|)
+block|{
+comment|// The thread is dispatched to do in-memory compaction in the background
+name|InMemoryCompactionRunnable
 name|runnable
 init|=
 operator|new
-name|InMemoryFlushRunnable
+name|InMemoryCompactionRunnable
 argument_list|()
 decl_stmt|;
 if|if
@@ -1653,7 +1810,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// internally used method, externally visible only for tests
+return|return
+literal|false
+return|;
+block|}
+return|return
+literal|true
+return|;
+block|}
+comment|// externally visible only for tests
 comment|// when invoked directly from tests it must be verified that the caller doesn't hold updatesLock,
 comment|// otherwise there is a deadlock
 annotation|@
@@ -1661,28 +1826,38 @@ name|VisibleForTesting
 name|void
 name|flushInMemory
 parameter_list|()
-throws|throws
-name|IOException
 block|{
-comment|// setting the inMemoryFlushInProgress flag again for the case this method is invoked
-comment|// directly (only in tests) in the common path setting from true to true is idempotent
-name|inMemoryFlushInProgress
+name|MutableSegment
+name|currActive
+init|=
+name|getActive
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|currActive
 operator|.
-name|set
+name|setInMemoryFlushed
+argument_list|()
+condition|)
+block|{
+name|flushInMemory
 argument_list|(
-literal|true
+name|currActive
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-comment|// Phase I: Update the pipeline
-name|getRegionServices
-argument_list|()
-operator|.
-name|blockUpdates
+block|}
+name|inMemoryCompaction
 argument_list|()
 expr_stmt|;
-try|try
+block|}
+specifier|private
+name|void
+name|flushInMemory
+parameter_list|(
+name|MutableSegment
+name|currActive
+parameter_list|)
 block|{
 name|LOG
 operator|.
@@ -1693,21 +1868,25 @@ argument_list|)
 expr_stmt|;
 name|pushActiveToPipeline
 argument_list|(
-name|this
-operator|.
-name|active
+name|currActive
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
+name|void
+name|inMemoryCompaction
+parameter_list|()
 block|{
-name|getRegionServices
-argument_list|()
+comment|// setting the inMemoryCompactionInProgress flag again for the case this method is invoked
+comment|// directly (only in tests) in the common path setting from true to true is idempotent
+name|inMemoryCompactionInProgress
 operator|.
-name|unblockUpdates
-argument_list|()
+name|set
+argument_list|(
+literal|true
+argument_list|)
 expr_stmt|;
-block|}
+try|try
+block|{
 comment|// Used by tests
 if|if
 condition|(
@@ -1720,7 +1899,6 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// Phase II: Compact the pipeline
 try|try
 block|{
 comment|// Speculative compaction execution, may be interrupted if flush is forced while
@@ -1762,18 +1940,11 @@ block|}
 block|}
 finally|finally
 block|{
-name|inMemoryFlushInProgress
+name|inMemoryCompactionInProgress
 operator|.
 name|set
 argument_list|(
 literal|false
-argument_list|)
-expr_stmt|;
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"IN-MEMORY FLUSH: end"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1841,49 +2012,97 @@ name|VisibleForTesting
 specifier|protected
 name|boolean
 name|shouldFlushInMemory
-parameter_list|()
+parameter_list|(
+name|MutableSegment
+name|currActive
+parameter_list|,
+name|Cell
+name|cellToAdd
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
+parameter_list|)
 block|{
-if|if
-condition|(
-name|this
+name|long
+name|cellSize
+init|=
+name|currActive
 operator|.
-name|active
+name|getCellLength
+argument_list|(
+name|cellToAdd
+argument_list|)
+decl_stmt|;
+name|long
+name|segmentDataSize
+init|=
+name|currActive
 operator|.
 name|getDataSize
 argument_list|()
-operator|>
-name|inmemoryFlushSize
-condition|)
-block|{
-comment|// size above flush threshold
-if|if
+decl_stmt|;
+while|while
 condition|(
+name|segmentDataSize
+operator|+
+name|cellSize
+operator|<
+name|inmemoryFlushSize
+operator|||
 name|inWalReplay
 condition|)
 block|{
-comment|// when replaying edits from WAL there is no need in in-memory flush
-return|return
-literal|false
-return|;
-comment|// regardless the size
-block|}
-comment|// the inMemoryFlushInProgress is CASed to be true here in order to mutual exclude
-comment|// the insert of the active into the compaction pipeline
-return|return
-operator|(
-name|inMemoryFlushInProgress
+comment|// when replaying edits from WAL there is no need in in-memory flush regardless the size
+comment|// otherwise size below flush threshold try to update atomically
+if|if
+condition|(
+name|currActive
 operator|.
-name|compareAndSet
+name|compareAndSetDataSize
 argument_list|(
-literal|false
+name|segmentDataSize
 argument_list|,
-literal|true
+name|segmentDataSize
+operator|+
+name|cellSize
 argument_list|)
-operator|)
-return|;
+condition|)
+block|{
+if|if
+condition|(
+name|memstoreSizing
+operator|!=
+literal|null
+condition|)
+block|{
+name|memstoreSizing
+operator|.
+name|incMemStoreSize
+argument_list|(
+name|cellSize
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
+comment|//enough space for cell - no need to flush
 return|return
 literal|false
+return|;
+block|}
+name|segmentDataSize
+operator|=
+name|currActive
+operator|.
+name|getDataSize
+argument_list|()
+expr_stmt|;
+block|}
+comment|// size above flush threshold
+return|return
+literal|true
 return|;
 block|}
 comment|/**    * The request to cancel the compaction asynchronous task (caused by in-memory flush)    * The compaction may still happen if the request was sent too late    * Non-blocking request    */
@@ -1894,7 +2113,7 @@ parameter_list|()
 block|{
 if|if
 condition|(
-name|inMemoryFlushInProgress
+name|inMemoryCompactionInProgress
 operator|.
 name|get
 argument_list|()
@@ -1912,13 +2131,13 @@ name|void
 name|pushActiveToPipeline
 parameter_list|(
 name|MutableSegment
-name|active
+name|currActive
 parameter_list|)
 block|{
 if|if
 condition|(
 operator|!
-name|active
+name|currActive
 operator|.
 name|isEmpty
 argument_list|()
@@ -1928,7 +2147,7 @@ name|pipeline
 operator|.
 name|pushHead
 argument_list|(
-name|active
+name|currActive
 argument_list|)
 expr_stmt|;
 name|resetActive
@@ -2152,10 +2371,10 @@ return|return
 name|regionServices
 return|;
 block|}
-comment|/**   * The in-memory-flusher thread performs the flush asynchronously.   * There is at most one thread per memstore instance.   * It takes the updatesLock exclusively, pushes active into the pipeline, releases updatesLock   * and compacts the pipeline.   */
+comment|/**    * The in-memory-flusher thread performs the flush asynchronously.    * There is at most one thread per memstore instance.    * It takes the updatesLock exclusively, pushes active into the pipeline, releases updatesLock    * and compacts the pipeline.    */
 specifier|private
 class|class
-name|InMemoryFlushRunnable
+name|InMemoryCompactionRunnable
 implements|implements
 name|Runnable
 block|{
@@ -2166,42 +2385,9 @@ name|void
 name|run
 parameter_list|()
 block|{
-try|try
-block|{
-name|flushInMemory
+name|inMemoryCompaction
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unable to run memstore compaction. region "
-operator|+
-name|getRegionServices
-argument_list|()
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|"store: "
-operator|+
-name|getFamilyName
-argument_list|()
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 block|}
 annotation|@
@@ -2211,7 +2397,7 @@ name|isMemStoreFlushingInMemory
 parameter_list|()
 block|{
 return|return
-name|inMemoryFlushInProgress
+name|inMemoryCompactionInProgress
 operator|.
 name|get
 argument_list|()
@@ -2314,19 +2500,12 @@ name|msg
 init|=
 literal|"active size="
 operator|+
-name|this
-operator|.
-name|active
+name|getActive
+argument_list|()
 operator|.
 name|getDataSize
 argument_list|()
 decl_stmt|;
-name|msg
-operator|+=
-literal|" in-memory flush size is "
-operator|+
-name|inmemoryFlushSize
-expr_stmt|;
 name|msg
 operator|+=
 literal|" allow compaction is "
@@ -2344,10 +2523,10 @@ operator|)
 expr_stmt|;
 name|msg
 operator|+=
-literal|" inMemoryFlushInProgress is "
+literal|" inMemoryCompactionInProgress is "
 operator|+
 operator|(
-name|inMemoryFlushInProgress
+name|inMemoryCompactionInProgress
 operator|.
 name|get
 argument_list|()

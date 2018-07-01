@@ -147,6 +147,27 @@ literal|"I'm a DUD, you can't use me!"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|compareAndSetDataSize
+parameter_list|(
+name|long
+name|expected
+parameter_list|,
+name|long
+name|updated
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"I'm a DUD, you can't use me!"
+argument_list|)
+throw|;
+block|}
 block|}
 decl_stmt|;
 comment|/**    * @return The new dataSize ONLY as a convenience    */
@@ -251,6 +272,16 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+name|boolean
+name|compareAndSetDataSize
+parameter_list|(
+name|long
+name|expected
+parameter_list|,
+name|long
+name|updated
+parameter_list|)
+function_decl|;
 name|long
 name|getDataSize
 parameter_list|()

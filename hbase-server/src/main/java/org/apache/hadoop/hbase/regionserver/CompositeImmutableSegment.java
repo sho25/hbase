@@ -815,6 +815,9 @@ name|mslabUsed
 parameter_list|,
 name|MemStoreSizing
 name|memstoreSizing
+parameter_list|,
+name|boolean
+name|sizeAddedPreOperation
 parameter_list|)
 block|{
 throw|throw
@@ -842,6 +845,9 @@ name|mslabUsed
 parameter_list|,
 name|MemStoreSizing
 name|memstoreSizing
+parameter_list|,
+name|boolean
+name|sizeAddedPreOperation
 parameter_list|)
 block|{
 throw|throw

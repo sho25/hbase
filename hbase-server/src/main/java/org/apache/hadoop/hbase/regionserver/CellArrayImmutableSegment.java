@@ -188,7 +188,7 @@ name|CSLMImmutableSegment
 name|segment
 parameter_list|,
 name|MemStoreSizing
-name|memstoreSizing
+name|mss
 parameter_list|,
 name|MemStoreCompactionStrategy
 operator|.
@@ -221,6 +221,17 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// CAM is always on-heap
+name|mss
+operator|.
+name|incMemStoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|indexOverhead
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
 name|int
 name|numOfCells
 init|=
@@ -276,7 +287,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|memstoreSizing
+name|mss
 operator|.
 name|incMemStoreSize
 argument_list|(
