@@ -560,6 +560,8 @@ operator|+
 name|SyncReplicationState
 operator|.
 name|DOWNGRADE_ACTIVE
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}
