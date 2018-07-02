@@ -5615,19 +5615,26 @@ argument_list|)
 operator|+
 literal|1
 decl_stmt|;
+comment|// The openSeqNum will always be increase even for read only region, as we rely on it to
+comment|// determine whether a region has been successfully reopend, so here we always need to update
+comment|// the max sequence id file.
 if|if
 condition|(
-name|writestate
+name|RegionReplicaUtil
 operator|.
-name|writesEnabled
+name|isDefaultReplica
+argument_list|(
+name|getRegionInfo
+argument_list|()
+argument_list|)
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"writing seq id for "
-operator|+
+literal|"writing seq id for {}"
+argument_list|,
 name|this
 operator|.
 name|getRegionInfo
@@ -8684,6 +8691,8 @@ argument_list|(
 literal|"Writing region close event to WAL"
 argument_list|)
 expr_stmt|;
+comment|// Always write close marker to wal even for read only table. This is not a big problem as we
+comment|// do not write any data into the region.
 if|if
 condition|(
 operator|!
@@ -8698,10 +8707,13 @@ argument_list|()
 operator|!=
 literal|null
 operator|&&
-operator|!
-name|writestate
+name|RegionReplicaUtil
 operator|.
-name|readOnly
+name|isDefaultReplica
+argument_list|(
+name|getRegionInfo
+argument_list|()
+argument_list|)
 condition|)
 block|{
 name|writeRegionCloseMarker
@@ -33188,7 +33200,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @return new HRegion    */
 specifier|public
 specifier|static
 name|HRegion
@@ -33242,7 +33254,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    */
 specifier|public
 specifier|static
 name|HRegion
@@ -33321,7 +33333,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    */
 specifier|public
 specifier|static
 name|HRegion
@@ -33447,7 +33459,7 @@ operator|.
 name|replicationScope
 return|;
 block|}
-comment|/**    * Useful when reopening a closed region (normally for unit tests)    * @param other original object    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws IOException    */
+comment|/**    * Useful when reopening a closed region (normally for unit tests)    * @param other original object    * @param reporter An interface we can report progress against.    * @return new HRegion    */
 specifier|public
 specifier|static
 name|HRegion
@@ -33619,6 +33631,9 @@ argument_list|(
 name|openSeqNum
 argument_list|)
 expr_stmt|;
+comment|// The openSeqNum must be increased every time when a region is assigned, as we rely on it to
+comment|// determine whether a region has been successfully reopened. So here we always write open
+comment|// marker, even if the table is read only.
 if|if
 condition|(
 name|wal
@@ -33630,13 +33645,15 @@ argument_list|()
 operator|!=
 literal|null
 operator|&&
-operator|!
-name|writestate
+name|RegionReplicaUtil
 operator|.
-name|readOnly
+name|isDefaultReplica
+argument_list|(
+name|getRegionInfo
+argument_list|()
+argument_list|)
 condition|)
 block|{
-comment|// Only write the region open event marker to WAL if we are not read-only.
 name|writeRegionOpenMarker
 argument_list|(
 name|wal
@@ -33649,7 +33666,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Open a Region on a read-only file-system (like hdfs snapshots)    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param info Info for region to be opened.    * @param htd the table descriptor    * @return new HRegion    * @throws IOException e    */
+comment|/**    * Open a Region on a read-only file-system (like hdfs snapshots)    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param info Info for region to be opened.    * @param htd the table descriptor    * @return new HRegion    */
 specifier|public
 specifier|static
 name|HRegion

@@ -329,6 +329,11 @@ name|plan
 operator|=
 name|plan
 expr_stmt|;
+if|if
+condition|(
+name|check
+condition|)
+block|{
 name|preflightChecks
 argument_list|(
 name|env
@@ -346,6 +351,7 @@ name|getRegionInfo
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -687,7 +693,7 @@ block|{
 return|return
 name|MoveRegionState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
