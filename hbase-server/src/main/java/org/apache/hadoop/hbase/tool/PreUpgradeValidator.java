@@ -289,7 +289,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|" %-12s Validate co-processors are compatible with HBase%n"
+literal|" %-15s Validate co-processors are compatible with HBase%n"
 argument_list|,
 name|VALIDATE_CP_NAME
 argument_list|)
@@ -300,7 +300,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|" %-12s Validate DataBlockEncoding are compatible on the cluster%n"
+literal|" %-15s Validate DataBlockEncodings are compatible with HBase%n"
 argument_list|,
 name|VALIDATE_DBE_NAME
 argument_list|)
@@ -453,6 +453,14 @@ block|{
 name|int
 name|ret
 decl_stmt|;
+name|Configuration
+name|conf
+init|=
+name|HBaseConfiguration
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|ret
@@ -461,10 +469,7 @@ name|ToolRunner
 operator|.
 name|run
 argument_list|(
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|,
 operator|new
 name|PreUpgradeValidator
