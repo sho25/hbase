@@ -776,15 +776,6 @@ name|boolean
 name|addFront
 parameter_list|)
 block|{
-name|queue
-operator|.
-name|add
-argument_list|(
-name|proc
-argument_list|,
-name|addFront
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 operator|!
@@ -812,6 +803,15 @@ condition|)
 block|{
 comment|// if the queue was not remove for an xlock execution
 comment|// or the proc is the lock owner, put the queue back into execution
+name|queue
+operator|.
+name|add
+argument_list|(
+name|proc
+argument_list|,
+name|addFront
+argument_list|)
+expr_stmt|;
 name|addToRunQueue
 argument_list|(
 name|fairq
@@ -834,11 +834,19 @@ name|proc
 argument_list|)
 condition|)
 block|{
-assert|assert
-name|addFront
-operator|:
-literal|"expected to add a child in the front"
-assert|;
+comment|// always add it to front as its parent has the xlock
+comment|// usually the addFront is true if we arrive here as we will call addFront for adding sub
+comment|// proc, but sometimes we may retry on the proc which means we will arrive here through yield,
+comment|// so it is possible the addFront here is false.
+name|queue
+operator|.
+name|add
+argument_list|(
+name|proc
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// our (proc) parent has the xlock,
 comment|// so the queue is not in the fairq (run-queue)
 comment|// add it back to let the child run (inherit the lock)
@@ -847,6 +855,18 @@ argument_list|(
 name|fairq
 argument_list|,
 name|queue
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|queue
+operator|.
+name|add
+argument_list|(
+name|proc
+argument_list|,
+name|addFront
 argument_list|)
 expr_stmt|;
 block|}
