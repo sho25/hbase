@@ -602,7 +602,9 @@ parameter_list|)
 block|{
 try|try
 block|{
-return|return
+name|Providers
+name|provider
+init|=
 name|Providers
 operator|.
 name|valueOf
@@ -616,9 +618,48 @@ argument_list|,
 name|defaultValue
 argument_list|)
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|provider
+operator|!=
+name|Providers
+operator|.
+name|defaultProvider
+condition|)
+block|{
+comment|// User gives a wal provider explicitly, just use that one
+return|return
+name|provider
 operator|.
 name|clazz
 return|;
+block|}
+comment|// AsyncFSWAL has better performance in most cases, and also uses less resources, we will try
+comment|// to use it if possible. But it deeply hacks into the internal of DFSClient so will be easily
+comment|// broken when upgrading hadoop. If it is broken, then we fall back to use FSHLog.
+if|if
+condition|(
+name|AsyncFSWALProvider
+operator|.
+name|load
+argument_list|()
+condition|)
+block|{
+return|return
+name|AsyncFSWALProvider
+operator|.
+name|class
+return|;
+block|}
+else|else
+block|{
+return|return
+name|FSHLogProvider
+operator|.
+name|class
+return|;
+block|}
 block|}
 catch|catch
 parameter_list|(
