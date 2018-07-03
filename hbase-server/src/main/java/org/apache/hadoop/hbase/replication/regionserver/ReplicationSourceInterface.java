@@ -35,7 +35,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
 import|;
 end_import
 
@@ -471,6 +491,24 @@ name|ServerName
 name|getServerWALsBelongTo
 parameter_list|()
 function_decl|;
+comment|/**    * get the stat of replication for each wal group.    * @return stat of replication    */
+specifier|default
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|ReplicationStatus
+argument_list|>
+name|getWalGroupStatus
+parameter_list|()
+block|{
+return|return
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
+return|;
+block|}
 comment|/**    * @return whether this is a replication source for recovery.    */
 specifier|default
 name|boolean

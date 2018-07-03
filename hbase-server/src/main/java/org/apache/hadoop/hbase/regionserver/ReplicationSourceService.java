@@ -65,6 +65,24 @@ name|replication
 operator|.
 name|regionserver
 operator|.
+name|ReplicationSourceManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|replication
+operator|.
+name|regionserver
+operator|.
 name|SyncReplicationPeerInfoProvider
 import|;
 end_import
@@ -111,6 +129,11 @@ function_decl|;
 comment|/**    * Return the replication peers.    */
 name|ReplicationPeers
 name|getReplicationPeers
+parameter_list|()
+function_decl|;
+comment|/**    * Returns the replication manager    */
+name|ReplicationSourceManager
+name|getReplicationManager
 parameter_list|()
 function_decl|;
 block|}

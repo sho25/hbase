@@ -165,7 +165,6 @@ name|stopReplicationService
 parameter_list|()
 function_decl|;
 comment|/**    * Refresh and Get ReplicationLoad    */
-specifier|public
 name|ReplicationLoad
 name|refreshAndGetReplicationLoad
 parameter_list|()
