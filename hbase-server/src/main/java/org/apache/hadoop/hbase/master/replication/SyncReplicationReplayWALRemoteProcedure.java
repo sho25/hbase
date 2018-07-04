@@ -933,7 +933,7 @@ name|warn
 argument_list|(
 literal|"Can not add remote operation for replay wals {} on {} for peer id={}, "
 operator|+
-literal|"this usually because the server is already dead, retry"
+literal|"this usually because the server is already dead"
 argument_list|,
 name|wals
 argument_list|,
@@ -942,11 +942,10 @@ argument_list|,
 name|peerId
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|ProcedureYieldException
-argument_list|()
-throw|;
+comment|// Return directly and the parent procedure will assign a new worker to replay wals
+return|return
+literal|null
+return|;
 block|}
 name|dispatched
 operator|=
