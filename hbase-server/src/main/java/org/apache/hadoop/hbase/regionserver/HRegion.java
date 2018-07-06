@@ -10320,6 +10320,13 @@ operator|+
 name|this
 argument_list|)
 expr_stmt|;
+name|status
+operator|.
+name|enableStatusJournal
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -10577,11 +10584,25 @@ name|status
 operator|!=
 literal|null
 condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Compaction status journal:\n\t"
+operator|+
+name|status
+operator|.
+name|prettyPrintJournal
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|status
 operator|.
 name|cleanup
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Flush the cache.    *    *<p>When this method is called the cache will be flushed unless:    *<ol>    *<li>the cache is empty</li>    *<li>the region is closed.</li>    *<li>a flush is already in progress</li>    *<li>writes are disabled</li>    *</ol>    *    *<p>This method may block for some time, so it should not be called from a    * time-sensitive thread.    * @param force whether we want to force a flush of all stores    * @return FlushResult indicating whether the flush was successful or not and if    * the region needs compacting    *    * @throws IOException general io exceptions    * because a snapshot was not properly persisted.    */
@@ -10717,6 +10738,13 @@ operator|+
 name|this
 argument_list|)
 decl_stmt|;
+name|status
+operator|.
+name|enableStatusJournal
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -11045,6 +11073,18 @@ argument_list|()
 operator|.
 name|unlock
 argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Flush status journal:\n\t"
+operator|+
+name|status
+operator|.
+name|prettyPrintJournal
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|status
 operator|.
