@@ -923,22 +923,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|VersionInfoUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|coprocessor
 operator|.
 name|CoprocessorHost
@@ -14569,31 +14553,20 @@ specifier|public
 name|String
 name|getRegionServerVersion
 parameter_list|(
-specifier|final
 name|ServerName
 name|sn
 parameter_list|)
 block|{
-comment|// Will return 0 if the server is not online to prevent move system region to unknown version
-comment|// RS.
-name|int
-name|versionNumber
-init|=
+comment|// Will return "0.0.0" if the server is not online to prevent move system region to unknown
+comment|// version RS.
+return|return
 name|this
 operator|.
 name|serverManager
 operator|.
-name|getServerVersion
+name|getVersion
 argument_list|(
 name|sn
-argument_list|)
-decl_stmt|;
-return|return
-name|VersionInfoUtil
-operator|.
-name|versionNumberToString
-argument_list|(
-name|versionNumber
 argument_list|)
 return|;
 block|}

@@ -1273,7 +1273,7 @@ name|listener
 argument_list|)
 return|;
 block|}
-comment|/**    * Let the server manager know a new regionserver has come online    * @param request the startup request    * @param versionNumber the version of the new regionserver    * @param ia the InetAddress from which request is received    * @return The ServerName we know this server as.    * @throws IOException    */
+comment|/**    * Let the server manager know a new regionserver has come online    * @param request the startup request    * @param versionNumber the version number of the new regionserver    * @param version the version of the new regionserver, could contain strings like "SNAPSHOT"    * @param ia the InetAddress from which request is received    * @return The ServerName we know this server as.    * @throws IOException    */
 name|ServerName
 name|regionServerStartup
 parameter_list|(
@@ -1282,6 +1282,9 @@ name|request
 parameter_list|,
 name|int
 name|versionNumber
+parameter_list|,
+name|String
+name|version
 parameter_list|,
 name|InetAddress
 name|ia
@@ -1292,7 +1295,7 @@ block|{
 comment|// Test for case where we get a region startup message from a regionserver
 comment|// that has been quickly restarted but whose znode expiration handler has
 comment|// not yet run, or from a server whose fail we are currently processing.
-comment|// Test its host+port combo is present in serverAddressToServerInfo.  If it
+comment|// Test its host+port combo is present in serverAddressToServerInfo. If it
 comment|// is, reject the server and trigger its expiration. The next time it comes
 comment|// in, it should have been removed from serverAddressToServerInfo and queued
 comment|// for processing by ProcessServerShutdown.
@@ -1366,6 +1369,8 @@ argument_list|(
 name|sn
 argument_list|,
 name|versionNumber
+argument_list|,
+name|version
 argument_list|)
 argument_list|)
 condition|)
@@ -4817,9 +4822,8 @@ block|}
 comment|/**    * May return 0 when server is not online.    */
 specifier|public
 name|int
-name|getServerVersion
+name|getVersionNumber
 parameter_list|(
-specifier|final
 name|ServerName
 name|serverName
 parameter_list|)
@@ -4845,6 +4849,38 @@ name|getVersionNumber
 argument_list|()
 else|:
 literal|0
+return|;
+block|}
+comment|/**    * May return "0.0.0" when server is not online    */
+specifier|public
+name|String
+name|getVersion
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+name|ServerMetrics
+name|serverMetrics
+init|=
+name|onlineServers
+operator|.
+name|get
+argument_list|(
+name|serverName
+argument_list|)
+decl_stmt|;
+return|return
+name|serverMetrics
+operator|!=
+literal|null
+condition|?
+name|serverMetrics
+operator|.
+name|getVersion
+argument_list|()
+else|:
+literal|"0.0.0"
 return|;
 block|}
 specifier|public

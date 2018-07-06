@@ -825,7 +825,7 @@ operator|.
 name|getServerManager
 argument_list|()
 operator|.
-name|getServerVersion
+name|getVersionNumber
 argument_list|(
 name|serverName
 argument_list|)

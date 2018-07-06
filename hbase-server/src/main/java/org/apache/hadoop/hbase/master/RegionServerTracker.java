@@ -801,6 +801,14 @@ operator|.
 name|getVersionInfo
 argument_list|()
 argument_list|)
+argument_list|,
+name|info
+operator|.
+name|getVersionInfo
+argument_list|()
+operator|.
+name|getVersion
+argument_list|()
 argument_list|)
 else|:
 name|ServerMetricsBuilder

@@ -134,6 +134,16 @@ return|return
 literal|0
 return|;
 block|}
+comment|/**    * @return the string type version of a regionserver.    */
+specifier|default
+name|String
+name|getVersion
+parameter_list|()
+block|{
+return|return
+literal|"0.0.0"
+return|;
+block|}
 comment|/**    * @return the number of requests per second.    */
 name|long
 name|getRequestCountPerSecond

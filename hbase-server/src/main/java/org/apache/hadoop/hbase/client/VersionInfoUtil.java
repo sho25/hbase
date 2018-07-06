@@ -288,7 +288,7 @@ literal|false
 return|;
 block|}
 comment|/**    * @return the versionInfo extracted from the current RpcCallContext    */
-specifier|private
+specifier|public
 specifier|static
 name|HBaseProtos
 operator|.
@@ -312,21 +312,6 @@ operator|.
 name|orElse
 argument_list|(
 literal|null
-argument_list|)
-return|;
-block|}
-comment|/**    * @return the version number extracted from the current RpcCallContext as int.    *         (e.g. 0x0103004 is 1.3.4)    */
-specifier|public
-specifier|static
-name|int
-name|getCurrentClientVersionNumber
-parameter_list|()
-block|{
-return|return
-name|getVersionNumber
-argument_list|(
-name|getCurrentClientVersionInfo
-argument_list|()
 argument_list|)
 return|;
 block|}
