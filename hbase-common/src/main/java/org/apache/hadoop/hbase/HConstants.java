@@ -3472,6 +3472,7 @@ name|TEMPORARY_FS_DIRECTORY_KEY
 init|=
 literal|"hbase.fs.tmp.dir"
 decl_stmt|;
+comment|/** Don't use it! This'll get you the wrong path in a secure cluster.    * Use FileSystem.getHomeDirectory() or    * "/user/" + UserGroupInformation.getCurrentUser().getShortUserName()  */
 specifier|public
 specifier|static
 specifier|final

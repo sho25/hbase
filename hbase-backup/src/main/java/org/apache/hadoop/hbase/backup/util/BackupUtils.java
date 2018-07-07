@@ -3851,9 +3851,12 @@ name|HConstants
 operator|.
 name|TEMPORARY_FS_DIRECTORY_KEY
 argument_list|,
-name|HConstants
+name|fs
 operator|.
-name|DEFAULT_TEMPORARY_HDFS_DIRECTORY
+name|getHomeDirectory
+argument_list|()
+operator|+
+literal|"/hbase-staging"
 argument_list|)
 decl_stmt|;
 name|Path
