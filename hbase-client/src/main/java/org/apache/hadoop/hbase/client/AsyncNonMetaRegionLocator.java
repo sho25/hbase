@@ -2156,6 +2156,14 @@ index|[]
 name|row
 parameter_list|)
 block|{
+name|boolean
+name|isEmptyStopRow
+init|=
+name|isEmptyStopRow
+argument_list|(
+name|row
+argument_list|)
+decl_stmt|;
 name|Map
 operator|.
 name|Entry
@@ -2168,9 +2176,6 @@ argument_list|>
 name|entry
 init|=
 name|isEmptyStopRow
-argument_list|(
-name|row
-argument_list|)
 condition|?
 name|tableCache
 operator|.
@@ -2220,6 +2225,10 @@ name|getEndKey
 argument_list|()
 argument_list|)
 operator|||
+operator|(
+operator|!
+name|isEmptyStopRow
+operator|&&
 name|Bytes
 operator|.
 name|compareTo
@@ -2236,6 +2245,7 @@ name|row
 argument_list|)
 operator|>=
 literal|0
+operator|)
 condition|)
 block|{
 if|if
