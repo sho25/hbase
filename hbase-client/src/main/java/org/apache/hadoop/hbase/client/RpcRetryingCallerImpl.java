@@ -692,7 +692,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-name|tries
+name|maxAttempts
 argument_list|)
 operator|.
 name|append
