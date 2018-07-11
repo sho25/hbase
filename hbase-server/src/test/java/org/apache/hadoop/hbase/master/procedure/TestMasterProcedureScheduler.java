@@ -7035,7 +7035,7 @@ comment|// The queue for this table should be added back to run queue as the par
 comment|// can poll it out.
 name|queue
 operator|.
-name|addBack
+name|addFront
 argument_list|(
 name|proc
 argument_list|)
