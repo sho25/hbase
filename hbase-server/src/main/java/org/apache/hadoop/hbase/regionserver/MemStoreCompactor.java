@@ -543,18 +543,6 @@ name|resultSwapped
 init|=
 literal|false
 decl_stmt|;
-if|if
-condition|(
-name|isInterrupted
-operator|.
-name|get
-argument_list|()
-condition|)
-block|{
-comment|// if the entire process is interrupted cancel flattening
-return|return;
-comment|// the compaction also doesn't start when interrupted
-block|}
 name|MemStoreCompactionStrategy
 operator|.
 name|Action
@@ -590,6 +578,18 @@ operator|)
 decl_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|isInterrupted
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+comment|// if the entire process is interrupted cancel flattening
+return|return;
+comment|// the compaction also doesn't start when interrupted
+block|}
 if|if
 condition|(
 name|nextStep
@@ -759,6 +759,11 @@ argument_list|()
 expr_stmt|;
 block|}
 name|releaseResources
+argument_list|()
+expr_stmt|;
+name|compactingMemStore
+operator|.
+name|setInMemoryCompactionCompleted
 argument_list|()
 expr_stmt|;
 block|}
