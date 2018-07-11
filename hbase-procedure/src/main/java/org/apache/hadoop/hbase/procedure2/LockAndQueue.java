@@ -19,6 +19,30 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|function
+operator|.
+name|Predicate
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Stream
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -43,11 +67,18 @@ name|Private
 specifier|public
 class|class
 name|LockAndQueue
-extends|extends
-name|ProcedureDeque
 implements|implements
 name|LockStatus
 block|{
+specifier|private
+specifier|final
+name|ProcedureDeque
+name|queue
+init|=
+operator|new
+name|ProcedureDeque
+argument_list|()
+decl_stmt|;
 specifier|private
 name|Procedure
 argument_list|<
@@ -120,11 +151,14 @@ specifier|public
 name|boolean
 name|hasParentLock
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
+comment|// TODO: need to check all the ancestors
 return|return
 name|proc
 operator|.
@@ -156,8 +190,10 @@ specifier|public
 name|boolean
 name|hasLockAccess
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -234,19 +270,37 @@ block|}
 comment|// ======================================================================
 comment|//  try/release Shared/Exclusive lock
 comment|// ======================================================================
+comment|/**    * @return whether we have succesfully acquired the shared lock.    */
 specifier|public
 name|boolean
 name|trySharedLock
-parameter_list|()
+parameter_list|(
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|proc
+parameter_list|)
 block|{
 if|if
 condition|(
 name|hasExclusiveLock
 argument_list|()
+operator|&&
+operator|!
+name|hasLockAccess
+argument_list|(
+name|proc
+argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
+comment|// If no one holds the xlock, then we are free to hold the sharedLock
+comment|// If the parent proc or we have already held the xlock, then we return true here as
+comment|// xlock is more powerful then shared lock.
 name|sharedLock
 operator|++
 expr_stmt|;
@@ -254,24 +308,34 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**    * @return whether we should wake the procedures waiting on the lock here.    */
 specifier|public
 name|boolean
 name|releaseSharedLock
 parameter_list|()
 block|{
+comment|// hasExclusiveLock could be true, it usually means we acquire shared lock while we or our
+comment|// parent have held the xlock. And since there is still an exclusive lock, we do not need to
+comment|// wake any procedures.
 return|return
 operator|--
 name|sharedLock
 operator|==
 literal|0
+operator|&&
+operator|!
+name|hasExclusiveLock
+argument_list|()
 return|;
 block|}
 specifier|public
 name|boolean
 name|tryExclusiveLock
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -280,12 +344,14 @@ condition|(
 name|isLocked
 argument_list|()
 condition|)
+block|{
 return|return
 name|hasLockAccess
 argument_list|(
 name|proc
 argument_list|)
 return|;
+block|}
 name|exclusiveLockOwnerProcedure
 operator|=
 name|proc
@@ -294,18 +360,21 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * @return True if we released a lock.    */
+comment|/**    * @return whether we should wake the procedures waiting on the lock here.    */
 specifier|public
 name|boolean
 name|releaseExclusiveLock
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
 if|if
 condition|(
+operator|!
 name|isLockOwner
 argument_list|(
 name|proc
@@ -315,16 +384,141 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// We are not the lock owner, it is probably inherited from the parent procedures.
+return|return
+literal|false
+return|;
+block|}
 name|exclusiveLockOwnerProcedure
 operator|=
 literal|null
 expr_stmt|;
+comment|// This maybe a bit strange so let me explain. We allow acquiring shared lock while the parent
+comment|// proc or we have already held the xlock, and also allow releasing the locks in any order, so
+comment|// it could happen that the xlock is released but there are still some procs holding the shared
+comment|// lock.
+comment|// In HBase, this could happen when a proc which holdLock is false and schedules sub procs which
+comment|// acquire the shared lock on the same lock. This is because we will schedule the sub proces
+comment|// before releasing the lock, so the sub procs could call acquire lock before we releasing the
+comment|// xlock.
 return|return
-literal|true
+name|sharedLock
+operator|==
+literal|0
 return|;
 block|}
+specifier|public
+name|boolean
+name|isWaitingQueueEmpty
+parameter_list|()
+block|{
 return|return
-literal|false
+name|queue
+operator|.
+name|isEmpty
+argument_list|()
+return|;
+block|}
+specifier|public
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|removeFirst
+parameter_list|()
+block|{
+return|return
+name|queue
+operator|.
+name|removeFirst
+argument_list|()
+return|;
+block|}
+specifier|public
+name|void
+name|addLast
+parameter_list|(
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|proc
+parameter_list|)
+block|{
+name|queue
+operator|.
+name|addLast
+argument_list|(
+name|proc
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|int
+name|wakeWaitingProcedures
+parameter_list|(
+name|ProcedureScheduler
+name|scheduler
+parameter_list|)
+block|{
+name|int
+name|count
+init|=
+name|queue
+operator|.
+name|size
+argument_list|()
+decl_stmt|;
+comment|// wakeProcedure adds to the front of queue, so we start from last in the waitQueue' queue, so
+comment|// that the procedure which was added first goes in the front for the scheduler queue.
+name|scheduler
+operator|.
+name|addFront
+argument_list|(
+name|queue
+operator|.
+name|descendingIterator
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|queue
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+return|return
+name|count
+return|;
+block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
+specifier|public
+name|Stream
+argument_list|<
+name|Procedure
+argument_list|>
+name|filterWaitingQueue
+parameter_list|(
+name|Predicate
+argument_list|<
+name|Procedure
+argument_list|>
+name|predicate
+parameter_list|)
+block|{
+return|return
+name|queue
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|filter
+argument_list|(
+name|predicate
+argument_list|)
 return|;
 block|}
 annotation|@
@@ -354,6 +548,8 @@ argument_list|()
 operator|+
 literal|", waitingProcCount="
 operator|+
+name|queue
+operator|.
 name|size
 argument_list|()
 return|;
