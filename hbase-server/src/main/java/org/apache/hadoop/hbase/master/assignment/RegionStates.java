@@ -2185,6 +2185,27 @@ name|getRegionName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// See HBASE-20860
+comment|// After master restarts, merged regions' RIT state may not be cleaned,
+comment|// making sure they are cleaned here
+if|if
+condition|(
+name|regionInTransition
+operator|.
+name|containsKey
+argument_list|(
+name|regionInfo
+argument_list|)
+condition|)
+block|{
+name|regionInTransition
+operator|.
+name|remove
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Remove from the offline regions map too if there.
 if|if
 condition|(
