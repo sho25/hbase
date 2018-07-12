@@ -384,7 +384,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility methods for interacting with the underlying file system.  */
+comment|/**  * Utility methods for interacting with the underlying file system.  *<p/>  * Note that {@link #setStoragePolicy(FileSystem, Path, String)} is tested in TestFSUtils and  * pre-commit will run the hbase-server tests if there's code change in this class. See  *<a href="https://issues.apache.org/jira/browse/HBASE-20838">HBASE-20838</a> for more details.  */
 end_comment
 
 begin_class
