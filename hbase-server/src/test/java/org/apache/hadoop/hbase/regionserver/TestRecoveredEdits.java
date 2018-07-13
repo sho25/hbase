@@ -669,6 +669,9 @@ name|valueOf
 argument_list|(
 name|policy
 argument_list|)
+operator|.
+name|toLowerCase
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// The file of recovered edits has a column family of 'meta'. Also has an encoded regionname

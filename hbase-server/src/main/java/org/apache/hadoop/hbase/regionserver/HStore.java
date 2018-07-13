@@ -2443,6 +2443,9 @@ name|CompactingMemStore
 operator|.
 name|COMPACTING_MEMSTORE_TYPE_DEFAULT
 argument_list|)
+operator|.
+name|toUpperCase
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
