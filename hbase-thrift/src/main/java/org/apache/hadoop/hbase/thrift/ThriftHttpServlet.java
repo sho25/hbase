@@ -75,6 +75,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Base64
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|servlet
@@ -134,22 +144,6 @@ operator|.
 name|security
 operator|.
 name|SecurityUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Base64
 import|;
 end_import
 
@@ -1119,6 +1113,9 @@ name|inToken
 init|=
 name|Base64
 operator|.
+name|getDecoder
+argument_list|()
+operator|.
 name|decode
 argument_list|(
 name|serviceTicketBase64
@@ -1152,7 +1149,10 @@ name|outToken
 operator|=
 name|Base64
 operator|.
-name|encodeBytes
+name|getEncoder
+argument_list|()
+operator|.
+name|encodeToString
 argument_list|(
 name|res
 argument_list|)

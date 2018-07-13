@@ -109,6 +109,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Base64
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|ws
@@ -176,22 +186,6 @@ operator|.
 name|provider
 operator|.
 name|JAXBContextResolver
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Base64
 import|;
 end_import
 
@@ -486,6 +480,9 @@ name|newInstance
 argument_list|()
 argument_list|,
 name|Base64
+operator|.
+name|getDecoder
+argument_list|()
 operator|.
 name|decode
 argument_list|(

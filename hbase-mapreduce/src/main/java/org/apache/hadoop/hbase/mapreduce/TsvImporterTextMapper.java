@@ -19,6 +19,26 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Base64
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -58,22 +78,6 @@ operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Base64
 import|;
 end_import
 
@@ -146,16 +150,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
 import|;
 end_import
 
@@ -243,7 +237,7 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Handles initializing this class with objects specific to it (i.e., the parser).    * Common initialization that might be leveraged by a subsclass is done in    *<code>doSetup</code>. Hence a subclass may choose to override this method    * and call<code>doSetup</code> as well before handling it's own custom params.    *    * @param context    */
+comment|/**    * Handles initializing this class with objects specific to it (i.e., the parser).    * Common initialization that might be leveraged by a subclass is done in    *<code>doSetup</code>. Hence a subclass may choose to override this method    * and call<code>doSetup</code> as well before handling it's own custom params.    *    * @param context    */
 annotation|@
 name|Override
 specifier|protected
@@ -358,6 +352,9 @@ operator|new
 name|String
 argument_list|(
 name|Base64
+operator|.
+name|getDecoder
+argument_list|()
 operator|.
 name|decode
 argument_list|(
