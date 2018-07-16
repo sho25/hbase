@@ -420,21 +420,6 @@ decl_stmt|;
 end_decl_stmt
 
 begin_decl_stmt
-specifier|static
-specifier|final
-name|String
-name|DEFAULT_META_WAL_PROVIDER
-init|=
-name|Providers
-operator|.
-name|defaultProvider
-operator|.
-name|name
-argument_list|()
-decl_stmt|;
-end_decl_stmt
-
-begin_decl_stmt
 specifier|final
 name|String
 name|factoryId
@@ -1107,7 +1092,8 @@ block|}
 end_function
 
 begin_function
-specifier|private
+annotation|@
+name|VisibleForTesting
 name|WALProvider
 name|getMetaProvider
 parameter_list|()
@@ -1149,7 +1135,14 @@ name|getProviderClass
 argument_list|(
 name|META_WAL_PROVIDER
 argument_list|,
-name|DEFAULT_META_WAL_PROVIDER
+name|conf
+operator|.
+name|get
+argument_list|(
+name|WAL_PROVIDER
+argument_list|,
+name|DEFAULT_WAL_PROVIDER
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

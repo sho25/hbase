@@ -2014,6 +2014,16 @@ argument_list|()
 return|;
 block|}
 block|}
+annotation|@
+name|VisibleForTesting
+name|WALProvider
+name|getWrappedProvider
+parameter_list|()
+block|{
+return|return
+name|provider
+return|;
+block|}
 block|}
 end_class
 

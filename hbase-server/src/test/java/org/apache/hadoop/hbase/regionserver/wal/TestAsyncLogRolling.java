@@ -338,17 +338,6 @@ argument_list|,
 literal|"asyncfs"
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-name|WALFactory
-operator|.
-name|META_WAL_PROVIDER
-argument_list|,
-literal|"asyncfs"
-argument_list|)
-expr_stmt|;
 name|AbstractTestLogRolling
 operator|.
 name|setUpBeforeClass
