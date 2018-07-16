@@ -68,7 +68,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is used to manage the identifiers for  * {@link CacheableDeserializer}  */
+comment|/**  * This class is used to manage the identifiers for {@link CacheableDeserializer}.  * All deserializers are registered with this Manager via the  * {@link #registerDeserializer(CacheableDeserializer)}}. On registration, we return an  * int *identifier* for this deserializer. The int identifier is passed to  * {@link #getDeserializer(int)}} to obtain the registered deserializer instance.  */
 end_comment
 
 begin_class
@@ -111,7 +111,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/**    * Register the given cacheable deserializer and generate an unique identifier    * id for it    * @param cd    * @return the identifier of given cacheable deserializer    */
+comment|/**    * Register the given {@link Cacheable} -- usually an hfileblock instance, these implement    * the Cacheable Interface -- deserializer and generate an unique identifier id for it and return    * this as our result.    * @return the identifier of given cacheable deserializer    * @see #getDeserializer(int)    */
 specifier|public
 specifier|static
 name|int
@@ -151,7 +151,7 @@ return|return
 name|idx
 return|;
 block|}
-comment|/**    * Get the cacheable deserializer as the given identifier Id    * @param id    * @return CacheableDeserializer    */
+comment|/**    * Get the cacheable deserializer registered at the given identifier Id.    * @see #registerDeserializer(CacheableDeserializer)    */
 specifier|public
 specifier|static
 name|CacheableDeserializer
@@ -171,6 +171,84 @@ name|get
 argument_list|(
 name|id
 argument_list|)
+return|;
+block|}
+comment|/**    * Snapshot a map of the current identifiers to class names for reconstruction on reading out    * of a file.    */
+specifier|public
+specifier|static
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|String
+argument_list|>
+name|save
+parameter_list|()
+block|{
+name|Map
+argument_list|<
+name|Integer
+argument_list|,
+name|String
+argument_list|>
+name|snapshot
+init|=
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
+decl_stmt|;
+synchronized|synchronized
+init|(
+name|registeredDeserializers
+init|)
+block|{
+for|for
+control|(
+name|Map
+operator|.
+name|Entry
+argument_list|<
+name|Integer
+argument_list|,
+name|CacheableDeserializer
+argument_list|<
+name|Cacheable
+argument_list|>
+argument_list|>
+name|entry
+range|:
+name|registeredDeserializers
+operator|.
+name|entrySet
+argument_list|()
+control|)
+block|{
+name|snapshot
+operator|.
+name|put
+argument_list|(
+name|entry
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|entry
+operator|.
+name|getValue
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+return|return
+name|snapshot
 return|;
 block|}
 block|}

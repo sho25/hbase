@@ -790,7 +790,8 @@ operator|.
 name|HFILEBLOCK_HEADER_SIZE_NO_CHECKSUM
 index|]
 decl_stmt|;
-comment|/**    * Used deserializing blocks from Cache.    *    *<code>    * ++++++++++++++    * + HFileBlock +    * ++++++++++++++    * + Checksums  +<= Optional    * ++++++++++++++    * + Metadata!  +<= See note on BLOCK_METADATA_SPACE above.    * ++++++++++++++    *</code>    * @see #serialize(ByteBuffer)    */
+comment|/**    * Used deserializing blocks from Cache.    *    *<code>    * ++++++++++++++    * + HFileBlock +    * ++++++++++++++    * + Checksums  +<= Optional    * ++++++++++++++    * + Metadata!  +<= See note on BLOCK_METADATA_SPACE above.    * ++++++++++++++    *</code>    * @see #serialize(ByteBuffer, boolean)    */
+specifier|public
 specifier|static
 specifier|final
 name|CacheableDeserializer
@@ -800,12 +801,24 @@ argument_list|>
 name|BLOCK_DESERIALIZER
 init|=
 operator|new
+name|BlockDeserializer
+argument_list|()
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+class|class
+name|BlockDeserializer
+implements|implements
 name|CacheableDeserializer
 argument_list|<
 name|Cacheable
 argument_list|>
-argument_list|()
 block|{
+specifier|private
+name|BlockDeserializer
+parameter_list|()
+block|{     }
 annotation|@
 name|Override
 specifier|public
@@ -1013,7 +1026,6 @@ argument_list|)
 return|;
 block|}
 block|}
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
