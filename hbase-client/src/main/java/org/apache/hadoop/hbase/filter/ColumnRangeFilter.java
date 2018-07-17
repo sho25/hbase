@@ -890,7 +890,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param other    * @return true if and only if the fields of the filter that are serialized    * are equal to the corresponding fields in other.  Used for testing.    */
+comment|/**    * @param o filter to serialize.    * @return true if and only if the fields of the filter that are serialized are equal to the    *         corresponding fields in other. Used for testing.    */
 annotation|@
 name|Override
 name|boolean
@@ -906,9 +906,11 @@ name|o
 operator|==
 name|this
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -918,9 +920,11 @@ operator|instanceof
 name|ColumnRangeFilter
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|ColumnRangeFilter
 name|other
 init|=

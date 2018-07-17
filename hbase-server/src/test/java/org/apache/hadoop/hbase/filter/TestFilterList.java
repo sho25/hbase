@@ -3109,7 +3109,7 @@ argument_list|(
 literal|null
 argument_list|)
 argument_list|,
-name|maxKeyValue
+name|minKeyValue
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -3212,7 +3212,7 @@ argument_list|(
 literal|null
 argument_list|)
 argument_list|,
-name|maxKeyValue
+name|minKeyValue
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4945,7 +4945,7 @@ name|assertEquals
 argument_list|(
 name|ReturnCode
 operator|.
-name|SEEK_NEXT_USING_HINT
+name|NEXT_COL
 argument_list|,
 name|filterList
 operator|.
@@ -4973,7 +4973,7 @@ name|assertEquals
 argument_list|(
 name|ReturnCode
 operator|.
-name|SEEK_NEXT_USING_HINT
+name|NEXT_COL
 argument_list|,
 name|filterList
 operator|.
