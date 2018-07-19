@@ -74,7 +74,19 @@ name|ArrayDeque
 argument_list|<
 name|Procedure
 argument_list|>
-block|{ }
+block|{
+specifier|public
+name|ProcedureDeque
+parameter_list|()
+block|{
+comment|// Default is 16 for a list that is rarely used; elements will resize if too small.
+name|super
+argument_list|(
+literal|2
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 end_class
 
 end_unit

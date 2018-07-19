@@ -2814,13 +2814,16 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// There was nothing there
 name|rLoads
 operator|=
 operator|new
 name|ArrayDeque
 argument_list|<>
-argument_list|()
+argument_list|(
+name|numRegionLoadsToRemember
+operator|+
+literal|1
+argument_list|)
 expr_stmt|;
 block|}
 elseif|else

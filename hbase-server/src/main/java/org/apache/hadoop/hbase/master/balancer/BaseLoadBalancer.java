@@ -3552,7 +3552,7 @@ index|[
 name|numRegions
 index|]
 index|[
-name|numServers
+name|numRacks
 index|]
 expr_stmt|;
 name|regionsToMostLocalEntities
