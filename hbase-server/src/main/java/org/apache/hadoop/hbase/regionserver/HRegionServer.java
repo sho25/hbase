@@ -7191,7 +7191,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Builds a {@link RegionSpaceUseReportRequest} protobuf message from the region size map.    *    * @param regionSizeStore The size in bytes of regions    * @return The corresponding protocol buffer message.    */
+comment|/**    * Builds a {@link RegionSpaceUseReportRequest} protobuf message from the region size map.    *    * @param regionSizes The size in bytes of regions    * @return The corresponding protocol buffer message.    */
 name|RegionSpaceUseReportRequest
 name|buildRegionSpaceUseReportRequest
 parameter_list|(
