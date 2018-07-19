@@ -139,40 +139,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -340,6 +306,40 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureStateSerializer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -682,7 +682,8 @@ operator|.
 name|getRegionReplication
 argument_list|()
 decl_stmt|;
-comment|// Get the regions for the table from memory; get both online and offline regions ('true').
+comment|// Get the regions for the table from memory; get both online and offline regions
+comment|// ('true').
 name|List
 argument_list|<
 name|RegionInfo
@@ -704,13 +705,6 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|regionReplicaCount
-operator|>
-literal|1
-condition|)
-block|{
 name|int
 name|currentMaxReplica
 init|=
@@ -969,7 +963,6 @@ argument_list|,
 name|regionReplicaCount
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 comment|// Assign all the table regions. (including region replicas if added).
 comment|// createAssignProcedure will try to retain old assignments if possible.
