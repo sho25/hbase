@@ -339,12 +339,29 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+comment|//if it is a distributed HBase cluster, use the conf provided by classpath
+comment|//to set hbase dir and fs.defaultFS.
+comment|//Since when the super class HBaseTestingUtility initializing, it will
+comment|//change hbase.rootdir to a local test dir.
+comment|//we use "original.defaultFS" and "original.hbase.dir" to restore them.
 name|Configuration
 name|conf
 init|=
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"original.defaultFS"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
 name|conf
 operator|.
 name|set
@@ -356,6 +373,56 @@ operator|.
 name|get
 argument_list|(
 literal|"original.defaultFS"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"original.hbase.dir"
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+literal|"original.hbase.dir"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Setting {} to {} since it is a distributed cluster"
+argument_list|,
+name|HConstants
+operator|.
+name|HBASE_DIR
+argument_list|,
+name|conf
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
