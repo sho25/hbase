@@ -227,16 +227,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -553,8 +543,6 @@ name|String
 name|rpcServerImpl
 decl_stmt|;
 comment|/*    * This is a unit test to make sure to abort region server when the number of Rpc handler thread    * caught errors exceeds the threshold. Client will hang when RS aborts.    */
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
