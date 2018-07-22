@@ -730,7 +730,7 @@ name|Exception
 block|{
 name|ProcedureExecutor
 argument_list|<
-name|?
+name|MasterProcedureEnv
 argument_list|>
 name|executor
 init|=

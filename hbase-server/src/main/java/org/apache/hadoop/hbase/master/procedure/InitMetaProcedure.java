@@ -311,6 +311,21 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+name|boolean
+name|waitInitialized
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+comment|// we do not need to wait for master initialized, we are part of the initialization.
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
 name|LockState
 name|acquireLock
 parameter_list|(
@@ -318,7 +333,6 @@ name|MasterProcedureEnv
 name|env
 parameter_list|)
 block|{
-comment|// we do not need to wait for master initialized, we are part of the initialization.
 if|if
 condition|(
 name|env

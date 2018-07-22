@@ -254,16 +254,54 @@ name|boolean
 name|isAvailable
 parameter_list|()
 block|{
+if|if
+condition|(
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 return|return
-operator|!
-name|lockStatus
+literal|false
+return|;
+block|}
+if|if
+condition|(
+name|getLockStatus
+argument_list|()
 operator|.
 name|hasExclusiveLock
 argument_list|()
-operator|&&
-operator|!
-name|isEmpty
+condition|)
+block|{
+comment|// If we have an exclusive lock already taken, only child of the lock owner can be executed
+comment|// And now we will restore locks when master restarts, so it is possible that the procedure
+comment|// which is holding the lock is also in the queue, so we need to use hasLockAccess here
+comment|// instead of hasParentLock
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|nextProc
+init|=
+name|peek
 argument_list|()
+decl_stmt|;
+return|return
+name|nextProc
+operator|!=
+literal|null
+operator|&&
+name|getLockStatus
+argument_list|()
+operator|.
+name|hasLockAccess
+argument_list|(
+name|nextProc
+argument_list|)
+return|;
+block|}
+return|return
+literal|true
 return|;
 block|}
 comment|// ======================================================================

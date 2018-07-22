@@ -786,23 +786,9 @@ argument_list|()
 operator|.
 name|hasExclusiveLock
 argument_list|()
-operator|||
-name|queue
-operator|.
-name|getLockStatus
-argument_list|()
-operator|.
-name|isLockOwner
-argument_list|(
-name|proc
-operator|.
-name|getProcId
-argument_list|()
-argument_list|)
 condition|)
 block|{
-comment|// if the queue was not remove for an xlock execution
-comment|// or the proc is the lock owner, put the queue back into execution
+comment|// if the queue was not remove for an xlock execution,put the queue back into execution
 name|queue
 operator|.
 name|add
@@ -828,16 +814,13 @@ operator|.
 name|getLockStatus
 argument_list|()
 operator|.
-name|hasParentLock
+name|hasLockAccess
 argument_list|(
 name|proc
 argument_list|)
 condition|)
 block|{
-comment|// always add it to front as its parent has the xlock
-comment|// usually the addFront is true if we arrive here as we will call addFront for adding sub
-comment|// proc, but sometimes we may retry on the proc which means we will arrive here through yield,
-comment|// so it is possible the addFront here is false.
+comment|// always add it to front as the have the lock access.
 name|queue
 operator|.
 name|add
@@ -847,9 +830,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// our (proc) parent has the xlock,
-comment|// so the queue is not in the fairq (run-queue)
-comment|// add it back to let the child run (inherit the lock)
 name|addToRunQueue
 argument_list|(
 name|fairq
@@ -2051,17 +2031,6 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Usually this should not happen as proc can only be null when calling from "
-operator|+
-literal|"wait/wake lock, which means at least we should have one procedure in the queue which "
-operator|+
-literal|"wants to acquire the lock or just released the lock."
-argument_list|)
-expr_stmt|;
 name|priority
 operator|=
 literal|1
@@ -4184,8 +4153,8 @@ name|procedure
 argument_list|)
 condition|)
 block|{
-comment|// We do not need to create a new queue so just pass null, as in tests we may pass
-comment|// procedures other than ServerProcedureInterface
+comment|// In tests we may pass procedures other than ServerProcedureInterface, just pass null if
+comment|// so.
 name|removeFromRunQueue
 argument_list|(
 name|serverRunQueue
@@ -4194,6 +4163,15 @@ name|getServerQueue
 argument_list|(
 name|serverName
 argument_list|,
+name|procedure
+operator|instanceof
+name|ServerProcedureInterface
+condition|?
+operator|(
+name|ServerProcedureInterface
+operator|)
+name|procedure
+else|:
 literal|null
 argument_list|)
 argument_list|)
@@ -4273,8 +4251,8 @@ argument_list|(
 name|procedure
 argument_list|)
 expr_stmt|;
-comment|// We do not need to create a new queue so just pass null, as in tests we may pass procedures
-comment|// other than ServerProcedureInterface
+comment|// In tests we may pass procedures other than ServerProcedureInterface, just pass null if
+comment|// so.
 name|addToRunQueue
 argument_list|(
 name|serverRunQueue
@@ -4283,6 +4261,15 @@ name|getServerQueue
 argument_list|(
 name|serverName
 argument_list|,
+name|procedure
+operator|instanceof
+name|ServerProcedureInterface
+condition|?
+operator|(
+name|ServerProcedureInterface
+operator|)
+name|procedure
+else|:
 literal|null
 argument_list|)
 argument_list|)

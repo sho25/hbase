@@ -249,6 +249,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -307,7 +317,13 @@ name|Int64Value
 import|;
 end_import
 
+begin_comment
+comment|/**  * For now we do not guarantee this, we will restore the locks when restarting ProcedureExecutor so  * we should use lock to obtain the correct order. Ignored.  */
+end_comment
+
 begin_class
+annotation|@
+name|Ignore
 annotation|@
 name|Category
 argument_list|(

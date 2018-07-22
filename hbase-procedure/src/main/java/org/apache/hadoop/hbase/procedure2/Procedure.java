@@ -63,54 +63,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -165,9 +117,9 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|util
+name|store
 operator|.
-name|StringUtils
+name|ProcedureStore
 import|;
 end_import
 
@@ -181,15 +133,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|procedure2
 operator|.
-name|protobuf
+name|util
 operator|.
-name|generated
-operator|.
-name|ProcedureProtos
-operator|.
-name|ProcedureState
+name|StringUtils
 import|;
 end_import
 
@@ -247,6 +195,40 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -263,8 +245,30 @@ name|VisibleForTesting
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ProcedureProtos
+operator|.
+name|ProcedureState
+import|;
+end_import
+
 begin_comment
-comment|/**  * Base Procedure class responsible for Procedure Metadata;  * e.g. state, submittedTime, lastUpdate, stack-indexes, etc.  *  *<p>Procedures are run by a {@link ProcedureExecutor} instance. They are submitted and then  * the ProcedureExecutor keeps calling {@link #execute(Object)} until the Procedure is done.  * Execute may be called multiple times in the case of failure or a restart, so code must be  * idempotent. The return from an execute call is either: null to indicate we are done;  * ourself if there is more to do; or, a set of sub-procedures that need to  * be run to completion before the framework resumes our execution.  *  *<p>The ProcedureExecutor keeps its  * notion of Procedure State in the Procedure itself; e.g. it stamps the Procedure as INITIALIZING,  * RUNNABLE, SUCCESS, etc. Here are some of the States defined in the ProcedureState enum from  * protos:  *<ul>  *<li>{@link #isFailed()} A procedure has executed at least once and has failed. The procedure  * may or may not have rolled back yet. Any procedure in FAILED state will be eventually moved  * to ROLLEDBACK state.</li>  *  *<li>{@link #isSuccess()} A procedure is completed successfully without exception.</li>  *  *<li>{@link #isFinished()} As a procedure in FAILED state will be tried forever for rollback, only  * condition when scheduler/ executor will drop procedure from further processing is when procedure  * state is ROLLEDBACK or isSuccess() returns true. This is a terminal state of the procedure.</li>  *  *<li>{@link #isWaiting()} - Procedure is in one of the two waiting states  * ({@link ProcedureState#WAITING}, {@link ProcedureState#WAITING_TIMEOUT}).</li>  *</ul>  * NOTE: These states are of the ProcedureExecutor. Procedure implementations in turn can keep  * their own state. This can lead to confusion. Try to keep the two distinct.  *  *<p>rollback() is called when the procedure or one of the sub-procedures  * has failed. The rollback step is supposed to cleanup the resources created  * during the execute() step. In case of failure and restart, rollback() may be  * called multiple times, so again the code must be idempotent.  *  *<p>Procedure can be made respect a locking regime. It has acquire/release methods as  * well as an {@link #hasLock(Object)}. The lock implementation is up to the implementor.  * If an entity needs to be locked for the life of a procedure -- not just the calls to  * execute -- then implementations should say so with the {@link #holdLock(Object)}  * method.  *  *<p>Procedures can be suspended or put in wait state with a callback that gets executed on  * Procedure-specified timeout. See {@link #setTimeout(int)}}, and  * {@link #setTimeoutFailure(Object)}. See TestProcedureEvents and the  * TestTimeoutEventProcedure class for an example usage.</p>  *  *<p>There are hooks for collecting metrics on submit of the procedure and on finish.  * See {@link #updateMetricsOnSubmit(Object)} and  * {@link #updateMetricsOnFinish(Object, long, boolean)}.  */
+comment|/**  * Base Procedure class responsible for Procedure Metadata; e.g. state, submittedTime, lastUpdate,  * stack-indexes, etc.  *<p/>  * Procedures are run by a {@link ProcedureExecutor} instance. They are submitted and then the  * ProcedureExecutor keeps calling {@link #execute(Object)} until the Procedure is done. Execute may  * be called multiple times in the case of failure or a restart, so code must be idempotent. The  * return from an execute call is either: null to indicate we are done; ourself if there is more to  * do; or, a set of sub-procedures that need to be run to completion before the framework resumes  * our execution.  *<p/>  * The ProcedureExecutor keeps its notion of Procedure State in the Procedure itself; e.g. it stamps  * the Procedure as INITIALIZING, RUNNABLE, SUCCESS, etc. Here are some of the States defined in the  * ProcedureState enum from protos:  *<ul>  *<li>{@link #isFailed()} A procedure has executed at least once and has failed. The procedure may  * or may not have rolled back yet. Any procedure in FAILED state will be eventually moved to  * ROLLEDBACK state.</li>  *<li>{@link #isSuccess()} A procedure is completed successfully without exception.</li>  *<li>{@link #isFinished()} As a procedure in FAILED state will be tried forever for rollback, only  * condition when scheduler/ executor will drop procedure from further processing is when procedure  * state is ROLLEDBACK or isSuccess() returns true. This is a terminal state of the procedure.</li>  *<li>{@link #isWaiting()} - Procedure is in one of the two waiting states  * ({@link ProcedureState#WAITING}, {@link ProcedureState#WAITING_TIMEOUT}).</li>  *</ul>  * NOTE: These states are of the ProcedureExecutor. Procedure implementations in turn can keep their  * own state. This can lead to confusion. Try to keep the two distinct.  *<p/>  * rollback() is called when the procedure or one of the sub-procedures has failed. The rollback  * step is supposed to cleanup the resources created during the execute() step. In case of failure  * and restart, rollback() may be called multiple times, so again the code must be idempotent.  *<p/>  * Procedure can be made respect a locking regime. It has acquire/release methods as well as an  * {@link #hasLock()}. The lock implementation is up to the implementor. If an entity needs to be  * locked for the life of a procedure -- not just the calls to execute -- then implementations  * should say so with the {@link #holdLock(Object)} method.  *<p/>  * And since we need to restore the lock when restarting to keep the logic correct(HBASE-20846), the  * implementation is a bit tricky so we add some comments hrre about it.  *<ul>  *<li>Make {@link #hasLock()} method final, and add a {@link #locked} field in Procedure to record  * whether we have the lock. We will set it to {@code true} in  * {@link #doAcquireLock(Object, ProcedureStore)} and to {@code false} in  * {@link #doReleaseLock(Object, ProcedureStore)}. The sub classes do not need to manage it any  * more.</li>  *<li>Also added a locked field in the proto message. When storing, the field will be set according  * to the return value of {@link #hasLock()}. And when loading, there is a new field in Procedure  * called {@link #lockedWhenLoading}. We will set it to {@code true} if the locked field in proto  * message is {@code true}.</li>  *<li>The reason why we can not set the {@link #locked} field directly to {@code true} by calling  * {@link #doAcquireLock(Object, ProcedureStore)} is that, during initialization, most procedures  * need to wait until master is initialized. So the solution here is that, we introduced a new  * method called {@link #waitInitialized(Object)} in Procedure, and move the wait master initialized  * related code from {@link #acquireLock(Object)} to this method. And we added a restoreLock method  * to Procedure, if {@link #lockedWhenLoading} is {@code true}, we will call the  * {@link #acquireLock(Object)} to get the lock, but do not set {@link #locked} to true. And later  * when we call {@link #doAcquireLock(Object, ProcedureStore)} and pass the  * {@link #waitInitialized(Object)} check, we will test {@link #lockedWhenLoading}, if it is  * {@code true}, when we just set the {@link #locked} field to true and return, without actually  * calling the {@link #acquireLock(Object)} method since we have already called it once.</li>  *</ul>  *<p/>  * Procedures can be suspended or put in wait state with a callback that gets executed on  * Procedure-specified timeout. See {@link #setTimeout(int)}}, and  * {@link #setTimeoutFailure(Object)}. See TestProcedureEvents and the TestTimeoutEventProcedure  * class for an example usage.  *</p>  *<p/>  * There are hooks for collecting metrics on submit of the procedure and on finish. See  * {@link #updateMetricsOnSubmit(Object)} and {@link #updateMetricsOnFinish(Object, long, boolean)}.  */
 end_comment
 
 begin_class
@@ -272,10 +276,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 specifier|abstract
 class|class
@@ -422,6 +422,19 @@ name|result
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|locked
+init|=
+literal|false
+decl_stmt|;
+specifier|private
+name|boolean
+name|lockedWhenLoading
+init|=
+literal|false
+decl_stmt|;
 comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple times in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures to run or ourselves if there is more work to do or null if the    * procedure is done.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later.    * @throws InterruptedException the procedure will be added back to the queue and retried later.    * @throws ProcedureSuspendedException Signal to the executor that Procedure has suspended itself and    * has set itself up waiting for an external event to wake it back up again.    */
 specifier|protected
 specifier|abstract
@@ -472,7 +485,6 @@ specifier|abstract
 name|void
 name|serializeStateData
 parameter_list|(
-specifier|final
 name|ProcedureStateSerializer
 name|serializer
 parameter_list|)
@@ -485,19 +497,30 @@ specifier|abstract
 name|void
 name|deserializeStateData
 parameter_list|(
-specifier|final
 name|ProcedureStateSerializer
 name|serializer
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * The user should override this method if they need a lock on an Entity.    * A lock can be anything, and it is up to the implementor. The Procedure    * Framework will call this method just before it invokes {@link #execute(Object)}.    * It calls {@link #releaseLock(Object)} after the call to execute.    *    *<p>If you need to hold the lock for the life of the Procedure -- i.e. you do not    * want any other Procedure interfering while this Procedure is running, see    * {@link #holdLock(Object)}.    *    *<p>Example: in our Master we can execute request in parallel for different tables.    * We can create t1 and create t2 and these creates can be executed at the same time.    * Anything else on t1/t2 is queued waiting that specific table create to happen.    *    *<p>There are 3 LockState:    *<ul><li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is    * ready to execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework    * should take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will    * take care of readding the procedure back to the runnable set when the lock is available.    *</li></ul>    * @return the lock state as described above.    */
+comment|/**    * The {@link #doAcquireLock(Object, ProcedureStore)} will be split into two steps, first, it will    * call us to determine whether we need to wait for initialization, second, it will call    * {@link #acquireLock(Object)} to actually handle the lock for this procedure.    *<p/>    * This is because that when master restarts, we need to restore the lock state for all the    * procedures to not break the semantic if {@link #holdLock(Object)} is true. But the    * {@link ProcedureExecutor} will be started before the master finish initialization(as it is part    * of the initialization!), so we need to split the code into two steps, and when restore, we just    * restore the lock part and ignore the waitInitialized part. Otherwise there will be dead lock.    * @return true means we need to wait until the environment has been initialized, otherwise true.    */
+specifier|protected
+name|boolean
+name|waitInitialized
+parameter_list|(
+name|TEnvironment
+name|env
+parameter_list|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+comment|/**    * The user should override this method if they need a lock on an Entity. A lock can be anything,    * and it is up to the implementor. The Procedure Framework will call this method just before it    * invokes {@link #execute(Object)}. It calls {@link #releaseLock(Object)} after the call to    * execute.    *<p/>    * If you need to hold the lock for the life of the Procedure -- i.e. you do not want any other    * Procedure interfering while this Procedure is running, see {@link #holdLock(Object)}.    *<p/>    * Example: in our Master we can execute request in parallel for different tables. We can create    * t1 and create t2 and these creates can be executed at the same time. Anything else on t1/t2 is    * queued waiting that specific table create to happen.    *<p/>    * There are 3 LockState:    *<ul>    *<li>LOCK_ACQUIRED should be returned when the proc has the lock and the proc is ready to    * execute.</li>    *<li>LOCK_YIELD_WAIT should be returned when the proc has not the lock and the framework should    * take care of readding the procedure back to the runnable set for retry</li>    *<li>LOCK_EVENT_WAIT should be returned when the proc has not the lock and someone will take    * care of readding the procedure back to the runnable set when the lock is available.</li>    *</ul>    * @return the lock state as described above.    */
 specifier|protected
 name|LockState
 name|acquireLock
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -513,19 +536,17 @@ specifier|protected
 name|void
 name|releaseLock
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
 block|{
 comment|// no-op
 block|}
-comment|/**    * Used to keep the procedure lock even when the procedure is yielding or suspended.    * Must implement {@link #hasLock(Object)} if you want to hold the lock for life    * of the Procedure.    * @see #hasLock(Object)    * @return true if the procedure should hold on the lock until completionCleanup()    */
+comment|/**    * Used to keep the procedure lock even when the procedure is yielding or suspended.    * @return true if the procedure should hold on the lock until completionCleanup()    */
 specifier|protected
 name|boolean
 name|holdLock
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -536,16 +557,13 @@ return|;
 block|}
 comment|/**    * This is used in conjunction with {@link #holdLock(Object)}. If {@link #holdLock(Object)}    * returns true, the procedure executor will call acquireLock() once and thereafter    * not call {@link #releaseLock(Object)} until the Procedure is done (Normally, it calls    * release/acquire around each invocation of {@link #execute(Object)}.    * @see #holdLock(Object)    * @return true if the procedure has the lock, false otherwise.    */
 specifier|protected
+specifier|final
 name|boolean
 name|hasLock
-parameter_list|(
-specifier|final
-name|TEnvironment
-name|env
-parameter_list|)
+parameter_list|()
 block|{
 return|return
-literal|false
+name|locked
 return|;
 block|}
 comment|/**    * Called when the procedure is loaded for replay.    * The procedure implementor may use this method to perform some quick    * operation before replay.    * e.g. failing the procedure if the state on replay may be unknown.    */
@@ -553,7 +571,6 @@ specifier|protected
 name|void
 name|beforeReplay
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -565,7 +582,6 @@ specifier|protected
 name|void
 name|afterReplay
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -577,7 +593,6 @@ specifier|protected
 name|void
 name|completionCleanup
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -589,7 +604,6 @@ specifier|protected
 name|boolean
 name|isYieldAfterExecutionStep
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -603,7 +617,6 @@ specifier|protected
 name|boolean
 name|shouldWaitClientAck
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -617,7 +630,6 @@ specifier|protected
 name|ProcedureMetrics
 name|getProcedureMetrics
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -631,7 +643,6 @@ specifier|protected
 name|void
 name|updateMetricsOnSubmit
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -675,16 +686,14 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This function will be called just after procedure execution is finished. Override this method    * to update metrics at the end of the procedure. If {@link #getProcedureMetrics(Object)}    * returns non-null {@link ProcedureMetrics}, the default implementation adds runtime of a    * procedure to a time histogram for successfully completed procedures. Increments failed    * counter for failed procedures.    *    * TODO: As any of the sub-procedures on failure rolls back all procedures in the stack,    * including successfully finished siblings, this function may get called twice in certain    * cases for certain procedures. Explore further if this can be called once.    *    * @param env The environment passed to the procedure executor    * @param runtime Runtime of the procedure in milliseconds    * @param success true if procedure is completed successfully    */
+comment|/**    * This function will be called just after procedure execution is finished. Override this method    * to update metrics at the end of the procedure. If {@link #getProcedureMetrics(Object)} returns    * non-null {@link ProcedureMetrics}, the default implementation adds runtime of a procedure to a    * time histogram for successfully completed procedures. Increments failed counter for failed    * procedures.    *<p/>    * TODO: As any of the sub-procedures on failure rolls back all procedures in the stack, including    * successfully finished siblings, this function may get called twice in certain cases for certain    * procedures. Explore further if this can be called once.    * @param env The environment passed to the procedure executor    * @param runtime Runtime of the procedure in milliseconds    * @param success true if procedure is completed successfully    */
 specifier|protected
 name|void
 name|updateMetricsOnFinish
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|,
-specifier|final
 name|long
 name|runtime
 parameter_list|,
@@ -779,7 +788,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Build the StringBuilder for the simple form of    * procedure string.    * @return the StringBuilder    */
+comment|/**    * Build the StringBuilder for the simple form of procedure string.    * @return the StringBuilder    */
 specifier|protected
 name|StringBuilder
 name|toStringSimpleSB
@@ -844,6 +853,18 @@ argument_list|(
 name|sb
 argument_list|)
 expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", hasLock="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|locked
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|hasException
@@ -877,7 +898,7 @@ return|return
 name|sb
 return|;
 block|}
-comment|/**    * Extend the toString() information with more procedure    * details    */
+comment|/**    * Extend the toString() information with more procedure details    */
 specifier|public
 name|String
 name|toStringDetails
@@ -993,7 +1014,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Called from {@link #toString()} when interpolating {@link Procedure} State.    * Allows decorating generic Procedure State with Procedure particulars.    * @param builder Append current {@link ProcedureState}    */
+comment|/**    * Called from {@link #toString()} when interpolating {@link Procedure} State. Allows decorating    * generic Procedure State with Procedure particulars.    * @param builder Append current {@link ProcedureState}    */
 specifier|protected
 name|void
 name|toStringState
@@ -1128,15 +1149,10 @@ block|}
 comment|/**    * Called by the ProcedureExecutor to assign the ID to the newly created procedure.    */
 annotation|@
 name|VisibleForTesting
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setProcId
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|)
@@ -1165,15 +1181,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Called by the ProcedureExecutor to assign the parent to the newly created procedure.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setParentProcId
 parameter_list|(
-specifier|final
 name|long
 name|parentProcId
 parameter_list|)
@@ -1185,15 +1196,10 @@ operator|=
 name|parentProcId
 expr_stmt|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setRootProcId
 parameter_list|(
-specifier|final
 name|long
 name|rootProcId
 parameter_list|)
@@ -1208,15 +1214,10 @@ block|}
 comment|/**    * Called by the ProcedureExecutor to set the value to the newly created procedure.    */
 annotation|@
 name|VisibleForTesting
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setNonceKey
 parameter_list|(
-specifier|final
 name|NonceKey
 name|nonceKey
 parameter_list|)
@@ -1230,15 +1231,10 @@ expr_stmt|;
 block|}
 annotation|@
 name|VisibleForTesting
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|public
 name|void
 name|setOwner
 parameter_list|(
-specifier|final
 name|String
 name|owner
 parameter_list|)
@@ -1263,7 +1259,6 @@ specifier|public
 name|void
 name|setOwner
 parameter_list|(
-specifier|final
 name|User
 name|owner
 parameter_list|)
@@ -1285,15 +1280,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Called on store load to initialize the Procedure internals after    * the creation/deserialization.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setSubmittedTime
 parameter_list|(
-specifier|final
 name|long
 name|submittedTime
 parameter_list|)
@@ -1313,7 +1303,6 @@ specifier|protected
 name|void
 name|setTimeout
 parameter_list|(
-specifier|final
 name|int
 name|timeout
 parameter_list|)
@@ -1347,15 +1336,10 @@ name|timeout
 return|;
 block|}
 comment|/**    * Called on store load to initialize the Procedure internals after    * the creation/deserialization.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|setLastUpdate
 parameter_list|(
-specifier|final
 name|long
 name|lastUpdate
 parameter_list|)
@@ -1368,10 +1352,6 @@ name|lastUpdate
 expr_stmt|;
 block|}
 comment|/**    * Called by ProcedureExecutor after each time a procedure step is executed.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|updateTimestamp
@@ -1397,10 +1377,6 @@ name|lastUpdate
 return|;
 block|}
 comment|/**    * Timeout of the next timeout.    * Called by the ProcedureExecutor if the procedure has timeout set and    * the procedure is in the waiting queue.    * @return the timestamp of the next timeout.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|long
 name|getTimeoutTimestamp
@@ -1447,7 +1423,6 @@ specifier|protected
 name|void
 name|setResult
 parameter_list|(
-specifier|final
 name|byte
 index|[]
 name|result
@@ -1458,6 +1433,19 @@ operator|.
 name|result
 operator|=
 name|result
+expr_stmt|;
+block|}
+comment|/**    * Will only be called when loading procedures from procedure store, where we need to record    * whether the procedure has already held a lock. Later we will call    * {@link #doAcquireLock(Object)} to actually acquire the lock.    */
+specifier|final
+name|void
+name|lockedWhenLoading
+parameter_list|()
+block|{
+name|this
+operator|.
+name|lockedWhenLoading
+operator|=
+literal|true
 expr_stmt|;
 block|}
 comment|// ==============================================================================================
@@ -1585,10 +1573,6 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|void
@@ -1609,10 +1593,6 @@ name|updateTimestamp
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|public
 specifier|synchronized
 name|ProcedureState
@@ -1705,13 +1685,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called by the ProcedureExecutor when the timeout set by setTimeout() is expired.    * @return true to let the framework handle the timeout as abort,    *         false in case the procedure handled the timeout itself.    */
+comment|/**    * Called by the ProcedureExecutor when the timeout set by setTimeout() is expired.    * @return true to let the framework handle the timeout as abort, false in case the procedure    *         handled the timeout itself.    */
 specifier|protected
 specifier|synchronized
 name|boolean
 name|setTimeoutFailure
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -1784,16 +1763,11 @@ name|exception
 return|;
 block|}
 comment|/**    * Called by the ProcedureExecutor on procedure-load to restore the latch state    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|void
 name|setChildrenLatch
 parameter_list|(
-specifier|final
 name|int
 name|numChildren
 parameter_list|)
@@ -1835,10 +1809,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Called by the ProcedureExecutor on procedure-load to restore the latch state    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|void
@@ -1882,10 +1852,6 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Called by the ProcedureExecutor to notify that one of the sub-procedures has completed.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|private
 specifier|synchronized
 name|boolean
@@ -1945,9 +1911,8 @@ name|tryRunnable
 parameter_list|()
 block|{
 comment|// Don't use isWaiting in the below; it returns true for WAITING and WAITING_TIMEOUT
-name|boolean
-name|b
-init|=
+if|if
+condition|(
 name|getState
 argument_list|()
 operator|==
@@ -1957,11 +1922,8 @@ name|WAITING
 operator|&&
 name|childrenCountDown
 argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|b
 condition|)
+block|{
 name|setState
 argument_list|(
 name|ProcedureState
@@ -1970,13 +1932,16 @@ name|RUNNABLE
 argument_list|)
 expr_stmt|;
 return|return
-name|b
+literal|true
 return|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
+else|else
+block|{
+return|return
+literal|false
+return|;
+block|}
+block|}
 specifier|protected
 specifier|synchronized
 name|boolean
@@ -1989,10 +1954,6 @@ operator|>
 literal|0
 return|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|int
@@ -2004,10 +1965,6 @@ name|childrenLatch
 return|;
 block|}
 comment|/**    * Called by the RootProcedureState on procedure execution.    * Each procedure store its stack-index positions.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|void
@@ -2066,10 +2023,6 @@ name|index
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|boolean
@@ -2120,10 +2073,6 @@ return|;
 block|}
 block|}
 comment|/**    * Called on store load to initialize the Procedure internals after    * the creation/deserialization.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|void
@@ -2185,10 +2134,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|boolean
@@ -2201,10 +2146,6 @@ operator|!=
 literal|null
 return|;
 block|}
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 specifier|synchronized
 name|int
@@ -2219,11 +2160,7 @@ block|}
 comment|// ==========================================================================
 comment|//  Internal methods - called by the ProcedureExecutor
 comment|// ==========================================================================
-comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code execute().    * @throws ProcedureSuspendedException This is used when procedure wants to halt processing and    * skip out without changing states or releasing any locks held.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
+comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code execute().    * @throws ProcedureSuspendedException This is used when procedure wants to halt processing and    *           skip out without changing states or releasing any locks held.    */
 specifier|protected
 name|Procedure
 argument_list|<
@@ -2232,7 +2169,6 @@ argument_list|>
 index|[]
 name|doExecute
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -2263,15 +2199,10 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code rollback().    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|void
 name|doRollback
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
 parameter_list|)
@@ -2298,41 +2229,183 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code acquireLock().    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|protected
-name|LockState
-name|doAcquireLock
-parameter_list|(
 specifier|final
+name|void
+name|restoreLock
+parameter_list|(
 name|TEnvironment
 name|env
 parameter_list|)
 block|{
-return|return
+if|if
+condition|(
+operator|!
+name|lockedWhenLoading
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} didn't hold the lock before restarting, skip acquiring lock."
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} held the lock before restarting, call acquireLock to restore it."
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|LockState
+name|state
+init|=
 name|acquireLock
 argument_list|(
 name|env
 argument_list|)
+decl_stmt|;
+assert|assert
+name|state
+operator|==
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
+assert|;
+block|}
+comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code acquireLock().    */
+specifier|final
+name|LockState
+name|doAcquireLock
+parameter_list|(
+name|TEnvironment
+name|env
+parameter_list|,
+name|ProcedureStore
+name|store
+parameter_list|)
+block|{
+if|if
+condition|(
+name|waitInitialized
+argument_list|(
+name|env
+argument_list|)
+condition|)
+block|{
+return|return
+name|LockState
+operator|.
+name|LOCK_EVENT_WAIT
+return|;
+block|}
+if|if
+condition|(
+name|lockedWhenLoading
+condition|)
+block|{
+comment|// reset it so we will not consider it anymore
+name|lockedWhenLoading
+operator|=
+literal|false
+expr_stmt|;
+name|locked
+operator|=
+literal|true
+expr_stmt|;
+comment|// Here we return without persist the locked state, as lockedWhenLoading is true means
+comment|// that the locked field of the procedure stored in procedure store is true, so we do not need
+comment|// to store it again.
+return|return
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
+return|;
+block|}
+name|LockState
+name|state
+init|=
+name|acquireLock
+argument_list|(
+name|env
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|state
+operator|==
+name|LockState
+operator|.
+name|LOCK_ACQUIRED
+condition|)
+block|{
+name|locked
+operator|=
+literal|true
+expr_stmt|;
+comment|// persist that we have held the lock. This must be done before we actually execute the
+comment|// procedure, otherwise when restarting, we may consider the procedure does not have a lock,
+comment|// but it may have already done some changes as we have already executed it, and if another
+comment|// procedure gets the lock, then the semantic will be broken if the holdLock is true, as we do
+comment|// not expect that another procedure can be executed in the middle.
+name|store
+operator|.
+name|update
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|state
 return|;
 block|}
 comment|/**    * Internal method called by the ProcedureExecutor that starts the user-level code releaseLock().    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
-specifier|protected
+specifier|final
 name|void
 name|doReleaseLock
 parameter_list|(
-specifier|final
 name|TEnvironment
 name|env
+parameter_list|,
+name|ProcedureStore
+name|store
 parameter_list|)
 block|{
+name|locked
+operator|=
+literal|false
+expr_stmt|;
+comment|// persist that we have released the lock. This must be done before we actually release the
+comment|// lock. Another procedure may take this lock immediately after we release the lock, and if we
+comment|// crash before persist the information that we have already released the lock, then when
+comment|// restarting there will be two procedures which both have the lock and cause problems.
+if|if
+condition|(
+name|getState
+argument_list|()
+operator|!=
+name|ProcedureState
+operator|.
+name|ROLLEDBACK
+condition|)
+block|{
+comment|// If the state is ROLLEDBACK, it means that we have already deleted the procedure from
+comment|// procedure store, so do not need to log the release operation any more.
+name|store
+operator|.
+name|update
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+block|}
 name|releaseLock
 argument_list|(
 name|env
@@ -2377,7 +2450,6 @@ specifier|static
 name|long
 name|getProcIdHashCode
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|)
@@ -2417,28 +2489,29 @@ return|return
 name|h
 return|;
 block|}
-comment|/*    * Helper to lookup the root Procedure ID given a specified procedure.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
+comment|/**    * Helper to lookup the root Procedure ID given a specified procedure.    */
 specifier|protected
 specifier|static
+parameter_list|<
+name|T
+parameter_list|>
 name|Long
 name|getRootProcedureId
 parameter_list|(
-specifier|final
 name|Map
 argument_list|<
 name|Long
 argument_list|,
 name|Procedure
+argument_list|<
+name|T
+argument_list|>
 argument_list|>
 name|procedures
 parameter_list|,
 name|Procedure
 argument_list|<
-name|?
+name|T
 argument_list|>
 name|proc
 parameter_list|)
@@ -2469,9 +2542,11 @@ name|proc
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 block|}
 return|return
 name|proc
@@ -2486,14 +2561,12 @@ specifier|static
 name|boolean
 name|haveSameParent
 parameter_list|(
-specifier|final
 name|Procedure
 argument_list|<
 name|?
 argument_list|>
 name|a
 parameter_list|,
-specifier|final
 name|Procedure
 argument_list|<
 name|?

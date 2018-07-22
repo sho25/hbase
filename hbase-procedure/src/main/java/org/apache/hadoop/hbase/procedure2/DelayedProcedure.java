@@ -60,6 +60,9 @@ operator|.
 name|Private
 class|class
 name|DelayedProcedure
+parameter_list|<
+name|TEnvironment
+parameter_list|>
 extends|extends
 name|DelayedUtil
 operator|.
@@ -67,7 +70,7 @@ name|DelayedContainerWithTimestamp
 argument_list|<
 name|Procedure
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 argument_list|>
 block|{
@@ -76,7 +79,7 @@ name|DelayedProcedure
 parameter_list|(
 name|Procedure
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|procedure
 parameter_list|)

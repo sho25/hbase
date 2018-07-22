@@ -518,7 +518,7 @@ parameter_list|(
 specifier|final
 name|Procedure
 argument_list|<
-name|?
+name|MasterProcedureEnv
 argument_list|>
 name|proc
 parameter_list|)

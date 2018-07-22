@@ -448,11 +448,6 @@ specifier|private
 name|boolean
 name|recoveredMasterLock
 decl_stmt|;
-comment|// this is for internal working
-specifier|private
-name|boolean
-name|hasLock
-decl_stmt|;
 specifier|private
 specifier|final
 name|ProcedureEvent
@@ -1574,10 +1569,6 @@ argument_list|(
 name|ret
 argument_list|)
 expr_stmt|;
-name|hasLock
-operator|=
-name|ret
-expr_stmt|;
 if|if
 condition|(
 name|ret
@@ -1653,10 +1644,6 @@ name|releaseLock
 argument_list|(
 name|env
 argument_list|)
-expr_stmt|;
-name|hasLock
-operator|=
-literal|false
 expr_stmt|;
 block|}
 comment|/**    * On recovery, re-execute from start to acquire the locks.    * Need to explicitly set it to RUNNABLE because the procedure might have been in WAITING_TIMEOUT    * state when crash happened. In which case, it'll be sent back to timeout queue on recovery,    * which we don't want since we want to require locks.    */
@@ -2131,21 +2118,6 @@ parameter_list|)
 block|{
 return|return
 literal|true
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|boolean
-name|hasLock
-parameter_list|(
-specifier|final
-name|MasterProcedureEnv
-name|env
-parameter_list|)
-block|{
-return|return
-name|hasLock
 return|;
 block|}
 comment|///////////////////////

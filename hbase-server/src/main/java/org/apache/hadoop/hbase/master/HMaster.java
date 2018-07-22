@@ -5969,7 +5969,7 @@ name|Optional
 argument_list|<
 name|Procedure
 argument_list|<
-name|?
+name|MasterProcedureEnv
 argument_list|>
 argument_list|>
 name|optProc
@@ -16308,7 +16308,15 @@ name|preGetProcedures
 argument_list|()
 expr_stmt|;
 block|}
-specifier|final
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"unchecked"
+block|,
+literal|"rawtypes"
+block|}
+argument_list|)
 name|List
 argument_list|<
 name|Procedure
@@ -16318,6 +16326,9 @@ argument_list|>
 argument_list|>
 name|procList
 init|=
+operator|(
+name|List
+operator|)
 name|this
 operator|.
 name|procedureExecutor
@@ -18763,6 +18774,7 @@ argument_list|()
 argument_list|,
 operator|new
 name|ArrayList
+argument_list|<>
 argument_list|()
 argument_list|)
 argument_list|)

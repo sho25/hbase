@@ -134,6 +134,9 @@ operator|.
 name|Private
 class|class
 name|TimeoutExecutorThread
+parameter_list|<
+name|TEnvironment
+parameter_list|>
 extends|extends
 name|StoppableThread
 block|{
@@ -156,7 +159,7 @@ specifier|private
 specifier|final
 name|ProcedureExecutor
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|executor
 decl_stmt|;
@@ -178,7 +181,7 @@ name|TimeoutExecutorThread
 parameter_list|(
 name|ProcedureExecutor
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|executor
 parameter_list|,
@@ -303,6 +306,9 @@ name|execDelayedProcedure
 argument_list|(
 operator|(
 name|DelayedProcedure
+argument_list|<
+name|TEnvironment
+argument_list|>
 operator|)
 name|task
 argument_list|)
@@ -349,7 +355,7 @@ name|add
 parameter_list|(
 name|Procedure
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|procedure
 parameter_list|)
@@ -389,6 +395,7 @@ name|add
 argument_list|(
 operator|new
 name|DelayedProcedure
+argument_list|<>
 argument_list|(
 name|procedure
 argument_list|)
@@ -401,7 +408,7 @@ name|remove
 parameter_list|(
 name|Procedure
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|procedure
 parameter_list|)
@@ -413,6 +420,7 @@ name|remove
 argument_list|(
 operator|new
 name|DelayedProcedure
+argument_list|<>
 argument_list|(
 name|procedure
 argument_list|)
@@ -443,6 +451,9 @@ name|void
 name|execDelayedProcedure
 parameter_list|(
 name|DelayedProcedure
+argument_list|<
+name|TEnvironment
+argument_list|>
 name|delayed
 parameter_list|)
 block|{
@@ -451,7 +462,7 @@ comment|// let one of the workers handle it.
 comment|// Today we consider ProcedureInMemoryChore as InlineChores
 name|Procedure
 argument_list|<
-name|?
+name|TEnvironment
 argument_list|>
 name|procedure
 init|=
@@ -471,6 +482,9 @@ name|executeInMemoryChore
 argument_list|(
 operator|(
 name|ProcedureInMemoryChore
+argument_list|<
+name|TEnvironment
+argument_list|>
 operator|)
 name|procedure
 argument_list|)
@@ -522,6 +536,9 @@ name|void
 name|executeInMemoryChore
 parameter_list|(
 name|ProcedureInMemoryChore
+argument_list|<
+name|TEnvironment
+argument_list|>
 name|chore
 parameter_list|)
 block|{
@@ -581,6 +598,9 @@ name|void
 name|executeTimedoutProcedure
 parameter_list|(
 name|Procedure
+argument_list|<
+name|TEnvironment
+argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -610,6 +630,9 @@ name|proc
 argument_list|)
 decl_stmt|;
 name|RootProcedureState
+argument_list|<
+name|TEnvironment
+argument_list|>
 name|procStack
 init|=
 name|executor
