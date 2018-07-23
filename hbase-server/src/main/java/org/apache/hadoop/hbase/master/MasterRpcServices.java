@@ -7229,6 +7229,30 @@ name|getNonce
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+name|master
+operator|.
+name|getClientIdAuditPrefix
+argument_list|()
+operator|+
+literal|" procedure request for creating table: "
+operator|+
+name|req
+operator|.
+name|getTableSchema
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+operator|+
+literal|" procId is: "
+operator|+
+name|procId
+argument_list|)
+expr_stmt|;
 return|return
 name|CreateTableResponse
 operator|.
