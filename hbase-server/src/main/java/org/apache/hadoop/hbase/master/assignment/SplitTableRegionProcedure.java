@@ -1211,6 +1211,56 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Check whether there is recovered.edits in the closed region    * If any, that means this region is not closed property, we need    * to abort region merge to prevent data loss    * @param env master env    * @throws IOException IOException    */
+specifier|private
+name|void
+name|checkClosedRegion
+parameter_list|(
+specifier|final
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+name|WALSplitter
+operator|.
+name|hasRecoveredEdits
+argument_list|(
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getFileSystem
+argument_list|()
+argument_list|,
+name|env
+operator|.
+name|getMasterConfiguration
+argument_list|()
+argument_list|,
+name|getRegion
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Recovered.edits are found in Region: "
+operator|+
+name|getRegion
+argument_list|()
+operator|+
+literal|", abort split to prevent data loss"
+argument_list|)
+throw|;
+block|}
+block|}
 comment|/**    * Check whether the region is splittable    * @param env MasterProcedureEnv    * @param regionToSplit parent Region to be split    * @param splitRow if splitRow is not specified, will first try to get bestSplitRow from RS    * @throws IOException    */
 specifier|private
 name|void
@@ -1699,6 +1749,22 @@ name|setNextState
 argument_list|(
 name|SplitTableRegionState
 operator|.
+name|SPLIT_TABLE_REGIONS_CHECK_CLOSED_REGIONS
+argument_list|)
+expr_stmt|;
+break|break;
+case|case
+name|SPLIT_TABLE_REGIONS_CHECK_CLOSED_REGIONS
+case|:
+name|checkClosedRegion
+argument_list|(
+name|env
+argument_list|)
+expr_stmt|;
+name|setNextState
+argument_list|(
+name|SplitTableRegionState
+operator|.
 name|SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS
 argument_list|)
 expr_stmt|;
@@ -1989,6 +2055,12 @@ case|case
 name|SPLIT_TABLE_REGION_WRITE_MAX_SEQUENCE_ID_FILE
 case|:
 comment|// Doing nothing, as re-open parent region would clean up daughter region directories.
+break|break;
+case|case
+name|SPLIT_TABLE_REGIONS_CHECK_CLOSED_REGIONS
+case|:
+comment|// Doing nothing, in SPLIT_TABLE_REGION_CLOSE_PARENT_REGION,
+comment|// we will bring parent region online
 break|break;
 case|case
 name|SPLIT_TABLE_REGION_CLOSE_PARENT_REGION
