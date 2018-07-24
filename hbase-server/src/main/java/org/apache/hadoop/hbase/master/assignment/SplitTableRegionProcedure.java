@@ -1211,7 +1211,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check whether there is recovered.edits in the closed region    * If any, that means this region is not closed property, we need    * to abort region merge to prevent data loss    * @param env master env    * @throws IOException IOException    */
+comment|/**    * Check whether there is recovered.edits in the closed region    * If any, that means this region is not closed property, we need    * to abort region split to prevent data loss    * @param env master env    * @throws IOException IOException    */
 specifier|private
 name|void
 name|checkClosedRegion
