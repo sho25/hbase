@@ -2751,13 +2751,17 @@ condition|)
 block|{
 name|mid
 operator|=
-operator|(
 name|low
 operator|+
+operator|(
+operator|(
 name|high
+operator|-
+name|low
 operator|)
-operator|>>>
+operator|>>
 literal|1
+operator|)
 expr_stmt|;
 comment|// Midkey's offset relative to the end of secondary index
 name|int

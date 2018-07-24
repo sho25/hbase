@@ -8119,13 +8119,17 @@ block|{
 name|int
 name|mid
 init|=
-operator|(
 name|low
 operator|+
+operator|(
+operator|(
 name|high
+operator|-
+name|low
 operator|)
-operator|>>>
+operator|>>
 literal|1
+operator|)
 decl_stmt|;
 comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
@@ -8383,13 +8387,17 @@ block|{
 name|int
 name|mid
 init|=
-operator|(
 name|low
 operator|+
+operator|(
+operator|(
 name|high
+operator|-
+name|low
 operator|)
-operator|>>>
+operator|>>
 literal|1
+operator|)
 decl_stmt|;
 comment|// we have to compare in this order, because the comparator order
 comment|// has special logic when the 'left side' is a special key.
@@ -9285,13 +9293,17 @@ block|{
 name|int
 name|mid
 init|=
-operator|(
 name|low
 operator|+
+operator|(
+operator|(
 name|high
+operator|-
+name|low
 operator|)
-operator|>>>
+operator|>>
 literal|1
+operator|)
 decl_stmt|;
 name|int
 name|midVal
