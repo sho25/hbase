@@ -299,8 +299,6 @@ block|{
 name|long
 name|h
 init|=
-literal|31
-operator|*
 name|this
 operator|.
 name|dataSize
@@ -308,9 +306,9 @@ decl_stmt|;
 name|h
 operator|=
 name|h
-operator|+
-literal|31
 operator|*
+literal|31
+operator|+
 name|this
 operator|.
 name|heapSize
@@ -318,9 +316,9 @@ expr_stmt|;
 name|h
 operator|=
 name|h
-operator|+
-literal|31
 operator|*
+literal|31
+operator|+
 name|this
 operator|.
 name|offHeapSize
