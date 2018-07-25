@@ -846,6 +846,8 @@ argument_list|()
 operator|.
 name|getSimpleName
 argument_list|()
+argument_list|,
+name|exception
 argument_list|)
 expr_stmt|;
 if|if

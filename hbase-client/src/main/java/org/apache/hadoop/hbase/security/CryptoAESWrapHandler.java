@@ -23,6 +23,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ConnectionClosedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -210,16 +226,6 @@ operator|.
 name|aes
 operator|.
 name|CryptoAES
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
-name|IOException
 import|;
 end_import
 
@@ -557,7 +563,7 @@ operator|.
 name|releaseAndFailAll
 argument_list|(
 operator|new
-name|IOException
+name|ConnectionClosedException
 argument_list|(
 literal|"Connection closed"
 argument_list|)

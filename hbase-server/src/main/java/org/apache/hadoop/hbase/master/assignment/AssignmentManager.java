@@ -5620,7 +5620,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"reported OPEN on server="
+literal|" reported OPEN on server="
 operator|+
 name|serverName
 operator|+

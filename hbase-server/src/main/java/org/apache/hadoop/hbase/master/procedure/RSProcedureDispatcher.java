@@ -33,16 +33,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|net
-operator|.
-name|SocketTimeoutException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|List
@@ -124,6 +114,22 @@ operator|.
 name|client
 operator|.
 name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ClientExceptionsUtil
 import|;
 end_import
 
@@ -1242,9 +1248,9 @@ return|return
 literal|false
 return|;
 block|}
-comment|// In case socket is timed out and the region server is still online,
+comment|// In case it is a connection exception and the region server is still online,
 comment|// the openRegion RPC could have been accepted by the server and
-comment|// just the response didn't go through.  So we will retry to
+comment|// just the response didn't go through. So we will retry to
 comment|// open the region on the same server.
 specifier|final
 name|boolean
@@ -1254,9 +1260,12 @@ operator|!
 name|hold
 operator|&&
 operator|(
+name|ClientExceptionsUtil
+operator|.
+name|isConnectionException
+argument_list|(
 name|e
-operator|instanceof
-name|SocketTimeoutException
+argument_list|)
 operator|&&
 name|master
 operator|.
@@ -1308,6 +1317,12 @@ block|}
 name|submitTask
 argument_list|(
 name|this
+argument_list|,
+literal|100
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 return|return

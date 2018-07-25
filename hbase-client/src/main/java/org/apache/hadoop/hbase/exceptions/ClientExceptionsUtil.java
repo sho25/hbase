@@ -653,6 +653,10 @@ operator|||
 name|e
 operator|instanceof
 name|FailedServerException
+operator|||
+name|e
+operator|instanceof
+name|ConnectionClosedException
 operator|)
 return|;
 block|}

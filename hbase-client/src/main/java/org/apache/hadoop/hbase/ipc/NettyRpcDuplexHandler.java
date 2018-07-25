@@ -23,6 +23,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|exceptions
+operator|.
+name|ConnectionClosedException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -1343,7 +1359,7 @@ argument_list|(
 name|ctx
 argument_list|,
 operator|new
-name|IOException
+name|ConnectionClosedException
 argument_list|(
 literal|"Connection closed"
 argument_list|)
