@@ -3928,6 +3928,15 @@ name|toSet
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|clearedServer
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
 name|groupAdminServer
 operator|.
 name|removeServers
@@ -3935,6 +3944,7 @@ argument_list|(
 name|clearedServer
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|void
