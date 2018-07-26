@@ -379,9 +379,11 @@ condition|(
 operator|!
 name|trailerWritten
 condition|)
+block|{
 name|writeWALTrailer
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|output
@@ -443,8 +445,10 @@ name|fsdos
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
 comment|// Presume closed
+block|}
 name|fsdos
 operator|.
 name|flush
@@ -519,10 +523,12 @@ name|this
 operator|.
 name|output
 operator|=
-name|fs
+name|CommonFSUtils
 operator|.
-name|createNonRecursive
+name|createForWal
 argument_list|(
+name|fs
+argument_list|,
 name|path
 argument_list|,
 name|overwritable
@@ -533,7 +539,7 @@ name|replication
 argument_list|,
 name|blockSize
 argument_list|,
-literal|null
+literal|false
 argument_list|)
 expr_stmt|;
 if|if

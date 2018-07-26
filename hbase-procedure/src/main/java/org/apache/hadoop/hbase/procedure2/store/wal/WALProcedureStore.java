@@ -5177,10 +5177,12 @@ try|try
 block|{
 name|newStream
 operator|=
-name|fs
+name|CommonFSUtils
 operator|.
-name|create
+name|createForWal
 argument_list|(
+name|fs
+argument_list|,
 name|newLogFile
 argument_list|,
 literal|false

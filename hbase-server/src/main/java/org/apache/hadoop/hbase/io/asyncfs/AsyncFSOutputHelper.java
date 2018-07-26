@@ -285,6 +285,7 @@ operator|.
 name|IO_FILE_BUFFER_SIZE_DEFAULT
 argument_list|)
 decl_stmt|;
+comment|// This is not a Distributed File System, so it won't be erasure coded; no builder API needed
 if|if
 condition|(
 name|createParent
