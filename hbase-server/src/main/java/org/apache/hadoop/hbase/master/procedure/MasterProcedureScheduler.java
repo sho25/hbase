@@ -2796,7 +2796,9 @@ block|{
 name|namespaceLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 expr_stmt|;
 name|waitProcedure
 argument_list|(
@@ -2917,7 +2919,9 @@ condition|(
 name|namespaceLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 condition|)
 block|{
 name|waitingCount
@@ -3061,7 +3065,9 @@ block|{
 name|namespaceLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 expr_stmt|;
 name|waitProcedure
 argument_list|(
@@ -3145,7 +3151,9 @@ condition|(
 name|tableLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 condition|)
 block|{
 name|addToRunQueue
@@ -3171,7 +3179,9 @@ condition|(
 name|namespaceLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 condition|)
 block|{
 name|waitingCount
@@ -3964,7 +3974,9 @@ block|{
 name|systemNamespaceTableLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 expr_stmt|;
 name|waitProcedure
 argument_list|(
@@ -4071,7 +4083,9 @@ condition|(
 name|systemNamespaceTableLock
 operator|.
 name|releaseSharedLock
-argument_list|()
+argument_list|(
+name|procedure
+argument_list|)
 condition|)
 block|{
 name|addToRunQueue
