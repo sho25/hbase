@@ -407,6 +407,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|IdLock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|NonceKey
 import|;
 end_import
@@ -1550,6 +1566,21 @@ specifier|private
 specifier|final
 name|boolean
 name|checkOwnerSet
+decl_stmt|;
+comment|// To prevent concurrent execution of the same procedure.
+comment|// For some rare cases, especially if the procedure uses ProcedureEvent, it is possible that the
+comment|// procedure is woken up before we finish the suspend which causes the same procedures to be
+comment|// executed in parallel. This does lead to some problems, see HBASE-20939&HBASE-20949, and is also
+comment|// a bit confusing to the developers. So here we introduce this lock to prevent the concurrent
+comment|// execution of the same procedure.
+specifier|private
+specifier|final
+name|IdLock
+name|procExecutionLock
+init|=
+operator|new
+name|IdLock
+argument_list|()
 decl_stmt|;
 specifier|public
 name|ProcedureExecutor
@@ -6593,14 +6624,7 @@ expr_stmt|;
 comment|// Procedures can suspend themselves. They skip out by throwing a ProcedureSuspendedException.
 comment|// The exception is caught below and then we hurry to the exit without disturbing state. The
 comment|// idea is that the processing of this procedure will be unsuspended later by an external event
-comment|// such the report of a region open. TODO: Currently, its possible for two worker threads
-comment|// to be working on the same procedure concurrently (locking in procedures is NOT about
-comment|// concurrency but about tying an entity to a procedure; i.e. a region to a particular
-comment|// procedure instance). This can make for issues if both threads are changing state.
-comment|// See env.getProcedureScheduler().wakeEvent(regionNode.getProcedureEvent());
-comment|// in RegionTransitionProcedure#reportTransition for example of Procedure putting
-comment|// itself back on the scheduler making it possible for two threads running against
-comment|// the one Procedure. Might be ok if they are both doing different, idempotent sections.
+comment|// such the report of a region open.
 name|boolean
 name|suspended
 init|=
@@ -8116,6 +8140,21 @@ name|currentTime
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|IdLock
+operator|.
+name|Entry
+name|lockEntry
+init|=
+name|procExecutionLock
+operator|.
+name|getLockEntry
+argument_list|(
+name|proc
+operator|.
+name|getProcId
+argument_list|()
+argument_list|)
+decl_stmt|;
 try|try
 block|{
 name|executeProcedure
@@ -8150,6 +8189,13 @@ throw|;
 block|}
 finally|finally
 block|{
+name|procExecutionLock
+operator|.
+name|releaseLockEntry
+argument_list|(
+name|lockEntry
+argument_list|)
+expr_stmt|;
 name|activeCount
 operator|=
 name|activeExecutorCount
