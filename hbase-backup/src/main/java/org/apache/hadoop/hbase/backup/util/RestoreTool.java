@@ -1399,6 +1399,14 @@ operator|.
 name|listStatus
 argument_list|(
 name|tableSnapShotPath
+argument_list|,
+operator|new
+name|SnapshotDescriptionUtils
+operator|.
+name|CompletedSnaphotDirectoriesFilter
+argument_list|(
+name|fs
+argument_list|)
 argument_list|)
 decl_stmt|;
 for|for
