@@ -816,6 +816,24 @@ name|isSecurityEnabled
 argument_list|()
 return|;
 block|}
+comment|/**    * In secure environment, if a user specified his keytab and principal,    * a hbase client will try to login with them. Otherwise, hbase client will try to obtain    * ticket(through kinit) from system.    */
+specifier|public
+name|boolean
+name|shouldLoginFromKeytab
+parameter_list|()
+block|{
+return|return
+name|User
+operator|.
+name|shouldLoginFromKeytab
+argument_list|(
+name|this
+operator|.
+name|getConf
+argument_list|()
+argument_list|)
+return|;
+block|}
 comment|/**    * @return the current user within the current execution context    * @throws IOException if the user cannot be loaded    */
 specifier|public
 name|User
@@ -863,7 +881,7 @@ name|groupCache
 argument_list|)
 return|;
 block|}
-comment|/**    * Log in the current process using the given configuration keys for the credential file and login    * principal.    *<p>    *<strong>This is only applicable when running on secure Hadoop</strong> -- see    * org.apache.hadoop.security.SecurityUtil#login(Configuration,String,String,String). On regular    * Hadoop (without security features), this will safely be ignored.    *</p>    * @param fileConfKey Property key used to configure path to the credential file    * @param principalConfKey Property key used to configure login principal    * @param localhost Current hostname to use in any credentials    * @throws IOException underlying exception from SecurityUtil.login() call    */
+comment|/**    * Log in the current process using the given configuration keys for the credential file and login    * principal. It is for SPN(Service Principal Name) login. SPN should be this format,    * servicename/fully.qualified.domain.name@REALM.    *<p>    *<strong>This is only applicable when running on secure Hadoop</strong> -- see    * org.apache.hadoop.security.SecurityUtil#login(Configuration,String,String,String). On regular    * Hadoop (without security features), this will safely be ignored.    *</p>    * @param fileConfKey Property key used to configure path to the credential file    * @param principalConfKey Property key used to configure login principal    * @param localhost Current hostname to use in any credentials    * @throws IOException underlying exception from SecurityUtil.login() call    */
 specifier|public
 name|void
 name|login
@@ -892,6 +910,42 @@ argument_list|,
 name|principalConfKey
 argument_list|,
 name|localhost
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Login with given keytab and principal. This can be used for both SPN(Service Principal Name)    * and UPN(User Principal Name) which format should be clientname@REALM.    * @param fileConfKey config name for client keytab    * @param principalConfKey config name for client principal    * @throws IOException underlying exception from UserGroupInformation.loginUserFromKeytab    */
+specifier|public
+name|void
+name|login
+parameter_list|(
+name|String
+name|fileConfKey
+parameter_list|,
+name|String
+name|principalConfKey
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|User
+operator|.
+name|login
+argument_list|(
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|fileConfKey
+argument_list|)
+argument_list|,
+name|getConf
+argument_list|()
+operator|.
+name|get
+argument_list|(
+name|principalConfKey
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
