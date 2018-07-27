@@ -397,6 +397,10 @@ begin_comment
 comment|/**  * Procedure that describe the assignment of a single region.  * There can only be one RegionTransitionProcedure per region running at a time  * since each procedure takes a lock on the region.  *  *<p>The Assign starts by pushing the "assign" operation to the AssignmentManager  * and then will go in a "waiting" state.  * The AM will batch the "assign" requests and ask the Balancer where to put  * the region (the various policies will be respected: retain, round-robin, random).  * Once the AM and the balancer have found a place for the region the procedure  * will be resumed and an "open region" request will be placed in the Remote Dispatcher  * queue, and the procedure once again will go in a "waiting state".  * The Remote Dispatcher will batch the various requests for that server and  * they will be sent to the RS for execution.  * The RS will complete the open operation by calling master.reportRegionStateTransition().  * The AM will intercept the transition report, and notify the procedure.  * The procedure will finish the assignment by publishing to new state on meta  * or it will retry the assignment.  *  *<p>This procedure does not rollback when beyond the first  * REGION_TRANSITION_QUEUE step; it will press on trying to assign in the face of  * failure. Should we ignore rollback calls to Assign/Unassign then? Or just  * remove rollback here?  */
 end_comment
 
+begin_comment
+comment|// TODO: Add being able to assign a region to open read-only.
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience

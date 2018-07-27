@@ -1211,20 +1211,21 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Check whether there is recovered.edits in the closed region    * If any, that means this region is not closed property, we need    * to abort region split to prevent data loss    * @param env master env    * @throws IOException IOException    */
-specifier|private
-name|void
-name|checkClosedRegion
+comment|/**    * Check whether there are recovered.edits in the parent closed region.    * @param env master env    * @throws IOException IOException    */
+specifier|static
+name|boolean
+name|hasRecoveredEdits
 parameter_list|(
-specifier|final
 name|MasterProcedureEnv
 name|env
+parameter_list|,
+name|RegionInfo
+name|ri
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|WALSplitter
 operator|.
 name|hasRecoveredEdits
@@ -1242,24 +1243,9 @@ operator|.
 name|getMasterConfiguration
 argument_list|()
 argument_list|,
-name|getRegion
-argument_list|()
+name|ri
 argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"Recovered.edits are found in Region: "
-operator|+
-name|getRegion
-argument_list|()
-operator|+
-literal|", abort split to prevent data loss"
-argument_list|)
-throw|;
-block|}
+return|;
 block|}
 comment|/**    * Check whether the region is splittable    * @param env MasterProcedureEnv    * @param regionToSplit parent Region to be split    * @param splitRow if splitRow is not specified, will first try to get bestSplitRow from RS    * @throws IOException    */
 specifier|private
@@ -1756,11 +1742,58 @@ break|break;
 case|case
 name|SPLIT_TABLE_REGIONS_CHECK_CLOSED_REGIONS
 case|:
-name|checkClosedRegion
+if|if
+condition|(
+name|hasRecoveredEdits
 argument_list|(
 name|env
+argument_list|,
+name|getRegion
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// If recovered edits, reopen parent region and then re-run the close by going back to
+comment|// SPLIT_TABLE_REGION_CLOSE_PARENT_REGION. We might have to cycle here a few times
+comment|// (TODO: Add being able to open a region in read-only mode). Open the primary replica
+comment|// in this case only where we just want to pickup the left-out replicated.edits.
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Found recovered.edits under {}, reopen so we pickup these missed edits!"
+argument_list|,
+name|getRegion
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|)
 expr_stmt|;
+name|addChildProcedure
+argument_list|(
+name|env
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|createAssignProcedure
+argument_list|(
+name|getParentRegion
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|setNextState
+argument_list|(
+name|SplitTableRegionState
+operator|.
+name|SPLIT_TABLE_REGION_CLOSE_PARENT_REGION
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|setNextState
 argument_list|(
 name|SplitTableRegionState
@@ -1768,6 +1801,7 @@ operator|.
 name|SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS
 argument_list|)
 expr_stmt|;
+block|}
 break|break;
 case|case
 name|SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS
@@ -1909,7 +1943,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Error trying to split region "
+literal|"Splitting "
 operator|+
 name|getParentRegion
 argument_list|()
@@ -1917,16 +1951,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" in the table "
+literal|", "
 operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|" (in state="
-operator|+
-name|state
-operator|+
-literal|")"
+name|this
 decl_stmt|;
 if|if
 condition|(
@@ -1937,7 +1964,7 @@ name|state
 argument_list|)
 condition|)
 block|{
-comment|// We reach a state that cannot be rolled back. We just need to keep retry.
+comment|// We reach a state that cannot be rolled back. We just need to keep retrying.
 name|LOG
 operator|.
 name|warn
