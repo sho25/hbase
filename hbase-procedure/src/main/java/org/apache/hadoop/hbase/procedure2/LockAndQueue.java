@@ -55,26 +55,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
 begin_comment
 comment|/**  * Locking for mutual exclusion between procedures. Used only by procedure framework internally.  * {@link LockAndQueue} has two purposes:  *<ol>  *<li>Acquire/release exclusive/shared locks.</li>  *<li>Maintains a list of procedures waiting on this lock.  *      {@link LockAndQueue} extends {@link ProcedureDeque} class. Blocked Procedures are added  *      to our super Deque. Using inheritance over composition to keep the Deque of waiting  *      Procedures is unusual, but we do it this way because in certain cases, there will be  *      millions of regions. This layout uses less memory.  *</ol>  *  *<p>NOT thread-safe. Needs external concurrency control: e.g. uses in MasterProcedureScheduler are  * guarded by schedLock().  *<br>  * There is no need of 'volatile' keyword for member variables because of memory synchronization  * guarantees of locks (see 'Memory Synchronization',  * http://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/Lock.html)  *<br>  * We do not implement Lock interface because we need exclusive and shared locking, and also  * because try-lock functions require procedure id.  *<br>  * We do not use ReentrantReadWriteLock directly because of its high memory overhead.  */
 end_comment
@@ -90,21 +70,6 @@ name|LockAndQueue
 implements|implements
 name|LockStatus
 block|{
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
-argument_list|(
-name|LockAndQueue
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 specifier|private
 specifier|final
 name|ProcedureDeque
@@ -329,21 +294,6 @@ name|proc
 argument_list|)
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"{} acquire shared lock {} failed"
-argument_list|,
-name|proc
-argument_list|,
-name|this
-argument_list|,
-operator|new
-name|Exception
-argument_list|()
-argument_list|)
-expr_stmt|;
 return|return
 literal|false
 return|;
@@ -351,21 +301,6 @@ block|}
 comment|// If no one holds the xlock, then we are free to hold the sharedLock
 comment|// If the parent proc or we have already held the xlock, then we return true here as
 comment|// xlock is more powerful then shared lock.
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"{} acquire shared lock {} succeeded"
-argument_list|,
-name|proc
-argument_list|,
-name|this
-argument_list|,
-operator|new
-name|Exception
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|sharedLock
 operator|++
 expr_stmt|;
@@ -377,29 +312,8 @@ comment|/**    * @return whether we should wake the procedures waiting on the lo
 specifier|public
 name|boolean
 name|releaseSharedLock
-parameter_list|(
-name|Procedure
-argument_list|<
-name|?
-argument_list|>
-name|proc
-parameter_list|)
+parameter_list|()
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"{} release shared lock {}"
-argument_list|,
-name|proc
-argument_list|,
-name|this
-argument_list|,
-operator|new
-name|Exception
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// hasExclusiveLock could be true, it usually means we acquire shared lock while we or our
 comment|// parent have held the xlock. And since there is still an exclusive lock, we do not need to
 comment|// wake any procedures.
@@ -615,17 +529,7 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"%08x"
-argument_list|,
-name|hashCode
-argument_list|()
-argument_list|)
-operator|+
-literal|": exclusiveLockOwner="
+literal|"exclusiveLockOwner="
 operator|+
 operator|(
 name|hasExclusiveLock
