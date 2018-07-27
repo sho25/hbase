@@ -2846,6 +2846,20 @@ name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// HBASE-20921
+comment|// if the oldLoc's state node does not exist, that means the region is
+comment|// merged or split, no need to check it
+if|if
+condition|(
+name|node
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
 synchronized|synchronized
 init|(
 name|node

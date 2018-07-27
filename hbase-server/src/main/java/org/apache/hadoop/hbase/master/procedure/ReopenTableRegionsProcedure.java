@@ -721,7 +721,11 @@ block|{
 throw|throw
 operator|new
 name|UnsupportedOperationException
-argument_list|()
+argument_list|(
+literal|"unhandled state="
+operator|+
+name|state
+argument_list|)
 throw|;
 block|}
 end_function
