@@ -12872,6 +12872,37 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Can't archive compacted file "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|+
+literal|" because of either isCompactedAway = "
+operator|+
+name|file
+operator|.
+name|isCompactedAway
+argument_list|()
+operator|+
+literal|" or file has reference, isReferencedInReads = "
+operator|+
+name|file
+operator|.
+name|isReferencedInReads
+argument_list|()
+operator|+
+literal|", skipping for now."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
