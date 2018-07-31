@@ -624,6 +624,72 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Starts a new namenode on the given hostname or if this is a mini/local cluster, silently logs    * warning message.    * @throws IOException if something goes wrong    */
+specifier|public
+specifier|abstract
+name|void
+name|startNameNode
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Kills the namenode process if this is a distributed cluster, otherwise, this causes master to    * exit doing basic clean up only.    * @throws IOException if something goes wrong    */
+specifier|public
+specifier|abstract
+name|void
+name|killNameNode
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Stops the namenode if this is a distributed cluster, otherwise silently logs warning message.    * @throws IOException if something goes wrong    */
+specifier|public
+specifier|abstract
+name|void
+name|stopNameNode
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Wait for the specified namenode to join the cluster    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+specifier|public
+specifier|abstract
+name|void
+name|waitForNameNodeToStart
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
+name|long
+name|timeout
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Wait for the specified namenode to stop    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+specifier|public
+specifier|abstract
+name|void
+name|waitForNameNodeToStop
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|,
+name|long
+name|timeout
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Starts a new master on the given hostname or if this is a mini/local cluster,    * starts a master locally.    * @param hostname the hostname to start the master on    * @return whether the operation finished with success    * @throws IOException if something goes wrong    */
 specifier|public
 specifier|abstract

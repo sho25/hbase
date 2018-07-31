@@ -569,6 +569,9 @@ block|{
 case|case
 name|HADOOP_DATANODE
 case|:
+case|case
+name|HADOOP_NAMENODE
+case|:
 return|return
 name|conf
 operator|.
@@ -1422,6 +1425,9 @@ condition|)
 block|{
 case|case
 name|HADOOP_DATANODE
+case|:
+case|case
+name|HADOOP_NAMENODE
 case|:
 return|return
 operator|new
