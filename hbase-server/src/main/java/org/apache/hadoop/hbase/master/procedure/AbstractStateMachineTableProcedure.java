@@ -936,7 +936,9 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" is not OPEN"
+literal|" is not OPEN; regionState="
+operator|+
+name|rs
 argument_list|)
 throw|;
 block|}

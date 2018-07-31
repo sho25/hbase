@@ -699,12 +699,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Waiting for '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' regions in transition"
+literal|"Waiting for RIT for {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|regions
@@ -766,12 +763,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"delete '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' regions from META"
+literal|"Deleting regions from META for {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|DeleteTableProcedure
@@ -801,12 +795,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"delete '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' from filesystem"
+literal|"Deleting regions from filesystem for {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|DeleteTableProcedure
@@ -842,12 +833,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"delete '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' descriptor"
+literal|"Deleting descriptor for {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|DeleteTableProcedure
@@ -875,12 +863,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"delete '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' assignment state"
+literal|"Deleting assignment state for {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|DeleteTableProcedure
@@ -913,12 +898,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"delete '"
-operator|+
-name|getTableName
-argument_list|()
-operator|+
-literal|"' completed"
+literal|"Finished {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 return|return

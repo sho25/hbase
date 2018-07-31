@@ -6615,6 +6615,8 @@ name|ProcedureState
 operator|.
 name|RUNNABLE
 argument_list|,
+literal|"NOT RUNNABLE! "
+operator|+
 name|procedure
 operator|.
 name|toString

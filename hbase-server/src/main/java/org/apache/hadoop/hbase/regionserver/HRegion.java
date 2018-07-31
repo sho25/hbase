@@ -7956,7 +7956,7 @@ operator|.
 name|info
 argument_list|(
 literal|"Running close preflush of {}"
-operator|+
+argument_list|,
 name|this
 operator|.
 name|getRegionInfo

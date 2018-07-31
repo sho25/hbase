@@ -839,11 +839,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Retriable error trying to disable table={} (in state={})"
+literal|"Retryable error in {}"
 argument_list|,
-name|tableName
-argument_list|,
-name|state
+name|this
 argument_list|,
 name|e
 argument_list|)
@@ -1280,11 +1278,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Not ENABLED tableState="
-operator|+
-name|ts
-operator|+
-literal|"; skipping disable"
+literal|"Not ENABLED skipping {}"
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|setFailure
@@ -1378,6 +1374,21 @@ operator|.
 name|DISABLING
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Set {} to state={}"
+argument_list|,
+name|tableName
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|DISABLING
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Mark table state to Disabled    * @param env MasterProcedureEnv    * @throws IOException    */
 specifier|protected
@@ -1420,11 +1431,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Disabled table, "
-operator|+
+literal|"Set {} to state={}"
+argument_list|,
 name|tableName
-operator|+
-literal|", is completed."
+argument_list|,
+name|TableState
+operator|.
+name|State
+operator|.
+name|DISABLED
 argument_list|)
 expr_stmt|;
 block|}

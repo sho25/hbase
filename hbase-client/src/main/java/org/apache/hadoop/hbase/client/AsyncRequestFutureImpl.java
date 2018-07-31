@@ -5140,12 +5140,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", "
-argument_list|)
-operator|.
-name|append
-argument_list|(
-literal|"attempt="
+literal|", attempt="
 argument_list|)
 operator|.
 name|append
@@ -5185,7 +5180,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"failed="
+literal|"failureCount="
 argument_list|)
 operator|.
 name|append
@@ -5205,12 +5200,6 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-name|error
-operator|==
-literal|null
-condition|?
-literal|"null"
-else|:
 name|error
 argument_list|)
 expr_stmt|;
@@ -5271,17 +5260,12 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|", replay="
+literal|", operationsToReplay="
 argument_list|)
 operator|.
 name|append
 argument_list|(
 name|replaySize
-argument_list|)
-operator|.
-name|append
-argument_list|(
-literal|"ops"
 argument_list|)
 expr_stmt|;
 block|}
@@ -5304,7 +5288,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"; not retrying "
+literal|"; NOT retrying, stopped="
 argument_list|)
 operator|.
 name|append
@@ -5314,7 +5298,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" due to success from other replica"
+literal|" because successful operation on other replica"
 argument_list|)
 expr_stmt|;
 block|}
@@ -5329,7 +5313,7 @@ name|sb
 operator|.
 name|append
 argument_list|(
-literal|"; not retrying "
+literal|"; NOT retrying, failed="
 argument_list|)
 operator|.
 name|append
@@ -5339,7 +5323,7 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" - final failure"
+literal|" -- final attempt!"
 argument_list|)
 expr_stmt|;
 block|}
