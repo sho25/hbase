@@ -960,7 +960,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// test rollback (we execute steps twice, one has the IE the other completes)
+comment|// test rollback (we execute steps twice, rollback counts both IE and completed)
 for|for
 control|(
 name|int
@@ -1017,8 +1017,29 @@ name|ordinal
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+for|for
+control|(
+name|int
+name|i
+init|=
+name|NUM_STATES
+operator|-
+literal|1
+init|;
+name|i
+operator|>=
+literal|0
+condition|;
+operator|--
+name|i
+control|)
+block|{
+name|TestStateMachineProcedure
+operator|.
+name|ExecutionInfo
 name|info
-operator|=
+init|=
 name|proc
 operator|.
 name|getExecutionInfo
@@ -1029,7 +1050,7 @@ argument_list|(
 name|count
 operator|++
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|assertEquals
 argument_list|(
 literal|true
@@ -1042,7 +1063,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|i
+literal|0
 argument_list|,
 name|info
 operator|.
