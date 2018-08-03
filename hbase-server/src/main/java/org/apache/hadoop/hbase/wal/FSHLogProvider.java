@@ -294,7 +294,7 @@ operator|.
 name|StreamLacksCapabilityException
 function_decl|;
 block|}
-comment|/**    * Public because of FSHLog. Should be package-private    */
+comment|/**    * Public because of FSHLog. Should be package-private    * @param overwritable if the created writer can overwrite. For recovered edits, it is true and    *          for WAL it is false. Thus we can distinguish WAL and recovered edits by this.    */
 specifier|public
 specifier|static
 name|Writer
@@ -339,6 +339,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|path
+argument_list|,
+name|overwritable
 argument_list|)
 argument_list|)
 return|;
