@@ -2147,7 +2147,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 import|;
 end_import
 
@@ -5895,7 +5895,7 @@ operator|.
 name|copyTableCFs
 argument_list|()
 expr_stmt|;
-comment|// Add the Observer to delete space quotas on table deletion before starting all CPs by
+comment|// Add the Observer to delete quotas on table deletion before starting all CPs by
 comment|// default with quota support, avoiding if user specifically asks to not load this Observer.
 if|if
 condition|(
@@ -5907,7 +5907,7 @@ name|conf
 argument_list|)
 condition|)
 block|{
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 argument_list|(
 name|conf
 argument_list|)
@@ -6649,12 +6649,12 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Adds the {@code MasterSpaceQuotaObserver} to the list of configured Master observers to    * automatically remove space quotas for a table when that table is deleted.    */
+comment|/**    * Adds the {@code MasterQuotasObserver} to the list of configured Master observers to    * automatically remove quotas for a table when that table is deleted.    */
 annotation|@
 name|VisibleForTesting
 specifier|public
 name|void
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 parameter_list|(
 name|Configuration
 name|conf
@@ -6668,11 +6668,11 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|REMOVE_QUOTA_ON_TABLE_DELETE
 argument_list|,
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|REMOVE_QUOTA_ON_TABLE_DELETE_DEFAULT
 argument_list|)
@@ -6749,7 +6749,7 @@ index|[
 name|length
 index|]
 operator|=
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|class
 operator|.

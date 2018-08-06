@@ -47,7 +47,7 @@ name|hbase
 operator|.
 name|quotas
 operator|.
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|REMOVE_QUOTA_ON_TABLE_DELETE
 import|;
@@ -282,7 +282,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test class for MasterSpaceQuotaObserver that does not require a cluster.  */
+comment|/**  * Test class for MasterQuotasObserver that does not require a cluster.  */
 end_comment
 
 begin_class
@@ -295,7 +295,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TestMasterSpaceQuotaObserverWithMocks
+name|TestMasterQuotasObserverWithMocks
 block|{
 annotation|@
 name|ClassRule
@@ -309,7 +309,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestMasterSpaceQuotaObserverWithMocks
+name|TestMasterQuotasObserverWithMocks
 operator|.
 name|class
 argument_list|)
@@ -353,7 +353,7 @@ argument_list|(
 name|master
 argument_list|)
 operator|.
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 argument_list|(
 name|any
 argument_list|()
@@ -369,14 +369,14 @@ parameter_list|()
 block|{
 name|master
 operator|.
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|class
 operator|.
@@ -410,7 +410,7 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 argument_list|(
 name|conf
 argument_list|)
@@ -450,7 +450,7 @@ argument_list|)
 expr_stmt|;
 name|master
 operator|.
-name|updateConfigurationForSpaceQuotaObserver
+name|updateConfigurationForQuotasObserver
 argument_list|(
 name|conf
 argument_list|)
@@ -512,7 +512,7 @@ name|coprocs
 operator|.
 name|contains
 argument_list|(
-name|MasterSpaceQuotaObserver
+name|MasterQuotasObserver
 operator|.
 name|class
 operator|.
