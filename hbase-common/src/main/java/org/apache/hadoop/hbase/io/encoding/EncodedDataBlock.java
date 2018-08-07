@@ -95,7 +95,27 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Iterator
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
 import|;
 end_import
 
@@ -355,6 +375,29 @@ specifier|private
 name|HFileContext
 name|meta
 decl_stmt|;
+specifier|private
+specifier|final
+name|DataBlockEncoding
+name|encoding
+decl_stmt|;
+comment|// The is for one situation that there are some cells includes tags and others are not.
+comment|// isTagsLenZero stores if cell tags length is zero before doing encoding since we need
+comment|// to check cell tags length is zero or not after decoding.
+comment|// Encoders ROW_INDEX_V1 would abandon tags segment if tags is 0 after decode cells to
+comment|// byte array, other encoders won't do that. So we have to find a way to add tagsLen zero
+comment|// in the decoded byte array.
+specifier|private
+name|List
+argument_list|<
+name|Boolean
+argument_list|>
+name|isTagsLenZero
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
+decl_stmt|;
 comment|/**    * Create a buffer which will be encoded using dataBlockEncoder.    * @param dataBlockEncoder Algorithm used for compression.    * @param encoding encoding type used    * @param rawKVs    * @param meta    */
 specifier|public
 name|EncodedDataBlock
@@ -387,6 +430,12 @@ operator|.
 name|dataBlockEncoder
 operator|=
 name|dataBlockEncoder
+expr_stmt|;
+name|this
+operator|.
+name|encoding
+operator|=
+name|encoding
 expr_stmt|;
 name|encodingCtx
 operator|=
@@ -492,6 +541,18 @@ name|ByteBuffer
 name|decompressedData
 init|=
 literal|null
+decl_stmt|;
+specifier|private
+name|Iterator
+argument_list|<
+name|Boolean
+argument_list|>
+name|it
+init|=
+name|isTagsLenZero
+operator|.
+name|iterator
+argument_list|()
 decl_stmt|;
 annotation|@
 name|Override
@@ -617,13 +678,53 @@ operator|+
 name|vlen
 argument_list|)
 expr_stmt|;
-comment|// Read the tag length in case when steam contain tags
+comment|// Read the tag length in case when stream contain tags
 if|if
 condition|(
 name|meta
 operator|.
 name|isIncludesTags
 argument_list|()
+condition|)
+block|{
+name|boolean
+name|noTags
+init|=
+literal|true
+decl_stmt|;
+if|if
+condition|(
+name|it
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
+name|noTags
+operator|=
+name|it
+operator|.
+name|next
+argument_list|()
+expr_stmt|;
+block|}
+comment|// ROW_INDEX_V1 will not put tagsLen back in cell if it is zero, there is no need
+comment|// to read short here.
+if|if
+condition|(
+operator|!
+operator|(
+name|encoding
+operator|.
+name|equals
+argument_list|(
+name|DataBlockEncoding
+operator|.
+name|ROW_INDEX_V1
+argument_list|)
+operator|&&
+name|noTags
+operator|)
 condition|)
 block|{
 name|tagsLen
@@ -659,6 +760,7 @@ argument_list|,
 name|tagsLen
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|KeyValue
 name|kv
@@ -1179,6 +1281,17 @@ argument_list|,
 name|tagsLength
 argument_list|)
 expr_stmt|;
+name|this
+operator|.
+name|isTagsLenZero
+operator|.
+name|add
+argument_list|(
+name|tagsLength
+operator|==
+literal|0
+argument_list|)
+expr_stmt|;
 block|}
 if|if
 condition|(
@@ -1274,6 +1387,35 @@ argument_list|,
 name|baosBytes
 argument_list|)
 expr_stmt|;
+comment|// In endBlockEncoding(encodingCtx, out, baosBytes), Encoder ROW_INDEX_V1 write integer in
+comment|// out while the others write integer in baosBytes(byte array). We need to add
+comment|// baos.toByteArray() after endBlockEncoding again to make sure the integer writes in
+comment|// outputstream with Encoder ROW_INDEX_V1 dump to byte array (baosBytes).
+comment|// The if branch is necessary because Encoders excepts ROW_INDEX_V1 write integer in
+comment|// baosBytes directly, without if branch and do toByteArray() again, baosBytes won't
+comment|// contains the integer wrotten in endBlockEncoding.
+if|if
+condition|(
+name|this
+operator|.
+name|encoding
+operator|.
+name|equals
+argument_list|(
+name|DataBlockEncoding
+operator|.
+name|ROW_INDEX_V1
+argument_list|)
+condition|)
+block|{
+name|baosBytes
+operator|=
+name|baos
+operator|.
+name|toByteArray
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1313,9 +1455,9 @@ name|toString
 parameter_list|()
 block|{
 return|return
-name|dataBlockEncoder
+name|encoding
 operator|.
-name|toString
+name|name
 argument_list|()
 return|;
 block|}
