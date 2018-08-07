@@ -2582,6 +2582,11 @@ argument_list|>
 name|promise
 decl_stmt|;
 specifier|private
+specifier|final
+name|DFSClient
+name|dfsClient
+decl_stmt|;
+specifier|private
 name|int
 name|step
 init|=
@@ -2616,6 +2621,9 @@ argument_list|<
 name|Void
 argument_list|>
 name|promise
+parameter_list|,
+name|DFSClient
+name|dfsClient
 parameter_list|)
 throws|throws
 name|SaslException
@@ -2675,6 +2683,12 @@ operator|.
 name|promise
 operator|=
 name|promise
+expr_stmt|;
+name|this
+operator|.
+name|dfsClient
+operator|=
+name|dfsClient
 expr_stmt|;
 block|}
 specifier|private
@@ -3016,6 +3030,11 @@ operator|.
 name|ERROR_UNKNOWN_KEY
 condition|)
 block|{
+name|dfsClient
+operator|.
+name|clearDataEncryptionKey
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|new
 name|InvalidEncryptionKeyException
@@ -4909,6 +4928,9 @@ argument_list|<
 name|Void
 argument_list|>
 name|saslPromise
+parameter_list|,
+name|DFSClient
+name|dfsClient
 parameter_list|)
 block|{
 try|try
@@ -4961,6 +4983,8 @@ argument_list|,
 name|timeoutMs
 argument_list|,
 name|saslPromise
+argument_list|,
+name|dfsClient
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5157,6 +5181,8 @@ name|encryptionAlgorithm
 argument_list|)
 argument_list|,
 name|saslPromise
+argument_list|,
+name|client
 argument_list|)
 expr_stmt|;
 block|}
@@ -5344,6 +5370,8 @@ name|addr
 argument_list|)
 argument_list|,
 name|saslPromise
+argument_list|,
+name|client
 argument_list|)
 expr_stmt|;
 block|}
