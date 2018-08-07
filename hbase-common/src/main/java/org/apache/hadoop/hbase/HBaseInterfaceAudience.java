@@ -110,6 +110,15 @@ name|TOOLS
 init|=
 literal|"Tools"
 decl_stmt|;
+comment|/**    * Denotes classes used by hbck tool for fixing inconsistent state of HBase.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBCK
+init|=
+literal|"HBCK"
+decl_stmt|;
 block|}
 end_class
 
