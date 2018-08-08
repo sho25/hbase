@@ -552,6 +552,16 @@ name|boolean
 name|isNormalizationEnabled
 parameter_list|()
 function_decl|;
+comment|/**    * Check if there is the target region count. If so, the normalize plan will    * be calculated based on the target region count.    *    * @return target region count after normalize done    */
+name|int
+name|getNormalizerTargetRegionCount
+parameter_list|()
+function_decl|;
+comment|/**    * Check if there is the target region size. If so, the normalize plan will    * be calculated based on the target region size.    *    * @return target region size after normalize done    */
+name|long
+name|getNormalizerTargetRegionSize
+parameter_list|()
+function_decl|;
 comment|/**    * Check if the readOnly flag of the table is set. If the readOnly flag is set    * then the contents of the table can only be read from but not modified.    *    * @return true if all columns in the table should be read only    */
 name|boolean
 name|isReadOnly
