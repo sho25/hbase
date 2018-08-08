@@ -25,7 +25,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|HashMap
+name|Map
 import|;
 end_import
 
@@ -35,7 +35,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Map
+name|concurrent
+operator|.
+name|ConcurrentHashMap
 import|;
 end_import
 
@@ -50,6 +52,18 @@ operator|.
 name|atomic
 operator|.
 name|AtomicInteger
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Collectors
 import|;
 end_import
 
@@ -95,7 +109,7 @@ argument_list|>
 name|registeredDeserializers
 init|=
 operator|new
-name|HashMap
+name|ConcurrentHashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
@@ -132,11 +146,7 @@ operator|.
 name|incrementAndGet
 argument_list|()
 decl_stmt|;
-synchronized|synchronized
-init|(
-name|registeredDeserializers
-init|)
-block|{
+comment|// No synchronization here because keys will be unique
 name|registeredDeserializers
 operator|.
 name|put
@@ -146,7 +156,6 @@ argument_list|,
 name|cd
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|idx
 return|;
@@ -185,55 +194,33 @@ argument_list|>
 name|save
 parameter_list|()
 block|{
-name|Map
-argument_list|<
-name|Integer
-argument_list|,
-name|String
-argument_list|>
-name|snapshot
-init|=
-operator|new
-name|HashMap
-argument_list|<>
-argument_list|()
-decl_stmt|;
-synchronized|synchronized
-init|(
-name|registeredDeserializers
-init|)
-block|{
-for|for
-control|(
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|Integer
-argument_list|,
-name|CacheableDeserializer
-argument_list|<
-name|Cacheable
-argument_list|>
-argument_list|>
-name|entry
-range|:
+comment|// No synchronization here because weakly consistent view should be good enough
+comment|// The assumed risk is that we might not see a new serializer that comes in while iterating,
+comment|// but with a synchronized block, we won't see it anyway
+return|return
 name|registeredDeserializers
 operator|.
 name|entrySet
 argument_list|()
-control|)
-block|{
-name|snapshot
 operator|.
-name|put
-argument_list|(
-name|entry
-operator|.
-name|getKey
+name|stream
 argument_list|()
+operator|.
+name|collect
+argument_list|(
+name|Collectors
+operator|.
+name|toMap
+argument_list|(
+name|Map
+operator|.
+name|Entry
+operator|::
+name|getKey
 argument_list|,
-name|entry
+name|e
+lambda|->
+name|e
 operator|.
 name|getValue
 argument_list|()
@@ -244,11 +231,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-return|return
-name|snapshot
+argument_list|)
 return|;
 block|}
 block|}
