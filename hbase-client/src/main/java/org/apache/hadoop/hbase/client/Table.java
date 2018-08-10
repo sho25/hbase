@@ -1238,7 +1238,7 @@ literal|"Add an implementation!"
 argument_list|)
 throw|;
 block|}
-comment|/**    * Appends values to one or more columns within a single row.    *<p>    * This operation guaranteed atomicity to readers. Appends are done    * under a single row lock, so write operations to a row are synchronized, and    * readers are guaranteed to see this operation fully completed.    *    * @param append object that specifies the columns and amounts to be used    *                  for the increment operations    * @throws IOException e    * @return values of columns after the append operation (maybe null)    */
+comment|/**    * Appends values to one or more columns within a single row.    *<p>    * This operation guaranteed atomicity to readers. Appends are done    * under a single row lock, so write operations to a row are synchronized, and    * readers are guaranteed to see this operation fully completed.    *    * @param append object that specifies the columns and values to be appended    * @throws IOException e    * @return values of columns after the append operation (maybe null)    */
 specifier|default
 name|Result
 name|append
