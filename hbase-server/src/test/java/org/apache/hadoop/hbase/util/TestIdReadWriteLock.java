@@ -413,6 +413,9 @@ operator|.
 name|Parameter
 specifier|public
 name|IdReadWriteLock
+argument_list|<
+name|Long
+argument_list|>
 name|idLock
 decl_stmt|;
 annotation|@
@@ -442,6 +445,9 @@ block|{
 block|{
 operator|new
 name|IdReadWriteLock
+argument_list|<
+name|Long
+argument_list|>
 argument_list|(
 name|ReferenceType
 operator|.
@@ -452,6 +458,9 @@ block|,
 block|{
 operator|new
 name|IdReadWriteLock
+argument_list|<
+name|Long
+argument_list|>
 argument_list|(
 name|ReferenceType
 operator|.

@@ -1216,10 +1216,14 @@ annotation|@
 name|VisibleForTesting
 specifier|final
 name|IdReadWriteLock
+argument_list|<
+name|Long
+argument_list|>
 name|offsetLock
 init|=
 operator|new
 name|IdReadWriteLock
+argument_list|<>
 argument_list|(
 name|ReferenceType
 operator|.

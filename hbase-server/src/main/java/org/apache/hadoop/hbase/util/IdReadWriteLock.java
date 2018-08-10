@@ -91,6 +91,9 @@ name|Private
 specifier|public
 class|class
 name|IdReadWriteLock
+parameter_list|<
+name|T
+parameter_list|>
 block|{
 comment|// The number of lock we want to easily support. It's not a maximum.
 specifier|private
@@ -106,7 +109,7 @@ specifier|private
 specifier|final
 name|ObjectPool
 argument_list|<
-name|Long
+name|T
 argument_list|,
 name|ReentrantReadWriteLock
 argument_list|>
@@ -162,7 +165,7 @@ name|ObjectPool
 operator|.
 name|ObjectFactory
 argument_list|<
-name|Long
+name|T
 argument_list|,
 name|ReentrantReadWriteLock
 argument_list|>
@@ -174,7 +177,7 @@ specifier|public
 name|ReentrantReadWriteLock
 name|createObject
 parameter_list|(
-name|Long
+name|T
 name|id
 parameter_list|)
 block|{
@@ -205,7 +208,7 @@ name|ObjectPool
 operator|.
 name|ObjectFactory
 argument_list|<
-name|Long
+name|T
 argument_list|,
 name|ReentrantReadWriteLock
 argument_list|>
@@ -217,7 +220,7 @@ specifier|public
 name|ReentrantReadWriteLock
 name|createObject
 parameter_list|(
-name|Long
+name|T
 name|id
 parameter_list|)
 block|{
@@ -248,7 +251,7 @@ specifier|public
 name|ReentrantReadWriteLock
 name|getLock
 parameter_list|(
-name|long
+name|T
 name|id
 parameter_list|)
 block|{
@@ -338,7 +341,7 @@ specifier|public
 name|void
 name|waitForWaiters
 parameter_list|(
-name|long
+name|T
 name|id
 parameter_list|,
 name|int
