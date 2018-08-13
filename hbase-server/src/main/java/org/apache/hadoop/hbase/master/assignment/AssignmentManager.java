@@ -4697,7 +4697,56 @@ name|seqId
 argument_list|)
 condition|)
 block|{
-comment|// Don't log if shutting down cluster; during shutdown.
+comment|// Don't log WARN if shutting down cluster; during shutdown. Avoid the below messages:
+comment|// 2018-08-13 10:45:10,551 WARN ...AssignmentManager: No matching procedure found for
+comment|//   rit=OPEN, location=ve0538.halxg.cloudera.com,16020,1533493000958,
+comment|//   table=IntegrationTestBigLinkedList, region=65ab289e2fc1530df65f6c3d7cde7aa5 transition
+comment|//   to CLOSED
+comment|// These happen because on cluster shutdown, we currently let the RegionServers close
+comment|// regions. This is the only time that region close is not run by the Master (so cluster
+comment|// goes down fast). Consider changing it so Master runs all shutdowns.
+if|if
+condition|(
+name|this
+operator|.
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isClusterShutdown
+argument_list|()
+operator|&&
+name|state
+operator|.
+name|equals
+argument_list|(
+name|TransitionCode
+operator|.
+name|CLOSED
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"RegionServer {} {}"
+argument_list|,
+name|state
+argument_list|,
+name|regionNode
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|warn
@@ -4709,6 +4758,7 @@ argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// FYI: regionNode is sometimes synchronized by the caller but not always.
