@@ -1234,6 +1234,10 @@ argument_list|,
 name|newState
 argument_list|)
 expr_stmt|;
+name|succ
+operator|=
+literal|true
+expr_stmt|;
 block|}
 finally|finally
 block|{
