@@ -5217,6 +5217,8 @@ block|{
 name|removeCompactedfiles
 argument_list|(
 name|compactedfiles
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -12696,6 +12698,25 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|closeAndArchiveCompactedFiles
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|synchronized
+name|void
+name|closeAndArchiveCompactedFiles
+parameter_list|(
+name|boolean
+name|storeClosing
+parameter_list|)
+throws|throws
+name|IOException
+block|{
 comment|// ensure other threads do not attempt to archive the same files on close()
 name|archiveLock
 operator|.
@@ -12795,6 +12816,8 @@ block|{
 name|removeCompactedfiles
 argument_list|(
 name|copyCompactedfiles
+argument_list|,
+name|storeClosing
 argument_list|)
 expr_stmt|;
 block|}
@@ -12818,6 +12841,9 @@ argument_list|<
 name|HStoreFile
 argument_list|>
 name|compactedfiles
+parameter_list|,
+name|boolean
+name|storeClosing
 parameter_list|)
 throws|throws
 name|IOException
@@ -12923,6 +12949,43 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+comment|//Compacted files in the list should always be marked compacted away. In the event
+comment|//they're contradicting in order to guarantee data consistency
+comment|//should we choose one and ignore the other?
+if|if
+condition|(
+name|storeClosing
+operator|&&
+operator|!
+name|file
+operator|.
+name|isCompactedAway
+argument_list|()
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"Region closing but StoreFile is in compacted list but not compacted away: "
+operator|+
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+throw|throw
+operator|new
+name|IllegalStateException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
+block|}
+comment|//If store is closing we're ignoring any references to keep things consistent
+comment|//and remove compacted storefiles from the region directory
 if|if
 condition|(
 name|file
@@ -12930,13 +12993,43 @@ operator|.
 name|isCompactedAway
 argument_list|()
 operator|&&
+operator|(
 operator|!
+name|file
+operator|.
+name|isReferencedInReads
+argument_list|()
+operator|||
+name|storeClosing
+operator|)
+condition|)
+block|{
+if|if
+condition|(
+name|storeClosing
+operator|&&
 name|file
 operator|.
 name|isReferencedInReads
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region closing but StoreFile still has references: {}"
+argument_list|,
+name|file
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Even if deleting fails we need not bother as any new scanners won't be
 comment|// able to use the compacted file as the status is already compactedAway
 name|LOG
@@ -12961,6 +13054,13 @@ decl_stmt|;
 name|r
 operator|.
 name|close
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|file
+operator|.
+name|closeStreamReaders
 argument_list|(
 literal|true
 argument_list|)
@@ -13020,20 +13120,56 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Exception while trying to close the compacted store file {}"
-argument_list|,
+name|String
+name|msg
+init|=
+literal|"Exception while trying to close the compacted store file "
+operator|+
 name|file
 operator|.
 name|getPath
 argument_list|()
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|storeClosing
+condition|)
+block|{
+name|msg
+operator|=
+literal|"Store is closing. "
+operator|+
+name|msg
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|msg
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+comment|//if we get an exception let caller know so it can abort the server
+if|if
+condition|(
+name|storeClosing
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|msg
+argument_list|,
+name|e
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 block|}
