@@ -613,11 +613,13 @@ argument_list|(
 literal|1
 argument_list|)
 decl_stmt|;
+comment|/**    * {@link #testing} is non-null when ProcedureExecutor is being tested. Tests will try to    * break PE having it fail at various junctures. When non-null, testing is set to an instance of    * the below internal {@link Testing} class with flags set for the particular test.    */
 name|Testing
 name|testing
 init|=
 literal|null
 decl_stmt|;
+comment|/**    * Class with parameters describing how to fail/die when in testing-context.    */
 specifier|public
 specifier|static
 class|class
@@ -629,6 +631,7 @@ name|killIfSuspended
 init|=
 literal|false
 decl_stmt|;
+comment|/**      * Kill the PE BEFORE we store state to the WAL. Good for figuring out if a Procedure is      * persisting all the state it needs to recover after a crash.      */
 specifier|protected
 name|boolean
 name|killBeforeStoreUpdate
@@ -638,6 +641,19 @@ decl_stmt|;
 specifier|protected
 name|boolean
 name|toggleKillBeforeStoreUpdate
+init|=
+literal|false
+decl_stmt|;
+comment|/**      * Set when we want to fail AFTER state has been stored into the WAL. Rarely used. HBASE-20978      * is about a case where memory-state was being set after store to WAL where a crash could      * cause us to get stuck. This flag allows killing at what was a vulnerable time.      */
+specifier|protected
+name|boolean
+name|killAfterStoreUpdate
+init|=
+literal|false
+decl_stmt|;
+specifier|protected
+name|boolean
+name|toggleKillAfterStoreUpdate
 init|=
 literal|false
 decl_stmt|;
@@ -704,6 +720,72 @@ condition|?
 literal|false
 else|:
 name|shouldKillBeforeStoreUpdate
+argument_list|()
+return|;
+block|}
+specifier|protected
+name|boolean
+name|shouldKillAfterStoreUpdate
+parameter_list|()
+block|{
+specifier|final
+name|boolean
+name|kill
+init|=
+name|this
+operator|.
+name|killAfterStoreUpdate
+decl_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|toggleKillAfterStoreUpdate
+condition|)
+block|{
+name|this
+operator|.
+name|killAfterStoreUpdate
+operator|=
+operator|!
+name|kill
+expr_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Toggle KILL after store update to: "
+operator|+
+name|this
+operator|.
+name|killAfterStoreUpdate
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|kill
+return|;
+block|}
+specifier|protected
+name|boolean
+name|shouldKillAfterStoreUpdate
+parameter_list|(
+specifier|final
+name|boolean
+name|isSuspended
+parameter_list|)
+block|{
+return|return
+operator|(
+name|isSuspended
+operator|&&
+operator|!
+name|killIfSuspended
+operator|)
+condition|?
+literal|false
+else|:
+name|shouldKillAfterStoreUpdate
 argument_list|()
 return|;
 block|}
@@ -2534,6 +2616,25 @@ name|hasChildren
 argument_list|()
 condition|)
 block|{
+comment|// Normally, WAITING procedures should be waken by its children.
+comment|// But, there is a case that, all the children are successful and before
+comment|// they can wake up their parent procedure, the master was killed.
+comment|// So, during recovering the procedures from ProcedureWal, its children
+comment|// are not loaded because of their SUCCESS state.
+comment|// So we need to continue to run this WAITING procedure. But before
+comment|// executing, we need to set its state to RUNNABLE, otherwise, a exception
+comment|// will throw:
+comment|// Preconditions.checkArgument(procedure.getState() == ProcedureState.RUNNABLE,
+comment|// "NOT RUNNABLE! " + procedure.toString());
+name|proc
+operator|.
+name|setState
+argument_list|(
+name|ProcedureState
+operator|.
+name|RUNNABLE
+argument_list|)
+expr_stmt|;
 name|runnableList
 operator|.
 name|add
@@ -6941,30 +7042,13 @@ name|suspended
 argument_list|)
 condition|)
 block|{
-name|String
-name|msg
-init|=
-literal|"TESTING: Kill before store update: "
+name|kill
+argument_list|(
+literal|"TESTING: Kill BEFORE store update: "
 operator|+
 name|procedure
-decl_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-name|msg
 argument_list|)
 expr_stmt|;
-name|stop
-argument_list|()
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|msg
-argument_list|)
-throw|;
 block|}
 comment|// TODO: The code here doesn't check if store is running before persisting to the store as
 comment|// it relies on the method call below to throw RuntimeException to wind up the stack and
@@ -7040,6 +7124,31 @@ condition|(
 name|reExecute
 condition|)
 do|;
+comment|// Allows to kill the executor after something is stored to the WAL but before the below
+comment|// state settings are done -- in particular the one on the end where we make parent
+comment|// RUNNABLE again when its children are done; see countDownChildren.
+if|if
+condition|(
+name|testing
+operator|!=
+literal|null
+operator|&&
+name|testing
+operator|.
+name|shouldKillAfterStoreUpdate
+argument_list|(
+name|suspended
+argument_list|)
+condition|)
+block|{
+name|kill
+argument_list|(
+literal|"TESTING: Kill AFTER store update: "
+operator|+
+name|procedure
+argument_list|)
+expr_stmt|;
+block|}
 comment|// Submit the new subprocedures
 if|if
 condition|(
@@ -7096,6 +7205,32 @@ name|procedure
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|private
+name|void
+name|kill
+parameter_list|(
+name|String
+name|msg
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|msg
+argument_list|)
+expr_stmt|;
+name|stop
+argument_list|()
+expr_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|msg
+argument_list|)
+throw|;
 block|}
 specifier|private
 name|Procedure
