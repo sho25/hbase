@@ -2254,6 +2254,23 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+if|if
+condition|(
+name|isFinished
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is already finished, skip acquiring lock."
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug
