@@ -5748,6 +5748,27 @@ name|receptacle
 return|;
 block|}
 comment|/**    * @see #retrieveFromFile(int[])    */
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+literal|"OBL_UNSATISFIED_OBLIGATION"
+argument_list|,
+name|justification
+operator|=
+literal|"false positive, try-with-resources ensures close is called."
+argument_list|)
 specifier|private
 name|void
 name|persistToFile
