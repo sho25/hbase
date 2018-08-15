@@ -569,6 +569,21 @@ end_constructor
 begin_function
 annotation|@
 name|VisibleForTesting
+name|Providers
+name|getDefaultProvider
+parameter_list|()
+block|{
+return|return
+name|Providers
+operator|.
+name|defaultProvider
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|Class
 argument_list|<
@@ -604,47 +619,55 @@ name|defaultValue
 argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// AsyncFSWALProvider is not guaranteed to work on all Hadoop versions, when it's chosen as
+comment|// the default and we can't us it, we want to fall back to FSHLog which we know works on
+comment|// all versions.
 if|if
 condition|(
 name|provider
-operator|!=
-name|Providers
-operator|.
-name|defaultProvider
-condition|)
-block|{
-comment|// User gives a wal provider explicitly, just use that one
-return|return
+operator|==
+name|getDefaultProvider
+argument_list|()
+operator|&&
 name|provider
 operator|.
 name|clazz
-return|;
-block|}
-comment|// AsyncFSWAL has better performance in most cases, and also uses less resources, we will try
-comment|// to use it if possible. But it deeply hacks into the internal of DFSClient so will be easily
-comment|// broken when upgrading hadoop. If it is broken, then we fall back to use FSHLog.
-if|if
-condition|(
+operator|==
+name|AsyncFSWALProvider
+operator|.
+name|class
+operator|&&
+operator|!
 name|AsyncFSWALProvider
 operator|.
 name|load
 argument_list|()
 condition|)
 block|{
-return|return
-name|AsyncFSWALProvider
+comment|// AsyncFSWAL has better performance in most cases, and also uses less resources, we will
+comment|// try to use it if possible. It deeply hacks into the internal of DFSClient so will be
+comment|// easily broken when upgrading hadoop.
+name|LOG
 operator|.
-name|class
-return|;
-block|}
-else|else
-block|{
+name|warn
+argument_list|(
+literal|"Failed to load AsyncFSWALProvider, falling back to FSHLogProvider"
+argument_list|)
+expr_stmt|;
 return|return
 name|FSHLogProvider
 operator|.
 name|class
 return|;
 block|}
+comment|// N.b. If the user specifically requested AsyncFSWALProvider but their environment doesn't
+comment|// support using it (e.g. AsyncFSWALProvider.load() == false), we should let this fail and
+comment|// not fall back to FSHLogProvider.
+return|return
+name|provider
+operator|.
+name|clazz
+return|;
 block|}
 catch|catch
 parameter_list|(
