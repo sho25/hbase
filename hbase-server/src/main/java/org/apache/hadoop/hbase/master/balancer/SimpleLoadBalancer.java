@@ -2421,6 +2421,15 @@ name|getServerName
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|balanceInfo
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
 name|setLoad
 argument_list|(
 name|serverLoadList
