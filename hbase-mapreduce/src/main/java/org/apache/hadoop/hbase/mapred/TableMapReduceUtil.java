@@ -351,6 +351,26 @@ end_import
 
 begin_import
 import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -401,6 +421,21 @@ specifier|public
 class|class
 name|TableMapReduceUtil
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|TableMapReduceUtil
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * Use this before submitting a TableMap job. It will    * appropriately set up the JobConf.    *    * @param table  The table name to read from.    * @param columns  The columns to scan.    * @param mapper  The mapper class to use.    * @param outputKeyClass  The class of the output key.    * @param outputValueClass  The class of the output value.    * @param job  The current job configuration to adjust.    */
 specifier|public
 specifier|static
@@ -661,10 +696,14 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"IOException encountered while adding dependency jars"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -683,10 +722,14 @@ name|ioe
 parameter_list|)
 block|{
 comment|// just spit out the stack trace?  really?
-name|ioe
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"IOException encountered while initializing credentials"
+argument_list|,
+name|ioe
+argument_list|)
 expr_stmt|;
 block|}
 block|}
@@ -1399,10 +1442,14 @@ name|InterruptedException
 name|ie
 parameter_list|)
 block|{
-name|ie
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Interrupted obtaining user authentication token"
+argument_list|,
+name|ie
+argument_list|)
 expr_stmt|;
 name|Thread
 operator|.

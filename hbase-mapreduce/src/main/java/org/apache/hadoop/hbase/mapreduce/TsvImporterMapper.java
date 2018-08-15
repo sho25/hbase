@@ -315,6 +315,26 @@ name|Mapper
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Write table content out to files in hdfs.  */
 end_comment
@@ -339,6 +359,21 @@ argument_list|,
 name|Put
 argument_list|>
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|TsvImporterMapper
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/** Timestamp for all inserted rows */
 specifier|protected
 name|long
@@ -1014,9 +1049,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
+name|error
+argument_list|(
+literal|"Interrupted while emitting put"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
 argument_list|()
 expr_stmt|;
 block|}

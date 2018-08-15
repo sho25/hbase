@@ -457,6 +457,26 @@ name|ObjectMapper
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * WALPrettyPrinter prints the contents of a given WAL with a variety of  * options affecting formatting and extent of content.  *  * It targets two usage cases: pretty printing for ease of debugging directly by  * humans, and JSON output for consumption by monitoring and/or maintenance  * scripts.  *  * It can filter by row, region, or sequence id.  *  * It can also toggle output of values.  *  */
 end_comment
@@ -479,6 +499,21 @@ specifier|public
 class|class
 name|WALPrettyPrinter
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|WALPrettyPrinter
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|boolean
 name|outputValues
@@ -1995,10 +2030,14 @@ name|ParseException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Failed to parse commandLine arguments"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 name|HelpFormatter
 name|formatter

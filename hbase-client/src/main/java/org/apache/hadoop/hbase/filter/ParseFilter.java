@@ -1338,8 +1338,6 @@ literal|" not supported"
 argument_list|)
 throw|;
 block|}
-try|try
-block|{
 name|filterName
 operator|=
 name|filterHashMap
@@ -1349,6 +1347,14 @@ argument_list|(
 name|filterName
 argument_list|)
 expr_stmt|;
+specifier|final
+name|String
+name|methodName
+init|=
+literal|"createFilterFromArguments"
+decl_stmt|;
+try|try
+block|{
 name|Class
 argument_list|<
 name|?
@@ -1385,7 +1391,7 @@ name|c
 operator|.
 name|getDeclaredMethod
 argument_list|(
-literal|"createFilterFromArguments"
+name|methodName
 argument_list|,
 name|argTypes
 argument_list|)
@@ -1410,10 +1416,16 @@ name|ClassNotFoundException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Could not find class {}"
+argument_list|,
+name|filterName
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1422,10 +1434,18 @@ name|NoSuchMethodException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Could not find method {} in {}"
+argument_list|,
+name|methodName
+argument_list|,
+name|filterName
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1434,10 +1454,16 @@ name|IllegalAccessException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Unable to access specified class {}"
+argument_list|,
+name|filterName
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -1446,10 +1472,18 @@ name|InvocationTargetException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Method {} threw an exception for {}"
+argument_list|,
+name|methodName
+argument_list|,
+name|filterName
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 throw|throw

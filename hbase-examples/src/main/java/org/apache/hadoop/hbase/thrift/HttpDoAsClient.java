@@ -469,6 +469,26 @@ name|Oid
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * See the instructions under hbase-examples/README.txt  */
 end_comment
@@ -482,6 +502,21 @@ specifier|public
 class|class
 name|HttpDoAsClient
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|HttpDoAsClient
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|static
 specifier|protected
 name|int
@@ -764,10 +799,16 @@ name|UnsupportedEncodingException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"CharSetName {} not supported"
+argument_list|,
+name|s
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 return|return
 literal|null
@@ -1286,10 +1327,14 @@ name|GSSException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Kerberos authentication failed"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 block|}
 block|}

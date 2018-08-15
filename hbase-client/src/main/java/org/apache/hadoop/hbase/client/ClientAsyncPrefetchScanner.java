@@ -688,11 +688,6 @@ operator|.
 name|peek
 argument_list|()
 decl_stmt|;
-name|first
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|first

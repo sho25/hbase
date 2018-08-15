@@ -153,6 +153,26 @@ name|Configuration
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Write table content out to map output files.  */
 end_comment
@@ -177,6 +197,21 @@ argument_list|,
 name|Text
 argument_list|>
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|TsvImporterTextMapper
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/** Column seperator */
 specifier|private
 name|String
@@ -557,10 +592,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Interrupted while emitting TSV text"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 name|Thread
 operator|.

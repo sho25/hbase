@@ -331,6 +331,26 @@ name|QuorumPeerMain
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * HBase's version of ZooKeeper's QuorumPeer. When HBase is set to manage  * ZooKeeper, this class is used to start up QuorumPeer instances. By doing  * things in here rather than directly calling to ZooKeeper, we have more  * control over the process. This class uses {@link ZKConfig} to get settings  * from the hbase-site.xml file.  */
 end_comment
@@ -354,6 +374,21 @@ specifier|final
 class|class
 name|HQuorumPeer
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|HQuorumPeer
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|private
 name|HQuorumPeer
 parameter_list|()
@@ -444,10 +479,14 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Failed to start ZKServer"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 name|System
 operator|.

@@ -1423,11 +1423,6 @@ operator|!=
 literal|null
 assert|;
 comment|// That's what ExecutionException is about: holding an exception
-name|t
-operator|.
-name|printStackTrace
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|t

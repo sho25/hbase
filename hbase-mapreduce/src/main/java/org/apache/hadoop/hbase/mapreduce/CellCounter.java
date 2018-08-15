@@ -1005,9 +1005,21 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
+name|error
+argument_list|(
+literal|"Interrupted while writing cellCount"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
 argument_list|()
 expr_stmt|;
 block|}

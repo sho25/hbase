@@ -1182,10 +1182,14 @@ name|Exception
 name|ex
 parameter_list|)
 block|{
-name|ex
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Failed to stop infoServer"
+argument_list|,
+name|ex
+argument_list|)
 expr_stmt|;
 block|}
 block|}

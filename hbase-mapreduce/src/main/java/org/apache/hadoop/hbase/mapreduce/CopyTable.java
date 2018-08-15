@@ -1900,10 +1900,14 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|e
+name|LOG
 operator|.
-name|printStackTrace
-argument_list|()
+name|error
+argument_list|(
+literal|"Failed to parse commandLine arguments"
+argument_list|,
+name|e
+argument_list|)
 expr_stmt|;
 name|printUsage
 argument_list|(
