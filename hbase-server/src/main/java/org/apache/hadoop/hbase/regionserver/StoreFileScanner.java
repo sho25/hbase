@@ -458,6 +458,13 @@ name|canOptimizeForNonNullColumn
 operator|=
 name|canOptimizeForNonNullColumn
 expr_stmt|;
+name|this
+operator|.
+name|reader
+operator|.
+name|incrementRefCount
+argument_list|()
+expr_stmt|;
 block|}
 name|boolean
 name|isPrimaryReplica

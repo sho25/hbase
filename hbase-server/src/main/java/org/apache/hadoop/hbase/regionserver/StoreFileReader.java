@@ -964,12 +964,6 @@ name|boolean
 name|canOptimizeForNonNullColumn
 parameter_list|)
 block|{
-comment|// Increment the ref count
-name|refCount
-operator|.
-name|incrementAndGet
-argument_list|()
-expr_stmt|;
 return|return
 operator|new
 name|StoreFileScanner
@@ -1000,6 +994,17 @@ argument_list|,
 name|canOptimizeForNonNullColumn
 argument_list|)
 return|;
+block|}
+comment|/**    * Indicate that the scanner has started reading with this reader. We need to increment the ref    * count so reader is not close until some object is holding the lock    */
+name|void
+name|incrementRefCount
+parameter_list|()
+block|{
+name|refCount
+operator|.
+name|incrementAndGet
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Indicate that the scanner has finished reading with this reader. We need to decrement the ref    * count, and also, if this is not the common pread reader, we should close it.    */
 name|void
