@@ -620,7 +620,7 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// AsyncFSWALProvider is not guaranteed to work on all Hadoop versions, when it's chosen as
-comment|// the default and we can't us it, we want to fall back to FSHLog which we know works on
+comment|// the default and we can't use it, we want to fall back to FSHLog which we know works on
 comment|// all versions.
 if|if
 condition|(
