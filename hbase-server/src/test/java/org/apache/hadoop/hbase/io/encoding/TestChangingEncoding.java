@@ -788,6 +788,19 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+comment|// Disabling split to make sure split does not cause modify column to wait which timesout test
+comment|// sometime
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_REGION_SPLIT_POLICY_KEY
+argument_list|,
+literal|"org.apache.hadoop.hbase.regionserver.DisabledRegionSplitPolicy"
+argument_list|)
+expr_stmt|;
 comment|// ((Log4JLogger)RpcServerImplementation.LOG).getLogger().setLevel(Level.TRACE);
 comment|// ((Log4JLogger)RpcClient.LOG).getLogger().setLevel(Level.TRACE);
 name|TEST_UTIL
