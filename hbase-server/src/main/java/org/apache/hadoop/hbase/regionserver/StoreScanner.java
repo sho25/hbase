@@ -2777,10 +2777,7 @@ operator|||
 operator|(
 name|scanUsePread
 operator|&&
-name|scan
-operator|.
-name|getReadType
-argument_list|()
+name|readType
 operator|==
 name|Scan
 operator|.
@@ -2860,10 +2857,7 @@ if|if
 condition|(
 name|scanUsePread
 operator|&&
-name|scan
-operator|.
-name|getReadType
-argument_list|()
+name|readType
 operator|==
 name|Scan
 operator|.
