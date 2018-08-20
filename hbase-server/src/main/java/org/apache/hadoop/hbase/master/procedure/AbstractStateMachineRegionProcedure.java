@@ -181,14 +181,12 @@ specifier|private
 name|RegionInfo
 name|hri
 decl_stmt|;
-specifier|public
+specifier|protected
 name|AbstractStateMachineRegionProcedure
 parameter_list|(
-specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|,
-specifier|final
 name|RegionInfo
 name|hri
 parameter_list|)
@@ -205,7 +203,7 @@ operator|=
 name|hri
 expr_stmt|;
 block|}
-specifier|public
+specifier|protected
 name|AbstractStateMachineRegionProcedure
 parameter_list|()
 block|{
@@ -215,7 +213,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * @return The RegionInfo of the region we are operating on.    */
-specifier|protected
+specifier|public
 name|RegionInfo
 name|getRegion
 parameter_list|()

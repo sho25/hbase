@@ -201,7 +201,25 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|MoveRegionProcedure
+name|RegionStateNode
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|TransitRegionStateProcedure
 import|;
 end_import
 
@@ -282,6 +300,22 @@ operator|.
 name|util
 operator|.
 name|JVMClusterUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -604,7 +638,7 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-comment|//find the rs and hri of the table
+comment|// find the rs and hri of the table
 name|HRegionServer
 name|rs
 init|=
@@ -631,11 +665,12 @@ operator|.
 name|getRegionInfo
 argument_list|()
 decl_stmt|;
-name|MoveRegionProcedure
+name|TransitRegionStateProcedure
 name|moveRegionProcedure
 init|=
-operator|new
-name|MoveRegionProcedure
+name|TransitRegionStateProcedure
+operator|.
+name|reopen
 argument_list|(
 name|UTIL
 operator|.
@@ -651,28 +686,38 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-operator|new
-name|RegionPlan
-argument_list|(
 name|hri
-argument_list|,
-name|rs
-operator|.
-name|getServerName
-argument_list|()
-argument_list|,
-name|rs
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
-name|long
-name|procID
+name|RegionStateNode
+name|regionNode
 init|=
+name|UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getOrCreateRegionStateNode
+argument_list|(
+name|hri
+argument_list|)
+decl_stmt|;
+name|regionNode
+operator|.
+name|setProcedure
+argument_list|(
+name|moveRegionProcedure
+argument_list|)
+expr_stmt|;
 name|UTIL
 operator|.
 name|getMiniHBaseCluster
@@ -688,7 +733,7 @@ name|submitProcedure
 argument_list|(
 name|moveRegionProcedure
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|countDownLatch
 operator|.
 name|await
@@ -712,7 +757,7 @@ operator|.
 name|startMaster
 argument_list|()
 expr_stmt|;
-comment|//wait until master initialized
+comment|// wait until master initialized
 name|UTIL
 operator|.
 name|waitFor
@@ -791,8 +836,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
 if|if
 condition|(
 operator|!
@@ -816,7 +859,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
 literal|"begin to sleep"
 argument_list|)
@@ -826,8 +869,8 @@ operator|.
 name|countDown
 argument_list|()
 expr_stmt|;
-comment|//Sleep here so we can stuck the RPC call
-name|Thread
+comment|// Sleep here so we can stuck the RPC call
+name|Threads
 operator|.
 name|sleep
 argument_list|(
@@ -836,19 +879,12 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|error
+name|info
 argument_list|(
 literal|"finish sleep"
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-catch|catch
-parameter_list|(
-name|Throwable
-name|t
-parameter_list|)
-block|{        }
 block|}
 annotation|@
 name|Override

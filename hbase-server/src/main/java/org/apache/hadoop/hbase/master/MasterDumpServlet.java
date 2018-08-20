@@ -175,8 +175,6 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|RegionStates
-operator|.
 name|RegionStateNode
 import|;
 end_import

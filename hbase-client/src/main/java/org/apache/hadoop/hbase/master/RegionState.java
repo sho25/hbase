@@ -209,10 +209,16 @@ comment|// new region to be created when RS splits a parent
 comment|// region but hasn't be created yet, or master doesn't
 comment|// know it's already created
 name|MERGING_NEW
-block|;
+block|,
 comment|// new region to be created when RS merges two
 comment|// daughter regions but hasn't be created yet, or
 comment|// master doesn't know it's already created
+name|ABNORMALLY_CLOSED
+block|;
+comment|// the region is CLOSED because of a RS crashes. Usually it is the same
+comment|// with CLOSED, but for some operations such as merge/split, we can not
+comment|// apply it to a region in this state, as it may lead to data loss as we
+comment|// may have some data in recovered edits.
 comment|/**      * Convert to protobuf ClusterStatusProtos.RegionState.State      */
 specifier|public
 name|ClusterStatusProtos
@@ -417,6 +423,20 @@ operator|.
 name|MERGING_NEW
 expr_stmt|;
 break|break;
+case|case
+name|ABNORMALLY_CLOSED
+case|:
+name|rs
+operator|=
+name|ClusterStatusProtos
+operator|.
+name|RegionState
+operator|.
+name|State
+operator|.
+name|ABNORMALLY_CLOSED
+expr_stmt|;
+break|break;
 default|default:
 throw|throw
 operator|new
@@ -560,6 +580,14 @@ case|:
 name|state
 operator|=
 name|MERGING_NEW
+expr_stmt|;
+break|break;
+case|case
+name|ABNORMALLY_CLOSED
+case|:
+name|state
+operator|=
+name|ABNORMALLY_CLOSED
 expr_stmt|;
 break|break;
 default|default:

@@ -1084,7 +1084,7 @@ block|{
 return|return
 name|DeleteTableState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -1119,6 +1119,20 @@ return|return
 name|DeleteTableState
 operator|.
 name|DELETE_TABLE_PRE_OPERATION
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|holdLock
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+return|return
+literal|true
 return|;
 block|}
 annotation|@
@@ -1753,10 +1767,12 @@ index|[
 name|i
 index|]
 operator|.
-name|isDir
+name|isDirectory
 argument_list|()
 condition|)
+block|{
 continue|continue;
+block|}
 name|HFileArchiver
 operator|.
 name|archiveRegion
@@ -2016,7 +2032,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * There may be items for this table still up in hbase:meta in the case where the    * info:regioninfo column was empty because of some write error. Remove ALL rows from hbase:meta    * that have to do with this table. See HBASE-12980.    * @throws IOException    */
+comment|/**    * There may be items for this table still up in hbase:meta in the case where the    * info:regioninfo column was empty because of some write error. Remove ALL rows from hbase:meta    * that have to do with this table. See HBASE-12980.    */
 specifier|private
 specifier|static
 name|void

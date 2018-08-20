@@ -35,6 +35,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CountDownLatch
@@ -85,7 +95,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|AssignProcedure
+name|TransitRegionStateProcedure
 import|;
 end_import
 
@@ -196,7 +206,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This procedure is used to initialize meta table for a new hbase deploy. It will just schedule an  * {@link AssignProcedure} to assign meta.  */
+comment|/**  * This procedure is used to initialize meta table for a new hbase deploy. It will just schedule an  * {@link TransitRegionStateProcedure} to assign meta.  */
 end_comment
 
 begin_class
@@ -283,11 +293,16 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|createAssignProcedure
+name|createAssignProcedures
+argument_list|(
+name|Arrays
+operator|.
+name|asList
 argument_list|(
 name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

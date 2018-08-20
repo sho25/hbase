@@ -639,8 +639,7 @@ name|trace
 argument_list|(
 literal|"{}"
 argument_list|,
-name|toString
-argument_list|()
+name|this
 argument_list|)
 expr_stmt|;
 name|stateFlow

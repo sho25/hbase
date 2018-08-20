@@ -896,6 +896,18 @@ condition|(
 name|doubleExecution
 condition|)
 block|{
+comment|// For SCP, if you enable this then we will enter an infinite loop, as we will crash between
+comment|// queue and open for TRSP, and then going back to queue, as we will use the crash rs as the
+comment|// target server since it is recored in hbase:meta.
+name|ProcedureTestingUtility
+operator|.
+name|setKillIfHasParent
+argument_list|(
+name|procExec
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
 name|setKillAndToggleBeforeStoreUpdate

@@ -404,12 +404,6 @@ specifier|private
 name|boolean
 name|skipTableStateCheck
 decl_stmt|;
-specifier|private
-name|Boolean
-name|traceEnabled
-init|=
-literal|null
-decl_stmt|;
 specifier|public
 name|DisableTableProcedure
 parameter_list|()
@@ -614,7 +608,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|createUnassignProcedures
+name|createUnassignProceduresForDisabling
 argument_list|(
 name|tableName
 argument_list|)
@@ -948,7 +942,7 @@ block|{
 return|return
 name|DisableTableState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)
@@ -1123,6 +1117,23 @@ name|getSkipTableStateCheck
 argument_list|()
 expr_stmt|;
 block|}
+comment|// For disabling a table, we does not care whether a region can be online so hold the table xlock
+comment|// for ever. This will simplify the logic as we will not be conflict with procedures other than
+comment|// SCP.
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|holdLock
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public
@@ -1147,7 +1158,7 @@ operator|.
 name|DISABLE
 return|;
 block|}
-comment|/**    * Action before any real action of disabling table. Set the exception in the procedure instead    * of throwing it.  This approach is to deal with backward compatible with 1.0.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Action before any real action of disabling table. Set the exception in the procedure instead    * of throwing it.  This approach is to deal with backward compatible with 1.0.    * @param env MasterProcedureEnv    */
 specifier|private
 name|boolean
 name|prepareDisable
@@ -1311,7 +1322,7 @@ return|return
 name|canTableBeDisabled
 return|;
 block|}
-comment|/**    * Action before disabling table.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Action before disabling table.    * @param env MasterProcedureEnv    * @param state the procedure state    */
 specifier|protected
 name|void
 name|preDisable
@@ -1337,8 +1348,8 @@ name|state
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mark table state to Disabling    * @param env MasterProcedureEnv    * @throws IOException    */
-specifier|protected
+comment|/**    * Mark table state to Disabling    * @param env MasterProcedureEnv    */
+specifier|private
 specifier|static
 name|void
 name|setTableStateToDisabling
@@ -1390,7 +1401,7 @@ name|DISABLING
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Mark table state to Disabled    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Mark table state to Disabled    * @param env MasterProcedureEnv    */
 specifier|protected
 specifier|static
 name|void
@@ -1443,7 +1454,7 @@ name|DISABLED
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Action after disabling table.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Action after disabling table.    * @param env MasterProcedureEnv    * @param state the procedure state    */
 specifier|protected
 name|void
 name|postDisable
@@ -1469,32 +1480,7 @@ name|state
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * The procedure could be restarted from a different machine. If the variable is null, we need to    * retrieve it.    * @return traceEnabled    */
-specifier|private
-name|Boolean
-name|isTraceEnabled
-parameter_list|()
-block|{
-if|if
-condition|(
-name|traceEnabled
-operator|==
-literal|null
-condition|)
-block|{
-name|traceEnabled
-operator|=
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-name|traceEnabled
-return|;
-block|}
-comment|/**    * Coprocessor Action.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
+comment|/**    * Coprocessor Action.    * @param env MasterProcedureEnv    * @param state the procedure state    */
 specifier|private
 name|void
 name|runCoprocessorAction

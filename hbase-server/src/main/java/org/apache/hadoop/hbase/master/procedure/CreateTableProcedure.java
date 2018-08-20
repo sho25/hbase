@@ -974,7 +974,7 @@ block|{
 return|return
 name|CreateTableState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)

@@ -916,8 +916,6 @@ specifier|public
 name|void
 name|updateRegionLocation
 parameter_list|(
-name|RegionStates
-operator|.
 name|RegionStateNode
 name|regionStateNode
 parameter_list|)

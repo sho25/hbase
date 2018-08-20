@@ -467,7 +467,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|RegionStates
+name|RegionStateNode
 import|;
 end_import
 
@@ -486,8 +486,6 @@ operator|.
 name|assignment
 operator|.
 name|RegionStates
-operator|.
-name|RegionStateNode
 import|;
 end_import
 

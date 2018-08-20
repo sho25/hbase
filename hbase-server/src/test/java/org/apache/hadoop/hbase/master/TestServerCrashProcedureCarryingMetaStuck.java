@@ -161,7 +161,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|AssignProcedure
+name|TransitRegionStateProcedure
 import|;
 end_import
 
@@ -634,7 +634,7 @@ name|p
 lambda|->
 name|p
 operator|instanceof
-name|AssignProcedure
+name|TransitRegionStateProcedure
 argument_list|)
 operator|.
 name|map
@@ -642,7 +642,7 @@ argument_list|(
 name|p
 lambda|->
 operator|(
-name|AssignProcedure
+name|TransitRegionStateProcedure
 operator|)
 name|p
 argument_list|)
@@ -662,7 +662,7 @@ argument_list|()
 argument_list|,
 name|p
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

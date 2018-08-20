@@ -525,11 +525,6 @@ name|skipTableStateCheck
 expr_stmt|;
 block|}
 annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"deprecation"
-argument_list|)
-annotation|@
 name|Override
 specifier|protected
 name|Flow
@@ -1339,7 +1334,7 @@ block|{
 return|return
 name|EnableTableState
 operator|.
-name|valueOf
+name|forNumber
 argument_list|(
 name|stateId
 argument_list|)

@@ -1072,7 +1072,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -1385,6 +1385,15 @@ argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
+name|setKillIfHasParent
+argument_list|(
+name|procExec
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+name|ProcedureTestingUtility
+operator|.
 name|setKillAndToggleBeforeStoreUpdate
 argument_list|(
 name|procExec
@@ -1448,7 +1457,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

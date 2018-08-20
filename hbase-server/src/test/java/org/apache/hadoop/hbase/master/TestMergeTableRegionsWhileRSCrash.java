@@ -225,7 +225,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|UnassignProcedure
+name|TransitRegionStateProcedure
 import|;
 end_import
 
@@ -779,7 +779,7 @@ name|p
 lambda|->
 name|p
 operator|instanceof
-name|UnassignProcedure
+name|TransitRegionStateProcedure
 argument_list|)
 operator|.
 name|map
@@ -787,7 +787,7 @@ argument_list|(
 name|p
 lambda|->
 operator|(
-name|UnassignProcedure
+name|TransitRegionStateProcedure
 operator|)
 name|p
 argument_list|)

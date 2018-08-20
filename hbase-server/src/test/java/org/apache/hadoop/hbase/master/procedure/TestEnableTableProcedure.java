@@ -610,9 +610,6 @@ operator|.
 name|CompatibilityLatch
 argument_list|()
 decl_stmt|;
-name|long
-name|procId3
-init|=
 name|procExec
 operator|.
 name|submitProcedure
@@ -632,7 +629,7 @@ argument_list|,
 name|prepareLatch
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|prepareLatch
 operator|.
 name|await
@@ -742,6 +739,15 @@ operator|.
 name|waitNoProcedureRunning
 argument_list|(
 name|procExec
+argument_list|)
+expr_stmt|;
+name|ProcedureTestingUtility
+operator|.
+name|setKillIfHasParent
+argument_list|(
+name|procExec
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility

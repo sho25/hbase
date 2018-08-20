@@ -2112,8 +2112,6 @@ specifier|public
 name|void
 name|updateRegionLocation
 parameter_list|(
-name|RegionStates
-operator|.
 name|RegionStateNode
 name|regionNode
 parameter_list|)
