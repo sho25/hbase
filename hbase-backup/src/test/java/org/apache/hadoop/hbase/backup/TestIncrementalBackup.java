@@ -1103,6 +1103,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+comment|// Wait for 5 sec to make sure that old WALs were deleted
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|5000
+argument_list|)
+expr_stmt|;
 comment|// #3 - incremental backup for multiple tables
 name|request
 operator|=
