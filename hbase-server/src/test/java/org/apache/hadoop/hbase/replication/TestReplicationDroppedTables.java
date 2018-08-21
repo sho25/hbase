@@ -937,11 +937,7 @@ expr_stmt|;
 name|utility1
 operator|.
 name|startMiniHBaseCluster
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|TableName
 name|tablename
@@ -1355,11 +1351,7 @@ expr_stmt|;
 name|utility1
 operator|.
 name|startMiniHBaseCluster
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|TableName
 name|tablename

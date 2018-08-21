@@ -384,8 +384,6 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|1
-argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;

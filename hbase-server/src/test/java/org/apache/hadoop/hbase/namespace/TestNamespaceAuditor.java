@@ -1255,11 +1255,7 @@ expr_stmt|;
 name|UTIL
 operator|.
 name|startMiniCluster
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|waitForQuotaInitialize
 argument_list|(

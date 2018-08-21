@@ -1415,11 +1415,7 @@ comment|// Start the cluster back up
 name|TEST_UTIL
 operator|.
 name|startMiniHBaseCluster
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
+argument_list|()
 expr_stmt|;
 comment|// Verify the table can still be loaded
 name|TEST_UTIL

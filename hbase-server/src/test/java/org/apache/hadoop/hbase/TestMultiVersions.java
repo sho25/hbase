@@ -876,13 +876,27 @@ argument_list|(
 literal|"HBase cluster shut down -- restarting"
 argument_list|)
 expr_stmt|;
+name|StartMiniClusterOption
+name|option
+init|=
+name|StartMiniClusterOption
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|numRegionServers
+argument_list|(
+name|NUM_SLAVES
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|UTIL
 operator|.
 name|startMiniHBaseCluster
 argument_list|(
-literal|1
-argument_list|,
-name|NUM_SLAVES
+name|option
 argument_list|)
 expr_stmt|;
 comment|// Make a new connection.

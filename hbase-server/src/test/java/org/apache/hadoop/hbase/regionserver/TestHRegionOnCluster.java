@@ -518,12 +518,6 @@ name|Exception
 block|{
 specifier|final
 name|int
-name|NUM_MASTERS
-init|=
-literal|1
-decl_stmt|;
-specifier|final
-name|int
 name|NUM_RS
 init|=
 literal|3
@@ -537,8 +531,6 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-name|NUM_MASTERS
-argument_list|,
 name|NUM_RS
 argument_list|)
 expr_stmt|;

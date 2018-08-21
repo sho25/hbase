@@ -492,14 +492,6 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|NUM_MASTERS
-init|=
-literal|1
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|int
 name|NUM_RS
 init|=
 literal|2
@@ -619,8 +611,6 @@ name|HTU
 operator|.
 name|startMiniCluster
 argument_list|(
-name|NUM_MASTERS
-argument_list|,
 name|NUM_RS
 argument_list|)
 expr_stmt|;

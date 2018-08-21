@@ -863,11 +863,7 @@ init|=
 name|htu
 operator|.
 name|startMiniHBaseCluster
-argument_list|(
-literal|1
-argument_list|,
-literal|1
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|hbm
 operator|.

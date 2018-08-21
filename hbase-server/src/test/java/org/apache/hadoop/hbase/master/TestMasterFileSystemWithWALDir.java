@@ -81,9 +81,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|fs
-operator|.
-name|HFileSystem
+name|StartMiniClusterOption
 import|;
 end_import
 
@@ -248,11 +246,23 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Set createWALDir to true and use default values for other options.
 name|UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
+name|StartMiniClusterOption
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|createWALDir
+argument_list|(
 literal|true
+argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
