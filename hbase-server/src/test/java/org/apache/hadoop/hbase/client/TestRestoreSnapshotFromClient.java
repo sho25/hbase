@@ -2137,6 +2137,69 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Test
+argument_list|(
+name|timeout
+operator|=
+literal|30000
+argument_list|)
+specifier|public
+name|void
+name|testGetCompactionStateAfterRestoringSnapshot
+parameter_list|()
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+comment|// Take a snapshot
+name|admin
+operator|.
+name|snapshot
+argument_list|(
+name|snapshotName1
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// Restore the snapshot
+name|admin
+operator|.
+name|disableTable
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+name|admin
+operator|.
+name|restoreSnapshot
+argument_list|(
+name|snapshotName1
+argument_list|)
+expr_stmt|;
+comment|// Get the compaction state of the restored table
+name|CompactionState
+name|compactionState
+init|=
+name|admin
+operator|.
+name|getCompactionState
+argument_list|(
+name|tableName
+argument_list|)
+decl_stmt|;
+comment|// The compactionState should be NONE because the table is disabled
+name|assertEquals
+argument_list|(
+name|CompactionState
+operator|.
+name|NONE
+argument_list|,
+name|compactionState
+argument_list|)
+expr_stmt|;
+block|}
 comment|// ==========================================================================
 comment|//  Helpers
 comment|// ==========================================================================
