@@ -235,22 +235,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Admin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Connection
 import|;
 end_import
@@ -490,20 +474,6 @@ operator|.
 name|util
 operator|.
 name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
 import|;
 end_import
 
@@ -994,7 +964,7 @@ operator|.
 name|getAllRegionLocations
 argument_list|()
 decl_stmt|;
-comment|// should have three regions now
+comment|// should have four regions now
 name|assertEquals
 argument_list|(
 name|NUM_REGIONS
