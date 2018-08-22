@@ -369,10 +369,6 @@ name|HStore
 name|store
 decl_stmt|;
 specifier|private
-name|RegionServicesForStores
-name|regionServices
-decl_stmt|;
-specifier|private
 name|CompactionPipeline
 name|pipeline
 decl_stmt|;
@@ -459,12 +455,12 @@ name|AbstractMemStore
 operator|.
 name|DEEP_OVERHEAD
 operator|+
-literal|7
+literal|6
 operator|*
 name|ClassSize
 operator|.
 name|REFERENCE
-comment|// Store, RegionServicesForStores, CompactionPipeline,
+comment|// Store, CompactionPipeline,
 comment|// MemStoreCompactor, inMemoryCompactionInProgress,
 comment|// allowCompaction, indexType
 operator|+
@@ -522,6 +518,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|c
+argument_list|,
+name|regionServices
 argument_list|)
 expr_stmt|;
 name|this

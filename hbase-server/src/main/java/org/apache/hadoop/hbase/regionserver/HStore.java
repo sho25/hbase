@@ -2476,6 +2476,14 @@ block|,
 name|this
 operator|.
 name|comparator
+block|,
+name|this
+operator|.
+name|getHRegion
+argument_list|()
+operator|.
+name|getRegionServicesForStores
+argument_list|()
 block|}
 argument_list|)
 expr_stmt|;

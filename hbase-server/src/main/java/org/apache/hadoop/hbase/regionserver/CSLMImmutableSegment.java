@@ -82,6 +82,9 @@ name|CSLMImmutableSegment
 parameter_list|(
 name|Segment
 name|segment
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|super
@@ -110,6 +113,25 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// CSLM is always on-heap
+if|if
+condition|(
+name|memstoreSizing
+operator|!=
+literal|null
+condition|)
+block|{
+name|memstoreSizing
+operator|.
+name|incMemStoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|indexOverhead
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

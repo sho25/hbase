@@ -215,8 +215,7 @@ name|idxType
 argument_list|)
 return|;
 block|}
-comment|// create empty immutable segment
-comment|// for initializations
+comment|/**    * create empty immutable segment for initializations    * This ImmutableSegment is used as a place holder for snapshot in Memstore.    * It won't flush later, So it is not necessary to record the initial size    * for it.    * @param comparator comparator    * @return ImmutableSegment    */
 specifier|public
 name|ImmutableSegment
 name|createImmutableSegment
@@ -235,12 +234,16 @@ argument_list|,
 name|comparator
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 return|return
 name|createImmutableSegment
 argument_list|(
 name|segment
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -251,6 +254,9 @@ name|createImmutableSegment
 parameter_list|(
 name|MutableSegment
 name|segment
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 return|return
@@ -258,6 +264,8 @@ operator|new
 name|CSLMImmutableSegment
 argument_list|(
 name|segment
+argument_list|,
+name|memstoreSizing
 argument_list|)
 return|;
 block|}
@@ -272,6 +280,9 @@ name|conf
 parameter_list|,
 name|CellComparator
 name|comparator
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|MemStoreLAB
@@ -292,6 +303,8 @@ argument_list|,
 name|comparator
 argument_list|,
 name|memStoreLAB
+argument_list|,
+name|memstoreSizing
 argument_list|)
 return|;
 block|}
@@ -550,6 +563,9 @@ name|comparator
 parameter_list|,
 name|MemStoreLAB
 name|memStoreLAB
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 comment|// TBD use configuration to set type of segment
@@ -571,6 +587,8 @@ argument_list|,
 name|comparator
 argument_list|,
 name|memStoreLAB
+argument_list|,
+name|memstoreSizing
 argument_list|)
 return|;
 block|}

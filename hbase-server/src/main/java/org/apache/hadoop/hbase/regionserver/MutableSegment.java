@@ -255,6 +255,9 @@ name|comparator
 parameter_list|,
 name|MemStoreLAB
 name|memStoreLAB
+parameter_list|,
+name|MemStoreSizing
+name|memstoreSizing
 parameter_list|)
 block|{
 name|super
@@ -287,6 +290,25 @@ literal|0
 argument_list|)
 expr_stmt|;
 comment|// update the mutable segment metadata
+if|if
+condition|(
+name|memstoreSizing
+operator|!=
+literal|null
+condition|)
+block|{
+name|memstoreSizing
+operator|.
+name|incMemStoreSize
+argument_list|(
+literal|0
+argument_list|,
+name|DEEP_OVERHEAD
+argument_list|,
+literal|0
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 comment|/**    * Adds the given cell into the segment    * @param cell the cell to add    * @param mslabUsed whether using MSLAB    */
 specifier|public
