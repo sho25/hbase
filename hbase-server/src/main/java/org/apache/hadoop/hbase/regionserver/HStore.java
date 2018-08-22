@@ -12097,6 +12097,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|//We need to close the snapshot when aborting, otherwise, the segment scanner
+comment|//won't be closed. If we are using MSLAB, the chunk referenced by those scanners
+comment|//can't be released, thus memory leak
+name|snapshot
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|HStore
 operator|.
 name|this
