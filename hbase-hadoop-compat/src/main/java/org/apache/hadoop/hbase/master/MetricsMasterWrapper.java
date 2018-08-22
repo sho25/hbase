@@ -45,6 +45,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|PairOfSameType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -175,6 +191,14 @@ function_decl|;
 comment|/**    * Get the time in Millis when the master finished initializing/becoming the active master    */
 name|long
 name|getMasterInitializationTime
+parameter_list|()
+function_decl|;
+comment|/**    * Get the online and offline region counts    *    * @return pair of count for online regions and offline regions    */
+name|PairOfSameType
+argument_list|<
+name|Integer
+argument_list|>
+name|getRegionCounts
 parameter_list|()
 function_decl|;
 block|}

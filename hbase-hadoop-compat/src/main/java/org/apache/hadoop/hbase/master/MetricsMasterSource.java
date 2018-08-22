@@ -176,6 +176,16 @@ init|=
 literal|"mergePlanCount"
 decl_stmt|;
 name|String
+name|ONLINE_REGION_COUNT_NAME
+init|=
+literal|"onlineRegionCount"
+decl_stmt|;
+name|String
+name|OFFLINE_REGION_COUNT_NAME
+init|=
+literal|"offlineRegionCount"
+decl_stmt|;
+name|String
 name|CLUSTER_REQUESTS_NAME
 init|=
 literal|"clusterRequests"
@@ -249,6 +259,16 @@ name|String
 name|MERGE_PLAN_COUNT_DESC
 init|=
 literal|"Number of Region Merge Plans executed"
+decl_stmt|;
+name|String
+name|ONLINE_REGION_COUNT_DESC
+init|=
+literal|"Number of Online Regions"
+decl_stmt|;
+name|String
+name|OFFLINE_REGION_COUNT_DESC
+init|=
+literal|"Number of Offline Regions"
 decl_stmt|;
 name|String
 name|SERVER_CRASH_METRIC_PREFIX
