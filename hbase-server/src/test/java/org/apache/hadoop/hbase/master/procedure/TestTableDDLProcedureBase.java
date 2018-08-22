@@ -20,18 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|org
 operator|.
@@ -69,9 +57,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
-operator|.
-name|TableDescriptor
+name|HTableDescriptor
 import|;
 end_import
 
@@ -120,22 +106,6 @@ operator|.
 name|procedure2
 operator|.
 name|ProcedureTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|RemoteProcedureDispatcher
 import|;
 end_import
 
@@ -199,6 +169,18 @@ name|LoggerFactory
 import|;
 end_import
 
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
 begin_class
 specifier|public
 specifier|abstract
@@ -248,18 +230,6 @@ operator|.
 name|MASTER_PROCEDURE_THREADS
 argument_list|,
 literal|1
-argument_list|)
-expr_stmt|;
-comment|// increase the dispatch delay so we can do more batching
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|RemoteProcedureDispatcher
-operator|.
-name|DISPATCH_DELAY_CONF_KEY
-argument_list|,
-literal|2000
 argument_list|)
 expr_stmt|;
 block|}
@@ -351,7 +321,7 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|TableDescriptor
+name|HTableDescriptor
 name|htd
 range|:
 name|UTIL
@@ -359,7 +329,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|listTableDescriptors
+name|listTables
 argument_list|()
 control|)
 block|{
