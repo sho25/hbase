@@ -589,7 +589,7 @@ specifier|final
 name|double
 name|EPSILON
 init|=
-literal|1E
+literal|1.3E
 operator|-
 literal|6
 decl_stmt|;
