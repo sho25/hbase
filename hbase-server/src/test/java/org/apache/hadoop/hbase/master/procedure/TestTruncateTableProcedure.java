@@ -2306,13 +2306,6 @@ literal|'0'
 block|}
 argument_list|)
 expr_stmt|;
-name|UTIL
-operator|.
-name|waitUntilAllRegionsAssigned
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
 comment|// wait until split really happens
 name|UTIL
 operator|.
