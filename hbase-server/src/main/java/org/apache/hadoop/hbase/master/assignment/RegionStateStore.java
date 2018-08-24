@@ -1449,6 +1449,10 @@ name|info
 operator|.
 name|toString
 argument_list|()
+argument_list|,
+operator|new
+name|Exception
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|updateRegionLocation
