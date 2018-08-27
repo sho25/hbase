@@ -2873,9 +2873,7 @@ name|preTransitCheck
 argument_list|(
 name|regionNode
 argument_list|,
-name|RegionStates
-operator|.
-name|STATES_EXPECTED_ON_OPEN
+name|STATES_EXPECTED_ON_ASSIGN
 argument_list|)
 expr_stmt|;
 name|proc
@@ -2993,9 +2991,7 @@ name|preTransitCheck
 argument_list|(
 name|regionNode
 argument_list|,
-name|RegionStates
-operator|.
-name|STATES_EXPECTED_ON_CLOSE
+name|STATES_EXPECTED_ON_UNASSIGN_OR_MOVE
 argument_list|)
 expr_stmt|;
 name|proc
@@ -3098,9 +3094,7 @@ name|preTransitCheck
 argument_list|(
 name|regionNode
 argument_list|,
-name|RegionStates
-operator|.
-name|STATES_EXPECTED_ON_CLOSE
+name|STATES_EXPECTED_ON_UNASSIGN_OR_MOVE
 argument_list|)
 expr_stmt|;
 name|regionNode
@@ -7389,6 +7383,111 @@ literal|null
 return|;
 block|}
 comment|// ============================================================================================
+comment|//  Expected states on region state transition.
+comment|//  Notice that there is expected states for transiting to OPENING state, this is because SCP.
+comment|//  See the comments in regionOpening method for more details.
+comment|// ============================================================================================
+specifier|private
+specifier|static
+specifier|final
+name|State
+index|[]
+name|STATES_EXPECTED_ON_OPEN
+init|=
+block|{
+name|State
+operator|.
+name|OPENING
+block|,
+comment|// Normal case
+name|State
+operator|.
+name|OPEN
+comment|// Retrying
+block|}
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|State
+index|[]
+name|STATES_EXPECTED_ON_CLOSING
+init|=
+block|{
+name|State
+operator|.
+name|OPEN
+block|,
+comment|// Normal case
+name|State
+operator|.
+name|CLOSING
+block|,
+comment|// Retrying
+name|State
+operator|.
+name|SPLITTING
+block|,
+comment|// Offline the split parent
+name|State
+operator|.
+name|MERGING
+comment|// Offline the merge parents
+block|}
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|State
+index|[]
+name|STATES_EXPECTED_ON_CLOSED
+init|=
+block|{
+name|State
+operator|.
+name|CLOSING
+block|,
+comment|// Normal case
+name|State
+operator|.
+name|CLOSED
+comment|// Retrying
+block|}
+decl_stmt|;
+comment|// This is for manually scheduled region assign, can add other states later if we find out other
+comment|// usages
+specifier|private
+specifier|static
+specifier|final
+name|State
+index|[]
+name|STATES_EXPECTED_ON_ASSIGN
+init|=
+block|{
+name|State
+operator|.
+name|CLOSED
+block|,
+name|State
+operator|.
+name|OFFLINE
+block|}
+decl_stmt|;
+comment|// We only allow unassign or move a region which is in OPEN state.
+specifier|private
+specifier|static
+specifier|final
+name|State
+index|[]
+name|STATES_EXPECTED_ON_UNASSIGN_OR_MOVE
+init|=
+block|{
+name|State
+operator|.
+name|OPEN
+block|}
+decl_stmt|;
+comment|// ============================================================================================
 comment|//  Region Status update
 comment|//  Should only be called in TransitRegionStateProcedure
 comment|// ============================================================================================
@@ -7480,6 +7579,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// As in SCP, for performance reason, there is no TRSP attached with this region, we will not
+comment|// update the region state, which means that the region could be in any state when we want to
+comment|// assign it after a RS crash. So here we do not pass the expectedStates parameter.
 name|transitStateAndUpdate
 argument_list|(
 name|regionNode
@@ -7487,10 +7589,6 @@ argument_list|,
 name|State
 operator|.
 name|OPENING
-argument_list|,
-name|RegionStates
-operator|.
-name|STATES_EXPECTED_ON_OPEN
 argument_list|)
 expr_stmt|;
 name|regionStates
@@ -7644,8 +7742,6 @@ name|State
 operator|.
 name|OPEN
 argument_list|,
-name|RegionStates
-operator|.
 name|STATES_EXPECTED_ON_OPEN
 argument_list|)
 expr_stmt|;
@@ -7710,16 +7806,7 @@ name|State
 operator|.
 name|CLOSING
 argument_list|,
-name|RegionStates
-operator|.
-name|STATES_EXPECTED_ON_CLOSE
-argument_list|)
-expr_stmt|;
-name|regionStateStore
-operator|.
-name|updateRegionLocation
-argument_list|(
-name|regionNode
+name|STATES_EXPECTED_ON_CLOSING
 argument_list|)
 expr_stmt|;
 name|RegionInfo
@@ -7794,23 +7881,41 @@ operator|.
 name|getRegionLocation
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|normally
+condition|)
+block|{
 name|regionNode
 operator|.
 name|transitionState
 argument_list|(
-name|normally
-condition|?
 name|State
 operator|.
 name|CLOSED
-else|:
+argument_list|,
+name|STATES_EXPECTED_ON_CLOSED
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// For SCP
+name|regionNode
+operator|.
+name|transitionState
+argument_list|(
 name|State
 operator|.
 name|ABNORMALLY_CLOSED
-argument_list|,
-name|RegionStates
+argument_list|)
+expr_stmt|;
+block|}
+name|regionNode
 operator|.
-name|STATES_EXPECTED_ON_CLOSE
+name|setRegionLocation
+argument_list|(
+literal|null
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -7869,13 +7974,6 @@ operator|.
 name|setLastHost
 argument_list|(
 name|regionLocation
-argument_list|)
-expr_stmt|;
-name|regionNode
-operator|.
-name|setRegionLocation
-argument_list|(
-literal|null
 argument_list|)
 expr_stmt|;
 name|regionStates
