@@ -12858,6 +12858,27 @@ argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|opts
+operator|.
+name|perClientRunRows
+operator|==
+name|DEFAULT_ROWS_PER_GB
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Option \"rows\" unspecified. Using default value "
+operator|+
+name|DEFAULT_ROWS_PER_GB
+operator|+
+literal|". This could take a very long time."
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override
