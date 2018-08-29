@@ -446,6 +446,14 @@ parameter_list|()
 throws|throws
 name|ReplicationException
 function_decl|;
+comment|/**    * Get full znode name for given region server    * @param serverName the name of the region server    * @return full znode name    */
+name|String
+name|getRsNode
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 

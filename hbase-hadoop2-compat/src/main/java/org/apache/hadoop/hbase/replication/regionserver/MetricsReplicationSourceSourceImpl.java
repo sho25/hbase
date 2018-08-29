@@ -1225,6 +1225,15 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|incrFailedRecoveryQueue
+parameter_list|()
+block|{
+comment|/*no op*/
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|init
 parameter_list|()
 block|{

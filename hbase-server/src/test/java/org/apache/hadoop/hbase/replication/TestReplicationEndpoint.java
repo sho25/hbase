@@ -25,7 +25,31 @@ name|mockito
 operator|.
 name|Mockito
 operator|.
+name|doNothing
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
 name|mock
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|mockito
+operator|.
+name|Mockito
+operator|.
+name|spy
 import|;
 end_import
 
@@ -2042,6 +2066,25 @@ argument_list|(
 name|globalRms
 argument_list|)
 decl_stmt|;
+name|MetricsReplicationSourceSource
+name|spyglobalSourceSource
+init|=
+name|spy
+argument_list|(
+name|globalSourceSource
+argument_list|)
+decl_stmt|;
+name|doNothing
+argument_list|()
+operator|.
+name|when
+argument_list|(
+name|spyglobalSourceSource
+argument_list|)
+operator|.
+name|incrFailedRecoveryQueue
+argument_list|()
+expr_stmt|;
 name|Map
 argument_list|<
 name|String
@@ -2065,7 +2108,7 @@ name|id
 argument_list|,
 name|singleSourceSource
 argument_list|,
-name|globalSourceSource
+name|spyglobalSourceSource
 argument_list|,
 name|singleSourceSourceByTable
 argument_list|)
@@ -2195,6 +2238,11 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
+name|source
+operator|.
+name|incrFailedRecoveryQueue
+argument_list|()
+expr_stmt|;
 name|verify
 argument_list|(
 name|singleRms
@@ -2366,6 +2414,14 @@ name|globalCounterName
 argument_list|,
 name|count
 argument_list|)
+expr_stmt|;
+name|verify
+argument_list|(
+name|spyglobalSourceSource
+argument_list|)
+operator|.
+name|incrFailedRecoveryQueue
+argument_list|()
 expr_stmt|;
 comment|//check singleSourceSourceByTable metrics.
 comment|// singleSourceSourceByTable map entry will be created only

@@ -650,7 +650,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+annotation|@
+name|Override
+specifier|public
 name|String
 name|getRsNode
 parameter_list|(

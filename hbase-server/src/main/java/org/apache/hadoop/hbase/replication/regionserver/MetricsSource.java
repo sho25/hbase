@@ -1143,6 +1143,17 @@ name|incrCompletedRecoveryQueue
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|incrFailedRecoveryQueue
+parameter_list|()
+block|{
+name|globalSourceSource
+operator|.
+name|incrFailedRecoveryQueue
+argument_list|()
+expr_stmt|;
+block|}
 annotation|@
 name|Override
 specifier|public

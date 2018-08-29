@@ -207,6 +207,14 @@ name|SOURCE_COMPLETED_RECOVERY_QUEUES
 init|=
 literal|"source.completedRecoverQueues"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SOURCE_FAILED_RECOVERY_QUEUES
+init|=
+literal|"source.failedRecoverQueues"
+decl_stmt|;
 name|void
 name|setLastShippedAge
 parameter_list|(
@@ -337,6 +345,10 @@ parameter_list|()
 function_decl|;
 name|void
 name|incrCompletedRecoveryQueue
+parameter_list|()
+function_decl|;
+name|void
+name|incrFailedRecoveryQueue
 parameter_list|()
 function_decl|;
 block|}

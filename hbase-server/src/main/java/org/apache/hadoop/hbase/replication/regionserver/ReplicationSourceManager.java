@@ -343,6 +343,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CompatibilitySingletonFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -4144,6 +4158,21 @@ name|RejectedExecutionException
 name|ex
 parameter_list|)
 block|{
+name|CompatibilitySingletonFactory
+operator|.
+name|getInstance
+argument_list|(
+name|MetricsReplicationSourceFactory
+operator|.
+name|class
+argument_list|)
+operator|.
+name|getGlobalSource
+argument_list|()
+operator|.
+name|incrFailedRecoveryQueue
+argument_list|()
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -4515,11 +4544,40 @@ name|ReplicationException
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"ReplicationException: cannot claim dead region (%s)'s "
+operator|+
+literal|"replication queue. Znode : (%s)"
+operator|+
+literal|" Possible solution: check if znode size exceeds jute.maxBuffer value. "
+operator|+
+literal|" If so, increase it for both client and server side."
+operator|+
+name|e
+argument_list|)
+argument_list|,
+name|deadRS
+argument_list|,
+name|queueStorage
+operator|.
+name|getRsNode
+argument_list|(
+name|deadRS
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|server
 operator|.
 name|abort
 argument_list|(
-literal|"Failed to claim queue from dead regionserver"
+literal|"Failed to claim queue from dead regionserver."
 argument_list|,
 name|e
 argument_list|)
