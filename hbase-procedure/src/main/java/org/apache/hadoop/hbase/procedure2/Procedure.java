@@ -435,6 +435,35 @@ name|lockedWhenLoading
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * Used for force complete of the procedure without    * actually doing any logic in the procedure.    * If bypass is set to true, when executing it will return null when    * {@link #doExecute(Object)} to finish the procedure and releasing any locks    * it may currently hold.    * Bypassing a procedure is not like aborting. Aborting a procedure will trigger    * a rollback. And since the {@link #abort(Object)} method is overrideable    * Some procedures may have chosen to ignore the aborting.    */
+specifier|private
+specifier|volatile
+name|boolean
+name|bypass
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+name|boolean
+name|isBypass
+parameter_list|()
+block|{
+return|return
+name|bypass
+return|;
+block|}
+comment|/**    * set the bypass to true    * Only called in {@link ProcedureExecutor#bypassProcedure(long, long, boolean)} for now,    * DO NOT use this method alone, since we can't just bypass    * one single procedure. We need to bypass its ancestor too. So making it package private    */
+name|void
+name|bypass
+parameter_list|()
+block|{
+name|this
+operator|.
+name|bypass
+operator|=
+literal|true
+expr_stmt|;
+block|}
 comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple times in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures to run or ourselves if there is more work to do or null if the    * procedure is done.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later.    * @throws InterruptedException the procedure will be added back to the queue and retried later.    * @throws ProcedureSuspendedException Signal to the executor that Procedure has suspended itself and    * has set itself up waiting for an external event to wake it back up again.    */
 specifier|protected
 specifier|abstract
@@ -865,6 +894,24 @@ argument_list|(
 name|locked
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|bypass
+condition|)
+block|{
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", bypass="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|bypass
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|hasException
@@ -2184,6 +2231,24 @@ block|{
 name|updateTimestamp
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|bypass
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} bypassed, returning null to finish it"
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 return|return
 name|execute
 argument_list|(
@@ -2216,6 +2281,22 @@ block|{
 name|updateTimestamp
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|bypass
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} bypassed, skipping rollback"
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|rollback
 argument_list|(
 name|env
@@ -2265,6 +2346,23 @@ operator|.
 name|debug
 argument_list|(
 literal|"{} is already finished, skip acquiring lock."
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|isBypass
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is already bypassed, skip acquiring lock."
 argument_list|,
 name|this
 argument_list|)

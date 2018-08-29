@@ -778,7 +778,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|18
+literal|15
 argument_list|,
 name|procRunnables
 operator|.
@@ -787,7 +787,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|15
+literal|12
 argument_list|,
 name|procRunnables
 operator|.
@@ -796,7 +796,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|19
+literal|16
 argument_list|,
 name|procRunnables
 operator|.
@@ -1097,7 +1097,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|12
+literal|11
 argument_list|,
 name|procRunnables
 operator|.
@@ -1106,7 +1106,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|11
+literal|10
 argument_list|,
 name|procRunnables
 operator|.
@@ -1115,7 +1115,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|13
+literal|12
 argument_list|,
 name|procRunnables
 operator|.
