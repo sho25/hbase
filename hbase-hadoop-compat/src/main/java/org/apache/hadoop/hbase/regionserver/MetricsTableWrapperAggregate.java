@@ -46,7 +46,7 @@ name|MetricsTableWrapperAggregate
 block|{
 comment|/**    * Get the number of read requests that have been issued against this table    */
 name|long
-name|getReadRequestsCount
+name|getReadRequestCount
 parameter_list|(
 name|String
 name|table
@@ -60,15 +60,23 @@ name|String
 name|table
 parameter_list|)
 function_decl|;
-comment|/**    * Get the number of write requests that have been issued against this table    */
+comment|/**    * Get the total number of filtered read requests that have been issued against this table    */
 name|long
-name|getWriteRequestsCount
+name|getFilteredReadRequestCount
 parameter_list|(
 name|String
 name|table
 parameter_list|)
 function_decl|;
-comment|/**    * Get the total number of requests that have been issued against this table    */
+comment|/**    * Get the number of write requests that have been issued for this table    */
+name|long
+name|getWriteRequestCount
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the total number of requests that have been issued for this table    */
 name|long
 name|getTotalRequestsCount
 parameter_list|(
@@ -78,7 +86,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Get the memory store size against this table    */
 name|long
-name|getMemStoresSize
+name|getMemStoreSize
 parameter_list|(
 name|String
 name|table
@@ -86,7 +94,7 @@ parameter_list|)
 function_decl|;
 comment|/**    * Get the store file size against this table    */
 name|long
-name|getStoreFilesSize
+name|getStoreFileSize
 parameter_list|(
 name|String
 name|table
@@ -95,6 +103,70 @@ function_decl|;
 comment|/**    * Get the table region size against this table    */
 name|long
 name|getTableSize
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the average region size for this table    */
+name|long
+name|getAvgRegionSize
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the number of regions hosted on for this table    */
+name|long
+name|getNumRegions
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the number of stores hosted on for this table    */
+name|long
+name|getNumStores
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * Get the number of store files hosted for this table    */
+name|long
+name|getNumStoreFiles
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * @return Max age of store files for this table    */
+name|long
+name|getMaxStoreFileAge
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    * @return Min age of store files for this table    */
+name|long
+name|getMinStoreFileAge
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    *  @return Average age of store files for this table    */
+name|long
+name|getAvgStoreFileAge
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+function_decl|;
+comment|/**    *  @return Number of reference files for this table    */
+name|long
+name|getNumReferenceFiles
 parameter_list|(
 name|String
 name|table

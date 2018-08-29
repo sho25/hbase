@@ -98,20 +98,20 @@ name|NUMBER_OF_TABLES_DESC
 init|=
 literal|"Number of tables in the metrics system"
 decl_stmt|;
-comment|/**    * Register a MetricsTableSource as being open.    *    * @param table The table name    * @param source the source for the table being opened.    */
-name|void
-name|register
+comment|/**    * Returns MetricsTableSource registered for the table. Creates one if not defined.    * @param table The table name    */
+name|MetricsTableSource
+name|getOrCreateTableSource
 parameter_list|(
 name|String
 name|table
 parameter_list|,
-name|MetricsTableSource
-name|source
+name|MetricsTableWrapperAggregate
+name|wrapper
 parameter_list|)
 function_decl|;
 comment|/**    * Remove a table's source. This is called when regions of a table are closed.    *    * @param table The table name    */
 name|void
-name|deregister
+name|deleteTableSource
 parameter_list|(
 name|String
 name|table

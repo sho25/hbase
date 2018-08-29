@@ -8541,6 +8541,20 @@ expr_stmt|;
 comment|// Init in here rather than in constructor after thread name has been set
 name|this
 operator|.
+name|metricsTable
+operator|=
+operator|new
+name|MetricsTable
+argument_list|(
+operator|new
+name|MetricsTableWrapperAggregateImpl
+argument_list|(
+name|this
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
 name|metricsRegionServer
 operator|=
 operator|new
@@ -8553,20 +8567,8 @@ name|this
 argument_list|)
 argument_list|,
 name|conf
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
+argument_list|,
 name|metricsTable
-operator|=
-operator|new
-name|MetricsTable
-argument_list|(
-operator|new
-name|MetricsTableWrapperAggregateImpl
-argument_list|(
-name|this
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Now that we have a metrics source, start the pause monitor

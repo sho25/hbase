@@ -343,6 +343,17 @@ return|return
 literal|6
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getTotalRequestCount
+parameter_list|()
+block|{
+return|return
+literal|0
+return|;
+block|}
 block|}
 end_class
 

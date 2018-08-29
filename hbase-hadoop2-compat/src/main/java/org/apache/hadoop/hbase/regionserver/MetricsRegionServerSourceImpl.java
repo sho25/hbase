@@ -227,6 +227,7 @@ specifier|final
 name|MutableFastCounter
 name|slowAppend
 decl_stmt|;
+comment|// split related metrics
 specifier|private
 specifier|final
 name|MutableFastCounter

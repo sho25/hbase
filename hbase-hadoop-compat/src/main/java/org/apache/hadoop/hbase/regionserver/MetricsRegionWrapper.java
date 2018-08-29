@@ -120,6 +120,10 @@ name|getWriteRequestCount
 parameter_list|()
 function_decl|;
 name|long
+name|getTotalRequestCount
+parameter_list|()
+function_decl|;
+name|long
 name|getNumFilesCompacted
 parameter_list|()
 function_decl|;

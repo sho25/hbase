@@ -13813,6 +13813,15 @@ argument_list|()
 operator|.
 name|updateFlush
 argument_list|(
+name|getTableDescriptor
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|,
 name|time
 operator|-
 name|startTime

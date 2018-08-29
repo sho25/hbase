@@ -7309,6 +7309,17 @@ argument_list|()
 operator|.
 name|updateCompaction
 argument_list|(
+name|region
+operator|.
+name|getTableDescriptor
+argument_list|()
+operator|.
+name|getTableName
+argument_list|()
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|,
 name|cr
 operator|.
 name|isMajor

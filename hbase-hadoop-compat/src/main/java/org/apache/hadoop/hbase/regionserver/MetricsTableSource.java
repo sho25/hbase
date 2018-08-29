@@ -31,6 +31,16 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|Closeable
+import|;
+end_import
+
 begin_comment
 comment|/**  * This interface will be implemented to allow region server to push table metrics into  * MetricsRegionAggregateSource that will in turn push data to the Hadoop metrics system.  */
 end_comment
@@ -48,67 +58,9 @@ name|Comparable
 argument_list|<
 name|MetricsTableSource
 argument_list|>
+extends|,
+name|Closeable
 block|{
-name|String
-name|READ_REQUEST_COUNT
-init|=
-literal|"readRequestCount"
-decl_stmt|;
-name|String
-name|READ_REQUEST_COUNT_DESC
-init|=
-literal|"Number of read requests"
-decl_stmt|;
-name|String
-name|CP_REQUEST_COUNT
-init|=
-literal|"cpRequestCount"
-decl_stmt|;
-name|String
-name|CP_REQUEST_COUNT_DESC
-init|=
-literal|"Number of coprocessor service requests"
-decl_stmt|;
-name|String
-name|WRITE_REQUEST_COUNT
-init|=
-literal|"writeRequestCount"
-decl_stmt|;
-name|String
-name|WRITE_REQUEST_COUNT_DESC
-init|=
-literal|"Number of write requests"
-decl_stmt|;
-name|String
-name|TOTAL_REQUEST_COUNT
-init|=
-literal|"totalRequestCount"
-decl_stmt|;
-name|String
-name|TOTAL_REQUEST_COUNT_DESC
-init|=
-literal|"Number of total requests"
-decl_stmt|;
-name|String
-name|MEMSTORE_SIZE
-init|=
-literal|"memstoreSize"
-decl_stmt|;
-name|String
-name|MEMSTORE_SIZE_DESC
-init|=
-literal|"The size of memory stores"
-decl_stmt|;
-name|String
-name|STORE_FILE_SIZE
-init|=
-literal|"storeFileSize"
-decl_stmt|;
-name|String
-name|STORE_FILE_SIZE_DESC
-init|=
-literal|"The size of store files size"
-decl_stmt|;
 name|String
 name|TABLE_SIZE
 init|=
@@ -124,14 +76,117 @@ name|getTableName
 parameter_list|()
 function_decl|;
 comment|/**    * Close the table's metrics as all the region are closing.    */
+annotation|@
+name|Override
 name|void
 name|close
+parameter_list|()
+function_decl|;
+name|void
+name|registerMetrics
 parameter_list|()
 function_decl|;
 comment|/**    * Get the aggregate source to which this reports.    */
 name|MetricsTableAggregateSource
 name|getAggregateSource
 parameter_list|()
+function_decl|;
+comment|/**    * Update the split transaction time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateSplitTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Increment number of a requested splits    */
+name|void
+name|incrSplitRequest
+parameter_list|()
+function_decl|;
+comment|/**    * Increment number of successful splits    */
+name|void
+name|incrSplitSuccess
+parameter_list|()
+function_decl|;
+comment|/**    * Update the flush time histogram    * @param t time it took, in milliseconds    */
+name|void
+name|updateFlushTime
+parameter_list|(
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update the flush memstore size histogram    * @param bytes the number of bytes in the memstore    */
+name|void
+name|updateFlushMemstoreSize
+parameter_list|(
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the flush output file size histogram    * @param bytes the number of bytes in the output file    */
+name|void
+name|updateFlushOutputSize
+parameter_list|(
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction time histogram, both major and minor    * @param isMajor whether compaction is a major compaction    * @param t time it took, in milliseconds    */
+name|void
+name|updateCompactionTime
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|t
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction input number of files histogram    * @param isMajor whether compaction is a major compaction    * @param c number of files    */
+name|void
+name|updateCompactionInputFileCount
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|c
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction total input file size histogram    * @param isMajor whether compaction is a major compaction    * @param bytes the number of bytes of the compaction input file    */
+name|void
+name|updateCompactionInputSize
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|bytes
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction output number of files histogram    * @param isMajor whether compaction is a major compaction    * @param c number of files    */
+name|void
+name|updateCompactionOutputFileCount
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|c
+parameter_list|)
+function_decl|;
+comment|/**    * Update the compaction total output file size    * @param isMajor whether compaction is a major compaction    * @param bytes the number of bytes of the compaction input file    */
+name|void
+name|updateCompactionOutputSize
+parameter_list|(
+name|boolean
+name|isMajor
+parameter_list|,
+name|long
+name|bytes
+parameter_list|)
 function_decl|;
 block|}
 end_interface
