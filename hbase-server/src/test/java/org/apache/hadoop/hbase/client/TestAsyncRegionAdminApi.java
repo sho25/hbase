@@ -21,6 +21,18 @@ begin_import
 import|import static
 name|org
 operator|.
+name|hamcrest
+operator|.
+name|CoreMatchers
+operator|.
+name|instanceOf
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -50,6 +62,18 @@ operator|.
 name|Assert
 operator|.
 name|assertNotEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertThat
 import|;
 end_import
 
@@ -640,6 +664,8 @@ argument_list|)
 expr_stmt|;
 comment|// Region is assigned now. Let's assign it again.
 comment|// Master should not abort, and region should stay assigned.
+try|try
+block|{
 name|admin
 operator|.
 name|assign
@@ -653,6 +679,35 @@ operator|.
 name|get
 argument_list|()
 expr_stmt|;
+name|fail
+argument_list|(
+literal|"Should fail when assigning an already onlined region"
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|ExecutionException
+name|e
+parameter_list|)
+block|{
+comment|// Expected
+name|assertThat
+argument_list|(
+name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|,
+name|instanceOf
+argument_list|(
+name|DoNotRetryRegionException
+operator|.
+name|class
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 try|try
 block|{
 name|am
