@@ -537,7 +537,10 @@ init|=
 operator|new
 name|RowModel
 argument_list|(
-name|rk
+name|rowSpec
+operator|.
+name|getRow
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
