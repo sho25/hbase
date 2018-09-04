@@ -395,6 +395,14 @@ class|class
 name|AssignmentManagerUtil
 block|{
 specifier|private
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_REGION_REPLICA
+init|=
+literal|1
+decl_stmt|;
+specifier|private
 name|AssignmentManagerUtil
 parameter_list|()
 block|{   }
@@ -912,35 +920,6 @@ operator|.
 name|stream
 argument_list|()
 operator|.
-name|flatMap
-argument_list|(
-name|hri
-lambda|->
-name|IntStream
-operator|.
-name|range
-argument_list|(
-literal|0
-argument_list|,
-literal|1
-argument_list|)
-comment|// yes, only the primary
-operator|.
-name|mapToObj
-argument_list|(
-name|i
-lambda|->
-name|RegionReplicaUtil
-operator|.
-name|getRegionInfoForReplica
-argument_list|(
-name|hri
-argument_list|,
-name|i
-argument_list|)
-argument_list|)
-argument_list|)
-operator|.
 name|map
 argument_list|(
 name|env
@@ -961,7 +940,7 @@ lambda|->
 block|{
 name|TransitRegionStateProcedure
 name|proc
-operator|=
+init|=
 name|TransitRegionStateProcedure
 operator|.
 name|assign
@@ -975,12 +954,13 @@ argument_list|()
 argument_list|,
 name|targetServer
 argument_list|)
-argument_list|;
+decl_stmt|;
 name|regionNode
 operator|.
 name|lock
 argument_list|()
-argument_list|;           try
+expr_stmt|;
+try|try
 block|{
 comment|// should never fail, as we have the exclusive region lock, and the region is newly
 comment|// created, or has been successfully closed so should not be on any servers, so SCP will
@@ -1012,7 +992,7 @@ return|return
 name|proc
 return|;
 block|}
-block|)
+argument_list|)
 operator|.
 name|toArray
 argument_list|(
@@ -1021,15 +1001,12 @@ index|[]
 operator|::
 operator|new
 argument_list|)
-expr_stmt|;
-end_class
-
-begin_if
+decl_stmt|;
 if|if
 condition|(
 name|regionReplication
 operator|==
-literal|1
+name|DEFAULT_REGION_REPLICA
 condition|)
 block|{
 comment|// this is the default case
@@ -1037,13 +1014,7 @@ return|return
 name|primaryRegionProcs
 return|;
 block|}
-end_if
-
-begin_comment
 comment|// collect the replica region infos
-end_comment
-
-begin_decl_stmt
 name|List
 argument_list|<
 name|RegionInfo
@@ -1068,9 +1039,6 @@ literal|1
 operator|)
 argument_list|)
 decl_stmt|;
-end_decl_stmt
-
-begin_for
 for|for
 control|(
 name|RegionInfo
@@ -1111,13 +1079,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_for
-
-begin_comment
 comment|// create round robin procs. Note that we exclude the primary region's target server
-end_comment
-
-begin_decl_stmt
 name|TransitRegionStateProcedure
 index|[]
 name|replicaRegionAssignProcs
@@ -1139,13 +1101,7 @@ name|targetServer
 argument_list|)
 argument_list|)
 decl_stmt|;
-end_decl_stmt
-
-begin_comment
 comment|// combine both the procs and return the result
-end_comment
-
-begin_return
 return|return
 name|ArrayUtils
 operator|.
@@ -1156,10 +1112,8 @@ argument_list|,
 name|replicaRegionAssignProcs
 argument_list|)
 return|;
-end_return
-
-begin_function
-unit|}    static
+block|}
+specifier|static
 name|TransitRegionStateProcedure
 index|[]
 name|createAssignProceduresForOpeningNewRegions
@@ -1193,9 +1147,6 @@ name|targetServer
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|static
 name|void
 name|reopenRegionsForRollback
@@ -1245,9 +1196,6 @@ name|procs
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|static
 name|void
 name|removeNonDefaultReplicas
@@ -1357,12 +1305,9 @@ argument_list|)
 argument_list|)
 block|;         }
 block|}
-end_function
-
-begin_empty_stmt
-unit|)
-empty_stmt|;
-end_empty_stmt
+block|)
+class|;
+end_class
 
 begin_function
 unit|}    static
