@@ -77,6 +77,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -401,7 +413,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|NoSuchProcedureException
+name|assignment
+operator|.
+name|AssignmentManager
 import|;
 end_import
 
@@ -419,7 +433,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|AssignmentManager
+name|AssignmentTestingUtil
 import|;
 end_import
 
@@ -964,12 +978,12 @@ argument_list|,
 name|replicaId
 argument_list|)
 decl_stmt|;
-try|try
-block|{
-name|am
+name|AssignmentTestingUtil
 operator|.
 name|waitForAssignment
 argument_list|(
+name|am
+argument_list|,
 name|h
 argument_list|)
 expr_stmt|;
@@ -986,6 +1000,11 @@ argument_list|(
 name|h
 argument_list|)
 decl_stmt|;
+name|assertNotNull
+argument_list|(
+name|sn
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -1009,26 +1028,6 @@ argument_list|(
 name|sn
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NoSuchProcedureException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Presume the procedure has been cleaned up so just proceed: "
-operator|+
-name|e
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// Fun. All meta region replicas have ended up on the one server. This will cause this test
 comment|// to fail ... sometimes.

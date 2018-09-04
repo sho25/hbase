@@ -1183,6 +1183,24 @@ name|master
 operator|.
 name|assignment
 operator|.
+name|AssignmentTestingUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
 name|RegionStateStore
 import|;
 end_import
@@ -15535,7 +15553,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Uses directly the assignment manager to assign the region.    * and waits until the specified region has completed assignment.    * @throws IOException    * @throw InterruptedException    * @return true if the region is assigned false otherwise.    */
+comment|/**    * Uses directly the assignment manager to assign the region. and waits until the specified region    * has completed assignment.    * @return true if the region is assigned false otherwise.    */
 end_comment
 
 begin_function
@@ -15573,10 +15591,12 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 return|return
-name|am
+name|AssignmentTestingUtil
 operator|.
 name|waitForAssignment
 argument_list|(
+name|am
+argument_list|,
 name|regionInfo
 argument_list|)
 return|;

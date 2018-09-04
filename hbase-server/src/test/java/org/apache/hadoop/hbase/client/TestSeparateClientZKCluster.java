@@ -167,7 +167,9 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|NoSuchProcedureException
+name|assignment
+operator|.
+name|AssignmentTestingUtil
 import|;
 end_import
 
@@ -704,11 +706,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testBasicOperation
@@ -900,11 +897,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMasterSwitch
@@ -1034,11 +1026,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testMetaRegionMove
@@ -1451,11 +1438,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testMetaMoveDuringClientZkClusterRestart
@@ -1642,8 +1624,10 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// wait for meta region online
-try|try
-block|{
+name|AssignmentTestingUtil
+operator|.
+name|waitForAssignment
+argument_list|(
 name|cluster
 operator|.
 name|getMaster
@@ -1651,23 +1635,12 @@ argument_list|()
 operator|.
 name|getAssignmentManager
 argument_list|()
-operator|.
-name|waitForAssignment
-argument_list|(
+argument_list|,
 name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|NoSuchProcedureException
-name|e
-parameter_list|)
-block|{
-comment|// we don't need to take any further action
-block|}
 comment|// wait some long time to make sure we will retry sync data to client ZK until data set
 name|Thread
 operator|.
@@ -1757,11 +1730,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testAsyncTable
