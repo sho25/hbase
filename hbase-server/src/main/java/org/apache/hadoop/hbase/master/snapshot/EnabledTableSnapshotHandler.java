@@ -343,6 +343,8 @@ specifier|final
 name|SnapshotManager
 name|manager
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(

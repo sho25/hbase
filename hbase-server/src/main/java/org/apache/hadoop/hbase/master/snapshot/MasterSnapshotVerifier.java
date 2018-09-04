@@ -285,6 +285,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|MetaTableLocator
@@ -440,11 +456,7 @@ name|snapshot
 decl_stmt|;
 specifier|private
 name|FileSystem
-name|fs
-decl_stmt|;
-specifier|private
-name|Path
-name|rootDir
+name|workingDirFs
 decl_stmt|;
 specifier|private
 name|TableName
@@ -454,7 +466,7 @@ specifier|private
 name|MasterServices
 name|services
 decl_stmt|;
-comment|/**    * @param services services for the master    * @param snapshot snapshot to check    * @param rootDir root directory of the hbase installation.    */
+comment|/**    * @param services services for the master    * @param snapshot snapshot to check    * @param workingDirFs the file system containing the temporary snapshot information    */
 specifier|public
 name|MasterSnapshotVerifier
 parameter_list|(
@@ -464,21 +476,15 @@ parameter_list|,
 name|SnapshotDescription
 name|snapshot
 parameter_list|,
-name|Path
-name|rootDir
+name|FileSystem
+name|workingDirFs
 parameter_list|)
 block|{
 name|this
 operator|.
-name|fs
+name|workingDirFs
 operator|=
-name|services
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
+name|workingDirFs
 expr_stmt|;
 name|this
 operator|.
@@ -491,12 +497,6 @@ operator|.
 name|snapshot
 operator|=
 name|snapshot
-expr_stmt|;
-name|this
-operator|.
-name|rootDir
-operator|=
-name|rootDir
 expr_stmt|;
 name|this
 operator|.
@@ -544,7 +544,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|fs
+name|workingDirFs
 argument_list|,
 name|snapshotDir
 argument_list|,
@@ -588,7 +588,7 @@ name|SnapshotDescriptionUtils
 operator|.
 name|readSnapshotInfo
 argument_list|(
-name|fs
+name|workingDirFs
 argument_list|,
 name|snapshotDir
 argument_list|)
@@ -1021,6 +1021,7 @@ argument_list|)
 throw|;
 block|}
 comment|// Verify Snapshot HFiles
+comment|// Requires the root directory file system as HFiles are stored in the root directory
 name|SnapshotReferenceUtil
 operator|.
 name|verifySnapshot
@@ -1030,7 +1031,15 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|,
-name|fs
+name|FSUtils
+operator|.
+name|getRootDirFileSystem
+argument_list|(
+name|services
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
 argument_list|,
 name|manifest
 argument_list|)

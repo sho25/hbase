@@ -677,12 +677,18 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|FileSystem
-name|fs
+name|rootFs
+decl_stmt|;
+specifier|private
+specifier|final
+name|FileSystem
+name|workingDirFs
 decl_stmt|;
 specifier|private
 name|int
 name|manifestSizeLimit
 decl_stmt|;
+comment|/**    *    * @param conf configuration file for HBase setup    * @param rootFs root filesystem containing HFiles    * @param workingDir file path of where the manifest should be located    * @param desc description of snapshot being taken    * @param monitor monitor of foreign exceptions    * @throws IOException if the working directory file system cannot be    *                     determined from the config file    */
 specifier|private
 name|SnapshotManifest
 parameter_list|(
@@ -692,7 +698,7 @@ name|conf
 parameter_list|,
 specifier|final
 name|FileSystem
-name|fs
+name|rootFs
 parameter_list|,
 specifier|final
 name|Path
@@ -706,6 +712,8 @@ specifier|final
 name|ForeignExceptionSnare
 name|monitor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|this
 operator|.
@@ -733,9 +741,24 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|fs
+name|rootFs
 operator|=
-name|fs
+name|rootFs
+expr_stmt|;
+name|this
+operator|.
+name|workingDirFs
+operator|=
+name|this
+operator|.
+name|workingDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -781,6 +804,8 @@ specifier|final
 name|ForeignExceptionSnare
 name|monitor
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 return|return
 operator|new
@@ -976,7 +1001,7 @@ name|ManifestBuilder
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|workingDir
 argument_list|)
@@ -994,7 +1019,7 @@ name|ManifestBuilder
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|workingDir
 argument_list|)
@@ -1603,7 +1628,7 @@ name|openRegionFromFileSystem
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|baseDir
 argument_list|,
@@ -1815,7 +1840,7 @@ name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
-name|fs
+name|rootFs
 argument_list|,
 name|storeDir
 argument_list|)
@@ -1870,7 +1895,7 @@ name|StoreFileInfo
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|stats
 index|[
@@ -2038,7 +2063,7 @@ name|FSTableDescriptors
 operator|.
 name|getTableDescriptorFromFs
 argument_list|(
-name|fs
+name|workingDirFs
 argument_list|,
 name|workingDir
 argument_list|)
@@ -2065,7 +2090,7 @@ name|conf
 argument_list|,
 name|tpool
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2154,7 +2179,7 @@ name|conf
 argument_list|,
 name|tpool
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2171,7 +2196,7 @@ name|conf
 argument_list|,
 name|tpool
 argument_list|,
-name|fs
+name|rootFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2465,7 +2490,7 @@ name|FSTableDescriptors
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|workingDirFs
 argument_list|,
 name|rootDir
 argument_list|)
@@ -2531,7 +2556,7 @@ name|conf
 argument_list|,
 name|tpool
 argument_list|,
-name|fs
+name|workingDirFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2548,7 +2573,7 @@ name|conf
 argument_list|,
 name|tpool
 argument_list|,
-name|fs
+name|workingDirFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2689,7 +2714,7 @@ name|SnapshotManifestV1
 operator|.
 name|deleteRegionManifest
 argument_list|(
-name|fs
+name|workingDirFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2724,7 +2749,7 @@ name|SnapshotManifestV2
 operator|.
 name|deleteRegionManifest
 argument_list|(
-name|fs
+name|workingDirFs
 argument_list|,
 name|workingDir
 argument_list|,
@@ -2749,7 +2774,7 @@ block|{
 name|FSDataOutputStream
 name|stream
 init|=
-name|fs
+name|workingDirFs
 operator|.
 name|create
 argument_list|(
@@ -2798,7 +2823,7 @@ try|try
 block|{
 name|in
 operator|=
-name|fs
+name|workingDirFs
 operator|.
 name|open
 argument_list|(

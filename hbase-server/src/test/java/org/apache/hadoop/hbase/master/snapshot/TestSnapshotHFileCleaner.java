@@ -955,6 +955,11 @@ operator|.
 name|getWorkingSnapshotDir
 argument_list|(
 name|rootDir
+argument_list|,
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 argument_list|,
 literal|true
@@ -1089,6 +1094,11 @@ operator|.
 name|getWorkingSnapshotDir
 argument_list|(
 name|rootDir
+argument_list|,
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 argument_list|,
 literal|true

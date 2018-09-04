@@ -6590,6 +6590,17 @@ name|CONF_SKIP_TMP
 argument_list|,
 literal|false
 argument_list|)
+operator|||
+name|conf
+operator|.
+name|get
+argument_list|(
+name|SnapshotDescriptionUtils
+operator|.
+name|SNAPSHOT_WORKING_DIR
+argument_list|)
+operator|!=
+literal|null
 decl_stmt|;
 name|Path
 name|snapshotDir
@@ -6613,6 +6624,8 @@ argument_list|(
 name|targetName
 argument_list|,
 name|outputRoot
+argument_list|,
+name|destConf
 argument_list|)
 decl_stmt|;
 name|Path
@@ -6676,6 +6689,8 @@ operator|.
 name|getWorkingSnapshotDir
 argument_list|(
 name|outputRoot
+argument_list|,
+name|destConf
 argument_list|)
 expr_stmt|;
 if|if

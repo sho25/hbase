@@ -804,6 +804,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|rootDir
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 specifier|final
@@ -1058,6 +1060,8 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|rootDir
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|SnapshotManifest

@@ -3025,6 +3025,8 @@ argument_list|(
 name|desc
 argument_list|,
 name|rootDir
+argument_list|,
+name|conf
 argument_list|)
 expr_stmt|;
 operator|new
@@ -4015,6 +4017,8 @@ argument_list|(
 name|desc
 argument_list|,
 name|rootDir
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|SnapshotDescriptionUtils

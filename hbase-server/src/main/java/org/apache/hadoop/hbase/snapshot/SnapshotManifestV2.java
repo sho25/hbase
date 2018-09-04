@@ -488,7 +488,7 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|FileSystem
-name|fs
+name|rootFs
 decl_stmt|;
 specifier|public
 name|ManifestBuilder
@@ -499,7 +499,7 @@ name|conf
 parameter_list|,
 specifier|final
 name|FileSystem
-name|fs
+name|rootFs
 parameter_list|,
 specifier|final
 name|Path
@@ -520,9 +520,9 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|fs
+name|rootFs
 operator|=
-name|fs
+name|rootFs
 expr_stmt|;
 block|}
 annotation|@
@@ -581,9 +581,21 @@ name|IOException
 block|{
 comment|// we should ensure the snapshot dir exist, maybe it has been deleted by master
 comment|// see HBASE-16464
+name|FileSystem
+name|workingDirFs
+init|=
+name|snapshotDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+decl_stmt|;
 if|if
 condition|(
-name|fs
+name|workingDirFs
 operator|.
 name|exists
 argument_list|(
@@ -602,7 +614,7 @@ decl_stmt|;
 name|FSDataOutputStream
 name|stream
 init|=
-name|fs
+name|workingDirFs
 operator|.
 name|create
 argument_list|(
@@ -812,7 +824,7 @@ name|storeFile
 operator|.
 name|getReferencedFileStatus
 argument_list|(
-name|fs
+name|rootFs
 argument_list|)
 operator|.
 name|getLen

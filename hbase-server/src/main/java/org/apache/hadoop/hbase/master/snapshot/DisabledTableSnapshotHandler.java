@@ -361,7 +361,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    */
+comment|/**    * @param snapshot descriptor of the snapshot to take    * @param masterServices master services provider    * @throws IOException if it cannot access the filesystem of the snapshot    *         temporary directory    */
 specifier|public
 name|DisabledTableSnapshotHandler
 parameter_list|(
@@ -376,6 +376,8 @@ specifier|final
 name|SnapshotManager
 name|snapshotManager
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|super
 argument_list|(

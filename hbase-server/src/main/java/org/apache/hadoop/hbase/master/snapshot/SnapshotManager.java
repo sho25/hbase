@@ -1709,34 +1709,30 @@ operator|.
 name|getWorkingSnapshotDir
 argument_list|(
 name|rootDir
+argument_list|,
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|FileSystem
+name|tmpFs
+init|=
+name|tmpdir
+operator|.
+name|getFileSystem
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|master
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-operator|.
-name|exists
-argument_list|(
-name|tmpdir
-argument_list|)
-condition|)
-block|{
-if|if
-condition|(
 operator|!
-name|master
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
+name|tmpFs
 operator|.
 name|delete
 argument_list|(
@@ -1755,7 +1751,6 @@ operator|+
 name|tmpdir
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|/**    * Delete the specified snapshot    * @param snapshot    * @throws SnapshotDoesNotExistException If the specified snapshot does not exist.    * @throws IOException For filesystem IOExceptions    */
@@ -2336,17 +2331,6 @@ parameter_list|)
 throws|throws
 name|HBaseSnapshotException
 block|{
-name|FileSystem
-name|fs
-init|=
-name|master
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-decl_stmt|;
 name|Path
 name|workingDir
 init|=
@@ -2357,6 +2341,11 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|rootDir
+argument_list|,
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|TableName
@@ -2467,9 +2456,22 @@ throw|;
 block|}
 try|try
 block|{
+name|FileSystem
+name|workingDirFS
+init|=
+name|workingDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// delete the working directory, since we aren't running the snapshot. Likely leftovers
 comment|// from a failed attempt.
-name|fs
+name|workingDirFS
 operator|.
 name|delete
 argument_list|(
@@ -2482,7 +2484,7 @@ comment|// recreate the working directory for the snapshot
 if|if
 condition|(
 operator|!
-name|fs
+name|workingDirFS
 operator|.
 name|mkdirs
 argument_list|(
@@ -2544,7 +2546,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Take a snapshot of a disabled table.    * @param snapshot description of the snapshot to take. Modified to be {@link Type#DISABLED}.    * @throws HBaseSnapshotException if the snapshot could not be started    */
+comment|/**    * Take a snapshot of a disabled table.    * @param snapshot description of the snapshot to take. Modified to be {@link Type#DISABLED}.    * @throws IOException if the snapshot could not be started or filesystem for snapshot    *         temporary directory could not be determined    */
 specifier|private
 specifier|synchronized
 name|void
@@ -2554,7 +2556,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|)
 throws|throws
-name|HBaseSnapshotException
+name|IOException
 block|{
 comment|// setup the snapshot
 name|prepareToTakeSnapshot
@@ -2602,7 +2604,7 @@ name|handler
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Take a snapshot of an enabled table.    * @param snapshot description of the snapshot to take.    * @throws HBaseSnapshotException if the snapshot could not be started    */
+comment|/**    * Take a snapshot of an enabled table.    * @param snapshot description of the snapshot to take.    * @throws IOException if the snapshot could not be started or filesystem for snapshot    *         temporary directory could not be determined    */
 specifier|private
 specifier|synchronized
 name|void
@@ -2612,7 +2614,7 @@ name|SnapshotDescription
 name|snapshot
 parameter_list|)
 throws|throws
-name|HBaseSnapshotException
+name|IOException
 block|{
 comment|// setup the snapshot
 name|prepareToTakeSnapshot
@@ -2656,7 +2658,7 @@ name|TakeSnapshotHandler
 name|handler
 parameter_list|)
 throws|throws
-name|HBaseSnapshotException
+name|IOException
 block|{
 try|try
 block|{
@@ -2711,6 +2713,24 @@ argument_list|(
 name|snapshot
 argument_list|,
 name|rootDir
+argument_list|,
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|FileSystem
+name|workingDirFs
+init|=
+name|workingDir
+operator|.
+name|getFileSystem
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
 argument_list|)
 decl_stmt|;
 try|try
@@ -2718,15 +2738,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|this
-operator|.
-name|master
-operator|.
-name|getMasterFileSystem
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
+name|workingDirFs
 operator|.
 name|delete
 argument_list|(
