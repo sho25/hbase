@@ -7526,6 +7526,8 @@ argument_list|(
 name|numServers
 argument_list|)
 decl_stmt|;
+name|OUTER
+label|:
 for|for
 control|(
 name|RegionInfo
@@ -7539,6 +7541,8 @@ name|assigned
 init|=
 literal|false
 decl_stmt|;
+name|INNER
+label|:
 for|for
 control|(
 name|int
@@ -7604,6 +7608,75 @@ argument_list|<>
 argument_list|()
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+operator|!
+name|RegionReplicaUtil
+operator|.
+name|isDefaultReplica
+argument_list|(
+name|region
+operator|.
+name|getReplicaId
+argument_list|()
+argument_list|)
+condition|)
+block|{
+comment|// if the region is not a default replica
+comment|// check if the assignments map has the other replica region on this server
+for|for
+control|(
+name|RegionInfo
+name|hri
+range|:
+name|serverRegions
+control|)
+block|{
+if|if
+condition|(
+name|RegionReplicaUtil
+operator|.
+name|isReplicasForSameRegion
+argument_list|(
+name|region
+argument_list|,
+name|hri
+argument_list|)
+condition|)
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"Skipping the server, "
+operator|+
+name|serverName
+operator|+
+literal|" , got the same server for the region "
+operator|+
+name|region
+argument_list|)
+expr_stmt|;
+block|}
+comment|// do not allow this case. The unassignedRegions we got because the
+comment|// replica region in this list was not assigned because of lower availablity issue.
+comment|// So when we assign here we should ensure that as far as possible the server being
+comment|// selected does not have the server where the replica region was not assigned.
+continue|continue
+name|INNER
+continue|;
+comment|// continue the inner loop, ie go to the next server
+block|}
+block|}
+block|}
 name|serverRegions
 operator|.
 name|add
