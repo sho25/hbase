@@ -530,6 +530,18 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Loading WAL id={}"
+argument_list|,
+name|log
+operator|.
+name|getLogId
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|log
 operator|.
 name|open

@@ -1026,7 +1026,7 @@ name|info
 argument_list|(
 name|logDir
 operator|+
-literal|" is empty dir, no logs to split"
+literal|" dir is empty, no logs to split."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1249,6 +1249,21 @@ operator|+
 name|serverNames
 argument_list|)
 decl_stmt|;
+name|long
+name|totalSize
+init|=
+literal|0
+decl_stmt|;
+name|TaskBatch
+name|batch
+init|=
+literal|null
+decl_stmt|;
+name|long
+name|startTime
+init|=
+literal|0
+decl_stmt|;
 name|FileStatus
 index|[]
 name|logfiles
@@ -1260,6 +1275,15 @@ argument_list|,
 name|filter
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|logfiles
+operator|.
+name|length
+operator|!=
+literal|0
+condition|)
+block|{
 name|status
 operator|.
 name|setStatus
@@ -1293,26 +1317,19 @@ operator|+
 name|serverNames
 argument_list|)
 expr_stmt|;
-name|long
-name|t
-init|=
+name|startTime
+operator|=
 name|EnvironmentEdgeManager
 operator|.
 name|currentTime
 argument_list|()
-decl_stmt|;
-name|long
-name|totalSize
-init|=
-literal|0
-decl_stmt|;
-name|TaskBatch
+expr_stmt|;
 name|batch
-init|=
+operator|=
 operator|new
 name|TaskBatch
 argument_list|()
-decl_stmt|;
+expr_stmt|;
 for|for
 control|(
 name|FileStatus
@@ -1380,8 +1397,13 @@ argument_list|,
 name|status
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
+name|batch
+operator|!=
+literal|null
+operator|&&
 name|batch
 operator|.
 name|done
@@ -1591,15 +1613,25 @@ block|}
 name|String
 name|msg
 init|=
-literal|"finished splitting (more than or equal to) "
+literal|"Finished splitting (more than or equal to) "
 operator|+
 name|totalSize
 operator|+
 literal|" bytes in "
 operator|+
+operator|(
+operator|(
+name|batch
+operator|==
+literal|null
+operator|)
+condition|?
+literal|0
+else|:
 name|batch
 operator|.
 name|installed
+operator|)
 operator|+
 literal|" log files in "
 operator|+
@@ -1608,12 +1640,23 @@ operator|+
 literal|" in "
 operator|+
 operator|(
+operator|(
+name|startTime
+operator|==
+operator|-
+literal|1
+operator|)
+condition|?
+name|startTime
+else|:
+operator|(
 name|EnvironmentEdgeManager
 operator|.
 name|currentTime
 argument_list|()
 operator|-
-name|t
+name|startTime
+operator|)
 operator|)
 operator|+
 literal|"ms"
@@ -2347,8 +2390,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"dead splitlog worker "
-operator|+
+literal|"Dead splitlog worker {}"
+argument_list|,
 name|workerName
 argument_list|)
 expr_stmt|;

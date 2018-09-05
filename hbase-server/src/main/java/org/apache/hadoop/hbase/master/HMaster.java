@@ -4572,6 +4572,11 @@ block|}
 block|}
 block|}
 argument_list|)
+argument_list|,
+name|getName
+argument_list|()
+operator|+
+literal|":becomeActiveMaster"
 argument_list|)
 expr_stmt|;
 block|}
@@ -6040,7 +6045,7 @@ name|status
 operator|.
 name|setStatus
 argument_list|(
-literal|"Initialze ServerManager and schedule SCP for crash servers"
+literal|"Initialize ServerManager and schedule SCP for crash servers"
 argument_list|)
 expr_stmt|;
 name|this
@@ -6189,6 +6194,9 @@ argument_list|(
 name|ritList
 argument_list|)
 expr_stmt|;
+comment|// Start RegionServerTracker with listing of servers found with exiting SCPs -- these should
+comment|// be registered in the deadServers set -- and with the list of servernames out on the
+comment|// filesystem that COULD BE 'alive' (we'll schedule SCPs for each and let SCP figure it out).
 name|this
 operator|.
 name|regionServerTracker

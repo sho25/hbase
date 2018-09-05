@@ -1949,9 +1949,9 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Find out the region servers crashed between the crash of the previous master instance and the    * current master instance and schedule SCP for them.    *<p/>    * Since the {@code RegionServerTracker} has already helped us to construct the online servers set    * by scanning zookeeper, now we can compare the online servers with {@code liveServersFromWALDir}    * to find out whether there are servers which are already dead.    *<p/>    * Must be called inside the initialization method of {@code RegionServerTracker} to avoid    * concurrency issue.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
+comment|/**    * Find out the region servers crashed between the crash of the previous master instance and the    * current master instance and schedule SCP for them.    *<p/>    * Since the {@code RegionServerTracker} has already helped us to construct the online servers set    * by scanning zookeeper, now we can compare the online servers with {@code liveServersFromWALDir}    * to find out whether there are servers which are already dead.    *<p/>    * Must be called inside the initialization method of {@code RegionServerTracker} to avoid    * concurrency issue.    * @param deadServersFromPE the region servers which already have a SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
 name|void
-name|findOutDeadServersAndProcess
+name|findDeadServersAndProcess
 parameter_list|(
 name|Set
 argument_list|<
@@ -3181,13 +3181,11 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|warn
+name|trace
 argument_list|(
-literal|"Expiration of "
-operator|+
+literal|"Expiration of {} but server not online"
+argument_list|,
 name|sn
-operator|+
-literal|" but server not online"
 argument_list|)
 expr_stmt|;
 block|}

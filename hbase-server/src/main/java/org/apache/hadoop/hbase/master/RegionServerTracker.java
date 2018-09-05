@@ -681,7 +681,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts the tracking of online RegionServers. All RSes will be tracked after this method is    * called.    *<p/>    * In this method, we will also construct the region server sets in {@link ServerManager}. If a    * region server is dead between the crash of the previous master instance and the start of the    * current master instance, we will schedule a SCP for it. This is done in    * {@link ServerManager#findOutDeadServersAndProcess(Set, Set)}, we call it here under the lock    * protection to prevent concurrency issues with server expiration operation.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
+comment|/**    * Starts the tracking of online RegionServers. All RSes will be tracked after this method is    * called.    *<p/>    * In this method, we will also construct the region server sets in {@link ServerManager}. If a    * region server is dead between the crash of the previous master instance and the start of the    * current master instance, we will schedule a SCP for it. This is done in    * {@link ServerManager#findDeadServersAndProcess(Set, Set)}, we call it here under the lock    * protection to prevent concurrency issues with server expiration operation.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
 specifier|public
 name|void
 name|start
@@ -703,6 +703,25 @@ name|KeeperException
 throws|,
 name|IOException
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting RegionServerTracker; {} have existing ServerCrashProcedures, {} "
+operator|+
+literal|"possibly 'live' servers."
+argument_list|,
+name|deadServersFromPE
+operator|.
+name|size
+argument_list|()
+argument_list|,
+name|liveServersFromWALDir
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|watcher
 operator|.
 name|registerListener
@@ -830,7 +849,7 @@ expr_stmt|;
 block|}
 name|serverManager
 operator|.
-name|findOutDeadServersAndProcess
+name|findDeadServersAndProcess
 argument_list|(
 name|deadServersFromPE
 argument_list|,

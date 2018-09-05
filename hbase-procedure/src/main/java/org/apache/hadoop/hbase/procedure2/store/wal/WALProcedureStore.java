@@ -2258,6 +2258,11 @@ operator|.
 name|Loader
 argument_list|()
 block|{
+name|long
+name|count
+init|=
+literal|0
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -2288,6 +2293,32 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+operator|(
+operator|++
+name|count
+operator|%
+literal|1000
+operator|)
+operator|==
+literal|0
+condition|)
+block|{
+comment|// Log every 1000 procedures otherwise it looks like Master is dead if loads of WALs
+comment|// and procedures to load.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Loaded {} procedures"
+argument_list|,
+name|this
+operator|.
+name|count
+argument_list|)
+expr_stmt|;
+block|}
 name|loader
 operator|.
 name|load
