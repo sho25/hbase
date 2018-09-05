@@ -108,6 +108,10 @@ name|int
 name|getActiveScanRpcHandlerCount
 parameter_list|()
 function_decl|;
+name|long
+name|getNettyDmUsage
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

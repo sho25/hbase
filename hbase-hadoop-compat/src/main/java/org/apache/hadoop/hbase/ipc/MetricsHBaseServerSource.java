@@ -362,6 +362,17 @@ literal|"Total number of calls in general queue which "
 operator|+
 literal|"were served from the tail of the queue"
 decl_stmt|;
+comment|// Direct Memory Usage metrics
+name|String
+name|NETTY_DM_USAGE_NAME
+init|=
+literal|"nettyDirectMemoryUsage"
+decl_stmt|;
+name|String
+name|NETTY_DM_USAGE_DESC
+init|=
+literal|"Current Netty direct memory usage."
+decl_stmt|;
 name|void
 name|authorizationSuccess
 parameter_list|()

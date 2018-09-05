@@ -211,6 +211,17 @@ return|return
 literal|6
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getNettyDmUsage
+parameter_list|()
+block|{
+return|return
+literal|100L
+return|;
+block|}
 block|}
 end_class
 
