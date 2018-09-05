@@ -90,7 +90,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hbck APIs for HBase. Obtain an instance from {@link ClusterConnection#getHbck()} and call  * {@link #close()} when done.  *<p>Hbck client APIs will be mostly used by hbck tool which in turn can be used by operators to  * fix HBase and bringing it to consistent state.</p>  *  *<p>NOTE: The methods in here can do damage to a cluster if applied in the wrong sequence or at  * the wrong time. Use with caution. For experts only. These methods are only for the  * extreme case where the cluster has been damaged or has achieved an inconsistent state because  * of some unforeseen circumstance or bug and requires manual intervention.  *  * @see ConnectionFactory  * @see ClusterConnection  * @since 2.2.0  */
+comment|/**  * Hbck fixup tool APIs. Obtain an instance from {@link ClusterConnection#getHbck()} and call  * {@link #close()} when done.  *<p>WARNING: the below methods can damage the cluster. For experienced users only.  *  * @see ConnectionFactory  * @see ClusterConnection  * @since 2.2.0  */
 end_comment
 
 begin_interface
@@ -111,7 +111,7 @@ name|Abortable
 extends|,
 name|Closeable
 block|{
-comment|/**    * Update table state in Meta only. No procedures are submitted to open/assign or    * close/unassign regions of the table.    *    *<p>>NOTE: This is a dangerous action, as existing running procedures for the table or regions    * which belong to the table may get confused.    *    * @param state table state    * @return previous state of the table in Meta    */
+comment|/**    * Update table state in Meta only. No procedures are submitted to open/assign or    * close/unassign regions of the table.    * @param state table state    * @return previous state of the table in Meta    */
 name|TableState
 name|setTableStateInMeta
 parameter_list|(
@@ -149,6 +149,28 @@ argument_list|<
 name|String
 argument_list|>
 name|encodedRegionNames
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Bypass specified procedure and move it to completion. Procedure is marked completed but    * no actual work is done from the current state/step onwards. Parents of the procedure are    * also marked for bypass.    *    * @param pids of procedures to complete.    * @param waitTime wait time in ms for acquiring lock for a procedure    * @param force if force set to true, we will bypass the procedure even if it is executing.    *   This is for procedures which can't break out during execution (bugs?).    * @return true if procedure is marked for bypass successfully, false otherwise    */
+name|List
+argument_list|<
+name|Boolean
+argument_list|>
+name|bypassProcedure
+parameter_list|(
+name|List
+argument_list|<
+name|Long
+argument_list|>
+name|pids
+parameter_list|,
+name|long
+name|waitTime
+parameter_list|,
+name|boolean
+name|force
 parameter_list|)
 throws|throws
 name|IOException
