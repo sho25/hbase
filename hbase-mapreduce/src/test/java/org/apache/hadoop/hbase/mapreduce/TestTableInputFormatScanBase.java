@@ -69,7 +69,47 @@ name|java
 operator|.
 name|util
 operator|.
-name|*
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Locale
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|NavigableMap
 import|;
 end_import
 
@@ -380,7 +420,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Tests various scan start and stop row scenarios. This is set in a scan and  * tested in a MapReduce job to see if that is handed over and done properly  * too.  *</p>  *<p>  * This test is broken into two parts in order to side-step the test timeout  * period of 900, as documented in HBASE-8326.  *</p>  */
+comment|/**  * Tests various scan start and stop row scenarios. This is set in a scan and tested in a MapReduce  * job to see if that is handed over and done properly too.  */
 end_comment
 
 begin_class
@@ -1008,7 +1048,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Tests an MR Scan initialized from properties set in the Configuration.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
+comment|/**    * Tests an MR Scan initialized from properties set in the Configuration.    */
 specifier|protected
 name|void
 name|testScanFromConfiguration
@@ -1198,8 +1238,9 @@ block|}
 name|Job
 name|job
 init|=
-operator|new
 name|Job
+operator|.
+name|getInstance
 argument_list|(
 name|c
 argument_list|,
@@ -1292,7 +1333,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests a MR scan using specific start and stop rows.    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
+comment|/**    * Tests a MR scan using specific start and stop rows.    */
 specifier|protected
 name|void
 name|testScan
@@ -1411,7 +1452,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
@@ -1446,7 +1487,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStopRow
+name|withStopRow
 argument_list|(
 name|Bytes
 operator|.
@@ -1484,8 +1525,9 @@ expr_stmt|;
 name|Job
 name|job
 init|=
-operator|new
 name|Job
+operator|.
+name|getInstance
 argument_list|(
 name|c
 argument_list|,
@@ -1580,8 +1622,8 @@ name|jobName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests Number of inputSplits for MR job when specify number of mappers for TableInputFormatXXX    * This test does not run MR job    *    * @throws IOException    * @throws ClassNotFoundException    * @throws InterruptedException    */
-specifier|public
+comment|/**    * Tests Number of inputSplits for MR job when specify number of mappers for TableInputFormatXXX    * This test does not run MR job    */
+specifier|protected
 name|void
 name|testNumOfSplits
 parameter_list|(
@@ -1681,8 +1723,9 @@ expr_stmt|;
 name|Job
 name|job
 init|=
-operator|new
 name|Job
+operator|.
+name|getInstance
 argument_list|(
 name|c
 argument_list|,
@@ -1770,8 +1813,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run MR job to check the number of mapper = expectedNumOfSplits    * @throws IOException    * @throws InterruptedException    * @throws ClassNotFoundException    */
-specifier|public
+comment|/**    * Run MR job to check the number of mapper = expectedNumOfSplits    */
+specifier|protected
 name|void
 name|testNumOfSplitsMR
 parameter_list|(
@@ -1968,8 +2011,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run MR job to test autobalance for setting number of mappers for TIF    * This does not run real MR job    */
-specifier|public
+comment|/**    * Run MR job to test autobalance for setting number of mappers for TIF This does not run real MR    * job    */
+specifier|protected
 name|void
 name|testAutobalanceNumOfSplit
 parameter_list|()
