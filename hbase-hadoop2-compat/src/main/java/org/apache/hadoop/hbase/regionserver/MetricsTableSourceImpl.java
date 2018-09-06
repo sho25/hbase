@@ -2516,6 +2516,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateFlushMemstoreSize
 parameter_list|(
@@ -2541,6 +2542,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateFlushOutputSize
 parameter_list|(
@@ -2566,6 +2568,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateCompactionTime
 parameter_list|(
@@ -2600,6 +2603,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateCompactionInputFileCount
 parameter_list|(
@@ -2634,6 +2638,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateCompactionInputSize
 parameter_list|(
@@ -2682,6 +2687,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateCompactionOutputFileCount
 parameter_list|(
@@ -2716,6 +2722,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
+specifier|synchronized
 name|void
 name|updateCompactionOutputSize
 parameter_list|(
