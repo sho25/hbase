@@ -16292,6 +16292,9 @@ block|}
 end_function
 
 begin_function
+annotation|@
+name|VisibleForTesting
+specifier|protected
 name|void
 name|checkServiceStarted
 parameter_list|()

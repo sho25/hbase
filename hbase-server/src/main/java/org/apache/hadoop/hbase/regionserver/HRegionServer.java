@@ -1971,6 +1971,38 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|RetryCounter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|RetryCounterFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|ServerRegionReplicaUtil
 import|;
 end_import
@@ -5669,9 +5701,41 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Try and register with the Master; tell it we are here.  Break if
-comment|// server is stopped or the clusterup flag is down or hdfs went wacky.
-comment|// Once registered successfully, go ahead and start up all Services.
+comment|// Try and register with the Master; tell it we are here.  Break if server is stopped or the
+comment|// clusterup flag is down or hdfs went wacky. Once registered successfully, go ahead and start
+comment|// up all Services. Use RetryCounter to get backoff in case Master is struggling to come up.
+name|RetryCounterFactory
+name|rcf
+init|=
+operator|new
+name|RetryCounterFactory
+argument_list|(
+name|Integer
+operator|.
+name|MAX_VALUE
+argument_list|,
+name|this
+operator|.
+name|sleeper
+operator|.
+name|getPeriod
+argument_list|()
+argument_list|,
+literal|1000
+operator|*
+literal|60
+operator|*
+literal|5
+argument_list|)
+decl_stmt|;
+name|RetryCounter
+name|rc
+init|=
+name|rcf
+operator|.
+name|create
+argument_list|()
+decl_stmt|;
 while|while
 condition|(
 name|keepLooping
@@ -5691,11 +5755,21 @@ operator|==
 literal|null
 condition|)
 block|{
+name|long
+name|sleepTime
+init|=
+name|rc
+operator|.
+name|getBackoffTimeAndIncrementAttempts
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"reportForDuty failed; sleeping and then retrying."
+literal|"reportForDuty failed; sleeping {} ms and then retrying."
+argument_list|,
+name|sleepTime
 argument_list|)
 expr_stmt|;
 name|this
@@ -5703,7 +5777,9 @@ operator|.
 name|sleeper
 operator|.
 name|sleep
-argument_list|()
+argument_list|(
+name|sleepTime
+argument_list|)
 expr_stmt|;
 block|}
 else|else
