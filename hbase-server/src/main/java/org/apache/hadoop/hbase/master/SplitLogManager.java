@@ -1024,9 +1024,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"{} dir is empty, no logs to split."
+argument_list|,
 name|logDir
-operator|+
-literal|" dir is empty, no logs to split."
 argument_list|)
 expr_stmt|;
 block|}
@@ -1643,8 +1643,7 @@ operator|(
 operator|(
 name|startTime
 operator|==
-operator|-
-literal|1
+literal|0
 operator|)
 condition|?
 name|startTime
