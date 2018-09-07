@@ -1250,7 +1250,7 @@ name|Path
 argument_list|(
 name|CommonFSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)
@@ -5939,6 +5939,18 @@ return|return
 name|this
 operator|.
 name|walDir
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|Path
+name|getWalArchiveDir
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|walArchiveDir
 return|;
 block|}
 specifier|public
