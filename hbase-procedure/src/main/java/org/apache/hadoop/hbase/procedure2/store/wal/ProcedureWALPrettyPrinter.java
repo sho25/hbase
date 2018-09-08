@@ -436,7 +436,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * ProcedureWALPrettyPrinter prints the contents of a given ProcedureWAL file  */
+comment|/**  * ProcedureWALPrettyPrinter prints the contents of a given ProcedureWAL file  * @see WALProcedureStore#main(String[]) if you want to check parse of a directory of WALs.  */
 end_comment
 
 begin_class
