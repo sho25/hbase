@@ -308,12 +308,14 @@ block|{ }
 comment|// ==========================================================================
 comment|//  Reflection helpers to create/validate a Procedure object
 comment|// ==========================================================================
-specifier|public
+specifier|private
 specifier|static
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|newProcedure
 parameter_list|(
-specifier|final
 name|String
 name|className
 parameter_list|)
@@ -322,7 +324,6 @@ name|BadProcedureException
 block|{
 try|try
 block|{
-specifier|final
 name|Class
 argument_list|<
 name|?
@@ -362,14 +363,27 @@ literal|" class is not public"
 argument_list|)
 throw|;
 block|}
-specifier|final
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
 name|Constructor
 argument_list|<
 name|?
+extends|extends
+name|Procedure
 argument_list|>
 name|ctor
 init|=
 name|clazz
+operator|.
+name|asSubclass
+argument_list|(
+name|Procedure
+operator|.
+name|class
+argument_list|)
 operator|.
 name|getConstructor
 argument_list|()
@@ -408,9 +422,6 @@ argument_list|)
 throw|;
 block|}
 return|return
-operator|(
-name|Procedure
-operator|)
 name|ctor
 operator|.
 name|newInstance
@@ -438,13 +449,14 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|public
 specifier|static
 name|void
 name|validateClass
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 throws|throws
@@ -452,7 +464,6 @@ name|BadProcedureException
 block|{
 try|try
 block|{
-specifier|final
 name|Class
 argument_list|<
 name|?
@@ -490,7 +501,6 @@ literal|" class is not public"
 argument_list|)
 throw|;
 block|}
-specifier|final
 name|Constructor
 argument_list|<
 name|?
@@ -827,7 +837,7 @@ throw|;
 block|}
 block|}
 block|}
-comment|/**    * Helper to convert the procedure to protobuf.    * Used by ProcedureStore implementations.    */
+comment|/**    * Helper to convert the procedure to protobuf.    *<p/>    * Used by ProcedureStore implementations.    */
 specifier|public
 specifier|static
 name|ProcedureProtos
@@ -835,8 +845,10 @@ operator|.
 name|Procedure
 name|convertToProtoProcedure
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 throws|throws
@@ -1176,13 +1188,15 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Helper to convert the protobuf procedure.    * Used by ProcedureStore implementations.    *    * TODO: OPTIMIZATION: some of the field never change during the execution    *                     (e.g. className, procId, parentId, ...).    *                     We can split in 'data' and 'state', and the store    *                     may take advantage of it by storing the data only on insert().    */
+comment|/**    * Helper to convert the protobuf procedure.    *<p/>    * Used by ProcedureStore implementations.    *<p/>    * TODO: OPTIMIZATION: some of the field never change during the execution (e.g. className,    * procId, parentId, ...). We can split in 'data' and 'state', and the store may take advantage of    * it by storing the data only on insert().    */
 specifier|public
 specifier|static
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|convertToProcedure
 parameter_list|(
-specifier|final
 name|ProcedureProtos
 operator|.
 name|Procedure
@@ -1192,8 +1206,10 @@ throws|throws
 name|IOException
 block|{
 comment|// Procedure from class name
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 init|=
 name|newProcedure
@@ -1724,6 +1740,63 @@ name|builder
 operator|.
 name|build
 argument_list|()
+return|;
+block|}
+comment|/**    * Get an exponential backoff time, in milliseconds. The base unit is 1 second, and the max    * backoff time is 10 minutes. This is the general backoff policy for most procedure    * implementation.    */
+specifier|public
+specifier|static
+name|long
+name|getBackoffTimeMs
+parameter_list|(
+name|int
+name|attempts
+parameter_list|)
+block|{
+name|long
+name|maxBackoffTime
+init|=
+literal|10L
+operator|*
+literal|60
+operator|*
+literal|1000
+decl_stmt|;
+comment|// Ten minutes, hard coded for now.
+comment|// avoid overflow
+if|if
+condition|(
+name|attempts
+operator|>=
+literal|30
+condition|)
+block|{
+return|return
+name|maxBackoffTime
+return|;
+block|}
+return|return
+name|Math
+operator|.
+name|min
+argument_list|(
+call|(
+name|long
+call|)
+argument_list|(
+literal|1000
+operator|*
+name|Math
+operator|.
+name|pow
+argument_list|(
+literal|2
+argument_list|,
+name|attempts
+argument_list|)
+argument_list|)
+argument_list|,
+name|maxBackoffTime
+argument_list|)
 return|;
 block|}
 block|}

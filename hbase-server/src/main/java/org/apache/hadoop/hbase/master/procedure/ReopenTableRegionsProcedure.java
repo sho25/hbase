@@ -169,6 +169,22 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|ProcedureUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|ProcedureYieldException
 import|;
 end_import
@@ -269,6 +285,26 @@ name|ReopenTableRegionsStateData
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ProcedureProtos
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used for reopening the regions for a table.  */
 end_comment
@@ -317,6 +353,10 @@ name|Collections
 operator|.
 name|emptyList
 argument_list|()
+decl_stmt|;
+specifier|private
+name|int
+name|attempt
 decl_stmt|;
 specifier|public
 name|ReopenTableRegionsProcedure
@@ -615,26 +655,45 @@ literal|0
 argument_list|)
 condition|)
 block|{
+name|attempt
+operator|=
+literal|0
+block|;
 name|setNextState
 argument_list|(
 name|ReopenTableRegionsState
 operator|.
 name|REOPEN_TABLE_REGIONS_REOPEN_REGIONS
 argument_list|)
-block|;
+empty_stmt|;
 return|return
 name|Flow
 operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
+comment|// All the regions need to reopen are in OPENING state which means we can not schedule any
+comment|// MRPs.
+name|long
+name|backoff
+init|=
+name|ProcedureUtil
+operator|.
+name|getBackoffTimeMs
+argument_list|(
+name|this
+operator|.
+name|attempt
+operator|++
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
 literal|"There are still {} region(s) which need to be reopened for table {} are in "
 operator|+
-literal|"OPENING state, try again later"
+literal|"OPENING state, suspend {}secs and try again later"
 argument_list|,
 name|regions
 operator|.
@@ -642,23 +701,34 @@ name|size
 argument_list|()
 argument_list|,
 name|tableName
+argument_list|,
+name|backoff
+operator|/
+literal|1000
 argument_list|)
 expr_stmt|;
-comment|// All the regions need to reopen are in OPENING state which means we can not schedule any
-comment|// MRPs. Then sleep for one second, and yield the procedure to let other procedures run
-comment|// first and hope next time we can get some regions in other state to make progress.
-comment|// TODO: add a delay for ProcedureYieldException so that we do not need to sleep here which
-comment|// blocks a procedure worker.
-name|Thread
-operator|.
-name|sleep
+name|setTimeout
 argument_list|(
-literal|1000
+name|Math
+operator|.
+name|toIntExact
+argument_list|(
+name|backoff
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|setState
+argument_list|(
+name|ProcedureProtos
+operator|.
+name|ProcedureState
+operator|.
+name|WAITING_TIMEOUT
 argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
-name|ProcedureYieldException
+name|ProcedureSuspendedException
 argument_list|()
 throw|;
 default|default:
@@ -674,6 +744,48 @@ throw|;
 block|}
 block|}
 end_class
+
+begin_comment
+comment|/**    * At end of timeout, wake ourselves up so we run again.    */
+end_comment
+
+begin_function
+annotation|@
+name|Override
+specifier|protected
+specifier|synchronized
+name|boolean
+name|setTimeoutFailure
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+name|setState
+argument_list|(
+name|ProcedureProtos
+operator|.
+name|ProcedureState
+operator|.
+name|RUNNABLE
+argument_list|)
+expr_stmt|;
+name|env
+operator|.
+name|getProcedureScheduler
+argument_list|()
+operator|.
+name|addFront
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+comment|// 'false' means that this procedure handled the timeout
+block|}
+end_function
 
 begin_function
 annotation|@

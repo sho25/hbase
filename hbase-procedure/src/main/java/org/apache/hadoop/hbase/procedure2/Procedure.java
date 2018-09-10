@@ -1732,7 +1732,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called by the ProcedureExecutor when the timeout set by setTimeout() is expired.    * @return true to let the framework handle the timeout as abort, false in case the procedure    *         handled the timeout itself.    */
+comment|/**    * Called by the ProcedureExecutor when the timeout set by setTimeout() is expired.    *<p/>    * Another usage for this method is to implement retrying. A procedure can set the state to    * {@code WAITING_TIMEOUT} by calling {@code setState} method, and throw a    * {@link ProcedureSuspendedException} to halt the execution of the procedure, and do not forget a    * call {@link #setTimeout(int)} method to set the timeout. And you should also override this    * method to wake up the procedure, and also return false to tell the ProcedureExecutor that the    * timeout event has been handled.    * @return true to let the framework handle the timeout as abort, false in case the procedure    *         handled the timeout itself.    */
 specifier|protected
 specifier|synchronized
 name|boolean
