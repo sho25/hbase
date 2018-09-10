@@ -9072,7 +9072,8 @@ name|sn
 argument_list|)
 expr_stmt|;
 block|}
-while|while
+block|}
+do|while
 condition|(
 name|cluster
 operator|.
@@ -9088,7 +9089,7 @@ operator|++
 operator|<
 name|maxIterations
 condition|)
-empty_stmt|;
+do|;
 if|if
 condition|(
 name|iterations
@@ -9155,18 +9156,42 @@ name|sn
 return|;
 block|}
 comment|/**    * Round robin a list of regions to a list of servers    */
-do|private void roundRobinAssignment(Cluster cluster
-operator|,
-do|List<RegionInfo> regions
-operator|,
-do|List<RegionInfo> unassignedRegions
-operator|,
-do|List<ServerName> servers
-operator|,
-do|Map<ServerName
-operator|,
-do|List<RegionInfo>> assignments
-block|)
+specifier|private
+name|void
+name|roundRobinAssignment
+parameter_list|(
+name|Cluster
+name|cluster
+parameter_list|,
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|regions
+parameter_list|,
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|unassignedRegions
+parameter_list|,
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|servers
+parameter_list|,
+name|Map
+argument_list|<
+name|ServerName
+argument_list|,
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+argument_list|>
+name|assignments
+parameter_list|)
 block|{
 name|int
 name|numServers
