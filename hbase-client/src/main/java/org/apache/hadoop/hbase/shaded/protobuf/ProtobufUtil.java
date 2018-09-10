@@ -14311,6 +14311,30 @@ name|MultiRequest
 operator|)
 name|m
 decl_stmt|;
+comment|// Get the number of Actions
+name|int
+name|actionsCount
+init|=
+name|r
+operator|.
+name|getRegionActionList
+argument_list|()
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|mapToInt
+argument_list|(
+name|ClientProtos
+operator|.
+name|RegionAction
+operator|::
+name|getActionCount
+argument_list|)
+operator|.
+name|sum
+argument_list|()
+decl_stmt|;
 comment|// Get first set of Actions.
 name|ClientProtos
 operator|.
@@ -14394,12 +14418,9 @@ argument_list|)
 operator|+
 literal|", for "
 operator|+
-name|r
-operator|.
-name|getRegionActionCount
-argument_list|()
+name|actionsCount
 operator|+
-literal|" actions and 1st row key="
+literal|" action(s) and 1st row key="
 operator|+
 name|row
 return|;
