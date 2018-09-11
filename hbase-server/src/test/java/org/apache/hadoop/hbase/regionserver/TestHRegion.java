@@ -2905,10 +2905,14 @@ name|COLUMN_FAMILY_BYTES
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|this
+operator|.
+name|region
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -3039,10 +3043,14 @@ operator|.
 name|getMaxFlushedSeqId
 argument_list|()
 decl_stmt|;
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|this
+operator|.
+name|region
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -3053,6 +3061,12 @@ operator|.
 name|getMaxFlushedSeqId
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|region
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|/**    * Test for Bug 2 of HBASE-10466.    * "Bug 2: Conditions for the first flush of region close (so-called pre-flush) If memstoreSize    * is smaller than a certain value, or when region close starts a flush is ongoing, the first    * flush is skipped and only the second flush takes place. However, two flushes are required in    * case previous flush fails and leaves some data in snapshot. The bug could cause loss of data    * in current memstore. The fix is removing all conditions except abort check so we ensure 2    * flushes for region close."    * @throws IOException    */
@@ -3173,10 +3187,12 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// Close with something in memstore and something in the snapshot.  Make sure all is cleared.
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|region
+argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
@@ -3188,12 +3204,9 @@ name|getMemStoreDataSize
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|HBaseTestingUtility
-operator|.
-name|closeRegionAndWAL
-argument_list|(
 name|region
-argument_list|)
+operator|=
+literal|null
 expr_stmt|;
 block|}
 comment|/*    * This test is for verifying memstore snapshot size is correctly updated in case of rollback    * See HBASE-10845    */
@@ -4741,10 +4754,16 @@ name|p2
 argument_list|)
 expr_stmt|;
 comment|// Now try close on top of a failing flush.
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|region
+argument_list|)
+expr_stmt|;
+name|region
+operator|=
+literal|null
 expr_stmt|;
 name|fail
 argument_list|()
@@ -7628,10 +7647,14 @@ operator|.
 name|getRegionInfo
 argument_list|()
 expr_stmt|;
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|this
+operator|.
+name|region
+argument_list|)
 expr_stmt|;
 try|try
 block|{
@@ -8584,10 +8607,14 @@ block|}
 block|}
 block|}
 comment|// close the region now, and reopen again
-name|region
+name|HBaseTestingUtility
 operator|.
-name|close
-argument_list|()
+name|closeRegionAndWAL
+argument_list|(
+name|this
+operator|.
+name|region
+argument_list|)
 expr_stmt|;
 name|region
 operator|=
@@ -9746,6 +9773,12 @@ name|this
 operator|.
 name|region
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|region
+operator|=
+literal|null
 expr_stmt|;
 block|}
 block|}
@@ -11832,6 +11865,10 @@ name|closeRegionAndWAL
 argument_list|(
 name|region
 argument_list|)
+expr_stmt|;
+name|region
+operator|=
+literal|null
 expr_stmt|;
 block|}
 catch|catch
@@ -29233,6 +29270,10 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|region
+operator|=
+literal|null
+expr_stmt|;
 block|}
 comment|/**    * TestCase for increment    */
 specifier|private
@@ -45616,11 +45657,6 @@ name|getSimpleName
 argument_list|()
 argument_list|)
 argument_list|)
-expr_stmt|;
-name|region
-operator|.
-name|close
-argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * The same as HRegion class, the only difference is that instantiateHStore will    * create a different HStore - HStoreForTesting. [HBASE-8518]    */
