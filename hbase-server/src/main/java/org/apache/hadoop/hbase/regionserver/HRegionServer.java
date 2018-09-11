@@ -9861,10 +9861,8 @@ init|=
 literal|5
 operator|*
 literal|60
-operator|*
-literal|1000
 decl_stmt|;
-comment|// 5 min in milliseconds
+comment|// 5 min in seconds
 specifier|final
 specifier|static
 name|int
@@ -9873,6 +9871,10 @@ init|=
 literal|0
 decl_stmt|;
 comment|// millisec
+specifier|final
+name|int
+name|rangeOfDelay
+decl_stmt|;
 specifier|public
 name|PeriodicMemStoreFlusher
 parameter_list|(
@@ -9898,6 +9900,25 @@ operator|.
 name|server
 operator|=
 name|server
+expr_stmt|;
+name|this
+operator|.
+name|rangeOfDelay
+operator|=
+name|this
+operator|.
+name|server
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.regionserver.periodicmemstoreflusher.rangeofdelayseconds"
+argument_list|,
+name|RANGE_OF_DELAY
+argument_list|)
+operator|*
+literal|1000
 expr_stmt|;
 block|}
 annotation|@
@@ -9974,7 +9995,7 @@ name|nextInt
 argument_list|(
 literal|0
 argument_list|,
-name|RANGE_OF_DELAY
+name|rangeOfDelay
 argument_list|)
 operator|+
 name|MIN_DELAY_TIME

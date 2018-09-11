@@ -994,6 +994,17 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
+literal|"hbase.regionserver.periodicmemstoreflusher.rangeofdelayseconds"
+argument_list|,
+literal|4
+operator|*
+literal|60
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|setInt
+argument_list|(
 name|HConstants
 operator|.
 name|REGIONSERVER_INFO_PORT
