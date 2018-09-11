@@ -744,7 +744,7 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-comment|// make a fake state to let the procedure wait.
+comment|// reset to the correct state
 name|regionNode
 operator|.
 name|setState
