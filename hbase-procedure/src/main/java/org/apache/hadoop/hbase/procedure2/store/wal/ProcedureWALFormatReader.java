@@ -434,6 +434,11 @@ name|log
 argument_list|)
 expr_stmt|;
 block|}
+name|long
+name|count
+init|=
+literal|0
+decl_stmt|;
 name|FSDataInputStream
 name|stream
 init|=
@@ -482,6 +487,9 @@ argument_list|)
 expr_stmt|;
 break|break;
 block|}
+name|count
+operator|++
+expr_stmt|;
 switch|switch
 condition|(
 name|entry
@@ -549,6 +557,17 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Read {} entries in {}"
+argument_list|,
+name|count
+argument_list|,
+name|log
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -560,8 +579,10 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"While reading procedure from "
-operator|+
+literal|"While reading entry #{} in {}"
+argument_list|,
+name|count
+argument_list|,
 name|log
 argument_list|,
 name|e
