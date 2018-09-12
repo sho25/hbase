@@ -2821,6 +2821,38 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|RetryCounter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|RetryCounterFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Threads
 import|;
 end_import
@@ -6197,6 +6229,8 @@ expr_stmt|;
 comment|// Start RegionServerTracker with listing of servers found with exiting SCPs -- these should
 comment|// be registered in the deadServers set -- and with the list of servernames out on the
 comment|// filesystem that COULD BE 'alive' (we'll schedule SCPs for each and let SCP figure it out).
+comment|// We also pass dirs that are already 'splitting'... so we can do some checks down in tracker.
+comment|// TODO: Generate the splitting and live Set in one pass instead of two as we currently do.
 name|this
 operator|.
 name|regionServerTracker
@@ -6267,6 +6301,11 @@ argument_list|,
 name|walManager
 operator|.
 name|getLiveServersFromWALDir
+argument_list|()
+argument_list|,
+name|walManager
+operator|.
+name|getSplittingServersFromWALDir
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -6419,6 +6458,7 @@ operator|.
 name|conf
 argument_list|)
 expr_stmt|;
+comment|// Checking if meta needs initializing.
 name|status
 operator|.
 name|setStatus
@@ -6431,8 +6471,12 @@ name|initMetaProc
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
+comment|// Print out state of hbase:meta on startup; helps debugging.
+name|RegionState
+name|rs
+init|=
+name|this
+operator|.
 name|assignmentManager
 operator|.
 name|getRegionStates
@@ -6444,6 +6488,19 @@ name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"hbase:meta {}"
+argument_list|,
+name|rs
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|rs
 operator|.
 name|isOffline
 argument_list|()
@@ -6585,11 +6642,6 @@ name|await
 argument_list|()
 expr_stmt|;
 block|}
-name|tableStateManager
-operator|.
-name|start
-argument_list|()
-expr_stmt|;
 comment|// Wake up this server to check in
 name|sleeper
 operator|.
@@ -6637,7 +6689,44 @@ condition|)
 block|{
 return|return;
 block|}
-comment|//Initialize after meta as it scans meta
+name|status
+operator|.
+name|setStatus
+argument_list|(
+literal|"Starting assignment manager"
+argument_list|)
+expr_stmt|;
+comment|// FIRST HBASE:META READ!!!!
+comment|// The below cannot make progress w/o hbase:meta being online.
+comment|// This is the FIRST attempt at going to hbase:meta. Meta on-lining is going on in background
+comment|// as procedures run -- in particular SCPs for crashed servers... One should put up hbase:meta
+comment|// if it is down. It may take a while to come online. So, wait here until meta if for sure
+comment|// available. Thats what waitUntilMetaOnline does.
+if|if
+condition|(
+operator|!
+name|waitUntilMetaOnline
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|joinCluster
+argument_list|()
+expr_stmt|;
+comment|// The below depends on hbase:meta being online.
+name|this
+operator|.
+name|tableStateManager
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
+comment|// Initialize after meta is up as below scans meta
 if|if
 condition|(
 name|favoredNodesManager
@@ -6668,21 +6757,6 @@ name|snapshotOfRegionAssignment
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Fix up assignment manager status
-name|status
-operator|.
-name|setStatus
-argument_list|(
-literal|"Starting assignment manager"
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|assignmentManager
-operator|.
-name|joinCluster
-argument_list|()
-expr_stmt|;
 comment|// set cluster status again after user regions are assigned
 name|this
 operator|.
@@ -6783,6 +6857,19 @@ operator|.
 name|startChore
 argument_list|()
 expr_stmt|;
+comment|// NAMESPACE READ!!!!
+comment|// Here we expect hbase:namespace to be online. See inside initClusterSchemaService.
+comment|// TODO: Fix this. Namespace is a pain being a sort-of system table. Fold it in to hbase:meta.
+comment|// isNamespace does like isMeta and waits until namespace is onlined before allowing progress.
+if|if
+condition|(
+operator|!
+name|waitUntilNamespaceOnline
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 name|status
 operator|.
 name|setStatus
@@ -7132,6 +7219,266 @@ literal|" seconds"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+end_function
+
+begin_comment
+comment|/**    * Check hbase:meta is up and ready for reading. For use during Master startup only.    * @return True if meta is UP and online and startup can progress. Otherwise, meta is not online    *   and we will hold here until operator intervention.    */
+end_comment
+
+begin_function
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|boolean
+name|waitUntilMetaOnline
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+return|return
+name|isRegionOnline
+argument_list|(
+name|RegionInfoBuilder
+operator|.
+name|FIRST_META_REGIONINFO
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * @return True if region is online and scannable else false if an error or shutdown (Otherwise    *   we just block in here holding up all forward-progess).    */
+end_comment
+
+begin_function
+specifier|private
+name|boolean
+name|isRegionOnline
+parameter_list|(
+name|RegionInfo
+name|ri
+parameter_list|)
+throws|throws
+name|InterruptedException
+block|{
+name|RetryCounter
+name|rc
+init|=
+literal|null
+decl_stmt|;
+while|while
+condition|(
+operator|!
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|RegionState
+name|rs
+init|=
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionState
+argument_list|(
+name|ri
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rs
+operator|.
+name|isOpened
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
+name|this
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isServerOnline
+argument_list|(
+name|rs
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+block|}
+comment|// Region is not OPEN.
+name|Optional
+argument_list|<
+name|Procedure
+argument_list|<
+name|MasterProcedureEnv
+argument_list|>
+argument_list|>
+name|optProc
+init|=
+name|this
+operator|.
+name|procedureExecutor
+operator|.
+name|getProcedures
+argument_list|()
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|filter
+argument_list|(
+name|p
+lambda|->
+name|p
+operator|instanceof
+name|ServerCrashProcedure
+argument_list|)
+operator|.
+name|findAny
+argument_list|()
+decl_stmt|;
+comment|// TODO: Add a page to refguide on how to do repair. Have this log message point to it.
+comment|// Page will talk about loss of edits, how to schedule at least the meta WAL recovery, and
+comment|// then how to assign including how to break region lock if one held.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"{} is NOT online; state={}; ServerCrashProcedures={}. Master startup cannot "
+operator|+
+literal|"progress, in holding-pattern until region onlined; operator intervention required. "
+operator|+
+literal|"Schedule an assign."
+argument_list|,
+name|ri
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|rs
+argument_list|,
+name|optProc
+operator|.
+name|isPresent
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Check once-a-minute.
+if|if
+condition|(
+name|rc
+operator|==
+literal|null
+condition|)
+block|{
+name|rc
+operator|=
+operator|new
+name|RetryCounterFactory
+argument_list|(
+literal|1000
+argument_list|)
+operator|.
+name|create
+argument_list|()
+expr_stmt|;
+block|}
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+name|rc
+operator|.
+name|getBackoffTimeAndIncrementAttempts
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|false
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Check hbase:namespace table is assigned. If not, startup will hang looking for the ns table    * (TODO: Fix this! NS should not hold-up startup).    * @return True if namespace table is up/online.    */
+end_comment
+
+begin_function
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|boolean
+name|waitUntilNamespaceOnline
+parameter_list|()
+throws|throws
+name|InterruptedException
+block|{
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|ris
+init|=
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionsOfTable
+argument_list|(
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ris
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+comment|// If empty, means we've not assigned the namespace table yet... Just return true so startup
+comment|// continues and the namespace table gets created.
+return|return
+literal|true
+return|;
+block|}
+comment|// Else there are namespace regions up in meta. Ensure they are assigned before we go on.
+for|for
+control|(
+name|RegionInfo
+name|ri
+range|:
+name|ris
+control|)
+block|{
+name|isRegionOnline
+argument_list|(
+name|ri
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+literal|true
+return|;
 block|}
 end_function
 

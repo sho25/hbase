@@ -1636,11 +1636,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Not DISABLED tableState="
-operator|+
+literal|"Not DISABLED tableState={}; skipping enable; {}"
+argument_list|,
 name|ts
-operator|+
-literal|"; skipping enable"
+operator|.
+name|getState
+argument_list|()
+argument_list|,
+name|this
 argument_list|)
 expr_stmt|;
 name|setFailure

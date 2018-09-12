@@ -4880,11 +4880,12 @@ name|host
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Wait for an active Master.    * See override in Master superclass for how it is used.    */
 specifier|protected
 name|void
 name|waitForMasterActive
 parameter_list|()
-block|{   }
+block|{}
 specifier|protected
 name|String
 name|getProcessName
@@ -5462,10 +5463,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// In case colocated master, wait here till it's active.
-comment|// So backup masters won't start as regionservers.
-comment|// This is to avoid showing backup masters as regionservers
-comment|// in master web UI, or assigning any region to them.
 name|waitForMasterActive
 argument_list|()
 expr_stmt|;

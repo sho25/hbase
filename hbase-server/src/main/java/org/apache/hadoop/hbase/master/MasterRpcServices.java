@@ -6817,8 +6817,6 @@ decl_stmt|;
 name|String
 name|msg
 init|=
-literal|"Region server "
-operator|+
 name|sn
 operator|+
 literal|" reported a fatal error:\n"
@@ -6827,7 +6825,7 @@ name|errorText
 decl_stmt|;
 name|LOG
 operator|.
-name|error
+name|warn
 argument_list|(
 name|msg
 argument_list|)

@@ -1289,7 +1289,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Not ENABLED skipping {}"
+literal|"Not ENABLED, state={}, skipping disable; {}"
+argument_list|,
+name|ts
+operator|.
+name|getState
+argument_list|()
 argument_list|,
 name|this
 argument_list|)

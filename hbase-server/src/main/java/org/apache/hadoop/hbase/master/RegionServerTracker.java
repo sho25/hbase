@@ -681,7 +681,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts the tracking of online RegionServers. All RSes will be tracked after this method is    * called.    *<p/>    * In this method, we will also construct the region server sets in {@link ServerManager}. If a    * region server is dead between the crash of the previous master instance and the start of the    * current master instance, we will schedule a SCP for it. This is done in    * {@link ServerManager#findDeadServersAndProcess(Set, Set)}, we call it here under the lock    * protection to prevent concurrency issues with server expiration operation.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    */
+comment|/**    * Starts the tracking of online RegionServers. All RSes will be tracked after this method is    * called.    *<p/>    * In this method, we will also construct the region server sets in {@link ServerManager}. If a    * region server is dead between the crash of the previous master instance and the start of the    * current master instance, we will schedule a SCP for it. This is done in    * {@link ServerManager#findDeadServersAndProcess(Set, Set)}, we call it here under the lock    * protection to prevent concurrency issues with server expiration operation.    * @param deadServersFromPE the region servers which already have SCP associated.    * @param liveServersFromWALDir the live region servers from wal directory.    * @param splittingServersFromWALDir Servers whose WALs are being actively 'split'.    */
 specifier|public
 name|void
 name|start
@@ -697,6 +697,12 @@ argument_list|<
 name|ServerName
 argument_list|>
 name|liveServersFromWALDir
+parameter_list|,
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|splittingServersFromWALDir
 parameter_list|)
 throws|throws
 name|KeeperException
@@ -709,7 +715,7 @@ name|info
 argument_list|(
 literal|"Starting RegionServerTracker; {} have existing ServerCrashProcedures, {} "
 operator|+
-literal|"possibly 'live' servers."
+literal|"possibly 'live' servers, and {} 'splitting'."
 argument_list|,
 name|deadServersFromPE
 operator|.
@@ -720,6 +726,46 @@ name|liveServersFromWALDir
 operator|.
 name|size
 argument_list|()
+argument_list|,
+name|splittingServersFromWALDir
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// deadServersFromPE is made from a list of outstanding ServerCrashProcedures.
+comment|// splittingServersFromWALDir are being actively split -- the directory in the FS ends in
+comment|// '-SPLITTING'. Each splitting server should have a corresponding SCP. Log if not.
+name|splittingServersFromWALDir
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|map
+argument_list|(
+name|s
+lambda|->
+operator|!
+name|deadServersFromPE
+operator|.
+name|contains
+argument_list|(
+name|s
+argument_list|)
+argument_list|)
+operator|.
+name|forEach
+argument_list|(
+name|s
+lambda|->
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"{} has no matching ServerCrashProcedure"
+argument_list|,
+name|s
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|watcher

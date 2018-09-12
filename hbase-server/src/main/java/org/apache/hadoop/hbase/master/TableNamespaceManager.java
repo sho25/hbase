@@ -2188,6 +2188,15 @@ return|return;
 block|}
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|zkNamespaceManager
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|zkNamespaceManager
@@ -2195,6 +2204,7 @@ operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2214,6 +2224,15 @@ expr_stmt|;
 block|}
 try|try
 block|{
+if|if
+condition|(
+name|this
+operator|.
+name|nsTable
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|nsTable
@@ -2221,6 +2240,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
