@@ -23,11 +23,17 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterProtos
 import|;
 end_import
 
@@ -197,6 +203,20 @@ name|ServiceAuthorizationManager
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  * Implementation of secure Hadoop policy provider for mapping  * protocol interfaces to hbase-policy.xml entries.  */
 end_comment
@@ -238,6 +258,20 @@ argument_list|(
 literal|"security.client.protocol.acl"
 argument_list|,
 name|AdminService
+operator|.
+name|BlockingInterface
+operator|.
+name|class
+argument_list|)
+block|,
+operator|new
+name|Service
+argument_list|(
+literal|"security.client.protocol.acl"
+argument_list|,
+name|MasterProtos
+operator|.
+name|HbckService
 operator|.
 name|BlockingInterface
 operator|.

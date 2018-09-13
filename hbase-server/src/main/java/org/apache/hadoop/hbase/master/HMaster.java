@@ -7359,9 +7359,7 @@ name|warn
 argument_list|(
 literal|"{} is NOT online; state={}; ServerCrashProcedures={}. Master startup cannot "
 operator|+
-literal|"progress, in holding-pattern until region onlined; operator intervention required. "
-operator|+
-literal|"Schedule an assign."
+literal|"progress, in holding-pattern until region onlined."
 argument_list|,
 name|ri
 operator|.
