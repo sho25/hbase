@@ -4395,6 +4395,13 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|regionException
+operator|!=
+literal|null
+condition|)
+block|{
 name|cleanServerCache
 argument_list|(
 name|server
@@ -4402,6 +4409,7 @@ argument_list|,
 name|regionException
 argument_list|)
 expr_stmt|;
+block|}
 name|Map
 argument_list|<
 name|Integer
