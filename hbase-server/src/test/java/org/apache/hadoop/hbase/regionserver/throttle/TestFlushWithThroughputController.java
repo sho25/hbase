@@ -1314,6 +1314,23 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|double
+name|pressure
+init|=
+name|regionServer
+operator|.
+name|getFlushPressure
+argument_list|()
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Flush pressure before flushing: "
+operator|+
+name|pressure
+argument_list|)
+expr_stmt|;
 name|PressureAwareFlushThroughputController
 name|throughputController
 init|=
@@ -1344,16 +1361,18 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-name|assertEquals
+comment|// We used to assert that the flush pressure is zero but after HBASE-15787 or HBASE-18294 we
+comment|// changed to use heapSize instead of dataSize to calculate the flush pressure, and since
+comment|// heapSize will never be zero, so flush pressure will never be zero either. So we changed the
+comment|// assertion here.
+name|assertTrue
 argument_list|(
-literal|0.0
-argument_list|,
 name|regionServer
 operator|.
 name|getFlushPressure
 argument_list|()
-argument_list|,
-name|EPSILON
+operator|<
+name|pressure
 argument_list|)
 expr_stmt|;
 name|Thread
