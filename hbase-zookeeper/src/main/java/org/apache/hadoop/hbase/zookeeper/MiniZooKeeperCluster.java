@@ -724,6 +724,16 @@ operator|*
 literal|1024
 argument_list|)
 expr_stmt|;
+comment|// allow all 4 letter words
+name|System
+operator|.
+name|setProperty
+argument_list|(
+literal|"zookeeper.4lw.commands.whitelist"
+argument_list|,
+literal|"*"
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 name|int
