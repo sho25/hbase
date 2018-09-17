@@ -3353,7 +3353,15 @@ parameter_list|(
 name|Throwable
 name|e
 parameter_list|)
-block|{         }
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|e
+argument_list|)
+throw|;
+block|}
 return|return
 literal|null
 return|;
@@ -3549,11 +3557,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have failed"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 name|List
 argument_list|<
@@ -3722,11 +3732,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have failed"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 block|}
 catch|catch
@@ -4007,11 +4019,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have failed"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 comment|// Removing the auths for SECRET and CONFIDENTIAL for the user.
 comment|// Passing a non existing auth also.
@@ -4323,11 +4337,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have failed"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 name|List
 argument_list|<

@@ -96,18 +96,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
-begin_import
 import|import
 name|com
 operator|.
@@ -799,11 +787,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have thrown exception"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 name|List
 argument_list|<
@@ -1405,11 +1395,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have thrown exception"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 comment|// The addLabels() in setup added:
 comment|// { SECRET, TOPSECRET, CONFIDENTIAL, PUBLIC, PRIVATE, COPYRIGHT, ACCENT,
@@ -1447,10 +1439,12 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-name|SECRET
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|SECRET
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1464,11 +1458,13 @@ argument_list|(
 name|ByteString
 operator|.
 name|copyFrom
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|TOPSECRET
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1482,11 +1478,13 @@ argument_list|(
 name|ByteString
 operator|.
 name|copyFrom
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 name|CONFIDENTIAL
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1500,11 +1498,13 @@ argument_list|(
 name|ByteString
 operator|.
 name|copyFrom
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
 argument_list|(
 literal|"ABC"
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1519,10 +1519,12 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-literal|"XYZ"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"XYZ"
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1537,10 +1539,12 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-name|SYSTEM_LABEL
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|SYSTEM_LABEL
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1626,11 +1630,13 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
-name|fail
+throw|throw
+operator|new
+name|IOException
 argument_list|(
-literal|"Should not have thrown exception"
+name|e
 argument_list|)
-expr_stmt|;
+throw|;
 block|}
 comment|// Only return the labels that end with 'secret'
 name|List
@@ -1664,10 +1670,12 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-name|SECRET
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|SECRET
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
@@ -1682,10 +1690,12 @@ name|ByteString
 operator|.
 name|copyFrom
 argument_list|(
-name|TOPSECRET
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+name|TOPSECRET
+argument_list|)
 argument_list|)
 argument_list|)
 argument_list|)
