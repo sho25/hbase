@@ -128,6 +128,25 @@ name|incrMiscInvocations
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * Updates the balancer status tag reported to JMX    */
+annotation|@
+name|Override
+specifier|public
+name|void
+name|balancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{
+name|stochasticSource
+operator|.
+name|updateBalancerStatus
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Updates the number of metrics reported to JMX    */
 specifier|public
 name|void

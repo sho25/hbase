@@ -6161,6 +6161,16 @@ name|newValue
 argument_list|)
 expr_stmt|;
 block|}
+name|master
+operator|.
+name|getLoadBalancer
+argument_list|()
+operator|.
+name|updateBalancerStatus
+argument_list|(
+name|newValue
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

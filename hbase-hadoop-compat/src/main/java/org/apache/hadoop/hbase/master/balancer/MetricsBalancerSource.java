@@ -90,6 +90,11 @@ name|MISC_INVOATION_COUNT
 init|=
 literal|"miscInvocationCount"
 decl_stmt|;
+name|String
+name|BALANCER_STATUS
+init|=
+literal|"isBalancerActive"
+decl_stmt|;
 comment|/**    * Description    */
 name|String
 name|METRICS_DESCRIPTION
@@ -106,6 +111,13 @@ function_decl|;
 name|void
 name|incrMiscInvocations
 parameter_list|()
+function_decl|;
+name|void
+name|updateBalancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
 function_decl|;
 block|}
 end_interface

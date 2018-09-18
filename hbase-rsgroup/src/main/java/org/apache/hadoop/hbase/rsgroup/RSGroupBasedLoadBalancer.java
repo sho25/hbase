@@ -2921,6 +2921,22 @@ name|postMasterStartupInitialize
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|updateBalancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{
+name|internalBalancer
+operator|.
+name|updateBalancerStatus
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

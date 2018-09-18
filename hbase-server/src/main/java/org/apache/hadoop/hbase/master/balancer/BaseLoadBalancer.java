@@ -9027,6 +9027,23 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**   * Updates the balancer status tag reported to JMX   */
+specifier|public
+name|void
+name|updateBalancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{
+name|metricsBalancer
+operator|.
+name|balancerStatus
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Used to assign a single region to a random server.    */
 specifier|private
 name|ServerName

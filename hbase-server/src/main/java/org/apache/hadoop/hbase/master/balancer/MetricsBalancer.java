@@ -119,6 +119,22 @@ name|incrMiscInvocations
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
+name|void
+name|balancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+block|{
+name|source
+operator|.
+name|updateBalancerStatus
+argument_list|(
+name|status
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

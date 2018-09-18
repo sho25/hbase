@@ -443,6 +443,14 @@ name|void
 name|postMasterStartupInitialize
 parameter_list|()
 function_decl|;
+comment|/*Updates balancer status tag reported to JMX*/
+name|void
+name|updateBalancerStatus
+parameter_list|(
+name|boolean
+name|status
+parameter_list|)
+function_decl|;
 comment|/**    * @return true if Master carries regions    */
 specifier|static
 name|boolean
