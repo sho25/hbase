@@ -1054,6 +1054,18 @@ name|canOptimizeForNonNullColumn
 argument_list|)
 return|;
 block|}
+comment|/**    * Return the ref count associated with the reader whenever a scanner associated with the    * reader is opened.    */
+name|int
+name|getRefCount
+parameter_list|()
+block|{
+return|return
+name|refCount
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|/**    * Indicate that the scanner has started reading with this reader. We need to increment the ref    * count so reader is not close until some object is holding the lock    */
 name|void
 name|incrementRefCount

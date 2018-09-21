@@ -12972,9 +12972,6 @@ name|file
 operator|.
 name|getPath
 argument_list|()
-operator|.
-name|getName
-argument_list|()
 decl_stmt|;
 throw|throw
 operator|new
@@ -13016,16 +13013,18 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
-literal|"Region closing but StoreFile still has references: {}"
+literal|"Region closing but StoreFile still has references: file={}, refCount={}"
 argument_list|,
 name|file
 operator|.
 name|getPath
 argument_list|()
+argument_list|,
+name|r
 operator|.
-name|getName
+name|getRefCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -13095,18 +13094,25 @@ operator|.
 name|getPath
 argument_list|()
 operator|+
-literal|" because of either isCompactedAway = "
+literal|" because of either isCompactedAway="
 operator|+
 name|file
 operator|.
 name|isCompactedAway
 argument_list|()
 operator|+
-literal|" or file has reference, isReferencedInReads = "
+literal|" or file has reference, isReferencedInReads="
 operator|+
 name|file
 operator|.
 name|isReferencedInReads
+argument_list|()
+operator|+
+literal|", refCount="
+operator|+
+name|r
+operator|.
+name|getRefCount
 argument_list|()
 operator|+
 literal|", skipping for now."
@@ -13128,9 +13134,6 @@ operator|+
 name|file
 operator|.
 name|getPath
-argument_list|()
-operator|.
-name|getName
 argument_list|()
 decl_stmt|;
 if|if
