@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|google
+operator|.
+name|protobuf
+operator|.
+name|Service
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -96,6 +108,20 @@ operator|.
 name|hbase
 operator|.
 name|Server
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableDescriptors
 import|;
 end_import
 
@@ -299,18 +325,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -326,18 +340,6 @@ operator|.
 name|RegionStateTransition
 operator|.
 name|TransitionCode
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Service
 import|;
 end_import
 
@@ -470,7 +472,7 @@ name|masterSystemTime
 return|;
 block|}
 block|}
-comment|/**    * Tasks to perform after region open to complete deploy of region on    * regionserver    *    * @param context the context    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Tasks to perform after region open to complete deploy of region on regionserver    * @param context the context    */
 name|void
 name|postOpenDeployTasks
 parameter_list|(
@@ -479,8 +481,6 @@ name|PostOpenDeployContext
 name|context
 parameter_list|)
 throws|throws
-name|KeeperException
-throws|,
 name|IOException
 function_decl|;
 class|class
@@ -731,6 +731,11 @@ function_decl|;
 comment|/**    * @return Return the object that implements the replication source executorService.    */
 name|ReplicationSourceService
 name|getReplicationSourceService
+parameter_list|()
+function_decl|;
+comment|/**    * @return Return table descriptors implementation.    */
+name|TableDescriptors
+name|getTableDescriptors
 parameter_list|()
 function_decl|;
 block|}

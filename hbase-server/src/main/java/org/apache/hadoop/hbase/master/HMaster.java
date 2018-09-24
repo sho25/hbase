@@ -723,20 +723,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableDescriptors
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -5896,6 +5882,31 @@ block|}
 end_class
 
 begin_comment
+comment|// Will be overriden in test to inject customized AssignmentManager
+end_comment
+
+begin_function
+annotation|@
+name|VisibleForTesting
+specifier|protected
+name|AssignmentManager
+name|createAssignmentManager
+parameter_list|(
+name|MasterServices
+name|master
+parameter_list|)
+block|{
+return|return
+operator|new
+name|AssignmentManager
+argument_list|(
+name|master
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
 comment|/**    * Finish initialization of HMaster after becoming the primary master.    *<p/>    * The startup order is a bit complicated but very important, do not change it unless you know    * what you are doing.    *<ol>    *<li>Initialize file system based components - file system manager, wal manager, table    * descriptors, etc</li>    *<li>Publish cluster id</li>    *<li>Here comes the most complicated part - initialize server manager, assignment manager and    * region server tracker    *<ol type='i'>    *<li>Create server manager</li>    *<li>Create procedure executor, load the procedures, but do not start workers. We will start it    * later after we finish scheduling SCPs to avoid scheduling duplicated SCPs for the same    * server</li>    *<li>Create assignment manager and start it, load the meta region state, but do not load data    * from meta region</li>    *<li>Start region server tracker, construct the online servers set and find out dead servers and    * schedule SCP for them. The online servers will be constructed by scanning zk, and we will also    * scan the wal directory to find out possible live region servers, and the differences between    * these two sets are the dead servers</li>    *</ol>    *</li>    *<li>If this is a new deploy, schedule a InitMetaProcedure to initialize meta</li>    *<li>Start necessary service threads - balancer, catalog janior, executor services, and also the    * procedure executor, etc. Notice that the balancer must be created first as assignment manager    * may use it when assigning regions.</li>    *<li>Wait for meta to be initialized if necesssary, start table state manager.</li>    *<li>Wait for enough region servers to check-in</li>    *<li>Let assignment manager load data from meta and construct region states</li>    *<li>Start all other things such as chore services, etc</li>    *</ol>    *<p/>    * Notice that now we will not schedule a special procedure to make meta online(unless the first    * time where meta has not been created yet), we will rely on SCP to bring meta online.    */
 end_comment
 
@@ -6179,8 +6190,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|=
-operator|new
-name|AssignmentManager
+name|createAssignmentManager
 argument_list|(
 name|this
 argument_list|)
@@ -8016,22 +8026,6 @@ name|hfileCleanerFlag
 operator|&&
 name|logCleanerFlag
 operator|)
-return|;
-block|}
-end_function
-
-begin_function
-annotation|@
-name|Override
-specifier|public
-name|TableDescriptors
-name|getTableDescriptors
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|tableDescriptors
 return|;
 block|}
 end_function

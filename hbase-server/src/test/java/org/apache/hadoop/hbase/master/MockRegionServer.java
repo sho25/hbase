@@ -263,6 +263,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableDescriptors
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -764,18 +778,6 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
 import|;
 end_import
 
@@ -2834,8 +2836,6 @@ name|PostOpenDeployContext
 name|context
 parameter_list|)
 throws|throws
-name|KeeperException
-throws|,
 name|IOException
 block|{   }
 annotation|@
@@ -4136,6 +4136,17 @@ name|Override
 specifier|public
 name|ReplicationSourceService
 name|getReplicationSourceService
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|TableDescriptors
+name|getTableDescriptors
 parameter_list|()
 block|{
 return|return

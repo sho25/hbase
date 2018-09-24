@@ -294,10 +294,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles opening of a region on a region server.  *<p>  * This is executed after receiving an OPEN RPC from the master or client.  */
+comment|/**  * Handles opening of a region on a region server.  *<p>  * This is executed after receiving an OPEN RPC from the master or client.  * @deprecated Keep it here only for compatible  * @see AssignRegionHandler  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -804,6 +806,7 @@ expr_stmt|;
 block|}
 block|}
 comment|/**    * Update ZK or META.  This can take a while if for example the    * hbase:meta is not available -- if server hosting hbase:meta crashed and we are    * waiting on it to come back -- so run in a thread and keep updating znode    * state meantime so master doesn't timeout our region-in-transition.    * Caller must cleanup region if this fails.    */
+specifier|private
 name|boolean
 name|updateMeta
 parameter_list|(
@@ -1282,6 +1285,7 @@ return|;
 block|}
 block|}
 comment|/**    * @return Instance of HRegion if successful open else null.    */
+specifier|private
 name|HRegion
 name|openRegion
 parameter_list|()
@@ -1398,6 +1402,7 @@ return|return
 name|region
 return|;
 block|}
+specifier|private
 name|void
 name|cleanupFailedOpen
 parameter_list|(

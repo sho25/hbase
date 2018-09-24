@@ -11930,8 +11930,6 @@ name|PostOpenDeployContext
 name|context
 parameter_list|)
 throws|throws
-name|KeeperException
-throws|,
 name|IOException
 block|{
 name|HRegion
@@ -18154,6 +18152,8 @@ name|configurationManager
 return|;
 block|}
 comment|/**    * @return Return table descriptors implementation.    */
+annotation|@
+name|Override
 specifier|public
 name|TableDescriptors
 name|getTableDescriptors
