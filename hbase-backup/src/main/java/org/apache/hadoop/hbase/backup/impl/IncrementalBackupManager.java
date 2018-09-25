@@ -1585,18 +1585,76 @@ name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// newestTimestamps is up-to-date with the current list of hosts
-comment|// so newestTimestamps.get(host) will not be null.
-if|if
-condition|(
-name|currentLogTS
-operator|>
+comment|// If newestTimestamps.get(host) is null, means that
+comment|// either RS (host) has been restarted recently with different port number
+comment|// or RS is down (was decommisioned). In any case, we treat this
+comment|// log file as eligible for inclusion into incremental backup log list
+name|Long
+name|ts
+init|=
 name|newestTimestamps
 operator|.
 name|get
 argument_list|(
 name|host
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|ts
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"ORPHAN log found: "
+operator|+
+name|log
+operator|+
+literal|" host="
+operator|+
+name|host
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Known hosts (from newestTimestamps):"
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|String
+name|s
+range|:
+name|newestTimestamps
+operator|.
+name|keySet
+argument_list|()
+control|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+name|s
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+if|if
+condition|(
+name|ts
+operator|==
+literal|null
+operator|||
+name|currentLogTS
+operator|>
+name|ts
 condition|)
 block|{
 name|newestLogs
@@ -1776,9 +1834,9 @@ decl_stmt|;
 if|if
 condition|(
 name|newTimestamp
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 name|currentLogTS
 operator|>
 name|newTimestamp
