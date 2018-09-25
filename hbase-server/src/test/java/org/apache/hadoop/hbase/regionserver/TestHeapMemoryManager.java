@@ -5427,7 +5427,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|requestFlush
 parameter_list|(
 name|HRegion
@@ -5451,11 +5451,14 @@ argument_list|,
 name|region
 argument_list|)
 expr_stmt|;
+return|return
+literal|true
+return|;
 block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|boolean
 name|requestDelayedFlush
 parameter_list|(
 name|HRegion
@@ -5467,7 +5470,11 @@ parameter_list|,
 name|boolean
 name|forceFlushAllStores
 parameter_list|)
-block|{      }
+block|{
+return|return
+literal|true
+return|;
+block|}
 annotation|@
 name|Override
 specifier|public

@@ -44,8 +44,8 @@ specifier|public
 interface|interface
 name|FlushRequester
 block|{
-comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the Region requesting the cache flush    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    */
-name|void
+comment|/**    * Tell the listener the cache needs to be flushed.    *    * @param region the Region requesting the cache flush    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    * @return true if our region is added into the queue, false otherwise    */
+name|boolean
 name|requestFlush
 parameter_list|(
 name|HRegion
@@ -58,8 +58,8 @@ name|FlushLifeCycleTracker
 name|tracker
 parameter_list|)
 function_decl|;
-comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the Region requesting the cache flush    * @param delay after how much time should the flush happen    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    */
-name|void
+comment|/**    * Tell the listener the cache needs to be flushed after a delay    *    * @param region the Region requesting the cache flush    * @param delay after how much time should the flush happen    * @param forceFlushAllStores whether we want to flush all stores. e.g., when request from log    *          rolling.    * @return true if our region is added into the queue, false otherwise    */
+name|boolean
 name|requestDelayedFlush
 parameter_list|(
 name|HRegion

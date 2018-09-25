@@ -9979,40 +9979,11 @@ argument_list|)
 operator|+
 name|MIN_DELAY_TIME
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-name|getName
-argument_list|()
-operator|+
-literal|" requesting flush of "
-operator|+
-name|r
-operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" because "
-operator|+
-name|whyFlush
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" after random delay "
-operator|+
-name|randomDelay
-operator|+
-literal|"ms"
-argument_list|)
-expr_stmt|;
 comment|//Throttle the flushes by putting a delay. If we don't throttle, and there
 comment|//is a balanced write-load on the regions in a table, we might end up
 comment|//overwhelming the filesystem with too many flushes at once.
+if|if
+condition|(
 name|requester
 operator|.
 name|requestDelayedFlush
@@ -10023,7 +9994,34 @@ name|randomDelay
 argument_list|,
 literal|false
 argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} requesting flush of {} because {} after random delay {} ms"
+argument_list|,
+name|getName
+argument_list|()
+argument_list|,
+name|r
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|,
+name|whyFlush
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|randomDelay
+argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
