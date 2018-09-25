@@ -2611,7 +2611,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    */
+comment|/**    * Abort a procedure.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
+annotation|@
+name|Deprecated
 name|boolean
 name|abortProcedure
 parameter_list|(
@@ -2624,7 +2626,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    */
+comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
+annotation|@
+name|Deprecated
 name|Future
 argument_list|<
 name|Boolean
