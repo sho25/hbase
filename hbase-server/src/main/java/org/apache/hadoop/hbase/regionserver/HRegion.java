@@ -13961,8 +13961,6 @@ name|getNameAsString
 argument_list|()
 argument_list|,
 name|time
-operator|-
-name|startTime
 argument_list|,
 name|mss
 operator|.
