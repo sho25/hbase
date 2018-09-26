@@ -205,6 +205,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|RetryCounter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -304,6 +320,11 @@ specifier|final
 name|ServerName
 name|destination
 decl_stmt|;
+specifier|private
+specifier|final
+name|RetryCounter
+name|retryCounter
+decl_stmt|;
 specifier|public
 name|UnassignRegionHandler
 parameter_list|(
@@ -349,6 +370,15 @@ operator|.
 name|destination
 operator|=
 name|destination
+expr_stmt|;
+name|this
+operator|.
+name|retryCounter
+operator|=
+name|HandlerUtil
+operator|.
+name|getRetryCounter
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -421,18 +451,27 @@ block|{
 comment|// This could happen as we will update the region state to OPEN when calling
 comment|// reportRegionStateTransition, so the HMaster will think the region is online, before we
 comment|// actually open the region, as reportRegionStateTransition is part of the opening process.
+name|long
+name|backoff
+init|=
+name|retryCounter
+operator|.
+name|getBackoffTimeAndIncrementAttempts
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|warn
 argument_list|(
 literal|"Received CLOSE for the region: {}, which we are already "
 operator|+
-literal|"trying to OPEN. try again later."
+literal|"trying to OPEN. try again after {}ms"
 argument_list|,
 name|encodedName
+argument_list|,
+name|backoff
 argument_list|)
 expr_stmt|;
-comment|// TODO: backoff
 name|rs
 operator|.
 name|getExecutorService
@@ -442,11 +481,11 @@ name|delayedSubmit
 argument_list|(
 name|this
 argument_list|,
-literal|1
+name|backoff
 argument_list|,
 name|TimeUnit
 operator|.
-name|SECONDS
+name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}

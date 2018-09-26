@@ -225,6 +225,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|RetryCounter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -322,6 +338,11 @@ specifier|final
 name|long
 name|masterSystemTime
 decl_stmt|;
+specifier|private
+specifier|final
+name|RetryCounter
+name|retryCounter
+decl_stmt|;
 specifier|public
 name|AssignRegionHandler
 parameter_list|(
@@ -367,6 +388,15 @@ operator|.
 name|masterSystemTime
 operator|=
 name|masterSystemTime
+expr_stmt|;
+name|this
+operator|.
+name|retryCounter
+operator|=
+name|HandlerUtil
+operator|.
+name|getRetryCounter
+argument_list|()
 expr_stmt|;
 block|}
 specifier|private
@@ -597,16 +627,25 @@ comment|// The region is closing. This is possible as we will update the region 
 comment|// calling reportRegionStateTransition, so the HMaster will think the region is offline,
 comment|// before we actually close the region, as reportRegionStateTransition is part of the
 comment|// closing process.
+name|long
+name|backoff
+init|=
+name|retryCounter
+operator|.
+name|getBackoffTimeAndIncrementAttempts
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Receiving OPEN for the region:{}, which we are trying to close, try again later"
+literal|"Receiving OPEN for the region:{}, which we are trying to close, try again after {}ms"
 argument_list|,
 name|regionName
+argument_list|,
+name|backoff
 argument_list|)
 expr_stmt|;
-comment|// TODO: backoff
 name|rs
 operator|.
 name|getExecutorService
@@ -616,11 +655,11 @@ name|delayedSubmit
 argument_list|(
 name|this
 argument_list|,
-literal|1
+name|backoff
 argument_list|,
 name|TimeUnit
 operator|.
-name|SECONDS
+name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
