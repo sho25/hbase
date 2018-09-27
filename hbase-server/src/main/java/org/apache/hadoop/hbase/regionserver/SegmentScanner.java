@@ -184,6 +184,11 @@ name|stopSkippingKVsIfNextRow
 init|=
 literal|false
 decl_stmt|;
+comment|// Stop skipping KeyValues for MVCC if finish this row. Only used for reversed scan
+specifier|private
+name|Cell
+name|stopSkippingKVsRow
+decl_stmt|;
 comment|// last iterated KVs by seek (to restore the iterator state after reseek)
 specifier|private
 name|Cell
@@ -629,6 +634,12 @@ name|stopSkippingKVsIfNextRow
 operator|=
 literal|true
 expr_stmt|;
+name|this
+operator|.
+name|stopSkippingKVsRow
+operator|=
+name|firstKeyOnPreviousRow
+expr_stmt|;
 name|seek
 argument_list|(
 name|firstKeyOnPreviousRow
@@ -1010,11 +1021,6 @@ name|updateCurrent
 parameter_list|()
 block|{
 name|Cell
-name|startKV
-init|=
-name|current
-decl_stmt|;
-name|Cell
 name|next
 init|=
 literal|null
@@ -1055,23 +1061,18 @@ expr_stmt|;
 return|return;
 comment|// skip irrelevant versions
 block|}
+comment|// for backwardSeek() stay in the boundaries of a single row
 if|if
 condition|(
 name|stopSkippingKVsIfNextRow
 operator|&&
-comment|// for backwardSeek() stay in the
-name|startKV
-operator|!=
-literal|null
-operator|&&
-comment|// boundaries of a single row
 name|segment
 operator|.
 name|compareRows
 argument_list|(
 name|next
 argument_list|,
-name|startKV
+name|stopSkippingKVsRow
 argument_list|)
 operator|>
 literal|0
