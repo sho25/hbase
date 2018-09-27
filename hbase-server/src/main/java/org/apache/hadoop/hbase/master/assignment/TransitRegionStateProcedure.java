@@ -1564,6 +1564,9 @@ operator|.
 name|WAITING_TIMEOUT
 argument_list|)
 expr_stmt|;
+name|skipPersistence
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|new
 name|ProcedureSuspendedException
