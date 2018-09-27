@@ -7232,6 +7232,11 @@ name|reExecute
 operator|=
 literal|false
 expr_stmt|;
+name|procedure
+operator|.
+name|resetPersistence
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|subprocs
@@ -7588,6 +7593,14 @@ comment|// of this procedure. This may need more scrutiny and subsequent cleanup
 comment|//
 comment|// Commit the transaction even if a suspend (state may have changed). Note this append
 comment|// can take a bunch of time to complete.
+if|if
+condition|(
+name|procedure
+operator|.
+name|needPersistence
+argument_list|()
+condition|)
+block|{
 name|updateStoreOnExec
 argument_list|(
 name|procStack
@@ -7597,6 +7610,7 @@ argument_list|,
 name|subprocs
 argument_list|)
 expr_stmt|;
+block|}
 comment|// if the store is not running we are aborting
 if|if
 condition|(
@@ -8568,6 +8582,16 @@ name|get
 argument_list|(
 name|rootProcId
 argument_list|)
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+name|ProcedureScheduler
+name|getProcedureScheduler
+parameter_list|()
+block|{
+return|return
+name|scheduler
 return|;
 block|}
 comment|// ==========================================================================
