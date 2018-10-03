@@ -1250,6 +1250,21 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|AssertionError
+name|e
+parameter_list|)
+block|{
+name|fail
+argument_list|(
+name|e
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
 name|Throwable
 name|e
 parameter_list|)
@@ -1261,11 +1276,6 @@ argument_list|(
 literal|"error during call of AccessControlClient.getUserPermissions. "
 argument_list|,
 name|e
-argument_list|)
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"error during call of AccessControlClient.getUserPermissions."
 argument_list|)
 expr_stmt|;
 block|}

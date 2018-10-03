@@ -229,7 +229,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestEnableRSGroup
+name|TestEnableRSGroups
 block|{
 annotation|@
 name|ClassRule
@@ -243,7 +243,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestEnableRSGroup
+name|TestEnableRSGroups
 operator|.
 name|class
 argument_list|)
@@ -258,7 +258,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestEnableRSGroup
+name|TestEnableRSGroups
 operator|.
 name|class
 argument_list|)
