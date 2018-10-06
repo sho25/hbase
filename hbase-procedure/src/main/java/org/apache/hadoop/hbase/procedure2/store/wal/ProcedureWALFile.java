@@ -93,11 +93,15 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|procedure2
+operator|.
+name|store
+operator|.
+name|ProcedureStoreTracker
 import|;
 end_import
 
@@ -111,7 +115,7 @@ name|yetus
 operator|.
 name|audience
 operator|.
-name|InterfaceStability
+name|InterfaceAudience
 import|;
 end_import
 
@@ -132,24 +136,6 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|store
-operator|.
-name|ProcedureStoreTracker
 import|;
 end_import
 
@@ -226,10 +212,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|ProcedureWALFile

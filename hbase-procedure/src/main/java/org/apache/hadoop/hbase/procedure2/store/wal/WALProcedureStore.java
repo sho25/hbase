@@ -67,16 +67,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Collections
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Comparator
 import|;
 end_import
@@ -471,28 +461,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ProcedureProtos
-operator|.
-name|ProcedureWALHeader
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|CommonFSUtils
@@ -540,20 +508,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
 import|;
 end_import
 
@@ -623,8 +577,30 @@ name|CircularFifoQueue
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|ProcedureProtos
+operator|.
+name|ProcedureWALHeader
+import|;
+end_import
+
 begin_comment
-comment|/**  * WAL implementation of the ProcedureStore.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
+comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}. If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
 end_comment
 
 begin_class
@@ -632,10 +608,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Evolving
 specifier|public
 class|class
 name|WALProcedureStore
@@ -1141,6 +1113,9 @@ decl_stmt|;
 comment|// Variables used for UI display
 specifier|private
 name|CircularFifoQueue
+argument_list|<
+name|SyncMetrics
+argument_list|>
 name|syncMetricsQueue
 decl_stmt|;
 specifier|public
@@ -1436,26 +1411,17 @@ name|walArchiveDir
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Created Procedure Store WAL archive dir "
-operator|+
+literal|"Created Procedure Store WAL archive dir {}"
+argument_list|,
 name|this
 operator|.
 name|walArchiveDir
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 else|else
 block|{
@@ -1463,8 +1429,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed create of "
-operator|+
+literal|"Failed create of {}"
+argument_list|,
 name|this
 operator|.
 name|walArchiveDir
@@ -1524,6 +1490,7 @@ name|slotsCache
 operator|=
 operator|new
 name|LinkedTransferQueue
+argument_list|<>
 argument_list|()
 expr_stmt|;
 while|while
@@ -1651,6 +1618,7 @@ name|syncMetricsQueue
 operator|=
 operator|new
 name|CircularFifoQueue
+argument_list|<>
 argument_list|(
 name|conf
 operator|.
@@ -2139,24 +2107,15 @@ operator|>
 name|flushLogId
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Someone else created new logs. Expected maxLogId< "
-operator|+
+literal|"Someone else created new logs. Expected maxLogId< {}"
+argument_list|,
 name|flushLogId
 argument_list|)
 expr_stmt|;
-block|}
 name|logs
 operator|.
 name|getLast
@@ -2198,7 +2157,6 @@ specifier|public
 name|void
 name|load
 parameter_list|(
-specifier|final
 name|ProcedureLoader
 name|loader
 parameter_list|)
@@ -2256,7 +2214,6 @@ expr_stmt|;
 return|return;
 block|}
 comment|// Load the old logs
-specifier|final
 name|Iterator
 argument_list|<
 name|ProcedureWALFile
@@ -2492,12 +2449,16 @@ specifier|public
 name|void
 name|insert
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|,
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|subprocs
 parameter_list|)
@@ -2696,8 +2657,10 @@ specifier|public
 name|void
 name|insert
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|procs
 parameter_list|)
@@ -2867,8 +2830,10 @@ specifier|public
 name|void
 name|update
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -2972,29 +2937,19 @@ specifier|public
 name|void
 name|delete
 parameter_list|(
-specifier|final
 name|long
 name|procId
 parameter_list|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Delete "
-operator|+
+literal|"Delete {}"
+argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
-block|}
 name|ByteSlot
 name|slot
 init|=
@@ -3074,11 +3029,12 @@ specifier|public
 name|void
 name|delete
 parameter_list|(
-specifier|final
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|,
-specifier|final
 name|long
 index|[]
 name|subProcIds
@@ -3296,7 +3252,6 @@ specifier|private
 name|void
 name|delete
 parameter_list|(
-specifier|final
 name|long
 index|[]
 name|procIds
@@ -3837,7 +3792,7 @@ argument_list|)
 expr_stmt|;
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModified
 argument_list|(
 name|procId
 argument_list|)
@@ -3856,7 +3811,7 @@ argument_list|)
 expr_stmt|;
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModified
 argument_list|(
 name|procId
 argument_list|)
@@ -3887,7 +3842,7 @@ argument_list|)
 expr_stmt|;
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModified
 argument_list|(
 name|subProcIds
 argument_list|)
@@ -3904,7 +3859,7 @@ argument_list|)
 expr_stmt|;
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModified
 argument_list|(
 name|procId
 argument_list|)
@@ -4933,14 +4888,6 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -4948,7 +4895,6 @@ argument_list|(
 literal|"no active procedures"
 argument_list|)
 expr_stmt|;
-block|}
 name|tryRollWriter
 argument_list|()
 expr_stmt|;
@@ -4966,15 +4912,7 @@ if|if
 condition|(
 name|storeTracker
 operator|.
-name|isUpdated
-argument_list|()
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
+name|isAllModified
 argument_list|()
 condition|)
 block|{
@@ -4985,7 +4923,6 @@ argument_list|(
 literal|"all the active procedures are in the latest log"
 argument_list|)
 expr_stmt|;
-block|}
 name|removeAllLogs
 argument_list|(
 name|flushLogId
@@ -5033,9 +4970,11 @@ operator|!
 name|isRunning
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 comment|// Create new state-log
 if|if
 condition|(
@@ -5052,8 +4991,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"someone else has already created log "
-operator|+
+literal|"someone else has already created log {}"
+argument_list|,
 name|flushLogId
 argument_list|)
 expr_stmt|;
@@ -5078,8 +5017,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Someone else created new logs. Expected maxLogId< "
-operator|+
+literal|"Someone else created new logs. Expected maxLogId< {}"
+argument_list|,
 name|flushLogId
 argument_list|)
 expr_stmt|;
@@ -5365,7 +5304,7 @@ argument_list|()
 expr_stmt|;
 name|storeTracker
 operator|.
-name|resetUpdates
+name|resetModified
 argument_list|()
 expr_stmt|;
 name|stream
@@ -5510,12 +5449,12 @@ name|setProcIds
 argument_list|(
 name|storeTracker
 operator|.
-name|getUpdatedMinProcId
+name|getModifiedMinProcId
 argument_list|()
 argument_list|,
 name|storeTracker
 operator|.
-name|getUpdatedMaxProcId
+name|getModifiedMaxProcId
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5556,12 +5495,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to write the trailer: "
-operator|+
+literal|"Unable to write the trailer"
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -5682,7 +5618,7 @@ argument_list|)
 expr_stmt|;
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModifiedInBoth
 argument_list|(
 name|storeTracker
 argument_list|)
@@ -5713,7 +5649,7 @@ control|)
 block|{
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfSet
+name|setDeletedIfModifiedInBoth
 argument_list|(
 name|logs
 operator|.
@@ -5746,25 +5682,18 @@ argument_list|()
 operator|<=
 literal|1
 condition|)
-return|return;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 block|{
+return|return;
+block|}
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Remove all state logs with ID less than "
-operator|+
+literal|"Remove all state logs with ID less than {}"
+argument_list|,
 name|lastLogId
 argument_list|)
 expr_stmt|;
-block|}
 name|boolean
 name|removed
 init|=
@@ -5837,24 +5766,15 @@ parameter_list|)
 block|{
 try|try
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Removing log="
-operator|+
+literal|"Removing log={}"
+argument_list|,
 name|log
 argument_list|)
 expr_stmt|;
-block|}
 name|log
 operator|.
 name|removeFile
@@ -5869,28 +5789,17 @@ argument_list|(
 name|log
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
+name|debug
 argument_list|(
-literal|"Removed log="
-operator|+
+literal|"Removed log={}, activeLogs={}"
+argument_list|,
 name|log
-operator|+
-literal|", activeLogs="
-operator|+
+argument_list|,
 name|logs
 argument_list|)
 expr_stmt|;
-block|}
 assert|assert
 name|logs
 operator|.
@@ -6219,65 +6128,44 @@ literal|null
 return|;
 block|}
 block|}
+comment|/**    * Make sure that the file set are gotten by calling {@link #getLogFiles()}, where we will sort    * the file set by log id.    * @return Max-LogID of the specified log file set    */
 specifier|private
 specifier|static
 name|long
 name|getMaxLogId
 parameter_list|(
-specifier|final
 name|FileStatus
 index|[]
 name|logFiles
 parameter_list|)
 block|{
-name|long
-name|maxLogId
-init|=
-literal|0
-decl_stmt|;
 if|if
 condition|(
 name|logFiles
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
 name|logFiles
 operator|.
 name|length
-operator|>
+operator|==
 literal|0
 condition|)
 block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|logFiles
-operator|.
-name|length
-condition|;
-operator|++
-name|i
-control|)
-block|{
-name|maxLogId
-operator|=
-name|Math
-operator|.
-name|max
-argument_list|(
-name|maxLogId
-argument_list|,
+return|return
+literal|0L
+return|;
+block|}
+return|return
 name|getLogIdFromName
 argument_list|(
 name|logFiles
 index|[
-name|i
+name|logFiles
+operator|.
+name|length
+operator|-
+literal|1
 index|]
 operator|.
 name|getPath
@@ -6286,20 +6174,13 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-return|return
-name|maxLogId
 return|;
 block|}
-comment|/**    * @return Max-LogID of the specified log file set    */
+comment|/**    * Make sure that the file set are gotten by calling {@link #getLogFiles()}, where we will sort    * the file set by log id.    * @return Max-LogID of the specified log file set    */
 specifier|private
 name|long
 name|initOldLogs
 parameter_list|(
-specifier|final
 name|FileStatus
 index|[]
 name|logFiles
@@ -6307,31 +6188,28 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|this
+if|if
+condition|(
+name|logFiles
+operator|==
+literal|null
+operator|||
+name|logFiles
 operator|.
-name|logs
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
+name|length
+operator|==
+literal|0
+condition|)
+block|{
+return|return
+literal|0L
+return|;
+block|}
 name|long
 name|maxLogId
 init|=
 literal|0
 decl_stmt|;
-if|if
-condition|(
-name|logFiles
-operator|!=
-literal|null
-operator|&&
-name|logFiles
-operator|.
-name|length
-operator|>
-literal|0
-condition|)
-block|{
 for|for
 control|(
 name|int
@@ -6435,24 +6313,14 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|Collections
-operator|.
-name|sort
-argument_list|(
-name|this
-operator|.
-name|logs
-argument_list|)
-expr_stmt|;
 name|initTrackerFromOldLogs
 argument_list|()
 expr_stmt|;
-block|}
 return|return
 name|maxLogId
 return|;
 block|}
-comment|/**    * If last log's tracker is not null, use it as {@link #storeTracker}.    * Otherwise, set storeTracker as partial, and let {@link ProcedureWALFormatReader} rebuild    * it using entries in the log.    */
+comment|/**    * If last log's tracker is not null, use it as {@link #storeTracker}. Otherwise, set storeTracker    * as partial, and let {@link ProcedureWALFormatReader} rebuild it using entries in the log.    */
 specifier|private
 name|void
 name|initTrackerFromOldLogs
@@ -6469,7 +6337,9 @@ operator|!
 name|isRunning
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 name|ProcedureWALFile
 name|log
 init|=
@@ -6559,8 +6429,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log: "
-operator|+
+literal|"Remove uninitialized log: {}"
+argument_list|,
 name|logFile
 argument_list|)
 expr_stmt|;
@@ -6575,24 +6445,15 @@ return|return
 literal|null
 return|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Opening Pv2 "
-operator|+
+literal|"Opening Pv2 {}"
+argument_list|,
 name|logFile
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|log
@@ -6613,8 +6474,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Remove uninitialized log: "
-operator|+
+literal|"Remove uninitialized log: {}"
+argument_list|,
 name|logFile
 argument_list|,
 name|e
@@ -6699,16 +6560,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to read tracker for "
-operator|+
+literal|"Unable to read tracker for {}"
+argument_list|,
 name|log
-operator|+
-literal|" - "
-operator|+
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -6837,10 +6693,14 @@ literal|16
 argument_list|)
 expr_stmt|;
 name|ProcedureExecutor
+argument_list|<
+name|?
+argument_list|>
 name|pe
 init|=
 operator|new
 name|ProcedureExecutor
+argument_list|<>
 argument_list|(
 name|conf
 argument_list|,

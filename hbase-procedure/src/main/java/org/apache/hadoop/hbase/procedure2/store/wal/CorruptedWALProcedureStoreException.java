@@ -49,20 +49,6 @@ name|InterfaceAudience
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceStability
-import|;
-end_import
-
 begin_comment
 comment|/**  * Thrown when a procedure WAL is corrupted  */
 end_comment
@@ -72,16 +58,21 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|InterfaceStability
-operator|.
-name|Stable
 specifier|public
 class|class
 name|CorruptedWALProcedureStoreException
 extends|extends
 name|HBaseIOException
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+operator|-
+literal|3407300445435898074L
+decl_stmt|;
 comment|/** default constructor */
 specifier|public
 name|CorruptedWALProcedureStoreException

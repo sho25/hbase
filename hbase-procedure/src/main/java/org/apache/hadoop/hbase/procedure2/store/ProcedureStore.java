@@ -132,6 +132,11 @@ name|skipNext
 parameter_list|()
 function_decl|;
 comment|/**      * Returns the next procedure in the iteration.      * @throws IOException if there was an error fetching/deserializing the procedure      * @return the next procedure in the iteration.      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"rawtypes"
+argument_list|)
 name|Procedure
 name|next
 parameter_list|()
@@ -247,9 +252,15 @@ name|void
 name|insert
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|,
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|subprocs
 parameter_list|)
@@ -259,6 +270,9 @@ name|void
 name|insert
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|procs
 parameter_list|)
@@ -268,6 +282,9 @@ name|void
 name|update
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 function_decl|;
@@ -284,6 +301,9 @@ name|void
 name|delete
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|parentProc
 parameter_list|,
 name|long

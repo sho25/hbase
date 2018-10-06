@@ -2952,7 +2952,7 @@ name|procId
 argument_list|,
 name|tracker
 operator|.
-name|isUpdated
+name|isModified
 argument_list|(
 name|procId
 argument_list|)
@@ -2986,7 +2986,7 @@ name|procId
 argument_list|,
 name|tracker
 operator|.
-name|isUpdated
+name|isModified
 argument_list|(
 name|procId
 argument_list|)

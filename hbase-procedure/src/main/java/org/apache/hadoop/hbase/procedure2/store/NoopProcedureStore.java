@@ -189,9 +189,15 @@ name|void
 name|insert
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|,
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|subprocs
 parameter_list|)
@@ -205,6 +211,9 @@ name|void
 name|insert
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 index|[]
 name|proc
 parameter_list|)
@@ -218,6 +227,9 @@ name|void
 name|update
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|)
 block|{
@@ -242,6 +254,9 @@ name|void
 name|delete
 parameter_list|(
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 parameter_list|,
 name|long
