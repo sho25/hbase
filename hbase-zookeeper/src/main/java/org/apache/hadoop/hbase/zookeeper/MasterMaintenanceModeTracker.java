@@ -54,7 +54,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tracks the master Maintenance Mode via ZK.  */
+comment|/**  * Tracks the master Maintenance Mode via ZK.  *  * Unused. Used to be set by hbck to prevent concurrent splits/merges, but those use PV2 now and  * HBCK2 uses it's own service, so no longer an issue. Left in, in case we need to use this for  * the incomplete parts of HBCK2...  */
 end_comment
 
 begin_class

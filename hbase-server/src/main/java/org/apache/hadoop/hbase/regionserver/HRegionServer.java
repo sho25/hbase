@@ -5733,6 +5733,13 @@ block|}
 comment|// Try and register with the Master; tell it we are here.  Break if server is stopped or the
 comment|// clusterup flag is down or hdfs went wacky. Once registered successfully, go ahead and start
 comment|// up all Services. Use RetryCounter to get backoff in case Master is struggling to come up.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"About to register with Master."
+argument_list|)
+expr_stmt|;
 name|RetryCounterFactory
 name|rcf
 init|=
@@ -10105,22 +10112,13 @@ name|this
 operator|instanceof
 name|HMaster
 operator|&&
-operator|(
 operator|!
 name|LoadBalancer
 operator|.
-name|isTablesOnMaster
+name|isMasterCanHostUserRegions
 argument_list|(
 name|conf
 argument_list|)
-operator|||
-name|LoadBalancer
-operator|.
-name|isSystemTablesOnlyOnMaster
-argument_list|(
-name|conf
-argument_list|)
-operator|)
 decl_stmt|;
 name|WALFactory
 name|factory

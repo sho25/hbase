@@ -956,8 +956,6 @@ comment|/**    * @return true if master is in maintanceMode    * @throws IOExcep
 name|boolean
 name|isInMaintenanceMode
 parameter_list|()
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Abort a procedure.    * @param procId ID of the procedure    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if aborted, false if procedure already completed or does not exist    * @throws IOException    */
 specifier|public

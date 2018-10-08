@@ -217,18 +217,12 @@ extends|,
 name|ConfigurationObserver
 block|{
 comment|/**    * Master can carry regions as of hbase-2.0.0.    * By default, it carries no tables.    * TODO: Add any | system as flags to indicate what it can do.    */
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|TABLES_ON_MASTER
 init|=
 literal|"hbase.balancer.tablesOnMaster"
 decl_stmt|;
 comment|/**    * Master carries system tables.    */
-specifier|public
-specifier|static
-specifier|final
 name|String
 name|SYSTEM_TABLES_ON_MASTER
 init|=
@@ -487,6 +481,27 @@ argument_list|(
 name|SYSTEM_TABLES_ON_MASTER
 argument_list|,
 literal|false
+argument_list|)
+return|;
+block|}
+specifier|static
+name|boolean
+name|isMasterCanHostUserRegions
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+return|return
+name|isTablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+operator|&&
+operator|!
+name|isSystemTablesOnlyOnMaster
+argument_list|(
+name|conf
 argument_list|)
 return|;
 block|}

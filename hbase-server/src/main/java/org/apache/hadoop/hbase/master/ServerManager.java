@@ -3768,9 +3768,21 @@ name|int
 name|getMinToStart
 parameter_list|()
 block|{
-comment|// One server should be enough to get us off the ground.
+if|if
+condition|(
+name|master
+operator|.
+name|isInMaintenanceMode
+argument_list|()
+condition|)
+block|{
+comment|// If in maintenance mode, then master hosting meta will be the only server available
+return|return
+literal|1
+return|;
+block|}
 name|int
-name|requiredMinToStart
+name|minimumRequired
 init|=
 literal|1
 decl_stmt|;
@@ -3785,10 +3797,7 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
-condition|)
-block|{
-if|if
-condition|(
+operator|&&
 name|LoadBalancer
 operator|.
 name|isSystemTablesOnlyOnMaster
@@ -3800,16 +3809,12 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// If Master is carrying regions but NOT user-space regions, it
-comment|// still shows as a 'server'. We need at least one more server to check
-comment|// in before we can start up so set defaultMinToStart to 2.
-name|requiredMinToStart
+comment|// If Master is carrying regions it will show up as a 'server', but is not handling user-
+comment|// space regions, so we need a second server.
+name|minimumRequired
 operator|=
-name|requiredMinToStart
-operator|+
-literal|1
+literal|2
 expr_stmt|;
-block|}
 block|}
 name|int
 name|minToStart
@@ -3829,20 +3834,16 @@ operator|-
 literal|1
 argument_list|)
 decl_stmt|;
-comment|// Ensure we are never less than requiredMinToStart else stuff won't work.
+comment|// Ensure we are never less than minimumRequired else stuff won't work.
 return|return
+name|Math
+operator|.
+name|max
+argument_list|(
 name|minToStart
-operator|==
-operator|-
-literal|1
-operator|||
-name|minToStart
-operator|<
-name|requiredMinToStart
-condition|?
-name|requiredMinToStart
-else|:
-name|minToStart
+argument_list|,
+name|minimumRequired
+argument_list|)
 return|;
 block|}
 comment|/**    * Wait for the region servers to report in.    * We will wait until one of this condition is met:    *  - the master is stopped    *  - the 'hbase.master.wait.on.regionservers.maxtostart' number of    *    region servers is reached    *  - the 'hbase.master.wait.on.regionservers.mintostart' is reached AND    *   there have been no new region server in for    *      'hbase.master.wait.on.regionservers.interval' time AND    *   the 'hbase.master.wait.on.regionservers.timeout' is reached    *    * @throws InterruptedException    */
