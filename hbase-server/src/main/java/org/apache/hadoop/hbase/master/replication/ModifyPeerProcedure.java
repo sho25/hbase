@@ -494,6 +494,8 @@ throws|throws
 name|IOException
 throws|,
 name|ReplicationException
+throws|,
+name|InterruptedException
 function_decl|;
 specifier|protected
 specifier|abstract
@@ -520,10 +522,13 @@ name|IOException
 throws|,
 name|ReplicationException
 function_decl|;
-specifier|private
+specifier|protected
 name|void
 name|releaseLatch
-parameter_list|()
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
 block|{
 name|ProcedurePrepareLatch
 operator|.
@@ -1265,6 +1270,8 @@ name|state
 parameter_list|)
 throws|throws
 name|ProcedureSuspendedException
+throws|,
+name|InterruptedException
 block|{
 switch|switch
 condition|(
@@ -1326,7 +1333,9 @@ name|e
 argument_list|)
 expr_stmt|;
 name|releaseLatch
-argument_list|()
+argument_list|(
+name|env
+argument_list|)
 expr_stmt|;
 return|return
 name|Flow
@@ -1813,7 +1822,9 @@ argument_list|)
 expr_stmt|;
 block|}
 name|releaseLatch
-argument_list|()
+argument_list|(
+name|env
+argument_list|)
 expr_stmt|;
 return|return
 name|Flow
