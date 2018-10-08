@@ -1951,7 +1951,7 @@ name|newMsg
 operator|=
 literal|"Unsupported filesystem scheme found in the backup target url. Error Message: "
 operator|+
-name|newMsg
+name|expMsg
 expr_stmt|;
 name|LOG
 operator|.
