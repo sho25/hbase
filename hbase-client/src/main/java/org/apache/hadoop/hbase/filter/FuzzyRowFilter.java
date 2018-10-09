@@ -275,22 +275,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|UnsafeAccess
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|UnsafeAvailChecker
 import|;
 end_import
@@ -2065,7 +2049,7 @@ block|{
 name|long
 name|fuzzyBytes
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toLong
 argument_list|(
@@ -2077,7 +2061,7 @@ decl_stmt|;
 name|long
 name|fuzzyMeta
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toLong
 argument_list|(
@@ -2089,7 +2073,7 @@ decl_stmt|;
 name|long
 name|rowValue
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toLong
 argument_list|(
@@ -2140,7 +2124,7 @@ block|{
 name|int
 name|fuzzyBytes
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toInt
 argument_list|(
@@ -2152,7 +2136,7 @@ decl_stmt|;
 name|int
 name|fuzzyMeta
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toInt
 argument_list|(
@@ -2164,7 +2148,7 @@ decl_stmt|;
 name|int
 name|rowValue
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toInt
 argument_list|(
@@ -2216,7 +2200,7 @@ block|{
 name|short
 name|fuzzyBytes
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toShort
 argument_list|(
@@ -2228,7 +2212,7 @@ decl_stmt|;
 name|short
 name|fuzzyMeta
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toShort
 argument_list|(
@@ -2240,7 +2224,7 @@ decl_stmt|;
 name|short
 name|rowValue
 init|=
-name|UnsafeAccess
+name|Bytes
 operator|.
 name|toShort
 argument_list|(
