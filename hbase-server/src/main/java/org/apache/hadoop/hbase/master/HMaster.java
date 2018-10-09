@@ -9912,6 +9912,8 @@ name|plan
 argument_list|)
 expr_stmt|;
 comment|//TODO: bulk assign
+try|try
+block|{
 name|this
 operator|.
 name|assignmentManager
@@ -9921,6 +9923,28 @@ argument_list|(
 name|plan
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|HBaseIOException
+name|hioe
+parameter_list|)
+block|{
+comment|//should ignore failed plans here, avoiding the whole balance plans be aborted
+comment|//later calls of balance() can fetch up the failed and skipped plans
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed balance plan: {}, just skip it"
+argument_list|,
+name|plan
+argument_list|,
+name|hioe
+argument_list|)
+expr_stmt|;
+block|}
+comment|//rpCount records balance plans processed, does not care if a plan succeeds
 name|rpCount
 operator|++
 expr_stmt|;
