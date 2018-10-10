@@ -178,7 +178,7 @@ specifier|final
 name|long
 name|DEFAULT_HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_HIGHER_BOUND
 init|=
-literal|20L
+literal|100L
 operator|*
 literal|1024
 operator|*
@@ -198,7 +198,7 @@ specifier|final
 name|long
 name|DEFAULT_HBASE_HSTORE_COMPACTION_MAX_THROUGHPUT_LOWER_BOUND
 init|=
-literal|10L
+literal|50L
 operator|*
 literal|1024
 operator|*
