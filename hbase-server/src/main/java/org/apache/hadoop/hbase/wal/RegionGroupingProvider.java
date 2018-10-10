@@ -616,6 +616,17 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|DELEGATE_PROVIDER_CLASS
+init|=
+literal|"hbase.wal.regiongrouping.delegate.provider.class"
+decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|DEFAULT_DELEGATE_PROVIDER
 init|=
 name|WALFactory
@@ -864,6 +875,8 @@ name|factory
 operator|.
 name|getProviderClass
 argument_list|(
+name|DELEGATE_PROVIDER_CLASS
+argument_list|,
 name|DELEGATE_PROVIDER
 argument_list|,
 name|DEFAULT_DELEGATE_PROVIDER
