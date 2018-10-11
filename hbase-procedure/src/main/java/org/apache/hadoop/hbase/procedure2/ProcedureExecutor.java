@@ -169,6 +169,30 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|Executor
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|Executors
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|TimeUnit
 import|;
 end_import
@@ -367,6 +391,26 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|store
+operator|.
+name|ProcedureStore
+operator|.
+name|ProcedureStoreListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|util
 operator|.
 name|StringUtils
@@ -528,6 +572,30 @@ operator|.
 name|base
 operator|.
 name|Preconditions
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactoryBuilder
 import|;
 end_import
 
@@ -1624,6 +1692,33 @@ name|scheduler
 decl_stmt|;
 specifier|private
 specifier|final
+name|Executor
+name|forceUpdateExecutor
+init|=
+name|Executors
+operator|.
+name|newSingleThreadExecutor
+argument_list|(
+operator|new
+name|ThreadFactoryBuilder
+argument_list|()
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setNameFormat
+argument_list|(
+literal|"Force-Update-PEWorker-%d"
+argument_list|)
+operator|.
+name|build
+argument_list|()
+argument_list|)
+decl_stmt|;
+specifier|private
+specifier|final
 name|AtomicLong
 name|lastProcId
 init|=
@@ -1727,6 +1822,108 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
+name|void
+name|forceUpdateProcedure
+parameter_list|(
+name|long
+name|procId
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|IdLock
+operator|.
+name|Entry
+name|lockEntry
+init|=
+name|procExecutionLock
+operator|.
+name|getLockEntry
+argument_list|(
+name|procId
+argument_list|)
+decl_stmt|;
+try|try
+block|{
+name|Procedure
+argument_list|<
+name|TEnvironment
+argument_list|>
+name|proc
+init|=
+name|procedures
+operator|.
+name|get
+argument_list|(
+name|procId
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|proc
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"No pending procedure with id = {}, skip force updating."
+argument_list|,
+name|procId
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+if|if
+condition|(
+name|proc
+operator|.
+name|isFinished
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Procedure {} has already been finished, skip force updating."
+argument_list|,
+name|proc
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Force update procedure {}"
+argument_list|,
+name|proc
+argument_list|)
+expr_stmt|;
+name|store
+operator|.
+name|update
+argument_list|(
+name|proc
+argument_list|)
+expr_stmt|;
+block|}
+finally|finally
+block|{
+name|procExecutionLock
+operator|.
+name|releaseLockEntry
+argument_list|(
+name|lockEntry
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 specifier|public
 name|ProcedureExecutor
 parameter_list|(
@@ -1789,8 +1986,81 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|store
+operator|.
+name|registerListener
+argument_list|(
+operator|new
+name|ProcedureStoreListener
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|forceUpdate
+parameter_list|(
+name|long
+index|[]
+name|procIds
+parameter_list|)
+block|{
+name|Arrays
+operator|.
+name|stream
+argument_list|(
+name|procIds
+argument_list|)
+operator|.
+name|forEach
+argument_list|(
+name|procId
+lambda|->
+name|forceUpdateExecutor
+operator|.
+name|execute
+argument_list|(
+parameter_list|()
+lambda|->
+block|{
+block|try
+block|{
+name|forceUpdateProcedure
+argument_list|(
+name|procId
+argument_list|)
+expr_stmt|;
 block|}
-specifier|private
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to force update procedure with pid={}"
+argument_list|,
+name|procId
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+block|)
+empty_stmt|;
+block|}
+end_class
+
+begin_empty_stmt
+unit|})
+empty_stmt|;
+end_empty_stmt
+
+begin_function
+unit|}    private
 name|void
 name|load
 parameter_list|(
@@ -1984,6 +2254,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|restoreLock
@@ -2020,6 +2293,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|restoreLocks
@@ -2061,19 +2337,61 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|// Restore the locks for all the procedures.
+end_comment
+
+begin_comment
 comment|// Notice that we need to restore the locks starting from the root proc, otherwise there will be
+end_comment
+
+begin_comment
 comment|// problem that a sub procedure may hold the exclusive lock first and then we are stuck when
+end_comment
+
+begin_comment
 comment|// calling the acquireLock method for the parent procedure.
+end_comment
+
+begin_comment
 comment|// The algorithm is straight-forward:
+end_comment
+
+begin_comment
 comment|// 1. Use a set to record the procedures which locks have already been restored.
+end_comment
+
+begin_comment
 comment|// 2. Use a stack to store the hierarchy of the procedures
+end_comment
+
+begin_comment
 comment|// 3. For all the procedure, we will first try to find its parent and push it into the stack,
+end_comment
+
+begin_comment
 comment|// unless
+end_comment
+
+begin_comment
 comment|// a. We have no parent, i.e, we are the root procedure
+end_comment
+
+begin_comment
 comment|// b. The lock has already been restored(by checking the set introduced in #1)
+end_comment
+
+begin_comment
 comment|// then we start to pop the stack and call acquireLock for each procedure.
+end_comment
+
+begin_comment
 comment|// Notice that this should be done for all procedures, not only the ones in runnableList.
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|restoreLocks
@@ -2191,6 +2509,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|loadProcedures
@@ -3021,7 +3342,13 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Initialize the procedure executor, but do not start workers. We will start them later.    *<p/>    * It calls ProcedureStore.recoverLease() and ProcedureStore.load() to recover the lease, and    * ensure a single executor, and start the procedure replay to resume and recover the previous    * pending and in-progress procedures.    * @param numThreads number of threads available for procedure execution.    * @param abortOnCorruption true if you want to abort your service in case a corrupted procedure    *          is found on replay. otherwise false.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|init
@@ -3245,7 +3572,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Start the workers.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|startWorkers
@@ -3335,6 +3668,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|stop
@@ -3371,6 +3707,9 @@ name|sendStopSignal
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -3482,6 +3821,9 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|refreshConfiguration
@@ -3514,9 +3856,21 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Accessors
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isRunning
@@ -3529,7 +3883,13 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return the current number of worker threads.    */
+end_comment
+
+begin_function
 specifier|public
 name|int
 name|getWorkerThreadCount
@@ -3542,7 +3902,13 @@ name|size
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * @return the core pool size settings.    */
+end_comment
+
+begin_function
 specifier|public
 name|int
 name|getCorePoolSize
@@ -3552,6 +3918,9 @@ return|return
 name|corePoolSize
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|int
 name|getActiveExecutorCount
@@ -3564,6 +3933,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|TEnvironment
 name|getEnvironment
@@ -3575,6 +3947,9 @@ operator|.
 name|environment
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|ProcedureStore
 name|getStore
@@ -3586,6 +3961,9 @@ operator|.
 name|store
 return|;
 block|}
+end_function
+
+begin_function
 name|ProcedureScheduler
 name|getScheduler
 parameter_list|()
@@ -3594,6 +3972,9 @@ return|return
 name|scheduler
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|void
 name|setKeepAliveTime
@@ -3626,6 +4007,9 @@ name|signalAll
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|long
 name|getKeepAliveTime
@@ -3648,10 +4032,25 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Submit/Remove Chores
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|/**    * Add a chore procedure to the executor    * @param chore the chore to add    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|addChore
@@ -3680,7 +4079,13 @@ name|chore
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Remove a chore procedure from the executor    * @param chore the chore to remove    * @return whether the chore is removed, or it will be removed later    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|removeChore
@@ -3710,10 +4115,25 @@ name|chore
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Nonce Procedure helpers
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|/**    * Create a NoneKey from the specified nonceGroup and nonce.    * @param nonceGroup    * @param nonce    * @return the generated NonceKey    */
+end_comment
+
+begin_function
 specifier|public
 name|NonceKey
 name|createNonceKey
@@ -3747,7 +4167,13 @@ name|nonce
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Register a nonce for a procedure that is going to be submitted.    * A procId will be reserved and on submitProcedure(),    * the procedure with the specified nonce will take the reserved ProcId.    * If someone already reserved the nonce, this method will return the procId reserved,    * otherwise an invalid procId will be returned. and the caller should procede    * and submit the procedure.    *    * @param nonceKey A unique identifier for this operation from the client or process.    * @return the procId associated with the nonce, if any otherwise an invalid procId.    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|registerNonce
@@ -3892,7 +4318,13 @@ name|longValue
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Remove the NonceKey if the procedure was not submitted to the executor.    * @param nonceKey A unique identifier for this operation from the client or process.    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|unregisterNonceIfProcedureWasNotSubmitted
@@ -3957,6 +4389,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_class
 specifier|public
 specifier|static
 class|class
@@ -4159,7 +4594,13 @@ throws|throws
 name|IOException
 block|{     }
 block|}
+end_class
+
+begin_comment
 comment|/**    * If the failure failed before submitting it, we may want to give back the    * same error to the requests with the same nonceKey.    *    * @param nonceKey A unique identifier for this operation from the client or process    * @param procName name of the procedure, used to inform the user    * @param procOwner name of the owner of the procedure, used to inform the user    * @param exception the failure to report to the user    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|setFailureResultForNonce
@@ -4251,10 +4692,25 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Submit/Abort Procedure
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|/**    * Add a new root-procedure to the executor.    * @param proc the new procedure to execute.    * @return the procedure id, that can be used to monitor the operation    */
+end_comment
+
+begin_function
 specifier|public
 name|long
 name|submitProcedure
@@ -4275,7 +4731,13 @@ literal|null
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Bypass a procedure. If the procedure is set to bypass, all the logic in    * execute/rollback will be ignored and it will return success, whatever.    * It is used to recover buggy stuck procedures, releasing the lock resources    * and letting other procedures to run. Bypassing one procedure (and its ancestors will    * be bypassed automatically) may leave the cluster in a middle state, e.g. region    * not assigned, or some hdfs files left behind. After getting rid of those stuck procedures,    * the operators may have to do some clean up on hdfs or schedule some assign procedures    * to let region online. DO AT YOUR OWN RISK.    *<p>    * A procedure can be bypassed only if    * 1. The procedure is in state of RUNNABLE, WAITING, WAITING_TIMEOUT    * or it is a root procedure without any child.    * 2. No other worker thread is executing it    * 3. No child procedure has been submitted    *    *<p>    * If all the requirements are meet, the procedure and its ancestors will be    * bypassed and persisted to WAL.    *    *<p>    * If the procedure is in WAITING state, will set it to RUNNABLE add it to run queue.    * TODO: What about WAITING_TIMEOUT?    * @param pids the procedure id    * @param lockWait time to wait lock    * @param force if force set to true, we will bypass the procedure even if it is executing.    *              This is for procedures which can't break out during executing(due to bug, mostly)    *              In this case, bypassing the procedure is not enough, since it is already stuck    *              there. We need to restart the master after bypassing, and letting the problematic    *              procedure to execute wth bypass=true, so in that condition, the procedure can be    *              successfully bypassed.    * @return true if bypass success    * @throws IOException IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|List
 argument_list|<
@@ -4343,6 +4805,9 @@ return|return
 name|result
 return|;
 block|}
+end_function
+
+begin_function
 name|boolean
 name|bypassProcedure
 parameter_list|(
@@ -4568,6 +5033,9 @@ comment|// Now, the procedure is not finished, and no one can execute it since w
 comment|// And we can be sure that its ancestor is not running too, since their child has not
 comment|// finished yet
 name|Procedure
+argument_list|<
+name|TEnvironment
+argument_list|>
 name|current
 init|=
 name|procedure
@@ -4712,7 +5180,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Add a new root-procedure to the executor.    * @param proc the new procedure to execute.    * @param nonceKey the registered unique identifier for this operation from the client or process.    * @return the procedure id, that can be used to monitor the operation    */
+end_comment
+
+begin_function
 annotation|@
 name|edu
 operator|.
@@ -4856,8 +5330,17 @@ name|proc
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Add a set of new root-procedure to the executor.    * @param procs the new procedures to execute.    */
+end_comment
+
+begin_comment
 comment|// TODO: Do we need to take nonces here?
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|submitProcedures
@@ -4989,6 +5472,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|Procedure
 argument_list|<
@@ -5056,6 +5542,9 @@ return|return
 name|proc
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|long
 name|pushProcedure
@@ -5144,7 +5633,13 @@ name|getProcId
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Send an abort notification the specified procedure.    * Depending on the procedure implementation the abort can be considered or ignored.    * @param procId the procedure to abort    * @return true if the procedure exists and has received the abort, otherwise false.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|abort
@@ -5162,7 +5657,13 @@ literal|true
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Send an abort notification to the specified procedure.    * Depending on the procedure implementation, the abort can be considered or ignored.    * @param procId the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return true if the procedure exists and has received the abort, otherwise false.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|abort
@@ -5223,9 +5724,21 @@ return|return
 literal|false
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Executor query helpers
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_function
 specifier|public
 name|Procedure
 argument_list|<
@@ -5247,6 +5760,9 @@ name|procId
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 parameter_list|<
 name|T
@@ -5303,6 +5819,9 @@ return|return
 literal|null
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Procedure
 argument_list|<
@@ -5348,7 +5867,13 @@ argument_list|()
 return|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return true if the procedure is finished.    * The state may be "completed successfully" or "failed and rolledback".    * Use getResult() to check the state or get the result data.    * @param procId the ID of the procedure to check    * @return true if the procedure execution is finished, otherwise false.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isFinished
@@ -5368,7 +5893,13 @@ name|procId
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Return true if the procedure is started.    * @param procId the ID of the procedure to check    * @return true if the procedure execution is started, otherwise false.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isStarted
@@ -5415,7 +5946,13 @@ name|wasExecuted
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Mark the specified completed procedure, as ready to remove.    * @param procId the ID of the procedure to remove    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|removeResult
@@ -5482,6 +6019,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Procedure
 argument_list|<
@@ -5532,7 +6072,13 @@ argument_list|()
 return|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Check if the user is this procedure's owner    * @param procId the target procedure    * @param user the user    * @return true if the user is the owner of the procedure,    *   false otherwise or the owner is unknown.    */
+end_comment
+
+begin_function
 specifier|public
 name|boolean
 name|isProcedureOwner
@@ -5636,7 +6182,13 @@ return|return
 literal|false
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Should only be used when starting up, where the procedure workers have not been started.    *<p/>    * If the procedure works has been started, the return values maybe changed when you are    * processing it so usually this is not safe. Use {@link #getProcedures()} below for most cases as    * it will do a copy, and also include the finished procedures.    */
+end_comment
+
+begin_function
 specifier|public
 name|Collection
 argument_list|<
@@ -5655,7 +6207,13 @@ name|values
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Get procedures.    * @return the procedures in a list    */
+end_comment
+
+begin_function
 specifier|public
 name|List
 argument_list|<
@@ -5731,9 +6289,21 @@ return|return
 name|procedureList
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Listeners helpers
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|registerListener
@@ -5752,6 +6322,9 @@ name|listener
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|boolean
 name|unregisterListener
@@ -5771,6 +6344,9 @@ name|listener
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|sendProcedureLoadedNotification
@@ -5839,6 +6415,9 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|sendProcedureAddedNotification
@@ -5907,6 +6486,9 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|sendProcedureFinishedNotification
@@ -5975,9 +6557,21 @@ block|}
 block|}
 block|}
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Procedure IDs helpers
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_function
 specifier|private
 name|long
 name|nextProcId
@@ -6058,6 +6652,9 @@ return|return
 name|procId
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -6072,6 +6669,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -6089,6 +6689,9 @@ name|keySet
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 name|Long
 name|getRootProcedureId
 parameter_list|(
@@ -6110,9 +6713,21 @@ name|proc
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Executions
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|executeProcedure
@@ -6523,6 +7138,9 @@ argument_list|()
 condition|)
 do|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|LockState
 name|acquireLock
@@ -6567,6 +7185,9 @@ name|store
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|releaseLock
@@ -6618,7 +7239,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Execute the rollback of the full procedure stack. Once the procedure is rolledback, the    * root-procedure will be visible as finished to user, and the result will be the fatal exception.    */
+end_comment
+
+begin_function
 specifier|private
 name|LockState
 name|executeRollback
@@ -6885,7 +7512,13 @@ operator|.
 name|LOCK_ACQUIRED
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Execute the rollback of the procedure step.    * It updates the store with the new state (stack index)    * or will remove completly the procedure in case it is a child.    */
+end_comment
+
+begin_function
 specifier|private
 name|LockState
 name|executeRollback
@@ -7137,6 +7770,9 @@ operator|.
 name|LOCK_ACQUIRED
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|yieldProcedure
@@ -7163,7 +7799,13 @@ name|proc
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Executes<code>procedure</code>    *<ul>    *<li>Calls the doExecute() of the procedure    *<li>If the procedure execution didn't fail (i.e. valid user input)    *<ul>    *<li>...and returned subprocedures    *<ul><li>The subprocedures are initialized.    *<li>The subprocedures are added to the store    *<li>The subprocedures are added to the runnable queue    *<li>The procedure is now in a WAITING state, waiting for the subprocedures to complete    *</ul>    *</li>    *<li>...if there are no subprocedure    *<ul><li>the procedure completed successfully    *<li>if there is a parent (WAITING)    *<li>the parent state will be set to RUNNABLE    *</ul>    *</li>    *</ul>    *</li>    *<li>In case of failure    *<ul>    *<li>The store is updated with the new state</li>    *<li>The executor (caller of this method) will start the rollback of the procedure</li>    *</ul>    *</li>    *</ul>    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|execProcedure
@@ -7750,6 +8392,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|kill
@@ -7776,6 +8421,9 @@ name|msg
 argument_list|)
 throw|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|Procedure
 argument_list|<
@@ -7988,6 +8636,9 @@ return|return
 name|subprocs
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|submitChildrenProcedures
@@ -8069,6 +8720,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|countDownChildren
@@ -8156,6 +8810,9 @@ expr_stmt|;
 return|return;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|updateStoreOnExec
@@ -8334,6 +8991,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|handleInterruptedException
@@ -8365,6 +9025,9 @@ comment|// the InterruptedException. If the master is going down, we will be not
 comment|// and the executor/store will be stopped.
 comment|// (The interrupted procedure will be retried on the next run)
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|execCompletionCleanup
@@ -8442,6 +9105,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|procedureFinished
@@ -8565,6 +9231,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 name|RootProcedureState
 argument_list|<
 name|TEnvironment
@@ -8584,6 +9253,9 @@ name|rootProcId
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|VisibleForTesting
 name|ProcedureScheduler
@@ -8594,9 +9266,21 @@ return|return
 name|scheduler
 return|;
 block|}
+end_function
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_comment
 comment|//  Worker Thread
+end_comment
+
+begin_comment
 comment|// ==========================================================================
+end_comment
+
+begin_class
 specifier|private
 class|class
 name|WorkerThread
@@ -9013,8 +9697,17 @@ literal|true
 return|;
 block|}
 block|}
+end_class
+
+begin_comment
 comment|// A worker thread which can be added when core workers are stuck. Will timeout after
+end_comment
+
+begin_comment
 comment|// keepAliveTime if there is no procedure to run.
+end_comment
+
+begin_class
 specifier|private
 specifier|final
 class|class
@@ -9059,13 +9752,37 @@ name|keepAliveTime
 return|;
 block|}
 block|}
+end_class
+
+begin_comment
 comment|// ----------------------------------------------------------------------------
+end_comment
+
+begin_comment
 comment|// TODO-MAYBE: Should we provide a InlineChore to notify the store with the
+end_comment
+
+begin_comment
 comment|// full set of procedures pending and completed to write a compacted
+end_comment
+
+begin_comment
 comment|// version of the log (in case is a log)?
+end_comment
+
+begin_comment
 comment|// In theory no, procedures are have a short life, so at some point the store
+end_comment
+
+begin_comment
 comment|// will have the tracker saying everything is in the last log.
+end_comment
+
+begin_comment
 comment|// ----------------------------------------------------------------------------
+end_comment
+
+begin_class
 specifier|private
 specifier|final
 class|class
@@ -9376,8 +10093,8 @@ name|timeoutInterval
 return|;
 block|}
 block|}
-block|}
 end_class
 
+unit|}
 end_unit
 

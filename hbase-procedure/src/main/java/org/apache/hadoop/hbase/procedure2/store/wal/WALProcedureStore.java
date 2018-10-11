@@ -393,6 +393,24 @@ name|procedure2
 operator|.
 name|store
 operator|.
+name|ProcedureStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
 name|ProcedureStoreBase
 import|;
 end_import
@@ -600,7 +618,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}. If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
+comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}. If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it. This is because that, every time we call  * {@link ProcedureStore#insert(Procedure[])} or {@link ProcedureStore#update(Procedure)}, we will  * persist the full state of a Procedure, so the earlier wal records for this procedure can all be  * deleted.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
 end_comment
 
 begin_class
@@ -677,7 +695,7 @@ specifier|final
 name|int
 name|DEFAULT_WAL_COUNT_WARN_THRESHOLD
 init|=
-literal|64
+literal|10
 decl_stmt|;
 specifier|public
 specifier|static
@@ -2388,7 +2406,9 @@ argument_list|()
 operator|<=
 literal|1
 condition|)
+block|{
 return|return;
+block|}
 comment|// the config says to not cleanup wals on load.
 if|if
 condition|(
@@ -4787,7 +4807,6 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
-specifier|protected
 name|void
 name|periodicRollForTesting
 parameter_list|()
@@ -4816,7 +4835,6 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
-specifier|protected
 name|boolean
 name|rollWriterForTesting
 parameter_list|()
@@ -4846,7 +4864,6 @@ block|}
 block|}
 annotation|@
 name|VisibleForTesting
-specifier|protected
 name|void
 name|removeInactiveLogsForTesting
 parameter_list|()
@@ -5048,7 +5065,6 @@ name|VisibleForTesting
 name|boolean
 name|rollWriter
 parameter_list|(
-specifier|final
 name|long
 name|logId
 parameter_list|)
@@ -5168,11 +5184,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Log file with id="
-operator|+
+literal|"Log file with id={} already exists"
+argument_list|,
 name|logId
-operator|+
-literal|" already exists"
 argument_list|,
 name|e
 argument_list|)
@@ -5191,8 +5205,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"failed to create log file with id="
-operator|+
+literal|"failed to create log file with id={}"
+argument_list|,
 name|logId
 argument_list|,
 name|re
@@ -5386,18 +5400,34 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"procedure WALs count="
+literal|"procedure WALs count={} above the warning threshold {}. check running procedures"
 operator|+
+literal|" to see if something is stuck."
+argument_list|,
 name|logs
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" above the warning threshold "
-operator|+
+argument_list|,
 name|walCountWarnThreshold
-operator|+
-literal|". check running procedures to see if something is stuck."
+argument_list|)
+expr_stmt|;
+comment|// This is just like what we have done at RS side when there are too many wal files. For RS,
+comment|// if there are too many wal files, we will find out the wal entries in the oldest file, and
+comment|// tell the upper layer to flush these regions so the wal entries will be useless and then we
+comment|// can delete the wal file. For WALProcedureStore, the assumption is that, if all the
+comment|// procedures recorded in a proc wal file are modified or deleted in a new proc wal file, then
+comment|// we are safe to delete it. So here if there are too many proc wal files, we will find out
+comment|// the procedure ids in the oldest file, which are neither modified nor deleted in newer proc
+comment|// wal files, and tell upper layer to update the state of these procedures to the newest proc
+comment|// wal file(by calling ProcedureStore.update), then we are safe to delete the oldest proc wal
+comment|// file.
+name|sendForceUpdateSignal
+argument_list|(
+name|holdingCleanupTracker
+operator|.
+name|getAllActiveProcIds
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
