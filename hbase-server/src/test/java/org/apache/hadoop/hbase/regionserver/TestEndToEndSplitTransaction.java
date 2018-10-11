@@ -2108,7 +2108,7 @@ literal|"RegionChecker"
 argument_list|,
 name|stopper
 argument_list|,
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 name|this
@@ -3478,7 +3478,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 block|}
@@ -3626,7 +3626,7 @@ name|Threads
 operator|.
 name|sleep
 argument_list|(
-literal|10
+literal|100
 argument_list|)
 expr_stmt|;
 block|}
