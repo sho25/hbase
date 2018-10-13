@@ -1126,7 +1126,7 @@ name|UTIL
 operator|.
 name|waitUntilNoRegionsInTransition
 argument_list|(
-literal|60000
+literal|480000
 argument_list|)
 expr_stmt|;
 for|for
@@ -1203,7 +1203,7 @@ name|UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|30000
+literal|60000
 argument_list|,
 operator|new
 name|ExplainingPredicate
