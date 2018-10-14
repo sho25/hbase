@@ -1282,11 +1282,11 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
-name|numberOfSteps
+name|lastStep
 init|=
-literal|0
+literal|2
 decl_stmt|;
-comment|// failing at pre operation
+comment|// failing before CREATE_NAMESPACE_CREATE_DIRECTORY
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1295,7 +1295,7 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|,
-name|numberOfSteps
+name|lastStep
 argument_list|)
 expr_stmt|;
 comment|// Validate the non-existence of namespace

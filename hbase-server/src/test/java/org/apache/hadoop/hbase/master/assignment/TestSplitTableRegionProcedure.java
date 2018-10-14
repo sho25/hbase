@@ -2485,14 +2485,14 @@ name|splitKey
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// Failing before SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS we should trigger the
+comment|// Failing before SPLIT_TABLE_REGION_UPDATE_META we should trigger the
 comment|// rollback
-comment|// NOTE: the 3 (number before SPLIT_TABLE_REGION_CREATE_DAUGHTER_REGIONS step) is
+comment|// NOTE: the 7 (number of SPLIT_TABLE_REGION_UPDATE_META step) is
 comment|// hardcoded, so you have to look at this test at least once when you add a new step.
 name|int
-name|numberOfSteps
+name|lastStep
 init|=
-literal|3
+literal|7
 decl_stmt|;
 name|MasterProcedureTestingUtility
 operator|.
@@ -2502,7 +2502,7 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|,
-name|numberOfSteps
+name|lastStep
 argument_list|,
 literal|true
 argument_list|)
@@ -2526,11 +2526,18 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|waitUntilAllRegionsAssigned
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|HRegion
 argument_list|>
-name|daughters
+name|newRegions
 init|=
 name|UTIL
 operator|.
@@ -2546,7 +2553,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|daughters
+name|newRegions
 operator|.
 name|size
 argument_list|()
@@ -2554,7 +2561,7 @@ argument_list|)
 expr_stmt|;
 name|verifyData
 argument_list|(
-name|daughters
+name|newRegions
 operator|.
 name|get
 argument_list|(

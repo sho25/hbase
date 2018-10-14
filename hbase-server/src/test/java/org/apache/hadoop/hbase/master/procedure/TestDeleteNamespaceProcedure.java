@@ -117,20 +117,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|NamespaceDescriptor
 import|;
 end_import
@@ -160,6 +146,22 @@ operator|.
 name|hbase
 operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
 import|;
 end_import
 
@@ -568,7 +570,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|UTIL
@@ -576,7 +578,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 control|)
 block|{
@@ -1184,11 +1186,11 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
-name|numberOfSteps
+name|lastStep
 init|=
-literal|0
+literal|2
 decl_stmt|;
-comment|// failing at pre operation
+comment|// failing before DELETE_NAMESPACE_DELETE_FROM_NS_TABLE
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1197,7 +1199,7 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|,
-name|numberOfSteps
+name|lastStep
 argument_list|)
 expr_stmt|;
 comment|// Validate the namespace still exists

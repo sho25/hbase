@@ -1358,11 +1358,11 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
-name|numberOfSteps
+name|lastStep
 init|=
-literal|0
+literal|2
 decl_stmt|;
-comment|// failing at pre operation
+comment|// failing before CREATE_TABLE_WRITE_FS_LAYOUT
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -1371,7 +1371,7 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|,
-name|numberOfSteps
+name|lastStep
 argument_list|)
 expr_stmt|;
 name|TableName
@@ -1605,11 +1605,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testOnHDFSFailure

@@ -325,6 +325,14 @@ argument_list|(
 literal|"test failure"
 argument_list|)
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|2147942238987041310L
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -1214,6 +1222,20 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+name|boolean
+name|isRollbackSupported
+parameter_list|(
+name|TestSMProcedureState
+name|state
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+annotation|@
+name|Override
+specifier|protected
 name|void
 name|rollbackState
 parameter_list|(
@@ -1549,6 +1571,9 @@ annotation|@
 name|Override
 specifier|protected
 name|Procedure
+argument_list|<
+name|TestProcEnv
+argument_list|>
 index|[]
 name|execute
 parameter_list|(

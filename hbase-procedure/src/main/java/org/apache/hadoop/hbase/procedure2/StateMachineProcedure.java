@@ -820,10 +820,47 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|!
 name|hasMoreState
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Ignore abort request on {} because it has already been finished"
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+operator|!
+name|isRollbackSupported
+argument_list|(
+name|getCurrentState
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Ignore abort request on {} because it does not support rollback"
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 name|aborted
 operator|.
 name|set
@@ -833,19 +870,6 @@ argument_list|)
 expr_stmt|;
 return|return
 literal|true
-return|;
-block|}
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Ignoring abort request on {}"
-argument_list|,
-name|this
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
 return|;
 block|}
 comment|/**    * If procedure has more states then abort it otherwise procedure is finished and abort can be    * ignored.    */

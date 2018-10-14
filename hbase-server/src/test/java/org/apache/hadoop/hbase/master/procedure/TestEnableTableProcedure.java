@@ -932,11 +932,11 @@ argument_list|)
 argument_list|)
 decl_stmt|;
 name|int
-name|numberOfSteps
+name|lastStep
 init|=
-literal|0
+literal|3
 decl_stmt|;
-comment|// failing at pre operation
+comment|// fail before ENABLE_TABLE_SET_ENABLING_TABLE_STATE
 name|MasterProcedureTestingUtility
 operator|.
 name|testRollbackAndDoubleExecution
@@ -945,7 +945,7 @@ name|procExec
 argument_list|,
 name|procId
 argument_list|,
-name|numberOfSteps
+name|lastStep
 argument_list|)
 expr_stmt|;
 name|MasterProcedureTestingUtility

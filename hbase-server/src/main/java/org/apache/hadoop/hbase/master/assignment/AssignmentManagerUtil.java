@@ -888,6 +888,7 @@ return|return
 name|procs
 return|;
 block|}
+comment|/**    * Create assign procedures for the give regions, according to the {@code regionReplication}.    *<p/>    * For rolling back, we will submit procedures directly to the {@code ProcedureExecutor}, so it is    * possible that we persist the newly scheduled procedures, and then crash before persisting the    * rollback state, so when we arrive here the second time, it is possible that some regions have    * already been associated with a TRSP.    * @param ignoreIfInTransition if true, will skip creating TRSP for the given region if it is    *          already in transition, otherwise we will add an assert that it should not in    *          transition.    */
 specifier|private
 specifier|static
 name|TransitRegionStateProcedure
@@ -908,6 +909,9 @@ name|regionReplication
 parameter_list|,
 name|ServerName
 name|targetServer
+parameter_list|,
+name|boolean
+name|ignoreIfInTransition
 parameter_list|)
 block|{
 comment|// create the assign procs only for the primary region using the targetServer
@@ -962,8 +966,29 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|ignoreIfInTransition
+condition|)
+block|{
+if|if
+condition|(
+name|regionNode
+operator|.
+name|isInTransition
+argument_list|()
+condition|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+block|}
+else|else
+block|{
 comment|// should never fail, as we have the exclusive region lock, and the region is newly
-comment|// created, or has been successfully closed so should not be on any servers, so SCP will
+comment|// created, or has been successfully closed so should not be on any servers, so SCP
+comment|// will
 comment|// not process it either.
 assert|assert
 operator|!
@@ -972,6 +997,7 @@ operator|.
 name|isInTransition
 argument_list|()
 assert|;
+block|}
 name|regionNode
 operator|.
 name|setProcedure
@@ -992,6 +1018,15 @@ return|return
 name|proc
 return|;
 block|}
+argument_list|)
+operator|.
+name|filter
+argument_list|(
+name|p
+lambda|->
+name|p
+operator|!=
+literal|null
 argument_list|)
 operator|.
 name|toArray
@@ -1144,6 +1179,8 @@ argument_list|,
 name|regionReplication
 argument_list|,
 name|targetServer
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
@@ -1180,8 +1217,19 @@ argument_list|,
 name|regionReplication
 argument_list|,
 name|targetServer
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|procs
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
+block|{
 name|env
 operator|.
 name|getMasterServices
@@ -1195,6 +1243,7 @@ argument_list|(
 name|procs
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|static
 name|void

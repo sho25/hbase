@@ -2766,7 +2766,7 @@ name|procId
 parameter_list|,
 specifier|final
 name|int
-name|numSteps
+name|lastStep
 parameter_list|,
 specifier|final
 name|boolean
@@ -2809,6 +2809,9 @@ comment|// fix would be get all visited states by the procedure and then check i
 comment|// state is in that list. Current assumption of sequential proregression of steps/ states is
 comment|// made at multiple places so we can keep while condition below for simplicity.
 name|Procedure
+argument_list|<
+name|?
+argument_list|>
 name|proc
 init|=
 name|procExec
@@ -2837,13 +2840,21 @@ argument_list|()
 else|:
 literal|0
 decl_stmt|;
-while|while
+for|for
+control|(
+init|;
+condition|;
+control|)
+block|{
+if|if
 condition|(
 name|stepNum
-operator|<
-name|numSteps
+operator|==
+name|lastStep
 condition|)
 block|{
+break|break;
+block|}
 name|LOG
 operator|.
 name|info
