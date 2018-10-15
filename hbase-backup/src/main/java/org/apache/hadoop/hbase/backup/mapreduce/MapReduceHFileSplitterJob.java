@@ -1085,14 +1085,10 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|System
-operator|.
-name|exit
-argument_list|(
+return|return
 operator|-
 literal|1
-argument_list|)
-expr_stmt|;
+return|;
 block|}
 name|Job
 name|job
