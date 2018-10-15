@@ -87,6 +87,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1293,7 +1309,6 @@ name|long
 name|getActiveMinProcId
 parameter_list|()
 block|{
-comment|// TODO: Cache?
 name|Map
 operator|.
 name|Entry
@@ -1314,7 +1329,9 @@ name|entry
 operator|==
 literal|null
 condition|?
-literal|0
+name|Procedure
+operator|.
+name|NO_PROC_ID
 else|:
 name|entry
 operator|.

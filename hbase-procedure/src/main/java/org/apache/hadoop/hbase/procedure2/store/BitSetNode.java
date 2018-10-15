@@ -61,6 +61,22 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
+name|Procedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
 name|store
 operator|.
 name|ProcedureStoreTracker
@@ -1783,9 +1799,7 @@ literal|0
 condition|)
 block|{
 return|return
-operator|(
 name|minProcId
-operator|)
 return|;
 block|}
 if|if
@@ -1827,7 +1841,7 @@ operator|<<
 name|j
 operator|)
 operator|)
-operator|!=
+operator|==
 literal|0
 condition|)
 block|{
@@ -1845,7 +1859,9 @@ name|BITS_PER_WORD
 expr_stmt|;
 block|}
 return|return
-name|minProcId
+name|Procedure
+operator|.
+name|NO_PROC_ID
 return|;
 block|}
 specifier|public
@@ -1957,7 +1973,9 @@ name|BITS_PER_WORD
 expr_stmt|;
 block|}
 return|return
-name|maxProcId
+name|Procedure
+operator|.
+name|NO_PROC_ID
 return|;
 block|}
 comment|// ========================================================================
