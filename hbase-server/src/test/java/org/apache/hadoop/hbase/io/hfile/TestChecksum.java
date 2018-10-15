@@ -2045,25 +2045,24 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"testChecksumChunks: pread="
+literal|"testChecksumChunks: pread={}, bytesPerChecksum={}, fileSize={}, "
 operator|+
+literal|"dataSize={}, expectedChunks={}, compression={}"
+argument_list|,
 name|pread
-operator|+
-literal|", bytesPerChecksum="
-operator|+
+argument_list|,
 name|bytesPerChecksum
-operator|+
-literal|", fileSize="
-operator|+
+argument_list|,
 name|totalSize
-operator|+
-literal|", dataSize="
-operator|+
+argument_list|,
 name|dataSize
-operator|+
-literal|", expectedChunks="
-operator|+
+argument_list|,
 name|expectedChunks
+argument_list|,
+name|algo
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Verify hbase checksums.

@@ -1395,7 +1395,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Compacting {}, keycount={}, bloomtype={}, size={}, encoding={}, seqNum={}{}"
+literal|"Compacting {}, keycount={}, bloomtype={}, size={}, "
+operator|+
+literal|"encoding={}, compression={}, seqNum={}{}"
 argument_list|,
 operator|(
 name|file
@@ -1447,6 +1449,8 @@ argument_list|()
 operator|.
 name|getDataBlockEncoding
 argument_list|()
+argument_list|,
+name|compactionCompression
 argument_list|,
 name|seqNum
 argument_list|,

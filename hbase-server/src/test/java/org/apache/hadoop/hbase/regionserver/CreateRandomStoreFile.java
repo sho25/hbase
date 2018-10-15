@@ -1472,15 +1472,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Created "
-operator|+
+literal|"Created {}, {} bytes, compression={}"
+argument_list|,
 name|storeFilePath
-operator|+
-literal|", "
-operator|+
+argument_list|,
 name|fileSize
-operator|+
-literal|" bytes"
+argument_list|,
+name|compr
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

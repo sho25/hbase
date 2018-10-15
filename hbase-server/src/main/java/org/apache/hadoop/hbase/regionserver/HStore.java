@@ -2336,13 +2336,11 @@ name|info
 argument_list|(
 literal|"Store={},  memstore type={}, storagePolicy={}, verifyBulkLoads={}, "
 operator|+
-literal|"parallelPutCountPrintThreshold={}"
+literal|"parallelPutCountPrintThreshold={}, encoding={}, compression={}"
 argument_list|,
 name|getColumnFamilyName
 argument_list|()
 argument_list|,
-name|this
-operator|.
 name|memstore
 operator|.
 name|getClass
@@ -2353,13 +2351,19 @@ argument_list|()
 argument_list|,
 name|policyName
 argument_list|,
-name|this
-operator|.
 name|verifyBulkLoads
 argument_list|,
-name|this
-operator|.
 name|parallelPutCountPrintThreshold
+argument_list|,
+name|family
+operator|.
+name|getDataBlockEncoding
+argument_list|()
+argument_list|,
+name|family
+operator|.
+name|getCompressionType
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

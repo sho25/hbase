@@ -1288,13 +1288,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Size of "
-operator|+
+literal|"Size of {}: {} compression={}"
+argument_list|,
 name|path
-operator|+
-literal|": "
-operator|+
+argument_list|,
 name|fileSize
+argument_list|,
+name|compr
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|FSDataInputStream

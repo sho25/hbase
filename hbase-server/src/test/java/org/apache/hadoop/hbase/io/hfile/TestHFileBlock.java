@@ -2575,6 +2575,22 @@ name|values
 argument_list|()
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"testDataBlockEncoding: Compression algorithm={}, pread={}, dataBlockEncoder={}"
+argument_list|,
+name|algo
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|pread
+argument_list|,
+name|encoding
+argument_list|)
+expr_stmt|;
 name|Path
 name|path
 init|=
@@ -3618,16 +3634,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"testPreviousOffset:Compression algorithm: "
-operator|+
+literal|"testPreviousOffset: Compression algorithm={}, pread={}, cacheOnWrite={}"
+argument_list|,
 name|algo
-operator|+
-literal|", pread="
-operator|+
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|pread
-operator|+
-literal|", cacheOnWrite="
-operator|+
+argument_list|,
 name|cacheOnWrite
 argument_list|)
 expr_stmt|;
