@@ -3382,6 +3382,7 @@ init|=
 literal|"hbase.regionserver.region.split.threads.max"
 decl_stmt|;
 comment|/** Canary config keys */
+comment|// TODO: Move these defines to Canary Class
 specifier|public
 specifier|static
 specifier|final

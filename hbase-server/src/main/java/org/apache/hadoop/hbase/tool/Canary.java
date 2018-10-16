@@ -981,6 +981,28 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1084,7 +1106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * HBase Canary Tool, that that can be used to do  * "canary monitoring" of a running HBase cluster.  *  * Here are three modes  * 1. region mode - Foreach region tries to get one row per column family  * and outputs some information about failure or latency.  *  * 2. regionserver mode - Foreach regionserver tries to get one row from one table  * selected randomly and outputs some information about failure or latency.  *  * 3. zookeeper mode - for each zookeeper instance, selects a zNode and  * outputs some information about failure or latency.  */
+comment|/**  * HBase Canary Tool for "canary monitoring" of a running HBase cluster.  *  * There are three modes:  *<ol>  *<li>region mode (Default): For each region, try to get one row per column family outputting  * information on failure (ERROR) or else the latency.  *</li>  *  *<li>regionserver mode: For each regionserver try to get one row from one table selected  * randomly outputting information on failure (ERROR) or else the latency.  *</li>  *  *<li>zookeeper mode: for each zookeeper instance, selects a znode outputting information on  * failure (ERROR) or else the latency.  *</li>  *</ol>  */
 end_comment
 
 begin_class
@@ -1099,22 +1121,19 @@ name|Canary
 implements|implements
 name|Tool
 block|{
-comment|// Sink interface used by the canary to outputs information
+comment|/**    * Sink interface used by the canary to output information    */
 specifier|public
 interface|interface
 name|Sink
 block|{
-specifier|public
 name|long
 name|getReadFailureCount
 parameter_list|()
 function_decl|;
-specifier|public
 name|long
 name|incReadFailureCount
 parameter_list|()
 function_decl|;
-specifier|public
 name|Map
 argument_list|<
 name|String
@@ -1124,7 +1143,6 @@ argument_list|>
 name|getReadFailures
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|updateReadFailures
 parameter_list|(
@@ -1135,17 +1153,14 @@ name|String
 name|serverName
 parameter_list|)
 function_decl|;
-specifier|public
 name|long
 name|getWriteFailureCount
 parameter_list|()
 function_decl|;
-specifier|public
 name|long
 name|incWriteFailureCount
 parameter_list|()
 function_decl|;
-specifier|public
 name|Map
 argument_list|<
 name|String
@@ -1155,7 +1170,6 @@ argument_list|>
 name|getWriteFailures
 parameter_list|()
 function_decl|;
-specifier|public
 name|void
 name|updateWriteFailures
 parameter_list|(
@@ -1167,8 +1181,7 @@ name|serverName
 parameter_list|)
 function_decl|;
 block|}
-comment|// Simple implementation of canary sink that allows to plot on
-comment|// file or standard output timings or failures.
+comment|/**    * Simple implementation of canary sink that allows plotting to a file or standard output.    */
 specifier|public
 specifier|static
 class|class
@@ -1357,6 +1370,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * By RegionServer, for 'regionserver' mode.    */
 specifier|public
 specifier|static
 class|class
@@ -1382,16 +1396,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Read from table:%s on region server:%s"
+literal|"Read from {} on {}"
 argument_list|,
 name|table
 argument_list|,
 name|server
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1413,11 +1422,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Read from table:%s on region server:%s in %dms"
+literal|"Read from {} on {} in {}ms"
 argument_list|,
 name|table
 argument_list|,
@@ -1425,10 +1430,10 @@ name|server
 argument_list|,
 name|msTime
 argument_list|)
-argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Output for 'zookeeper' mode.    */
 specifier|public
 specifier|static
 class|class
@@ -1441,7 +1446,7 @@ name|void
 name|publishReadFailure
 parameter_list|(
 name|String
-name|zNode
+name|znode
 parameter_list|,
 name|String
 name|server
@@ -1454,16 +1459,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Read from zNode:%s on zookeeper instance:%s"
+literal|"Read from {} on {}"
 argument_list|,
-name|zNode
+name|znode
 argument_list|,
 name|server
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1485,11 +1485,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Read from zNode:%s on zookeeper instance:%s in %dms"
+literal|"Read from {} on {} in {}ms"
 argument_list|,
 name|znode
 argument_list|,
@@ -1497,10 +1493,10 @@ name|server
 argument_list|,
 name|msTime
 argument_list|)
-argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * By Region, for 'region'  mode.    */
 specifier|public
 specifier|static
 class|class
@@ -1551,11 +1547,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"read from region %s on regionserver %s failed"
+literal|"Read from {} on {} failed"
 argument_list|,
 name|region
 operator|.
@@ -1563,7 +1555,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|,
 name|serverName
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1593,11 +1584,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"read from region %s on regionserver %s column family %s failed"
+literal|"Read from {} on {} {} failed"
 argument_list|,
 name|region
 operator|.
@@ -1610,7 +1597,6 @@ name|column
 operator|.
 name|getNameAsString
 argument_list|()
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1637,11 +1623,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"read from region %s on regionserver %s column family %s in %dms"
+literal|"Read from {} on {} {} in {}ms"
 argument_list|,
 name|region
 operator|.
@@ -1656,7 +1638,6 @@ name|getNameAsString
 argument_list|()
 argument_list|,
 name|msTime
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1681,11 +1662,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"write to region %s on regionserver %s failed"
+literal|"Write to {} on {} failed"
 argument_list|,
 name|region
 operator|.
@@ -1693,7 +1670,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|,
 name|serverName
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1723,11 +1699,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"write to region %s on regionserver %s column family %s failed"
+literal|"Write to {} on {} {} failed"
 argument_list|,
 name|region
 operator|.
@@ -1740,7 +1712,6 @@ name|column
 operator|.
 name|getNameAsString
 argument_list|()
-argument_list|)
 argument_list|,
 name|e
 argument_list|)
@@ -1767,11 +1738,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"write to region %s on regionserver %s column family %s in %dms"
+literal|"Write to {} on {} {} in {}ms"
 argument_list|,
 name|region
 operator|.
@@ -1786,7 +1753,6 @@ name|getNameAsString
 argument_list|()
 argument_list|,
 name|msTime
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1861,6 +1827,7 @@ name|writeLatency
 return|;
 block|}
 block|}
+comment|/**    * Run a single zookeeper Task and then exit.    */
 specifier|static
 class|class
 name|ZookeeperTask
@@ -2067,7 +2034,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * For each column family of the region tries to get one row and outputs the latency, or the    * failure.    */
+comment|/**    * Run a single Region Task and then exit. For each column family of the Region, get one row and    * output latency or failure.    */
 specifier|static
 class|class
 name|RegionTask
@@ -2230,32 +2197,18 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading table descriptor for table %s"
+literal|"Reading table descriptor for table {}"
 argument_list|,
 name|region
 operator|.
 name|getTable
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 name|table
 operator|=
 name|connection
@@ -2286,7 +2239,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"sniffRegion failed"
+literal|"sniffRegion {} of {} failed"
+argument_list|,
+name|region
+operator|.
+name|getEncodedName
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -2442,23 +2400,11 @@ operator|new
 name|Scan
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"rawScan : %s for table: %s"
+literal|"rawScan {} for {}"
 argument_list|,
 name|rawScanEnabled
 argument_list|,
@@ -2467,9 +2413,7 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 name|scan
 operator|.
 name|setRaw
@@ -2523,23 +2467,11 @@ name|setOneRowLimit
 argument_list|()
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading from table %s region %s column family %s and key %s"
+literal|"Reading from {} {} {} {}"
 argument_list|,
 name|tableDesc
 operator|.
@@ -2563,9 +2495,7 @@ argument_list|(
 name|startKey
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|stopWatch
@@ -2729,7 +2659,7 @@ return|return
 literal|null
 return|;
 block|}
-comment|/**      * Check writes for the canary table      * @return      */
+comment|/**      * Check writes for the canary table      */
 specifier|private
 name|Void
 name|write
@@ -2864,23 +2794,11 @@ argument_list|,
 name|value
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"writing to table %s region %s column family %s and key %s"
+literal|"Writing to {} {} {} {}"
 argument_list|,
 name|tableDesc
 operator|.
@@ -2904,9 +2822,7 @@ argument_list|(
 name|rowToCheck
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|long
@@ -3022,7 +2938,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * Get one row from a region on the regionserver and outputs the latency, or the failure.    */
+comment|/**    * Run a single RegionServer Task and then exit.    * Get one row from a region on the regionserver and output latency or the failure.    */
 specifier|static
 class|class
 name|RegionServerTask
@@ -3173,23 +3089,11 @@ name|getStartKey
 argument_list|()
 expr_stmt|;
 comment|// Can't do a get on empty start row so do a Scan of first element if any instead.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading from region server %s table %s region %s and key %s"
+literal|"Reading from {} {} {} {}"
 argument_list|,
 name|serverName
 argument_list|,
@@ -3210,9 +3114,7 @@ argument_list|(
 name|startKey
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|startKey
@@ -3653,12 +3555,14 @@ name|failOnError
 init|=
 literal|true
 decl_stmt|;
+comment|/**    * True if we are to run in 'regionServer' mode.    */
 specifier|private
 name|boolean
 name|regionServerMode
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * True if we are to run in zookeeper 'mode'.    */
 specifier|private
 name|boolean
 name|zookeeperMode
@@ -3701,6 +3605,7 @@ name|writeTableName
 init|=
 name|DEFAULT_WRITE_TABLE_NAME
 decl_stmt|;
+comment|/**    * This is a Map of table to timeout. The timeout is for reading all regions in the table; i.e.    * we aggregate time to fetch each region and it needs to be less than this value else we    * log an ERROR.    */
 specifier|private
 name|HashMap
 argument_list|<
@@ -3731,14 +3636,26 @@ name|ScheduledThreadPoolExecutor
 argument_list|(
 literal|1
 argument_list|)
-argument_list|,
-operator|new
-name|RegionServerStdOutSink
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+name|Canary
+parameter_list|(
+name|ExecutorService
+name|executor
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|executor
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|VisibleForTesting
 name|Canary
 parameter_list|(
 name|ExecutorService
@@ -3869,6 +3786,13 @@ name|equals
 argument_list|(
 literal|"-help"
 argument_list|)
+operator|||
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-h"
+argument_list|)
 condition|)
 block|{
 comment|// user asked for help, print the help and quit.
@@ -3927,7 +3851,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-interval needs a numeric value argument."
+literal|"-interval takes a numeric seconds value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4052,6 +3976,13 @@ name|equals
 argument_list|(
 literal|"-treatFailureAsError"
 argument_list|)
+operator|||
+name|cmd
+operator|.
+name|equals
+argument_list|(
+literal|"-failureAsError"
+argument_list|)
 condition|)
 block|{
 name|this
@@ -4108,7 +4039,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-t needs a numeric value argument."
+literal|"-t takes a numeric milliseconds value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4144,7 +4075,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-t needs a numeric value argument."
+literal|"-t takes a numeric milliseconds value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4181,7 +4112,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-writeTableTimeout needs a numeric value argument."
+literal|"-writeTableTimeout takes a numeric milliseconds value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4217,7 +4148,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-writeTableTimeout needs a numeric value argument."
+literal|"-writeTableTimeout takes a numeric milliseconds value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4254,7 +4185,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-writeTable needs a string value argument."
+literal|"-writeTable takes a string tablename value argument."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4356,7 +4287,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"-readTableTimeouts needs a comma-separated list of read timeouts per table (without spaces)."
+literal|"-readTableTimeouts needs a comma-separated list of read "
+operator|+
+literal|"millisecond timeouts per table (without spaces)."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -4411,7 +4344,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Each -readTableTimeouts argument must be of the form<tableName>=<read timeout>."
+literal|"Each -readTableTimeouts argument must be of the form "
+operator|+
+literal|"<tableName>=<read timeout> (without spaces)."
 argument_list|)
 expr_stmt|;
 name|printUsageAndExit
@@ -5081,7 +5016,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"Usage: hbase canary [opts] [table1 [table2]...] | [regionserver1 [regionserver2]..]"
+literal|"Usage: canary [OPTIONS] [<TABLE1> [<TABLE2]...] | [<REGIONSERVER1> [<REGIONSERVER2]..]"
 argument_list|)
 expr_stmt|;
 name|System
@@ -5090,7 +5025,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|" where [opts] are:"
+literal|"Where [OPTIONS] are:"
 argument_list|)
 expr_stmt|;
 name|System
@@ -5099,7 +5034,7 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -help          Show this help and exit."
+literal|" -h,-help        show this help and exit."
 argument_list|)
 expr_stmt|;
 name|System
@@ -5108,117 +5043,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -regionserver  replace the table argument to regionserver,"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"      which means to enable regionserver mode"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -allRegions    Tries all regions on a regionserver,"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"      only works in regionserver mode."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -zookeeper    Tries to grab zookeeper.znode.parent "
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"      on each zookeeper instance"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -permittedZookeeperFailures<N>    Ignore first N failures when attempting to "
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"      connect to individual zookeeper nodes in the ensemble"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -daemon        Continuous check at defined intervals."
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -interval<N>  Interval between checks (sec)"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -e             Use table/regionserver as regular expression"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"      which means the table/regionserver is regular expression pattern"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -f<B>         stop whole program if first error occurs,"
+literal|" -regionserver   set 'regionserver mode'; gets row from random region on "
 operator|+
-literal|" default is true"
+literal|"server"
 argument_list|)
 expr_stmt|;
 name|System
@@ -5227,27 +5054,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -t<N>         timeout for a check, default is 600000 (millisecs)"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -writeTableTimeout<N>         write timeout for the writeTable, default is 600000 (millisecs)"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -readTableTimeouts<tableName>=<read timeout>,<tableName>=<read timeout>, ...    "
+literal|" -allRegions     get from ALL regions when 'regionserver mode', not just "
 operator|+
-literal|"comma-separated list of read timeouts per table (no spaces), default is 600000 (millisecs)"
+literal|"random one."
 argument_list|)
 expr_stmt|;
 name|System
@@ -5256,27 +5065,9 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -writeSniffing enable the write sniffing in canary"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -treatFailureAsError treats read / write failure as error"
-argument_list|)
-expr_stmt|;
-name|System
-operator|.
-name|err
-operator|.
-name|println
-argument_list|(
-literal|"   -writeTable    The table used for write sniffing."
+literal|" -zookeeper      set 'zookeeper mode'; grab zookeeper.znode.parent on "
 operator|+
-literal|" Default is hbase:canary"
+literal|"each ensemble member"
 argument_list|)
 expr_stmt|;
 name|System
@@ -5285,9 +5076,27 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -Dhbase.canary.read.raw.enabled=<true/false> Use this flag to enable or disable raw scan during read canary test"
+literal|" -daemon         continuous check at defined intervals."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -interval<N>   interval between checks in seconds"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -e              consider table/regionserver argument as regular "
 operator|+
-literal|" Default is false and raw is not enabled during scan"
+literal|"expression"
 argument_list|)
 expr_stmt|;
 name|System
@@ -5296,7 +5105,186 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"   -D<configProperty>=<value> assigning or override the configuration params"
+literal|" -f<B>          exit on first error; default=true"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -failureAsError treat read/write failure as error"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -t<N>          timeout for canary-test run; default=600000ms"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -writeSniffing  enable write sniffing"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -writeTable     the table used for write sniffing; default=hbase:canary"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -writeTableTimeout<N>  timeout for writeTable; default=600000ms"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -readTableTimeouts<tableName>=<read timeout>,"
+operator|+
+literal|"<tableName>=<read timeout>,..."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"                comma-separated list of table read timeouts "
+operator|+
+literal|"(no spaces);"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"                logs 'ERROR' if takes longer. default=600000ms"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -permittedZookeeperFailures<N>  Ignore first N failures attempting to "
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"                connect to individual zookeeper nodes in ensemble"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -D<configProperty>=<value> to assign or override configuration params"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" -Dhbase.canary.read.raw.enabled=<true/false> Set to enable/disable "
+operator|+
+literal|"raw scan; default=false"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|""
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"Canary runs in one of three modes: region (default), regionserver, or "
+operator|+
+literal|"zookeeper."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"To sniff/probe all regions, pass no arguments."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"To sniff/probe all regions of a table, pass tablename."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"To sniff/probe regionservers, pass -regionserver, etc."
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|"See http://hbase.apache.org/book.html#_canary for Canary documentation."
 argument_list|)
 expr_stmt|;
 name|System
@@ -5307,7 +5295,51 @@ name|USAGE_EXIT_CODE
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A Factory method for {@link Monitor}.    * Can be overridden by user.    * @param index a start index for monitor target    * @param args args passed from user    * @return a Monitor instance    */
+name|Sink
+name|getSink
+parameter_list|(
+name|Configuration
+name|configuration
+parameter_list|,
+name|Class
+name|clazz
+parameter_list|)
+block|{
+comment|// In test context, this.sink might be set. Use it if non-null. For testing.
+return|return
+name|this
+operator|.
+name|sink
+operator|!=
+literal|null
+condition|?
+name|this
+operator|.
+name|sink
+else|:
+operator|(
+name|Sink
+operator|)
+name|ReflectionUtils
+operator|.
+name|newInstance
+argument_list|(
+name|configuration
+operator|.
+name|getClass
+argument_list|(
+literal|"hbase.canary.sink.class"
+argument_list|,
+name|clazz
+argument_list|,
+name|Sink
+operator|.
+name|class
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * A Factory method for {@link Monitor}.    * Makes a RegionServerMonitor, or a ZooKeeperMonitor, or a RegionMonitor.    * @param index a start index for monitor target    * @param args args passed from user    * @return a Monitor instance    */
 specifier|public
 name|Monitor
 name|newMonitor
@@ -5379,12 +5411,6 @@ if|if
 condition|(
 name|this
 operator|.
-name|sink
-operator|instanceof
-name|RegionServerStdOutSink
-operator|||
-name|this
-operator|.
 name|regionServerMode
 condition|)
 block|{
@@ -5401,12 +5427,17 @@ name|this
 operator|.
 name|useRegExp
 argument_list|,
-operator|(
-name|StdOutSink
-operator|)
-name|this
+name|getSink
+argument_list|(
+name|connection
 operator|.
-name|sink
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|RegionServerStdOutSink
+operator|.
+name|class
+argument_list|)
 argument_list|,
 name|this
 operator|.
@@ -5431,12 +5462,6 @@ if|if
 condition|(
 name|this
 operator|.
-name|sink
-operator|instanceof
-name|ZookeeperStdOutSink
-operator|||
-name|this
-operator|.
 name|zookeeperMode
 condition|)
 block|{
@@ -5453,12 +5478,17 @@ name|this
 operator|.
 name|useRegExp
 argument_list|,
-operator|(
-name|StdOutSink
-operator|)
-name|this
+name|getSink
+argument_list|(
+name|connection
 operator|.
-name|sink
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|ZookeeperStdOutSink
+operator|.
+name|class
+argument_list|)
 argument_list|,
 name|this
 operator|.
@@ -5489,12 +5519,17 @@ name|this
 operator|.
 name|useRegExp
 argument_list|,
-operator|(
-name|StdOutSink
-operator|)
-name|this
+name|getSink
+argument_list|(
+name|connection
 operator|.
-name|sink
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|RegionStdOutSink
+operator|.
+name|class
+argument_list|)
 argument_list|,
 name|this
 operator|.
@@ -5530,7 +5565,7 @@ return|return
 name|monitor
 return|;
 block|}
-comment|// a Monitor super-class can be extended by users
+comment|/**    * A Monitor super-class can be extended by users    */
 specifier|public
 specifier|static
 specifier|abstract
@@ -5549,6 +5584,7 @@ specifier|protected
 name|Admin
 name|admin
 decl_stmt|;
+comment|/**      * 'Target' dependent on 'mode'. Could be Tables or RegionServers or ZNodes.      * Passed on the command-line as arguments.      */
 specifier|protected
 name|String
 index|[]
@@ -5868,7 +5904,7 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|// a monitor for region mode
+comment|/**    * A monitor for region mode.    */
 specifier|private
 specifier|static
 class|class
@@ -5937,6 +5973,7 @@ specifier|private
 name|boolean
 name|rawScanEnabled
 decl_stmt|;
+comment|/**      * This is a timeout per table. If read of each region in the table aggregated takes longer      * than what is configured here, we log an ERROR rather than just an INFO.      */
 specifier|private
 name|HashMap
 argument_list|<
@@ -5963,7 +6000,7 @@ parameter_list|,
 name|boolean
 name|useRegExp
 parameter_list|,
-name|StdOutSink
+name|Sink
 name|sink
 parameter_list|,
 name|ExecutorService
@@ -6222,7 +6259,8 @@ operator|.
 name|targets
 argument_list|)
 decl_stmt|;
-comment|// Check to see that each table name passed in the -readTableTimeouts argument is also passed as a monitor target.
+comment|// Check to see that each table name passed in the -readTableTimeouts argument is also
+comment|// passed as a monitor target.
 if|if
 condition|(
 operator|!
@@ -6253,7 +6291,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"-readTableTimeouts can only specify read timeouts for monitor targets passed via command line."
+literal|"-readTableTimeouts can only specify read timeouts for monitor targets "
+operator|+
+literal|"passed via command line."
 argument_list|)
 expr_stmt|;
 name|this
@@ -6410,7 +6450,7 @@ name|regionSink
 argument_list|,
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|writeTableName
 argument_list|)
@@ -6536,25 +6576,6 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Read operation for "
-operator|+
-name|tableName
-operator|+
-literal|" took "
-operator|+
-name|actual
-operator|+
-literal|" ms. The configured read timeout was "
-operator|+
-name|configured
-operator|+
-literal|" ms."
-argument_list|)
-expr_stmt|;
 if|if
 condition|(
 name|actual
@@ -6566,11 +6587,29 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Read operation for "
-operator|+
+literal|"Read operation for {} took {}ms (Configured read timeout {}ms."
+argument_list|,
 name|tableName
-operator|+
-literal|" exceeded the configured read timeout."
+argument_list|,
+name|actual
+argument_list|,
+name|configured
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Read operation for {} took {}ms (Configured read timeout {}ms."
+argument_list|,
+name|tableName
+argument_list|,
+name|actual
+argument_list|,
+name|configured
 argument_list|)
 expr_stmt|;
 block|}
@@ -6581,11 +6620,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Read operation for "
-operator|+
+literal|"Read operation for {} failed!"
+argument_list|,
 name|tableName
-operator|+
-literal|" failed!"
 argument_list|)
 expr_stmt|;
 block|}
@@ -6622,21 +6659,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Write operation for "
-operator|+
+literal|"Write operation for {} took {}ms. Configured write timeout {}ms."
+argument_list|,
 name|writeTableStringName
-operator|+
-literal|" took "
-operator|+
+argument_list|,
 name|actualWriteLatency
-operator|+
-literal|" ms. The configured write timeout was "
-operator|+
+argument_list|,
 name|this
 operator|.
 name|configuredWriteTableTimeout
-operator|+
-literal|" ms."
 argument_list|)
 expr_stmt|;
 comment|// Check that the writeTable write operation latency does not exceed the configured timeout.
@@ -6653,11 +6684,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Write operation for "
-operator|+
+literal|"Write operation for {} exceeded the configured write timeout."
+argument_list|,
 name|writeTableStringName
-operator|+
-literal|" exceeded the configured write timeout."
 argument_list|)
 expr_stmt|;
 block|}
@@ -6702,6 +6731,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**      * @return List of tables to use in test.      */
 specifier|private
 name|String
 index|[]
@@ -6732,7 +6762,7 @@ name|pattern
 init|=
 literal|null
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 index|[]
 name|tds
 init|=
@@ -6751,14 +6781,6 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
@@ -6771,7 +6793,6 @@ literal|"reading list of tables"
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 name|tds
 operator|=
 name|this
@@ -6793,7 +6814,7 @@ block|{
 name|tds
 operator|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptor
 index|[
 literal|0
 index|]
@@ -6818,7 +6839,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|td
 range|:
 name|tds
@@ -6831,6 +6852,9 @@ operator|.
 name|matcher
 argument_list|(
 name|td
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -6845,6 +6869,9 @@ operator|.
 name|add
 argument_list|(
 name|td
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -6947,7 +6974,7 @@ return|return
 name|returnTables
 return|;
 block|}
-comment|/*      * canary entry point to monitor all the tables.      */
+comment|/*      * Canary entry point to monitor all the tables.      */
 specifier|private
 name|List
 argument_list|<
@@ -6967,27 +6994,13 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading list of tables"
-argument_list|)
+literal|"Reading list of tables"
 argument_list|)
 expr_stmt|;
-block|}
 name|List
 argument_list|<
 name|Future
@@ -7004,12 +7017,12 @@ argument_list|()
 decl_stmt|;
 for|for
 control|(
-name|HTableDescriptor
-name|table
+name|TableDescriptor
+name|td
 range|:
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 control|)
 block|{
@@ -7019,7 +7032,7 @@ name|admin
 operator|.
 name|isTableEnabled
 argument_list|(
-name|table
+name|td
 operator|.
 name|getTableName
 argument_list|()
@@ -7027,7 +7040,7 @@ argument_list|)
 operator|&&
 operator|(
 operator|!
-name|table
+name|td
 operator|.
 name|getTableName
 argument_list|()
@@ -7046,7 +7059,10 @@ name|regionSink
 operator|.
 name|initializeAndGetReadLatencyForTable
 argument_list|(
-name|table
+name|td
+operator|.
+name|getTableName
+argument_list|()
 operator|.
 name|getNameAsString
 argument_list|()
@@ -7064,7 +7080,7 @@ name|admin
 argument_list|,
 name|sink
 argument_list|,
-name|table
+name|td
 argument_list|,
 name|executor
 argument_list|,
@@ -7364,29 +7380,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Number of live regionservers: "
+literal|"Number of live regionservers {}, pre-splitting the canary table into {} regions "
 operator|+
+literal|"(current lower limit of regions per server is {} and you can change it with config {})."
+argument_list|,
 name|numberOfServers
-operator|+
-literal|", "
-operator|+
-literal|"pre-splitting the canary table into "
-operator|+
+argument_list|,
 name|numberOfRegions
-operator|+
-literal|" regions "
-operator|+
-literal|"(current lower limit of regions per server is "
-operator|+
+argument_list|,
 name|regionsLowerLimit
-operator|+
-literal|" and you can change it by config: "
-operator|+
+argument_list|,
 name|HConstants
 operator|.
 name|HBASE_CANARY_WRITE_PERSERVER_REGIONS_LOWERLIMIT_KEY
-operator|+
-literal|" )"
 argument_list|)
 expr_stmt|;
 name|HTableDescriptor
@@ -7493,29 +7499,15 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"checking table is enabled and getting table descriptor for table %s"
+literal|"Checking table is enabled and getting table descriptor for table {}"
 argument_list|,
 name|tableName
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|admin
@@ -7542,7 +7534,7 @@ name|sink
 argument_list|,
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|TableName
 operator|.
@@ -7568,14 +7560,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Table %s is not enabled"
+literal|"Table {} is not enabled"
 argument_list|,
 name|tableName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -7586,7 +7573,7 @@ argument_list|<>
 argument_list|()
 return|;
 block|}
-comment|/*    * Loops over regions that owns this table, and output some information about the state.    */
+comment|/*    * Loops over regions of this table, and outputs information about the state.    */
 specifier|private
 specifier|static
 name|List
@@ -7606,7 +7593,7 @@ specifier|final
 name|Sink
 name|sink
 parameter_list|,
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 parameter_list|,
 name|ExecutorService
@@ -7624,41 +7611,23 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading list of regions for table %s"
+literal|"Reading list of regions for table {}"
 argument_list|,
 name|tableDesc
 operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
+try|try
+init|(
 name|Table
 name|table
 init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|table
-operator|=
 name|admin
 operator|.
 name|getConnection
@@ -7671,37 +7640,8 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|TableNotFoundException
-name|e
-parameter_list|)
+init|)
 block|{
-return|return
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-return|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 name|List
 argument_list|<
 name|RegionTask
@@ -7713,15 +7653,11 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|RegionLocator
 name|regionLocator
 init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|regionLocator
-operator|=
 name|admin
 operator|.
 name|getConnection
@@ -7734,7 +7670,8 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|HRegionLocation
@@ -7759,7 +7696,7 @@ name|region
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|tasks
@@ -7792,23 +7729,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|regionLocator
-operator|!=
-literal|null
-condition|)
-block|{
-name|regionLocator
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-block|}
 return|return
 name|executor
 operator|.
@@ -7817,6 +7737,20 @@ argument_list|(
 name|tasks
 argument_list|)
 return|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|TableNotFoundException
+name|e
+parameter_list|)
+block|{
+return|return
+name|Collections
+operator|.
+name|EMPTY_LIST
+return|;
+block|}
 block|}
 comment|//  monitor for zookeeper mode
 specifier|private
@@ -7856,7 +7790,7 @@ parameter_list|,
 name|boolean
 name|useRegExp
 parameter_list|,
-name|StdOutSink
+name|Sink
 name|sink
 parameter_list|,
 name|ExecutorService
@@ -8209,7 +8143,7 @@ operator|)
 return|;
 block|}
 block|}
-comment|// a monitor for regionserver mode
+comment|/**    * A monitor for regionserver mode    */
 specifier|private
 specifier|static
 class|class
@@ -8234,7 +8168,7 @@ parameter_list|,
 name|boolean
 name|useRegExp
 parameter_list|,
-name|StdOutSink
+name|Sink
 name|sink
 parameter_list|,
 name|ExecutorService
@@ -8424,27 +8358,13 @@ name|tableNames
 init|=
 literal|null
 decl_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading list of tables"
-argument_list|)
+literal|"Reading list of tables"
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 name|tableNames
@@ -8694,14 +8614,9 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"Regionserver not serving any regions - %s"
+literal|"Regionserver not serving any regions - {}"
 argument_list|,
 name|serverName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -8888,17 +8803,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully read "
-operator|+
+literal|"Successfully read {} regions out of {} on regionserver {}"
+argument_list|,
 name|successMap
 operator|.
 name|get
 argument_list|(
 name|serverName
 argument_list|)
-operator|+
-literal|" regions out of "
-operator|+
+argument_list|,
 name|entry
 operator|.
 name|getValue
@@ -8906,9 +8819,7 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" on regionserver:"
-operator|+
+argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
@@ -9009,48 +8920,26 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|Table
-name|table
-init|=
-literal|null
-decl_stmt|;
-name|RegionLocator
-name|regionLocator
-init|=
-literal|null
-decl_stmt|;
 try|try
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-name|String
-operator|.
-name|format
-argument_list|(
-literal|"reading list of tables and locations"
-argument_list|)
+literal|"Reading list of tables and locations"
 argument_list|)
 expr_stmt|;
-block|}
-name|HTableDescriptor
-index|[]
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
 name|tableDescs
 init|=
 name|this
 operator|.
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 decl_stmt|;
 name|List
@@ -9063,31 +8952,17 @@ literal|null
 decl_stmt|;
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDesc
 range|:
 name|tableDescs
 control|)
 block|{
-name|table
-operator|=
-name|this
-operator|.
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getTable
-argument_list|(
-name|tableDesc
-operator|.
-name|getTableName
-argument_list|()
-argument_list|)
-expr_stmt|;
+try|try
+init|(
+name|RegionLocator
 name|regionLocator
-operator|=
+init|=
 name|this
 operator|.
 name|admin
@@ -9102,7 +8977,8 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|HRegionLocation
@@ -9135,7 +9011,7 @@ name|r
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -9185,11 +9061,7 @@ name|r
 argument_list|)
 expr_stmt|;
 block|}
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|// get any live regionservers not serving any regions
 for|for
@@ -9263,16 +9135,11 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-name|String
-name|msg
-init|=
-literal|"Get HTables info failed"
-decl_stmt|;
 name|LOG
 operator|.
 name|error
 argument_list|(
-name|msg
+literal|"Get HTables info failed"
 argument_list|,
 name|e
 argument_list|)
@@ -9283,41 +9150,6 @@ name|errorCode
 operator|=
 name|INIT_ERROR_EXIT_CODE
 expr_stmt|;
-block|}
-finally|finally
-block|{
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-block|{
-try|try
-block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Close table failed"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 block|}
 return|return
 name|rsAndRMap
@@ -9501,8 +9333,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No RegionServerInfo found, regionServerPattern:"
-operator|+
+literal|"No RegionServerInfo found, regionServerPattern {}"
+argument_list|,
 name|rsName
 argument_list|)
 expr_stmt|;
@@ -9541,8 +9373,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No RegionServerInfo found, regionServerName:"
-operator|+
+literal|"No RegionServerInfo found, regionServerName {}"
+argument_list|,
 name|rsName
 argument_list|)
 expr_stmt|;
@@ -9583,7 +9415,7 @@ operator|.
 name|create
 argument_list|()
 decl_stmt|;
-comment|// loading the generic options to conf
+comment|// Loading the generic options to conf
 operator|new
 name|GenericOptionsParser
 argument_list|(
@@ -9608,11 +9440,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Number of execution threads "
-operator|+
+literal|"Execution thread count={}"
+argument_list|,
 name|numThreads
 argument_list|)
 expr_stmt|;
+name|int
+name|exitCode
+init|=
+literal|0
+decl_stmt|;
 name|ExecutorService
 name|executor
 init|=
@@ -9622,42 +9459,10 @@ argument_list|(
 name|numThreads
 argument_list|)
 decl_stmt|;
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Sink
-argument_list|>
-name|sinkClass
-init|=
-name|conf
-operator|.
-name|getClass
-argument_list|(
-literal|"hbase.canary.sink.class"
-argument_list|,
-name|RegionServerStdOutSink
-operator|.
-name|class
-argument_list|,
-name|Sink
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-name|Sink
-name|sink
-init|=
-name|ReflectionUtils
-operator|.
-name|newInstance
-argument_list|(
-name|sinkClass
-argument_list|)
-decl_stmt|;
-name|int
+try|try
+block|{
 name|exitCode
-init|=
+operator|=
 name|ToolRunner
 operator|.
 name|run
@@ -9668,18 +9473,20 @@ operator|new
 name|Canary
 argument_list|(
 name|executor
-argument_list|,
-name|sink
 argument_list|)
 argument_list|,
 name|args
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
+finally|finally
+block|{
 name|executor
 operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
 name|System
 operator|.
 name|exit
