@@ -4823,6 +4823,17 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|lockWait
+operator|>
+literal|0
+argument_list|,
+literal|"lockWait should be positive"
+argument_list|)
+expr_stmt|;
 name|Procedure
 argument_list|<
 name|TEnvironment
