@@ -400,6 +400,65 @@ operator|.
 name|REGION_EDIT
 return|;
 block|}
+specifier|private
+name|boolean
+name|canSchedule
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+name|HRegionLocation
+name|loc
+parameter_list|)
+block|{
+if|if
+condition|(
+name|loc
+operator|.
+name|getSeqNum
+argument_list|()
+operator|<
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+name|RegionStateNode
+name|regionNode
+init|=
+name|env
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionStateNode
+argument_list|(
+name|loc
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+decl_stmt|;
+comment|// If the region node is null, then at least in the next round we can remove this region to make
+comment|// progress. And the second condition is a normal one, if there are no TRSP with it then we can
+comment|// schedule one to make progress.
+return|return
+name|regionNode
+operator|==
+literal|null
+operator|||
+operator|!
+name|regionNode
+operator|.
+name|isInTransition
+argument_list|()
+return|;
+block|}
 annotation|@
 name|Override
 specifier|protected
@@ -503,7 +562,7 @@ operator|.
 name|getRegionStates
 argument_list|()
 operator|.
-name|getOrCreateRegionStateNode
+name|getRegionStateNode
 argument_list|(
 name|loc
 operator|.
@@ -511,6 +570,16 @@ name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// this possible, maybe the region has already been merged or split, see HBASE-20921
+if|if
+condition|(
+name|regionNode
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
 name|TransitRegionStateProcedure
 name|proc
 decl_stmt|;
@@ -644,14 +713,14 @@ argument_list|()
 operator|.
 name|anyMatch
 argument_list|(
-name|l
+name|loc
 lambda|->
-name|l
-operator|.
-name|getSeqNum
-argument_list|()
-operator|>=
-literal|0
+name|canSchedule
+argument_list|(
+name|env
+argument_list|,
+name|loc
+argument_list|)
 argument_list|)
 condition|)
 block|{
@@ -672,8 +741,8 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
-comment|// All the regions need to reopen are in OPENING state which means we can not schedule any
-comment|// MRPs.
+comment|// We can not schedule TRSP for all the regions need to reopen, wait for a while and retry
+comment|// again.
 name|long
 name|backoff
 init|=
