@@ -2271,81 +2271,73 @@ argument_list|(
 name|cluster
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Finished computing new load balance plan.  Computation took "
+literal|"Finished computing new load balance plan. Computation took {}"
 operator|+
-operator|(
+literal|" to try {} different iterations.  Found a solution that moves "
+operator|+
+literal|"{} regions; Going from a computed cost of {}"
+operator|+
+literal|" to a new cost of {}"
+argument_list|,
+name|java
+operator|.
+name|time
+operator|.
+name|Duration
+operator|.
+name|ofMillis
+argument_list|(
 name|endTime
 operator|-
 name|startTime
-operator|)
-operator|+
-literal|"ms to try "
-operator|+
+argument_list|)
+argument_list|,
 name|step
-operator|+
-literal|" different iterations.  Found a solution that moves "
-operator|+
+argument_list|,
 name|plans
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" regions; Going from a computed cost of "
-operator|+
+argument_list|,
 name|initCost
-operator|+
-literal|" to a new cost of "
-operator|+
+argument_list|,
 name|currentCost
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 name|plans
 return|;
 block|}
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|info
 argument_list|(
-literal|"Could not find a better load balance plan.  Tried "
+literal|"Could not find a better load balance plan.  Tried {} different configurations in "
 operator|+
+literal|"{}, and did not find anything with a computed cost less than {}"
+argument_list|,
 name|step
-operator|+
-literal|" different configurations in "
-operator|+
-operator|(
+argument_list|,
+name|java
+operator|.
+name|time
+operator|.
+name|Duration
+operator|.
+name|ofMillis
+argument_list|(
 name|endTime
 operator|-
 name|startTime
-operator|)
-operator|+
-literal|"ms, and did not find anything with a computed cost less than "
-operator|+
+argument_list|)
+argument_list|,
 name|initCost
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|null
 return|;

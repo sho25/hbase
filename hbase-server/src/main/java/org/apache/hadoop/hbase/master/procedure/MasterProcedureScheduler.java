@@ -3432,23 +3432,6 @@ operator|++
 name|i
 control|)
 block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"{} checking lock on {}"
-argument_list|,
-name|procedure
-argument_list|,
-name|regionInfo
-index|[
-name|i
-index|]
-operator|.
-name|getEncodedName
-argument_list|()
-argument_list|)
-expr_stmt|;
 assert|assert
 name|regionInfo
 index|[
@@ -3547,6 +3530,23 @@ name|procedure
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting on xlock for {} held by pid={}"
+argument_list|,
+name|procedure
+argument_list|,
+name|regionLocks
+index|[
+name|i
+index|]
+operator|.
+name|getExclusiveLockProcIdOwner
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|waitProcedure
 argument_list|(
 name|regionLocks
@@ -3581,6 +3581,18 @@ argument_list|)
 expr_stmt|;
 block|}
 break|break;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Took xlock for {}"
+argument_list|,
+name|procedure
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 if|if

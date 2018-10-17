@@ -741,7 +741,7 @@ operator|.
 name|stream
 argument_list|()
 operator|.
-name|map
+name|filter
 argument_list|(
 name|s
 lambda|->
