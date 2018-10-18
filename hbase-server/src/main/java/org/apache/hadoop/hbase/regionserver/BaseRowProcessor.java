@@ -33,7 +33,7 @@ name|java
 operator|.
 name|util
 operator|.
-name|ArrayList
+name|Collections
 import|;
 end_import
 
@@ -263,9 +263,9 @@ name|getClusterIds
 parameter_list|()
 block|{
 return|return
-operator|new
-name|ArrayList
-argument_list|<>
+name|Collections
+operator|.
+name|emptyList
 argument_list|()
 return|;
 block|}
