@@ -292,6 +292,38 @@ operator|.
 name|numWaiters
 expr_stmt|;
 comment|// Remove ourselves from waiters.
+comment|// HBASE-21292
+comment|// There is a rare case that interrupting and the lock owner thread call
+comment|// releaseLockEntry at the same time. Since the owner thread found there
+comment|// still one waiting, it won't remove the entry from the map. If the interrupted
+comment|// thread is the last one waiting on the lock, and since an exception is thrown,
+comment|// the 'existing' entry will stay in the map forever. Later threads which try to
+comment|// get this lock will stuck in a infinite loop because
+comment|// existing = map.putIfAbsent(entry.id, entry)) != null and existing.locked=false.
+if|if
+condition|(
+operator|!
+name|existing
+operator|.
+name|locked
+operator|&&
+name|existing
+operator|.
+name|numWaiters
+operator|==
+literal|0
+condition|)
+block|{
+name|map
+operator|.
+name|remove
+argument_list|(
+name|existing
+operator|.
+name|id
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|InterruptedIOException
@@ -478,6 +510,33 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+comment|// HBASE-21292
+comment|// Please refer to the comments in getLockEntry()
+comment|// the difference here is that we decrease numWaiters in finally block
+if|if
+condition|(
+operator|!
+name|existing
+operator|.
+name|locked
+operator|&&
+name|existing
+operator|.
+name|numWaiters
+operator|==
+literal|1
+condition|)
+block|{
+name|map
+operator|.
+name|remove
+argument_list|(
+name|existing
+operator|.
+name|id
+argument_list|)
+expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|InterruptedIOException
