@@ -1650,12 +1650,12 @@ specifier|private
 name|Configuration
 name|conf
 decl_stmt|;
-comment|/**    * Created in the {@link #start(int, boolean)} method. Destroyed in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
+comment|/**    * Created in the {@link #init(int, boolean)} method. Destroyed in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|ThreadGroup
 name|threadGroup
 decl_stmt|;
-comment|/**    * Created in the {@link #start(int, boolean)} method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
+comment|/**    * Created in the {@link #init(int, boolean)}  method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|CopyOnWriteArrayList
 argument_list|<
@@ -1663,7 +1663,7 @@ name|WorkerThread
 argument_list|>
 name|workerThreads
 decl_stmt|;
-comment|/**    * Created in the {@link #start(int, boolean)} method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
+comment|/**    * Created in the {@link #init(int, boolean)} method. Terminated in {@link #join()} (FIX! Doing    * resource handling rather than observing in a #join is unexpected).    * Overridden when we do the ProcedureTestingUtility.testRecoveryAndDoubleExecution trickery    * (Should be ok).    */
 specifier|private
 name|TimeoutExecutorThread
 argument_list|<
@@ -4787,7 +4787,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Bypass a procedure. If the procedure is set to bypass, all the logic in    * execute/rollback will be ignored and it will return success, whatever.    * It is used to recover buggy stuck procedures, releasing the lock resources    * and letting other procedures to run. Bypassing one procedure (and its ancestors will    * be bypassed automatically) may leave the cluster in a middle state, e.g. region    * not assigned, or some hdfs files left behind. After getting rid of those stuck procedures,    * the operators may have to do some clean up on hdfs or schedule some assign procedures    * to let region online. DO AT YOUR OWN RISK.    *<p>    * A procedure can be bypassed only if    * 1. The procedure is in state of RUNNABLE, WAITING, WAITING_TIMEOUT    * or it is a root procedure without any child.    * 2. No other worker thread is executing it    * 3. No child procedure has been submitted    *    *<p>    * If all the requirements are meet, the procedure and its ancestors will be    * bypassed and persisted to WAL.    *    *<p>    * If the procedure is in WAITING state, will set it to RUNNABLE add it to run queue.    * TODO: What about WAITING_TIMEOUT?    * @param pids the procedure id    * @param lockWait time to wait lock    * @param force if force set to true, we will bypass the procedure even if it is executing.    *              This is for procedures which can't break out during executing(due to bug, mostly)    *              In this case, bypassing the procedure is not enough, since it is already stuck    *              there. We need to restart the master after bypassing, and letting the problematic    *              procedure to execute wth bypass=true, so in that condition, the procedure can be    *              successfully bypassed.    * @return true if bypass success    * @throws IOException IOException    */
+comment|/**    * Bypass a procedure. If the procedure is set to bypass, all the logic in    * execute/rollback will be ignored and it will return success, whatever.    * It is used to recover buggy stuck procedures, releasing the lock resources    * and letting other procedures run. Bypassing one procedure (and its ancestors will    * be bypassed automatically) may leave the cluster in a middle state, e.g. region    * not assigned, or some hdfs files left behind. After getting rid of those stuck procedures,    * the operators may have to do some clean up on hdfs or schedule some assign procedures    * to let region online. DO AT YOUR OWN RISK.    *<p>    * A procedure can be bypassed only if    * 1. The procedure is in state of RUNNABLE, WAITING, WAITING_TIMEOUT    * or it is a root procedure without any child.    * 2. No other worker thread is executing it    * 3. No child procedure has been submitted    *    *<p>    * If all the requirements are meet, the procedure and its ancestors will be    * bypassed and persisted to WAL.    *    *<p>    * If the procedure is in WAITING state, will set it to RUNNABLE add it to run queue.    * TODO: What about WAITING_TIMEOUT?    * @param pids the procedure id    * @param lockWait time to wait lock    * @param force if force set to true, we will bypass the procedure even if it is executing.    *              This is for procedures which can't break out during executing(due to bug, mostly)    *              In this case, bypassing the procedure is not enough, since it is already stuck    *              there. We need to restart the master after bypassing, and letting the problematic    *              procedure to execute wth bypass=true, so in that condition, the procedure can be    *              successfully bypassed.    * @param recursive We will do an expensive search for children of each pid. EXPENSIVE!    * @return true if bypass success    * @throws IOException IOException    */
 end_comment
 
 begin_function
@@ -4809,6 +4809,9 @@ name|lockWait
 parameter_list|,
 name|boolean
 name|force
+parameter_list|,
+name|boolean
+name|recursive
 parameter_list|)
 throws|throws
 name|IOException
@@ -4850,6 +4853,8 @@ argument_list|,
 name|lockWait
 argument_list|,
 name|force
+argument_list|,
+name|recursive
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4871,7 +4876,10 @@ name|long
 name|lockWait
 parameter_list|,
 name|boolean
-name|force
+name|override
+parameter_list|,
+name|boolean
+name|recursive
 parameter_list|)
 throws|throws
 name|IOException
@@ -4887,6 +4895,7 @@ argument_list|,
 literal|"lockWait should be positive"
 argument_list|)
 expr_stmt|;
+specifier|final
 name|Procedure
 argument_list|<
 name|TEnvironment
@@ -4909,7 +4918,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Procedure with id={} does not exist, skipping bypass"
+literal|"Procedure pid={} does not exist, skipping bypass"
 argument_list|,
 name|pid
 argument_list|)
@@ -4922,13 +4931,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Begin bypass {} with lockWait={}, force={}"
+literal|"Begin bypass {} with lockWait={}, override={}, recursive={}"
 argument_list|,
 name|procedure
 argument_list|,
 name|lockWait
 argument_list|,
-name|force
+name|override
+argument_list|,
+name|recursive
 argument_list|)
 expr_stmt|;
 name|IdLock
@@ -4955,7 +4966,7 @@ operator|==
 literal|null
 operator|&&
 operator|!
-name|force
+name|override
 condition|)
 block|{
 name|LOG
@@ -4968,7 +4979,7 @@ name|lockWait
 argument_list|,
 name|procedure
 argument_list|,
-name|force
+name|override
 argument_list|)
 expr_stmt|;
 return|return
@@ -4993,7 +5004,7 @@ name|lockWait
 argument_list|,
 name|procedure
 argument_list|,
-name|force
+name|override
 argument_list|)
 expr_stmt|;
 block|}
@@ -5029,6 +5040,99 @@ name|hasChildren
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|recursive
+condition|)
+block|{
+comment|// EXPENSIVE. Checks each live procedure of which there could be many!!!
+comment|// Is there another way to get children of a procedure?
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Recursive bypass on children of pid={}"
+argument_list|,
+name|procedure
+operator|.
+name|getProcId
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|procedures
+operator|.
+name|forEachValue
+argument_list|(
+literal|1
+comment|/*Single-threaded*/
+argument_list|,
+comment|// Transformer
+name|v
+lambda|->
+name|v
+operator|.
+name|getParentProcId
+argument_list|()
+operator|==
+name|procedure
+operator|.
+name|getProcId
+argument_list|()
+condition|?
+name|v
+else|:
+literal|null
+operator|,
+comment|// Consumer
+name|v
+lambda|->
+block|{
+lambda|try
+block|{
+name|bypassProcedure
+argument_list|(
+name|v
+operator|.
+name|getProcId
+argument_list|()
+argument_list|,
+name|lockWait
+argument_list|,
+name|override
+argument_list|,
+name|recursive
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Recursive bypass of pid={}"
+argument_list|,
+name|v
+operator|.
+name|getProcId
+argument_list|()
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+block|)
+empty_stmt|;
+block|}
+else|else
+block|{
 name|LOG
 operator|.
 name|debug
@@ -5042,7 +5146,14 @@ return|return
 literal|false
 return|;
 block|}
+block|}
+end_function
+
+begin_comment
 comment|// If the procedure has no parent or no child, we are safe to bypass it in whatever state
+end_comment
+
+begin_if
 if|if
 condition|(
 name|procedure
@@ -5089,13 +5200,26 @@ argument_list|,
 name|procedure
 argument_list|)
 expr_stmt|;
+comment|// Question: how is the bypass done here?
 return|return
 literal|false
 return|;
 block|}
+end_if
+
+begin_comment
 comment|// Now, the procedure is not finished, and no one can execute it since we take the lock now
+end_comment
+
+begin_comment
 comment|// And we can be sure that its ancestor is not running too, since their child has not
+end_comment
+
+begin_comment
 comment|// finished yet
+end_comment
+
+begin_decl_stmt
 name|Procedure
 argument_list|<
 name|TEnvironment
@@ -5104,6 +5228,9 @@ name|current
 init|=
 name|procedure
 decl_stmt|;
+end_decl_stmt
+
+begin_while
 while|while
 condition|(
 name|current
@@ -5123,7 +5250,10 @@ expr_stmt|;
 name|current
 operator|.
 name|bypass
+argument_list|(
+name|getEnvironment
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|store
 operator|.
@@ -5148,7 +5278,13 @@ name|parentID
 argument_list|)
 expr_stmt|;
 block|}
+end_while
+
+begin_comment
 comment|//wake up waiting procedure, already checked there is no child
+end_comment
+
+begin_if
 if|if
 condition|(
 name|procedure
@@ -5178,10 +5314,25 @@ name|procedure
 argument_list|)
 expr_stmt|;
 block|}
+end_if
+
+begin_comment
 comment|// If we don't have the lock, we can't re-submit the queue,
+end_comment
+
+begin_comment
 comment|// since it is already executing. To get rid of the stuck situation, we
+end_comment
+
+begin_comment
 comment|// need to restart the master. With the procedure set to bypass, the procedureExecutor
+end_comment
+
+begin_comment
 comment|// will bypass it and won't get stuck again.
+end_comment
+
+begin_if
 if|if
 condition|(
 name|lockEntry
@@ -5221,11 +5372,16 @@ name|procedure
 argument_list|)
 expr_stmt|;
 block|}
+end_if
+
+begin_return
 return|return
 literal|true
 return|;
-block|}
-finally|finally
+end_return
+
+begin_block
+unit|} finally
 block|{
 if|if
 condition|(
@@ -5243,15 +5399,15 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-end_function
+end_block
 
 begin_comment
+unit|}
 comment|/**    * Add a new root-procedure to the executor.    * @param proc the new procedure to execute.    * @param nonceKey the registered unique identifier for this operation from the client or process.    * @return the procedure id, that can be used to monitor the operation    */
 end_comment
 
-begin_function
-annotation|@
+begin_expr_stmt
+unit|@
 name|edu
 operator|.
 name|umd
@@ -5275,16 +5431,16 @@ argument_list|)
 specifier|public
 name|long
 name|submitProcedure
-parameter_list|(
+argument_list|(
 name|Procedure
 argument_list|<
 name|TEnvironment
 argument_list|>
 name|proc
-parameter_list|,
+argument_list|,
 name|NonceKey
 name|nonceKey
-parameter_list|)
+argument_list|)
 block|{
 name|Preconditions
 operator|.
@@ -5297,16 +5453,16 @@ argument_list|()
 operator|>=
 literal|0
 argument_list|)
-expr_stmt|;
+block|;
 name|prepareProcedure
 argument_list|(
 name|proc
 argument_list|)
-expr_stmt|;
-specifier|final
+block|;
+name|final
 name|Long
 name|currentProcId
-decl_stmt|;
+block|;
 if|if
 condition|(
 name|nonceKey
@@ -5341,6 +5497,9 @@ name|proc
 argument_list|)
 expr_stmt|;
 block|}
+end_expr_stmt
+
+begin_else
 else|else
 block|{
 name|currentProcId
@@ -5349,7 +5508,13 @@ name|nextProcId
 argument_list|()
 expr_stmt|;
 block|}
+end_else
+
+begin_comment
 comment|// Initialize the procedure
+end_comment
+
+begin_expr_stmt
 name|proc
 operator|.
 name|setNonceKey
@@ -5357,6 +5522,9 @@ argument_list|(
 name|nonceKey
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
 name|proc
 operator|.
 name|setProcId
@@ -5367,7 +5535,13 @@ name|longValue
 argument_list|()
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_comment
 comment|// Commit the transaction
+end_comment
+
+begin_expr_stmt
 name|store
 operator|.
 name|insert
@@ -5377,6 +5551,9 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
 name|LOG
 operator|.
 name|debug
@@ -5386,17 +5563,23 @@ argument_list|,
 name|proc
 argument_list|)
 expr_stmt|;
+end_expr_stmt
+
+begin_comment
 comment|// Add the procedure to the executor
+end_comment
+
+begin_return
 return|return
 name|pushProcedure
 argument_list|(
 name|proc
 argument_list|)
 return|;
-block|}
-end_function
+end_return
 
 begin_comment
+unit|}
 comment|/**    * Add a set of new root-procedure to the executor.    * @param procs the new procedures to execute.    */
 end_comment
 
@@ -5405,7 +5588,7 @@ comment|// TODO: Do we need to take nonces here?
 end_comment
 
 begin_function
-specifier|public
+unit|public
 name|void
 name|submitProcedures
 parameter_list|(

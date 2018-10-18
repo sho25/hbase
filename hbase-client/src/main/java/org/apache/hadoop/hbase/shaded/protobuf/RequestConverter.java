@@ -10120,6 +10120,9 @@ argument_list|<
 name|String
 argument_list|>
 name|encodedRegionNames
+parameter_list|,
+name|boolean
+name|override
 parameter_list|)
 block|{
 name|MasterProtos
@@ -10145,6 +10148,11 @@ name|toEncodedRegionNameRegionSpecifiers
 argument_list|(
 name|encodedRegionNames
 argument_list|)
+argument_list|)
+operator|.
+name|setOverride
+argument_list|(
+name|override
 argument_list|)
 operator|.
 name|build
@@ -10163,6 +10171,9 @@ argument_list|<
 name|String
 argument_list|>
 name|encodedRegionNames
+parameter_list|,
+name|boolean
+name|override
 parameter_list|)
 block|{
 name|MasterProtos
@@ -10188,6 +10199,11 @@ name|toEncodedRegionNameRegionSpecifiers
 argument_list|(
 name|encodedRegionNames
 argument_list|)
+argument_list|)
+operator|.
+name|setOverride
+argument_list|(
+name|override
 argument_list|)
 operator|.
 name|build

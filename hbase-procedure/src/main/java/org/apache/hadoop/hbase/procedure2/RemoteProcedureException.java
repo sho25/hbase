@@ -232,6 +232,10 @@ name|cause
 argument_list|)
 return|;
 block|}
+comment|// NOTE: Does not throw DoNotRetryIOE because it does not
+comment|// have access (DNRIOE is in the client module). Use
+comment|// MasterProcedureUtil.unwrapRemoteIOException if need to
+comment|// throw DNRIOE.
 specifier|public
 name|IOException
 name|unwrapRemoteIOException

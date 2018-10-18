@@ -353,13 +353,12 @@ condition|)
 block|{
 name|exception
 operator|=
-name|proc
-operator|.
-name|getException
-argument_list|()
+name|MasterProcedureUtil
 operator|.
 name|unwrapRemoteIOException
-argument_list|()
+argument_list|(
+name|proc
+argument_list|)
 expr_stmt|;
 block|}
 name|latch

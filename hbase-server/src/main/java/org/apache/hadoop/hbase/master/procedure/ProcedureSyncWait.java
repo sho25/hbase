@@ -904,6 +904,8 @@ literal|"The Master is Aborting"
 argument_list|)
 throw|;
 block|}
+comment|// If the procedure fails, we should always have an exception captured. Throw it.
+comment|// Needs to be an IOE to get out of here.
 if|if
 condition|(
 name|proc
@@ -912,15 +914,13 @@ name|hasException
 argument_list|()
 condition|)
 block|{
-comment|// If the procedure fails, we should always have an exception captured. Throw it.
 throw|throw
-name|proc
-operator|.
-name|getException
-argument_list|()
+name|MasterProcedureUtil
 operator|.
 name|unwrapRemoteIOException
-argument_list|()
+argument_list|(
+name|proc
+argument_list|)
 throw|;
 block|}
 else|else

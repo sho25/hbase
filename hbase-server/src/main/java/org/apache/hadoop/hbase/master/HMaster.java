@@ -6765,7 +6765,7 @@ comment|// available. Thats what waitUntilMetaOnline does.
 if|if
 condition|(
 operator|!
-name|waitUntilMetaOnline
+name|waitForMetaOnline
 argument_list|()
 condition|)
 block|{
@@ -6924,7 +6924,7 @@ comment|// isNamespace does like isMeta and waits until namespace is onlined bef
 if|if
 condition|(
 operator|!
-name|waitUntilNamespaceOnline
+name|waitForNamespaceOnline
 argument_list|()
 condition|)
 block|{
@@ -7291,7 +7291,7 @@ annotation|@
 name|VisibleForTesting
 specifier|public
 name|boolean
-name|waitUntilMetaOnline
+name|waitForMetaOnline
 parameter_list|()
 throws|throws
 name|InterruptedException
@@ -7480,7 +7480,7 @@ annotation|@
 name|VisibleForTesting
 specifier|public
 name|boolean
-name|waitUntilNamespaceOnline
+name|waitForNamespaceOnline
 parameter_list|()
 throws|throws
 name|InterruptedException

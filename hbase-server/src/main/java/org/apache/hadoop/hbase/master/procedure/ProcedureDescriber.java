@@ -461,13 +461,12 @@ name|put
 argument_list|(
 literal|"ERRORS"
 argument_list|,
-name|proc
-operator|.
-name|getException
-argument_list|()
+name|MasterProcedureUtil
 operator|.
 name|unwrapRemoteIOException
-argument_list|()
+argument_list|(
+name|proc
+argument_list|)
 operator|.
 name|getMessage
 argument_list|()

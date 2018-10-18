@@ -470,6 +470,9 @@ argument_list|<
 name|String
 argument_list|>
 name|encodedRegionNames
+parameter_list|,
+name|boolean
+name|override
 parameter_list|)
 throws|throws
 name|IOException
@@ -497,6 +500,8 @@ operator|.
 name|toAssignRegionsRequest
 argument_list|(
 name|encodedRegionNames
+argument_list|,
+name|override
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -548,6 +553,9 @@ argument_list|<
 name|String
 argument_list|>
 name|encodedRegionNames
+parameter_list|,
+name|boolean
+name|override
 parameter_list|)
 throws|throws
 name|IOException
@@ -575,6 +583,8 @@ operator|.
 name|toUnassignRegionsRequest
 argument_list|(
 name|encodedRegionNames
+argument_list|,
+name|override
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -660,7 +670,10 @@ name|long
 name|waitTime
 parameter_list|,
 name|boolean
-name|force
+name|override
+parameter_list|,
+name|boolean
+name|recursive
 parameter_list|)
 throws|throws
 name|IOException
@@ -723,9 +736,14 @@ argument_list|(
 name|waitTime
 argument_list|)
 operator|.
-name|setForce
+name|setOverride
 argument_list|(
-name|force
+name|override
+argument_list|)
+operator|.
+name|setRecursive
+argument_list|(
+name|recursive
 argument_list|)
 operator|.
 name|build

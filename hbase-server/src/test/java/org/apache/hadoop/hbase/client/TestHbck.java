@@ -702,6 +702,8 @@ argument_list|,
 literal|30000
 argument_list|,
 literal|false
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 name|assertTrue
