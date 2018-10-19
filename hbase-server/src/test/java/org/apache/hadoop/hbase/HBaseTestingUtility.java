@@ -10563,11 +10563,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Return the number of rows in the given table.    */
+comment|/**    * Return the number of rows in the given table.    * @param table to count rows    * @return count of rows    */
 end_comment
 
 begin_function
 specifier|public
+specifier|static
 name|int
 name|countRows
 parameter_list|(
@@ -10593,6 +10594,7 @@ end_function
 
 begin_function
 specifier|public
+specifier|static
 name|int
 name|countRows
 parameter_list|(
