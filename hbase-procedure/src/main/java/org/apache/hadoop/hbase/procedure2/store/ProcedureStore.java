@@ -133,12 +133,12 @@ name|boolean
 name|hasNext
 parameter_list|()
 function_decl|;
-comment|/**      * @return true if the iterator next element is a completed procedure.      */
+comment|/**      * Calling this method does not need to converting the protobuf message to the Procedure class,      * so if it returns true we can call {@link #skipNext()} to skip the procedure without      * deserializing. This could increase the performance.      * @return true if the iterator next element is a completed procedure.      */
 name|boolean
 name|isNextFinished
 parameter_list|()
 function_decl|;
-comment|/**      * Skip the next procedure      */
+comment|/**      * Skip the next procedure      *<p/>      * This method is used to skip the deserializing of the procedure to increase performance, as      * when calling next we need to convert the protobuf message to the Procedure class.      */
 name|void
 name|skipNext
 parameter_list|()
