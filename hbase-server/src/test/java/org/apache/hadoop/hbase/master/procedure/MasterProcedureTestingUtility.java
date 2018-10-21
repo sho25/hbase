@@ -3297,6 +3297,31 @@ block|{
 comment|// Sometimes there are other procedures still executing (including asynchronously spawned by
 comment|// procId) and due to KillAndToggleBeforeStoreUpdate flag ProcedureExecutor is stopped before
 comment|// store update. Let all pending procedures finish normally.
+name|ProcedureTestingUtility
+operator|.
+name|setKillAndToggleBeforeStoreUpdate
+argument_list|(
+name|procExec
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+comment|// check 3 times to confirm that the procedure executor has not been killed
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+literal|3
+condition|;
+name|i
+operator|++
+control|)
+block|{
 if|if
 condition|(
 operator|!
@@ -3310,18 +3335,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"ProcedureExecutor not running, may have been stopped by pending procedure due to"
+literal|"ProcedureExecutor not running, may have been stopped by pending procedure due"
 operator|+
-literal|" KillAndToggleBeforeStoreUpdate flag."
-argument_list|)
-expr_stmt|;
-name|ProcedureTestingUtility
-operator|.
-name|setKillAndToggleBeforeStoreUpdate
-argument_list|(
-name|procExec
-argument_list|,
-literal|false
+literal|" to KillAndToggleBeforeStoreUpdate flag."
 argument_list|)
 expr_stmt|;
 name|restartMasterProcedureExecutor
@@ -3329,6 +3345,16 @@ argument_list|(
 name|procExec
 argument_list|)
 expr_stmt|;
+break|break;
+block|}
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
 name|ProcedureTestingUtility
 operator|.
 name|waitNoProcedureRunning
@@ -3336,7 +3362,6 @@ argument_list|(
 name|procExec
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|assertEquals
 argument_list|(
