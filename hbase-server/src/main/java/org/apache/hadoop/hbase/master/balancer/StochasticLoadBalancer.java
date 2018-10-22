@@ -1972,20 +1972,6 @@ name|i
 index|]
 expr_stmt|;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"start StochasticLoadBalancer.balancer, initCost="
-operator|+
-name|currentCost
-operator|+
-literal|", functionCost="
-operator|+
-name|functionCost
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|double
 name|initCost
 init|=
@@ -2041,17 +2027,9 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|computedMaxSteps
-operator|=
-name|Math
-operator|.
-name|min
-argument_list|(
-name|this
-operator|.
-name|maxSteps
-argument_list|,
-operator|(
+name|long
+name|calculatedMaxSteps
+init|=
 operator|(
 name|long
 operator|)
@@ -2072,10 +2050,64 @@ operator|)
 name|cluster
 operator|.
 name|numServers
-operator|)
+decl_stmt|;
+name|computedMaxSteps
+operator|=
+name|Math
+operator|.
+name|min
+argument_list|(
+name|this
+operator|.
+name|maxSteps
+argument_list|,
+name|calculatedMaxSteps
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|calculatedMaxSteps
+operator|>
+name|maxSteps
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"calculatedMaxSteps:{} for loadbalancer's stochastic walk is larger than "
+operator|+
+literal|"maxSteps:{}. Hence load balancing may not work well. Setting parameter "
+operator|+
+literal|"\"hbase.master.balancer.stochastic.runMaxSteps\" to true can overcome this issue."
+operator|+
+literal|"(This config change does not require service restart)"
+argument_list|,
+name|calculatedMaxSteps
+argument_list|,
+name|maxRunningTime
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"start StochasticLoadBalancer.balancer, initCost="
+operator|+
+name|currentCost
+operator|+
+literal|", functionCost="
+operator|+
+name|functionCost
+argument_list|()
+operator|+
+literal|" computedMaxSteps: "
+operator|+
+name|computedMaxSteps
+argument_list|)
+expr_stmt|;
 comment|// Perform a stochastic walk to see if we can get a good fit.
 name|long
 name|step
