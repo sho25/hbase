@@ -2220,6 +2220,10 @@ init|=
 name|loadStoreFiles
 argument_list|()
 decl_stmt|;
+comment|// Move the storeSize calculation out of loadStoreFiles() method, because the secondary read
+comment|// replica's refreshStoreFiles() will also use loadStoreFiles() to refresh its store files and
+comment|// update the storeSize in the completeCompaction(..) finally (just like compaction) , so
+comment|// no need calculate the storeSize twice.
 name|this
 operator|.
 name|storeSize
@@ -8846,96 +8850,64 @@ name|reloadedStoreFiles
 init|=
 literal|null
 decl_stmt|;
+comment|// Grab the read lock here, because we need to ensure that: only when the atomic
+comment|// replaceStoreFiles(..) finished, we can get all the complete store file list.
+name|this
+operator|.
+name|lock
+operator|.
+name|readLock
+argument_list|()
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
 try|try
 block|{
-comment|// Reloading the store files from file system due to HBASE-20940. As split can happen with an
-comment|// region which has references
-name|reloadedStoreFiles
-operator|=
-name|loadStoreFiles
+comment|// Merge the current store files with compacted files here due to HBASE-20940.
+name|Collection
+argument_list|<
+name|HStoreFile
+argument_list|>
+name|allStoreFiles
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|(
+name|getStorefiles
 argument_list|()
+argument_list|)
+decl_stmt|;
+name|allStoreFiles
+operator|.
+name|addAll
+argument_list|(
+name|getCompactedFiles
+argument_list|()
+argument_list|)
 expr_stmt|;
 return|return
 name|StoreUtils
 operator|.
 name|hasReferences
 argument_list|(
-name|reloadedStoreFiles
+name|allStoreFiles
 argument_list|)
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Error trying to determine if store has references, assuming references exists"
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
-return|return
-literal|true
 return|;
 block|}
 finally|finally
 block|{
-if|if
-condition|(
-name|reloadedStoreFiles
-operator|!=
-literal|null
-condition|)
-block|{
-for|for
-control|(
-name|HStoreFile
-name|storeFile
-range|:
-name|reloadedStoreFiles
-control|)
-block|{
-try|try
-block|{
-name|storeFile
+name|this
 operator|.
-name|closeStoreFile
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
+name|lock
 operator|.
-name|warn
-argument_list|(
-literal|"Encountered exception closing "
-operator|+
-name|storeFile
-operator|+
-literal|": "
-operator|+
-name|ioe
-operator|.
-name|getMessage
+name|readLock
 argument_list|()
-argument_list|)
+operator|.
+name|unlock
+argument_list|()
 expr_stmt|;
-comment|// continue with closing the remaining store files
-block|}
-block|}
-block|}
 block|}
 block|}
 comment|/**    * getter for CompactionProgress object    * @return CompactionProgress object; can be null    */
