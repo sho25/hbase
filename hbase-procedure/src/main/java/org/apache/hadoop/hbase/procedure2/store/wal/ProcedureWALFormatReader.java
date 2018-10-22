@@ -59,6 +59,26 @@ name|procedure2
 operator|.
 name|store
 operator|.
+name|ProcedureStore
+operator|.
+name|ProcedureIterator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
 name|ProcedureStoreTracker
 import|;
 end_import
@@ -160,7 +180,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class that loads the procedures stored in a WAL.  */
+comment|/**  * Helper class that loads the procedures stored in a WAL  */
 end_comment
 
 begin_class
@@ -187,7 +207,62 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * We will use the localProcedureMap to track the active procedures for the current proc wal file,    * and when we finished reading one proc wal file, we will merge he localProcedureMap to the    * procedureMap, which tracks the global active procedures.    *<p/>    * See the comments of {@link WALProcedureMap} for more details.    *<p/>    * After reading all the proc wal files, we will use the procedures in the procedureMap to build a    * {@link WALProcedureTree}, and then give the result to the upper layer. See the comments of    * {@link WALProcedureTree} and the code in {@link #finish()} for more details.    */
+comment|// ==============================================================================================
+comment|//  We read the WALs in reverse order from the newest to the oldest.
+comment|//  We have different entry types:
+comment|//   - INIT: Procedure submitted by the user (also known as 'root procedure')
+comment|//   - INSERT: Children added to the procedure<parentId>:[<childId>, ...]
+comment|//   - UPDATE: The specified procedure was updated
+comment|//   - DELETE: The procedure was removed (finished/rolledback and result TTL expired)
+comment|//
+comment|// In the WAL we can find multiple times the same procedure as UPDATE or INSERT.
+comment|// We read the WAL from top to bottom, so every time we find an entry of the
+comment|// same procedure, that will be the "latest" update (Caveat: with multiple threads writing
+comment|// the store, this assumption does not hold).
+comment|//
+comment|// We keep two in-memory maps:
+comment|//  - localProcedureMap: is the map containing the entries in the WAL we are processing
+comment|//  - procedureMap: is the map containing all the procedures we found up to the WAL in process.
+comment|// localProcedureMap is merged with the procedureMap once we reach the WAL EOF.
+comment|//
+comment|// Since we are reading the WALs in reverse order (newest to oldest),
+comment|// if we find an entry related to a procedure we already have in 'procedureMap' we can discard it.
+comment|//
+comment|// The WAL is append-only so the last procedure in the WAL is the one that
+comment|// was in execution at the time we crashed/closed the server.
+comment|// Given that, the procedure replay order can be inferred by the WAL order.
+comment|//
+comment|// Example:
+comment|//    WAL-2: [A, B, A, C, D]
+comment|//    WAL-1: [F, G, A, F, B]
+comment|//    Replay-Order: [D, C, A, B, F, G]
+comment|//
+comment|// The "localProcedureMap" keeps a "replayOrder" list. Every time we add the
+comment|// record to the map that record is moved to the head of the "replayOrder" list.
+comment|// Using the example above:
+comment|//    WAL-2 localProcedureMap.replayOrder is [D, C, A, B]
+comment|//    WAL-1 localProcedureMap.replayOrder is [F, G]
+comment|//
+comment|// Each time we reach the WAL-EOF, the "replayOrder" list is merged/appended in 'procedureMap'
+comment|// so using the example above we end up with: [D, C, A, B] + [F, G] as replay order.
+comment|//
+comment|//  Fast Start: INIT/INSERT record and StackIDs
+comment|// ---------------------------------------------
+comment|// We have two special records, INIT and INSERT, that track the first time
+comment|// the procedure was added to the WAL. We can use this information to be able
+comment|// to start procedures before reaching the end of the WAL, or before reading all WALs.
+comment|// But in some cases, the WAL with that record can be already gone.
+comment|// As an alternative, we can use the stackIds on each procedure,
+comment|// to identify when a procedure is ready to start.
+comment|// If there are gaps in the sum of the stackIds we need to read more WALs.
+comment|//
+comment|// Example (all procs child of A):
+comment|//   WAL-2: [A, B]                   A stackIds = [0, 4], B stackIds = [1, 5]
+comment|//   WAL-1: [A, B, C, D]
+comment|//
+comment|// In the case above we need to read one more WAL to be able to consider
+comment|// the root procedure A and all children as ready.
+comment|// ==============================================================================================
 specifier|private
 specifier|final
 name|WALProcedureMap
@@ -195,7 +270,9 @@ name|localProcedureMap
 init|=
 operator|new
 name|WALProcedureMap
-argument_list|()
+argument_list|(
+literal|1024
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
@@ -204,7 +281,9 @@ name|procedureMap
 init|=
 operator|new
 name|WALProcedureMap
-argument_list|()
+argument_list|(
+literal|1024
+argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
@@ -505,7 +584,7 @@ expr_stmt|;
 block|}
 name|procedureMap
 operator|.
-name|merge
+name|mergeTail
 argument_list|(
 name|localProcedureMap
 argument_list|)
@@ -543,41 +622,54 @@ argument_list|(
 name|maxProcId
 argument_list|)
 expr_stmt|;
-comment|// build the procedure execution tree. When building we will verify that whether a procedure is
-comment|// valid.
-name|WALProcedureTree
-name|tree
+comment|// fetch the procedure ready to run.
+name|ProcedureIterator
+name|procIter
 init|=
-name|WALProcedureTree
-operator|.
-name|build
-argument_list|(
 name|procedureMap
 operator|.
-name|getProcedures
+name|fetchReady
 argument_list|()
-argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|procIter
+operator|!=
+literal|null
+condition|)
+block|{
 name|loader
 operator|.
 name|load
 argument_list|(
-name|tree
-operator|.
-name|getValidProcs
-argument_list|()
+name|procIter
 argument_list|)
 expr_stmt|;
+block|}
+comment|// remaining procedures have missing link or dependencies
+comment|// consider them as corrupted, manual fix is probably required.
+name|procIter
+operator|=
+name|procedureMap
+operator|.
+name|fetchAll
+argument_list|()
+expr_stmt|;
+if|if
+condition|(
+name|procIter
+operator|!=
+literal|null
+condition|)
+block|{
 name|loader
 operator|.
 name|handleCorrupted
 argument_list|(
-name|tree
-operator|.
-name|getCorruptedProcs
-argument_list|()
+name|procIter
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
