@@ -914,6 +914,9 @@ name|setDeletedIfModifiedInBoth
 parameter_list|(
 name|ProcedureStoreTracker
 name|tracker
+parameter_list|,
+name|boolean
+name|globalTracker
 parameter_list|)
 block|{
 name|BitSetNode
@@ -1002,7 +1005,58 @@ name|contains
 argument_list|(
 name|procId
 argument_list|)
-operator|||
+condition|)
+block|{
+comment|// the procId is not exist in the track, we can only delete the proc
+comment|// if globalTracker set to true.
+comment|// Only if the procedure is not in the global tracker we can delete the
+comment|// the procedure. In other cases, the procedure may not update in a single
+comment|// log, we cannot delete it just because the log's track doesn't have
+comment|// any info for the procedure.
+if|if
+condition|(
+name|globalTracker
+condition|)
+block|{
+name|node
+operator|.
+name|delete
+argument_list|(
+name|procId
+argument_list|)
+expr_stmt|;
+block|}
+continue|continue;
+block|}
+comment|// Only check delete in the global tracker, only global tracker has the
+comment|// whole picture
+if|if
+condition|(
+name|globalTracker
+operator|&&
+name|trackerNode
+operator|.
+name|isDeleted
+argument_list|(
+name|procId
+argument_list|)
+operator|==
+name|DeleteState
+operator|.
+name|YES
+condition|)
+block|{
+name|node
+operator|.
+name|delete
+argument_list|(
+name|procId
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+if|if
+condition|(
 name|trackerNode
 operator|.
 name|isModified
@@ -1011,7 +1065,7 @@ name|procId
 argument_list|)
 condition|)
 block|{
-comment|// the procedure was removed or modified
+comment|// the procedure was modified
 name|node
 operator|.
 name|delete
