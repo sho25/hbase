@@ -768,6 +768,17 @@ operator|.
 name|isInMaintenanceMode
 argument_list|()
 operator|&&
+operator|!
+name|this
+operator|.
+name|services
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isClusterShutdown
+argument_list|()
+operator|&&
 name|am
 operator|!=
 literal|null
@@ -841,6 +852,18 @@ operator|.
 name|hasRegionsInTransition
 argument_list|()
 operator|)
+operator|+
+literal|" clusterShutDown="
+operator|+
+name|this
+operator|.
+name|services
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|isClusterShutdown
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
