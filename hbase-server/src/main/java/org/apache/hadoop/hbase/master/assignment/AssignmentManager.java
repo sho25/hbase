@@ -1165,7 +1165,9 @@ specifier|final
 name|int
 name|DEFAULT_ASSIGN_MAX_ATTEMPTS
 init|=
-literal|10
+name|Integer
+operator|.
+name|MAX_VALUE
 decl_stmt|;
 comment|/** Region in Transition metrics threshold time */
 specifier|public
