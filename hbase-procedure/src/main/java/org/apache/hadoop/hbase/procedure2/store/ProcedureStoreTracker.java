@@ -75,6 +75,18 @@ name|java
 operator|.
 name|util
 operator|.
+name|function
+operator|.
+name|BiFunction
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|stream
 operator|.
 name|LongStream
@@ -301,10 +313,17 @@ block|{
 name|reset
 argument_list|()
 expr_stmt|;
+comment|// resetDelete will true if we are building the cleanup tracker, as we will reset deleted flags
+comment|// for all the unmodified bits to 1, the partial flag is useless so set it to false for not
+comment|// confusing the developers when debugging.
 name|this
 operator|.
 name|partial
 operator|=
+name|resetDelete
+condition|?
+literal|false
+else|:
 name|tracker
 operator|.
 name|partial
@@ -907,16 +926,22 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Similar with {@link #setDeletedIfModified(long...)}, but here the {@code procId} are given by    * the {@code tracker}. If a procedure is modified by us, and also by the given {@code tracker},    * then we mark it as deleted.    * @see #setDeletedIfModified(long...)    */
-specifier|public
+specifier|private
 name|void
-name|setDeletedIfModifiedInBoth
+name|setDeleteIf
 parameter_list|(
 name|ProcedureStoreTracker
 name|tracker
 parameter_list|,
-name|boolean
-name|globalTracker
+name|BiFunction
+argument_list|<
+name|BitSetNode
+argument_list|,
+name|Long
+argument_list|,
+name|Boolean
+argument_list|>
+name|func
 parameter_list|)
 block|{
 name|BitSetNode
@@ -935,7 +960,6 @@ name|values
 argument_list|()
 control|)
 block|{
-specifier|final
 name|long
 name|minProcId
 init|=
@@ -944,7 +968,6 @@ operator|.
 name|getStart
 argument_list|()
 decl_stmt|;
-specifier|final
 name|long
 name|maxProcId
 init|=
@@ -994,28 +1017,14 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
-name|trackerNode
-operator|==
-literal|null
-operator|||
-operator|!
-name|trackerNode
+name|func
 operator|.
-name|contains
+name|apply
 argument_list|(
+name|trackerNode
+argument_list|,
 name|procId
 argument_list|)
-condition|)
-block|{
-comment|// the procId is not exist in the track, we can only delete the proc
-comment|// if globalTracker set to true.
-comment|// Only if the procedure is not in the global tracker we can delete the
-comment|// the procedure. In other cases, the procedure may not update in a single
-comment|// log, we cannot delete it just because the log's track doesn't have
-comment|// any info for the procedure.
-if|if
-condition|(
-name|globalTracker
 condition|)
 block|{
 name|node
@@ -1026,15 +1035,41 @@ name|procId
 argument_list|)
 expr_stmt|;
 block|}
-continue|continue;
 block|}
-comment|// Only check delete in the global tracker, only global tracker has the
-comment|// whole picture
-if|if
-condition|(
-name|globalTracker
-operator|&&
-name|trackerNode
+block|}
+block|}
+comment|/**    * For the global tracker, we will use this method to build the holdingCleanupTracker, as the    * modified flags will be cleared after rolling so we only need to test the deleted flags.    * @see #setDeletedIfModifiedInBoth(ProcedureStoreTracker)    */
+specifier|public
+name|void
+name|setDeletedIfDeletedByThem
+parameter_list|(
+name|ProcedureStoreTracker
+name|tracker
+parameter_list|)
+block|{
+name|setDeleteIf
+argument_list|(
+name|tracker
+argument_list|,
+parameter_list|(
+name|node
+parameter_list|,
+name|procId
+parameter_list|)
+lambda|->
+name|node
+operator|==
+literal|null
+operator|||
+operator|!
+name|node
+operator|.
+name|contains
+argument_list|(
+name|procId
+argument_list|)
+operator|||
+name|node
 operator|.
 name|isDeleted
 argument_list|(
@@ -1044,38 +1079,40 @@ operator|==
 name|DeleteState
 operator|.
 name|YES
-condition|)
-block|{
-name|node
-operator|.
-name|delete
-argument_list|(
-name|procId
 argument_list|)
 expr_stmt|;
-continue|continue;
 block|}
-if|if
-condition|(
-name|trackerNode
+comment|/**    * Similar with {@link #setDeletedIfModified(long...)}, but here the {@code procId} are given by    * the {@code tracker}. If a procedure is modified by us, and also by the given {@code tracker},    * then we mark it as deleted.    * @see #setDeletedIfModified(long...)    */
+specifier|public
+name|void
+name|setDeletedIfModifiedInBoth
+parameter_list|(
+name|ProcedureStoreTracker
+name|tracker
+parameter_list|)
+block|{
+name|setDeleteIf
+argument_list|(
+name|tracker
+argument_list|,
+parameter_list|(
+name|node
+parameter_list|,
+name|procId
+parameter_list|)
+lambda|->
+name|node
+operator|!=
+literal|null
+operator|&&
+name|node
 operator|.
 name|isModified
 argument_list|(
 name|procId
 argument_list|)
-condition|)
-block|{
-comment|// the procedure was modified
-name|node
-operator|.
-name|delete
-argument_list|(
-name|procId
 argument_list|)
 expr_stmt|;
-block|}
-block|}
-block|}
 block|}
 comment|/**    * lookup the node containing the specified procId.    * @param node cached node to check before doing a lookup    * @param procId the procId to lookup    * @return the node that may contains the procId or null    */
 specifier|private

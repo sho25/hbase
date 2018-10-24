@@ -424,6 +424,7 @@ specifier|private
 name|ProcedureWALFormat
 parameter_list|()
 block|{}
+comment|/**    * Load all the procedures in these ProcedureWALFiles, and rebuild the given {@code tracker} if    * needed, i.e, the {@code tracker} is a partial one.    *<p/>    * The method in the give {@code loader} will be called at the end after we load all the    * procedures and construct the hierarchy.    *<p/>    * And we will call the {@link ProcedureStoreTracker#resetModified()} method for the given    * {@code tracker} before returning, as it will be used to track the next proc wal file's modified    * procedures.    */
 specifier|public
 specifier|static
 name|void

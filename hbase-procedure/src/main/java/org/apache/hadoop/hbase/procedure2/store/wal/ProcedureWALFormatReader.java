@@ -511,22 +511,8 @@ name|localProcedureMap
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|localTracker
-operator|.
-name|isPartial
-argument_list|()
-condition|)
-block|{
-name|localTracker
-operator|.
-name|setPartialFlag
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
+comment|// Do not reset the partial flag for local tracker, as here the local tracker only know the
+comment|// procedures which are modified in this file.
 block|}
 specifier|public
 name|void

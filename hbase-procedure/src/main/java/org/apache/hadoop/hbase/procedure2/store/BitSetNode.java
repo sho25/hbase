@@ -571,10 +571,17 @@ name|other
 operator|.
 name|start
 expr_stmt|;
+comment|// The resetDelete will be set to true when building cleanup tracker.
+comment|// as we will reset deleted flags for all the unmodified bits to 1, the partial flag is useless
+comment|// so set it to false for not confusing the developers when debugging.
 name|this
 operator|.
 name|partial
 operator|=
+name|resetDelete
+condition|?
+literal|false
+else|:
 name|other
 operator|.
 name|partial
@@ -590,7 +597,6 @@ operator|.
 name|clone
 argument_list|()
 expr_stmt|;
-comment|// The resetDelete will be set to true when building cleanup tracker.
 comment|// The intention here is that, if a procedure is not modified in this tracker, then we do not
 comment|// need to take care of it, so we will set deleted to true for these bits, i.e, if modified is
 comment|// 0, then we set deleted to 1, otherwise keep it as is. So here, the equation is

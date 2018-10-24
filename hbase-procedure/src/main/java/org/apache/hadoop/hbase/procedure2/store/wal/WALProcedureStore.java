@@ -618,7 +618,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker, boolean)}.  * If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it. This is because that, every time we call  * {@link ProcedureStore#insert(Procedure[])} or {@link ProcedureStore#update(Procedure)}, we will  * persist the full state of a Procedure, so the earlier wal records for this procedure can all be  * deleted.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
+comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}.  * If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it. This is because that, every time we call  * {@link ProcedureStore#insert(Procedure[])} or {@link ProcedureStore#update(Procedure)}, we will  * persist the full state of a Procedure, so the earlier wal records for this procedure can all be  * deleted.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
 end_comment
 
 begin_class
@@ -5659,15 +5659,11 @@ expr_stmt|;
 return|return;
 block|}
 comment|// compute the holding tracker.
-comment|//  - the first WAL is used for the 'updates'
-comment|//  - the global tracker is passed in first to decide which procedures are not
-comment|//    exist anymore, so we can mark them as deleted in holdingCleanupTracker.
-comment|//    Only global tracker have the whole picture here.
-comment|//  - the other WALs are scanned to remove procs already updated in a newer wal.
-comment|//    If it is updated in a newer wal, we can mark it as delelted in holdingCleanupTracker
-comment|//    But, we can not delete it if it was shown deleted in the newer wal, as said
-comment|//    above.
-comment|// TODO: exit early if holdingCleanupTracker.isEmpty()
+comment|// - the first WAL is used for the 'updates'
+comment|// - the global tracker will be used to determine whether a procedure has been deleted
+comment|// - other trackers will be used to determine whether a procedure has been updated, as a deleted
+comment|// procedure can always be detected by checking the global tracker, we can save the deleted
+comment|// checks when applying other trackers
 name|holdingCleanupTracker
 operator|.
 name|resetTo
@@ -5683,63 +5679,73 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-comment|//Passing in the global tracker, we can delete the procedures not in the global
-comment|//tracker, because they are deleted in the later logs
 name|holdingCleanupTracker
 operator|.
-name|setDeletedIfModifiedInBoth
+name|setDeletedIfDeletedByThem
 argument_list|(
 name|storeTracker
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|1
-init|,
-name|size
+comment|// the logs is a linked list, so avoid calling get(index) on it.
+name|Iterator
+argument_list|<
+name|ProcedureWALFile
+argument_list|>
+name|iter
 init|=
 name|logs
 operator|.
-name|size
+name|iterator
 argument_list|()
-operator|-
-literal|1
-init|;
-name|i
-operator|<
-name|size
-condition|;
-operator|++
-name|i
-control|)
-block|{
-comment|// Set deleteIfNotExists to false since a single log's tracker is passed in.
-comment|// Since a specific procedure may not show up in the log at all(not executed or
-comment|// updated during the time), we can not delete the procedure just because this log
-comment|// don't have the info of the procedure. We can delete the procedure only if
-comment|// in this log's tracker, it was cleanly showed that the procedure is modified or deleted
-comment|// in the corresponding BitSetNode.
-name|holdingCleanupTracker
+decl_stmt|;
+comment|// skip the tracker for the first file when creating the iterator.
+name|iter
 operator|.
-name|setDeletedIfModifiedInBoth
-argument_list|(
-name|logs
+name|next
+argument_list|()
+expr_stmt|;
+name|ProcedureStoreTracker
+name|tracker
+init|=
+name|iter
 operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
+name|next
+argument_list|()
 operator|.
 name|getTracker
 argument_list|()
-argument_list|,
-literal|false
+decl_stmt|;
+comment|// testing iter.hasNext after calling iter.next to skip applying the tracker for last file,
+comment|// which is just the storeTracker above.
+while|while
+condition|(
+name|iter
+operator|.
+name|hasNext
+argument_list|()
+condition|)
+block|{
+name|holdingCleanupTracker
+operator|.
+name|setDeletedIfModifiedInBoth
+argument_list|(
+name|tracker
 argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|holdingCleanupTracker
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+break|break;
+block|}
+name|iter
+operator|.
+name|next
+argument_list|()
 expr_stmt|;
 block|}
 block|}
