@@ -2419,6 +2419,39 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+comment|// this can happen if the parent stores the sub procedures but before it can
+comment|// release its lock, the master restarts
+if|if
+condition|(
+name|getState
+argument_list|()
+operator|==
+name|ProcedureState
+operator|.
+name|WAITING
+operator|&&
+operator|!
+name|holdLock
+argument_list|(
+name|env
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} is in WAITING STATE, and holdLock= false, skip acquiring lock."
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
+name|lockedWhenLoading
+operator|=
+literal|false
+expr_stmt|;
+return|return;
+block|}
 name|LOG
 operator|.
 name|debug

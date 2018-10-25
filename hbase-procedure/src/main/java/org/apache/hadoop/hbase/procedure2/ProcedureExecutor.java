@@ -3249,12 +3249,44 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// If the procedure holds the lock, put the procedure in front
+comment|// If its parent holds the lock, put the procedure in front
+comment|// TODO. Is that possible that its ancestor holds the lock?
+comment|// For now, the deepest procedure hierarchy is:
+comment|// ModifyTableProcedure -> ReopenTableProcedure ->
+comment|// MoveTableProcedure -> Unassign/AssignProcedure
+comment|// But ModifyTableProcedure and ReopenTableProcedure won't hold the lock
+comment|// So, check parent lock is enough(a tricky case is resovled by HBASE-21384).
+comment|// If some one change or add new procedures making 'grandpa' procedure
+comment|// holds the lock, but parent procedure don't hold the lock, there will
+comment|// be a problem here. We have to check one procedure's ancestors.
+comment|// And we need to change LockAndQueue.hasParentLock(Procedure<?> proc) method
+comment|// to check all ancestors too.
 if|if
 condition|(
 name|p
 operator|.
 name|isLockedWhenLoading
 argument_list|()
+operator|||
+operator|(
+name|p
+operator|.
+name|hasParent
+argument_list|()
+operator|&&
+name|procedures
+operator|.
+name|get
+argument_list|(
+name|p
+operator|.
+name|getParentProcId
+argument_list|()
+argument_list|)
+operator|.
+name|isLockedWhenLoading
+argument_list|()
+operator|)
 condition|)
 block|{
 name|scheduler

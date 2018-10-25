@@ -158,7 +158,8 @@ argument_list|>
 name|proc
 parameter_list|)
 block|{
-comment|// TODO: need to check all the ancestors
+comment|// TODO: need to check all the ancestors. need to passed in the procedures
+comment|// to find the ancestors.
 return|return
 name|proc
 operator|.
