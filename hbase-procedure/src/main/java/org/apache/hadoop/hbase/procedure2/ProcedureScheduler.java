@@ -121,6 +121,17 @@ name|Procedure
 name|proc
 parameter_list|)
 function_decl|;
+comment|/**    * Inserts the specified element at the front of this queue.    * @param proc the Procedure to add    * @param notify whether need to notify worker    */
+name|void
+name|addFront
+parameter_list|(
+name|Procedure
+name|proc
+parameter_list|,
+name|boolean
+name|notify
+parameter_list|)
+function_decl|;
 comment|/**    * Inserts all elements in the iterator at the front of this queue.    */
 name|void
 name|addFront
@@ -138,6 +149,17 @@ name|addBack
 parameter_list|(
 name|Procedure
 name|proc
+parameter_list|)
+function_decl|;
+comment|/**    * Inserts the specified element at the end of this queue.    * @param proc the Procedure to add    * @param notify whether need to notify worker    */
+name|void
+name|addBack
+parameter_list|(
+name|Procedure
+name|proc
+parameter_list|,
+name|boolean
+name|notify
 parameter_list|)
 function_decl|;
 comment|/**    * The procedure can't run at the moment.    * add it back to the queue, giving priority to someone else.    * @param proc the Procedure to add back to the list    */

@@ -3248,15 +3248,47 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+comment|// If the procedure holds the lock, put the procedure in front
+if|if
+condition|(
+name|p
+operator|.
+name|isLockedWhenLoading
+argument_list|()
+condition|)
+block|{
+name|scheduler
+operator|.
+name|addFront
+argument_list|(
+name|p
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// if it was not, it can wait.
 name|scheduler
 operator|.
 name|addBack
 argument_list|(
 name|p
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 argument_list|)
+expr_stmt|;
+comment|// After all procedures put into the queue, signal the worker threads.
+comment|// Otherwise, there is a race condition. See HBASE-21364.
+name|scheduler
+operator|.
+name|signalAll
+argument_list|()
 expr_stmt|;
 block|}
 end_function

@@ -1536,6 +1536,15 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+specifier|public
+name|boolean
+name|isLockedWhenLoading
+parameter_list|()
+block|{
+return|return
+name|lockedWhenLoading
+return|;
+block|}
 comment|// ==============================================================================================
 comment|//  Runtime state, updated every operation by the ProcedureExecutor
 comment|//
