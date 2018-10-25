@@ -139,6 +139,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableNotDisabledException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -1278,7 +1292,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|TableNotDisabledException
 argument_list|(
 literal|"REGION_REPLICATION change is not supported for enabled tables"
 argument_list|)
