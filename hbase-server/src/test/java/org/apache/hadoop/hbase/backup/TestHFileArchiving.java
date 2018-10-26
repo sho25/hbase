@@ -49,6 +49,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertNotNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertTrue
 import|;
 end_import
@@ -89,7 +101,37 @@ name|java
 operator|.
 name|util
 operator|.
+name|HashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
 import|;
 end_import
 
@@ -173,7 +215,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|ChoreService
 import|;
 end_import
 
@@ -188,6 +230,62 @@ operator|.
 name|hbase
 operator|.
 name|HBaseClassTestRule
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseTestingUtility
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|Stoppable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|TableName
 import|;
 end_import
 
@@ -219,9 +317,7 @@ name|hbase
 operator|.
 name|master
 operator|.
-name|cleaner
-operator|.
-name|HFileCleaner
+name|HMaster
 import|;
 end_import
 
@@ -235,9 +331,11 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|master
 operator|.
-name|CompactingMemStore
+name|cleaner
+operator|.
+name|HFileCleaner
 import|;
 end_import
 
@@ -286,22 +384,6 @@ operator|.
 name|regionserver
 operator|.
 name|HRegionServer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
-name|Region
 import|;
 end_import
 
@@ -1071,7 +1153,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that the region directory is removed when we archive a region without store files, but    * still has hidden files.    * @throws Exception    */
+comment|/**    * Test that the region directory is removed when we archive a region without store files, but    * still has hidden files.    * @throws IOException throws an IOException if there's problem creating a table    *   or if there's an issue with accessing FileSystem.    */
 annotation|@
 name|Test
 specifier|public
@@ -1079,7 +1161,7 @@ name|void
 name|testDeleteRegionWithNoStoreFiles
 parameter_list|()
 throws|throws
-name|Exception
+name|IOException
 block|{
 specifier|final
 name|TableName
@@ -1296,9 +1378,6 @@ operator|!
 name|file
 operator|.
 name|getName
-argument_list|()
-operator|.
-name|toString
 argument_list|()
 operator|.
 name|startsWith
@@ -1678,7 +1757,8 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|// We have to ensure that the DeleteTableHandler is finished. HBaseAdmin.deleteXXX() can return before all files
+comment|// We have to ensure that the DeleteTableHandler is finished. HBaseAdmin.deleteXXX()
+comment|// can return before all files
 comment|// are archived. We should fix HBASE-5487 and fix synchronous operations from admin.
 while|while
 condition|(
@@ -1826,7 +1906,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that the store files are archived when a column family is removed.    * @throws Exception    */
+comment|/**    * Test that the store files are archived when a column family is removed.    * @throws java.io.IOException if there's a problem creating a table.    * @throws java.lang.InterruptedException problem getting a RegionServer.    */
 annotation|@
 name|Test
 specifier|public
@@ -1834,7 +1914,9 @@ name|void
 name|testArchiveOnTableFamilyDelete
 parameter_list|()
 throws|throws
-name|Exception
+name|IOException
+throws|,
+name|InterruptedException
 block|{
 specifier|final
 name|TableName
@@ -2218,11 +2300,8 @@ comment|// The cleaner should be looping without long pauses to reproduce the ra
 name|HFileCleaner
 name|cleaner
 init|=
-operator|new
-name|HFileCleaner
+name|getHFileCleaner
 argument_list|(
-literal|1
-argument_list|,
 name|stoppable
 argument_list|,
 name|conf
@@ -2232,13 +2311,11 @@ argument_list|,
 name|archiveDir
 argument_list|)
 decl_stmt|;
-name|assertFalse
+name|assertNotNull
 argument_list|(
 literal|"cleaner should not be null"
 argument_list|,
 name|cleaner
-operator|==
-literal|null
 argument_list|)
 expr_stmt|;
 try|try
@@ -2464,6 +2541,89 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Avoid passing a null master to CleanerChore, see HBASE-21175
+specifier|private
+name|HFileCleaner
+name|getHFileCleaner
+parameter_list|(
+name|Stoppable
+name|stoppable
+parameter_list|,
+name|Configuration
+name|conf
+parameter_list|,
+name|FileSystem
+name|fs
+parameter_list|,
+name|Path
+name|archiveDir
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Object
+argument_list|>
+name|params
+init|=
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
+decl_stmt|;
+name|params
+operator|.
+name|put
+argument_list|(
+name|HMaster
+operator|.
+name|MASTER
+argument_list|,
+name|UTIL
+operator|.
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getMaster
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|HFileCleaner
+name|cleaner
+init|=
+operator|new
+name|HFileCleaner
+argument_list|(
+literal|1
+argument_list|,
+name|stoppable
+argument_list|,
+name|conf
+argument_list|,
+name|fs
+argument_list|,
+name|archiveDir
+argument_list|)
+decl_stmt|;
+name|cleaner
+operator|.
+name|init
+argument_list|(
+name|params
+argument_list|)
+expr_stmt|;
+return|return
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
+name|cleaner
+argument_list|)
+return|;
+block|}
 specifier|private
 name|void
 name|clearArchiveDirectory
@@ -2495,7 +2655,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the names of all the files below the given directory    * @param fs the file system to inspect    * @param archiveDir the directory in which to look    * @return a list of all files in the directory and sub-directories    * @throws IOException    */
+comment|/**    * Get the names of all the files below the given directory    * @param fs the file system to inspect    * @param archiveDir the directory in which to look    * @return a list of all files in the directory and sub-directories    * @throws java.io.IOException throws IOException in case FS is unavailable    */
 specifier|private
 name|List
 argument_list|<
@@ -2615,9 +2775,11 @@ name|length
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 name|fileNames
 return|;
+block|}
 for|for
 control|(
 name|FileStatus
@@ -2657,6 +2819,7 @@ argument_list|)
 expr_stmt|;
 block|}
 else|else
+block|{
 name|fileNames
 operator|.
 name|add
@@ -2670,6 +2833,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|fileNames
