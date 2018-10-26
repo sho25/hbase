@@ -232,7 +232,7 @@ specifier|public
 class|class
 name|RecoverStandbyProcedure
 extends|extends
-name|AbstractPeerProcedure
+name|AbstractPeerNoLockProcedure
 argument_list|<
 name|RecoverStandbyState
 argument_list|>

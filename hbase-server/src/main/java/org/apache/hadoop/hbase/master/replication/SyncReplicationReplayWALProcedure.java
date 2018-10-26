@@ -232,7 +232,7 @@ specifier|public
 class|class
 name|SyncReplicationReplayWALProcedure
 extends|extends
-name|AbstractPeerProcedure
+name|AbstractPeerNoLockProcedure
 argument_list|<
 name|SyncReplicationReplayWALState
 argument_list|>

@@ -148,6 +148,8 @@ name|PeerProcedureInterface
 name|proc
 parameter_list|)
 block|{
+comment|// These procedures will only be used as sub procedures, and if they are scheduled, it always
+comment|// means that the root procedure holds the xlock, so we do not need to hold any locks.
 return|return
 name|proc
 operator|.
@@ -157,6 +159,15 @@ operator|!=
 name|PeerOperationType
 operator|.
 name|REFRESH
+operator|&&
+name|proc
+operator|.
+name|getPeerOperationType
+argument_list|()
+operator|!=
+name|PeerOperationType
+operator|.
+name|RECOVER_STANDBY
 operator|&&
 name|proc
 operator|.
