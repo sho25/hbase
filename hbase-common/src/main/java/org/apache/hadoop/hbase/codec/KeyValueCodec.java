@@ -295,7 +295,7 @@ comment|// No tags here
 return|return
 name|KeyValueUtil
 operator|.
-name|iscreate
+name|createKeyValueFromInputStream
 argument_list|(
 name|in
 argument_list|,
