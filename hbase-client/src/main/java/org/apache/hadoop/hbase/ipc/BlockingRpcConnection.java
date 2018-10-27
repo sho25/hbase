@@ -3147,7 +3147,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// initilize the Crypto AES with CryptoCipherMeta
+comment|// initialize the Crypto AES with CryptoCipherMeta
 name|saslRpcClient
 operator|.
 name|initCryptoCipher
