@@ -7106,7 +7106,7 @@ literal|0
 return|;
 block|}
 specifier|public
-name|void
+name|long
 name|submitServerCrash
 parameter_list|(
 specifier|final
@@ -7139,6 +7139,9 @@ operator|.
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
+name|long
+name|pid
+init|=
 name|procExec
 operator|.
 name|submitProcedure
@@ -7158,7 +7161,7 @@ argument_list|,
 name|carryingMeta
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -7172,6 +7175,9 @@ operator|+
 name|carryingMeta
 argument_list|)
 expr_stmt|;
+return|return
+name|pid
+return|;
 block|}
 specifier|public
 name|void
