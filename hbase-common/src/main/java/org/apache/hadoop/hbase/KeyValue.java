@@ -831,6 +831,26 @@ name|t
 expr_stmt|;
 block|}
 block|}
+comment|/**      * True to indicate that the byte b is a valid type.      * @param b byte to check      * @return true or false      */
+specifier|static
+name|boolean
+name|isValidType
+parameter_list|(
+name|byte
+name|b
+parameter_list|)
+block|{
+return|return
+name|codeArray
+index|[
+name|b
+operator|&
+literal|0xff
+index|]
+operator|!=
+literal|null
+return|;
+block|}
 comment|/**      * Cannot rely on enum ordinals . They change if item is removed or moved.      * Do our own codes.      * @param b      * @return Type associated with passed code.      */
 specifier|public
 specifier|static
@@ -1025,6 +1045,19 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|KeyValueUtil
+operator|.
+name|checkKeyValueBytes
+argument_list|(
+name|bytes
+argument_list|,
+name|offset
+argument_list|,
+name|length
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|bytes

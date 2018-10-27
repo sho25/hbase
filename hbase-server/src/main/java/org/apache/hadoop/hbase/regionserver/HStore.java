@@ -8879,14 +8879,6 @@ name|boolean
 name|hasReferences
 parameter_list|()
 block|{
-name|List
-argument_list|<
-name|HStoreFile
-argument_list|>
-name|reloadedStoreFiles
-init|=
-literal|null
-decl_stmt|;
 comment|// Grab the read lock here, because we need to ensure that: only when the atomic
 comment|// replaceStoreFiles(..) finished, we can get all the complete store file list.
 name|this

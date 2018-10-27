@@ -2371,7 +2371,6 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-operator|-
 literal|1L
 argument_list|,
 name|Type
