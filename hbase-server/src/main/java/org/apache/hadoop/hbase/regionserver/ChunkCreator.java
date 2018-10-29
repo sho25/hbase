@@ -622,6 +622,9 @@ return|return
 name|instance
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|static
 name|ChunkCreator
 name|getInstance

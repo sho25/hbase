@@ -4300,14 +4300,6 @@ name|isTablesOnMaster
 argument_list|(
 name|conf
 argument_list|)
-operator|&&
-operator|!
-name|LoadBalancer
-operator|.
-name|isSystemTablesOnlyOnMaster
-argument_list|(
-name|conf
-argument_list|)
 decl_stmt|;
 name|cacheConfig
 operator|=

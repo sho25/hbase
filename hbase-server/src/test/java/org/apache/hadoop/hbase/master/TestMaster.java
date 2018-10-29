@@ -61,18 +61,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -1965,35 +1953,6 @@ argument_list|)
 expr_stmt|;
 end_expr_stmt
 
-begin_function
-unit|}    @
-name|Test
-specifier|public
-name|void
-name|testMasterBlockCache
-parameter_list|()
-block|{
-comment|// Master not carry table in default, so no need to instantiate block cache, too.
-name|assertNull
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getCacheConfig
-argument_list|()
-operator|.
-name|getBlockCache
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-unit|}
+unit|} }
 end_unit
 

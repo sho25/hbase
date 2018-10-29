@@ -6042,10 +6042,21 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
-comment|// Initialize the chunkCreator
+comment|// Only initialize the MemStoreLAB when master carry table
+if|if
+condition|(
+name|LoadBalancer
+operator|.
+name|isTablesOnMaster
+argument_list|(
+name|conf
+argument_list|)
+condition|)
+block|{
 name|initializeMemStoreChunkCreator
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|fileSystemManager
