@@ -364,7 +364,11 @@ name|queue
 operator|=
 operator|new
 name|MasterProcedureScheduler
-argument_list|()
+argument_list|(
+name|pid
+lambda|->
+literal|null
+argument_list|)
 expr_stmt|;
 name|queue
 operator|.

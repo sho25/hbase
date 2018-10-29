@@ -136,61 +136,16 @@ name|boolean
 name|isAvailable
 parameter_list|()
 block|{
-comment|// if there are no items in the queue, or the namespace is locked.
-comment|// we can't execute operation on this table
-if|if
-condition|(
+return|return
+operator|!
 name|isEmpty
 argument_list|()
-operator|||
+operator|&&
+operator|!
 name|namespaceLockStatus
 operator|.
 name|hasExclusiveLock
 argument_list|()
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-name|getLockStatus
-argument_list|()
-operator|.
-name|hasExclusiveLock
-argument_list|()
-condition|)
-block|{
-comment|// if we have an exclusive lock already taken
-comment|// only child of the lock owner can be executed
-specifier|final
-name|Procedure
-argument_list|<
-name|?
-argument_list|>
-name|nextProc
-init|=
-name|peek
-argument_list|()
-decl_stmt|;
-return|return
-name|nextProc
-operator|!=
-literal|null
-operator|&&
-name|getLockStatus
-argument_list|()
-operator|.
-name|hasLockAccess
-argument_list|(
-name|nextProc
-argument_list|)
-return|;
-block|}
-comment|// no xlock
-return|return
-literal|true
 return|;
 block|}
 annotation|@

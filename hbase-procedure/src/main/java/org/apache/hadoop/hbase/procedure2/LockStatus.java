@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface to get status of a Lock without getting access to acquire/release lock.  * Currently used in MasterProcedureScheduler where we want to give Queues access to lock's  * status for scheduling purposes, but not the ability to acquire/release it.  */
+comment|/**  * Interface to get status of a Lock without getting access to acquire/release lock. Currently used  * in MasterProcedureScheduler where we want to give Queues access to lock's status for scheduling  * purposes, but not the ability to acquire/release it.  */
 end_comment
 
 begin_interface
@@ -44,31 +44,28 @@ specifier|public
 interface|interface
 name|LockStatus
 block|{
+comment|/**    * Return whether this lock has already been held,    *<p/>    * Notice that, holding the exclusive lock or shared lock are both considered as locked, i.e, this    * method usually equals to {@code hasExclusiveLock() || getSharedLockCount()> 0}.    */
+specifier|default
 name|boolean
 name|isLocked
 parameter_list|()
-function_decl|;
+block|{
+return|return
+name|hasExclusiveLock
+argument_list|()
+operator|||
+name|getSharedLockCount
+argument_list|()
+operator|>
+literal|0
+return|;
+block|}
+comment|/**    * Whether the exclusive lock has been held.    */
 name|boolean
 name|hasExclusiveLock
 parameter_list|()
 function_decl|;
-name|boolean
-name|isLockOwner
-parameter_list|(
-name|long
-name|procId
-parameter_list|)
-function_decl|;
-name|boolean
-name|hasParentLock
-parameter_list|(
-name|Procedure
-argument_list|<
-name|?
-argument_list|>
-name|proc
-parameter_list|)
-function_decl|;
+comment|/**    * Return true if the procedure itself holds the exclusive lock, or any ancestors of the give    * procedure hold the exclusive lock.    */
 name|boolean
 name|hasLockAccess
 parameter_list|(
@@ -79,6 +76,7 @@ argument_list|>
 name|proc
 parameter_list|)
 function_decl|;
+comment|/**    * Get the procedure which holds the exclusive lock.    */
 name|Procedure
 argument_list|<
 name|?
@@ -86,10 +84,36 @@ argument_list|>
 name|getExclusiveLockOwnerProcedure
 parameter_list|()
 function_decl|;
+comment|/**    * Return the id of the procedure which holds the exclusive lock, if exists. Or a negative value    * which means no one holds the exclusive lock.    *<p/>    * Notice that, in HBase, we assume that the procedure id is positive, or at least non-negative.    */
+specifier|default
 name|long
 name|getExclusiveLockProcIdOwner
 parameter_list|()
-function_decl|;
+block|{
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|proc
+init|=
+name|getExclusiveLockOwnerProcedure
+argument_list|()
+decl_stmt|;
+return|return
+name|proc
+operator|!=
+literal|null
+condition|?
+name|proc
+operator|.
+name|getProcId
+argument_list|()
+else|:
+operator|-
+literal|1L
+return|;
+block|}
+comment|/**    * Get the number of procedures which hold the shared lock.    */
 name|int
 name|getSharedLockCount
 parameter_list|()

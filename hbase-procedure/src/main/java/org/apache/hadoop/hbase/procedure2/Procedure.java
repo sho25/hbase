@@ -624,8 +624,6 @@ literal|false
 return|;
 block|}
 comment|/**    * This is used in conjunction with {@link #holdLock(Object)}. If {@link #holdLock(Object)}    * returns true, the procedure executor will call acquireLock() once and thereafter    * not call {@link #releaseLock(Object)} until the Procedure is done (Normally, it calls    * release/acquire around each invocation of {@link #execute(Object)}.    * @see #holdLock(Object)    * @return true if the procedure has the lock, false otherwise.    */
-annotation|@
-name|VisibleForTesting
 specifier|public
 specifier|final
 name|boolean
@@ -1523,7 +1521,7 @@ operator|=
 name|result
 expr_stmt|;
 block|}
-comment|/**    * Will only be called when loading procedures from procedure store, where we need to record    * whether the procedure has already held a lock. Later we will call    * {@link #doAcquireLock(Object, ProcedureStore)} to actually acquire the lock.    */
+comment|/**    * Will only be called when loading procedures from procedure store, where we need to record    * whether the procedure has already held a lock. Later we will call    * {@link #restoreLock(Object, ProcedureStore)} to actually acquire the lock.    */
 specifier|final
 name|void
 name|lockedWhenLoading
@@ -1536,6 +1534,7 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**    * Can only be called when restarting, before the procedure actually being executed, as after we    * actually call the {@link #doAcquireLock(Object, ProcedureStore)} method, we will reset    * {@link #lockedWhenLoading} to false.    *<p/>    * Now it is only used in the ProcedureScheduler to determine whether we should put a Procedure in    * front of a queue.    */
 specifier|public
 name|boolean
 name|isLockedWhenLoading
@@ -2441,7 +2440,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"{} is in WAITING STATE, and holdLock= false, skip acquiring lock."
+literal|"{} is in WAITING STATE, and holdLock=false, skip acquiring lock."
 argument_list|,
 name|this
 argument_list|)
