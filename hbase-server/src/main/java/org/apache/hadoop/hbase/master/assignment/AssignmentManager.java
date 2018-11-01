@@ -6668,9 +6668,6 @@ name|countOfRegionServers
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|processOfflineRegions
-argument_list|()
-expr_stmt|;
 comment|// Start the RIT chore
 name|master
 operator|.
@@ -6716,14 +6713,10 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Create assign procedure for offline regions.
-comment|// Just follow the old processofflineServersWithOnlineRegions method. Since now we do not need to
-comment|// deal with dead server any more, we only deal with the regions in OFFLINE state in this method.
-comment|// And this is a bit strange, that for new regions, we will add it in CLOSED state instead of
-comment|// OFFLINE state, and usually there will be a procedure to track them. The
-comment|// processofflineServersWithOnlineRegions is a legacy from long ago, as things are going really
-comment|// different now, maybe we do not need this method any more. Need to revisit later.
-specifier|private
+comment|/**    * Create assign procedure for offline regions.    * Just follow the old processofflineServersWithOnlineRegions method. Since now we do not need to    * deal with dead server any more, we only deal with the regions in OFFLINE state in this method.    * And this is a bit strange, that for new regions, we will add it in CLOSED state instead of    * OFFLINE state, and usually there will be a procedure to track them. The    * processofflineServersWithOnlineRegions is a legacy from long ago, as things are going really    * different now, maybe we do not need this method any more. Need to revisit later.    */
+comment|// Public so can be run by the Master as part of the startup. Needs hbase:meta to be online.
+comment|// Needs to be done after the table state manager has been started.
+specifier|public
 name|void
 name|processOfflineRegions
 parameter_list|()

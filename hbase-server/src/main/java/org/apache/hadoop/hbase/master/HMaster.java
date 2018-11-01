@@ -6850,6 +6850,18 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+comment|// Below has to happen after tablestatemanager has started in the case where this hbase-2.x
+comment|// is being started over an hbase-1.x dataset. tablestatemanager runs a migration as part
+comment|// of its 'start' moving table state from zookeeper to hbase:meta. This migration needs to
+comment|// complete before we do this next step processing offline regions else it fails reading
+comment|// table states messing up master launch (namespace table, etc., are not assigned).
+name|this
+operator|.
+name|assignmentManager
+operator|.
+name|processOfflineRegions
+argument_list|()
+expr_stmt|;
 comment|// Initialize after meta is up as below scans meta
 if|if
 condition|(

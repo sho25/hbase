@@ -1442,7 +1442,7 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|// NOTE: Ful hbase:meta table scan!
+comment|// NOTE: Full hbase:meta table scan!
 name|MetaTableAccessor
 operator|.
 name|fullScanTables
