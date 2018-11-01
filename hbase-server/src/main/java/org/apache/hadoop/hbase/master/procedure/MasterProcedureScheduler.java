@@ -63,6 +63,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|function
+operator|.
+name|Supplier
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -831,18 +843,52 @@ comment|// 1. The procedure has already held the lock, or the lock has been rest
 comment|// which means it can be executed immediately.
 comment|// 2. The exclusive lock for this queue has not been held.
 comment|// 3. The given procedure has the exclusive lock permission for this queue.
+name|Supplier
+argument_list|<
+name|String
+argument_list|>
+name|reason
+init|=
+literal|null
+decl_stmt|;
 if|if
 condition|(
 name|proc
 operator|.
 name|hasLock
 argument_list|()
-operator|||
+condition|)
+block|{
+name|reason
+operator|=
+parameter_list|()
+lambda|->
+name|proc
+operator|+
+literal|" has lock"
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
 name|proc
 operator|.
 name|isLockedWhenLoading
 argument_list|()
-operator|||
+condition|)
+block|{
+name|reason
+operator|=
+parameter_list|()
+lambda|->
+name|proc
+operator|+
+literal|" restores lock when restarting"
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
 operator|!
 name|queue
 operator|.
@@ -851,7 +897,20 @@ argument_list|()
 operator|.
 name|hasExclusiveLock
 argument_list|()
-operator|||
+condition|)
+block|{
+name|reason
+operator|=
+parameter_list|()
+lambda|->
+literal|"the exclusive lock is not held by anyone when adding "
+operator|+
+name|proc
+expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
 name|queue
 operator|.
 name|getLockStatus
@@ -863,11 +922,29 @@ name|proc
 argument_list|)
 condition|)
 block|{
+name|reason
+operator|=
+parameter_list|()
+lambda|->
+name|proc
+operator|+
+literal|" has the excusive lock access"
+expr_stmt|;
+block|}
+if|if
+condition|(
+name|reason
+operator|!=
+literal|null
+condition|)
+block|{
 name|addToRunQueue
 argument_list|(
 name|fairq
 argument_list|,
 name|queue
+argument_list|,
+name|reason
 argument_list|)
 expr_stmt|;
 block|}
@@ -1158,6 +1235,12 @@ argument_list|(
 name|fairq
 argument_list|,
 name|rq
+argument_list|,
+parameter_list|()
+lambda|->
+literal|"queue is empty after polling out "
+operator|+
+name|proc
 argument_list|)
 expr_stmt|;
 block|}
@@ -1182,6 +1265,10 @@ argument_list|(
 name|fairq
 argument_list|,
 name|rq
+argument_list|,
+parameter_list|()
+lambda|->
+literal|"no procedure can be executed"
 argument_list|)
 expr_stmt|;
 return|return
@@ -1386,14 +1473,12 @@ parameter_list|(
 name|TNode
 name|treeMap
 parameter_list|,
-specifier|final
 name|FairQueue
 argument_list|<
 name|T
 argument_list|>
 name|fairq
 parameter_list|,
-specifier|final
 name|AvlKeyComparator
 argument_list|<
 name|TNode
@@ -1443,13 +1528,19 @@ name|fairq
 operator|!=
 literal|null
 condition|)
+block|{
 name|removeFromRunQueue
 argument_list|(
 name|fairq
 argument_list|,
 name|node
+argument_list|,
+parameter_list|()
+lambda|->
+literal|"clear all queues"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
@@ -1752,8 +1843,37 @@ argument_list|<
 name|T
 argument_list|>
 name|queue
+parameter_list|,
+name|Supplier
+argument_list|<
+name|String
+argument_list|>
+name|reason
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Add {} to run queue because: {}"
+argument_list|,
+name|queue
+argument_list|,
+name|reason
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 operator|!
@@ -1804,8 +1924,37 @@ argument_list|<
 name|T
 argument_list|>
 name|queue
+parameter_list|,
+name|Supplier
+argument_list|<
+name|String
+argument_list|>
+name|reason
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Remove {} from run queue because: {}"
+argument_list|,
+name|queue
+argument_list|,
+name|reason
+operator|.
+name|get
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|AvlIterableList
@@ -2234,6 +2383,14 @@ argument_list|(
 name|serverRunQueue
 argument_list|,
 name|node
+argument_list|,
+parameter_list|()
+lambda|->
+literal|"clean up server queue after "
+operator|+
+name|proc
+operator|+
+literal|" completed"
 argument_list|)
 expr_stmt|;
 name|removeServerQueue
@@ -2486,6 +2643,14 @@ argument_list|(
 name|peerRunQueue
 argument_list|,
 name|queue
+argument_list|,
+parameter_list|()
+lambda|->
+literal|"clean up peer queue after "
+operator|+
+name|procedure
+operator|+
+literal|" completed"
 argument_list|)
 expr_stmt|;
 name|removePeerQueue
@@ -2853,6 +3018,12 @@ name|getTableQueue
 argument_list|(
 name|table
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" held the exclusive lock"
 argument_list|)
 expr_stmt|;
 return|return
@@ -2960,6 +3131,12 @@ name|getTableQueue
 argument_list|(
 name|table
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released the exclusive lock"
 argument_list|)
 expr_stmt|;
 name|wakePollIfNeeded
@@ -3180,6 +3357,12 @@ name|getTableQueue
 argument_list|(
 name|table
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released the shared lock"
 argument_list|)
 expr_stmt|;
 name|waitingCount
@@ -4120,6 +4303,12 @@ name|TableName
 operator|.
 name|NAMESPACE_TABLE_NAME
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released namespace exclusive lock"
 argument_list|)
 expr_stmt|;
 name|waitingCount
@@ -4210,6 +4399,12 @@ name|procedure
 else|:
 literal|null
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" held exclusive lock"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4308,6 +4503,12 @@ name|procedure
 else|:
 literal|null
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released exclusive lock"
 argument_list|)
 expr_stmt|;
 name|int
@@ -4383,6 +4584,12 @@ name|getPeerQueue
 argument_list|(
 name|peerId
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" held exclusive lock"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4465,6 +4672,12 @@ name|getPeerQueue
 argument_list|(
 name|peerId
 argument_list|)
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released exclusive lock"
 argument_list|)
 expr_stmt|;
 name|int
@@ -4536,6 +4749,12 @@ name|metaRunQueue
 argument_list|,
 name|getMetaQueue
 argument_list|()
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" held exclusive lock"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4615,6 +4834,12 @@ name|metaRunQueue
 argument_list|,
 name|getMetaQueue
 argument_list|()
+argument_list|,
+parameter_list|()
+lambda|->
+name|procedure
+operator|+
+literal|" released exclusive lock"
 argument_list|)
 expr_stmt|;
 name|int
