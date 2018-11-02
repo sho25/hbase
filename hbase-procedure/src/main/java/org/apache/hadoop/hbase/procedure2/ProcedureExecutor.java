@@ -692,6 +692,7 @@ literal|1
 argument_list|)
 decl_stmt|;
 comment|/**    * {@link #testing} is non-null when ProcedureExecutor is being tested. Tests will try to    * break PE having it fail at various junctures. When non-null, testing is set to an instance of    * the below internal {@link Testing} class with flags set for the particular test.    */
+specifier|volatile
 name|Testing
 name|testing
 init|=
@@ -704,12 +705,14 @@ class|class
 name|Testing
 block|{
 specifier|protected
+specifier|volatile
 name|boolean
 name|killIfHasParent
 init|=
 literal|true
 decl_stmt|;
 specifier|protected
+specifier|volatile
 name|boolean
 name|killIfSuspended
 init|=
@@ -717,12 +720,14 @@ literal|false
 decl_stmt|;
 comment|/**      * Kill the PE BEFORE we store state to the WAL. Good for figuring out if a Procedure is      * persisting all the state it needs to recover after a crash.      */
 specifier|protected
+specifier|volatile
 name|boolean
 name|killBeforeStoreUpdate
 init|=
 literal|false
 decl_stmt|;
 specifier|protected
+specifier|volatile
 name|boolean
 name|toggleKillBeforeStoreUpdate
 init|=
@@ -730,12 +735,14 @@ literal|false
 decl_stmt|;
 comment|/**      * Set when we want to fail AFTER state has been stored into the WAL. Rarely used. HBASE-20978      * is about a case where memory-state was being set after store to WAL where a crash could      * cause us to get stuck. This flag allows killing at what was a vulnerable time.      */
 specifier|protected
+specifier|volatile
 name|boolean
 name|killAfterStoreUpdate
 init|=
 literal|false
 decl_stmt|;
 specifier|protected
+specifier|volatile
 name|boolean
 name|toggleKillAfterStoreUpdate
 init|=

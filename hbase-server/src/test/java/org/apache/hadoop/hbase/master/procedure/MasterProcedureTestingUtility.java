@@ -933,6 +933,8 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 decl_stmt|;
+try|try
+block|{
 name|am
 operator|.
 name|joinCluster
@@ -945,6 +947,23 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to load meta"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|null
 return|;
