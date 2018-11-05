@@ -381,6 +381,10 @@ name|SyncReplicationReplayWALRemoteStateData
 import|;
 end_import
 
+begin_comment
+comment|/**  * A remote procedure which is used to send replaying remote wal work to region server.  */
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -717,7 +721,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|/**    * Only truncate wals one by one when task succeed. The parent procedure will check the first    * wal length to know whether this task succeed.    */
+comment|/**    * Only truncate wals one by one when task succeed. The parent procedure will check the first wal    * length to know whether this task succeed.    */
 specifier|private
 name|void
 name|truncateWALs

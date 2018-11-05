@@ -101,6 +101,28 @@ name|LoggerFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -770,6 +792,9 @@ comment|// =====================================================================
 comment|//  Procedure Events
 comment|// ==========================================================================
 comment|/**    * Wake up all of the given events.    * Note that we first take scheduler lock and then wakeInternal() synchronizes on the event.    * Access should remain package-private. Use ProcedureEvent class to wake/suspend events.    * @param events the list of events to wake    */
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|void
 name|wakeEvents
 parameter_list|(

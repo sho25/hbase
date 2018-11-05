@@ -253,6 +253,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Only to be used by ProcedureScheduler implementations.    * Reason: To wake up multiple events, locking sequence is    * schedLock --> synchronized (event)    * To wake up an event, both schedLock() and synchronized(event) are required.    * The order is schedLock() --> synchronized(event) because when waking up multiple events    * simultaneously, we keep the scheduler locked until all procedures suspended on these events    * have been added back to the queue (Maybe it's not required? Evaluate!)    * To avoid deadlocks, we want to keep the locking order same even when waking up single event.    * That's why, {@link #wake(AbstractProcedureScheduler)} above uses the same code path as used    * when waking up multiple events.    * Access should remain package-private.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|synchronized
 name|void
 name|wakeInternal

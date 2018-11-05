@@ -165,6 +165,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|abstract
 class|class
 name|ZKReplicationStorageBase
 block|{
