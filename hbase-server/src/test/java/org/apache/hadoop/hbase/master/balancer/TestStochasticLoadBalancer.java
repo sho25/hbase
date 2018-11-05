@@ -1044,7 +1044,7 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|getEncodedNameAsBytes
+name|getRegionName
 argument_list|()
 argument_list|,
 name|rl
@@ -1755,6 +1755,21 @@ name|clusterStatus
 argument_list|)
 expr_stmt|;
 block|}
+name|String
+name|regionNameAsString
+init|=
+name|RegionInfo
+operator|.
+name|getRegionNameAsString
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|REGION_KEY
+argument_list|)
+argument_list|)
+decl_stmt|;
 name|assertTrue
 argument_list|(
 name|loadBalancer
@@ -1763,7 +1778,7 @@ name|loads
 operator|.
 name|get
 argument_list|(
-name|REGION_KEY
+name|regionNameAsString
 argument_list|)
 operator|!=
 literal|null
@@ -1777,7 +1792,7 @@ name|loads
 operator|.
 name|get
 argument_list|(
-name|REGION_KEY
+name|regionNameAsString
 argument_list|)
 operator|.
 name|size
@@ -1798,7 +1813,7 @@ name|loads
 operator|.
 name|get
 argument_list|(
-name|REGION_KEY
+name|regionNameAsString
 argument_list|)
 decl_stmt|;
 name|int
