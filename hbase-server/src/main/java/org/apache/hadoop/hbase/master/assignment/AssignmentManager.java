@@ -5528,8 +5528,6 @@ index|[]
 argument_list|>
 name|regionNames
 parameter_list|)
-throws|throws
-name|YouAreDeadException
 block|{
 specifier|final
 name|ServerName
@@ -5800,45 +5798,19 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+comment|//See HBASE-21421, we can count on reportRegionStateTransition calls
+comment|//We only log a warming here. It could be a network lag.
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Killing "
+literal|"Failed to checkOnlineRegionsReport, maybe due to network lag, "
 operator|+
-name|serverName
-operator|+
-literal|": "
-operator|+
+literal|"if this message continues, be careful of double assign"
+argument_list|,
 name|e
-operator|.
-name|getMessage
-argument_list|()
 argument_list|)
 expr_stmt|;
-name|killRegionServer
-argument_list|(
-name|serverNode
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|(
-name|YouAreDeadException
-operator|)
-operator|new
-name|YouAreDeadException
-argument_list|(
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
-name|e
-argument_list|)
-throw|;
 block|}
 block|}
 specifier|protected
