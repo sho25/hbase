@@ -690,7 +690,7 @@ name|put
 argument_list|(
 name|info
 operator|.
-name|getEncodedNameAsBytes
+name|getRegionName
 argument_list|()
 argument_list|,
 name|rl
