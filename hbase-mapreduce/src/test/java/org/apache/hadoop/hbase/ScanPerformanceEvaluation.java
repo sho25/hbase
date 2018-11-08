@@ -475,7 +475,7 @@ specifier|final
 name|String
 name|HBASE_COUNTER_GROUP_NAME
 init|=
-literal|"HBase Counters"
+literal|"HBaseCounters"
 decl_stmt|;
 specifier|private
 name|String
