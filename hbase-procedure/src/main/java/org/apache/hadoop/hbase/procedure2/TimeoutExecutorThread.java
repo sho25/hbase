@@ -593,7 +593,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|void
 name|executeTimedoutProcedure
 parameter_list|(

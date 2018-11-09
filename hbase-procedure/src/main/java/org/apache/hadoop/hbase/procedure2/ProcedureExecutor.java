@@ -4452,22 +4452,64 @@ block|}
 end_if
 
 begin_comment
-comment|// If we don't have the lock, we can't re-submit the queue,
+comment|// If state of procedure is WAITING_TIMEOUT, we can directly submit it to the scheduler.
 end_comment
 
 begin_comment
-comment|// since it is already executing. To get rid of the stuck situation, we
-end_comment
-
-begin_comment
-comment|// need to restart the master. With the procedure set to bypass, the procedureExecutor
-end_comment
-
-begin_comment
-comment|// will bypass it and won't get stuck again.
+comment|// Instead we should remove it from timeout Executor queue and tranfer its state to RUNNABLE
 end_comment
 
 begin_if
+if|if
+condition|(
+name|procedure
+operator|.
+name|getState
+argument_list|()
+operator|==
+name|ProcedureState
+operator|.
+name|WAITING_TIMEOUT
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"transform procedure {} from WAITING_TIMEOUT to RUNNABLE"
+argument_list|,
+name|procedure
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|timeoutExecutor
+operator|.
+name|remove
+argument_list|(
+name|procedure
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"removed procedure {} from timeoutExecutor"
+argument_list|,
+name|procedure
+argument_list|)
+expr_stmt|;
+name|timeoutExecutor
+operator|.
+name|executeTimedoutProcedure
+argument_list|(
+name|procedure
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+elseif|else
 if|if
 condition|(
 name|lockEntry
@@ -4475,7 +4517,6 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|// add the procedure to run queue,
 name|scheduler
 operator|.
 name|addFront
@@ -4495,6 +4536,10 @@ expr_stmt|;
 block|}
 else|else
 block|{
+comment|// If we don't have the lock, we can't re-submit the queue,
+comment|// since it is already executing. To get rid of the stuck situation, we
+comment|// need to restart the master. With the procedure set to bypass, the procedureExecutor
+comment|// will bypass it and won't get stuck again.
 name|LOG
 operator|.
 name|debug
