@@ -295,7 +295,7 @@ comment|// create KeyValue with tags
 return|return
 name|KeyValueUtil
 operator|.
-name|createKeyValueFromInputStream
+name|iscreate
 argument_list|(
 name|in
 argument_list|,
