@@ -299,20 +299,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|YouAreDeadException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|DoNotRetryRegionException
@@ -1311,7 +1297,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+annotation|@
+name|VisibleForTesting
 name|AssignmentManager
 parameter_list|(
 specifier|final
@@ -5130,16 +5117,14 @@ block|}
 comment|// ============================================================================================
 comment|//  RS Status update (report online regions) helpers
 comment|// ============================================================================================
-comment|/**    * the master will call this method when the RS send the regionServerReport().    * the report will contains the "online regions".    * this method will check the the online regions against the in-memory state of the AM,    * if there is a mismatch we will try to fence out the RS with the assumption    * that something went wrong on the RS side.    */
+comment|/**    * The master will call this method when the RS send the regionServerReport(). The report will    * contains the "online regions". This method will check the the online regions against the    * in-memory state of the AM, and we will log a warn message if there is a mismatch. This is    * because that there is no fencing between the reportRegionStateTransition method and    * regionServerReport method, so there could be race and introduce inconsistency here, but    * actually there is no problem.    *<p/>    * Please see HBASE-21421 and HBASE-21463 for more details.    */
 specifier|public
 name|void
 name|reportOnlineRegions
 parameter_list|(
-specifier|final
 name|ServerName
 name|serverName
 parameter_list|,
-specifier|final
 name|Set
 argument_list|<
 name|byte
@@ -5147,8 +5132,6 @@ index|[]
 argument_list|>
 name|regionNames
 parameter_list|)
-throws|throws
-name|YouAreDeadException
 block|{
 if|if
 condition|(
@@ -5156,7 +5139,9 @@ operator|!
 name|isRunning
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|LOG
@@ -5169,24 +5154,18 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"ReportOnlineRegions "
-operator|+
+literal|"ReportOnlineRegions {} regionCount={}, metaLoaded={} {}"
+argument_list|,
 name|serverName
-operator|+
-literal|" regionCount="
-operator|+
+argument_list|,
 name|regionNames
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|", metaLoaded="
-operator|+
+argument_list|,
 name|isMetaLoaded
 argument_list|()
-operator|+
-literal|" "
-operator|+
+argument_list|,
 name|regionNames
 operator|.
 name|stream
@@ -5194,14 +5173,9 @@ argument_list|()
 operator|.
 name|map
 argument_list|(
-name|element
-lambda|->
 name|Bytes
-operator|.
+operator|::
 name|toStringBinary
-argument_list|(
-name|element
-argument_list|)
 argument_list|)
 operator|.
 name|collect
@@ -5214,7 +5188,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-specifier|final
 name|ServerStateNode
 name|serverNode
 init|=
@@ -5271,13 +5244,13 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"no online region found on "
-operator|+
+literal|"no online region found on {}"
+argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
+return|return;
 block|}
-elseif|else
 if|if
 condition|(
 operator|!
@@ -5285,18 +5258,10 @@ name|isMetaLoaded
 argument_list|()
 condition|)
 block|{
-comment|// if we are still on startup, discard the report unless is from someone holding meta
-name|checkOnlineRegionsReportForMeta
-argument_list|(
-name|serverNode
-argument_list|,
-name|regionNames
-argument_list|)
-expr_stmt|;
+comment|// we are still on startup, skip checking
+return|return;
 block|}
-else|else
-block|{
-comment|// The Heartbeat updates us of what regions are only. check and verify the state.
+comment|// The Heartbeat tells us of what regions are on the region serve, check the state.
 name|checkOnlineRegionsReport
 argument_list|(
 name|serverNode
@@ -5304,7 +5269,6 @@ argument_list|,
 name|regionNames
 argument_list|)
 expr_stmt|;
-block|}
 comment|// wake report event
 name|wakeServerReportEvent
 argument_list|(
@@ -5312,215 +5276,14 @@ name|serverNode
 argument_list|)
 expr_stmt|;
 block|}
-name|void
-name|checkOnlineRegionsReportForMeta
-parameter_list|(
-name|ServerStateNode
-name|serverNode
-parameter_list|,
-name|Set
-argument_list|<
-name|byte
-index|[]
-argument_list|>
-name|regionNames
-parameter_list|)
-block|{
-try|try
-block|{
-for|for
-control|(
-name|byte
-index|[]
-name|regionName
-range|:
-name|regionNames
-control|)
-block|{
-specifier|final
-name|RegionInfo
-name|hri
-init|=
-name|getMetaRegionFromName
-argument_list|(
-name|regionName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|hri
-operator|==
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Skip online report for region="
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|regionName
-argument_list|)
-operator|+
-literal|" while meta is loading"
-argument_list|)
-expr_stmt|;
-block|}
-continue|continue;
-block|}
-name|RegionStateNode
-name|regionNode
-init|=
-name|regionStates
-operator|.
-name|getOrCreateRegionStateNode
-argument_list|(
-name|hri
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"META REPORTED: "
-operator|+
-name|regionNode
-argument_list|)
-expr_stmt|;
-name|regionNode
-operator|.
-name|lock
-argument_list|()
-expr_stmt|;
-try|try
-block|{
-if|if
-condition|(
-operator|!
-name|reportTransition
-argument_list|(
-name|regionNode
-argument_list|,
-name|serverNode
-argument_list|,
-name|TransitionCode
-operator|.
-name|OPENED
-argument_list|,
-literal|0
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"META REPORTED but no procedure found (complete?); set location="
-operator|+
-name|serverNode
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|regionNode
-operator|.
-name|setRegionLocation
-argument_list|(
-name|serverNode
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-elseif|else
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"META REPORTED: "
-operator|+
-name|regionNode
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-finally|finally
-block|{
-name|regionNode
-operator|.
-name|unlock
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|ServerName
-name|serverName
-init|=
-name|serverNode
-operator|.
-name|getServerName
-argument_list|()
-decl_stmt|;
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"KILLING "
-operator|+
-name|serverName
-operator|+
-literal|": "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|killRegionServer
-argument_list|(
-name|serverNode
-argument_list|)
-expr_stmt|;
-block|}
-block|}
+comment|// just check and output possible inconsistency, without actually doing anything
+specifier|private
 name|void
 name|checkOnlineRegionsReport
 parameter_list|(
-specifier|final
 name|ServerStateNode
 name|serverNode
 parameter_list|,
-specifier|final
 name|Set
 argument_list|<
 name|byte
@@ -5529,7 +5292,6 @@ argument_list|>
 name|regionNames
 parameter_list|)
 block|{
-specifier|final
 name|ServerName
 name|serverName
 init|=
@@ -5538,8 +5300,6 @@ operator|.
 name|getServerName
 argument_list|()
 decl_stmt|;
-try|try
-block|{
 for|for
 control|(
 name|byte
@@ -5558,7 +5318,6 @@ condition|)
 block|{
 return|return;
 block|}
-specifier|final
 name|RegionStateNode
 name|regionNode
 init|=
@@ -5576,20 +5335,23 @@ operator|==
 literal|null
 condition|)
 block|{
-throw|throw
-operator|new
-name|UnexpectedStateException
+name|LOG
+operator|.
+name|warn
 argument_list|(
-literal|"Not online: "
-operator|+
+literal|"No region state node for {}, it should already be on {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)
+argument_list|,
+name|serverName
 argument_list|)
-throw|;
+expr_stmt|;
+continue|continue;
 block|}
 name|regionNode
 operator|.
@@ -5598,6 +5360,19 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+name|long
+name|diff
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+operator|-
+name|regionNode
+operator|.
+name|getLastUpdate
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|regionNode
@@ -5614,6 +5389,9 @@ name|OPEN
 argument_list|)
 condition|)
 block|{
+comment|// This is possible as a region server has just closed a region but the region server
+comment|// report is generated before the closing, but arrive after the closing. Make sure there
+comment|// is some elapsed time so less false alarms.
 if|if
 condition|(
 operator|!
@@ -5626,101 +5404,23 @@ name|equals
 argument_list|(
 name|serverName
 argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|UnexpectedStateException
-argument_list|(
-name|regionNode
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" reported OPEN on server="
-operator|+
-name|serverName
-operator|+
-literal|" but state has otherwise."
-argument_list|)
-throw|;
-block|}
-elseif|else
-if|if
-condition|(
-name|regionNode
-operator|.
-name|isInState
-argument_list|(
-name|State
-operator|.
-name|OPENING
-argument_list|)
-condition|)
-block|{
-try|try
-block|{
-if|if
-condition|(
-operator|!
-name|reportTransition
-argument_list|(
-name|regionNode
-argument_list|,
-name|serverNode
-argument_list|,
-name|TransitionCode
-operator|.
-name|OPENED
-argument_list|,
-literal|0
-argument_list|)
+operator|&&
+name|diff
+operator|>
+literal|1000
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-name|regionNode
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" reported OPEN on server="
-operator|+
-name|serverName
-operator|+
-literal|" but state has otherwise AND NO procedure is running"
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|UnexpectedStateException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-name|regionNode
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" reported unexpteced OPEN: "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
+literal|"{} reported OPEN on server={} but state has otherwise"
 argument_list|,
-name|e
+name|regionNode
+argument_list|,
+name|serverName
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 elseif|else
@@ -5741,44 +5441,29 @@ name|SPLITTING
 argument_list|)
 condition|)
 block|{
-name|long
-name|diff
-init|=
-name|regionNode
-operator|.
-name|getLastUpdate
-argument_list|()
-operator|-
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
+comment|// So, we can get report that a region is CLOSED or SPLIT because a heartbeat
+comment|// came in at about same time as a region transition. Make sure there is some
+comment|// elapsed time so less false alarms.
 if|if
 condition|(
 name|diff
 operator|>
 literal|1000
-comment|/*One Second... make configurable if an issue*/
 condition|)
 block|{
-comment|// So, we can get report that a region is CLOSED or SPLIT because a heartbeat
-comment|// came in at about same time as a region transition. Make sure there is some
-comment|// elapsed time between killing remote server.
-throw|throw
-operator|new
-name|UnexpectedStateException
-argument_list|(
-name|regionNode
+name|LOG
 operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" reported an unexpected OPEN; time since last update="
-operator|+
+name|warn
+argument_list|(
+literal|"{} reported an unexpected OPEN on {}; time since last update={}ms"
+argument_list|,
+name|regionNode
+argument_list|,
+name|serverName
+argument_list|,
 name|diff
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 block|}
 block|}
@@ -5790,27 +5475,6 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-comment|//See HBASE-21421, we can count on reportRegionStateTransition calls
-comment|//We only log a warming here. It could be a network lag.
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to checkOnlineRegionsReport, maybe due to network lag, "
-operator|+
-literal|"if this message continues, be careful of double assign"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 specifier|protected
@@ -9783,29 +9447,6 @@ comment|// just in case, wake procedures waiting for this server report
 name|wakeServerReportEvent
 argument_list|(
 name|serverNode
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|killRegionServer
-parameter_list|(
-specifier|final
-name|ServerStateNode
-name|serverNode
-parameter_list|)
-block|{
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|expireServer
-argument_list|(
-name|serverNode
-operator|.
-name|getServerName
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

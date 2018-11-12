@@ -14263,8 +14263,6 @@ argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-literal|false
-argument_list|,
 name|prepareLatch
 argument_list|)
 argument_list|)

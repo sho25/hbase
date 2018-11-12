@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -437,10 +437,6 @@ name|TableName
 name|tableName
 decl_stmt|;
 specifier|private
-name|boolean
-name|skipTableStateCheck
-decl_stmt|;
-specifier|private
 name|Boolean
 name|traceEnabled
 init|=
@@ -449,26 +445,16 @@ decl_stmt|;
 specifier|public
 name|EnableTableProcedure
 parameter_list|()
-block|{
-name|super
-argument_list|()
-expr_stmt|;
-block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    */
+block|{   }
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
-specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
-parameter_list|,
-specifier|final
-name|boolean
-name|skipTableStateCheck
 parameter_list|)
 block|{
 name|this
@@ -477,29 +463,20 @@ name|env
 argument_list|,
 name|tableName
 argument_list|,
-name|skipTableStateCheck
-argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    * @param skipTableStateCheck whether to check table state    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
-specifier|final
 name|MasterProcedureEnv
 name|env
 parameter_list|,
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
-name|boolean
-name|skipTableStateCheck
-parameter_list|,
-specifier|final
 name|ProcedurePrepareLatch
 name|syncLatch
 parameter_list|)
@@ -516,12 +493,6 @@ operator|.
 name|tableName
 operator|=
 name|tableName
-expr_stmt|;
-name|this
-operator|.
-name|skipTableStateCheck
-operator|=
-name|skipTableStateCheck
 expr_stmt|;
 block|}
 annotation|@
@@ -1390,6 +1361,12 @@ argument_list|(
 name|serializer
 argument_list|)
 expr_stmt|;
+comment|// the skipTableStateCheck is false so we still need to set it...
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
 name|MasterProcedureProtos
 operator|.
 name|EnableTableStateData
@@ -1427,7 +1404,7 @@ argument_list|)
 operator|.
 name|setSkipTableStateCheck
 argument_list|(
-name|skipTableStateCheck
+literal|false
 argument_list|)
 decl_stmt|;
 name|serializer
@@ -1500,13 +1477,6 @@ operator|.
 name|getTableName
 argument_list|()
 argument_list|)
-expr_stmt|;
-name|skipTableStateCheck
-operator|=
-name|enableTableMsg
-operator|.
-name|getSkipTableStateCheck
-argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -1586,12 +1556,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-operator|!
-name|skipTableStateCheck
-condition|)
+else|else
 block|{
 comment|// There could be multiple client requests trying to disable or enable
 comment|// the table at the same time. Ensure only the first request is honored

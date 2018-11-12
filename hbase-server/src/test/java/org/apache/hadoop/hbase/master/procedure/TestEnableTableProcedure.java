@@ -175,16 +175,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Assert
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|ClassRule
 import|;
 end_import
@@ -392,8 +382,6 @@ name|getEnvironment
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -499,8 +487,6 @@ name|getEnvironment
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -558,47 +544,6 @@ operator|instanceof
 name|TableNotDisabledException
 argument_list|)
 expr_stmt|;
-comment|// Enable the table with skipping table state check flag (simulate recovery scenario)
-name|long
-name|procId2
-init|=
-name|procExec
-operator|.
-name|submitProcedure
-argument_list|(
-operator|new
-name|EnableTableProcedure
-argument_list|(
-name|procExec
-operator|.
-name|getEnvironment
-argument_list|()
-argument_list|,
-name|tableName
-argument_list|,
-literal|true
-argument_list|)
-argument_list|)
-decl_stmt|;
-comment|// Wait the completion
-name|ProcedureTestingUtility
-operator|.
-name|waitProcedure
-argument_list|(
-name|procExec
-argument_list|,
-name|procId2
-argument_list|)
-expr_stmt|;
-name|ProcedureTestingUtility
-operator|.
-name|assertProcNotFailed
-argument_list|(
-name|procExec
-argument_list|,
-name|procId2
-argument_list|)
-expr_stmt|;
 comment|// Enable the table - expect failure from ProcedurePrepareLatch
 specifier|final
 name|ProcedurePrepareLatch
@@ -624,8 +569,6 @@ argument_list|()
 argument_list|,
 name|tableName
 argument_list|,
-literal|false
-argument_list|,
 name|prepareLatch
 argument_list|)
 argument_list|)
@@ -634,13 +577,6 @@ name|prepareLatch
 operator|.
 name|await
 argument_list|()
-expr_stmt|;
-name|Assert
-operator|.
-name|fail
-argument_list|(
-literal|"Enable should throw exception through latch."
-argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -776,8 +712,6 @@ name|getEnvironment
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -926,8 +860,6 @@ name|getEnvironment
 argument_list|()
 argument_list|,
 name|tableName
-argument_list|,
-literal|false
 argument_list|)
 argument_list|)
 decl_stmt|;

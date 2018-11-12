@@ -8848,6 +8848,20 @@ return|;
 block|}
 end_function
 
+begin_function
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|IdLock
+name|getProcExecutionLock
+parameter_list|()
+block|{
+return|return
+name|procExecutionLock
+return|;
+block|}
+end_function
+
 begin_comment
 comment|// ==========================================================================
 end_comment
