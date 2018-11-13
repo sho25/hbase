@@ -18329,6 +18329,15 @@ operator|.
 name|getFamilyCellMap
 argument_list|()
 decl_stmt|;
+name|region
+operator|.
+name|rewriteCellTags
+argument_list|(
+name|cpFamilyMap
+argument_list|,
+name|mutation
+argument_list|)
+expr_stmt|;
 comment|// will get added to the memStore later
 name|mergeFamilyMaps
 argument_list|(
