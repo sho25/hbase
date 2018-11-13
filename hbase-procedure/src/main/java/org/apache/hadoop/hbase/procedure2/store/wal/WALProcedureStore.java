@@ -1309,9 +1309,9 @@ name|this
 operator|.
 name|fs
 operator|=
-name|walDir
+name|CommonFSUtils
 operator|.
-name|getFileSystem
+name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)
