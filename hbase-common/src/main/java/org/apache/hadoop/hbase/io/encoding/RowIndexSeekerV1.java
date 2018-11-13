@@ -1903,6 +1903,10 @@ if|if
 condition|(
 name|includesTags
 argument_list|()
+operator|&&
+name|tagsLength
+operator|>
+literal|0
 condition|)
 block|{
 name|kvBufSize
