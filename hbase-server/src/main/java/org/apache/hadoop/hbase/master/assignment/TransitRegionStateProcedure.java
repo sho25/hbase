@@ -20,54 +20,6 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProcedureProtos
-operator|.
-name|RegionStateTransitionState
-operator|.
-name|REGION_STATE_TRANSITION_CONFIRM_CLOSED
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|MasterProcedureProtos
-operator|.
-name|RegionStateTransitionState
-operator|.
-name|REGION_STATE_TRANSITION_CONFIRM_OPENED
-import|;
-end_import
-
-begin_import
 import|import
 name|edu
 operator|.
@@ -1683,91 +1635,8 @@ return|;
 comment|// 'false' means that this procedure handled the timeout
 block|}
 specifier|private
-name|boolean
-name|isOpening
-parameter_list|(
-name|RegionStateNode
-name|regionNode
-parameter_list|,
-name|ServerName
-name|serverName
-parameter_list|,
-name|TransitionCode
-name|code
-parameter_list|)
-block|{
-if|if
-condition|(
-operator|!
-name|regionNode
-operator|.
-name|isInState
-argument_list|(
-name|State
-operator|.
-name|OPENING
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={}, but the region {} is not in"
-operator|+
-literal|" OPENING state, should be a retry, ignore"
-argument_list|,
-name|code
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|regionNode
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-if|if
-condition|(
-name|getCurrentState
-argument_list|()
-operator|!=
-name|REGION_STATE_TRANSITION_CONFIRM_OPENED
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={}, but the TRSP is not in {} state,"
-operator|+
-literal|" should be a retry, ignore"
-argument_list|,
-name|code
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|REGION_STATE_TRANSITION_CONFIRM_OPENED
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-return|return
-literal|true
-return|;
-block|}
-specifier|private
 name|void
-name|reportTransitionOpen
+name|reportTransitionOpened
 parameter_list|(
 name|MasterProcedureEnv
 name|env
@@ -1778,29 +1647,23 @@ parameter_list|,
 name|ServerName
 name|serverName
 parameter_list|,
+name|TransitionCode
+name|code
+parameter_list|,
 name|long
 name|openSeqNum
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
+switch|switch
 condition|(
-operator|!
-name|isOpening
-argument_list|(
-name|regionNode
-argument_list|,
-name|serverName
-argument_list|,
-name|TransitionCode
-operator|.
-name|OPENED
-argument_list|)
+name|code
 condition|)
 block|{
-return|return;
-block|}
+case|case
+name|OPENED
+case|:
 if|if
 condition|(
 name|openSeqNum
@@ -1814,9 +1677,7 @@ name|UnexpectedStateException
 argument_list|(
 literal|"Received report unexpected "
 operator|+
-name|TransitionCode
-operator|.
-name|OPENED
+name|code
 operator|+
 literal|" transition openSeqNum="
 operator|+
@@ -1825,10 +1686,6 @@ operator|+
 literal|", "
 operator|+
 name|regionNode
-operator|+
-literal|", proc="
-operator|+
-name|this
 argument_list|)
 throw|;
 block|}
@@ -1842,8 +1699,6 @@ name|getOpenSeqNum
 argument_list|()
 condition|)
 block|{
-comment|// use the openSeqNum as a fence, if this is not a retry, then the openSeqNum should be
-comment|// greater than the existing one.
 if|if
 condition|(
 name|openSeqNum
@@ -1855,16 +1710,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skip update of region state for {} with openSeqNum={}, pid={} because the"
-operator|+
-literal|" currentSeqNum={}"
+literal|"Skip update of openSeqNum for {} with {} because the currentSeqNum={}"
 argument_list|,
 name|regionNode
 argument_list|,
 name|openSeqNum
-argument_list|,
-name|getProcId
-argument_list|()
 argument_list|,
 name|regionNode
 operator|.
@@ -1872,7 +1722,6 @@ name|getOpenSeqNum
 argument_list|()
 argument_list|)
 expr_stmt|;
-return|return;
 block|}
 block|}
 else|else
@@ -1926,85 +1775,11 @@ name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-specifier|private
-name|void
-name|reportTransitionFailedOpen
-parameter_list|(
-name|MasterProcedureEnv
-name|env
-parameter_list|,
-name|RegionStateNode
-name|regionNode
-parameter_list|,
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-if|if
-condition|(
-operator|!
-name|isOpening
-argument_list|(
-name|regionNode
-argument_list|,
-name|serverName
-argument_list|,
-name|TransitionCode
-operator|.
+break|break;
+case|case
 name|FAILED_OPEN
-argument_list|)
-condition|)
-block|{
-return|return;
-block|}
-comment|// there is no openSeqNum for FAILED_OPEN, so we will check the target server instead
-if|if
-condition|(
-operator|!
-name|regionNode
-operator|.
-name|getRegionLocation
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|serverName
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={}, but the region {} is not on it,"
-operator|+
-literal|" should be a retry, ignore"
-argument_list|,
-name|TransitionCode
-operator|.
-name|FAILED_OPEN
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|regionNode
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
+case|:
 comment|// just wake up the procedure and see if we can retry
-comment|// Notice that, even if we arrive here, this call could still be a retry, as we may retry
-comment|// opening on the same server again. And the assumption here is that, once the region state is
-comment|// OPENING, and the TRSP state is REGION_STATE_TRANSITION_CONFIRM_OPENED, the TRSP must have
-comment|// been suspended on the procedure event, so after the waking operation here, the TRSP will be
-comment|// executed and try to schedule new OpenRegionProcedure again. Once there is a successful open
-comment|// then we are done, so the TRSP will not be stuck.
-comment|// TODO: maybe we could send the procedure id of the OpenRegionProcedure to the region server
-comment|// and let the region server send it back when done, so it will be easy to detect whether this
-comment|// is a retry.
 name|regionNode
 operator|.
 name|getProcedureEvent
@@ -2018,6 +1793,35 @@ name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|UnexpectedStateException
+argument_list|(
+literal|"Received report unexpected "
+operator|+
+name|code
+operator|+
+literal|" transition openSeqNum="
+operator|+
+name|openSeqNum
+operator|+
+literal|", "
+operator|+
+name|regionNode
+operator|.
+name|toShortString
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|this
+operator|+
+literal|", expected OPENED or FAILED_OPEN."
+argument_list|)
+throw|;
+block|}
 block|}
 comment|// we do not need seqId for closing a region
 specifier|private
@@ -2032,111 +1836,21 @@ name|regionNode
 parameter_list|,
 name|ServerName
 name|serverName
+parameter_list|,
+name|TransitionCode
+name|code
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
+switch|switch
 condition|(
-operator|!
-name|regionNode
-operator|.
-name|isInState
-argument_list|(
-name|State
-operator|.
-name|CLOSING
-argument_list|)
+name|code
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={}, but the region {} is not in"
-operator|+
-literal|" CLOSING state, should be a retry, ignore"
-argument_list|,
-name|TransitionCode
-operator|.
+case|case
 name|CLOSED
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|regionNode
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-if|if
-condition|(
-name|getCurrentState
-argument_list|()
-operator|!=
-name|REGION_STATE_TRANSITION_CONFIRM_CLOSED
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={} but the proc is not in {}"
-operator|+
-literal|" state, should be a retry, ignore"
-argument_list|,
-name|TransitionCode
-operator|.
-name|CLOSED
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|REGION_STATE_TRANSITION_CONFIRM_CLOSED
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
-if|if
-condition|(
-operator|!
-name|regionNode
-operator|.
-name|getRegionLocation
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|serverName
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Received report {} transition from {}, pid={}, but the region {} is not on it,"
-operator|+
-literal|" should be a retry, ignore"
-argument_list|,
-name|TransitionCode
-operator|.
-name|CLOSED
-argument_list|,
-name|serverName
-argument_list|,
-name|getProcId
-argument_list|()
-argument_list|,
-name|regionNode
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
+case|:
 name|env
 operator|.
 name|getAssignmentManager
@@ -2180,6 +1894,31 @@ name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
+break|break;
+default|default:
+throw|throw
+operator|new
+name|UnexpectedStateException
+argument_list|(
+literal|"Received report unexpected "
+operator|+
+name|code
+operator|+
+literal|" transition, "
+operator|+
+name|regionNode
+operator|.
+name|toShortString
+argument_list|()
+operator|+
+literal|", "
+operator|+
+name|this
+operator|+
+literal|", expected CLOSED."
+argument_list|)
+throw|;
+block|}
 block|}
 comment|// Should be called with RegionStateNode locked
 specifier|public
@@ -2204,45 +1943,31 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// It is possible that the previous reportRegionStateTransition call was succeeded at master
-comment|// side, but before returning the result to region server, the rpc connection was broken, or the
-comment|// master restarted. The region server will try calling reportRegionStateTransition again under
-comment|// this scenario, so here we need to check whether this is a retry.
 switch|switch
 condition|(
-name|code
+name|getCurrentState
+argument_list|()
 condition|)
 block|{
 case|case
-name|OPENED
+name|REGION_STATE_TRANSITION_CONFIRM_OPENED
 case|:
-name|reportTransitionOpen
+name|reportTransitionOpened
 argument_list|(
 name|env
 argument_list|,
 name|regionNode
 argument_list|,
 name|serverName
+argument_list|,
+name|code
 argument_list|,
 name|seqId
 argument_list|)
 expr_stmt|;
 break|break;
 case|case
-name|FAILED_OPEN
-case|:
-name|reportTransitionFailedOpen
-argument_list|(
-name|env
-argument_list|,
-name|regionNode
-argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
-break|break;
-case|case
-name|CLOSED
+name|REGION_STATE_TRANSITION_CONFIRM_CLOSED
 case|:
 name|reportTransitionClosed
 argument_list|(
@@ -2251,32 +1976,27 @@ argument_list|,
 name|regionNode
 argument_list|,
 name|serverName
+argument_list|,
+name|code
 argument_list|)
 expr_stmt|;
 break|break;
 default|default:
-throw|throw
-operator|new
-name|UnexpectedStateException
-argument_list|(
-literal|"Received report unexpected "
-operator|+
-name|code
-operator|+
-literal|" transition, "
-operator|+
-name|regionNode
+name|LOG
 operator|.
-name|toShortString
-argument_list|()
-operator|+
-literal|", "
-operator|+
+name|warn
+argument_list|(
+literal|"{} received unexpected report transition call from {}, code={}, seqId={}"
+argument_list|,
 name|this
-operator|+
-literal|", expected OPENED or FAILED_OPEN or CLOSED."
+argument_list|,
+name|serverName
+argument_list|,
+name|code
+argument_list|,
+name|seqId
 argument_list|)
-throw|;
+expr_stmt|;
 block|}
 block|}
 comment|// Should be called with RegionStateNode locked
