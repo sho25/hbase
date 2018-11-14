@@ -275,7 +275,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|TablePermission
+name|UserPermission
 import|;
 end_import
 
@@ -1570,7 +1570,7 @@ name|ListMultimap
 argument_list|<
 name|String
 argument_list|,
-name|TablePermission
+name|UserPermission
 argument_list|>
 name|perms
 init|=
@@ -1585,7 +1585,7 @@ name|ListMultimap
 argument_list|<
 name|String
 argument_list|,
-name|TablePermission
+name|UserPermission
 argument_list|>
 argument_list|>
 argument_list|()
@@ -1597,7 +1597,7 @@ name|ListMultimap
 argument_list|<
 name|String
 argument_list|,
-name|TablePermission
+name|UserPermission
 argument_list|>
 name|run
 parameter_list|()

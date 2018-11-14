@@ -1486,7 +1486,7 @@ comment|// Verify that owner permissions have been granted to the test user on t
 comment|// table just created
 name|List
 argument_list|<
-name|TablePermission
+name|UserPermission
 argument_list|>
 name|perms
 init|=
@@ -1533,6 +1533,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getPermission
+argument_list|()
+operator|.
 name|implies
 argument_list|(
 name|Permission
@@ -1551,6 +1554,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getPermission
+argument_list|()
 operator|.
 name|implies
 argument_list|(
@@ -1571,6 +1577,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getPermission
+argument_list|()
+operator|.
 name|implies
 argument_list|(
 name|Permission
@@ -1590,6 +1599,9 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
+name|getPermission
+argument_list|()
+operator|.
 name|implies
 argument_list|(
 name|Permission
@@ -1608,6 +1620,9 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+operator|.
+name|getPermission
+argument_list|()
 operator|.
 name|implies
 argument_list|(

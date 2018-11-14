@@ -302,7 +302,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Handles synchronization of access control list entries and updates  * throughout all nodes in the cluster.  The {@link AccessController} instance  * on the {@code _acl_} table regions, creates a znode for each table as  * {@code /hbase/acl/tablename}, with the znode data containing a serialized  * list of the permissions granted for the table.  The {@code AccessController}  * instances on all other cluster hosts watch the znodes for updates, which  * trigger updates in the {@link TableAuthManager} permission cache.  */
+comment|/**  * Handles synchronization of access control list entries and updates  * throughout all nodes in the cluster.  The {@link AccessController} instance  * on the {@code _acl_} table regions, creates a znode for each table as  * {@code /hbase/acl/tablename}, with the znode data containing a serialized  * list of the permissions granted for the table.  The {@code AccessController}  * instances on all other cluster hosts watch the znodes for updates, which  * trigger updates in the {@link AuthManager} permission cache.  */
 end_comment
 
 begin_class
@@ -343,7 +343,7 @@ literal|"acl"
 decl_stmt|;
 specifier|private
 specifier|final
-name|TableAuthManager
+name|AuthManager
 name|authManager
 decl_stmt|;
 specifier|private
@@ -380,7 +380,7 @@ parameter_list|(
 name|ZKWatcher
 name|watcher
 parameter_list|,
-name|TableAuthManager
+name|AuthManager
 name|authManager
 parameter_list|,
 name|Configuration

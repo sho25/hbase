@@ -352,7 +352,7 @@ comment|// TODO: we should move to a design where we don't even instantiate an A
 comment|// authorization is not enabled (like in RSRpcServices), instead of always instantiating one and
 comment|// calling requireXXX() only to do nothing (since authorizationEnabled will be false).
 specifier|private
-name|TableAuthManager
+name|AuthManager
 name|authManager
 decl_stmt|;
 comment|/** Group service to retrieve the user group information */
@@ -416,7 +416,7 @@ name|this
 operator|.
 name|authManager
 operator|=
-name|TableAuthManager
+name|AuthManager
 operator|.
 name|getOrCreate
 argument_list|(
@@ -466,13 +466,13 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Releases {@link TableAuthManager}'s reference.    */
+comment|/**    * Releases {@link AuthManager}'s reference.    */
 specifier|public
 name|void
 name|stop
 parameter_list|()
 block|{
-name|TableAuthManager
+name|AuthManager
 operator|.
 name|release
 argument_list|(
@@ -481,7 +481,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
-name|TableAuthManager
+name|AuthManager
 name|getAuthManager
 parameter_list|()
 block|{
@@ -535,7 +535,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|hasAccess
+name|accessUserTable
 argument_list|(
 name|user
 argument_list|,
@@ -711,7 +711,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserGlobal
 argument_list|(
 name|user
 argument_list|,
@@ -868,7 +868,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserGlobal
 argument_list|(
 name|user
 argument_list|,
@@ -1023,7 +1023,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserNamespace
 argument_list|(
 name|user
 argument_list|,
@@ -1178,7 +1178,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserNamespace
 argument_list|(
 name|user
 argument_list|,
@@ -1344,7 +1344,7 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserTable
 argument_list|(
 name|user
 argument_list|,
@@ -1501,15 +1501,11 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserTable
 argument_list|(
 name|user
 argument_list|,
 name|tableName
-argument_list|,
-literal|null
-argument_list|,
-literal|null
 argument_list|,
 name|permission
 argument_list|)

@@ -1004,6 +1004,12 @@ operator|.
 name|Action
 operator|.
 name|ADMIN
+argument_list|,
+name|Permission
+operator|.
+name|Action
+operator|.
+name|CREATE
 argument_list|)
 expr_stmt|;
 name|SecureTestUtil
@@ -1022,6 +1028,12 @@ operator|.
 name|Action
 operator|.
 name|ADMIN
+argument_list|,
+name|Permission
+operator|.
+name|Action
+operator|.
+name|CREATE
 argument_list|)
 expr_stmt|;
 comment|// No permissions to USER_NON_ADMIN

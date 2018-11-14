@@ -538,7 +538,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs checks for reference counting w.r.t. TableAuthManager which is used by  * AccessController.  *  * NOTE: Only one test in  here. In AMv2, there is problem deleting because  * we are missing auth. For now disabled. See the cleanup method.  */
+comment|/**  * Performs checks for reference counting w.r.t. AuthManager which is used by  * AccessController.  *  * NOTE: Only one test in  here. In AMv2, there is problem deleting because  * we are missing auth. For now disabled. See the cleanup method.  */
 end_comment
 
 begin_class

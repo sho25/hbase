@@ -200,7 +200,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<strong>NOTE: for internal use only by AccessController implementation</strong>  *  *<p>  * TODO: There is room for further performance optimization here.  * Calling TableAuthManager.authorize() per KeyValue imposes a fair amount of  * overhead.  A more optimized solution might look at the qualifiers where  * permissions are actually granted and explicitly limit the scan to those.  *</p>  *<p>  * We should aim to use this _only_ when access to the requested column families  * is not granted at the column family levels.  If table or column family  * access succeeds, then there is no need to impose the overhead of this filter.  *</p>  */
+comment|/**  *<strong>NOTE: for internal use only by AccessController implementation</strong>  *  *<p>  * TODO: There is room for further performance optimization here.  * Calling AuthManager.authorize() per KeyValue imposes a fair amount of  * overhead.  A more optimized solution might look at the qualifiers where  * permissions are actually granted and explicitly limit the scan to those.  *</p>  *<p>  * We should aim to use this _only_ when access to the requested column families  * is not granted at the column family levels.  If table or column family  * access succeeds, then there is no need to impose the overhead of this filter.  *</p>  */
 end_comment
 
 begin_class
@@ -225,7 +225,7 @@ comment|/** Cell permissions can override table or CF permissions */
 name|CHECK_CELL_DEFAULT
 block|,   }
 specifier|private
-name|TableAuthManager
+name|AuthManager
 name|authManager
 decl_stmt|;
 specifier|private
@@ -275,7 +275,7 @@ parameter_list|()
 block|{   }
 name|AccessControlFilter
 parameter_list|(
-name|TableAuthManager
+name|AuthManager
 name|mgr
 parameter_list|,
 name|User
@@ -534,7 +534,7 @@ block|}
 comment|// XXX: Compare in place, don't clone
 name|byte
 index|[]
-name|family
+name|f
 init|=
 name|CellUtil
 operator|.
@@ -545,7 +545,7 @@ argument_list|)
 decl_stmt|;
 name|byte
 index|[]
-name|qualifier
+name|q
 init|=
 name|CellUtil
 operator|.
@@ -568,15 +568,15 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserTable
 argument_list|(
 name|user
 argument_list|,
 name|table
 argument_list|,
-name|family
+name|f
 argument_list|,
-name|qualifier
+name|q
 argument_list|,
 name|Permission
 operator|.
@@ -603,15 +603,15 @@ if|if
 condition|(
 name|authManager
 operator|.
-name|authorize
+name|authorizeUserTable
 argument_list|(
 name|user
 argument_list|,
 name|table
 argument_list|,
-name|family
+name|f
 argument_list|,
-name|qualifier
+name|q
 argument_list|,
 name|Permission
 operator|.
@@ -622,7 +622,7 @@ argument_list|)
 operator|||
 name|authManager
 operator|.
-name|authorize
+name|authorizeCell
 argument_list|(
 name|user
 argument_list|,
