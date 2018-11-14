@@ -421,7 +421,6 @@ name|regionNode
 parameter_list|)
 block|{
 return|return
-operator|!
 name|regionNode
 operator|.
 name|isInState
@@ -430,13 +429,7 @@ name|RegionState
 operator|.
 name|State
 operator|.
-name|CLOSED
-argument_list|,
-name|RegionState
-operator|.
-name|State
-operator|.
-name|ABNORMALLY_CLOSED
+name|CLOSING
 argument_list|)
 return|;
 block|}

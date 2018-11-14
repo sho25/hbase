@@ -342,7 +342,6 @@ name|regionNode
 parameter_list|)
 block|{
 return|return
-operator|!
 name|regionNode
 operator|.
 name|isInState
@@ -351,7 +350,7 @@ name|RegionState
 operator|.
 name|State
 operator|.
-name|OPEN
+name|OPENING
 argument_list|)
 return|;
 block|}
