@@ -326,6 +326,17 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Failed to complete execution of proc pid={}"
+argument_list|,
+name|procId
+argument_list|,
+name|error
+argument_list|)
+expr_stmt|;
 name|builder
 operator|.
 name|setStatus
@@ -358,6 +369,15 @@ expr_stmt|;
 block|}
 else|else
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Successfully complete execution of proc pid={}"
+argument_list|,
+name|procId
+argument_list|)
+expr_stmt|;
 name|builder
 operator|.
 name|setStatus

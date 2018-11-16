@@ -176,7 +176,7 @@ name|void
 name|process
 parameter_list|()
 block|{
-name|Exception
+name|Throwable
 name|error
 init|=
 literal|null
@@ -191,24 +191,26 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|Exception
-name|e
+name|Throwable
+name|t
 parameter_list|)
 block|{
 name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Catch exception when call RSProcedureCallable: "
+literal|"Error when call RSProcedureCallable: "
 argument_list|,
-name|e
+name|t
 argument_list|)
 expr_stmt|;
 name|error
 operator|=
-name|e
+name|t
 expr_stmt|;
 block|}
+finally|finally
+block|{
 operator|(
 operator|(
 name|HRegionServer
@@ -223,6 +225,7 @@ argument_list|,
 name|error
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 end_class

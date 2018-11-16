@@ -20231,6 +20231,15 @@ name|long
 name|procId
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Remote procedure done, pid={}"
+argument_list|,
+name|procId
+argument_list|)
+expr_stmt|;
 name|RemoteProcedure
 argument_list|<
 name|MasterProcedureEnv
@@ -20277,6 +20286,17 @@ name|RemoteProcedureException
 name|error
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Remote procedure failed, pid={}"
+argument_list|,
+name|procId
+argument_list|,
+name|error
+argument_list|)
+expr_stmt|;
 name|RemoteProcedure
 argument_list|<
 name|MasterProcedureEnv
