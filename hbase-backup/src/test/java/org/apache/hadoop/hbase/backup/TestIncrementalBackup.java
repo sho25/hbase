@@ -509,10 +509,7 @@ name|params
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|Object
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
 name|params
@@ -540,7 +537,8 @@ name|Boolean
 name|b
 parameter_list|)
 block|{   }
-comment|// implement all test cases in 1 test since incremental backup/restore has dependencies
+comment|// implement all test cases in 1 test since incremental
+comment|// backup/restore has dependencies
 annotation|@
 name|Test
 specifier|public
@@ -590,6 +588,18 @@ argument_list|(
 literal|"f3"
 argument_list|)
 decl_stmt|;
+specifier|final
+name|byte
+index|[]
+name|mobName
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"mob"
+argument_list|)
+decl_stmt|;
 name|table1Desc
 operator|.
 name|addFamily
@@ -599,6 +609,36 @@ name|HColumnDescriptor
 argument_list|(
 name|fam3Name
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|HColumnDescriptor
+name|mobHcd
+init|=
+operator|new
+name|HColumnDescriptor
+argument_list|(
+name|mobName
+argument_list|)
+decl_stmt|;
+name|mobHcd
+operator|.
+name|setMobEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+name|mobHcd
+operator|.
+name|setMobThreshold
+argument_list|(
+literal|5L
+argument_list|)
+expr_stmt|;
+name|table1Desc
+operator|.
+name|addFamily
+argument_list|(
+name|mobHcd
 argument_list|)
 expr_stmt|;
 name|HBaseTestingUtility
@@ -613,6 +653,8 @@ argument_list|,
 name|table1Desc
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Connection
 name|conn
 init|=
@@ -622,7 +664,8 @@ name|createConnection
 argument_list|(
 name|conf1
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|NB_ROWS_FAM3
 init|=
@@ -635,6 +678,22 @@ argument_list|,
 name|table1
 argument_list|,
 name|fam3Name
+argument_list|,
+literal|3
+argument_list|,
+name|NB_ROWS_FAM3
+argument_list|)
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|insertIntoTable
+argument_list|(
+name|conn
+argument_list|,
+name|table1
+argument_list|,
+name|mobName
 argument_list|,
 literal|3
 argument_list|,
@@ -734,7 +793,7 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
+name|HBaseTestingUtility
 operator|.
 name|countRows
 argument_list|(
@@ -748,11 +807,6 @@ operator|+
 name|NB_ROWS_FAM3
 argument_list|)
 expr_stmt|;
-name|t1
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -764,6 +818,63 @@ operator|+
 literal|" rows to "
 operator|+
 name|table1
+argument_list|)
+expr_stmt|;
+comment|// additionally, insert rows to MOB cf
+name|int
+name|NB_ROWS_MOB
+init|=
+literal|111
+decl_stmt|;
+name|insertIntoTable
+argument_list|(
+name|conn
+argument_list|,
+name|table1
+argument_list|,
+name|mobName
+argument_list|,
+literal|3
+argument_list|,
+name|NB_ROWS_MOB
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"written "
+operator|+
+name|NB_ROWS_MOB
+operator|+
+literal|" rows to "
+operator|+
+name|table1
+operator|+
+literal|" to Mob enabled CF"
+argument_list|)
+expr_stmt|;
+name|t1
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|HBaseTestingUtility
+operator|.
+name|countRows
+argument_list|(
+name|t1
+argument_list|)
+argument_list|,
+name|NB_ROWS_IN_BATCH
+operator|+
+name|ADD_ROWS
+operator|+
+name|NB_ROWS_MOB
 argument_list|)
 expr_stmt|;
 name|HTable
@@ -842,16 +953,16 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
+name|NB_ROWS_IN_BATCH
+operator|+
+literal|5
+argument_list|,
+name|HBaseTestingUtility
 operator|.
 name|countRows
 argument_list|(
 name|t2
 argument_list|)
-argument_list|,
-name|NB_ROWS_IN_BATCH
-operator|+
-literal|5
 argument_list|)
 expr_stmt|;
 name|t2
@@ -935,10 +1046,8 @@ name|IOException
 name|e
 parameter_list|)
 block|{
-comment|//although split fail, this may not affect following check
-comment|//In old split without AM2, if region's best split key is not found,
-comment|//there are not exception thrown. But in current API, exception
-comment|//will be thrown.
+comment|// although split fail, this may not affect following check in current API,
+comment|// exception will be thrown.
 name|LOG
 operator|.
 name|debug
@@ -1111,7 +1220,7 @@ argument_list|(
 literal|5000
 argument_list|)
 expr_stmt|;
-comment|// #3 - incremental backup for multiple tables
+comment|// #4 - additional incremental backup for multiple tables
 name|request
 operator|=
 name|createBackupRequest
@@ -1143,7 +1252,7 @@ name|backupIdIncMultiple2
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// #4 - restore full backup for all tables
+comment|// #5 - restore full backup for all tables
 name|TableName
 index|[]
 name|tablesRestoreFull
@@ -1201,7 +1310,7 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// #5.1 - check tables for full restore
+comment|// #6.1 - check tables for full restore
 name|HBaseAdmin
 name|hAdmin
 init|=
@@ -1235,7 +1344,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|// #5.2 - checking row count of tables for full restore
+comment|// #6.2 - checking row count of tables for full restore
 name|HTable
 name|hTable
 init|=
@@ -1253,7 +1362,7 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
+name|HBaseTestingUtility
 operator|.
 name|countRows
 argument_list|(
@@ -1286,14 +1395,14 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
+name|NB_ROWS_IN_BATCH
+argument_list|,
+name|HBaseTestingUtility
 operator|.
 name|countRows
 argument_list|(
 name|hTable
 argument_list|)
-argument_list|,
-name|NB_ROWS_IN_BATCH
 argument_list|)
 expr_stmt|;
 name|hTable
@@ -1301,7 +1410,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-comment|// #6 - restore incremental backup for multiple tables, with overwrite
+comment|// #7 - restore incremental backup for multiple tables, with overwrite
 name|TableName
 index|[]
 name|tablesRestoreIncMultiple
@@ -1374,20 +1483,25 @@ name|getDescriptor
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|int
+name|countFamName
+init|=
+name|TEST_UTIL
+operator|.
+name|countRows
+argument_list|(
+name|hTable
+argument_list|,
+name|famName
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
 literal|"f1 has "
 operator|+
-name|TEST_UTIL
-operator|.
-name|countRows
-argument_list|(
-name|hTable
-argument_list|,
-name|famName
-argument_list|)
+name|countFamName
 operator|+
 literal|" rows"
 argument_list|)
@@ -1396,26 +1510,16 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
-operator|.
-name|countRows
-argument_list|(
-name|hTable
-argument_list|,
-name|famName
-argument_list|)
+name|countFamName
 argument_list|,
 name|NB_ROWS_IN_BATCH
 operator|+
 name|ADD_ROWS
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"f2 has "
-operator|+
+name|int
+name|countFam2Name
+init|=
 name|TEST_UTIL
 operator|.
 name|countRows
@@ -1424,6 +1528,14 @@ name|hTable
 argument_list|,
 name|fam2Name
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"f2 has "
+operator|+
+name|countFam2Name
 operator|+
 literal|" rows"
 argument_list|)
@@ -1432,16 +1544,41 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
+name|countFam2Name
+argument_list|,
+name|NB_ROWS_FAM2
+argument_list|)
+expr_stmt|;
+name|int
+name|countMobName
+init|=
 name|TEST_UTIL
 operator|.
 name|countRows
 argument_list|(
 name|hTable
 argument_list|,
-name|fam2Name
+name|mobName
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"mob has "
+operator|+
+name|countMobName
+operator|+
+literal|" rows"
+argument_list|)
+expr_stmt|;
+name|Assert
+operator|.
+name|assertEquals
+argument_list|(
+name|countMobName
 argument_list|,
-name|NB_ROWS_FAM2
+name|NB_ROWS_MOB
 argument_list|)
 expr_stmt|;
 name|hTable
@@ -1465,16 +1602,16 @@ name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-name|TEST_UTIL
+name|NB_ROWS_IN_BATCH
+operator|+
+literal|5
+argument_list|,
+name|HBaseTestingUtility
 operator|.
 name|countRows
 argument_list|(
 name|hTable
 argument_list|)
-argument_list|,
-name|NB_ROWS_IN_BATCH
-operator|+
-literal|5
 argument_list|)
 expr_stmt|;
 name|hTable
@@ -1487,11 +1624,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|conn
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 block|}
 end_class
