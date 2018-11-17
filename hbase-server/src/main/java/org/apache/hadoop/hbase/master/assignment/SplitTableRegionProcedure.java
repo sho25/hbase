@@ -2578,6 +2578,54 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Fail if we are taking snapshot for the given table
+if|if
+condition|(
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getSnapshotManager
+argument_list|()
+operator|.
+name|isTakingSnapshot
+argument_list|(
+name|getParentRegion
+argument_list|()
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|setFailure
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"Skip splitting region "
+operator|+
+name|getParentRegion
+argument_list|()
+operator|.
+name|getShortNameToLog
+argument_list|()
+operator|+
+literal|", because we are taking snapshot for the table "
+operator|+
+name|getParentRegion
+argument_list|()
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Check whether the region is splittable
 name|RegionStateNode
 name|node

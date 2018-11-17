@@ -2666,6 +2666,54 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Fail if we are taking snapshot for the given table
+if|if
+condition|(
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getSnapshotManager
+argument_list|()
+operator|.
+name|isTakingSnapshot
+argument_list|(
+name|regionsToMerge
+index|[
+literal|0
+index|]
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|MergeRegionException
+argument_list|(
+literal|"Skip merging regions "
+operator|+
+name|RegionInfo
+operator|.
+name|getShortNameToLog
+argument_list|(
+name|regionsToMerge
+argument_list|)
+operator|+
+literal|", because we are taking snapshot for the table "
+operator|+
+name|regionsToMerge
+index|[
+literal|0
+index|]
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+throw|;
+block|}
 comment|// Note: the following logic assumes that we only have 2 regions to merge.  In the future,
 comment|// if we want to extend to more than 2 regions, the code needs to be modified a little bit.
 name|CatalogJanitor

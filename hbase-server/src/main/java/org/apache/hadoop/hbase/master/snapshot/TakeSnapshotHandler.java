@@ -391,6 +391,26 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|locking
+operator|.
+name|LockManager
+operator|.
+name|MasterLock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|monitoring
 operator|.
 name|MonitoredTask
@@ -731,7 +751,7 @@ specifier|final
 name|ForeignExceptionDispatcher
 name|monitor
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|LockManager
 operator|.
@@ -1230,6 +1250,13 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|MasterLock
+name|tableLockToRelease
+init|=
+name|this
+operator|.
+name|tableLock
+decl_stmt|;
 name|status
 operator|.
 name|setStatus
@@ -1239,6 +1266,55 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+name|downgradeToSharedTableLock
+argument_list|()
+condition|)
+block|{
+comment|// release the exclusive lock and hold the shared lock instead
+name|tableLockToRelease
+operator|=
+name|master
+operator|.
+name|getLockManager
+argument_list|()
+operator|.
+name|createMasterLock
+argument_list|(
+name|snapshotTable
+argument_list|,
+name|LockType
+operator|.
+name|SHARED
+argument_list|,
+name|this
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|": take snapshot "
+operator|+
+name|snapshot
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|tableLock
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+name|tableLockToRelease
+operator|.
+name|acquire
+argument_list|()
+expr_stmt|;
+block|}
 comment|// If regions move after this meta scan, the region specific snapshot should fail, triggering
 comment|// an external exception that gets captured here.
 comment|// write down the snapshot info in the working directory
@@ -1674,7 +1750,7 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-name|tableLock
+name|tableLockToRelease
 operator|.
 name|release
 argument_list|()
@@ -1843,6 +1919,13 @@ operator|=
 literal|true
 expr_stmt|;
 block|}
+comment|/**    * When taking snapshot, first we must acquire the exclusive table lock to confirm that there are    * no ongoing merge/split procedures. But later, we should try our best to release the exclusive    * lock as this may hurt the availability, because we need to hold the shared lock when assigning    * regions.    *<p/>    * See HBASE-21480 for more details.    */
+specifier|protected
+specifier|abstract
+name|boolean
+name|downgradeToSharedTableLock
+parameter_list|()
+function_decl|;
 comment|/**    * Snapshot the specified regions    */
 specifier|protected
 specifier|abstract

@@ -790,6 +790,20 @@ name|snapshotTable
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|downgradeToSharedTableLock
+parameter_list|()
+block|{
+comment|// return true here to change from exclusive lock to shared lock, so we can still assign regions
+comment|// while taking snapshots. This is important, as region server crash can happen at any time, if
+comment|// we can not assign regions then the cluster will be in trouble as the regions can not online.
+return|return
+literal|true
+return|;
+block|}
 block|}
 end_class
 

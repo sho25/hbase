@@ -2286,6 +2286,7 @@ literal|false
 return|;
 block|}
 comment|/**    * Check to see if the specified table has a snapshot in progress.  Currently we have a    * limitation only allowing a single snapshot per table at a time.    * @param tableName name of the table being snapshotted.    * @return<tt>true</tt> if there is a snapshot in progress on the specified table.    */
+specifier|public
 specifier|synchronized
 name|boolean
 name|isTakingSnapshot

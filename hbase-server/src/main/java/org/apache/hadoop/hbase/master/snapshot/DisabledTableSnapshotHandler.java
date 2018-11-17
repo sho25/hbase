@@ -705,6 +705,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|protected
+name|boolean
+name|downgradeToSharedTableLock
+parameter_list|()
+block|{
+comment|// for taking snapshot on disabled table, it is OK to always hold the exclusive lock, as we do
+comment|// not need to assign the regions when there are region server crashes.
+return|return
+literal|false
+return|;
+block|}
 block|}
 end_class
 
