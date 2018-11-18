@@ -5479,16 +5479,6 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|syncReplicationReplayWALManager
-operator|=
-operator|new
-name|SyncReplicationReplayWALManager
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|drainingServerTracker
 operator|=
 operator|new
@@ -6197,11 +6187,23 @@ argument_list|(
 literal|"Initialize ServerManager and schedule SCP for crash servers"
 argument_list|)
 expr_stmt|;
+comment|// The below two managers must be created before loading procedures, as they will be used during
+comment|// loading.
 name|this
 operator|.
 name|serverManager
 operator|=
 name|createServerManager
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|syncReplicationReplayWALManager
+operator|=
+operator|new
+name|SyncReplicationReplayWALManager
 argument_list|(
 name|this
 argument_list|)
