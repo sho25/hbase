@@ -463,8 +463,6 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-try|try
-block|{
 comment|// Ignore the last log which is current active log.
 while|while
 condition|(
@@ -533,9 +531,6 @@ operator|.
 name|resetModified
 argument_list|()
 expr_stmt|;
-block|}
-finally|finally
-block|{
 name|tracker
 operator|.
 name|setKeepDeletes
@@ -543,7 +538,6 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 specifier|public
 specifier|static

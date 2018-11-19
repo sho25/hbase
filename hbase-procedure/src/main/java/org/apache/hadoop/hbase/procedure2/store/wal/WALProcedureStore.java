@@ -2200,7 +2200,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|RuntimeException
+name|IllegalStateException
 argument_list|(
 literal|"recoverLease() must be called before loading data"
 argument_list|)
@@ -2229,6 +2229,13 @@ operator|.
 name|setMaxProcId
 argument_list|(
 literal|0
+argument_list|)
+expr_stmt|;
+name|loading
+operator|.
+name|set
+argument_list|(
+literal|false
 argument_list|)
 expr_stmt|;
 return|return;
@@ -2363,24 +2370,27 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-block|}
-finally|finally
-block|{
-try|try
-block|{
-comment|// try to cleanup inactive wals and complete the operation
-name|buildHoldingCleanupTracker
-argument_list|()
-expr_stmt|;
-name|tryCleanupLogsOnLoad
-argument_list|()
-expr_stmt|;
+comment|// if we fail when loading, we should prevent persisting the storeTracker later in the stop
+comment|// method. As it may happen that, we have finished constructing the modified and deleted bits,
+comment|// but before we call resetModified, we fail, then if we persist the storeTracker then when
+comment|// restarting, we will consider that all procedures have been included in this file and delete
+comment|// all the previous files. Obviously this not correct. So here we will only set loading to
+comment|// false when we successfully loaded all the procedures, and when closing we will skip
+comment|// persisting the store tracker. And also, this will prevent the sync thread to do
+comment|// periodicRoll, where we may also clean old logs.
 name|loading
 operator|.
 name|set
 argument_list|(
 literal|false
 argument_list|)
+expr_stmt|;
+comment|// try to cleanup inactive wals and complete the operation
+name|buildHoldingCleanupTracker
+argument_list|()
+expr_stmt|;
+name|tryCleanupLogsOnLoad
+argument_list|()
 expr_stmt|;
 block|}
 finally|finally
@@ -2390,7 +2400,6 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
-block|}
 block|}
 block|}
 specifier|private
@@ -5485,6 +5494,17 @@ operator|.
 name|getLast
 argument_list|()
 decl_stmt|;
+comment|// If the loading flag is true, it usually means that we fail when loading procedures, so we
+comment|// should not persist the store tracker, as its state may not be correct.
+if|if
+condition|(
+operator|!
+name|loading
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
 name|log
 operator|.
 name|setProcIds
@@ -5532,6 +5552,7 @@ argument_list|(
 name|trailerSize
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -5742,9 +5763,14 @@ condition|)
 block|{
 break|break;
 block|}
+name|tracker
+operator|=
 name|iter
 operator|.
 name|next
+argument_list|()
+operator|.
+name|getTracker
 argument_list|()
 expr_stmt|;
 block|}
