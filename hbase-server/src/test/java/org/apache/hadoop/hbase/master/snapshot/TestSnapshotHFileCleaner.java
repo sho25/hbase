@@ -923,9 +923,7 @@ block|{
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|(
-literal|null
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -1062,9 +1060,7 @@ block|{
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|(
-literal|null
-argument_list|)
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch
@@ -1193,9 +1189,7 @@ decl_stmt|;
 name|cache
 operator|.
 name|getSnapshotsInProgress
-argument_list|(
-literal|null
-argument_list|)
+argument_list|()
 expr_stmt|;
 name|assertFalse
 argument_list|(

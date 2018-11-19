@@ -949,11 +949,7 @@ argument_list|<
 name|String
 argument_list|>
 name|getSnapshotsInProgress
-parameter_list|(
-specifier|final
-name|SnapshotManager
-name|snapshotManager
-parameter_list|)
+parameter_list|()
 throws|throws
 name|IOException
 block|{
@@ -966,9 +962,7 @@ init|=
 name|super
 operator|.
 name|getSnapshotsInProgress
-argument_list|(
-name|snapshotManager
-argument_list|)
+argument_list|()
 decl_stmt|;
 name|count
 operator|.
