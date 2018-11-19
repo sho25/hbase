@@ -498,6 +498,13 @@ return|return
 operator|new
 name|DefaultOperationQuota
 argument_list|(
+name|this
+operator|.
+name|rsServices
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|userLimiter
 argument_list|)
 return|;
@@ -584,6 +591,13 @@ return|return
 operator|new
 name|DefaultOperationQuota
 argument_list|(
+name|this
+operator|.
+name|rsServices
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|userLimiter
 argument_list|,
 name|tableLimiter

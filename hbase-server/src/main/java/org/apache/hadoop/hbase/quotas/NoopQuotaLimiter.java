@@ -45,24 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|quotas
-operator|.
-name|OperationQuota
-operator|.
-name|OperationType
-import|;
-end_import
-
 begin_comment
 comment|/**  * Noop quota limiter returned when no limiter is associated to the user/table  */
 end_comment
@@ -113,6 +95,12 @@ name|readReqs
 parameter_list|,
 name|long
 name|estimateReadSize
+parameter_list|,
+name|long
+name|estimateWriteCapacityUnit
+parameter_list|,
+name|long
+name|estimateReadCapacityUnit
 parameter_list|)
 throws|throws
 name|RpcThrottlingException
@@ -136,6 +124,12 @@ name|readReqs
 parameter_list|,
 name|long
 name|readSize
+parameter_list|,
+name|long
+name|writeCapacityUnit
+parameter_list|,
+name|long
+name|readCapacityUnit
 parameter_list|)
 block|{
 comment|// no-op
@@ -149,6 +143,9 @@ parameter_list|(
 specifier|final
 name|long
 name|size
+parameter_list|,
+name|long
+name|capacityUnit
 parameter_list|)
 block|{
 comment|// no-op
@@ -162,6 +159,9 @@ parameter_list|(
 specifier|final
 name|long
 name|size
+parameter_list|,
+name|long
+name|capacityUnit
 parameter_list|)
 block|{
 comment|// no-op

@@ -45,24 +45,6 @@ name|InterfaceStability
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|quotas
-operator|.
-name|OperationQuota
-operator|.
-name|OperationType
-import|;
-end_import
-
 begin_comment
 comment|/**  * Internal interface used to interact with the user/table quota.  */
 end_comment
@@ -80,7 +62,7 @@ specifier|public
 interface|interface
 name|QuotaLimiter
 block|{
-comment|/**    * Checks if it is possible to execute the specified operation.    *    * @param writeReqs the write requests that will be checked against the available quota    * @param estimateWriteSize the write size that will be checked against the available quota    * @param readReqs the read requests that will be checked against the available quota    * @param estimateReadSize the read size that will be checked against the available quota    * @throws RpcThrottlingException thrown if not enough available resources to perform operation.    */
+comment|/**    * Checks if it is possible to execute the specified operation.    *    * @param writeReqs the write requests that will be checked against the available quota    * @param estimateWriteSize the write size that will be checked against the available quota    * @param readReqs the read requests that will be checked against the available quota    * @param estimateReadSize the read size that will be checked against the available quota    * @param estimateWriteCapacityUnit the write capacity unit that will be checked against the    *          available quota    * @param estimateReadCapacityUnit the read capacity unit that will be checked against the    *          available quota    * @throws RpcThrottlingException thrown if not enough available resources to perform operation.    */
 name|void
 name|checkQuota
 parameter_list|(
@@ -95,11 +77,17 @@ name|readReqs
 parameter_list|,
 name|long
 name|estimateReadSize
+parameter_list|,
+name|long
+name|estimateWriteCapacityUnit
+parameter_list|,
+name|long
+name|estimateReadCapacityUnit
 parameter_list|)
 throws|throws
 name|RpcThrottlingException
 function_decl|;
-comment|/**    * Removes the specified write and read amount from the quota.    * At this point the write and read amount will be an estimate,    * that will be later adjusted with a consumeWrite()/consumeRead() call.    *    * @param writeReqs the write requests that will be removed from the current quota    * @param writeSize the write size that will be removed from the current quota    * @param readReqs the read requests that will be removed from the current quota    * @param readSize the read size that will be removed from the current quota    */
+comment|/**    * Removes the specified write and read amount from the quota.    * At this point the write and read amount will be an estimate,    * that will be later adjusted with a consumeWrite()/consumeRead() call.    *    * @param writeReqs the write requests that will be removed from the current quota    * @param writeSize the write size that will be removed from the current quota    * @param readReqs the read requests that will be removed from the current quota    * @param readSize the read size that will be removed from the current quota    * @param writeCapacityUnit the write capacity unit that will be removed from the current quota    * @param readCapacityUnit the read capacity unit num that will be removed from the current quota    */
 name|void
 name|grabQuota
 parameter_list|(
@@ -114,6 +102,12 @@ name|readReqs
 parameter_list|,
 name|long
 name|readSize
+parameter_list|,
+name|long
+name|writeCapacityUnit
+parameter_list|,
+name|long
+name|readCapacityUnit
 parameter_list|)
 function_decl|;
 comment|/**    * Removes or add back some write amount to the quota.    * (called at the end of an operation in case the estimate quota was off)    */
@@ -122,6 +116,9 @@ name|consumeWrite
 parameter_list|(
 name|long
 name|size
+parameter_list|,
+name|long
+name|capacityUnit
 parameter_list|)
 function_decl|;
 comment|/**    * Removes or add back some read amount to the quota.    * (called at the end of an operation in case the estimate quota was off)    */
@@ -130,6 +127,9 @@ name|consumeRead
 parameter_list|(
 name|long
 name|size
+parameter_list|,
+name|long
+name|capacityUnit
 parameter_list|)
 function_decl|;
 comment|/** @return true if the limiter is a noop */

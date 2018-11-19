@@ -61,6 +61,15 @@ name|READ_NUMBER
 block|,
 comment|/** Throttling based on the read data size */
 name|READ_SIZE
+block|,
+comment|/** Throttling based on the read+write capacity unit */
+name|REQUEST_CAPACITY_UNIT
+block|,
+comment|/** Throttling based on the write data capacity unit */
+name|WRITE_CAPACITY_UNIT
+block|,
+comment|/** Throttling based on the read data capacity unit */
+name|READ_CAPACITY_UNIT
 block|, }
 end_enum
 

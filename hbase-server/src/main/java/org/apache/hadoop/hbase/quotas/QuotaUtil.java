@@ -435,6 +435,40 @@ name|QUOTA_ENABLED_DEFAULT
 init|=
 literal|false
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|READ_CAPACITY_UNIT_CONF_KEY
+init|=
+literal|"hbase.quota.read.capacity.unit"
+decl_stmt|;
+comment|// the default one read capacity unit is 1024 bytes (1KB)
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_READ_CAPACITY_UNIT
+init|=
+literal|1024
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WRITE_CAPACITY_UNIT_CONF_KEY
+init|=
+literal|"hbase.quota.write.capacity.unit"
+decl_stmt|;
+comment|// the default one write capacity unit is 1024 bytes (1KB)
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_WRITE_CAPACITY_UNIT
+init|=
+literal|1024
+decl_stmt|;
 comment|/** Table descriptor for Quota internal table */
 specifier|public
 specifier|static
