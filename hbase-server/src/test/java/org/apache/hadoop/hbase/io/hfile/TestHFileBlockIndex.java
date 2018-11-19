@@ -3375,6 +3375,13 @@ literal|true
 argument_list|)
 expr_stmt|;
 name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|CacheConfig
 name|cacheConf
 init|=
 operator|new
@@ -3403,7 +3410,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Write the HFile
-block|{
 name|HFileContext
 name|meta
 init|=
@@ -3571,7 +3577,6 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
 comment|// close hfile.block.index.cacheonwrite
 name|conf
 operator|.
@@ -3669,6 +3674,13 @@ argument_list|,
 literal|"hfile_for_block_index"
 argument_list|)
 decl_stmt|;
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|CacheConfig
 name|cacheConf
 init|=

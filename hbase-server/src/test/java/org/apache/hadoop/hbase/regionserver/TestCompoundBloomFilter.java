@@ -991,6 +991,13 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|cacheConf
 operator|=
 operator|new

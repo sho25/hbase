@@ -1187,6 +1187,13 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// default
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|blockcaches
 operator|.
 name|add
@@ -1672,12 +1679,6 @@ name|get
 argument_list|(
 name|conf
 argument_list|)
-expr_stmt|;
-name|CacheConfig
-operator|.
-name|GLOBAL_BLOCK_CACHE_INSTANCE
-operator|=
-name|blockCache
 expr_stmt|;
 name|cacheConf
 operator|=

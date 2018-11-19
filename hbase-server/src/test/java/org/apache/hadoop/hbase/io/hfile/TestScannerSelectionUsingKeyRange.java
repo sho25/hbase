@@ -942,6 +942,13 @@ operator|=
 literal|false
 expr_stmt|;
 name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
+name|CacheConfig
 name|cacheConf
 init|=
 operator|new

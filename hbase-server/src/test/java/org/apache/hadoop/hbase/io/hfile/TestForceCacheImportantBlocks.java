@@ -641,6 +641,16 @@ operator|.
 name|reset
 argument_list|()
 expr_stmt|;
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|Test

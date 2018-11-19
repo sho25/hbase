@@ -719,6 +719,13 @@ name|getMethodName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|After

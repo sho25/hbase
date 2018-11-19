@@ -7183,6 +7183,13 @@ literal|"twoCOWEOC"
 argument_list|)
 decl_stmt|;
 comment|// Grab the block cache and get the initial hit/miss counts
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|BlockCache
 name|bc
 init|=

@@ -855,6 +855,16 @@ literal|3
 argument_list|)
 expr_stmt|;
 block|}
+name|CacheConfig
+operator|.
+name|instantiateBlockCache
+argument_list|(
+name|testUtil
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|LruBlockCache
 name|cache
 init|=
