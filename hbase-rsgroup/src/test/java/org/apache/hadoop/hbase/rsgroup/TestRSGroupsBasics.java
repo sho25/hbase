@@ -649,10 +649,10 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-comment|//3 meta,namespace, group
+comment|// 2 meta, group
 name|assertEquals
 argument_list|(
-literal|3
+literal|2
 argument_list|,
 name|count
 argument_list|)

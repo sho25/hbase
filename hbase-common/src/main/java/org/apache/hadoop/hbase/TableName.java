@@ -204,7 +204,9 @@ argument_list|,
 literal|"meta"
 argument_list|)
 decl_stmt|;
-comment|/** The Namespace table's name. */
+comment|/**    * The Namespace table's name.    * @deprecated We have folded the data in namespace table into meta table, so do not use it any    *             more.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

@@ -1003,16 +1003,6 @@ name|getRegionServer
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// wait for NS table initialization to avoid our error inject affecting master initialization
-name|UTIL
-operator|.
-name|waitTableAvailable
-argument_list|(
-name|TableName
-operator|.
-name|NAMESPACE_TABLE_NAME
-argument_list|)
-expr_stmt|;
 name|FAIL
 operator|=
 literal|true

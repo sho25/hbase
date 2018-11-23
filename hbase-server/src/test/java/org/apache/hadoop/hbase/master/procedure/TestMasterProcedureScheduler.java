@@ -5775,9 +5775,9 @@ name|getTableName
 parameter_list|()
 block|{
 return|return
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 return|;
 block|}
 annotation|@
@@ -6353,9 +6353,9 @@ name|LockedResourceType
 operator|.
 name|TABLE
 argument_list|,
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()

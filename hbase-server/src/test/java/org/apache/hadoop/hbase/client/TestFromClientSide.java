@@ -52300,7 +52300,7 @@ name|getTable
 argument_list|(
 name|TableName
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|META_TABLE_NAME
 argument_list|)
 init|)
 block|{

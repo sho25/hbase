@@ -405,7 +405,7 @@ name|regionNum
 init|=
 literal|16
 decl_stmt|;
-comment|// total region num = region num + root and meta regions
+comment|// total region num = region num + meta regions
 specifier|private
 specifier|static
 name|int
@@ -413,7 +413,7 @@ name|totalRegionNum
 init|=
 name|regionNum
 operator|+
-literal|2
+literal|1
 decl_stmt|;
 specifier|private
 name|HBaseTestingUtility

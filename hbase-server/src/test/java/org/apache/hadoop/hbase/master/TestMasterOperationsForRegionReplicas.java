@@ -1616,7 +1616,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|waitTableEnabled
+name|waitTableAvailable
 argument_list|(
 name|tableName
 argument_list|)
@@ -1651,7 +1651,7 @@ argument_list|()
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|waitTableEnabled
+name|waitTableAvailable
 argument_list|(
 name|tableName
 argument_list|)
@@ -2580,11 +2580,8 @@ operator|==
 name|numRegions
 operator|*
 name|numReplica
-operator|+
-literal|1
 operator|)
 assert|;
-comment|//'1' for the namespace
 name|Map
 argument_list|<
 name|ServerName
@@ -2793,8 +2790,6 @@ argument_list|,
 name|numRegions
 operator|*
 name|numReplica
-operator|+
-literal|1
 argument_list|)
 expr_stmt|;
 name|Map
@@ -2886,8 +2881,6 @@ argument_list|,
 name|numRegions
 operator|*
 name|numReplica
-operator|+
-literal|1
 argument_list|)
 expr_stmt|;
 block|}

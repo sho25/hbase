@@ -2881,7 +2881,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * When a log roll is about to happen, we do a flush of the regions who will be affected by the    * log roll. These flushes cannot be a selective flushes, otherwise we cannot roll the logs. This    * test ensures that we do a full-flush in that scenario.    * @throws IOException    */
+comment|/**    * When a log roll is about to happen, we do a flush of the regions who will be affected by the    * log roll. These flushes cannot be a selective flushes, otherwise we cannot roll the logs. This    * test ensures that we do a full-flush in that scenario.    */
 annotation|@
 name|Test
 specifier|public
@@ -3027,33 +3027,6 @@ argument_list|,
 name|FAMILIES
 argument_list|)
 decl_stmt|;
-comment|// Force flush the namespace table so edits to it are not hanging around as oldest
-comment|// edits. Otherwise, below, when we make maximum number of WAL files, then it will be
-comment|// the namespace region that is flushed and not the below 'desiredRegion'.
-try|try
-init|(
-name|Admin
-name|admin
-init|=
-name|TEST_UTIL
-operator|.
-name|getConnection
-argument_list|()
-operator|.
-name|getAdmin
-argument_list|()
-init|)
-block|{
-name|admin
-operator|.
-name|flush
-argument_list|(
-name|TableName
-operator|.
-name|NAMESPACE_TABLE_NAME
-argument_list|)
-expr_stmt|;
-block|}
 name|Pair
 argument_list|<
 name|HRegion

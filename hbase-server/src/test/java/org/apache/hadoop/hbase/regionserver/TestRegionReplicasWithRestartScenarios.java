@@ -927,7 +927,7 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|62
+literal|61
 argument_list|,
 name|totalRegions
 argument_list|)

@@ -1515,6 +1515,44 @@ argument_list|(
 name|REPLICATION_BARRIER_FAMILY_STR
 argument_list|)
 decl_stmt|;
+comment|/** The namespace family as a string */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|NAMESPACE_FAMILY_STR
+init|=
+literal|"ns"
+decl_stmt|;
+comment|/** The namespace family */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|NAMESPACE_FAMILY
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|NAMESPACE_FAMILY_STR
+argument_list|)
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|NAMESPACE_COL_DESC_QUALIFIER
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"d"
+argument_list|)
+decl_stmt|;
 comment|/**    * The meta table version column qualifier.    * We keep current version of the meta table in this column in<code>-ROOT-</code>    * table: i.e. in the 'info:v' column.    */
 specifier|public
 specifier|static

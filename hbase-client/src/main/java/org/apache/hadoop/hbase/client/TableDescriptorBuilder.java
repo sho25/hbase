@@ -1098,10 +1098,13 @@ name|IS_META_KEY
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated namespace table has been folded into the ns family in meta table, do not use this    *             any more.    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 specifier|final
 specifier|static
@@ -1110,10 +1113,13 @@ name|NAMESPACE_FAMILY_INFO
 init|=
 literal|"info"
 decl_stmt|;
+comment|/**    * @deprecated namespace table has been folded into the ns family in meta table, do not use this    *             any more.    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 specifier|final
 specifier|static
@@ -1128,10 +1134,13 @@ argument_list|(
 name|NAMESPACE_FAMILY_INFO
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated namespace table has been folded into the ns family in meta table, do not use this    *             any more.    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+annotation|@
+name|Deprecated
 specifier|public
 specifier|final
 specifier|static
@@ -1214,10 +1223,9 @@ operator|.
 name|CASE_INSENSITIVE
 argument_list|)
 decl_stmt|;
-comment|/**    * Table descriptor for namespace table    */
-comment|// TODO We used to set CacheDataInL1 for NS table. When we have BucketCache in file mode, now the
-comment|// NS data goes to File mode BC only. Test how that affect the system. If too much, we have to
-comment|// rethink about adding back the setCacheDataInL1 for NS table.
+comment|/**    * Table descriptor for namespace table    * @deprecated We have folded the data in namespace table into meta table, so do not use it any    *             more.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -1241,7 +1249,7 @@ name|newBuilder
 argument_list|(
 name|NAMESPACE_FAMILY_INFO_BYTES
 argument_list|)
-comment|// Ten is arbitrary number.  Keep versions to help debugging.
+comment|// Ten is arbitrary number. Keep versions to help debugging.
 operator|.
 name|setMaxVersions
 argument_list|(

@@ -590,15 +590,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitUntilAllRegionsAssigned
-argument_list|(
-name|TableName
-operator|.
-name|NAMESPACE_TABLE_NAME
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|AfterClass

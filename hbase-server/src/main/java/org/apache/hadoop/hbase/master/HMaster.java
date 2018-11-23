@@ -6998,10 +6998,7 @@ operator|.
 name|startChore
 argument_list|()
 expr_stmt|;
-comment|// NAMESPACE READ!!!!
-comment|// Here we expect hbase:namespace to be online. See inside initClusterSchemaService.
-comment|// TODO: Fix this. Namespace is a pain being a sort-of system table. Fold it in to hbase:meta.
-comment|// isNamespace does like isMeta and waits until namespace is onlined before allowing progress.
+comment|// Only for rolling upgrade, where we need to migrate the data in namespace table to meta table.
 if|if
 condition|(
 operator|!
@@ -7567,19 +7564,52 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Check hbase:namespace table is assigned. If not, startup will hang looking for the ns table    * (TODO: Fix this! NS should not hold-up startup).    * @return True if namespace table is up/online.    */
+comment|/**    * Check hbase:namespace table is assigned. If not, startup will hang looking for the ns table    *<p/>    * This is for rolling upgrading, later we will migrate the data in ns table to the ns family of    * meta table. And if this is a new clsuter, this method will return immediately as there will be    * no namespace table/region.    * @return True if namespace table is up/online.    */
 end_comment
 
 begin_function
-annotation|@
-name|VisibleForTesting
-specifier|public
+specifier|private
 name|boolean
 name|waitForNamespaceOnline
 parameter_list|()
 throws|throws
 name|InterruptedException
+throws|,
+name|IOException
 block|{
+name|TableState
+name|nsTableState
+init|=
+name|MetaTableAccessor
+operator|.
+name|getTableState
+argument_list|(
+name|getClusterConnection
+argument_list|()
+argument_list|,
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|nsTableState
+operator|==
+literal|null
+operator|||
+name|nsTableState
+operator|.
+name|isDisabled
+argument_list|()
+condition|)
+block|{
+comment|// this means we have already migrated the data and disabled or deleted the namespace table,
+comment|// or this is a new depliy which does not have a namespace table from the beginning.
+return|return
+literal|true
+return|;
+block|}
 name|List
 argument_list|<
 name|RegionInfo
@@ -7608,8 +7638,7 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// If empty, means we've not assigned the namespace table yet... Just return true so startup
-comment|// continues and the namespace table gets created.
+comment|// maybe this will not happen any more, but anyway, no harm to add a check here...
 return|return
 literal|true
 return|;

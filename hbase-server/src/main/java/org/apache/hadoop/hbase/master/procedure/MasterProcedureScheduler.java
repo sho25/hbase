@@ -4117,9 +4117,9 @@ name|locking
 operator|.
 name|getTableLock
 argument_list|(
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 argument_list|)
 decl_stmt|;
 if|if
@@ -4146,9 +4146,9 @@ name|LockedResourceType
 operator|.
 name|TABLE
 argument_list|,
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 operator|.
 name|getNameAsString
 argument_list|()
@@ -4257,9 +4257,9 @@ name|locking
 operator|.
 name|getTableLock
 argument_list|(
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 argument_list|)
 decl_stmt|;
 name|int
@@ -4299,9 +4299,9 @@ name|tableRunQueue
 argument_list|,
 name|getTableQueue
 argument_list|(
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 argument_list|)
 argument_list|,
 parameter_list|()

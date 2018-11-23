@@ -1401,15 +1401,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// Modify
-name|nsd
-operator|.
-name|setConfiguration
-argument_list|(
-name|nsKey
-argument_list|,
-name|nsValue
-argument_list|)
-expr_stmt|;
 comment|// Start the Modify procedure&& kill the executor
 name|long
 name|procId
@@ -1426,7 +1417,22 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
+name|NamespaceDescriptor
+operator|.
+name|create
+argument_list|(
 name|nsd
+argument_list|)
+operator|.
+name|addConfiguration
+argument_list|(
+name|nsKey
+argument_list|,
+name|nsValue
+argument_list|)
+operator|.
+name|build
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;

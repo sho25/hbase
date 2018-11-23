@@ -5174,10 +5174,8 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Create a 'smarter' Connection, one that is capable of by-passing RPC if the request is to    * the local server; i.e. a short-circuit Connection. Safe to use going to local or remote    * server. Create this instance in a method can be intercepted and mocked in tests.    * @throws IOException    */
-annotation|@
-name|VisibleForTesting
-specifier|protected
+comment|/**    * Create a 'smarter' Connection, one that is capable of by-passing RPC if the request is to the    * local server; i.e. a short-circuit Connection. Safe to use going to local or remote server.    */
+specifier|private
 name|ClusterConnection
 name|createClusterConnection
 parameter_list|()
@@ -5230,7 +5228,9 @@ block|}
 comment|// Create a cluster connection that when appropriate, can short-circuit and go directly to the
 comment|// local server if the request is to the local server bypassing RPC. Can be used for both local
 comment|// and remote invocations.
-return|return
+name|ClusterConnection
+name|conn
+init|=
 name|ConnectionUtils
 operator|.
 name|createShortCircuitConnection
@@ -5250,6 +5250,26 @@ name|rpcServices
 argument_list|,
 name|rpcServices
 argument_list|)
+decl_stmt|;
+comment|// This is used to initialize the batch thread pool inside the connection implementation.
+comment|// When deploy a fresh cluster, we may first use the cluster connection in InitMetaProcedure,
+comment|// which will be executed inside the PEWorker, and then the batch thread pool will inherit the
+comment|// thread group of PEWorker, which will be destroy when shutting down the ProcedureExecutor. It
+comment|// will cause lots of procedure related UTs to fail, so here let's initialize it first, no harm.
+name|conn
+operator|.
+name|getTable
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|)
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+return|return
+name|conn
 return|;
 block|}
 comment|/**    * Run test on configured codecs to make sure supporting libs are in place.    * @param c    * @throws IOException    */
@@ -5334,7 +5354,7 @@ operator|.
 name|clusterId
 return|;
 block|}
-comment|/**    * Setup our cluster connection if not already initialized.    * @throws IOException    */
+comment|/**    * Setup our cluster connection if not already initialized.    */
 specifier|protected
 specifier|synchronized
 name|void

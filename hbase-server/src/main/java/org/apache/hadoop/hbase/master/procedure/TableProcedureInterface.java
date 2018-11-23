@@ -60,6 +60,17 @@ specifier|public
 interface|interface
 name|TableProcedureInterface
 block|{
+comment|/**    * Used for acquire/release lock for namespace related operations, just a place holder as we do    * not have namespace table any more.    */
+specifier|public
+specifier|static
+specifier|final
+name|TableName
+name|DUMMY_NAMESPACE_TABLE_NAME
+init|=
+name|TableName
+operator|.
+name|NAMESPACE_TABLE_NAME
+decl_stmt|;
 specifier|public
 enum|enum
 name|TableOperationType

@@ -729,10 +729,13 @@ expr_stmt|;
 name|this
 operator|.
 name|bConfiguration
-operator|=
+operator|.
+name|putAll
+argument_list|(
 name|ns
 operator|.
 name|configuration
+argument_list|)
 expr_stmt|;
 block|}
 specifier|private

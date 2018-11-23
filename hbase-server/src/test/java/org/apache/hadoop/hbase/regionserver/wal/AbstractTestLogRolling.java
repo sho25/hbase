@@ -1532,16 +1532,6 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 decl_stmt|;
-comment|//have to flush namespace to ensure it doesn't affect wall tests
-name|admin
-operator|.
-name|flush
-argument_list|(
-name|TableName
-operator|.
-name|NAMESPACE_TABLE_NAME
-argument_list|)
-expr_stmt|;
 comment|// Put some stuff into table, to make sure we have some files to compact.
 for|for
 control|(

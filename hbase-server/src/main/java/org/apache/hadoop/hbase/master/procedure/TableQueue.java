@@ -207,7 +207,7 @@ return|;
 case|case
 name|EDIT
 case|:
-comment|// we allow concurrent edit on the NS table
+comment|// we allow concurrent edit on the ns family in meta table
 return|return
 operator|!
 name|proc
@@ -217,9 +217,9 @@ argument_list|()
 operator|.
 name|equals
 argument_list|(
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 argument_list|)
 return|;
 case|case

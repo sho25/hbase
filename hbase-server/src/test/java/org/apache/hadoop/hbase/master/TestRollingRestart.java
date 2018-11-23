@@ -728,7 +728,7 @@ argument_list|)
 decl_stmt|;
 name|log
 argument_list|(
-literal|"Verifying only catalog and namespace regions are assigned\n"
+literal|"Verifying only catalog region is assigned\n"
 argument_list|)
 expr_stmt|;
 if|if
@@ -738,7 +738,7 @@ operator|.
 name|size
 argument_list|()
 operator|!=
-literal|2
+literal|1
 condition|)
 block|{
 for|for
@@ -748,6 +748,7 @@ name|oregion
 range|:
 name|regions
 control|)
+block|{
 name|log
 argument_list|(
 literal|"Region still online: "
@@ -756,9 +757,10 @@ name|oregion
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 name|assertEquals
 argument_list|(
-literal|2
+literal|1
 argument_list|,
 name|regions
 operator|.

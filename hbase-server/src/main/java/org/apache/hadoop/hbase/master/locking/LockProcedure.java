@@ -1885,9 +1885,9 @@ name|this
 operator|.
 name|tableName
 operator|=
-name|TableName
+name|TableProcedureInterface
 operator|.
-name|NAMESPACE_TABLE_NAME
+name|DUMMY_NAMESPACE_TABLE_NAME
 expr_stmt|;
 switch|switch
 condition|(

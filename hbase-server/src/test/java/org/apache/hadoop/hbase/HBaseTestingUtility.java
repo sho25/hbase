@@ -15828,13 +15828,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|waitUntilAllRegionsAssigned
-argument_list|(
-name|TableName
-operator|.
-name|NAMESPACE_TABLE_NAME
-argument_list|)
-expr_stmt|;
 block|}
 end_function
 
