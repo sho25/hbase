@@ -710,9 +710,9 @@ block|{
 if|if
 condition|(
 name|snapshotManager
-operator|==
+operator|!=
 literal|null
-operator|||
+operator|&&
 name|snapshotManager
 operator|.
 name|isTakingAnySnapshot
