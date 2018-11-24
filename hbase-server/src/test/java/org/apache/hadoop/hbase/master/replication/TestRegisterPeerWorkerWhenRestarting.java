@@ -68,18 +68,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -741,13 +729,15 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
-comment|// make sure the new master can finish the transiting
-name|assertEquals
-argument_list|(
-name|SyncReplicationState
+comment|// make sure the new master can finish the transition
+name|UTIL2
 operator|.
-name|DOWNGRADE_ACTIVE
+name|waitFor
+argument_list|(
+literal|60000
 argument_list|,
+parameter_list|()
+lambda|->
 name|UTIL2
 operator|.
 name|getAdmin
@@ -757,6 +747,10 @@ name|getReplicationPeerSyncReplicationState
 argument_list|(
 name|PEER_ID
 argument_list|)
+operator|==
+name|SyncReplicationState
+operator|.
+name|DOWNGRADE_ACTIVE
 argument_list|)
 expr_stmt|;
 name|verify
