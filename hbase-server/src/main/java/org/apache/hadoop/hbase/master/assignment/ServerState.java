@@ -48,6 +48,9 @@ block|{
 comment|/**    * Initial state. Available.    */
 name|ONLINE
 block|,
+comment|/**    * Indicate that the server has crashed, i.e., we have already scheduled a SCP for it.    */
+name|CRASHED
+block|,
 comment|/**    * Only server which carries meta can have this state. We will split wal for meta and then    * assign meta first before splitting other wals.    */
 name|SPLITTING_META
 block|,

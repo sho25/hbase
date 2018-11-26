@@ -1878,54 +1878,6 @@ name|offline
 operator|)
 return|;
 block|}
-comment|/**    * Returns the set of regions hosted by the specified server    * @param serverName the server we are interested in    * @return set of RegionInfo hosted by the specified server    */
-specifier|public
-name|List
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|getServerRegionInfoSet
-parameter_list|(
-specifier|final
-name|ServerName
-name|serverName
-parameter_list|)
-block|{
-name|ServerStateNode
-name|serverInfo
-init|=
-name|getServerNode
-argument_list|(
-name|serverName
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|serverInfo
-operator|==
-literal|null
-condition|)
-block|{
-return|return
-name|Collections
-operator|.
-name|emptyList
-argument_list|()
-return|;
-block|}
-synchronized|synchronized
-init|(
-name|serverInfo
-init|)
-block|{
-return|return
-name|serverInfo
-operator|.
-name|getRegionInfoList
-argument_list|()
-return|;
-block|}
-block|}
 comment|// ============================================================================================
 comment|// Split helpers
 comment|// These methods will only be called in ServerCrashProcedure, and at the end of SCP we will remove

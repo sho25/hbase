@@ -4353,7 +4353,7 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|// Get a server that has regions. We will decommission two of the servers,
+comment|// Get a server that has meta online. We will decommission two of the servers,
 comment|// leaving one online.
 name|int
 name|i
@@ -4395,12 +4395,30 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|regionsOnServer
+name|admin
 operator|.
-name|size
+name|getRegions
+argument_list|(
+name|clusterRegionServers
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
+argument_list|)
+operator|.
+name|stream
 argument_list|()
-operator|>
-literal|0
+operator|.
+name|anyMatch
+argument_list|(
+name|p
+lambda|->
+name|p
+operator|.
+name|isMetaRegion
+argument_list|()
+argument_list|)
 condition|)
 block|{
 name|serversToDecommssion
@@ -4416,17 +4434,17 @@ argument_list|)
 argument_list|,
 name|regionsOnServer
 argument_list|)
-expr_stmt|;
+block|;
 break|break;
 block|}
 block|}
 name|clusterRegionServers
 operator|.
 name|remove
-argument_list|(
+parameter_list|(
 name|i
-argument_list|)
-expr_stmt|;
+parameter_list|)
+constructor_decl|;
 comment|// Get another server to decommission.
 name|serversToDecommssion
 operator|.
@@ -4641,7 +4659,13 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_class
+
+begin_comment
 comment|/**    * TestCase for HBASE-21355    */
+end_comment
+
+begin_function
 annotation|@
 name|Test
 specifier|public
@@ -4935,8 +4959,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 

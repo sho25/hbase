@@ -2361,19 +2361,6 @@ case|case
 name|REGION_STATE_TRANSITION_CONFIRM_OPENED
 case|:
 comment|// for these 3 states, the region may still be online on the crashed server
-if|if
-condition|(
-name|serverName
-operator|.
-name|equals
-argument_list|(
-name|regionNode
-operator|.
-name|getRegionLocation
-argument_list|()
-argument_list|)
-condition|)
-block|{
 name|env
 operator|.
 name|getAssignmentManager
@@ -2408,7 +2395,6 @@ name|getProcedureScheduler
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 break|break;
 default|default:

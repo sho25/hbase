@@ -19770,10 +19770,7 @@ name|this
 operator|.
 name|assignmentManager
 operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getServerRegionInfoSet
+name|getRegionsOnServer
 argument_list|(
 name|server
 argument_list|)

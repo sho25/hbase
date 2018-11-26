@@ -1484,7 +1484,7 @@ name|future
 operator|.
 name|get
 argument_list|(
-literal|5
+literal|60
 argument_list|,
 name|TimeUnit
 operator|.

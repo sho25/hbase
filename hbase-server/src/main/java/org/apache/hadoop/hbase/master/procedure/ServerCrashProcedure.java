@@ -721,10 +721,7 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getServerRegionInfoSet
+name|getRegionsOnServer
 argument_list|(
 name|serverName
 argument_list|)
