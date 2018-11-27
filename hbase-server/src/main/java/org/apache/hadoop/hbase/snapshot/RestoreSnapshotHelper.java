@@ -3396,7 +3396,7 @@ name|MobUtils
 operator|.
 name|getMobRegionPath
 argument_list|(
-name|conf
+name|rootDir
 argument_list|,
 name|tableDesc
 operator|.
