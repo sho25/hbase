@@ -2039,6 +2039,9 @@ name|getWALCellCodecClass
 argument_list|(
 name|conf
 argument_list|)
+operator|.
+name|getName
+argument_list|()
 decl_stmt|;
 try|try
 block|{
