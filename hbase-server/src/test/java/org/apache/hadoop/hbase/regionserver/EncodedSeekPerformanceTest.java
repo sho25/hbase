@@ -1018,6 +1018,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 operator|)
 operator|.
 name|clearCache

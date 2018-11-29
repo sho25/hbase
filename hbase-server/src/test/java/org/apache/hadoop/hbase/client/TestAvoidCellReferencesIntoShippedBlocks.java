@@ -1241,6 +1241,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 comment|// insert data. 5 Rows are added
 name|Put
@@ -2245,6 +2248,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// insert data. 5 Rows are added

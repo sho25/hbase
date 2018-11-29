@@ -2629,6 +2629,11 @@ argument_list|(
 name|conf
 argument_list|,
 name|family
+argument_list|,
+name|region
+operator|.
+name|getBlockCache
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

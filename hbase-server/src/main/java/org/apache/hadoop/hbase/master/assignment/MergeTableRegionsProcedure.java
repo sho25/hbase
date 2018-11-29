@@ -3626,18 +3626,6 @@ operator|>
 literal|0
 condition|)
 block|{
-specifier|final
-name|CacheConfig
-name|cacheConf
-init|=
-operator|new
-name|CacheConfig
-argument_list|(
-name|conf
-argument_list|,
-name|hcd
-argument_list|)
-decl_stmt|;
 for|for
 control|(
 name|StoreFileInfo
@@ -3646,7 +3634,9 @@ range|:
 name|storeFiles
 control|)
 block|{
-comment|// Create reference file(s) of the region in mergedDir
+comment|// Create reference file(s) of the region in mergedDir.
+comment|// As this procedure is running on master, use CacheConfig.DISABLED means
+comment|// don't cache any block.
 name|regionFs
 operator|.
 name|mergeStoreFile
@@ -3667,7 +3657,9 @@ name|storeFileInfo
 argument_list|,
 name|conf
 argument_list|,
-name|cacheConf
+name|CacheConfig
+operator|.
+name|DISABLED
 argument_list|,
 name|hcd
 operator|.

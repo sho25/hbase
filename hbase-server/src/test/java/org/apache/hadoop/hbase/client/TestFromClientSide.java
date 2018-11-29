@@ -43279,6 +43279,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 comment|// establish baseline stats
 name|long

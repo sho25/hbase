@@ -3649,18 +3649,6 @@ operator|>
 literal|0
 condition|)
 block|{
-specifier|final
-name|CacheConfig
-name|cacheConf
-init|=
-operator|new
-name|CacheConfig
-argument_list|(
-name|conf
-argument_list|,
-name|hcd
-argument_list|)
-decl_stmt|;
 for|for
 control|(
 name|StoreFileInfo
@@ -3669,6 +3657,8 @@ range|:
 name|storeFiles
 control|)
 block|{
+comment|// As this procedure is running on master, use CacheConfig.DISABLED means
+comment|// don't cache any block.
 name|StoreFileSplitter
 name|sfs
 init|=
@@ -3691,7 +3681,9 @@ name|storeFileInfo
 argument_list|,
 name|conf
 argument_list|,
-name|cacheConf
+name|CacheConfig
+operator|.
+name|DISABLED
 argument_list|,
 name|hcd
 operator|.

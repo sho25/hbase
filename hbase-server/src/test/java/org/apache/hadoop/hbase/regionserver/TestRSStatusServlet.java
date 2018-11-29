@@ -49,6 +49,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -160,24 +170,6 @@ operator|.
 name|client
 operator|.
 name|RegionInfoBuilder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheConfig
 import|;
 end_import
 
@@ -871,7 +863,7 @@ operator|.
 name|getZooKeeper
 argument_list|()
 expr_stmt|;
-comment|// Fake CacheConfig
+comment|// Fake BlockCache
 name|LOG
 operator|.
 name|warn
@@ -885,38 +877,14 @@ operator|+
 literal|" is set to 0"
 argument_list|)
 expr_stmt|;
-name|CacheConfig
-name|cacheConf
-init|=
-name|Mockito
-operator|.
-name|mock
-argument_list|(
-name|CacheConfig
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
 name|Mockito
 operator|.
 name|doReturn
 argument_list|(
-literal|null
-argument_list|)
+name|Optional
 operator|.
-name|when
-argument_list|(
-name|cacheConf
-argument_list|)
-operator|.
-name|getBlockCache
+name|empty
 argument_list|()
-expr_stmt|;
-name|Mockito
-operator|.
-name|doReturn
-argument_list|(
-name|cacheConf
 argument_list|)
 operator|.
 name|when
@@ -924,7 +892,7 @@ argument_list|(
 name|rs
 argument_list|)
 operator|.
-name|getCacheConfig
+name|getBlockCache
 argument_list|()
 expr_stmt|;
 comment|// Fake MasterAddressTracker

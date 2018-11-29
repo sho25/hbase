@@ -431,14 +431,34 @@ name|testMasterBlockCache
 parameter_list|()
 block|{
 comment|// no need to instantiate block cache.
-name|assertNull
+name|assertFalse
 argument_list|(
 name|master
 operator|.
-name|getCacheConfig
+name|getBlockCache
 argument_list|()
 operator|.
-name|getBlockCache
+name|isPresent
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testMasterMOBFileCache
+parameter_list|()
+block|{
+comment|// no need to instantiate mob file cache.
+name|assertFalse
+argument_list|(
+name|master
+operator|.
+name|getMobFileCache
+argument_list|()
+operator|.
+name|isPresent
 argument_list|()
 argument_list|)
 expr_stmt|;

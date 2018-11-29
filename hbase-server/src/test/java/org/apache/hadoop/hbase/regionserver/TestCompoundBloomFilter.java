@@ -37,18 +37,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNotNull
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
 import|;
 end_import
@@ -312,6 +300,24 @@ operator|.
 name|hfile
 operator|.
 name|BlockCache
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|hfile
+operator|.
+name|BlockCacheFactory
 import|;
 end_import
 
@@ -927,10 +933,6 @@ specifier|private
 name|FileSystem
 name|fs
 decl_stmt|;
-specifier|private
-name|BlockCache
-name|blockCache
-decl_stmt|;
 comment|/** A message of the form "in test#&lt;number>:" to include in logging. */
 specifier|private
 name|String
@@ -951,6 +953,10 @@ name|int
 name|EVALUATION_SEED
 init|=
 literal|135
+decl_stmt|;
+specifier|private
+name|BlockCache
+name|blockCache
 decl_stmt|;
 annotation|@
 name|Before
@@ -991,9 +997,11 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|CacheConfig
+name|blockCache
+operator|=
+name|BlockCacheFactory
 operator|.
-name|instantiateBlockCache
+name|createBlockCache
 argument_list|(
 name|conf
 argument_list|)
@@ -1004,17 +1012,7 @@ operator|new
 name|CacheConfig
 argument_list|(
 name|conf
-argument_list|)
-expr_stmt|;
-name|blockCache
-operator|=
-name|cacheConf
-operator|.
-name|getBlockCache
-argument_list|()
-expr_stmt|;
-name|assertNotNull
-argument_list|(
+argument_list|,
 name|blockCache
 argument_list|)
 expr_stmt|;
@@ -1993,6 +1991,8 @@ operator|new
 name|CacheConfig
 argument_list|(
 name|conf
+argument_list|,
+name|blockCache
 argument_list|)
 expr_stmt|;
 name|HFileContext

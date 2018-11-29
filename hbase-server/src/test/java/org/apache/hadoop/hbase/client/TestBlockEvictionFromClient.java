@@ -1502,6 +1502,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 comment|// insert data. 2 Rows are added
 name|Put
@@ -2158,6 +2161,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 name|insertData
 argument_list|(
@@ -2507,6 +2513,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 name|Put
@@ -4101,6 +4110,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 decl_stmt|;
 name|Put
 name|put
@@ -4567,6 +4579,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 name|Put
@@ -5609,6 +5624,9 @@ name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 block|}
 return|return
@@ -5778,6 +5796,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// insert data. 2 Rows are added
@@ -6137,6 +6158,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// insert data. 2 Rows are added
@@ -6922,6 +6946,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// insert data. 2 Rows are added
@@ -7776,6 +7803,9 @@ init|=
 name|cacheConf
 operator|.
 name|getBlockCache
+argument_list|()
+operator|.
+name|get
 argument_list|()
 decl_stmt|;
 comment|// insert data. 2 Rows are added
