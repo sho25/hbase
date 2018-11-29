@@ -4154,11 +4154,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} not enabled"
+argument_list|,
 name|tableName
-operator|+
-literal|" not enabled"
 argument_list|)
 expr_stmt|;
 return|return
@@ -4228,24 +4226,14 @@ operator|==
 literal|null
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} has not deployed region {}"
+argument_list|,
 name|tableName
-operator|+
-literal|" has not deployed region "
-operator|+
+argument_list|,
 name|pair
 operator|.
 name|getFirst
@@ -4255,7 +4243,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|notDeployed
 operator|++
 expr_stmt|;
@@ -4342,15 +4329,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} has {} regions not deployed"
+argument_list|,
 name|tableName
-operator|+
-literal|" has "
-operator|+
+argument_list|,
 name|notDeployed
-operator|+
-literal|" regions"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4386,25 +4369,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} expected to have {} regions, but only {} available"
+argument_list|,
 name|tableName
-operator|+
-literal|" expected to have "
-operator|+
-operator|(
+argument_list|,
 name|splitKeys
 operator|.
 name|length
 operator|+
 literal|1
-operator|)
-operator|+
-literal|" regions, but only "
-operator|+
+argument_list|,
 name|regionCount
-operator|+
-literal|" available"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4414,26 +4389,15 @@ return|;
 block|}
 else|else
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} should be available"
+argument_list|,
 name|tableName
-operator|+
-literal|" should be available"
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|true
 return|;
@@ -4449,11 +4413,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Table "
-operator|+
+literal|"Table {} does not exist"
+argument_list|,
 name|tableName
-operator|+
-literal|" not enabled, it is not exists"
 argument_list|)
 expr_stmt|;
 return|return
