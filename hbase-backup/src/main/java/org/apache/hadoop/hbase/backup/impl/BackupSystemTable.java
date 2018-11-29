@@ -1481,6 +1481,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Return fast if the table is available and avoid a log message
+if|if
+condition|(
+name|admin
+operator|.
+name|tableExists
+argument_list|(
+name|tableName
+argument_list|)
+operator|&&
+name|admin
+operator|.
+name|isTableAvailable
+argument_list|(
+name|tableName
+argument_list|)
+condition|)
+block|{
+return|return;
+block|}
 name|long
 name|TIMEOUT
 init|=
@@ -1494,6 +1514,15 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Backup table {} is not present and available, waiting for it to become so"
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 operator|!
@@ -1562,11 +1591,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Backup table "
-operator|+
+literal|"Backup table {} exists and available"
+argument_list|,
 name|tableName
-operator|+
-literal|" exists and available"
 argument_list|)
 expr_stmt|;
 block|}
