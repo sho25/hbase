@@ -189,6 +189,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|SocketAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Optional
@@ -687,7 +697,7 @@ name|Private
 class|class
 name|AsyncConnectionImpl
 implements|implements
-name|AsyncConnection
+name|AsyncClusterConnection
 block|{
 specifier|private
 specifier|static
@@ -903,6 +913,9 @@ parameter_list|,
 name|String
 name|clusterId
 parameter_list|,
+name|SocketAddress
+name|localAddress
+parameter_list|,
 name|User
 name|user
 parameter_list|)
@@ -1014,6 +1027,8 @@ argument_list|(
 name|conf
 argument_list|,
 name|clusterId
+argument_list|,
+name|localAddress
 argument_list|,
 name|metrics
 operator|.
@@ -1436,7 +1451,7 @@ return|;
 block|}
 comment|// ditto
 annotation|@
-name|VisibleForTesting
+name|Override
 specifier|public
 name|NonceGenerator
 name|getNonceGenerator
@@ -1444,6 +1459,17 @@ parameter_list|()
 block|{
 return|return
 name|nonceGenerator
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|RpcClient
+name|getRpcClient
+parameter_list|()
+block|{
+return|return
+name|rpcClient
 return|;
 block|}
 specifier|private

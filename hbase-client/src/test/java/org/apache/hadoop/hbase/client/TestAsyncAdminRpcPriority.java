@@ -1238,6 +1238,8 @@ argument_list|)
 argument_list|,
 literal|"test"
 argument_list|,
+literal|null
+argument_list|,
 name|UserProvider
 operator|.
 name|instantiate

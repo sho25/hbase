@@ -65,6 +65,38 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|AsyncClusterConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|AsyncConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|ClusterConnection
 import|;
 end_import
@@ -159,6 +191,22 @@ function_decl|;
 comment|/**    * Returns a reference to the servers' cluster connection. Prefer {@link #getConnection()}.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
 name|ClusterConnection
 name|getClusterConnection
+parameter_list|()
+function_decl|;
+comment|/**    * Returns a reference to the servers' async connection.    *<p/>    * Important note: this method returns a reference to Connection which is managed by Server    * itself, so callers must NOT attempt to close connection obtained.    */
+specifier|default
+name|AsyncConnection
+name|getAsyncConnection
+parameter_list|()
+block|{
+return|return
+name|getAsyncClusterConnection
+argument_list|()
+return|;
+block|}
+comment|/**    * Returns a reference to the servers' async cluster connection.    *<p/>    * Important note: this method returns a reference to Connection which is managed by Server    * itself, so callers must NOT attempt to close connection obtained.    */
+name|AsyncClusterConnection
+name|getAsyncClusterConnection
 parameter_list|()
 function_decl|;
 comment|/**    * @return The unique server name for this server.    */

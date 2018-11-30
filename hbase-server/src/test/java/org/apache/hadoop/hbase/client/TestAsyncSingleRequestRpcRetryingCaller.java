@@ -531,6 +531,8 @@ operator|.
 name|get
 argument_list|()
 argument_list|,
+literal|null
+argument_list|,
 name|User
 operator|.
 name|getCurrent
@@ -1258,6 +1260,8 @@ argument_list|()
 operator|.
 name|get
 argument_list|()
+argument_list|,
+literal|null
 argument_list|,
 name|User
 operator|.

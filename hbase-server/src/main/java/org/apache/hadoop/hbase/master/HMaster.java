@@ -16495,6 +16495,23 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|this
+operator|.
+name|asyncClusterConnection
+operator|!=
+literal|null
+condition|)
+block|{
+name|this
+operator|.
+name|asyncClusterConnection
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_function
 
