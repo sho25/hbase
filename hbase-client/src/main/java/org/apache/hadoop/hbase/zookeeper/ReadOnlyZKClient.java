@@ -725,7 +725,7 @@ argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Connect {} to {} with session timeout={}ms, retries {}, "
 operator|+
@@ -1843,7 +1843,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Close zookeeper connection {} to {}"
 argument_list|,
