@@ -1927,13 +1927,13 @@ name|t
 argument_list|)
 return|;
 block|}
-comment|/**    * Like {@link #getRemoteException(ServiceException)} but more generic, able to handle more than    * just {@link ServiceException}. Prefer this method to    * {@link #getRemoteException(ServiceException)} because trying to    * contain direct protobuf references.    * @param e    */
+comment|/**    * Like {@link #getRemoteException(ServiceException)} but more generic, able to handle more than    * just {@link ServiceException}. Prefer this method to    * {@link #getRemoteException(ServiceException)} because trying to    * contain direct protobuf references.    */
 specifier|public
 specifier|static
 name|IOException
 name|handleRemoteException
 parameter_list|(
-name|Exception
+name|Throwable
 name|e
 parameter_list|)
 block|{
@@ -1949,7 +1949,7 @@ specifier|static
 name|IOException
 name|makeIOExceptionOfException
 parameter_list|(
-name|Exception
+name|Throwable
 name|e
 parameter_list|)
 block|{
