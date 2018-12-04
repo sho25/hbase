@@ -3340,11 +3340,6 @@ specifier|protected
 name|ClusterConnection
 name|clusterConnection
 decl_stmt|;
-comment|/*    * Long-living meta table locator, which is created when the server is started and stopped    * when server shuts down. References to this locator shall be used to perform according    * operations in EventHandlers. Primary reason for this decision is to make it mockable    * for tests.    */
-specifier|protected
-name|MetaTableLocator
-name|metaTableLocator
-decl_stmt|;
 comment|/**    * Go here to get table descriptors.    */
 specifier|protected
 name|TableDescriptors
@@ -5384,12 +5379,6 @@ operator|=
 name|createClusterConnection
 argument_list|()
 expr_stmt|;
-name|metaTableLocator
-operator|=
-operator|new
-name|MetaTableLocator
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 comment|/**    * All initialization needed before we go register with Master.<br>    * Do bare minimum. Do bulk of initializations AFTER we've connected to the Master.<br>    * In here we just put up the RpcServer, setup Connection, and ZooKeeper.    */
@@ -6556,22 +6545,6 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// so callers waiting for meta without timeout can stop
-if|if
-condition|(
-name|this
-operator|.
-name|metaTableLocator
-operator|!=
-literal|null
-condition|)
-name|this
-operator|.
-name|metaTableLocator
-operator|.
-name|stop
-argument_list|()
-expr_stmt|;
 if|if
 condition|(
 name|this
@@ -11995,19 +11968,6 @@ return|return
 name|this
 operator|.
 name|clusterConnection
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|MetaTableLocator
-name|getMetaTableLocator
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|metaTableLocator
 return|;
 block|}
 annotation|@

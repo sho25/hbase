@@ -832,17 +832,10 @@ operator|.
 name|getZooKeeper
 argument_list|()
 decl_stmt|;
-name|MetaTableLocator
-name|mtl
-init|=
-operator|new
-name|MetaTableLocator
-argument_list|()
-decl_stmt|;
 name|ServerName
 name|sn
 init|=
-name|mtl
+name|MetaTableLocator
 operator|.
 name|getMetaRegionLocation
 argument_list|(
@@ -894,7 +887,7 @@ condition|)
 block|{
 name|sn
 operator|=
-name|mtl
+name|MetaTableLocator
 operator|.
 name|getMetaRegionLocation
 argument_list|(

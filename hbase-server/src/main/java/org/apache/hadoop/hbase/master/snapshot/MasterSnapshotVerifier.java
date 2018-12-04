@@ -755,9 +755,7 @@ condition|)
 block|{
 name|regions
 operator|=
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegions
 argument_list|(

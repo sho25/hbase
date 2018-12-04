@@ -342,12 +342,7 @@ block|}
 name|ServerName
 name|metaServername
 init|=
-name|this
-operator|.
-name|master
-operator|.
-name|getMetaTableLocator
-argument_list|()
+name|MetaTableLocator
 operator|.
 name|getMetaRegionLocation
 argument_list|(

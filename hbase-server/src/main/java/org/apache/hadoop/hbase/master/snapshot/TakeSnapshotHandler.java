@@ -1338,9 +1338,7 @@ condition|)
 block|{
 name|regionsAndLocations
 operator|=
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegionsAndLocations
 argument_list|(

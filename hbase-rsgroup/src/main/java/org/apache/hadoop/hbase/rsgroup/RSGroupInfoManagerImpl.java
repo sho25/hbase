@@ -4555,10 +4555,7 @@ block|{
 name|boolean
 name|rootMetaFound
 init|=
-name|masterServices
-operator|.
-name|getMetaTableLocator
-argument_list|()
+name|Utility
 operator|.
 name|verifyMetaRegionLocation
 argument_list|(

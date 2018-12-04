@@ -6832,9 +6832,7 @@ name|append
 argument_list|(
 literal|"\nRegion server holding hbase:meta: "
 operator|+
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegionLocation
 argument_list|(
@@ -6891,9 +6889,7 @@ name|i
 operator|+
 literal|" "
 operator|+
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegionLocation
 argument_list|(

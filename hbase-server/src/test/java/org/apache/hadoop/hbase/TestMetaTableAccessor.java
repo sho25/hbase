@@ -1694,9 +1694,7 @@ name|RegionInfo
 argument_list|>
 name|regions
 init|=
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegions
 argument_list|(
@@ -1718,9 +1716,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-operator|new
 name|MetaTableLocator
-argument_list|()
 operator|.
 name|getMetaRegionsAndLocations
 argument_list|(
