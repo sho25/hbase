@@ -11518,10 +11518,40 @@ block|{
 name|checkInitialized
 argument_list|()
 expr_stmt|;
+name|TableDescriptor
+name|desc
+init|=
+name|getMasterCoprocessorHost
+argument_list|()
+operator|.
+name|preCreateTableRegionsInfos
+argument_list|(
+name|tableDescriptor
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|desc
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Creation for "
+operator|+
+name|tableDescriptor
+operator|+
+literal|" is canceled by CP"
+argument_list|)
+throw|;
+block|}
 name|String
 name|namespace
 init|=
-name|tableDescriptor
+name|desc
 operator|.
 name|getTableName
 argument_list|()
@@ -11546,14 +11576,14 @@ name|ModifyRegionUtils
 operator|.
 name|createRegionInfos
 argument_list|(
-name|tableDescriptor
+name|desc
 argument_list|,
 name|splitKeys
 argument_list|)
 decl_stmt|;
 name|sanityCheckTableDescriptor
 argument_list|(
-name|tableDescriptor
+name|desc
 argument_list|)
 expr_stmt|;
 return|return
@@ -11590,7 +11620,7 @@ argument_list|()
 operator|.
 name|preCreateTable
 argument_list|(
-name|tableDescriptor
+name|desc
 argument_list|,
 name|newRegions
 argument_list|)
@@ -11604,11 +11634,11 @@ argument_list|()
 operator|+
 literal|" create "
 operator|+
-name|tableDescriptor
+name|desc
 argument_list|)
 expr_stmt|;
 comment|// TODO: We can handle/merge duplicate requests, and differentiate the case of
-comment|//       TableExistsException by saying if the schema is the same or not.
+comment|// TableExistsException by saying if the schema is the same or not.
 comment|//
 comment|// We need to wait for the procedure to potentially fail due to "prepare" sanity
 comment|// checks. This will block only the beginning of the procedure. See HBASE-19953.
@@ -11630,7 +11660,7 @@ operator|.
 name|getEnvironment
 argument_list|()
 argument_list|,
-name|tableDescriptor
+name|desc
 argument_list|,
 name|newRegions
 argument_list|,
@@ -11651,7 +11681,7 @@ argument_list|()
 operator|.
 name|postCreateTable
 argument_list|(
-name|tableDescriptor
+name|desc
 argument_list|,
 name|newRegions
 argument_list|)

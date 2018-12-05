@@ -341,6 +341,28 @@ specifier|public
 interface|interface
 name|MasterObserver
 block|{
+comment|/**    * Called before we create the region infos for this table. Called as part of create table RPC    * call.    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @return the TableDescriptor used to create the table. Default is the one passed in. Return    *         {@code null} means cancel the creation.    */
+specifier|default
+name|TableDescriptor
+name|preCreateTableRegionsInfos
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|TableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+name|desc
+return|;
+block|}
 comment|/**    * Called before a new table is created by    * {@link org.apache.hadoop.hbase.master.HMaster}.  Called as part of create    * table RPC call.    * @param ctx the environment to interact with the framework and master    * @param desc the TableDescriptor for the table    * @param regions the initial regions created for the table    */
 specifier|default
 name|void
