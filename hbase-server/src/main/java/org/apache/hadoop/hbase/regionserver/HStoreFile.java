@@ -660,7 +660,8 @@ literal|0
 argument_list|)
 decl_stmt|;
 comment|// Set implementation must be of concurrent type
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|final
 name|Set
 argument_list|<
