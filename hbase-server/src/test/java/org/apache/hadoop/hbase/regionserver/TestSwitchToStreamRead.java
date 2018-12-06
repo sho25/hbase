@@ -413,7 +413,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|AfterClass
+name|After
 import|;
 end_import
 
@@ -433,7 +433,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|BeforeClass
+name|Before
 import|;
 end_import
 
@@ -575,9 +575,8 @@ name|HRegion
 name|REGION
 decl_stmt|;
 annotation|@
-name|BeforeClass
+name|Before
 specifier|public
-specifier|static
 name|void
 name|setUp
 parameter_list|()
@@ -801,9 +800,8 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
-name|AfterClass
+name|After
 specifier|public
-specifier|static
 name|void
 name|tearDown
 parameter_list|()
