@@ -27,6 +27,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ServerName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|RpcClient
@@ -62,6 +76,14 @@ name|AsyncClusterConnection
 extends|extends
 name|AsyncConnection
 block|{
+comment|/**    * Get the admin service for the given region server.    */
+name|AsyncRegionServerAdmin
+name|getRegionServerAdmin
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+function_decl|;
 comment|/**    * Get the nonce generator for this connection.    */
 name|NonceGenerator
 name|getNonceGenerator

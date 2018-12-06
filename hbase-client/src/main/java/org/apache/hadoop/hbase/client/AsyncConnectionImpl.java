@@ -2245,6 +2245,26 @@ return|return
 name|metrics
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|AsyncRegionServerAdmin
+name|getRegionServerAdmin
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+block|{
+return|return
+operator|new
+name|AsyncRegionServerAdmin
+argument_list|(
+name|serverName
+argument_list|,
+name|this
+argument_list|)
+return|;
+block|}
 block|}
 end_class
 

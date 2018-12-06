@@ -2881,6 +2881,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FutureUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|HBaseFsck
 import|;
 end_import
@@ -3346,6 +3362,24 @@ operator|.
 name|protobuf
 operator|.
 name|ProtobufUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|RequestConverter
 import|;
 end_import
 
@@ -11072,6 +11106,73 @@ return|;
 block|}
 end_function
 
+begin_function
+specifier|private
+name|void
+name|warmUpRegion
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|,
+name|RegionInfo
+name|region
+parameter_list|)
+block|{
+name|FutureUtils
+operator|.
+name|addListener
+argument_list|(
+name|asyncClusterConnection
+operator|.
+name|getRegionServerAdmin
+argument_list|(
+name|server
+argument_list|)
+operator|.
+name|warmupRegion
+argument_list|(
+name|RequestConverter
+operator|.
+name|buildWarmupRegionRequest
+argument_list|(
+name|region
+argument_list|)
+argument_list|)
+argument_list|,
+parameter_list|(
+name|r
+parameter_list|,
+name|e
+parameter_list|)
+lambda|->
+block|{
+if|if
+condition|(
+name|e
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to warm up region {} on server {}"
+argument_list|,
+name|region
+argument_list|,
+name|server
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+expr_stmt|;
+block|}
+end_function
+
 begin_comment
 comment|// Public so can be accessed by tests. Blocks until move is done.
 end_comment
@@ -11534,12 +11635,10 @@ name|getDestination
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Warmup the region on the destination before initiating the move. this call
-comment|// is synchronous and takes some time. doing it before the source region gets
-comment|// closed
-name|serverManager
-operator|.
-name|sendRegionWarmup
+comment|// Warmup the region on the destination before initiating the move.
+comment|// A region server could reject the close request because it either does not
+comment|// have the specified region or the region is being split.
+name|warmUpRegion
 argument_list|(
 name|rp
 operator|.
