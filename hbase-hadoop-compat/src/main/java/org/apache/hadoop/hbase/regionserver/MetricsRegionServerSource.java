@@ -391,6 +391,11 @@ init|=
 literal|"storeFileSize"
 decl_stmt|;
 name|String
+name|STOREFILE_SIZE_GROWTH_RATE
+init|=
+literal|"storeFileSizeGrowthRate"
+decl_stmt|;
+name|String
 name|MAX_STORE_FILE_AGE
 init|=
 literal|"maxStoreFileAge"
@@ -434,6 +439,11 @@ name|String
 name|STOREFILE_SIZE_DESC
 init|=
 literal|"Size of storefiles being served."
+decl_stmt|;
+name|String
+name|STOREFILE_SIZE_GROWTH_RATE_DESC
+init|=
+literal|"Bytes per second by which the size of storefiles being served grows."
 decl_stmt|;
 name|String
 name|TOTAL_REQUEST_COUNT

@@ -137,6 +137,17 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|double
+name|getStoreFileSizeGrowthRate
+parameter_list|()
+block|{
+return|return
+literal|50.0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|long
 name|getMaxStoreFileAge
 parameter_list|()

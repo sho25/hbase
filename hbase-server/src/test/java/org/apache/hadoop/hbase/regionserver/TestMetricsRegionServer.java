@@ -479,6 +479,17 @@ argument_list|)
 expr_stmt|;
 name|HELPER
 operator|.
+name|assertGauge
+argument_list|(
+literal|"storeFileSizeGrowthRate"
+argument_list|,
+literal|50.0
+argument_list|,
+name|serverSource
+argument_list|)
+expr_stmt|;
+name|HELPER
+operator|.
 name|assertCounter
 argument_list|(
 literal|"totalRequestCount"

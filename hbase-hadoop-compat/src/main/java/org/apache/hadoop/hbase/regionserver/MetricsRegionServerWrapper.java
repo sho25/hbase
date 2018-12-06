@@ -109,6 +109,11 @@ name|long
 name|getStoreFileSize
 parameter_list|()
 function_decl|;
+comment|/**    * Get the growth rate of the store files this region server is serving from.    */
+name|double
+name|getStoreFileSizeGrowthRate
+parameter_list|()
+function_decl|;
 comment|/**    * @return Max age of store files hosted on this region server    */
 name|long
 name|getMaxStoreFileAge
