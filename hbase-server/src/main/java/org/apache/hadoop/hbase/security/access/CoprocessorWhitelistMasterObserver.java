@@ -318,7 +318,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|TableDescriptor
 name|preModifyTable
 parameter_list|(
 name|ObserverContext
@@ -346,6 +346,9 @@ argument_list|,
 name|newDesc
 argument_list|)
 expr_stmt|;
+return|return
+name|newDesc
+return|;
 block|}
 annotation|@
 name|Override

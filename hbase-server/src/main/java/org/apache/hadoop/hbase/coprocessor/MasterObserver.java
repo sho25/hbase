@@ -629,7 +629,7 @@ name|IOException
 block|{}
 comment|/**    * Called prior to modifying a table's properties.  Called as part of modify    * table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param currentDescriptor current TableDescriptor of the table    * @param newDescriptor after modify operation, table will have this descriptor    */
 specifier|default
-name|void
+name|TableDescriptor
 name|preModifyTable
 parameter_list|(
 specifier|final
@@ -661,6 +661,9 @@ argument_list|,
 name|newDescriptor
 argument_list|)
 expr_stmt|;
+return|return
+name|newDescriptor
+return|;
 block|}
 comment|/**    * Called after the modifyTable operation has been requested.  Called as part    * of modify table RPC call.    * @param ctx the environment to interact with the framework and master    * @param tableName the name of the table    * @param currentDescriptor current TableDescriptor of the table    * @deprecated Since 2.1. Will be removed in 3.0.    */
 annotation|@

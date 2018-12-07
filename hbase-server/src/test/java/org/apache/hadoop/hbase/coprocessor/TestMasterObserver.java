@@ -1964,7 +1964,7 @@ block|{     }
 annotation|@
 name|Override
 specifier|public
-name|void
+name|TableDescriptor
 name|preModifyTable
 parameter_list|(
 name|ObserverContext
@@ -1991,6 +1991,9 @@ name|preModifyTableCalled
 operator|=
 literal|true
 expr_stmt|;
+return|return
+name|newDescriptor
+return|;
 block|}
 annotation|@
 name|Override

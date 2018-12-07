@@ -6280,7 +6280,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|TableDescriptor
 name|preModifyTable
 parameter_list|(
 name|ObserverContext
@@ -6323,6 +6323,9 @@ operator|.
 name|CREATE
 argument_list|)
 expr_stmt|;
+return|return
+name|newDesc
+return|;
 block|}
 annotation|@
 name|Override

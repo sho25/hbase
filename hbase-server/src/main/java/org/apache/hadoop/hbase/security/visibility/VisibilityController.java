@@ -1995,7 +1995,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|void
+name|TableDescriptor
 name|preModifyTable
 parameter_list|(
 name|ObserverContext
@@ -2018,12 +2018,9 @@ name|IOException
 block|{
 if|if
 condition|(
-operator|!
 name|authorizationEnabled
 condition|)
 block|{
-return|return;
-block|}
 if|if
 condition|(
 name|LABELS_TABLE_NAME
@@ -2044,6 +2041,10 @@ name|LABELS_TABLE_NAME
 argument_list|)
 throw|;
 block|}
+block|}
+return|return
+name|newDescriptor
+return|;
 block|}
 annotation|@
 name|Override

@@ -14526,19 +14526,6 @@ throws|throws
 name|IOException
 block|{
 name|TableDescriptor
-name|newDescriptor
-init|=
-name|newDescriptorGetter
-operator|.
-name|get
-argument_list|()
-decl_stmt|;
-name|sanityCheckTableDescriptor
-argument_list|(
-name|newDescriptor
-argument_list|)
-expr_stmt|;
-name|TableDescriptor
 name|oldDescriptor
 init|=
 name|getMaster
@@ -14552,6 +14539,9 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+name|TableDescriptor
+name|newDescriptor
+init|=
 name|getMaster
 argument_list|()
 operator|.
@@ -14564,6 +14554,14 @@ name|tableName
 argument_list|,
 name|oldDescriptor
 argument_list|,
+name|newDescriptorGetter
+operator|.
+name|get
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|sanityCheckTableDescriptor
+argument_list|(
 name|newDescriptor
 argument_list|)
 expr_stmt|;
@@ -14571,12 +14569,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
+literal|"{} modify table {} from {} to {}"
+argument_list|,
 name|getClientIdAuditPrefix
 argument_list|()
-operator|+
-literal|" modify "
-operator|+
+argument_list|,
 name|tableName
+argument_list|,
+name|oldDescriptor
+argument_list|,
+name|newDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Execute the operation synchronously - wait for the operation completes before
