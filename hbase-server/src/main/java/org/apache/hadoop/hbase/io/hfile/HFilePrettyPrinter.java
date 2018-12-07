@@ -2240,12 +2240,9 @@ name|fs
 argument_list|,
 name|file
 argument_list|,
-operator|new
 name|CacheConfig
-argument_list|(
-name|getConf
-argument_list|()
-argument_list|)
+operator|.
+name|DISABLED
 argument_list|,
 literal|true
 argument_list|,

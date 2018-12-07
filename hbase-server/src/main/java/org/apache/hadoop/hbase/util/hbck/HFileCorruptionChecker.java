@@ -635,11 +635,9 @@ name|this
 operator|.
 name|cacheConf
 operator|=
-operator|new
 name|CacheConfig
-argument_list|(
-name|conf
-argument_list|)
+operator|.
+name|DISABLED
 expr_stmt|;
 name|this
 operator|.

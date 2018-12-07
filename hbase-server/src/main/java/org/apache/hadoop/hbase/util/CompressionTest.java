@@ -891,11 +891,9 @@ name|fs
 argument_list|,
 name|path
 argument_list|,
-operator|new
 name|CacheConfig
-argument_list|(
-name|conf
-argument_list|)
+operator|.
+name|DISABLED
 argument_list|,
 literal|true
 argument_list|,
