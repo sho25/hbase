@@ -351,6 +351,18 @@ name|void
 name|incrFailedRecoveryQueue
 parameter_list|()
 function_decl|;
+name|long
+name|getWALEditsRead
+parameter_list|()
+function_decl|;
+name|long
+name|getShippedOps
+parameter_list|()
+function_decl|;
+name|long
+name|getEditsFiltered
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

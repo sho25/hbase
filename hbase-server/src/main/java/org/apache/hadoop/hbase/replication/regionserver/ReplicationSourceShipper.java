@@ -167,22 +167,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|EnvironmentEdgeManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|Threads
 import|;
 end_import
@@ -521,6 +505,17 @@ operator|.
 name|RUNNING
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Running ReplicationSourceShipper Thread for wal group: {}"
+argument_list|,
+name|this
+operator|.
+name|walGroupId
+argument_list|)
+expr_stmt|;
 comment|// Loop until we close down
 while|while
 condition|(
@@ -565,6 +560,20 @@ argument_list|(
 name|getEntriesTimeout
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Shipper from source {} got entry batch from reader: {}"
+argument_list|,
+name|source
+operator|.
+name|getQueueId
+argument_list|()
+argument_list|,
+name|entryBatch
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|entryBatch
@@ -572,22 +581,6 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// since there is no logs need to replicate, we refresh the ageOfLastShippedOp
-name|source
-operator|.
-name|getSourceMetrics
-argument_list|()
-operator|.
-name|setAgeOfLastShippedOp
-argument_list|(
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-argument_list|,
-name|walGroupId
-argument_list|)
-expr_stmt|;
 continue|continue;
 block|}
 comment|// the NO_MORE_DATA instance has no path so do not call shipEdits
@@ -807,32 +800,11 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
 name|updateLogPosition
 argument_list|(
 name|entryBatch
 argument_list|)
-condition|)
-block|{
-comment|// if there was nothing to ship and it's not an error
-comment|// set "ageOfLastShippedOp" to<now> to indicate that we're current
-name|source
-operator|.
-name|getSourceMetrics
-argument_list|()
-operator|.
-name|setAgeOfLastShippedOp
-argument_list|(
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-argument_list|,
-name|walGroupId
-argument_list|)
 expr_stmt|;
-block|}
 return|return;
 block|}
 name|int
@@ -854,6 +826,32 @@ argument_list|(
 name|entryBatch
 argument_list|)
 decl_stmt|;
+name|source
+operator|.
+name|getSourceMetrics
+argument_list|()
+operator|.
+name|setTimeStampNextToReplicate
+argument_list|(
+name|entries
+operator|.
+name|get
+argument_list|(
+name|entries
+operator|.
+name|size
+argument_list|()
+operator|-
+literal|1
+argument_list|)
+operator|.
+name|getKey
+argument_list|()
+operator|.
+name|getWriteTime
+argument_list|()
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 name|isActive
@@ -1000,6 +998,15 @@ name|getEdit
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"shipped entry {}: "
+argument_list|,
+name|entry
+argument_list|)
+expr_stmt|;
 name|TableName
 name|tableName
 init|=
@@ -1111,7 +1118,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 literal|"Replicated {} entries or {} operations in {} ms"
 argument_list|,
@@ -1561,7 +1568,7 @@ return|return
 literal|0
 return|;
 block|}
-specifier|private
+specifier|protected
 name|boolean
 name|isActive
 parameter_list|()

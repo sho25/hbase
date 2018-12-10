@@ -760,6 +760,19 @@ init|=
 name|readNextEntryAndRecordReaderPosition
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"reading wal file {}. Current open for write: {}"
+argument_list|,
+name|this
+operator|.
+name|currentPath
+argument_list|,
+name|beingWritten
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|currentEntry
@@ -1184,6 +1197,15 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"reading entry: {} "
+argument_list|,
+name|readEntry
+argument_list|)
+expr_stmt|;
 name|metrics
 operator|.
 name|incrLogEditsRead
