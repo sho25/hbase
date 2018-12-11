@@ -107,6 +107,43 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
+comment|/**    * Set the periodical flush interval. If the data in the buffer has not been flush for a long    * time, i.e, reach this timeout limit, we will flush it automatically.    *<p/>    * Notice that, set the timeout to 0 or a negative value means disable periodical flush, not    * 'flush immediately'. If you want to flush immediately then you should not use this class, as it    * is designed to be 'buffered'.    */
+specifier|default
+name|AsyncBufferedMutatorBuilder
+name|setWriteBufferPeriodicFlush
+parameter_list|(
+name|long
+name|timeout
+parameter_list|,
+name|TimeUnit
+name|unit
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Disable the periodical flush, i.e, set the timeout to 0.    */
+specifier|default
+name|AsyncBufferedMutatorBuilder
+name|disableWriteBufferPeriodicFlush
+parameter_list|()
+block|{
+return|return
+name|setWriteBufferPeriodicFlush
+argument_list|(
+literal|0
+argument_list|,
+name|TimeUnit
+operator|.
+name|NANOSECONDS
+argument_list|)
+return|;
+block|}
 comment|/**    * Set the max retry times for an operation. Usually it is the max attempt times minus 1.    *<p>    * Operation timeout and max attempt times(or max retry times) are both limitations for retrying,    * we will stop retrying when we reach any of the limitations.    * @see #setMaxAttempts(int)    * @see #setOperationTimeout(long, TimeUnit)    */
 specifier|default
 name|AsyncBufferedMutatorBuilder

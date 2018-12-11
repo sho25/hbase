@@ -1962,6 +1962,8 @@ name|getTableBuilder
 argument_list|(
 name|tableName
 argument_list|)
+argument_list|,
+name|RETRY_TIMER
 argument_list|)
 return|;
 block|}
@@ -1990,6 +1992,8 @@ name|tableName
 argument_list|,
 name|pool
 argument_list|)
+argument_list|,
+name|RETRY_TIMER
 argument_list|)
 return|;
 block|}

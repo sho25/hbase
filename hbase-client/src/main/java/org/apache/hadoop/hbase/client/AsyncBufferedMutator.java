@@ -33,6 +33,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collections
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -46,6 +56,18 @@ operator|.
 name|concurrent
 operator|.
 name|CompletableFuture
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
 import|;
 end_import
 
@@ -91,6 +113,28 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|collect
+operator|.
+name|Iterables
+import|;
+end_import
+
 begin_comment
 comment|/**  * Used to communicate with a single HBase table in batches. Obtain an instance from a  * {@link AsyncConnection} and call {@link #close()} afterwards.  *<p>  * The implementation is required to be thread safe.  */
 end_comment
@@ -117,6 +161,7 @@ name|getConfiguration
 parameter_list|()
 function_decl|;
 comment|/**    * Sends a {@link Mutation} to the table. The mutations will be buffered and sent over the wire as    * part of a batch. Currently only supports {@link Put} and {@link Delete} mutations.    * @param mutation The data to send.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -126,7 +171,24 @@ parameter_list|(
 name|Mutation
 name|mutation
 parameter_list|)
-function_decl|;
+block|{
+return|return
+name|Iterables
+operator|.
+name|getOnlyElement
+argument_list|(
+name|mutate
+argument_list|(
+name|Collections
+operator|.
+name|singletonList
+argument_list|(
+name|mutation
+argument_list|)
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * Send some {@link Mutation}s to the table. The mutations will be buffered and sent over the wire    * as part of a batch. There is no guarantee of sending entire content of {@code mutations} in a    * single batch, the implementations are free to break it up according to the write buffer    * capacity.    * @param mutations The data to send.    */
 name|List
 argument_list|<
@@ -163,6 +225,23 @@ name|long
 name|getWriteBufferSize
 parameter_list|()
 function_decl|;
+comment|/**    * Returns the periodical flush interval, 0 means disabled.    */
+specifier|default
+name|long
+name|getPeriodicalFlushTimeout
+parameter_list|(
+name|TimeUnit
+name|unit
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
 block|}
 end_interface
 
