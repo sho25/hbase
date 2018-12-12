@@ -13244,14 +13244,6 @@ name|RegionReplicaFlushHandler
 argument_list|(
 name|this
 argument_list|,
-name|clusterConnection
-argument_list|,
-name|rpcRetryingCallerFactory
-argument_list|,
-name|rpcControllerFactory
-argument_list|,
-name|operationTimeout
-argument_list|,
 name|region
 argument_list|)
 argument_list|)

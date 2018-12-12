@@ -19,6 +19,18 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|CompletableFuture
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -61,6 +73,28 @@ name|InterfaceAudience
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|FlushRegionResponse
+import|;
+end_import
+
 begin_comment
 comment|/**  * The asynchronous connection for internal usage.  */
 end_comment
@@ -93,6 +127,21 @@ comment|/**    * Get the rpc client we used to communicate with other servers.  
 name|RpcClient
 name|getRpcClient
 parameter_list|()
+function_decl|;
+comment|/**    * Flush a region and get the response.    */
+name|CompletableFuture
+argument_list|<
+name|FlushRegionResponse
+argument_list|>
+name|flush
+parameter_list|(
+name|byte
+index|[]
+name|regionName
+parameter_list|,
+name|boolean
+name|writeFlushWALMarker
+parameter_list|)
 function_decl|;
 block|}
 end_interface
