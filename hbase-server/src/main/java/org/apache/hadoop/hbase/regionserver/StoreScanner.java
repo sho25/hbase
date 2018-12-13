@@ -3655,6 +3655,13 @@ name|nextCell
 init|=
 literal|null
 decl_stmt|;
+comment|// used to guard against a changed next indexed key by doing a identity comparison
+comment|// when the identity changes we need to compare the bytes again
+name|Cell
+name|previousIndexedKey
+init|=
+literal|null
+decl_stmt|;
 do|do
 block|{
 name|Cell
@@ -3675,6 +3682,11 @@ name|KeyValueScanner
 operator|.
 name|NO_NEXT_INDEXED_KEY
 operator|&&
+operator|(
+name|nextIndexedKey
+operator|==
+name|previousIndexedKey
+operator|||
 name|matcher
 operator|.
 name|compareKeyForNextRow
@@ -3685,6 +3697,7 @@ name|cell
 argument_list|)
 operator|>=
 literal|0
+operator|)
 condition|)
 block|{
 name|this
@@ -3696,6 +3709,10 @@ argument_list|()
 expr_stmt|;
 operator|++
 name|kvsScanned
+expr_stmt|;
+name|previousIndexedKey
+operator|=
+name|nextIndexedKey
 expr_stmt|;
 block|}
 else|else
@@ -3752,6 +3769,13 @@ name|nextCell
 init|=
 literal|null
 decl_stmt|;
+comment|// used to guard against a changed next indexed key by doing a identity comparison
+comment|// when the identity changes we need to compare the bytes again
+name|Cell
+name|previousIndexedKey
+init|=
+literal|null
+decl_stmt|;
 do|do
 block|{
 name|Cell
@@ -3772,6 +3796,11 @@ name|KeyValueScanner
 operator|.
 name|NO_NEXT_INDEXED_KEY
 operator|&&
+operator|(
+name|nextIndexedKey
+operator|==
+name|previousIndexedKey
+operator|||
 name|matcher
 operator|.
 name|compareKeyForNextColumn
@@ -3782,6 +3811,7 @@ name|cell
 argument_list|)
 operator|>=
 literal|0
+operator|)
 condition|)
 block|{
 name|this
@@ -3793,6 +3823,10 @@ argument_list|()
 expr_stmt|;
 operator|++
 name|kvsScanned
+expr_stmt|;
+name|previousIndexedKey
+operator|=
+name|nextIndexedKey
 expr_stmt|;
 block|}
 else|else
