@@ -117,7 +117,13 @@ block|,
 name|WriteSizeExceeded
 block|,
 name|ReadSizeExceeded
-block|,   }
+block|,
+name|RequestCapacityUnitExceeded
+block|,
+name|ReadCapacityUnitExceeded
+block|,
+name|WriteCapacityUnitExceeded
+block|}
 specifier|private
 specifier|static
 specifier|final
@@ -140,7 +146,13 @@ block|,
 literal|"write size limit exceeded"
 block|,
 literal|"read size limit exceeded"
-block|, }
+block|,
+literal|"request capacity unit exceeded"
+block|,
+literal|"read capacity unit exceeded"
+block|,
+literal|"write capacity unit exceeded"
+block|}
 decl_stmt|;
 specifier|private
 specifier|static
@@ -436,6 +448,72 @@ argument_list|(
 name|Type
 operator|.
 name|ReadSizeExceeded
+argument_list|,
+name|waitInterval
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|throwRequestCapacityUnitExceeded
+parameter_list|(
+specifier|final
+name|long
+name|waitInterval
+parameter_list|)
+throws|throws
+name|RpcThrottlingException
+block|{
+name|throwThrottlingException
+argument_list|(
+name|Type
+operator|.
+name|RequestCapacityUnitExceeded
+argument_list|,
+name|waitInterval
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|throwReadCapacityUnitExceeded
+parameter_list|(
+specifier|final
+name|long
+name|waitInterval
+parameter_list|)
+throws|throws
+name|RpcThrottlingException
+block|{
+name|throwThrottlingException
+argument_list|(
+name|Type
+operator|.
+name|ReadCapacityUnitExceeded
+argument_list|,
+name|waitInterval
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|throwWriteCapacityUnitExceeded
+parameter_list|(
+specifier|final
+name|long
+name|waitInterval
+parameter_list|)
+throws|throws
+name|RpcThrottlingException
+block|{
+name|throwThrottlingException
+argument_list|(
+name|Type
+operator|.
+name|WriteCapacityUnitExceeded
 argument_list|,
 name|waitInterval
 argument_list|)

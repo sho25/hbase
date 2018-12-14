@@ -842,7 +842,7 @@ condition|)
 block|{
 name|RpcThrottlingException
 operator|.
-name|throwRequestSizeExceeded
+name|throwRequestCapacityUnitExceeded
 argument_list|(
 name|reqCapacityUnitLimiter
 operator|.
@@ -921,7 +921,7 @@ condition|)
 block|{
 name|RpcThrottlingException
 operator|.
-name|throwWriteSizeExceeded
+name|throwWriteCapacityUnitExceeded
 argument_list|(
 name|writeCapacityUnitLimiter
 operator|.
@@ -999,7 +999,7 @@ condition|)
 block|{
 name|RpcThrottlingException
 operator|.
-name|throwWriteSizeExceeded
+name|throwReadCapacityUnitExceeded
 argument_list|(
 name|readCapacityUnitLimiter
 operator|.
