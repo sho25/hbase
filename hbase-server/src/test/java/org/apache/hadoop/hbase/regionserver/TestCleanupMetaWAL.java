@@ -434,6 +434,13 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"KILL"
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getMiniHBaseCluster
@@ -447,11 +454,18 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"WAIT"
+argument_list|)
+expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|10000
+literal|30000
 argument_list|,
 parameter_list|()
 lambda|->
@@ -487,6 +501,13 @@ name|count
 argument_list|()
 operator|>
 literal|0
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"DONE WAITING"
 argument_list|)
 expr_stmt|;
 name|MasterFileSystem
