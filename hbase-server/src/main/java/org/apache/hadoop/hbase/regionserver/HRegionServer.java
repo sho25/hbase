@@ -19288,7 +19288,18 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Aborting region server timed out, terminate forcibly..."
+literal|"Aborting region server timed out, terminating forcibly. Thread dump to stdout."
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|printThreadInfo
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"Zombie HRegionServer"
 argument_list|)
 expr_stmt|;
 name|System
