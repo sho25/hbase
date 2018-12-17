@@ -3089,6 +3089,9 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|long
+name|pid
+init|=
 name|master
 operator|.
 name|getAssignmentManager
@@ -3100,7 +3103,20 @@ name|serverName
 argument_list|,
 literal|true
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+if|if
+condition|(
+name|pid
+operator|<=
+literal|0
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+else|else
+block|{
 comment|// Tell our listeners that a server was removed
 if|if
 condition|(
@@ -3149,6 +3165,7 @@ block|}
 return|return
 literal|true
 return|;
+block|}
 block|}
 annotation|@
 name|VisibleForTesting

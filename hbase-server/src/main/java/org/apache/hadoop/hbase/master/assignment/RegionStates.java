@@ -3741,6 +3741,9 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|ServerStateNode
 name|getServerNode
 parameter_list|(

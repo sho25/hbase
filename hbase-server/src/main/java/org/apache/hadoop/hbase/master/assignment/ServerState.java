@@ -42,6 +42,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 enum|enum
 name|ServerState
 block|{
