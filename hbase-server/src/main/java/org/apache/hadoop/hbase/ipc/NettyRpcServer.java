@@ -1258,14 +1258,25 @@ name|int
 name|getNumOpenConnections
 parameter_list|()
 block|{
-comment|// allChannels also contains the server channel, so exclude that from the count.
-return|return
+name|int
+name|channelsCount
+init|=
 name|allChannels
 operator|.
 name|size
 argument_list|()
+decl_stmt|;
+comment|// allChannels also contains the server channel, so exclude that from the count.
+return|return
+name|channelsCount
+operator|>
+literal|0
+condition|?
+name|channelsCount
 operator|-
 literal|1
+else|:
+name|channelsCount
 return|;
 block|}
 annotation|@
