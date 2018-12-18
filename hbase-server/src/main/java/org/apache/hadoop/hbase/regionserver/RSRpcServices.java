@@ -16096,9 +16096,17 @@ name|pbr
 argument_list|)
 expr_stmt|;
 block|}
+comment|//r.cells is null when an table.exists(get) call
 if|if
 condition|(
 name|r
+operator|!=
+literal|null
+operator|&&
+name|r
+operator|.
+name|rawCells
+argument_list|()
 operator|!=
 literal|null
 condition|)
