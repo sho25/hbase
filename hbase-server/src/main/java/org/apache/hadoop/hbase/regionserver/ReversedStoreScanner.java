@@ -233,8 +233,8 @@ block|}
 annotation|@
 name|Override
 specifier|protected
-name|void
-name|resetKVHeap
+name|KeyValueHeap
+name|newKVHeap
 parameter_list|(
 name|List
 argument_list|<
@@ -250,9 +250,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Combine all seeked scanners with a heap
-name|heap
-operator|=
+return|return
 operator|new
 name|ReversedKeyValueHeap
 argument_list|(
@@ -260,7 +258,7 @@ name|scanners
 argument_list|,
 name|comparator
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 annotation|@
 name|Override

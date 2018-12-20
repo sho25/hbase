@@ -7904,7 +7904,6 @@ name|s
 return|;
 block|}
 block|}
-specifier|private
 specifier|static
 name|byte
 index|[]

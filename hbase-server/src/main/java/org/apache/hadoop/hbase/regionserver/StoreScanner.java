@@ -2147,6 +2147,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+annotation|@
+name|VisibleForTesting
 specifier|protected
 name|void
 name|resetKVHeap
@@ -2168,6 +2170,33 @@ block|{
 comment|// Combine all seeked scanners with a heap
 name|heap
 operator|=
+name|newKVHeap
+argument_list|(
+name|scanners
+argument_list|,
+name|comparator
+argument_list|)
+expr_stmt|;
+block|}
+specifier|protected
+name|KeyValueHeap
+name|newKVHeap
+parameter_list|(
+name|List
+argument_list|<
+name|?
+extends|extends
+name|KeyValueScanner
+argument_list|>
+name|scanners
+parameter_list|,
+name|CellComparator
+name|comparator
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
 operator|new
 name|KeyValueHeap
 argument_list|(
@@ -2175,7 +2204,7 @@ name|scanners
 argument_list|,
 name|comparator
 argument_list|)
-expr_stmt|;
+return|;
 block|}
 comment|/**    * Filters the given list of scanners using Bloom filter, time range, and TTL.    *<p>    * Will be overridden by testcase so declared as protected.    */
 annotation|@
@@ -4803,8 +4832,7 @@ argument_list|)
 expr_stmt|;
 name|newHeap
 operator|=
-operator|new
-name|KeyValueHeap
+name|newKVHeap
 argument_list|(
 name|newCurrentScanners
 argument_list|,
