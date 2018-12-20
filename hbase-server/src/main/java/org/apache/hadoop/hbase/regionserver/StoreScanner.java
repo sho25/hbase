@@ -3415,6 +3415,17 @@ condition|(
 name|nextKV
 operator|!=
 literal|null
+operator|&&
+name|comparator
+operator|.
+name|compare
+argument_list|(
+name|nextKV
+argument_list|,
+name|cell
+argument_list|)
+operator|>
+literal|0
 condition|)
 block|{
 name|seekAsDirection

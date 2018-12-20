@@ -369,16 +369,19 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * For MUST_PASS_ONE, we cannot make sure that when filter-A in filter list return NEXT_COL then    * the next cell passing to filterList will be the first cell in next column, because if filter-B    * in filter list return SKIP, then the filter list will return SKIP. In this case, we should pass    * the cell following the previous cell, and it's possible that the next cell has the same column    * as the previous cell even if filter-A has NEXT_COL returned for the previous cell. So we should    * save the previous cell and the return code list when checking previous cell for every filter in    * filter list, and verify if currentCell fit the previous return code, if fit then pass the    * currentCell to the corresponding filter. (HBASE-17678)<br>    * Note that: In StoreScanner level, NEXT_ROW will skip to the next row in current family, and in    * RegionScanner level, NEXT_ROW will skip to the next row in current family and switch to the    * next family for RegionScanner, INCLUDE_AND_NEXT_ROW is the same. so we should pass current cell    * to the filter, if row mismatch or row match but column family mismatch. (HBASE-18368)    * @see org.apache.hadoop.hbase.filter.Filter.ReturnCode    */
+comment|/**    * For MUST_PASS_ONE, we cannot make sure that when filter-A in filter list return NEXT_COL then    * the next cell passing to filterList will be the first cell in next column, because if filter-B    * in filter list return SKIP, then the filter list will return SKIP. In this case, we should pass    * the cell following the previous cell, and it's possible that the next cell has the same column    * as the previous cell even if filter-A has NEXT_COL returned for the previous cell. So we should    * save the previous cell and the return code list when checking previous cell for every filter in    * filter list, and verify if currentCell fit the previous return code, if fit then pass the    * currentCell to the corresponding filter. (HBASE-17678)<br>    * Note that: In StoreScanner level, NEXT_ROW will skip to the next row in current family, and in    * RegionScanner level, NEXT_ROW will skip to the next row in current family and switch to the    * next family for RegionScanner, INCLUDE_AND_NEXT_ROW is the same. so we should pass current cell    * to the filter, if row mismatch or row match but column family mismatch. (HBASE-18368)    * @see org.apache.hadoop.hbase.filter.Filter.ReturnCode    * @param subFilter which sub-filter to calculate the return code by using previous cell and    *          previous return code.    * @param prevCell the previous cell passed to given sub-filter.    * @param currentCell the current cell which will pass to given sub-filter.    * @param prevCode the previous return code for given sub-filter.    * @return return code calculated by using previous cell and previous return code. null means can    *         not decide which return code should return, so we will pass the currentCell to    *         subFilter for getting currentCell's return code, and it won't impact the sub-filter's    *         internal states.    */
 specifier|private
-name|boolean
-name|shouldPassCurrentCellToFilter
+name|ReturnCode
+name|calculateReturnCodeByPrevCellAndRC
 parameter_list|(
-name|Cell
-name|prevCell
+name|Filter
+name|subFilter
 parameter_list|,
 name|Cell
 name|currentCell
+parameter_list|,
+name|Cell
+name|prevCell
 parameter_list|,
 name|ReturnCode
 name|prevCode
@@ -398,7 +401,7 @@ literal|null
 condition|)
 block|{
 return|return
-literal|true
+literal|null
 return|;
 block|}
 switch|switch
@@ -413,7 +416,7 @@ case|case
 name|SKIP
 case|:
 return|return
-literal|true
+literal|null
 return|;
 case|case
 name|SEEK_NEXT_USING_HINT
@@ -421,6 +424,8 @@ case|:
 name|Cell
 name|nextHintCell
 init|=
+name|subFilter
+operator|.
 name|getNextCellHint
 argument_list|(
 name|prevCell
@@ -428,19 +433,23 @@ argument_list|)
 decl_stmt|;
 return|return
 name|nextHintCell
-operator|==
+operator|!=
 literal|null
-operator|||
-name|this
-operator|.
+operator|&&
 name|compareCell
 argument_list|(
 name|currentCell
 argument_list|,
 name|nextHintCell
 argument_list|)
-operator|>=
+operator|<
 literal|0
+condition|?
+name|ReturnCode
+operator|.
+name|SEEK_NEXT_USING_HINT
+else|:
+literal|null
 return|;
 case|case
 name|NEXT_COL
@@ -451,7 +460,6 @@ case|:
 comment|// Once row changed, reset() will clear prevCells, so we need not to compare their rows
 comment|// because rows are the same here.
 return|return
-operator|!
 name|CellUtil
 operator|.
 name|matchingColumn
@@ -460,6 +468,12 @@ name|prevCell
 argument_list|,
 name|currentCell
 argument_list|)
+condition|?
+name|ReturnCode
+operator|.
+name|NEXT_COL
+else|:
+literal|null
 return|;
 case|case
 name|NEXT_ROW
@@ -469,7 +483,6 @@ name|INCLUDE_AND_SEEK_NEXT_ROW
 case|:
 comment|// As described above, rows are definitely the same, so we only compare the family.
 return|return
-operator|!
 name|CellUtil
 operator|.
 name|matchingFamily
@@ -478,6 +491,12 @@ name|prevCell
 argument_list|,
 name|currentCell
 argument_list|)
+condition|?
+name|ReturnCode
+operator|.
+name|NEXT_ROW
+else|:
+literal|null
 return|;
 default|default:
 throw|throw
@@ -1065,7 +1084,7 @@ name|SKIP
 condition|)
 block|{
 comment|// If previous return code is INCLUDE or SKIP, we should always pass the next cell to the
-comment|// corresponding sub-filter(need not test shouldPassCurrentCellToFilter() method), So we
+comment|// corresponding sub-filter(need not test calculateReturnCodeByPrevCellAndRC() method), So we
 comment|// need not save current cell to prevCellList for saving heap memory.
 name|prevCellList
 operator|.
@@ -1123,11 +1142,6 @@ name|ReturnCode
 name|rc
 init|=
 literal|null
-decl_stmt|;
-name|boolean
-name|everyFilterReturnHint
-init|=
-literal|true
 decl_stmt|;
 for|for
 control|(
@@ -1200,34 +1214,44 @@ name|filter
 operator|.
 name|filterAllRemaining
 argument_list|()
-operator|||
-operator|!
-name|shouldPassCurrentCellToFilter
-argument_list|(
-name|prevCell
-argument_list|,
-name|c
-argument_list|,
-name|prevCode
-argument_list|)
 condition|)
 block|{
-name|everyFilterReturnHint
-operator|=
-literal|false
-expr_stmt|;
 continue|continue;
 block|}
 name|ReturnCode
 name|localRC
 init|=
+name|calculateReturnCodeByPrevCellAndRC
+argument_list|(
+name|filter
+argument_list|,
+name|c
+argument_list|,
+name|prevCell
+argument_list|,
+name|prevCode
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|localRC
+operator|==
+literal|null
+condition|)
+block|{
+comment|// Can not get return code based on previous cell and previous return code. In other words,
+comment|// we should pass the current cell to this sub-filter to get the return code, and it won't
+comment|// impact the sub-filter's internal state.
+name|localRC
+operator|=
 name|filter
 operator|.
 name|filterCell
 argument_list|(
 name|c
 argument_list|)
-decl_stmt|;
+expr_stmt|;
+block|}
 comment|// Update previous return code and previous cell for filter[i].
 name|updatePrevFilterRCList
 argument_list|(
@@ -1245,20 +1269,6 @@ argument_list|,
 name|localRC
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|localRC
-operator|!=
-name|ReturnCode
-operator|.
-name|SEEK_NEXT_USING_HINT
-condition|)
-block|{
-name|everyFilterReturnHint
-operator|=
-literal|false
-expr_stmt|;
-block|}
 name|rc
 operator|=
 name|mergeReturnCode
@@ -1300,38 +1310,19 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|everyFilterReturnHint
-condition|)
-block|{
+comment|// Each sub-filter in filter list got true for filterAllRemaining(), if rc is null, so we should
+comment|// return SKIP.
 return|return
-name|ReturnCode
-operator|.
-name|SEEK_NEXT_USING_HINT
-return|;
-block|}
-elseif|else
-if|if
-condition|(
 name|rc
 operator|==
 literal|null
-condition|)
-block|{
-comment|// Each sub-filter in filter list got true for filterAllRemaining().
-return|return
+condition|?
 name|ReturnCode
 operator|.
 name|SKIP
-return|;
-block|}
-else|else
-block|{
-return|return
+else|:
 name|rc
 return|;
-block|}
 block|}
 annotation|@
 name|Override
