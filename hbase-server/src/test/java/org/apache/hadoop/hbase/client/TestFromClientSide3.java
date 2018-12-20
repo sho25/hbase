@@ -8194,6 +8194,8 @@ operator|.
 name|withStopRow
 argument_list|(
 name|ROW
+argument_list|,
+literal|true
 argument_list|)
 operator|.
 name|addFamily
@@ -8350,6 +8352,8 @@ operator|.
 name|withStopRow
 argument_list|(
 name|ROW
+argument_list|,
+literal|true
 argument_list|)
 operator|.
 name|addFamily

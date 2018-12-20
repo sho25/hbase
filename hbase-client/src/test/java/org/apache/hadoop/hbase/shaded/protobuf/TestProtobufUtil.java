@@ -1815,6 +1815,13 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|scanBuilder
+operator|.
+name|setIncludeStopRow
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|ClientProtos
 operator|.
 name|Scan
