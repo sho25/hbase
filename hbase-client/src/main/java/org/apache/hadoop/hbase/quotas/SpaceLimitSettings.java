@@ -884,6 +884,8 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
+name|sizeToString
+argument_list|(
 name|proto
 operator|.
 name|getQuota
@@ -891,6 +893,7 @@ argument_list|()
 operator|.
 name|getSoftLimit
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|sb

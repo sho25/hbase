@@ -1636,10 +1636,13 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
+name|sizeToString
+argument_list|(
 name|spaceProto
 operator|.
 name|getSoftLimit
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|builder
