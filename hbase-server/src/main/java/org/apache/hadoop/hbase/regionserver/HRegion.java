@@ -37944,7 +37944,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Reckon the Cells to apply to WAL, memstore, and to return to the Client; these Sets are not    * always the same dependent on whether to write WAL or if the amount to increment is zero (in    * this case we write back nothing, just return latest Cell value to the client).    *    * @param results Fill in here what goes back to the Client if it is non-null (if null, client    *  doesn't want results).    * @param forMemStore Fill in here what to apply to the MemStore (by Store).    * @return A WALEdit to apply to WAL or null if we are to skip the WAL.    */
+comment|/**    * Reckon the Cells to apply to WAL, memstore, and to return to the Client; these Sets are not    * always the same dependent on whether to write WAL.    *    * @param results Fill in here what goes back to the Client if it is non-null (if null, client    *  doesn't want results).    * @param forMemStore Fill in here what to apply to the MemStore (by Store).    * @return A WALEdit to apply to WAL or null if we are to skip the WAL.    */
 specifier|private
 name|WALEdit
 name|reckonDeltas
@@ -38138,7 +38138,7 @@ return|return
 name|walEdit
 return|;
 block|}
-comment|/**    * Reckon the Cells to apply to WAL, memstore, and to return to the Client in passed    * column family/Store.    *    * Does Get of current value and then adds passed in deltas for this Store returning the result.    *    * @param op Whether Increment or Append    * @param mutation The encompassing Mutation object    * @param deltas Changes to apply to this Store; either increment amount or data to append    * @param results In here we accumulate all the Cells we are to return to the client; this List    *  can be larger than what we return in case where delta is zero; i.e. don't write    *  out new values, just return current value. If null, client doesn't want results returned.    * @return Resulting Cells after<code>deltas</code> have been applied to current    *  values. Side effect is our filling out of the<code>results</code> List.    */
+comment|/**    * Reckon the Cells to apply to WAL, memstore, and to return to the Client in passed    * column family/Store.    *    * Does Get of current value and then adds passed in deltas for this Store returning the result.    *    * @param op Whether Increment or Append    * @param mutation The encompassing Mutation object    * @param deltas Changes to apply to this Store; either increment amount or data to append    * @param results In here we accumulate all the Cells we are to return to the client. If null,    *                client doesn't want results returned.    * @return Resulting Cells after<code>deltas</code> have been applied to current    *  values. Side effect is our filling out of the<code>results</code> List.    */
 specifier|private
 name|List
 argument_list|<
@@ -38309,11 +38309,6 @@ name|currentValue
 init|=
 literal|null
 decl_stmt|;
-name|boolean
-name|firstWrite
-init|=
-literal|false
-decl_stmt|;
 if|if
 condition|(
 name|currentValuesIndex
@@ -38383,13 +38378,6 @@ operator|++
 expr_stmt|;
 block|}
 block|}
-else|else
-block|{
-name|firstWrite
-operator|=
-literal|true
-expr_stmt|;
-block|}
 comment|// Switch on whether this an increment or an append building the new Cell to apply.
 name|Cell
 name|newCell
@@ -38400,11 +38388,6 @@ name|MutationType
 name|mutationType
 init|=
 literal|null
-decl_stmt|;
-name|boolean
-name|apply
-init|=
-literal|true
 decl_stmt|;
 switch|switch
 condition|(
@@ -38420,7 +38403,6 @@ name|MutationType
 operator|.
 name|INCREMENT
 expr_stmt|;
-comment|// If delta amount to apply is 0, don't write WAL or MemStore.
 name|long
 name|deltaAmount
 init|=
@@ -38429,13 +38411,6 @@ argument_list|(
 name|delta
 argument_list|)
 decl_stmt|;
-comment|// TODO: Does zero value mean reset Cell? For example, the ttl.
-name|apply
-operator|=
-name|deltaAmount
-operator|!=
-literal|0
-expr_stmt|;
 specifier|final
 name|long
 name|newValue
@@ -38489,7 +38464,6 @@ name|MutationType
 operator|.
 name|APPEND
 expr_stmt|;
-comment|// Always apply Append. TODO: Does empty delta value mean reset Cell? It seems to.
 name|newCell
 operator|=
 name|reckonDelta
@@ -38604,14 +38578,6 @@ name|newCell
 argument_list|)
 expr_stmt|;
 block|}
-comment|// If apply, we need to update memstore/WAL with new value; add it toApply.
-if|if
-condition|(
-name|apply
-operator|||
-name|firstWrite
-condition|)
-block|{
 name|toApply
 operator|.
 name|add
@@ -38619,7 +38585,6 @@ argument_list|(
 name|newCell
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Add to results to get returned to the Client. If null, cilent does not want results.
 if|if
 condition|(

@@ -1517,7 +1517,7 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-comment|// col1: amount = 0, 0 write back to WAL
+comment|// col1: amount = 0, 1 write back to WAL
 name|inc1
 operator|=
 operator|new
@@ -1581,7 +1581,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|2
+literal|3
 argument_list|)
 expr_stmt|;
 comment|// col1: amount = 0, col2: amount = 0, col3: amount = 0
@@ -1709,7 +1709,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|3
+literal|4
 argument_list|)
 expr_stmt|;
 comment|// col1: amount = 5, col2: amount = 4, col3: amount = 3
@@ -1837,7 +1837,7 @@ name|wals
 argument_list|,
 name|wal
 argument_list|,
-literal|4
+literal|5
 argument_list|)
 expr_stmt|;
 block|}
