@@ -33384,6 +33384,7 @@ block|}
 block|}
 comment|// Utility methods
 comment|/**    * A utility method to create new instances of HRegion based on the    * {@link HConstants#REGION_IMPL} configuration property.    * @param tableDir qualified path of directory where region should be located,    * usually the table directory.    * @param wal The WAL is the outbound log for any updates to the HRegion    * The wal file is a logfile from the previous execution that's    * custom-computed for this HRegion. The HRegionServer computes and sorts the    * appropriate wal info for this HRegion. If there is a previous file    * (implying that the HRegion has been written-to before), then read it from    * the supplied path.    * @param fs is the filesystem.    * @param conf is global configuration settings.    * @param regionInfo - RegionInfo that describes the region    * is new), then read them from the supplied path.    * @param htd the table descriptor    * @return the new instance    */
+specifier|public
 specifier|static
 name|HRegion
 name|newHRegion
