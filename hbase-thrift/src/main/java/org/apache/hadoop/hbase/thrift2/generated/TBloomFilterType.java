@@ -51,14 +51,10 @@ name|TEnum
 import|;
 end_import
 
-begin_comment
-comment|/**  * Specify Durability:  *  - SKIP_WAL means do not write the Mutation to the WAL.  *  - ASYNC_WAL means write the Mutation to the WAL asynchronously,  *  - SYNC_WAL means write the Mutation to the WAL synchronously,  *  - FSYNC_WAL means Write the Mutation to the WAL synchronously and force the entries to disk.  */
-end_comment
-
 begin_enum
 specifier|public
 enum|enum
-name|TDurability
+name|TBloomFilterType
 implements|implements
 name|org
 operator|.
@@ -68,27 +64,32 @@ name|thrift
 operator|.
 name|TEnum
 block|{
-name|USE_DEFAULT
+comment|/**    * Bloomfilters disabled    */
+name|NONE
 argument_list|(
 literal|0
 argument_list|)
 block|,
-name|SKIP_WAL
+comment|/**    * Bloom enabled with Table row as Key    */
+name|ROW
 argument_list|(
 literal|1
 argument_list|)
 block|,
-name|ASYNC_WAL
+comment|/**    * Bloom enabled with Table row&amp; column (family+qualifier) as Key    */
+name|ROWCOL
 argument_list|(
 literal|2
 argument_list|)
 block|,
-name|SYNC_WAL
+comment|/**    * Bloom enabled with Table row prefix as Key, specify the length of the prefix    */
+name|ROWPREFIX_FIXED_LENGTH
 argument_list|(
 literal|3
 argument_list|)
 block|,
-name|FSYNC_WAL
+comment|/**    * Bloom enabled with Table row prefix as Key, specify the delimiter of the prefix    */
+name|ROWPREFIX_DELIMITED
 argument_list|(
 literal|4
 argument_list|)
@@ -99,7 +100,7 @@ name|int
 name|value
 decl_stmt|;
 specifier|private
-name|TDurability
+name|TBloomFilterType
 parameter_list|(
 name|int
 name|value
@@ -125,7 +126,7 @@ block|}
 comment|/**    * Find a the enum type by its integer value, as defined in the Thrift IDL.    * @return null if the value is not found.    */
 specifier|public
 specifier|static
-name|TDurability
+name|TBloomFilterType
 name|findByValue
 parameter_list|(
 name|int
@@ -141,31 +142,31 @@ case|case
 literal|0
 case|:
 return|return
-name|USE_DEFAULT
+name|NONE
 return|;
 case|case
 literal|1
 case|:
 return|return
-name|SKIP_WAL
+name|ROW
 return|;
 case|case
 literal|2
 case|:
 return|return
-name|ASYNC_WAL
+name|ROWCOL
 return|;
 case|case
 literal|3
 case|:
 return|return
-name|SYNC_WAL
+name|ROWPREFIX_FIXED_LENGTH
 return|;
 case|case
 literal|4
 case|:
 return|return
-name|FSYNC_WAL
+name|ROWPREFIX_DELIMITED
 return|;
 default|default:
 return|return

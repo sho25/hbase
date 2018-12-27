@@ -51,14 +51,10 @@ name|TEnum
 import|;
 end_import
 
-begin_comment
-comment|/**  * Specify Durability:  *  - SKIP_WAL means do not write the Mutation to the WAL.  *  - ASYNC_WAL means write the Mutation to the WAL asynchronously,  *  - SYNC_WAL means write the Mutation to the WAL synchronously,  *  - FSYNC_WAL means Write the Mutation to the WAL synchronously and force the entries to disk.  */
-end_comment
-
 begin_enum
 specifier|public
 enum|enum
-name|TDurability
+name|TKeepDeletedCells
 implements|implements
 name|org
 operator|.
@@ -68,29 +64,22 @@ name|thrift
 operator|.
 name|TEnum
 block|{
-name|USE_DEFAULT
+comment|/**    * Deleted Cells are not retained.    */
+name|FALSE
 argument_list|(
 literal|0
 argument_list|)
 block|,
-name|SKIP_WAL
+comment|/**    * Deleted Cells are retained until they are removed by other means    * such TTL or VERSIONS.    * If no TTL is specified or no new versions of delete cells are    * written, they are retained forever.    */
+name|TRUE
 argument_list|(
 literal|1
 argument_list|)
 block|,
-name|ASYNC_WAL
+comment|/**    * Deleted Cells are retained until the delete marker expires due to TTL.    * This is useful when TTL is combined with MIN_VERSIONS and one    * wants to keep a minimum number of versions around but at the same    * time remove deleted cells after the TTL.    */
+name|TTL
 argument_list|(
 literal|2
-argument_list|)
-block|,
-name|SYNC_WAL
-argument_list|(
-literal|3
-argument_list|)
-block|,
-name|FSYNC_WAL
-argument_list|(
-literal|4
 argument_list|)
 block|;
 specifier|private
@@ -99,7 +88,7 @@ name|int
 name|value
 decl_stmt|;
 specifier|private
-name|TDurability
+name|TKeepDeletedCells
 parameter_list|(
 name|int
 name|value
@@ -125,7 +114,7 @@ block|}
 comment|/**    * Find a the enum type by its integer value, as defined in the Thrift IDL.    * @return null if the value is not found.    */
 specifier|public
 specifier|static
-name|TDurability
+name|TKeepDeletedCells
 name|findByValue
 parameter_list|(
 name|int
@@ -141,31 +130,19 @@ case|case
 literal|0
 case|:
 return|return
-name|USE_DEFAULT
+name|FALSE
 return|;
 case|case
 literal|1
 case|:
 return|return
-name|SKIP_WAL
+name|TRUE
 return|;
 case|case
 literal|2
 case|:
 return|return
-name|ASYNC_WAL
-return|;
-case|case
-literal|3
-case|:
-return|return
-name|SYNC_WAL
-return|;
-case|case
-literal|4
-case|:
-return|return
-name|FSYNC_WAL
+name|TTL
 return|;
 default|default:
 return|return
