@@ -1067,7 +1067,7 @@ name|this
 operator|.
 name|conf
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 literal|"hbase.region.replica.replication.buffersize"
 argument_list|,

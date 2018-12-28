@@ -1495,7 +1495,7 @@ name|this
 operator|.
 name|conf
 operator|.
-name|getInt
+name|getLong
 argument_list|(
 literal|"hbase.regionserver.hlog.splitlog.buffersize"
 argument_list|,
