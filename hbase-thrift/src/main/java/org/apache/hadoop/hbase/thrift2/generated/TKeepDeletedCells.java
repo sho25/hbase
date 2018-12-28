@@ -51,6 +51,10 @@ name|TEnum
 import|;
 end_import
 
+begin_comment
+comment|/**  * Thrift wrapper around  * org.apache.hadoop.hbase.KeepDeletedCells  */
+end_comment
+
 begin_enum
 specifier|public
 enum|enum
