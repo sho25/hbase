@@ -65,7 +65,9 @@ name|java
 operator|.
 name|util
 operator|.
-name|Random
+name|concurrent
+operator|.
+name|ThreadLocalRandom
 import|;
 end_import
 
@@ -109,7 +111,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|AsyncClusterConnection
 import|;
 end_import
 
@@ -125,7 +127,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Connection
+name|AsyncRegionServerAdmin
 import|;
 end_import
 
@@ -245,28 +247,6 @@ name|Maps
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-operator|.
-name|AdminService
-import|;
-end_import
-
 begin_comment
 comment|/**  * Maintains a collection of peers to replicate to, and randomly selects a  * single peer to replicate to per set of data to replicate. Also handles  * keeping track of peer availability.  */
 end_comment
@@ -313,13 +293,8 @@ literal|0.5f
 decl_stmt|;
 specifier|private
 specifier|final
-name|Connection
+name|AsyncClusterConnection
 name|conn
-decl_stmt|;
-specifier|private
-specifier|final
-name|String
-name|peerClusterId
 decl_stmt|;
 specifier|private
 specifier|final
@@ -350,11 +325,6 @@ specifier|final
 name|int
 name|badSinkThreshold
 decl_stmt|;
-specifier|private
-specifier|final
-name|Random
-name|random
-decl_stmt|;
 comment|// A timestamp of the last time the list of replication peers changed
 specifier|private
 name|long
@@ -373,15 +343,12 @@ operator|.
 name|newArrayList
 argument_list|()
 decl_stmt|;
-comment|/**    * Instantiate for a single replication peer cluster.    * @param conn connection to the peer cluster    * @param peerClusterId identifier of the peer cluster    * @param endpoint replication endpoint for inter cluster replication    * @param conf HBase configuration, used for determining replication source ratio and bad peer    *          threshold    */
+comment|/**    * Instantiate for a single replication peer cluster.    * @param conn connection to the peer cluster    * @param endpoint replication endpoint for inter cluster replication    * @param conf HBase configuration, used for determining replication source ratio and bad peer    *          threshold    */
 specifier|public
 name|ReplicationSinkManager
 parameter_list|(
-name|ClusterConnection
+name|AsyncClusterConnection
 name|conn
-parameter_list|,
-name|String
-name|peerClusterId
 parameter_list|,
 name|HBaseReplicationEndpoint
 name|endpoint
@@ -395,12 +362,6 @@ operator|.
 name|conn
 operator|=
 name|conn
-expr_stmt|;
-name|this
-operator|.
-name|peerClusterId
-operator|=
-name|peerClusterId
 expr_stmt|;
 name|this
 operator|.
@@ -443,16 +404,8 @@ argument_list|,
 name|DEFAULT_BAD_SINK_THRESHOLD
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|random
-operator|=
-operator|new
-name|Random
-argument_list|()
-expr_stmt|;
 block|}
-comment|/**    * Get a randomly-chosen replication sink to replicate to.    *    * @return a replication sink to replicate to    */
+comment|/**    * Get a randomly-chosen replication sink to replicate to.    * @return a replication sink to replicate to    */
 specifier|public
 specifier|synchronized
 name|SinkPeer
@@ -512,7 +465,10 @@ name|sinks
 operator|.
 name|get
 argument_list|(
-name|random
+name|ThreadLocalRandom
+operator|.
+name|current
+argument_list|()
 operator|.
 name|nextInt
 argument_list|(
@@ -529,14 +485,9 @@ name|SinkPeer
 argument_list|(
 name|serverName
 argument_list|,
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
 name|conn
-operator|)
 operator|.
-name|getAdmin
+name|getRegionServerAdmin
 argument_list|(
 name|serverName
 argument_list|)
@@ -668,7 +619,10 @@ name|shuffle
 argument_list|(
 name|slaveAddresses
 argument_list|,
-name|random
+name|ThreadLocalRandom
+operator|.
+name|current
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|int
@@ -756,9 +710,7 @@ name|ServerName
 name|serverName
 decl_stmt|;
 specifier|private
-name|AdminService
-operator|.
-name|BlockingInterface
+name|AsyncRegionServerAdmin
 name|regionServer
 decl_stmt|;
 specifier|public
@@ -767,9 +719,7 @@ parameter_list|(
 name|ServerName
 name|serverName
 parameter_list|,
-name|AdminService
-operator|.
-name|BlockingInterface
+name|AsyncRegionServerAdmin
 name|regionServer
 parameter_list|)
 block|{
@@ -795,9 +745,7 @@ name|serverName
 return|;
 block|}
 specifier|public
-name|AdminService
-operator|.
-name|BlockingInterface
+name|AsyncRegionServerAdmin
 name|getRegionServer
 parameter_list|()
 block|{

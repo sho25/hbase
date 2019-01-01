@@ -267,7 +267,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|AsyncClusterConnection
 import|;
 end_import
 
@@ -1930,12 +1930,12 @@ argument_list|(
 name|TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|ClusterConnection
+name|AsyncClusterConnection
 name|connection
 init|=
 name|regionServer
 operator|.
-name|getClusterConnection
+name|getAsyncClusterConnection
 argument_list|()
 decl_stmt|;
 name|Entry
@@ -2003,7 +2003,7 @@ name|replicateWALEntry
 argument_list|(
 name|connection
 operator|.
-name|getAdmin
+name|getRegionServerAdmin
 argument_list|(
 name|regionServer
 operator|.
@@ -2031,7 +2031,7 @@ name|replicateWALEntry
 argument_list|(
 name|connection
 operator|.
-name|getAdmin
+name|getRegionServerAdmin
 argument_list|(
 name|regionServer
 operator|.
