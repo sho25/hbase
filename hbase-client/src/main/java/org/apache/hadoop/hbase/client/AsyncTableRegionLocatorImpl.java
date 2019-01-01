@@ -142,6 +142,9 @@ name|byte
 index|[]
 name|row
 parameter_list|,
+name|int
+name|replicaId
+parameter_list|,
 name|boolean
 name|reload
 parameter_list|)
@@ -154,6 +157,8 @@ argument_list|(
 name|tableName
 argument_list|,
 name|row
+argument_list|,
+name|replicaId
 argument_list|,
 name|RegionLocateType
 operator|.

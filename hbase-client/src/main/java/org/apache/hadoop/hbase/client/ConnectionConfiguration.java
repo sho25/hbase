@@ -160,6 +160,23 @@ name|MAX_KEYVALUE_SIZE_DEFAULT
 init|=
 literal|10485760
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|PRIMARY_CALL_TIMEOUT_MICROSECOND
+init|=
+literal|"hbase.client.primaryCallTimeout.get"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PRIMARY_CALL_TIMEOUT_MICROSECOND_DEFAULT
+init|=
+literal|10000
+decl_stmt|;
+comment|// 10ms
 specifier|private
 specifier|final
 name|long
@@ -363,12 +380,11 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.primaryCallTimeout.get"
+name|PRIMARY_CALL_TIMEOUT_MICROSECOND
 argument_list|,
-literal|10000
+name|PRIMARY_CALL_TIMEOUT_MICROSECOND_DEFAULT
 argument_list|)
 expr_stmt|;
-comment|// 10ms
 name|this
 operator|.
 name|replicaCallTimeoutMicroSecondScan

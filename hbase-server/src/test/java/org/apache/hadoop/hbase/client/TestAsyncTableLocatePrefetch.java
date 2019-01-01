@@ -401,7 +401,7 @@ name|assertNotNull
 argument_list|(
 name|LOCATOR
 operator|.
-name|getRegionLocation
+name|getRegionLocations
 argument_list|(
 name|TABLE_NAME
 argument_list|,
@@ -411,6 +411,10 @@ name|toBytes
 argument_list|(
 literal|"zzz"
 argument_list|)
+argument_list|,
+name|RegionReplicaUtil
+operator|.
+name|DEFAULT_REPLICA_ID
 argument_list|,
 name|RegionLocateType
 operator|.

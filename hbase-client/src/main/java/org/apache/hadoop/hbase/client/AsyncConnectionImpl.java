@@ -1039,8 +1039,6 @@ argument_list|)
 return|;
 block|}
 comment|// we will override this method for testing retry caller, so do not remove this method.
-annotation|@
-name|VisibleForTesting
 name|AsyncRegionLocator
 name|getLocator
 parameter_list|()

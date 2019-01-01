@@ -1140,6 +1140,9 @@ name|byte
 index|[]
 name|row
 parameter_list|,
+name|int
+name|replicaId
+parameter_list|,
 name|RegionLocateType
 name|locateType
 parameter_list|,
@@ -1222,6 +1225,8 @@ name|tableName
 argument_list|,
 name|row
 argument_list|,
+name|replicaId
+argument_list|,
 name|locateType
 argument_list|,
 name|timeoutNs
@@ -1232,7 +1237,7 @@ block|}
 annotation|@
 name|Override
 name|void
-name|updateCachedLocation
+name|updateCachedLocationOnError
 parameter_list|(
 name|HRegionLocation
 name|loc
@@ -1240,7 +1245,7 @@ parameter_list|,
 name|Throwable
 name|exception
 parameter_list|)
-block|{           }
+block|{         }
 block|}
 decl_stmt|;
 try|try

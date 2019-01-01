@@ -482,6 +482,7 @@ argument_list|)
 return|;
 block|}
 specifier|protected
+specifier|final
 name|long
 name|remainingTimeNs
 parameter_list|()
@@ -500,6 +501,7 @@ operator|)
 return|;
 block|}
 specifier|protected
+specifier|final
 name|void
 name|completeExceptionally
 parameter_list|()
@@ -521,6 +523,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
+specifier|final
 name|void
 name|resetCallTimeout
 parameter_list|()
@@ -580,6 +583,7 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
+specifier|final
 name|void
 name|onError
 parameter_list|(
@@ -599,6 +603,31 @@ argument_list|>
 name|updateCachedLocation
 parameter_list|)
 block|{
+if|if
+condition|(
+name|future
+operator|.
+name|isDone
+argument_list|()
+condition|)
+block|{
+comment|// Give up if the future is already done, this is possible if user has already canceled the
+comment|// future. And for timeline consistent read, we will also cancel some requests if we have
+comment|// already get one of the responses.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"The future is already done, canceled={}, give up retrying"
+argument_list|,
+name|future
+operator|.
+name|isCancelled
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|error
 operator|=
 name|translateException

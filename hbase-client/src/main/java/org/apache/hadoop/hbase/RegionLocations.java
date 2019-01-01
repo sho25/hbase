@@ -166,7 +166,7 @@ if|if
 condition|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -179,7 +179,7 @@ name|maxReplicaId
 operator|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -265,7 +265,7 @@ name|locations
 index|[
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -542,7 +542,7 @@ name|replicaId
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -760,7 +760,7 @@ name|locations
 operator|.
 name|length
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 literal|null
@@ -812,7 +812,7 @@ literal|null
 operator|&&
 name|otherLoc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|!=
 literal|null
@@ -824,7 +824,7 @@ name|regionInfo
 operator|=
 name|otherLoc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -950,7 +950,7 @@ index|[
 name|i
 index|]
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 condition|)
@@ -1078,7 +1078,7 @@ name|replicaId
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -1091,7 +1091,7 @@ name|getRegionLocation
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getReplicaId
@@ -1205,7 +1205,7 @@ name|isReplicasForSameRegion
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|newLocations
@@ -1213,7 +1213,7 @@ index|[
 name|i
 index|]
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 condition|)
@@ -1327,7 +1327,7 @@ name|equals
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1342,7 +1342,7 @@ name|equals
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -1380,7 +1380,7 @@ block|{
 return|return
 name|locations
 index|[
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
 index|]
