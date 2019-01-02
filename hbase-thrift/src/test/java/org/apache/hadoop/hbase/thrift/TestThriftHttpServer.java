@@ -21,11 +21,35 @@ begin_import
 import|import static
 name|org
 operator|.
-name|junit
+name|apache
 operator|.
-name|Assert
+name|hadoop
 operator|.
-name|assertFalse
+name|hbase
+operator|.
+name|thrift
+operator|.
+name|Constants
+operator|.
+name|INFOPORT_OPTION
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|thrift
+operator|.
+name|Constants
+operator|.
+name|PORT_OPTION
 import|;
 end_import
 
@@ -37,7 +61,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertNull
+name|assertFalse
 import|;
 end_import
 
@@ -485,6 +509,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|protected
 specifier|static
 specifier|final
 name|HBaseTestingUtility
@@ -625,8 +650,8 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|ThriftServerRunner
-name|runner
+name|ThriftServer
+name|server
 init|=
 literal|null
 decl_stmt|;
@@ -658,13 +683,18 @@ operator|+
 literal|"but hbase.thrift.ssl.enabled is false"
 argument_list|)
 expr_stmt|;
-name|runner
+name|server
 operator|=
 operator|new
-name|ThriftServerRunner
+name|ThriftServer
 argument_list|(
 name|conf
 argument_list|)
+expr_stmt|;
+name|server
+operator|.
+name|run
+argument_list|()
 expr_stmt|;
 name|fail
 argument_list|(
@@ -678,11 +708,6 @@ name|Exception
 name|e
 parameter_list|)
 block|{     }
-name|assertNull
-argument_list|(
-name|runner
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 name|void
@@ -729,7 +754,7 @@ try|try
 block|{
 name|thriftServer
 operator|.
-name|doMain
+name|run
 argument_list|(
 name|args
 argument_list|)
@@ -845,6 +870,22 @@ literal|64
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
+name|ThriftServer
+name|createThriftServer
+parameter_list|()
+block|{
+return|return
+operator|new
+name|ThriftServer
+argument_list|(
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+return|;
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -895,8 +936,6 @@ name|add
 argument_list|(
 literal|"-"
 operator|+
-name|ThriftServer
-operator|.
 name|PORT_OPTION
 argument_list|)
 expr_stmt|;
@@ -918,8 +957,6 @@ name|add
 argument_list|(
 literal|"-"
 operator|+
-name|ThriftServer
-operator|.
 name|INFOPORT_OPTION
 argument_list|)
 expr_stmt|;
@@ -952,14 +989,8 @@ argument_list|)
 expr_stmt|;
 name|thriftServer
 operator|=
-operator|new
-name|ThriftServer
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
+name|createThriftServer
 argument_list|()
-argument_list|)
 expr_stmt|;
 name|startHttpServerThread
 argument_list|(
@@ -1128,6 +1159,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+specifier|protected
 specifier|static
 specifier|volatile
 name|boolean
@@ -1135,6 +1167,7 @@ name|tableCreated
 init|=
 literal|false
 decl_stmt|;
+specifier|protected
 name|void
 name|talkToThriftServer
 parameter_list|(

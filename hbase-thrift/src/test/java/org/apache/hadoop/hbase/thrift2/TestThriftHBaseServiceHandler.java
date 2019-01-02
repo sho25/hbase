@@ -39,6 +39,42 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|thrift
+operator|.
+name|HBaseServiceHandler
+operator|.
+name|CLEANUP_INTERVAL
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|thrift
+operator|.
+name|HBaseServiceHandler
+operator|.
+name|MAX_IDLETIME
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|thrift2
 operator|.
 name|ThriftUtilities
@@ -771,6 +807,22 @@ name|hbase
 operator|.
 name|thrift
 operator|.
+name|HbaseHandlerMetricsProxy
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|thrift
+operator|.
 name|ThriftMetrics
 import|;
 end_import
@@ -1422,7 +1474,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Unit testing for ThriftServer.HBaseHandler, a part of the org.apache.hadoop.hbase.thrift2  * package.  */
+comment|/**  * Unit testing for ThriftServer.HBaseServiceHandler, a part of the org.apache.hadoop.hbase.thrift2  * package.  */
 end_comment
 
 begin_class
@@ -6199,8 +6251,6 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|ThriftHBaseServiceHandler
-operator|.
 name|MAX_IDLETIME
 argument_list|,
 operator|(
@@ -6216,8 +6266,6 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|ThriftHBaseServiceHandler
-operator|.
 name|CLEANUP_INTERVAL
 argument_list|,
 name|cleanUpInterval
@@ -9303,13 +9351,15 @@ operator|.
 name|Iface
 name|handler
 init|=
-name|ThriftHBaseServiceHandler
+name|HbaseHandlerMetricsProxy
 operator|.
 name|newInstance
 argument_list|(
 name|hbaseHandler
 argument_list|,
 name|metrics
+argument_list|,
+name|conf
 argument_list|)
 decl_stmt|;
 name|byte
@@ -9673,13 +9723,15 @@ operator|.
 name|Iface
 name|handler
 init|=
-name|ThriftHBaseServiceHandler
+name|HbaseHandlerMetricsProxy
 operator|.
 name|newInstance
 argument_list|(
 name|hbaseHandler
 argument_list|,
 name|metrics
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|ByteBuffer
@@ -10216,13 +10268,15 @@ operator|.
 name|Iface
 name|handler
 init|=
-name|ThriftHBaseServiceHandler
+name|HbaseHandlerMetricsProxy
 operator|.
 name|newInstance
 argument_list|(
 name|hbaseHandler
 argument_list|,
 name|metrics
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|ByteBuffer

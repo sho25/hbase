@@ -29,7 +29,7 @@ name|hbase
 operator|.
 name|thrift
 operator|.
-name|ThriftServerRunner
+name|Constants
 operator|.
 name|THRIFT_SPNEGO_KEYTAB_FILE_KEY
 import|;
@@ -47,7 +47,7 @@ name|hbase
 operator|.
 name|thrift
 operator|.
-name|ThriftServerRunner
+name|Constants
 operator|.
 name|THRIFT_SPNEGO_PRINCIPAL_KEY
 import|;
@@ -407,10 +407,8 @@ decl_stmt|;
 specifier|private
 specifier|final
 specifier|transient
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
-name|hbaseHandler
+name|HBaseServiceHandler
+name|handler
 decl_stmt|;
 specifier|private
 specifier|final
@@ -446,10 +444,8 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|,
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
-name|hbaseHandler
+name|HBaseServiceHandler
+name|handler
 parameter_list|,
 name|boolean
 name|securityEnabled
@@ -475,9 +471,9 @@ name|serviceUGI
 expr_stmt|;
 name|this
 operator|.
-name|hbaseHandler
+name|handler
 operator|=
-name|hbaseHandler
+name|handler
 expr_stmt|;
 name|this
 operator|.
@@ -807,7 +803,7 @@ operator|=
 name|doAsUserFromQuery
 expr_stmt|;
 block|}
-name|hbaseHandler
+name|handler
 operator|.
 name|setEffectiveUser
 argument_list|(

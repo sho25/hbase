@@ -21,6 +21,24 @@ begin_import
 import|import static
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|thrift
+operator|.
+name|Constants
+operator|.
+name|COALESCE_INC_KEY
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -397,24 +415,6 @@ name|hbase
 operator|.
 name|thrift
 operator|.
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|thrift
-operator|.
 name|generated
 operator|.
 name|BatchMutation
@@ -730,7 +730,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Unit testing for ThriftServerRunner.HBaseHandler, a part of the  * org.apache.hadoop.hbase.thrift package.  */
+comment|/**  * Unit testing for ThriftServerRunner.HBaseServiceHandler, a part of the  * org.apache.hadoop.hbase.thrift package.  */
 end_comment
 
 begin_class
@@ -1010,8 +1010,6 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-name|ThriftServerRunner
-operator|.
 name|COALESCE_INC_KEY
 argument_list|,
 literal|true
@@ -1116,15 +1114,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -1178,9 +1172,7 @@ specifier|final
 class|class
 name|MySlowHBaseHandler
 extends|extends
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 implements|implements
 name|Hbase
 operator|.
@@ -1540,6 +1532,9 @@ name|HbaseHandlerMetricsProxy
 operator|.
 name|newInstance
 argument_list|(
+operator|(
+name|ThriftHBaseServiceHandler
+operator|)
 name|handler
 argument_list|,
 name|metrics
@@ -1795,15 +1790,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -1842,7 +1833,7 @@ specifier|static
 name|void
 name|doTestIncrements
 parameter_list|(
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 parameter_list|)
 throws|throws
@@ -2162,15 +2153,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -2681,15 +2668,11 @@ throws|throws
 name|Exception
 block|{
 comment|// Setup
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -3217,15 +3200,11 @@ throws|throws
 name|Exception
 block|{
 comment|// Setup
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -4113,15 +4092,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -4306,7 +4281,7 @@ argument_list|,
 literal|"MyFilter:filterclass"
 argument_list|)
 expr_stmt|;
-name|ThriftServerRunner
+name|ThriftServer
 operator|.
 name|registerFilters
 argument_list|(
@@ -4346,15 +4321,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -4514,15 +4485,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -4745,15 +4712,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -5095,15 +5058,11 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|hbaseHandler
 init|=
 operator|new
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 argument_list|(
 name|UTIL
 operator|.
@@ -5889,7 +5848,7 @@ return|return
 name|batchMutations
 return|;
 block|}
-comment|/**    * Asserts that the passed scanner is exhausted, and then closes    * the scanner.    *    * @param scannerId the scanner to close    * @param handler the HBaseHandler interfacing to HBase    */
+comment|/**    * Asserts that the passed scanner is exhausted, and then closes    * the scanner.    *    * @param scannerId the scanner to close    * @param handler the HBaseServiceHandler interfacing to HBase    */
 specifier|private
 name|void
 name|closeScanner
@@ -5897,9 +5856,7 @@ parameter_list|(
 name|int
 name|scannerId
 parameter_list|,
-name|ThriftServerRunner
-operator|.
-name|HBaseHandler
+name|ThriftHBaseServiceHandler
 name|handler
 parameter_list|)
 throws|throws
