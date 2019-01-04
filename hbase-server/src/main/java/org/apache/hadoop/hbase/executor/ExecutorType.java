@@ -145,6 +145,11 @@ name|RS_REPLAY_SYNC_REPLICATION_WAL
 argument_list|(
 literal|32
 argument_list|)
+block|,
+name|RS_SWITCH_RPC_THROTTLE
+argument_list|(
+literal|33
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

@@ -207,6 +207,16 @@ operator|.
 name|RS_OPEN_PRIORITY_REGION
 argument_list|)
 block|,
+comment|/**    * Messages originating from Master to RS.<br>    * M_RS_SWITCH_RPC_THROTTLE<br>    * Master asking RS to switch rpc throttle state.    */
+name|M_RS_SWITCH_RPC_THROTTLE
+argument_list|(
+literal|27
+argument_list|,
+name|ExecutorType
+operator|.
+name|RS_SWITCH_RPC_THROTTLE
+argument_list|)
+block|,
 comment|/**    * Messages originating from Client to Master.<br>    * C_M_MERGE_REGION<br>    * Client asking Master to merge regions.    */
 name|C_M_MERGE_REGION
 argument_list|(

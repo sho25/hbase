@@ -2694,6 +2694,27 @@ argument_list|>
 name|serverNamesList
 parameter_list|)
 function_decl|;
+comment|/**    * Switch the rpc throttle enabled state.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous rpc throttle enabled value    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|switchRpcThrottle
+parameter_list|(
+name|boolean
+name|enable
+parameter_list|)
+function_decl|;
+comment|/**    * Get if the rpc throttle is enabled.    * @return True if rpc throttle is enabled    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isRpcThrottleEnabled
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

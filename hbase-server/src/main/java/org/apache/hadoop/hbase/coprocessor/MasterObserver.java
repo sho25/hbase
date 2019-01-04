@@ -3621,6 +3621,82 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called before switching rpc throttle enabled state.    * @param ctx the coprocessor instance's environment    * @param enable the rpc throttle value    */
+specifier|default
+name|void
+name|preSwitchRpcThrottle
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|boolean
+name|enable
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after switching rpc throttle enabled state.    * @param ctx the coprocessor instance's environment    * @param oldValue the previously rpc throttle value    * @param newValue the newly rpc throttle value    */
+specifier|default
+name|void
+name|postSwitchRpcThrottle
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|boolean
+name|oldValue
+parameter_list|,
+specifier|final
+name|boolean
+name|newValue
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before getting if is rpc throttle enabled.    * @param ctx the coprocessor instance's environment    */
+specifier|default
+name|void
+name|preIsRpcThrottleEnabled
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after getting if is rpc throttle enabled.    * @param ctx the coprocessor instance's environment    * @param rpcThrottleEnabled the rpc throttle enabled value    */
+specifier|default
+name|void
+name|postIsRpcThrottleEnabled
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|boolean
+name|rpcThrottleEnabled
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

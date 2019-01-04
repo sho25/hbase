@@ -65,6 +65,8 @@ enum|enum
 name|ServerOperationType
 block|{
 name|CRASH_HANDLER
+block|,
+name|SWITCH_RPC_THROTTLE
 block|}
 comment|/**    * @return Name of this server instance.    */
 name|ServerName

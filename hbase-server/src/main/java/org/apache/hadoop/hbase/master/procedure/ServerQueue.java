@@ -150,6 +150,12 @@ case|:
 return|return
 literal|true
 return|;
+case|case
+name|SWITCH_RPC_THROTTLE
+case|:
+return|return
+literal|false
+return|;
 default|default:
 break|break;
 block|}
