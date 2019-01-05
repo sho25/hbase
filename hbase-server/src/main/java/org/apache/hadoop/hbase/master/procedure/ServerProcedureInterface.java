@@ -67,6 +67,12 @@ block|{
 name|CRASH_HANDLER
 block|,
 name|SWITCH_RPC_THROTTLE
+block|,
+comment|/**      * help find a available region server as worker and release worker after task done      * invoke SPLIT_WAL_REMOTE operation to send real WAL splitting request to worker      * manage the split wal task flow, will retry if SPLIT_WAL_REMOTE failed      */
+name|SPLIT_WAL
+block|,
+comment|/**      * send the split WAL request to region server and handle the response      */
+name|SPLIT_WAL_REMOTE
 block|}
 comment|/**    * @return Name of this server instance.    */
 name|ServerName

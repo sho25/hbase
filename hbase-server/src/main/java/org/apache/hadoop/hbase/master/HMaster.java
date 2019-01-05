@@ -29,7 +29,39 @@ name|hbase
 operator|.
 name|HConstants
 operator|.
+name|DEFAULT_HBASE_SPLIT_COORDINATED_BY_ZK
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
 name|HBASE_MASTER_LOGCLEANER_PLUGINS
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_SPLIT_WAL_COORDINATED_BY_ZK
 import|;
 end_import
 
@@ -3672,6 +3704,15 @@ specifier|private
 name|MasterWalManager
 name|walManager
 decl_stmt|;
+comment|// manager to manage procedure-based WAL splitting, can be null if current
+comment|// is zk-based WAL splitting. SplitWALManager will replace SplitLogManager
+comment|// and MasterWalManager, which means zk-based WAL splitting code will be
+comment|// useless after we switch to the procedure-based one. our eventual goal
+comment|// is to remove all the zk-based WAL splitting code.
+specifier|private
+name|SplitWALManager
+name|splitWALManager
+decl_stmt|;
 comment|// server manager to deal with region server info
 specifier|private
 specifier|volatile
@@ -6146,6 +6187,30 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|conf
+operator|.
+name|getBoolean
+argument_list|(
+name|HBASE_SPLIT_WAL_COORDINATED_BY_ZK
+argument_list|,
+name|DEFAULT_HBASE_SPLIT_COORDINATED_BY_ZK
+argument_list|)
+condition|)
+block|{
+name|this
+operator|.
+name|splitWALManager
+operator|=
+operator|new
+name|SplitWALManager
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
+block|}
 name|createProcedureExecutor
 argument_list|()
 expr_stmt|;
@@ -8189,6 +8254,20 @@ return|return
 name|this
 operator|.
 name|walManager
+return|;
+block|}
+end_function
+
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|SplitWALManager
+name|getSplitWALManager
+parameter_list|()
+block|{
+return|return
+name|splitWALManager
 return|;
 block|}
 end_function

@@ -153,6 +153,12 @@ return|;
 case|case
 name|SWITCH_RPC_THROTTLE
 case|:
+case|case
+name|SPLIT_WAL
+case|:
+case|case
+name|SPLIT_WAL_REMOTE
+case|:
 return|return
 literal|false
 return|;

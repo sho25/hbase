@@ -1218,6 +1218,16 @@ name|boolean
 name|isClusterUp
 parameter_list|()
 function_decl|;
+comment|/**    * @return return null if current is zk-based WAL splitting    */
+specifier|default
+name|SplitWALManager
+name|getSplitWALManager
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 end_interface
 

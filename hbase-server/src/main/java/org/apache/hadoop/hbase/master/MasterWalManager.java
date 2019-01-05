@@ -423,6 +423,9 @@ return|;
 block|}
 block|}
 decl_stmt|;
+annotation|@
+name|VisibleForTesting
+specifier|public
 specifier|final
 specifier|static
 name|PathFilter
@@ -797,7 +800,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return listing of ServerNames found by parsing WAL directory paths in FS.    *    */
+comment|/**    * @return listing of ServerNames found by parsing WAL directory paths in FS.    */
 specifier|public
 name|Set
 argument_list|<
@@ -1453,7 +1456,6 @@ literal|"We only release this lock when we set it. Updates to code that uses it 
 operator|+
 literal|"of the guard boolean."
 argument_list|)
-specifier|private
 name|List
 argument_list|<
 name|Path

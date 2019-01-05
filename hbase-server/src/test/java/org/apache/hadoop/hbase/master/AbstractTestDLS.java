@@ -27,6 +27,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+operator|.
+name|HBASE_SPLIT_WAL_MAX_SPLITTER
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|SplitLogCounters
 operator|.
 name|tot_mgr_wait_for_zk_delete
@@ -1274,7 +1290,7 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-literal|"hbase.regionserver.wal.max.splitters"
+name|HBASE_SPLIT_WAL_MAX_SPLITTER
 argument_list|,
 literal|3
 argument_list|)

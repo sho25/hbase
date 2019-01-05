@@ -18,6 +18,38 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|DEFAULT_HBASE_SPLIT_WAL_MAX_SPLITTER
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|HBASE_SPLIT_WAL_MAX_SPLITTER
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -837,9 +869,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.wal.max.splitters"
+name|HBASE_SPLIT_WAL_MAX_SPLITTER
 argument_list|,
-name|DEFAULT_MAX_SPLITTERS
+name|DEFAULT_HBASE_SPLIT_WAL_MAX_SPLITTER
 argument_list|)
 expr_stmt|;
 name|reportPeriod

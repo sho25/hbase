@@ -186,12 +186,6 @@ specifier|public
 interface|interface
 name|SplitLogWorkerCoordination
 block|{
-comment|/* SplitLogWorker part */
-name|int
-name|DEFAULT_MAX_SPLITTERS
-init|=
-literal|2
-decl_stmt|;
 comment|/**    * Initialize internal values. This method should be used when corresponding SplitLogWorker    * instance is created    * @param server instance of RegionServerServices to work with    * @param conf is current configuration.    * @param splitTaskExecutor split executor from SplitLogWorker    * @param worker instance of SplitLogWorker    */
 name|void
 name|init
