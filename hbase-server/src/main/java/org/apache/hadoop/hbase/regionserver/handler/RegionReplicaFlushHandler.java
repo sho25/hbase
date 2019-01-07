@@ -847,6 +847,13 @@ literal|" Now waiting and blocking reads until observing a full flush cycle"
 argument_list|)
 expr_stmt|;
 block|}
+name|region
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 else|else
@@ -912,6 +919,13 @@ literal|"blocking reads until observing a flush marker"
 argument_list|)
 expr_stmt|;
 block|}
+name|region
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 else|else
