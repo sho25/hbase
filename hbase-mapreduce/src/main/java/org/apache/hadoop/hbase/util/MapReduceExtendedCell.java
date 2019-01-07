@@ -959,12 +959,10 @@ name|heapSize
 parameter_list|()
 block|{
 return|return
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 return|;
 block|}
 annotation|@

@@ -3426,12 +3426,10 @@ control|)
 block|{
 name|size
 operator|+=
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|c
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 expr_stmt|;
 block|}
 return|return

@@ -292,6 +292,8 @@ argument_list|)
 return|;
 block|}
 comment|/**    * @return Serialized size (defaults to include tag length).    */
+annotation|@
+name|Override
 specifier|default
 name|int
 name|getSerializedSize

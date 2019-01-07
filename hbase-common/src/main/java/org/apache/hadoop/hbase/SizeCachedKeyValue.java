@@ -189,6 +189,20 @@ operator|+
 name|FIXED_OVERHEAD
 return|;
 block|}
+comment|/**    * Override by just returning the length for saving cost of method dispatching. If not, it will    * call {@link ExtendedCell#getSerializedSize()} firstly, then forward to    * {@link SizeCachedKeyValue#getSerializedSize(boolean)}. (See HBASE-21657)    */
+annotation|@
+name|Override
+specifier|public
+name|int
+name|getSerializedSize
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|length
+return|;
+block|}
 block|}
 end_class
 

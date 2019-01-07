@@ -32456,12 +32456,10 @@ argument_list|(
 name|cell
 argument_list|)
 argument_list|,
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

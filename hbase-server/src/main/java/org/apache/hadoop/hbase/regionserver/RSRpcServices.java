@@ -9695,7 +9695,7 @@ return|return
 literal|0L
 return|;
 block|}
-comment|/**    * Method to account for the size of retained cells and retained data blocks.    * @return an object that represents the last referenced block from this response.    */
+comment|/**    * Method to account for the size of retained cells and retained data blocks.    * @param context rpc call context    * @param r result to add size.    * @param lastBlock last block to check whether we need to add the block size in context.    * @return an object that represents the last referenced block from this response.    */
 name|Object
 name|addSize
 parameter_list|(
@@ -19570,6 +19570,9 @@ name|Builder
 name|builder
 parameter_list|,
 name|MutableObject
+argument_list|<
+name|Object
+argument_list|>
 name|lastBlock
 parameter_list|,
 name|RpcCallContext
@@ -20273,32 +20276,6 @@ operator|!
 name|moreRows
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Done scanning. limitReached: "
-operator|+
-name|limitReached
-operator|+
-literal|" moreRows: "
-operator|+
-name|moreRows
-operator|+
-literal|" scannerContext: "
-operator|+
-name|scannerContext
-argument_list|)
-expr_stmt|;
-block|}
 comment|// We only want to mark a ScanResponse as a heartbeat message in the event that
 comment|// there are more values to be read server side. If there aren't more values,
 comment|// marking it as a heartbeat is wasteful because the client will need to issue
@@ -21173,7 +21150,16 @@ init|=
 operator|new
 name|ArrayList
 argument_list|<>
-argument_list|()
+argument_list|(
+name|Math
+operator|.
+name|min
+argument_list|(
+name|rows
+argument_list|,
+literal|512
+argument_list|)
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

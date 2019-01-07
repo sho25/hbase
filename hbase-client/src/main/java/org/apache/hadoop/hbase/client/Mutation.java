@@ -2677,12 +2677,10 @@ control|)
 block|{
 name|heapsize
 operator|+=
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 expr_stmt|;
 block|}
 block|}

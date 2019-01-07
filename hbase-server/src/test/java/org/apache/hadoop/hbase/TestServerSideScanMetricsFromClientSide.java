@@ -984,10 +984,6 @@ argument_list|)
 expr_stmt|;
 name|CELL_HEAP_SIZE
 operator|=
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|result
 operator|.
 name|rawCells
@@ -995,7 +991,9 @@ argument_list|()
 index|[
 literal|0
 index|]
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 expr_stmt|;
 name|scanner
 operator|.

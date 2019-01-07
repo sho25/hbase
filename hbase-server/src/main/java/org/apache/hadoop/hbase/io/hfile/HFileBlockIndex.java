@@ -1179,12 +1179,10 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-name|PrivateCellUtil
-operator|.
-name|estimatedSizeOfCell
-argument_list|(
 name|key
-argument_list|)
+operator|.
+name|heapSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

@@ -21,6 +21,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|HeapSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -41,6 +57,8 @@ name|Public
 specifier|public
 interface|interface
 name|Cell
+extends|extends
+name|HeapSize
 block|{
 comment|//1) Row
 comment|/**    * Contiguous raw bytes that may start at any index in the containing array. Max length is    * Short.MAX_VALUE which is 32,767 bytes.    * @return The array containing the row bytes.    */
@@ -130,6 +148,11 @@ function_decl|;
 comment|/**    * @return Number of value bytes.  Must be&lt; valueArray.length - offset.    */
 name|int
 name|getValueLength
+parameter_list|()
+function_decl|;
+comment|/**    * @return Serialized size (defaults to include tag length if has some tags).    */
+name|int
+name|getSerializedSize
 parameter_list|()
 function_decl|;
 comment|/**    * Contiguous raw bytes representing tags that may start at any index in the containing array.    * @return the tags byte array    * @deprecated As of HBase-2.0. Will be removed in HBase-3.0. Tags are are now internal.    */
