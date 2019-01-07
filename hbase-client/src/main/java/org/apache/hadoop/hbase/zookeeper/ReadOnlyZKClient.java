@@ -175,6 +175,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|DoNotRetryIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Threads
@@ -1369,7 +1383,7 @@ return|return
 name|failed
 argument_list|(
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Client already closed"
 argument_list|)
@@ -1481,7 +1495,7 @@ return|return
 name|failed
 argument_list|(
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Client already closed"
 argument_list|)
@@ -1779,11 +1793,11 @@ block|}
 name|closeZk
 argument_list|()
 expr_stmt|;
-name|IOException
+name|DoNotRetryIOException
 name|error
 init|=
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Client already closed"
 argument_list|)

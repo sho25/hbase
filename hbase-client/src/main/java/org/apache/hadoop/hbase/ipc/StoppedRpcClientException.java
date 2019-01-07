@@ -27,7 +27,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseIOException
+name|DoNotRetryIOException
 import|;
 end_import
 
@@ -54,7 +54,7 @@ specifier|public
 class|class
 name|StoppedRpcClientException
 extends|extends
-name|HBaseIOException
+name|DoNotRetryIOException
 block|{
 specifier|public
 name|StoppedRpcClientException
