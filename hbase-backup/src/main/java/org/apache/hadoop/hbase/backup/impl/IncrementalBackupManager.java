@@ -307,7 +307,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|CommonFSUtils
 import|;
 end_import
 
@@ -1304,11 +1304,11 @@ name|newestTimestamps
 argument_list|)
 expr_stmt|;
 name|Path
-name|rootdir
+name|walRootDir
 init|=
-name|FSUtils
+name|CommonFSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)
@@ -1319,7 +1319,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|rootdir
+name|walRootDir
 argument_list|,
 name|HConstants
 operator|.
@@ -1332,7 +1332,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|rootdir
+name|walRootDir
 argument_list|,
 name|HConstants
 operator|.
@@ -1342,7 +1342,7 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|rootdir
+name|walRootDir
 operator|.
 name|getFileSystem
 argument_list|(

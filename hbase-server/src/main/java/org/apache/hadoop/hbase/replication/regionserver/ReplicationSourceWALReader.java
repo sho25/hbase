@@ -757,8 +757,6 @@ name|WALEntryStream
 argument_list|(
 name|logQueue
 argument_list|,
-name|fs
-argument_list|,
 name|conf
 argument_list|,
 name|currentPosition

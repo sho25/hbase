@@ -367,7 +367,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|CommonFSUtils
 import|;
 end_import
 
@@ -1107,9 +1107,9 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|FSUtils
+name|CommonFSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|c
 argument_list|)
@@ -1122,9 +1122,9 @@ decl_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|FileSystem
+name|logRoot
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|c
 argument_list|)

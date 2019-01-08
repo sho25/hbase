@@ -1206,8 +1206,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 literal|0
@@ -1305,8 +1303,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 literal|0
@@ -1402,8 +1398,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 name|oldPos
@@ -1475,8 +1469,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -1590,8 +1582,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -1740,8 +1730,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 literal|0
@@ -1855,8 +1843,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 literal|0
@@ -1907,8 +1893,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -2004,8 +1988,6 @@ name|WALEntryStream
 argument_list|(
 name|walQueue
 argument_list|,
-name|fs
-argument_list|,
 name|CONF
 argument_list|,
 name|lastPosition
@@ -2045,8 +2027,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -2108,8 +2088,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -2364,8 +2342,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -3044,8 +3020,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,
@@ -3759,8 +3733,6 @@ operator|new
 name|WALEntryStream
 argument_list|(
 name|walQueue
-argument_list|,
-name|fs
 argument_list|,
 name|CONF
 argument_list|,

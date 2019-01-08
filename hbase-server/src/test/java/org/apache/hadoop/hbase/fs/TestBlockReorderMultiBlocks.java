@@ -1008,7 +1008,7 @@ name|Path
 argument_list|(
 name|FSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)

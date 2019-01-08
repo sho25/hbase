@@ -95,7 +95,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSUtils
+name|CommonFSUtils
 import|;
 end_import
 
@@ -135,7 +135,7 @@ name|IOException
 block|{
 name|this
 argument_list|(
-name|FSUtils
+name|CommonFSUtils
 operator|.
 name|getWALRootDir
 argument_list|(
