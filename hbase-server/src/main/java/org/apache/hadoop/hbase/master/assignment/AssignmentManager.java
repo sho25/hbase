@@ -6554,7 +6554,7 @@ name|regionInfo
 argument_list|)
 decl_stmt|;
 comment|// Do not need to lock on regionNode, as we can make sure that before we finish loading
-comment|// meta, all the related procedures can not be executed. The only exception is formeta
+comment|// meta, all the related procedures can not be executed. The only exception is for meta
 comment|// region related operations, but here we do not load the informations for meta region.
 name|regionNode
 operator|.
@@ -6584,13 +6584,34 @@ argument_list|(
 name|openSeqNum
 argument_list|)
 expr_stmt|;
+comment|// Note: keep consistent with other methods, see region(Opening|Opened|Closing)
+comment|//       RIT/ServerCrash handling should take care of the transiting regions.
 if|if
 condition|(
 name|localState
-operator|==
+operator|.
+name|matches
+argument_list|(
 name|State
 operator|.
 name|OPEN
+argument_list|,
+name|State
+operator|.
+name|OPENING
+argument_list|,
+name|State
+operator|.
+name|CLOSING
+argument_list|,
+name|State
+operator|.
+name|SPLITTING
+argument_list|,
+name|State
+operator|.
+name|MERGING
+argument_list|)
 condition|)
 block|{
 assert|assert

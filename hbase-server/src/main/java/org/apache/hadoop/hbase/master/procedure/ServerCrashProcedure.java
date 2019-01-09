@@ -899,6 +899,28 @@ comment|// Where to go next? Depends on whether we should split logs at all or
 comment|// if we should do distributed log splitting.
 if|if
 condition|(
+name|regionsOnCrashedServer
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} had {} regions"
+argument_list|,
+name|serverName
+argument_list|,
+name|regionsOnCrashedServer
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 operator|!
 name|this
 operator|.

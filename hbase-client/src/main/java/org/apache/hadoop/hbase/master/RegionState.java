@@ -219,6 +219,39 @@ comment|// the region is CLOSED because of a RS crashes. Usually it is the same
 comment|// with CLOSED, but for some operations such as merge/split, we can not
 comment|// apply it to a region in this state, as it may lead to data loss as we
 comment|// may have some data in recovered edits.
+specifier|public
+name|boolean
+name|matches
+parameter_list|(
+name|State
+modifier|...
+name|expected
+parameter_list|)
+block|{
+for|for
+control|(
+name|State
+name|state
+range|:
+name|expected
+control|)
+block|{
+if|if
+condition|(
+name|this
+operator|==
+name|state
+condition|)
+block|{
+return|return
+literal|true
+return|;
+block|}
+block|}
+return|return
+literal|false
+return|;
+block|}
 comment|/**      * Convert to protobuf ClusterStatusProtos.RegionState.State      */
 specifier|public
 name|ClusterStatusProtos
