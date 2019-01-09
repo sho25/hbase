@@ -3426,8 +3426,6 @@ return|return
 operator|new
 name|HBaseHbck
 argument_list|(
-name|this
-argument_list|,
 operator|(
 name|MasterProtos
 operator|.
@@ -3472,6 +3470,8 @@ argument_list|)
 return|;
 block|}
 argument_list|)
+argument_list|,
+name|rpcControllerFactory
 argument_list|)
 return|;
 block|}
