@@ -1368,6 +1368,7 @@ name|result
 return|;
 block|}
 block|}
+specifier|public
 name|ThriftHBaseServiceHandler
 parameter_list|(
 specifier|final

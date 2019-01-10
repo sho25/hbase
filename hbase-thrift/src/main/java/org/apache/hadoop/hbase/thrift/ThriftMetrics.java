@@ -290,11 +290,11 @@ operator|=
 name|source
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 name|MetricsThriftServerSource
 name|source
 decl_stmt|;
-specifier|private
+specifier|protected
 specifier|final
 name|long
 name|slowResponseTime
@@ -677,7 +677,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|Throwable
 name|unwrap

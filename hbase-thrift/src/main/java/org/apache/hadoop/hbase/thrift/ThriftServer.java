@@ -2217,6 +2217,28 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|protected
+name|ThriftMetrics
+name|createThriftMetrics
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
+block|{
+return|return
+operator|new
+name|ThriftMetrics
+argument_list|(
+name|conf
+argument_list|,
+name|ThriftMetrics
+operator|.
+name|ThriftServerType
+operator|.
+name|ONE
+argument_list|)
+return|;
+block|}
+specifier|protected
 name|void
 name|setupParamters
 parameter_list|()
@@ -2322,16 +2344,9 @@ name|this
 operator|.
 name|metrics
 operator|=
-operator|new
-name|ThriftMetrics
+name|createThriftMetrics
 argument_list|(
 name|conf
-argument_list|,
-name|ThriftMetrics
-operator|.
-name|ThriftServerType
-operator|.
-name|ONE
 argument_list|)
 expr_stmt|;
 name|this
@@ -2750,6 +2765,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * the thrift server, not null means the server is started, for test only    * @return the tServer    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -2761,6 +2777,7 @@ return|return
 name|tserver
 return|;
 block|}
+comment|/**    * the Jetty server, not null means the HTTP server is started, for test only    * @return the http server    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -2823,6 +2840,37 @@ literal|""
 argument_list|)
 throw|;
 block|}
+comment|/**    * Create a Servlet for the http server    * @param protocolFactory protocolFactory    * @return the servlet    * @throws IOException IOException    */
+specifier|protected
+name|TServlet
+name|createTServlet
+parameter_list|(
+name|TProtocolFactory
+name|protocolFactory
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+return|return
+operator|new
+name|ThriftHttpServlet
+argument_list|(
+name|processor
+argument_list|,
+name|protocolFactory
+argument_list|,
+name|serviceUGI
+argument_list|,
+name|conf
+argument_list|,
+name|hbaseServiceHandler
+argument_list|,
+name|securityEnabled
+argument_list|,
+name|doAsEnabled
+argument_list|)
+return|;
+block|}
 comment|/**    * Setup a HTTP Server using Jetty to serve calls from THttpClient    *    * @throws IOException IOException    */
 specifier|protected
 name|void
@@ -2843,22 +2891,9 @@ decl_stmt|;
 name|TServlet
 name|thriftHttpServlet
 init|=
-operator|new
-name|ThriftHttpServlet
+name|createTServlet
 argument_list|(
-name|processor
-argument_list|,
 name|protocolFactory
-argument_list|,
-name|serviceUGI
-argument_list|,
-name|conf
-argument_list|,
-name|hbaseServiceHandler
-argument_list|,
-name|securityEnabled
-argument_list|,
-name|doAsEnabled
 argument_list|)
 decl_stmt|;
 comment|// Set the default max thread number to 100 to limit
@@ -4032,7 +4067,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|private
+specifier|protected
 name|TServer
 name|getTNonBlockingServer
 parameter_list|(
@@ -4106,7 +4141,7 @@ name|serverArgs
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|TServer
 name|getTHsHaServer
 parameter_list|(
@@ -4242,7 +4277,7 @@ name|serverArgs
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|TServer
 name|getTThreadedSelectorServer
 parameter_list|(
@@ -4400,7 +4435,7 @@ name|serverArgs
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|TServer
 name|getTThreadPoolServer
 parameter_list|(
@@ -4526,7 +4561,7 @@ name|metrics
 argument_list|)
 return|;
 block|}
-specifier|private
+specifier|protected
 name|TProtocolFactory
 name|getProtocolFactory
 parameter_list|()
@@ -4584,6 +4619,7 @@ return|return
 name|protocolFactory
 return|;
 block|}
+specifier|protected
 name|ExecutorService
 name|createExecutor
 parameter_list|(
@@ -4660,7 +4696,7 @@ return|return
 name|threadPool
 return|;
 block|}
-specifier|private
+specifier|protected
 name|InetAddress
 name|getBindAddress
 parameter_list|(
@@ -5320,7 +5356,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Parse the command line options to set parameters the conf.    */
-specifier|private
+specifier|protected
 name|void
 name|processOptions
 parameter_list|(
