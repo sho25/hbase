@@ -581,7 +581,7 @@ name|closeRegionSilentlyAndWait
 argument_list|(
 name|master
 operator|.
-name|getClusterConnection
+name|getAsyncClusterConnection
 argument_list|()
 argument_list|,
 name|r
