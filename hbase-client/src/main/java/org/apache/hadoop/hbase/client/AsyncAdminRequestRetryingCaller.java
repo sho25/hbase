@@ -45,17 +45,11 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
-name|thirdparty
-operator|.
-name|io
-operator|.
-name|netty
-operator|.
-name|util
-operator|.
-name|HashedWheelTimer
+name|ServerName
 import|;
 end_import
 
@@ -69,7 +63,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ServerName
+name|ipc
+operator|.
+name|HBaseRpcController
 import|;
 end_import
 
@@ -93,13 +89,17 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
 name|hbase
 operator|.
-name|ipc
+name|thirdparty
 operator|.
-name|HBaseRpcController
+name|io
+operator|.
+name|netty
+operator|.
+name|util
+operator|.
+name|Timer
 import|;
 end_import
 
@@ -186,7 +186,7 @@ decl_stmt|;
 specifier|public
 name|AsyncAdminRequestRetryingCaller
 parameter_list|(
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 parameter_list|,
 name|AsyncConnectionImpl
@@ -351,22 +351,6 @@ expr_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
-block|}
-annotation|@
-name|Override
-name|CompletableFuture
-argument_list|<
-name|T
-argument_list|>
-name|call
-parameter_list|()
-block|{
-name|doCall
-argument_list|()
-expr_stmt|;
-return|return
-name|future
-return|;
 block|}
 block|}
 end_class

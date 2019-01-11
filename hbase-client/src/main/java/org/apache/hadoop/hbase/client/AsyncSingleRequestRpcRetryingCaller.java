@@ -147,7 +147,7 @@ name|netty
 operator|.
 name|util
 operator|.
-name|HashedWheelTimer
+name|Timer
 import|;
 end_import
 
@@ -253,7 +253,7 @@ decl_stmt|;
 specifier|public
 name|AsyncSingleRequestRpcRetryingCaller
 parameter_list|(
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 parameter_list|,
 name|AsyncConnectionImpl
@@ -640,23 +640,6 @@ expr_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|CompletableFuture
-argument_list|<
-name|T
-argument_list|>
-name|call
-parameter_list|()
-block|{
-name|doCall
-argument_list|()
-expr_stmt|;
-return|return
-name|future
-return|;
 block|}
 block|}
 end_class

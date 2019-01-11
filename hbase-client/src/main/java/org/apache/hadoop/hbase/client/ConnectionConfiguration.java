@@ -177,6 +177,23 @@ init|=
 literal|10000
 decl_stmt|;
 comment|// 10ms
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|PRIMARY_SCAN_TIMEOUT_MICROSECOND
+init|=
+literal|"hbase.client.replicaCallTimeout.scan"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|PRIMARY_SCAN_TIMEOUT_MICROSECOND_DEFAULT
+init|=
+literal|1000000
+decl_stmt|;
+comment|// 1s
 specifier|private
 specifier|final
 name|long
@@ -393,12 +410,11 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.client.replicaCallTimeout.scan"
+name|PRIMARY_SCAN_TIMEOUT_MICROSECOND
 argument_list|,
-literal|1000000
+name|PRIMARY_SCAN_TIMEOUT_MICROSECOND_DEFAULT
 argument_list|)
 expr_stmt|;
-comment|// 1000 ms
 name|this
 operator|.
 name|metaReplicaCallTimeoutMicroSecondScan

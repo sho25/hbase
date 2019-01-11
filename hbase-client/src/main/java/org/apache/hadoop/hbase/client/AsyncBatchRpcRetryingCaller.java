@@ -533,7 +533,7 @@ name|netty
 operator|.
 name|util
 operator|.
-name|HashedWheelTimer
+name|Timer
 import|;
 end_import
 
@@ -647,7 +647,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 decl_stmt|;
 specifier|private
@@ -846,7 +846,7 @@ block|}
 specifier|public
 name|AsyncBatchRpcRetryingCaller
 parameter_list|(
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 parameter_list|,
 name|AsyncConnectionImpl

@@ -1813,6 +1813,8 @@ name|AsyncConnectionImpl
 operator|.
 name|this
 argument_list|,
+name|RETRY_TIMER
+argument_list|,
 name|this
 argument_list|)
 return|;
@@ -1867,6 +1869,8 @@ argument_list|(
 name|AsyncConnectionImpl
 operator|.
 name|this
+argument_list|,
+name|RETRY_TIMER
 argument_list|,
 name|this
 argument_list|)

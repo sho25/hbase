@@ -223,7 +223,7 @@ name|netty
 operator|.
 name|util
 operator|.
-name|HashedWheelTimer
+name|Timer
 import|;
 end_import
 
@@ -290,7 +290,7 @@ name|conn
 decl_stmt|;
 specifier|private
 specifier|final
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 decl_stmt|;
 specifier|public
@@ -299,7 +299,7 @@ parameter_list|(
 name|AsyncConnectionImpl
 name|conn
 parameter_list|,
-name|HashedWheelTimer
+name|Timer
 name|retryTimer
 parameter_list|)
 block|{
