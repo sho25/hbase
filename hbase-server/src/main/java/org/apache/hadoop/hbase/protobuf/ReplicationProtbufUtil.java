@@ -280,6 +280,30 @@ operator|.
 name|generated
 operator|.
 name|AdminProtos
+operator|.
+name|ReplicateWALEntryRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|AdminProtos
+operator|.
+name|WALEntry
 import|;
 end_import
 
@@ -339,8 +363,6 @@ name|IOException
 block|{
 name|Pair
 argument_list|<
-name|AdminProtos
-operator|.
 name|ReplicateWALEntryRequest
 argument_list|,
 name|CellScanner
@@ -381,13 +403,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    *    * @param entries the WAL entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values    * found.    */
+comment|/**    * Create a new ReplicateWALEntryRequest from a list of WAL entries    * @param entries the WAL entries to be replicated    * @return a pair of ReplicateWALEntryRequest and a CellScanner over all the WALEdit values found.    */
 specifier|public
 specifier|static
 name|Pair
 argument_list|<
-name|AdminProtos
-operator|.
 name|ReplicateWALEntryRequest
 argument_list|,
 name|CellScanner
@@ -399,8 +419,6 @@ name|Entry
 index|[]
 name|entries
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 return|return
 name|buildReplicateWALEntryRequest
@@ -422,8 +440,6 @@ specifier|public
 specifier|static
 name|Pair
 argument_list|<
-name|AdminProtos
-operator|.
 name|ReplicateWALEntryRequest
 argument_list|,
 name|CellScanner
@@ -448,8 +464,6 @@ parameter_list|,
 name|Path
 name|sourceHFileArchiveDir
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// Accumulate all the Cells seen in here.
 name|List
@@ -477,29 +491,21 @@ name|size
 init|=
 literal|0
 decl_stmt|;
-name|AdminProtos
-operator|.
 name|WALEntry
 operator|.
 name|Builder
 name|entryBuilder
 init|=
-name|AdminProtos
-operator|.
 name|WALEntry
 operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-name|AdminProtos
-operator|.
 name|ReplicateWALEntryRequest
 operator|.
 name|Builder
 name|builder
 init|=
-name|AdminProtos
-operator|.
 name|ReplicateWALEntryRequest
 operator|.
 name|newBuilder
@@ -551,7 +557,7 @@ parameter_list|)
 block|{
 throw|throw
 operator|new
-name|IOException
+name|AssertionError
 argument_list|(
 literal|"There should not throw exception since NoneCompressor do not throw any exceptions"
 argument_list|,

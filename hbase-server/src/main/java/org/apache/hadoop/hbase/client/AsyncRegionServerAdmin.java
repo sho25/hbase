@@ -1629,6 +1629,9 @@ name|replay
 parameter_list|(
 name|ReplicateWALEntryRequest
 name|request
+parameter_list|,
+name|CellScanner
+name|cellScanner
 parameter_list|)
 block|{
 return|return
@@ -1652,6 +1655,8 @@ name|request
 argument_list|,
 name|done
 argument_list|)
+argument_list|,
+name|cellScanner
 argument_list|)
 return|;
 block|}

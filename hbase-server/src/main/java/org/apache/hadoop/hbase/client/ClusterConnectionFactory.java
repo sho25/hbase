@@ -158,7 +158,7 @@ argument_list|)
 decl_stmt|;
 return|return
 operator|new
-name|AsyncConnectionImpl
+name|AsyncClusterConnectionImpl
 argument_list|(
 name|conf
 argument_list|,

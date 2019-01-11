@@ -1749,6 +1749,8 @@ name|ReplicationEndpoint
 operator|.
 name|Context
 argument_list|(
+name|server
+argument_list|,
 name|conf
 argument_list|,
 name|replicationPeer

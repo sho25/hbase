@@ -999,13 +999,6 @@ name|getRegionNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|region
-operator|.
-name|setReadsEnabled
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
 break|break;
 block|}
 block|}
@@ -1035,6 +1028,13 @@ argument_list|)
 throw|;
 block|}
 block|}
+name|region
+operator|.
+name|setReadsEnabled
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class
