@@ -2536,7 +2536,7 @@ name|ns
 operator|.
 name|getConfigurationValue
 argument_list|(
-name|rsGroupInfo
+name|RSGroupInfo
 operator|.
 name|NAMESPACE_DESC_PROP_GROUP
 argument_list|)

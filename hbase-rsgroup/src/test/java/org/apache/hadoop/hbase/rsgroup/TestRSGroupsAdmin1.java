@@ -151,34 +151,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -250,6 +222,70 @@ operator|.
 name|hbase
 operator|.
 name|Waiter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -348,6 +384,22 @@ operator|.
 name|quotas
 operator|.
 name|QuotaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -468,22 +520,6 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MediumTests
 import|;
 end_import
 
@@ -671,7 +707,7 @@ name|ConstraintException
 name|ex
 parameter_list|)
 block|{
-comment|//expected
+comment|// expected
 block|}
 block|}
 for|for
@@ -763,7 +799,7 @@ name|ConstraintException
 name|ex
 parameter_list|)
 block|{
-comment|//expected
+comment|// expected
 block|}
 try|try
 block|{
@@ -800,7 +836,7 @@ name|TableNotFoundException
 name|ex
 parameter_list|)
 block|{
-comment|//expected
+comment|// expected
 block|}
 try|try
 block|{
@@ -837,13 +873,13 @@ name|ConstraintException
 name|ex
 parameter_list|)
 block|{
-comment|//expected
+comment|// expected
 block|}
 try|try
 block|{
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -859,7 +895,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,
@@ -878,7 +914,7 @@ name|ConstraintException
 name|ex
 parameter_list|)
 block|{
-comment|//expected
+comment|// expected
 block|}
 block|}
 annotation|@
@@ -956,7 +992,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//test removing a referenced group
+comment|// test removing a referenced group
 try|try
 block|{
 name|rsGroupAdmin
@@ -978,8 +1014,8 @@ name|IOException
 name|ex
 parameter_list|)
 block|{     }
-comment|//test modify group
-comment|//changing with the same name is fine
+comment|// test modify group
+comment|// changing with the same name is fine
 name|admin
 operator|.
 name|modifyNamespace
@@ -1018,7 +1054,7 @@ argument_list|(
 name|anotherGroup
 argument_list|)
 expr_stmt|;
-comment|//test add non-existent group
+comment|// test add non-existent group
 name|admin
 operator|.
 name|deleteNamespace
@@ -1354,7 +1390,7 @@ argument_list|(
 literal|"bar"
 argument_list|)
 decl_stmt|;
-comment|//group is not empty therefore it should fail
+comment|// group is not empty therefore it should fail
 try|try
 block|{
 name|rsGroupAdmin
@@ -1379,7 +1415,7 @@ name|IOException
 name|e
 parameter_list|)
 block|{     }
-comment|//group cannot lose all it's servers therefore it should fail
+comment|// group cannot lose all it's servers therefore it should fail
 try|try
 block|{
 name|rsGroupAdmin
@@ -1738,7 +1774,7 @@ name|DEFAULT_GROUP
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//change table's group
+comment|// change table's group
 name|LOG
 operator|.
 name|info
@@ -1778,7 +1814,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify group change
+comment|// verify group change
 name|Assert
 operator|.
 name|assertEquals
@@ -1819,7 +1855,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify tables' not exist in old group
+comment|// verify tables' not exist in old group
 name|Set
 argument_list|<
 name|TableName
@@ -1858,7 +1894,7 @@ name|tableNameB
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//verify tables' exist in new group
+comment|// verify tables' exist in new group
 name|Set
 argument_list|<
 name|TableName
@@ -2042,7 +2078,7 @@ name|DEFAULT_GROUP
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//change table's group
+comment|// change table's group
 name|LOG
 operator|.
 name|info
@@ -2076,7 +2112,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify group change
+comment|// verify group change
 name|Assert
 operator|.
 name|assertEquals
@@ -2200,7 +2236,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//test truncate
+comment|// test truncate
 name|admin
 operator|.
 name|disableTable
@@ -2263,7 +2299,7 @@ name|first
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify removed table is removed from group
+comment|// verify removed table is removed from group
 name|TEST_UTIL
 operator|.
 name|deleteTable
@@ -2455,7 +2491,7 @@ name|DEFAULT_GROUP
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//test disable table
+comment|// test disable table
 name|admin
 operator|.
 name|disableTable
@@ -2463,7 +2499,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|//change table's group
+comment|// change table's group
 name|LOG
 operator|.
 name|info
@@ -2497,7 +2533,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify group change
+comment|// verify group change
 name|Assert
 operator|.
 name|assertEquals
@@ -2558,7 +2594,7 @@ argument_list|(
 name|tableGrp
 argument_list|)
 expr_stmt|;
-comment|//test if table exists already.
+comment|// test if table exists already.
 name|boolean
 name|exist
 init|=
@@ -2687,7 +2723,7 @@ name|TableNotFoundException
 argument_list|)
 expr_stmt|;
 block|}
-comment|//verify group change
+comment|// verify group change
 name|assertNull
 argument_list|(
 name|rsGroupAdmin
@@ -2768,20 +2804,22 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 name|fam1
 init|=
-operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|of
 argument_list|(
 literal|"fam1"
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescOne
 init|=
-operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|TableName
 operator|.
@@ -2796,14 +2834,15 @@ operator|+
 literal|"table1"
 argument_list|)
 argument_list|)
-decl_stmt|;
-name|tableDescOne
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 name|fam1
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|admin
 operator|.
 name|createTable
@@ -2811,11 +2850,12 @@ argument_list|(
 name|tableDescOne
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescTwo
 init|=
-operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|TableName
 operator|.
@@ -2830,14 +2870,15 @@ operator|+
 literal|"table2"
 argument_list|)
 argument_list|)
-decl_stmt|;
-name|tableDescTwo
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 name|fam1
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
 name|boolean
 name|constraintViolated
 init|=

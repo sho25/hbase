@@ -1082,6 +1082,19 @@ argument_list|,
 name|serverMap
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"======="
+operator|+
+name|regionMap
+operator|+
+literal|", "
+operator|+
+name|serverMap
+argument_list|)
+expr_stmt|;
 for|for
 control|(
 name|String
@@ -1203,6 +1216,15 @@ block|}
 block|}
 block|}
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"======="
+operator|+
+name|assignments
+argument_list|)
+expr_stmt|;
 return|return
 name|assignments
 return|;
@@ -1989,7 +2011,8 @@ expr_stmt|;
 return|return
 name|Collections
 operator|.
-name|EMPTY_LIST
+name|emptyList
+argument_list|()
 return|;
 block|}
 block|}

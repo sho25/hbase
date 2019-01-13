@@ -107,20 +107,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -180,6 +166,22 @@ operator|.
 name|client
 operator|.
 name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -653,7 +655,7 @@ operator|.
 name|getAdmin
 argument_list|()
 expr_stmt|;
-comment|//wait till the balancer is in online mode
+comment|// wait till the balancer is in online mode
 name|TEST_UTIL
 operator|.
 name|waitFor
@@ -867,12 +869,12 @@ condition|)
 block|{
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|hbaseAdmin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
 name|failoverRS
 operator|.

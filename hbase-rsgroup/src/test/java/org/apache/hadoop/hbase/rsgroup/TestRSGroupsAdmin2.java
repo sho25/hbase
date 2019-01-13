@@ -219,22 +219,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RegionInfo
 import|;
 end_import
@@ -268,6 +252,22 @@ operator|.
 name|net
 operator|.
 name|Address
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|testclassification
+operator|.
+name|MediumTests
 import|;
 end_import
 
@@ -388,82 +388,6 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|AdminProtos
-operator|.
-name|GetServerInfoRequest
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|testclassification
-operator|.
-name|MediumTests
 import|;
 end_import
 
@@ -708,7 +632,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//get target region to move
+comment|// get target region to move
 name|Map
 argument_list|<
 name|ServerName
@@ -782,9 +706,9 @@ block|{
 break|break;
 block|}
 block|}
-comment|//get server which is not a member of new group
+comment|// get server which is not a member of new group
 name|ServerName
-name|targetServer
+name|tmpTargetServer
 init|=
 literal|null
 decl_stmt|;
@@ -828,7 +752,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|targetServer
+name|tmpTargetServer
 operator|=
 name|server
 expr_stmt|;
@@ -836,29 +760,12 @@ break|break;
 block|}
 block|}
 specifier|final
-name|AdminProtos
-operator|.
-name|AdminService
-operator|.
-name|BlockingInterface
-name|targetRS
-init|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|)
-operator|.
-name|getAdmin
-argument_list|(
+name|ServerName
 name|targetServer
-argument_list|)
+init|=
+name|tmpTargetServer
 decl_stmt|;
-comment|//move target server to group
+comment|// move target server to group
 name|rsGroupAdmin
 operator|.
 name|moveServers
@@ -904,11 +811,11 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|ProtobufUtil
+name|admin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
-name|targetRS
+name|targetServer
 argument_list|)
 operator|.
 name|size
@@ -1030,17 +937,17 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//verify that targetServer didn't open it
+comment|// verify that targetServer didn't open it
 for|for
 control|(
 name|RegionInfo
 name|region
 range|:
-name|ProtobufUtil
+name|admin
 operator|.
-name|getOnlineRegions
+name|getRegions
 argument_list|(
-name|targetRS
+name|targetServer
 argument_list|)
 control|)
 block|{
@@ -1263,7 +1170,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|//create groups and assign servers
+comment|// create groups and assign servers
 name|addGroup
 argument_list|(
 literal|"bar"
@@ -1324,7 +1231,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//test fail bogus server move
+comment|// test fail bogus server move
 try|try
 block|{
 name|rsGroupAdmin
@@ -1395,7 +1302,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//test success case
+comment|// test success case
 name|LOG
 operator|.
 name|info
@@ -1566,7 +1473,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//test group removal
+comment|// test group removal
 name|LOG
 operator|.
 name|info
@@ -1696,16 +1603,11 @@ decl_stmt|;
 name|ServerName
 name|targetServer
 init|=
-name|ServerName
-operator|.
-name|parseServerName
+name|getServerName
 argument_list|(
 name|iterator
 operator|.
 name|next
-argument_list|()
-operator|.
-name|toString
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1813,60 +1715,10 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
-name|AdminProtos
-operator|.
-name|AdminService
-operator|.
-name|BlockingInterface
-name|targetRS
-init|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|)
-operator|.
-name|getAdmin
-argument_list|(
-name|targetServer
-argument_list|)
-decl_stmt|;
 try|try
 block|{
-name|targetServer
-operator|=
-name|ProtobufUtil
-operator|.
-name|toServerName
-argument_list|(
-name|targetRS
-operator|.
-name|getServerInfo
-argument_list|(
-literal|null
-argument_list|,
-name|GetServerInfoRequest
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|build
-argument_list|()
-argument_list|)
-operator|.
-name|getServerInfo
-argument_list|()
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
-expr_stmt|;
-comment|//stopping may cause an exception
-comment|//due to the connection loss
+comment|// stopping may cause an exception
+comment|// due to the connection loss
 name|LOG
 operator|.
 name|info
@@ -1879,25 +1731,16 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|targetRS
+name|admin
 operator|.
-name|stopServer
+name|stopRegionServer
 argument_list|(
-literal|null
-argument_list|,
-name|AdminProtos
+name|targetServer
 operator|.
-name|StopServerRequest
-operator|.
-name|newBuilder
+name|getAddress
 argument_list|()
 operator|.
-name|setReason
-argument_list|(
-literal|"Die"
-argument_list|)
-operator|.
-name|build
+name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1911,7 +1754,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{     }
-comment|//wait for stopped regionserver to dead server list
+comment|// wait for stopped regionserver to dead server list
 name|TEST_UTIL
 operator|.
 name|waitFor
@@ -2068,61 +1911,11 @@ argument_list|()
 decl_stmt|;
 name|targetServer
 operator|=
-name|ServerName
-operator|.
-name|parseServerName
+name|getServerName
 argument_list|(
 name|iterator
 operator|.
 name|next
-argument_list|()
-operator|.
-name|toString
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|targetRS
-operator|=
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
-name|admin
-operator|.
-name|getConnection
-argument_list|()
-operator|)
-operator|.
-name|getAdmin
-argument_list|(
-name|targetServer
-argument_list|)
-expr_stmt|;
-name|targetServer
-operator|=
-name|ProtobufUtil
-operator|.
-name|toServerName
-argument_list|(
-name|targetRS
-operator|.
-name|getServerInfo
-argument_list|(
-literal|null
-argument_list|,
-name|GetServerInfoRequest
-operator|.
-name|newBuilder
-argument_list|()
-operator|.
-name|build
-argument_list|()
-argument_list|)
-operator|.
-name|getServerInfo
-argument_list|()
-operator|.
-name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2292,7 +2085,7 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
-comment|//create table
+comment|// create table
 specifier|final
 name|byte
 index|[]
@@ -2383,7 +2176,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//get server which is not a member of new group
+comment|// get server which is not a member of new group
 name|ServerName
 name|targetServer
 init|=
@@ -2500,7 +2293,7 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-comment|//test fail bogus server move
+comment|// test fail bogus server move
 try|try
 block|{
 name|rsGroupAdmin
@@ -2581,7 +2374,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//test fail server move
+comment|// test fail server move
 try|try
 block|{
 name|rsGroupAdmin
@@ -2671,7 +2464,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//verify default group info
+comment|// verify default group info
 name|Assert
 operator|.
 name|assertEquals
@@ -2716,7 +2509,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify new group info
+comment|// verify new group info
 name|Assert
 operator|.
 name|assertEquals
@@ -2763,7 +2556,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//get all region to move targetServer
+comment|// get all region to move targetServer
 name|List
 argument_list|<
 name|String
@@ -2910,7 +2703,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|//verify that all region move to targetServer
+comment|// verify that all region move to targetServer
 name|Assert
 operator|.
 name|assertEquals
@@ -2934,7 +2727,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//move targetServer and table to newGroup
+comment|// move targetServer and table to newGroup
 name|LOG
 operator|.
 name|info
@@ -2969,7 +2762,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify group change
+comment|// verify group change
 name|Assert
 operator|.
 name|assertEquals
@@ -2990,7 +2783,7 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//verify servers' not exist in old group
+comment|// verify servers' not exist in old group
 name|Set
 argument_list|<
 name|Address
@@ -3022,7 +2815,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//verify servers' exist in new group
+comment|// verify servers' exist in new group
 name|Set
 argument_list|<
 name|Address
@@ -3055,7 +2848,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//verify tables' not exist in old group
+comment|// verify tables' not exist in old group
 name|Set
 argument_list|<
 name|TableName
@@ -3084,7 +2877,7 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//verify tables' exist in new group
+comment|// verify tables' exist in new group
 name|Set
 argument_list|<
 name|TableName
@@ -3114,7 +2907,7 @@ name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//verify that all region still assgin on targetServer
+comment|// verify that all region still assgin on targetServer
 name|Assert
 operator|.
 name|assertEquals
@@ -3162,7 +2955,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|//create groups and assign servers
+comment|// create groups and assign servers
 name|rsGroupAdmin
 operator|.
 name|addRSGroup
@@ -3205,7 +2998,7 @@ operator|.
 name|DEFAULT_GROUP
 argument_list|)
 decl_stmt|;
-comment|//test remove all servers from default
+comment|// test remove all servers from default
 try|try
 block|{
 name|rsGroupAdmin
@@ -3253,7 +3046,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|//test success case, remove one server from default ,keep at least one server
+comment|// test success case, remove one server from default ,keep at least one server
 if|if
 condition|(
 name|defaultGroup
@@ -3421,7 +3214,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|//test group removal
+comment|// test group removal
 name|LOG
 operator|.
 name|info
