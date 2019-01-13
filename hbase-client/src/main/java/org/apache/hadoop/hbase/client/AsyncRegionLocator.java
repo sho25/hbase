@@ -97,35 +97,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|RegionException
 import|;
 end_import
 
@@ -706,7 +678,7 @@ operator|.
 name|completeExceptionally
 argument_list|(
 operator|new
-name|RegionException
+name|RegionOfflineException
 argument_list|(
 literal|"No location for "
 operator|+
@@ -748,7 +720,7 @@ operator|.
 name|completeExceptionally
 argument_list|(
 operator|new
-name|HBaseIOException
+name|RegionOfflineException
 argument_list|(
 literal|"No server address listed for region '"
 operator|+
