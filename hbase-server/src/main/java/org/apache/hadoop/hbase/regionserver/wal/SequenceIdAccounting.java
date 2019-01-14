@@ -53,6 +53,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Collections
 import|;
 end_import
@@ -1682,7 +1692,7 @@ block|}
 block|}
 block|}
 block|}
-comment|/**    * See if passed<code>sequenceids</code> are lower -- i.e. earlier -- than any outstanding    * sequenceids, sequenceids we are holding on to in this accounting instance.    * @param sequenceids Keyed by encoded region name. Cannot be null (doesn't make sense for it to    *          be null).    * @return true if all sequenceids are lower, older than, the old sequenceids in this instance.    */
+comment|/**    * See if passed<code>sequenceids</code> are lower -- i.e. earlier -- than any outstanding    * sequenceids, sequenceids we are holding on to in this accounting instance.    * @param sequenceids Keyed by encoded region name. Cannot be null (doesn't make sense for it to    *          be null).    * @param keysBlocking An optional collection that is used to return the specific keys that are    *          causing this method to return false.    * @return true if all sequenceids are lower, older than, the old sequenceids in this instance.    */
 name|boolean
 name|areAllLower
 parameter_list|(
@@ -1694,6 +1704,13 @@ argument_list|,
 name|Long
 argument_list|>
 name|sequenceids
+parameter_list|,
+name|Collection
+argument_list|<
+name|byte
+index|[]
+argument_list|>
+name|keysBlocking
 parameter_list|)
 block|{
 name|Map
@@ -1746,6 +1763,11 @@ name|lowestUnflushedSequenceIds
 argument_list|)
 expr_stmt|;
 block|}
+name|boolean
+name|result
+init|=
+literal|true
+decl_stmt|;
 for|for
 control|(
 name|Map
@@ -1861,13 +1883,36 @@ name|getValue
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|keysBlocking
+operator|==
+literal|null
+condition|)
+block|{
 return|return
 literal|false
 return|;
 block|}
+name|result
+operator|=
+literal|false
+expr_stmt|;
+name|keysBlocking
+operator|.
+name|add
+argument_list|(
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Continue examining the map so we could log all regions blocking this WAL.
+block|}
 block|}
 return|return
-literal|true
+name|result
 return|;
 block|}
 comment|/**    * Iterates over the given Map and compares sequence ids with corresponding entries in    * {@link #lowestUnflushedSequenceIds}. If a region in    * {@link #lowestUnflushedSequenceIds} has a sequence id less than that passed in    *<code>sequenceids</code> then return it.    * @param sequenceids Sequenceids keyed by encoded region name.    * @return regions found in this instance with sequence ids less than those passed in.    */
