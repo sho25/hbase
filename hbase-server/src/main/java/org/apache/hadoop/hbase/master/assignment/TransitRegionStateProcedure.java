@@ -263,6 +263,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|procedure
+operator|.
+name|ServerCrashProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|procedure2
 operator|.
 name|Procedure
@@ -1941,6 +1959,17 @@ operator|.
 name|REGION_STATE_TRANSITION_CONFIRM_OPENED
 condition|)
 block|{
+comment|// if parent procedure is ServerCrashProcedure, update progress
+name|ServerCrashProcedure
+operator|.
+name|updateProgress
+argument_list|(
+name|env
+argument_list|,
+name|getParentProcId
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// we are done
 name|regionNode
 operator|.

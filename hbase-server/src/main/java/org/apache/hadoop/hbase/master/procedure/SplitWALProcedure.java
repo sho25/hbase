@@ -566,6 +566,16 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
+name|ServerCrashProcedure
+operator|.
+name|updateProgress
+argument_list|(
+name|env
+argument_list|,
+name|getParentProcId
+argument_list|()
+argument_list|)
+expr_stmt|;
 return|return
 name|Flow
 operator|.
