@@ -929,7 +929,7 @@ name|HBASE_CLIENT_OPERATION_TIMEOUT
 init|=
 literal|"hbase.client.operation.timeout"
 decl_stmt|;
-comment|/** Parameter name for HBase client operation timeout. */
+comment|/** Parameter name for HBase client meta operation timeout. */
 specifier|public
 specifier|static
 specifier|final

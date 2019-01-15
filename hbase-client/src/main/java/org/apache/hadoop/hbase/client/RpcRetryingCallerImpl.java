@@ -758,6 +758,11 @@ operator|.
 name|getExceptionMessageAdditionalDetail
 argument_list|()
 argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|", see https://s.apache.org/timeout"
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
