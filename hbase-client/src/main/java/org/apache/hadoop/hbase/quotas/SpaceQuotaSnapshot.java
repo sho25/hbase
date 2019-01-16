@@ -29,6 +29,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -121,6 +131,8 @@ name|Private
 specifier|public
 class|class
 name|SpaceQuotaSnapshot
+implements|implements
+name|SpaceQuotaSnapshotView
 block|{
 specifier|private
 specifier|static
@@ -167,6 +179,8 @@ specifier|public
 specifier|static
 class|class
 name|SpaceQuotaStatus
+implements|implements
+name|SpaceQuotaStatusView
 block|{
 specifier|private
 specifier|static
@@ -183,14 +197,17 @@ literal|false
 argument_list|)
 decl_stmt|;
 specifier|final
+name|Optional
+argument_list|<
 name|SpaceViolationPolicy
+argument_list|>
 name|policy
 decl_stmt|;
 specifier|final
 name|boolean
 name|inViolation
 decl_stmt|;
-comment|/**      * Constructs a {@code SpaceQuotaSnapshot} which is in violation of the provided {@code policy}.      *      * Use {@link #notInViolation()} to obtain an instance of this class for the cases when the      * quota is not in violation.      *      * @param policy The non-null policy being violated.      */
+comment|/**      * Constructs a {@code SpaceQuotaSnapshot} which is in violation of the provided {@code policy}.      *<p/>      * Use {@link #notInViolation()} to obtain an instance of this class for the cases when the      * quota is not in violation.      * @param policy The non-null policy being violated.      */
 specifier|public
 name|SpaceQuotaStatus
 parameter_list|(
@@ -226,7 +243,12 @@ name|this
 operator|.
 name|policy
 operator|=
+name|Optional
+operator|.
+name|ofNullable
+argument_list|(
 name|policy
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -236,8 +258,13 @@ name|inViolation
 expr_stmt|;
 block|}
 comment|/**      * Returns the violation policy, which may be null. It is guaranteed to be non-null if      * {@link #isInViolation()} is {@code true}, but may be null otherwise.      */
+annotation|@
+name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|SpaceViolationPolicy
+argument_list|>
 name|getPolicy
 parameter_list|()
 block|{
@@ -246,6 +273,8 @@ name|policy
 return|;
 block|}
 comment|/**      * @return {@code true} if the quota is being violated, {@code false} otherwise.      */
+annotation|@
+name|Override
 specifier|public
 name|boolean
 name|isInViolation
@@ -459,6 +488,9 @@ name|status
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -551,6 +583,8 @@ name|limit
 expr_stmt|;
 block|}
 comment|/**    * Returns the status of the quota.    */
+annotation|@
+name|Override
 specifier|public
 name|SpaceQuotaStatus
 name|getQuotaStatus
@@ -561,6 +595,8 @@ name|quotaStatus
 return|;
 block|}
 comment|/**    * Returns the current usage, in bytes, of the target (e.g. table, namespace).    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getUsage
@@ -571,6 +607,8 @@ name|usage
 return|;
 block|}
 comment|/**    * Returns the limit, in bytes, of the target (e.g. table, namespace).    */
+annotation|@
+name|Override
 specifier|public
 name|long
 name|getLimit

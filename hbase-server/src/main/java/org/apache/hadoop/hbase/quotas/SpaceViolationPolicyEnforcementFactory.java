@@ -296,6 +296,9 @@ name|status
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 condition|)
 block|{
 case|case

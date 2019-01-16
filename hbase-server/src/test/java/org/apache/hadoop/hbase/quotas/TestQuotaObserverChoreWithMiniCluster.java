@@ -1076,6 +1076,9 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -1570,6 +1573,9 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|SpaceQuotaSnapshot
@@ -1600,6 +1606,9 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|SpaceQuotaSnapshot
@@ -1629,6 +1638,9 @@ name|getQuotaStatus
 argument_list|()
 operator|.
 name|getPolicy
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1996,6 +2008,9 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|SpaceQuotaSnapshot
@@ -2025,6 +2040,9 @@ name|getQuotaStatus
 argument_list|()
 operator|.
 name|getPolicy
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2107,6 +2125,11 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|orElse
+argument_list|(
+literal|null
+argument_list|)
 condition|)
 block|{
 name|LOG
@@ -2161,6 +2184,9 @@ argument_list|()
 operator|.
 name|getPolicy
 argument_list|()
+operator|.
+name|get
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -2192,6 +2218,9 @@ name|getQuotaStatus
 argument_list|()
 operator|.
 name|getPolicy
+argument_list|()
+operator|.
+name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
