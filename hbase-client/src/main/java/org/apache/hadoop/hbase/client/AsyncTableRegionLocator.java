@@ -23,6 +23,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|CompletableFuture
@@ -89,7 +99,7 @@ name|TableName
 name|getName
 parameter_list|()
 function_decl|;
-comment|/**    * Finds the region on which the given row is being served. Does not reload the cache.    *<p>    * Returns the location of the region to which the row belongs.    * @param row Row to find.    */
+comment|/**    * Finds the region on which the given row is being served. Does not reload the cache.    *<p/>    * Returns the location of the region to which the row belongs.    * @param row Row to find.    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -111,7 +121,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region on which the given row is being served.    *<p>    * Returns the location of the region to which the row belongs.    * @param row Row to find.    * @param reload true to reload information or false to use cached information    */
+comment|/**    * Finds the region on which the given row is being served.    *<p/>    * Returns the location of the region to which the row belongs.    * @param row Row to find.    * @param reload true to reload information or false to use cached information    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -140,7 +150,7 @@ name|reload
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region with the given<code>replicaId</code> on which the given row is being served.    *<p>    * Returns the location of the region with the given<code>replicaId</code> to which the row    * belongs.    * @param row Row to find.    * @param replicaId the replica id of the region    */
+comment|/**    * Finds the region with the given<code>replicaId</code> on which the given row is being served.    *<p/>    * Returns the location of the region with the given<code>replicaId</code> to which the row    * belongs.    * @param row Row to find.    * @param replicaId the replica id of the region    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -167,7 +177,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Finds the region with the given<code>replicaId</code> on which the given row is being served.    *<p>    * Returns the location of the region with the given<code>replicaId</code> to which the row    * belongs.    * @param row Row to find.    * @param replicaId the replica id of the region    * @param reload true to reload information or false to use cached information    */
+comment|/**    * Finds the region with the given<code>replicaId</code> on which the given row is being served.    *<p/>    * Returns the location of the region with the given<code>replicaId</code> to which the row    * belongs.    * @param row Row to find.    * @param replicaId the replica id of the region    * @param reload true to reload information or false to use cached information    */
 name|CompletableFuture
 argument_list|<
 name|HRegionLocation
@@ -184,6 +194,17 @@ parameter_list|,
 name|boolean
 name|reload
 parameter_list|)
+function_decl|;
+comment|/**    * Retrieves all of the regions associated with this table.    * @return a {@link List} of all regions associated with this table.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|HRegionLocation
+argument_list|>
+argument_list|>
+name|getAllRegionLocations
+parameter_list|()
 function_decl|;
 block|}
 end_interface
