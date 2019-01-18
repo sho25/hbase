@@ -141,6 +141,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -261,20 +275,6 @@ name|TimedQuota
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
 begin_comment
 comment|/**  * Implementation of {@link GlobalQuotaSettings} to hide the Protobuf messages we use internally.  */
 end_comment
@@ -321,6 +321,9 @@ parameter_list|,
 name|String
 name|namespace
 parameter_list|,
+name|String
+name|regionServer
+parameter_list|,
 name|QuotaProtos
 operator|.
 name|Quotas
@@ -334,6 +337,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|namespace
+argument_list|,
+name|regionServer
 argument_list|,
 operator|(
 name|quotas
@@ -403,6 +408,9 @@ parameter_list|,
 name|String
 name|namespace
 parameter_list|,
+name|String
+name|regionServer
+parameter_list|,
 name|QuotaProtos
 operator|.
 name|Throttle
@@ -424,6 +432,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|namespace
+argument_list|,
+name|regionServer
 argument_list|)
 expr_stmt|;
 name|this
@@ -491,6 +501,9 @@ argument_list|,
 name|getNamespace
 argument_list|()
 argument_list|,
+name|getRegionServer
+argument_list|()
+argument_list|,
 name|throttleProto
 argument_list|)
 argument_list|)
@@ -522,6 +535,9 @@ name|getTableName
 argument_list|()
 argument_list|,
 name|getNamespace
+argument_list|()
+argument_list|,
+name|getRegionServer
 argument_list|()
 argument_list|,
 literal|true
@@ -1166,6 +1182,9 @@ name|getTableName
 argument_list|()
 argument_list|,
 name|getNamespace
+argument_list|()
+argument_list|,
+name|getRegionServer
 argument_list|()
 argument_list|,
 operator|(

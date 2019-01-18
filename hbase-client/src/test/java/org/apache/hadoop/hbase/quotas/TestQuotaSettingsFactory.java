@@ -675,6 +675,16 @@ name|getNamespace
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertNull
+argument_list|(
+literal|"RegionServer should be null"
+argument_list|,
+name|throttleSettings
+operator|.
+name|getRegionServer
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|seenRead
 operator|=
 literal|true
@@ -739,6 +749,16 @@ argument_list|,
 name|throttleSettings
 operator|.
 name|getNamespace
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertNull
+argument_list|(
+literal|"RegionServer should be null"
+argument_list|,
+name|throttleSettings
+operator|.
+name|getRegionServer
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -810,6 +830,16 @@ argument_list|,
 name|spaceLimit
 operator|.
 name|getNamespace
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertNull
+argument_list|(
+literal|"RegionServer should be null"
+argument_list|,
+name|spaceLimit
+operator|.
+name|getRegionServer
 argument_list|()
 argument_list|)
 expr_stmt|;

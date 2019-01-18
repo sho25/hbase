@@ -376,6 +376,8 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|quota
 argument_list|)
 decl_stmt|;
@@ -390,6 +392,8 @@ operator|new
 name|ThrottleSettings
 argument_list|(
 literal|"joe"
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
@@ -525,6 +529,8 @@ name|tn
 argument_list|,
 literal|null
 argument_list|,
+literal|null
+argument_list|,
 name|quota
 argument_list|)
 decl_stmt|;
@@ -642,6 +648,8 @@ literal|null
 argument_list|,
 name|ns
 argument_list|,
+literal|null
+argument_list|,
 name|quota
 argument_list|)
 decl_stmt|;
@@ -708,6 +716,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|ns
+argument_list|,
+literal|null
 argument_list|,
 name|writeThrottle
 argument_list|)

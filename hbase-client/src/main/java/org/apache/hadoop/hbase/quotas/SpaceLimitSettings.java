@@ -222,6 +222,8 @@ name|tableName
 argument_list|)
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|validateSizeLimit
@@ -263,6 +265,8 @@ name|tableName
 argument_list|)
 argument_list|,
 literal|null
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|proto
@@ -295,6 +299,8 @@ name|requireNonNull
 argument_list|(
 name|namespace
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|validateSizeLimit
@@ -336,6 +342,8 @@ name|requireNonNull
 argument_list|(
 name|namespace
 argument_list|)
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|proto
@@ -363,6 +371,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|namespace
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|proto

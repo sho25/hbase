@@ -167,6 +167,9 @@ name|tableName
 parameter_list|,
 name|String
 name|namespace
+parameter_list|,
+name|String
+name|regionServer
 parameter_list|)
 block|{
 name|super
@@ -176,6 +179,8 @@ argument_list|,
 name|tableName
 argument_list|,
 name|namespace
+argument_list|,
+name|regionServer
 argument_list|)
 expr_stmt|;
 block|}
