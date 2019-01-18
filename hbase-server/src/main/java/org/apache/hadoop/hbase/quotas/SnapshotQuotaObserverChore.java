@@ -776,6 +776,18 @@ name|filter
 argument_list|)
 control|)
 block|{
+if|if
+condition|(
+name|qs
+operator|.
+name|getQuotaType
+argument_list|()
+operator|==
+name|QuotaType
+operator|.
+name|SPACE
+condition|)
+block|{
 name|String
 name|ns
 init|=
@@ -819,7 +831,7 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"Expected only one of namespace and tablename to be null"
+literal|"Expected either one of namespace and tablename to be null but not both"
 argument_list|)
 throw|;
 block|}
@@ -858,6 +870,7 @@ argument_list|(
 name|tn
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|// Fetch all snapshots that were created from these tables
