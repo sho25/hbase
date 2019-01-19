@@ -166,6 +166,8 @@ argument_list|,
 name|DEEP_OVERHEAD_CAM
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// CAM is always on-heap
@@ -218,6 +220,8 @@ argument_list|,
 name|indexOverhead
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// CAM is always on-heap
@@ -228,6 +232,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|indexOverhead
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)
@@ -285,6 +291,8 @@ argument_list|,
 name|newSegmentSizeDelta
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|mss
@@ -294,6 +302,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)

@@ -279,6 +279,8 @@ argument_list|,
 name|indexOverhead
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -291,6 +293,8 @@ argument_list|,
 literal|0
 argument_list|,
 name|indexOverhead
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -360,6 +364,8 @@ argument_list|,
 name|indexOverhead
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|memstoreSizing
@@ -369,6 +375,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|indexOverhead
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)
@@ -386,6 +394,8 @@ operator|.
 name|DEEP_OVERHEAD_CSLM
 argument_list|,
 name|DEEP_OVERHEAD_CCM
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|memstoreSizing
@@ -400,6 +410,8 @@ operator|.
 name|DEEP_OVERHEAD_CSLM
 argument_list|,
 name|DEEP_OVERHEAD_CCM
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -464,6 +476,8 @@ argument_list|,
 name|newSegmentSizeDelta
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|memstoreSizing
@@ -473,6 +487,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)
@@ -487,6 +503,8 @@ argument_list|,
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|memstoreSizing
@@ -498,6 +516,8 @@ argument_list|,
 literal|0
 argument_list|,
 name|newSegmentSizeDelta
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -1676,6 +1696,8 @@ argument_list|,
 name|heapOverhead
 argument_list|,
 name|offHeapOverhead
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 if|if
@@ -1696,6 +1718,8 @@ argument_list|,
 name|heapOverhead
 argument_list|,
 name|offHeapOverhead
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}

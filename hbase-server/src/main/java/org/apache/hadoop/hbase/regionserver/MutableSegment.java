@@ -287,6 +287,8 @@ argument_list|,
 name|DEEP_OVERHEAD
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// update the mutable segment metadata
@@ -304,6 +306,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)
@@ -539,6 +543,9 @@ name|heapSize
 argument_list|,
 operator|-
 name|offHeapSize
+argument_list|,
+operator|-
+literal|1
 argument_list|)
 expr_stmt|;
 if|if
@@ -557,6 +564,8 @@ argument_list|,
 name|heapSize
 argument_list|,
 name|offHeapSize
+argument_list|,
+literal|1
 argument_list|)
 expr_stmt|;
 block|}

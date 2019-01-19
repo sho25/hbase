@@ -650,6 +650,9 @@ name|heapOverhead
 parameter_list|,
 name|long
 name|offHeapOverhead
+parameter_list|,
+name|int
+name|cellsCount
 parameter_list|)
 block|{
 throw|throw

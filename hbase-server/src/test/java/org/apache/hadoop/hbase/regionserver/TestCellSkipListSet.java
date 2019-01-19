@@ -324,6 +324,9 @@ name|this
 operator|.
 name|csls
 operator|.
+name|getDelegatee
+argument_list|()
+operator|.
 name|size
 argument_list|()
 argument_list|)
@@ -429,6 +432,9 @@ argument_list|,
 name|this
 operator|.
 name|csls
+operator|.
+name|getDelegatee
+argument_list|()
 operator|.
 name|size
 argument_list|()

@@ -949,6 +949,21 @@ name|int
 name|size
 parameter_list|()
 block|{
+if|if
+condition|(
+name|delegatee
+operator|instanceof
+name|ConcurrentSkipListMap
+condition|)
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"ConcurrentSkipListMap.size() is time-consuming"
+argument_list|)
+throw|;
+block|}
 return|return
 name|this
 operator|.

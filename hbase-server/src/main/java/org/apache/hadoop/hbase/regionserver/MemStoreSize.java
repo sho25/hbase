@@ -81,6 +81,11 @@ specifier|final
 name|long
 name|offHeapSize
 decl_stmt|;
+specifier|private
+specifier|final
+name|int
+name|cellsCount
+decl_stmt|;
 comment|/**    * Package private constructor.    */
 name|MemStoreSize
 parameter_list|()
@@ -92,6 +97,8 @@ argument_list|,
 literal|0L
 argument_list|,
 literal|0L
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 block|}
@@ -106,6 +113,9 @@ name|heapSize
 parameter_list|,
 name|long
 name|offHeapSize
+parameter_list|,
+name|int
+name|cellsCount
 parameter_list|)
 block|{
 name|this
@@ -125,6 +135,12 @@ operator|.
 name|offHeapSize
 operator|=
 name|offHeapSize
+expr_stmt|;
+name|this
+operator|.
+name|cellsCount
+operator|=
+name|cellsCount
 expr_stmt|;
 block|}
 comment|/**    * Package private constructor.    */
@@ -159,6 +175,15 @@ operator|=
 name|memStoreSize
 operator|.
 name|getOffHeapSize
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|cellsCount
+operator|=
+name|memStoreSize
+operator|.
+name|getCellsCount
 argument_list|()
 expr_stmt|;
 block|}
@@ -185,6 +210,12 @@ operator|.
 name|offHeapSize
 operator|==
 literal|0
+operator|&&
+name|this
+operator|.
+name|cellsCount
+operator|==
+literal|0
 return|;
 block|}
 specifier|public
@@ -218,6 +249,17 @@ return|return
 name|this
 operator|.
 name|offHeapSize
+return|;
+block|}
+specifier|public
+name|int
+name|getCellsCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|cellsCount
 return|;
 block|}
 annotation|@
@@ -287,6 +329,14 @@ operator|==
 name|other
 operator|.
 name|offHeapSize
+operator|&&
+name|this
+operator|.
+name|cellsCount
+operator|==
+name|other
+operator|.
+name|cellsCount
 return|;
 block|}
 annotation|@
@@ -323,6 +373,16 @@ name|this
 operator|.
 name|offHeapSize
 expr_stmt|;
+name|h
+operator|=
+name|h
+operator|*
+literal|31
+operator|+
+name|this
+operator|.
+name|cellsCount
+expr_stmt|;
 return|return
 operator|(
 name|int
@@ -355,6 +415,12 @@ operator|+
 name|this
 operator|.
 name|offHeapSize
+operator|+
+literal|", getCellsCount="
+operator|+
+name|this
+operator|.
+name|cellsCount
 return|;
 block|}
 block|}

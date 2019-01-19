@@ -110,6 +110,8 @@ argument_list|,
 name|indexOverhead
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 comment|// CSLM is always on-heap
@@ -127,6 +129,8 @@ argument_list|(
 literal|0
 argument_list|,
 name|indexOverhead
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)

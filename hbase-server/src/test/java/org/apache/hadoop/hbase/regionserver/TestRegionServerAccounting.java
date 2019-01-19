@@ -252,6 +252,8 @@ argument_list|,
 name|dataSize
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 decl_stmt|;
 name|regionServerAccounting
@@ -307,6 +309,8 @@ argument_list|(
 name|dataSize
 argument_list|,
 name|dataSize
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)
@@ -392,6 +396,8 @@ literal|1024L
 operator|*
 literal|1024L
 operator|)
+argument_list|,
+literal|100
 argument_list|)
 decl_stmt|;
 name|regionServerAccounting
@@ -467,6 +473,8 @@ argument_list|,
 name|dataSize
 argument_list|,
 literal|0
+argument_list|,
+literal|100
 argument_list|)
 decl_stmt|;
 name|regionServerAccounting
@@ -550,6 +558,8 @@ literal|1024L
 operator|*
 literal|1024L
 operator|)
+argument_list|,
+literal|100
 argument_list|)
 decl_stmt|;
 name|regionServerAccounting
@@ -625,6 +635,8 @@ argument_list|,
 name|dataSize
 argument_list|,
 literal|0
+argument_list|,
+literal|100
 argument_list|)
 decl_stmt|;
 name|regionServerAccounting

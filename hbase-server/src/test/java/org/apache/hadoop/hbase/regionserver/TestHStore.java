@@ -2402,6 +2402,8 @@ operator|.
 name|DEEP_OVERHEAD
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|mss
@@ -2483,6 +2485,8 @@ operator|.
 name|DEEP_OVERHEAD
 argument_list|,
 literal|0
+argument_list|,
+literal|0
 argument_list|)
 expr_stmt|;
 name|mss
@@ -2545,6 +2549,8 @@ argument_list|,
 name|MutableSegment
 operator|.
 name|DEEP_OVERHEAD
+argument_list|,
+literal|0
 argument_list|,
 literal|0
 argument_list|)

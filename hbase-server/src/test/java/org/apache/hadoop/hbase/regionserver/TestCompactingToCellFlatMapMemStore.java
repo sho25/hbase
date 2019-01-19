@@ -1895,6 +1895,11 @@ name|mss
 operator|.
 name|getOffHeapSize
 argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getCellsCount
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|ImmutableSegment
@@ -6175,6 +6180,11 @@ argument_list|,
 name|mss
 operator|.
 name|getOffHeapSize
+argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getCellsCount
 argument_list|()
 argument_list|)
 expr_stmt|;

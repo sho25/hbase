@@ -7101,6 +7101,11 @@ name|mss
 operator|.
 name|getOffHeapSize
 argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getCellsCount
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7115,6 +7120,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 block|{
 if|if
@@ -7152,6 +7160,8 @@ argument_list|,
 name|heapSizeDelta
 argument_list|,
 name|offHeapSizeDelta
+argument_list|,
+name|cellsCountDelta
 argument_list|)
 decl_stmt|;
 name|checkNegativeMemStoreDataSize
@@ -7185,6 +7195,11 @@ name|mss
 operator|.
 name|getOffHeapSize
 argument_list|()
+argument_list|,
+name|mss
+operator|.
+name|getCellsCount
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -7199,6 +7214,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 block|{
 if|if
@@ -7236,6 +7254,8 @@ argument_list|,
 name|heapSizeDelta
 argument_list|,
 name|offHeapSizeDelta
+argument_list|,
+name|cellsCountDelta
 argument_list|)
 decl_stmt|;
 name|checkNegativeMemStoreDataSize
@@ -13562,19 +13582,6 @@ operator|.
 name|decrMemStoreSize
 argument_list|(
 name|mss
-operator|.
-name|getDataSize
-argument_list|()
-argument_list|,
-name|mss
-operator|.
-name|getHeapSize
-argument_list|()
-argument_list|,
-name|mss
-operator|.
-name|getOffHeapSize
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Increase the size of this Region for the purposes of quota. Noop if quotas are disabled.
@@ -15576,6 +15583,11 @@ argument_list|,
 name|memStoreAccounting
 operator|.
 name|getOffHeapSize
+argument_list|()
+argument_list|,
+name|memStoreAccounting
+operator|.
+name|getCellsCount
 argument_list|()
 argument_list|)
 expr_stmt|;

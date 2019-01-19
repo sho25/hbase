@@ -44,8 +44,6 @@ specifier|public
 interface|interface
 name|MemStoreSizing
 block|{
-specifier|static
-specifier|final
 name|MemStoreSizing
 name|DUD
 init|=
@@ -126,6 +124,22 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|int
+name|getCellsCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|mss
+operator|.
+name|getCellsCount
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|long
 name|incMemStoreSize
 parameter_list|(
@@ -137,6 +151,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 block|{
 throw|throw
@@ -182,6 +199,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 function_decl|;
 specifier|default
@@ -209,6 +229,11 @@ name|delta
 operator|.
 name|getOffHeapSize
 argument_list|()
+argument_list|,
+name|delta
+operator|.
+name|getCellsCount
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -225,6 +250,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 block|{
 return|return
@@ -238,6 +266,9 @@ name|heapSizeDelta
 argument_list|,
 operator|-
 name|offHeapSizeDelta
+argument_list|,
+operator|-
+name|cellsCountDelta
 argument_list|)
 return|;
 block|}
@@ -268,6 +299,12 @@ operator|-
 name|delta
 operator|.
 name|getOffHeapSize
+argument_list|()
+argument_list|,
+operator|-
+name|delta
+operator|.
+name|getCellsCount
 argument_list|()
 argument_list|)
 return|;
@@ -292,6 +329,10 @@ parameter_list|()
 function_decl|;
 name|long
 name|getOffHeapSize
+parameter_list|()
+function_decl|;
+name|int
+name|getCellsCount
 parameter_list|()
 function_decl|;
 comment|/**    * @return Use this datastructure to return all three settings, {@link #getDataSize()},    * {@link #getHeapSize()}, and {@link #getOffHeapSize()}, in the one go.    */

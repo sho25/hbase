@@ -510,6 +510,11 @@ name|memstoreAccounting
 operator|.
 name|getOffHeapSize
 argument_list|()
+argument_list|,
+name|memstoreAccounting
+operator|.
+name|getCellsCount
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

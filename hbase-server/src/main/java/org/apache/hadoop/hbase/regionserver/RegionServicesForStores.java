@@ -254,6 +254,9 @@ name|heapSizeDelta
 parameter_list|,
 name|long
 name|offHeapSizeDelta
+parameter_list|,
+name|int
+name|cellsCountDelta
 parameter_list|)
 block|{
 name|region
@@ -265,6 +268,8 @@ argument_list|,
 name|heapSizeDelta
 argument_list|,
 name|offHeapSizeDelta
+argument_list|,
+name|cellsCountDelta
 argument_list|)
 expr_stmt|;
 block|}
