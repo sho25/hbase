@@ -3657,6 +3657,8 @@ argument_list|()
 return|;
 block|}
 comment|/**      * @return Name of this table and then a map of all of the column family      * descriptors (with only the non-default column family attributes)      */
+annotation|@
+name|Override
 specifier|public
 name|String
 name|toStringCustomizedValues

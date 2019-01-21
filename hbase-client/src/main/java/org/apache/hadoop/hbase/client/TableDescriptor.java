@@ -567,6 +567,11 @@ name|boolean
 name|isReadOnly
 parameter_list|()
 function_decl|;
+comment|/**    * @return Name of this table and then a map of all of the column family descriptors (with only    *         the non-default column family attributes)    */
+name|String
+name|toStringCustomizedValues
+parameter_list|()
+function_decl|;
 comment|/**    * Check if any of the table's cfs' replication scope are set to    * {@link HConstants#REPLICATION_SCOPE_GLOBAL}.    * @return {@code true} if we have, otherwise {@code false}.    */
 specifier|default
 name|boolean
