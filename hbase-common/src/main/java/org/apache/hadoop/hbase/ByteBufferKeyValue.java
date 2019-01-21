@@ -1053,12 +1053,10 @@ argument_list|(
 name|FIXED_OVERHEAD
 argument_list|)
 operator|+
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|this
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 return|;
 block|}
 annotation|@

@@ -131,20 +131,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -1288,12 +1274,10 @@ name|idxBuffer
 argument_list|,
 name|offset
 argument_list|,
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// length

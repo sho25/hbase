@@ -4342,12 +4342,10 @@ expr_stmt|;
 block|}
 name|curRowBytes
 operator|+=
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|cell
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 expr_stmt|;
 name|curRowKeyLength
 operator|=

@@ -2249,12 +2249,10 @@ if|if
 condition|(
 name|dataOffset
 operator|+
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|kv
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 operator|>
 name|chunkCreator
 operator|.
@@ -2403,12 +2401,10 @@ name|idxBuffer
 argument_list|,
 name|idxOffset
 argument_list|,
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|kv
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// length
@@ -2687,12 +2683,10 @@ name|idxBuffer
 argument_list|,
 name|idxOffset
 argument_list|,
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
 name|kv
-argument_list|)
+operator|.
+name|getSerializedSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// length

@@ -59,16 +59,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|OptionalInt
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -120,20 +110,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|KeyValueUtil
 import|;
 end_import
 
@@ -618,16 +594,6 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
-name|int
-name|len
-init|=
-name|KeyValueUtil
-operator|.
-name|length
-argument_list|(
-name|c
-argument_list|)
-decl_stmt|;
 if|if
 condition|(
 name|control
@@ -639,7 +605,10 @@ name|control
 argument_list|(
 name|flushName
 argument_list|,
-name|len
+name|c
+operator|.
+name|getSerializedSize
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
