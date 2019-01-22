@@ -1059,7 +1059,7 @@ specifier|protected
 name|HTable
 parameter_list|(
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 specifier|final
