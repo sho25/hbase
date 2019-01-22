@@ -2993,7 +2993,7 @@ name|boolean
 name|mayLogTooOld
 init|=
 name|nextLogTooOldNs
-operator|>
+operator|<=
 name|now
 decl_stmt|;
 name|ArrayList
