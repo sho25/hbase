@@ -3788,6 +3788,10 @@ name|int
 name|rpcTimeout
 decl_stmt|;
 specifier|private
+name|int
+name|getProcedureTimeout
+decl_stmt|;
+specifier|private
 name|RpcRetryingCallerFactory
 name|rpcCallerFactory
 decl_stmt|;
@@ -3921,6 +3925,24 @@ operator|.
 name|getInt
 argument_list|(
 literal|"hbase.client.sync.wait.timeout.msec"
+argument_list|,
+literal|10
+operator|*
+literal|60000
+argument_list|)
+expr_stmt|;
+comment|// 10min
+name|this
+operator|.
+name|getProcedureTimeout
+operator|=
+name|this
+operator|.
+name|conf
+operator|.
+name|getInt
+argument_list|(
+literal|"hbase.client.procedure.future.get.timeout.msec"
 argument_list|,
 literal|10
 operator|*
@@ -20512,11 +20534,51 @@ throws|,
 name|ExecutionException
 block|{
 comment|// TODO: should we ever spin forever?
-throw|throw
-operator|new
-name|UnsupportedOperationException
+comment|// fix HBASE-21715. TODO: If the function call get() without timeout limit is not allowed,
+comment|// is it possible to compose instead of inheriting from the class Future for this class?
+try|try
+block|{
+return|return
+name|get
+argument_list|(
+name|admin
+operator|.
+name|getProcedureTimeout
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+return|;
+block|}
+catch|catch
+parameter_list|(
+name|TimeoutException
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Failed to get the procedure with procId="
+operator|+
+name|procId
+operator|+
+literal|" throws exception "
+operator|+
+name|e
+operator|.
+name|getMessage
 argument_list|()
-throw|;
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+return|return
+literal|null
+return|;
+block|}
 block|}
 annotation|@
 name|Override
