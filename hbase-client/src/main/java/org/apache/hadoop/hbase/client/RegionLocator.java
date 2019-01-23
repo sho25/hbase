@@ -270,7 +270,7 @@ name|void
 name|clearRegionLocationCache
 parameter_list|()
 function_decl|;
-comment|/**    * Retrieves all of the regions associated with this table.    *<p/>    * Notice that the location for region replicas other than the default replica are also returned.    * @return a {@link List} of all regions associated with this table.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Retrieves all of the regions associated with this table.    *<p/>    * Usually we will go to meta table directly in this method so there is no {@code reload}    * parameter.    *<p/>    * Notice that the location for region replicas other than the default replica are also returned.    * @return a {@link List} of all regions associated with this table.    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|HRegionLocation

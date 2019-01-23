@@ -1072,7 +1072,7 @@ name|AsyncTableRegionLocatorImpl
 argument_list|(
 name|tableName
 argument_list|,
-name|locator
+name|this
 argument_list|)
 return|;
 block|}
