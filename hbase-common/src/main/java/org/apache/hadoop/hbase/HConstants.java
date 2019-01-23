@@ -2647,6 +2647,24 @@ name|DEFAULT_REGION_SERVER_REPLICATION_HANDLER_COUNT
 init|=
 literal|3
 decl_stmt|;
+comment|// Meta Transition handlers to deal with meta ReportRegionStateTransitionRequest. Meta transition
+comment|// should be dealt with in a separate handler in case blocking other region's transition.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_META_TRANSITION_HANDLER_COUNT
+init|=
+literal|"hbase.master.meta.transition.handler.count"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|MASTER__META_TRANSITION_HANDLER_COUNT_DEFAULT
+init|=
+literal|1
+decl_stmt|;
 comment|/** Conf key for enabling meta replication */
 specifier|public
 specifier|static
@@ -2779,7 +2797,7 @@ init|=
 literal|','
 decl_stmt|;
 comment|/**    * QOS attributes: these attributes are used to demarcate RPC call processing    * by different set of handlers. For example, HIGH_QOS tagged methods are    * handled by high priority handlers.    */
-comment|// normal_QOS< replication_QOS< replay_QOS< QOS_threshold< admin_QOS< high_QOS
+comment|// normal_QOS< replication_QOS< replay_QOS< QOS_threshold< admin_QOS< high_QOS< meta_QOS
 specifier|public
 specifier|static
 specifier|final
@@ -2844,6 +2862,14 @@ name|int
 name|SYSTEMTABLE_QOS
 init|=
 name|HIGH_QOS
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|META_QOS
+init|=
+literal|300
 decl_stmt|;
 comment|/** Directory under /hbase where archived hfiles are stored */
 specifier|public

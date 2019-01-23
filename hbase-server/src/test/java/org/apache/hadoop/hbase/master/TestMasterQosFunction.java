@@ -659,7 +659,7 @@ name|reportFuncName
 argument_list|,
 name|HConstants
 operator|.
-name|SYSTEMTABLE_QOS
+name|META_QOS
 argument_list|,
 name|qosFunction
 argument_list|,
@@ -674,7 +674,7 @@ name|reportFuncName
 argument_list|,
 name|HConstants
 operator|.
-name|NORMAL_QOS
+name|HIGH_QOS
 argument_list|,
 name|qosFunction
 argument_list|,

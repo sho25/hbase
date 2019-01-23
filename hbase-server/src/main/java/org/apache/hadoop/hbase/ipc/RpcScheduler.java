@@ -205,6 +205,13 @@ name|int
 name|getPriorityQueueLength
 parameter_list|()
 function_decl|;
+comment|/** Retrieves length of the meta priority queue for metrics. */
+specifier|public
+specifier|abstract
+name|int
+name|getMetaPriorityQueueLength
+parameter_list|()
+function_decl|;
 comment|/** Retrieves length of the replication queue for metrics. */
 specifier|public
 specifier|abstract
@@ -231,6 +238,13 @@ specifier|public
 specifier|abstract
 name|int
 name|getActivePriorityRpcHandlerCount
+parameter_list|()
+function_decl|;
+comment|/** Retrieves the number of active meta priority handler. */
+specifier|public
+specifier|abstract
+name|int
+name|getActiveMetaPriorityRpcHandlerCount
 parameter_list|()
 function_decl|;
 comment|/** Retrieves the number of active replication handler. */

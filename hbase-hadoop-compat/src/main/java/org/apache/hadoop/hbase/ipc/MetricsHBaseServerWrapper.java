@@ -57,6 +57,10 @@ name|getPriorityQueueLength
 parameter_list|()
 function_decl|;
 name|int
+name|getMetaPriorityQueueLength
+parameter_list|()
+function_decl|;
+name|int
 name|getNumOpenConnections
 parameter_list|()
 function_decl|;
@@ -74,6 +78,10 @@ parameter_list|()
 function_decl|;
 name|int
 name|getActiveReplicationRpcHandlerCount
+parameter_list|()
+function_decl|;
+name|int
+name|getActiveMetaPriorityRpcHandlerCount
 parameter_list|()
 function_decl|;
 name|long

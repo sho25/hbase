@@ -208,6 +208,11 @@ init|=
 literal|"numCallsInPriorityQueue"
 decl_stmt|;
 name|String
+name|METAPRIORITY_QUEUE_NAME
+init|=
+literal|"numCallsInMetaPriorityQueue"
+decl_stmt|;
+name|String
 name|REPLICATION_QUEUE_NAME
 init|=
 literal|"numCallsInReplicationQueue"
@@ -219,6 +224,11 @@ literal|"Number of calls in the replication call queue waiting to be run"
 decl_stmt|;
 name|String
 name|PRIORITY_QUEUE_DESC
+init|=
+literal|"Number of calls in the priority call queue waiting to be run"
+decl_stmt|;
+name|String
+name|METAPRIORITY_QUEUE_DESC
 init|=
 literal|"Number of calls in the priority call queue waiting to be run"
 decl_stmt|;

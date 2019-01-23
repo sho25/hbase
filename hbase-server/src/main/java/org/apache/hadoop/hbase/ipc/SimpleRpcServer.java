@@ -2989,6 +2989,13 @@ name|scheduler
 operator|.
 name|getPriorityQueueLength
 argument_list|()
+operator|+
+literal|", meta priority queued calls="
+operator|+
+name|scheduler
+operator|.
+name|getMetaPriorityQueueLength
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
