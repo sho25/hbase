@@ -43,7 +43,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 import|;

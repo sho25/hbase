@@ -11875,7 +11875,7 @@ argument_list|,
 name|i
 argument_list|)
 expr_stmt|;
-comment|// Prevent jitter in CollectionUtils#getPauseTime to affect result
+comment|// Prevent jitter in ConcurrentMapUtils#getPauseTime to affect result
 name|actualSleep
 operator|+=
 call|(

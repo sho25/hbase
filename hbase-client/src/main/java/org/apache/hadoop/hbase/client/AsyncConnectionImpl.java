@@ -363,7 +363,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|CollectionUtils
+name|ConcurrentMapUtils
 import|;
 end_import
 
@@ -1139,7 +1139,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsentEx
 argument_list|(
@@ -1242,7 +1242,7 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsentEx
 argument_list|(
