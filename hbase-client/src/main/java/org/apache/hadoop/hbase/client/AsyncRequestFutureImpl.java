@@ -4880,10 +4880,6 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|tableName
-operator|==
-literal|null
-operator|&&
 name|ClientExceptionsUtil
 operator|.
 name|isMetaClearingException
@@ -4892,9 +4888,8 @@ name|regionException
 argument_list|)
 condition|)
 block|{
-comment|// For multi-actions, we don't have a table name, but we want to make sure to clear the
-comment|// cache in case there were location-related exceptions. We don't to clear the cache
-comment|// for every possible exception that comes through, however.
+comment|// We want to make sure to clear the cache in case there were location-related exceptions.
+comment|// We don't to clear the cache for every possible exception that comes through, however.
 name|asyncProcess
 operator|.
 name|connection
