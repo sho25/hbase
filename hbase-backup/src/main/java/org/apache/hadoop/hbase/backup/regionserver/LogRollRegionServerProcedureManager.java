@@ -65,20 +65,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CoordinatedStateManager
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|backup
 operator|.
 name|BackupRestoreConstants
@@ -131,9 +117,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coordination
+name|errorhandling
 operator|.
-name|ZkCoordinatedStateManager
+name|ForeignExceptionDispatcher
 import|;
 end_import
 
@@ -147,9 +133,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|errorhandling
+name|procedure
 operator|.
-name|ForeignExceptionDispatcher
+name|ProcedureCoordinationManager
 import|;
 end_import
 
@@ -230,6 +216,22 @@ operator|.
 name|procedure
 operator|.
 name|SubprocedureFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure
+operator|.
+name|ZKProcedureCoordinationManager
 import|;
 end_import
 
@@ -730,11 +732,11 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-name|CoordinatedStateManager
+name|ProcedureCoordinationManager
 name|coordManager
 init|=
 operator|new
-name|ZkCoordinatedStateManager
+name|ZKProcedureCoordinationManager
 argument_list|(
 name|rss
 argument_list|)

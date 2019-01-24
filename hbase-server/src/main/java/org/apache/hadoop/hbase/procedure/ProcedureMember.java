@@ -410,6 +410,11 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Submit an subprocedure for execution.  This starts the local acquire phase.    * @param subproc the subprocedure to execute.    * @return<tt>true</tt> if the subprocedure was started correctly,<tt>false</tt> if it    *         could not be started. In the latter case, the subprocedure holds a reference to    *         the exception that caused the failure.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"FutureReturnValueIgnored"
+argument_list|)
 specifier|public
 name|boolean
 name|submitSubprocedure

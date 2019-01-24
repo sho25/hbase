@@ -502,6 +502,11 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|/**    * Submit an procedure to kick off its dependent subprocedures.    * @param proc Procedure to execute    * @return<tt>true</tt> if the procedure was started correctly,<tt>false</tt> if the    *         procedure or any subprocedures could not be started.  Failure could be due to    *         submitting a procedure multiple times (or one with the same name), or some sort    *         of IO problem.  On errors, the procedure's monitor holds a reference to the exception    *         that caused the failure.    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"FutureReturnValueIgnored"
+argument_list|)
 name|boolean
 name|submitProcedure
 parameter_list|(
