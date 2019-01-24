@@ -962,7 +962,6 @@ name|Put
 argument_list|>
 block|{
 specifier|public
-specifier|static
 enum|enum
 name|Counters
 block|{

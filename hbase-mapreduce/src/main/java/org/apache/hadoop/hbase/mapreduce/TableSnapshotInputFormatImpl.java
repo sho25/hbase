@@ -2924,7 +2924,6 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// TODO: restore from record readers to parallelize.
 name|RestoreSnapshotHelper
 operator|.
 name|copySnapshotForScanner

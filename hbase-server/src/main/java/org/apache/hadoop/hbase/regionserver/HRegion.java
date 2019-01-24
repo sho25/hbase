@@ -33656,9 +33656,9 @@ expr_stmt|;
 name|FileSystem
 name|fs
 init|=
-name|FileSystem
+name|rootDir
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
@@ -33987,9 +33987,9 @@ condition|)
 block|{
 name|fs
 operator|=
-name|FileSystem
+name|rootDir
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
@@ -34728,9 +34728,9 @@ condition|)
 block|{
 name|fs
 operator|=
-name|FileSystem
+name|rootDir
 operator|.
-name|get
+name|getFileSystem
 argument_list|(
 name|conf
 argument_list|)
