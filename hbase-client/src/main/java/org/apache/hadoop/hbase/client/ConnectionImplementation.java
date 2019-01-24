@@ -6154,7 +6154,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|clearRegionCache
+name|clearRegionLocationCache
 parameter_list|()
 block|{
 name|metaCache

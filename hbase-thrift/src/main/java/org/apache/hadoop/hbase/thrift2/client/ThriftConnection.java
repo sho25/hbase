@@ -1702,6 +1702,21 @@ literal|"batchCoprocessorService not supported in ThriftTable"
 argument_list|)
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|clearRegionLocationCache
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"clearRegionLocationCache not supported in ThriftTable"
+argument_list|)
+throw|;
+block|}
 block|}
 end_class
 

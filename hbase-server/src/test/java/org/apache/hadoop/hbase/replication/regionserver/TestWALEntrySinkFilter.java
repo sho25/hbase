@@ -2867,6 +2867,13 @@ block|}
 block|}
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|clearRegionLocationCache
+parameter_list|()
+block|{     }
 block|}
 block|}
 end_class

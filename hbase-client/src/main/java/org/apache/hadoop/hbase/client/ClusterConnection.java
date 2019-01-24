@@ -322,11 +322,18 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Allows flushing the region cache.    */
+comment|/**    * @deprecated {@link #clearRegionLocationCache()} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|clearRegionCache
 parameter_list|()
-function_decl|;
+block|{
+name|clearRegionLocationCache
+argument_list|()
+expr_stmt|;
+block|}
 name|void
 name|cacheLocation
 parameter_list|(
@@ -630,23 +637,6 @@ comment|/**    * @return the number of region servers that are currently running
 name|int
 name|getCurrentNrHRS
 parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool.    *    * @return an Hbck instance for active master. Active master is fetched from the zookeeper.    */
-name|Hbck
-name|getHbck
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool. This may only be used to by pass getting    * registered master from ZK. In situations where ZK is not available or active master is not    * registered with ZK and user can get master address by other means, master can be explicitly    * specified.    *    * @param masterServer explicit {@link ServerName} for master server    * @return an Hbck instance for a specified master server    */
-name|Hbck
-name|getHbck
-parameter_list|(
-name|ServerName
-name|masterServer
-parameter_list|)
 throws|throws
 name|IOException
 function_decl|;

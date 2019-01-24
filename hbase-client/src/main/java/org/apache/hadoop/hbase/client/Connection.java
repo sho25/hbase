@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -74,6 +74,34 @@ operator|.
 name|hbase
 operator|.
 name|Abortable
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseInterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -204,6 +232,11 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Clear all the entries in the region location cache, for all the tables.    *<p/>    * If you only want to clear the cache for a specific table, use    * {@link RegionLocator#clearRegionLocationCache()}.    *<p/>    * This may cause performance issue so use it with caution.    */
+name|void
+name|clearRegionLocationCache
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve an Admin implementation to administer an HBase cluster.    * The returned Admin is not guaranteed to be thread-safe.  A new instance should be created for    * each using thread.  This is a lightweight operation.  Pooling or caching of the returned    * Admin is not recommended.    *<br>    * The caller is responsible for calling {@link Admin#close()} on the returned    * Admin instance.    *    * @return an Admin instance for cluster administration    */
 name|Admin
 name|getAdmin
@@ -235,6 +268,59 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
+comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool.    *    * @return an Hbck instance for active master. Active master is fetched from the zookeeper.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|HBCK
+argument_list|)
+specifier|default
+name|Hbck
+name|getHbck
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
+comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool. This may only be used to by pass getting    * registered master from ZK. In situations where ZK is not available or active master is not    * registered with ZK and user can get master address by other means, master can be explicitly    * specified.    *    * @param masterServer explicit {@link ServerName} for master server    * @return an Hbck instance for a specified master server    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|HBCK
+argument_list|)
+specifier|default
+name|Hbck
+name|getHbck
+parameter_list|(
+name|ServerName
+name|masterServer
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|UnsupportedOperationException
+argument_list|(
+literal|"Not implemented"
+argument_list|)
+throw|;
+block|}
 block|}
 end_interface
 
