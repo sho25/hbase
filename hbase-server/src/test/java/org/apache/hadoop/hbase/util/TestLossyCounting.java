@@ -166,7 +166,7 @@ literal|100L
 argument_list|,
 name|lossyCounting
 operator|.
-name|getBuketSize
+name|getBucketSize
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -183,7 +183,7 @@ literal|50L
 argument_list|,
 name|lossyCounting2
 operator|.
-name|getBuketSize
+name|getBucketSize
 argument_list|()
 argument_list|)
 expr_stmt|;
