@@ -297,6 +297,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|access
+operator|.
+name|UserPermission
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -3739,6 +3757,80 @@ parameter_list|,
 specifier|final
 name|boolean
 name|rpcThrottleEnabled
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before granting user permissions.    * @param ctx the coprocessor instance's environment    * @param userPermission the user and permissions    * @param mergeExistingPermissions True if merge with previous granted permissions    */
+specifier|default
+name|void
+name|preGrant
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|UserPermission
+name|userPermission
+parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after granting user permissions.    * @param ctx the coprocessor instance's environment    * @param userPermission the user and permissions    * @param mergeExistingPermissions True if merge with previous granted permissions    */
+specifier|default
+name|void
+name|postGrant
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|UserPermission
+name|userPermission
+parameter_list|,
+name|boolean
+name|mergeExistingPermissions
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called before revoking user permissions.    * @param ctx the coprocessor instance's environment    * @param userPermission the user and permissions    */
+specifier|default
+name|void
+name|preRevoke
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|UserPermission
+name|userPermission
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after revoking user permissions.    * @param ctx the coprocessor instance's environment    * @param userPermission the user and permissions    */
+specifier|default
+name|void
+name|postRevoke
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|UserPermission
+name|userPermission
 parameter_list|)
 throws|throws
 name|IOException

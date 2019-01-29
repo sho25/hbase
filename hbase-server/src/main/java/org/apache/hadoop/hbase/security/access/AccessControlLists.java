@@ -957,6 +957,7 @@ name|class
 argument_list|)
 decl_stmt|;
 comment|/**    * Stores a new user permission grant in the access control lists table.    * @param conf the configuration    * @param userPerm the details of the permission to be granted    * @param t acl table instance. It is closed upon method return.    * @throws IOException in the case of an error accessing the metadata table    */
+specifier|public
 specifier|static
 name|void
 name|addUserPermission
@@ -1380,6 +1381,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Removes a previously granted permission from the stored access control    * lists.  The {@link TablePermission} being removed must exactly match what    * is stored -- no wildcard matching is attempted.  Ie, if user "bob" has    * been granted "READ" access to the "data" table, but only to column family    * plus qualifier "info:colA", then trying to call this method with only    * user "bob" and the table name "data" (but without specifying the    * column qualifier "info:colA") will have no effect.    *    * @param conf the configuration    * @param userPerm the details of the permission to be revoked    * @param t acl table    * @throws IOException if there is an error accessing the metadata table    */
+specifier|public
 specifier|static
 name|void
 name|removeUserPermission
