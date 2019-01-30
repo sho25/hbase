@@ -905,6 +905,21 @@ literal|111
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|Mockito
+operator|.
+name|when
+argument_list|(
+name|rs
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
+name|thenReturn
+argument_list|(
+name|CONF
+argument_list|)
+expr_stmt|;
 comment|//create a region
 name|TableName
 name|testTable

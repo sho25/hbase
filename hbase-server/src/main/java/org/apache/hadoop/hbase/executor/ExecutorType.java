@@ -150,6 +150,11 @@ name|RS_SWITCH_RPC_THROTTLE
 argument_list|(
 literal|33
 argument_list|)
+block|,
+name|RS_IN_MEMORY_COMPACTION
+argument_list|(
+literal|34
+argument_list|)
 block|;
 name|ExecutorType
 parameter_list|(

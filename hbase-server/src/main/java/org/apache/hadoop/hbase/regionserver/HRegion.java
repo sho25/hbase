@@ -3109,16 +3109,10 @@ operator|new
 name|ThreadSafeMemStoreSizing
 argument_list|()
 decl_stmt|;
-specifier|private
-specifier|final
+annotation|@
+name|VisibleForTesting
 name|RegionServicesForStores
 name|regionServicesForStores
-init|=
-operator|new
-name|RegionServicesForStores
-argument_list|(
-name|this
-argument_list|)
 decl_stmt|;
 comment|// Debug possible data loss due to WAL off
 specifier|final
@@ -4754,6 +4748,18 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|regionServicesForStores
+operator|=
+operator|new
+name|RegionServicesForStores
+argument_list|(
+name|this
+argument_list|,
+name|rsServices
+argument_list|)
+expr_stmt|;
 name|setHTableSpecificConf
 argument_list|()
 expr_stmt|;

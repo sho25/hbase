@@ -349,6 +349,23 @@ name|IN_MEMORY_FLUSH_MULTIPLIER
 init|=
 literal|1
 decl_stmt|;
+comment|// In-Memory compaction pool size
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|IN_MEMORY_CONPACTION_POOL_SIZE_KEY
+init|=
+literal|"hbase.regionserver.inmemory.compaction.pool.size"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|IN_MEMORY_CONPACTION_POOL_SIZE_DEFAULT
+init|=
+literal|10
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
