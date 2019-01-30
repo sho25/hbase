@@ -2091,7 +2091,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    + Split a table. The method will execute split action for each region in table.    + Asynchronous operation.    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split a table. The method will execute split action for each region in table.    * Asynchronous operation.    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
