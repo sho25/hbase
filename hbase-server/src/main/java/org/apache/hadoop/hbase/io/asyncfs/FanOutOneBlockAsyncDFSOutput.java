@@ -2571,6 +2571,8 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
+comment|// TODO: we should perhaps measure time taken per DN here;
+comment|//       we could collect statistics per DN, and/or exclude bad nodes in createOutput.
 name|datanodeList
 operator|.
 name|forEach

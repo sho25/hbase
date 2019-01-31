@@ -1712,6 +1712,9 @@ block|{
 break|break;
 block|}
 block|}
+name|boolean
+name|doRequestRoll
+init|=
 name|postSync
 argument_list|(
 name|System
@@ -1726,7 +1729,7 @@ argument_list|(
 literal|true
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 if|if
 condition|(
 name|trySetReadyForRolling
@@ -1739,12 +1742,17 @@ return|return;
 block|}
 if|if
 condition|(
+operator|(
+operator|!
+name|doRequestRoll
+operator|&&
 name|writer
 operator|.
 name|getLength
 argument_list|()
 operator|<
 name|logrollsize
+operator|)
 operator|||
 name|rollRequested
 condition|)
