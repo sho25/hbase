@@ -249,6 +249,7 @@ else|:
 literal|null
 expr_stmt|;
 block|}
+specifier|public
 name|boolean
 name|isTrackingMetrics
 parameter_list|()
@@ -262,6 +263,7 @@ literal|null
 return|;
 block|}
 comment|/**    * Get the metrics instance. Should only be called after a call to {@link #isTrackingMetrics()}    * has been made to confirm that metrics are indeed being tracked.    * @return {@link ServerSideScanMetrics} instance that is tracking metrics for this scan    */
+specifier|public
 name|ServerSideScanMetrics
 name|getMetrics
 parameter_list|()
