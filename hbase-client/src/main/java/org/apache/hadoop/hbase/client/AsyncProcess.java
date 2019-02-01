@@ -519,7 +519,7 @@ name|long
 name|id
 decl_stmt|;
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|private
@@ -594,7 +594,7 @@ name|periodToLog
 decl_stmt|;
 name|AsyncProcess
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|hc
 parameter_list|,
 name|Configuration

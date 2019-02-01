@@ -252,7 +252,7 @@ decl_stmt|;
 specifier|public
 name|FlushRegionCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcControllerFactory
@@ -300,7 +300,7 @@ block|}
 specifier|public
 name|FlushRegionCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcControllerFactory

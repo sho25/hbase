@@ -271,7 +271,7 @@ literal|null
 decl_stmt|;
 specifier|protected
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|protected
@@ -297,7 +297,7 @@ decl_stmt|;
 specifier|public
 name|RegionAdminServiceCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcControllerFactory
@@ -328,7 +328,7 @@ block|}
 specifier|public
 name|RegionAdminServiceCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcControllerFactory
@@ -366,7 +366,7 @@ block|}
 specifier|public
 name|RegionAdminServiceCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcControllerFactory
@@ -708,12 +708,12 @@ name|tries
 argument_list|)
 return|;
 block|}
-specifier|public
+specifier|private
 specifier|static
 name|RegionLocations
 name|getRegionLocations
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName

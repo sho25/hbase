@@ -178,7 +178,7 @@ parameter_list|,
 name|TableName
 name|name
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory

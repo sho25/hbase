@@ -227,7 +227,7 @@ argument_list|>
 block|{
 specifier|private
 specifier|final
-name|Connection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|private
@@ -268,7 +268,7 @@ comment|/**    * @param connection Connection to use.    * @param rpcController 
 specifier|public
 name|RegionServerCallable
 parameter_list|(
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName
@@ -301,7 +301,7 @@ block|}
 specifier|public
 name|RegionServerCallable
 parameter_list|(
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName
@@ -572,14 +572,11 @@ block|}
 block|}
 comment|/**    * @return {@link ClusterConnection} instance used by this Callable.    */
 specifier|protected
-name|ClusterConnection
+name|ConnectionImplementation
 name|getConnection
 parameter_list|()
 block|{
 return|return
-operator|(
-name|ClusterConnection
-operator|)
 name|this
 operator|.
 name|connection

@@ -4274,9 +4274,7 @@ return|return
 literal|true
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Find region location hosting passed row    * @param tableName table name    * @param row Row to find.    * @param reload If true do not use cache, otherwise bypass.    * @return Location of row.    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|getRegionLocation
 parameter_list|(
@@ -4677,57 +4675,6 @@ literal|false
 return|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
-name|HRegionLocation
-name|locateRegion
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|regionName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|RegionLocations
-name|locations
-init|=
-name|locateRegion
-argument_list|(
-name|RegionInfo
-operator|.
-name|getTable
-argument_list|(
-name|regionName
-argument_list|)
-argument_list|,
-name|RegionInfo
-operator|.
-name|getStartKey
-argument_list|(
-name|regionName
-argument_list|)
-argument_list|,
-literal|false
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
-return|return
-name|locations
-operator|==
-literal|null
-condition|?
-literal|null
-else|:
-name|locations
-operator|.
-name|getRegionLocation
-argument_list|()
-return|;
-block|}
 specifier|private
 name|boolean
 name|isDeadServer
@@ -4759,9 +4706,7 @@ argument_list|)
 return|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @return list of region locations for all regions of table    * @throws IOException if IO failure occurs    */
 name|List
 argument_list|<
 name|HRegionLocation
@@ -4785,9 +4730,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Gets the locations of all regions in the specified table,<i>tableName</i>.    * @param tableName table to get regions of    * @param useCache Should we use the cache to retrieve the region information.    * @param offlined True if we are to include offlined regions, false and we'll leave out offlined    *          regions from returned list.    * @return list of region locations for all regions of table    * @throws IOException if IO failure occurs    */
 name|List
 argument_list|<
 name|HRegionLocation
@@ -4940,9 +4883,7 @@ return|return
 name|locations
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i> lives in.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in question    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|locateRegion
 parameter_list|(
@@ -4985,9 +4926,7 @@ name|getRegionLocation
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i> lives in, ignoring any    * value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @return HRegionLocation that describes where to find the region in question    * @throws IOException if a remote or network exception occurs    */
 name|HRegionLocation
 name|relocateRegion
 parameter_list|(
@@ -5034,9 +4973,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Find the location of the region of<i>tableName</i> that<i>row</i>    * lives in, ignoring any value that might be in the cache.    * @param tableName name of the table<i>row</i> is in    * @param row row key you're trying to find the region of    * @param replicaId the replicaId of the region    * @return RegionLocations that describe where to find the region in    *   question    * @throws IOException if a remote or network exception occurs    */
 name|RegionLocations
 name|relocateRegion
 parameter_list|(
@@ -5104,9 +5041,7 @@ name|replicaId
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * @param tableName table to get regions of    * @param row the row    * @param useCache Should we use the cache to retrieve the region information.    * @param retry do we retry    * @return region locations for this row.    * @throws IOException if IO failure occurs    */
 name|RegionLocations
 name|locateRegion
 parameter_list|(
@@ -5145,9 +5080,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**   *   * @param tableName table to get regions of   * @param row the row   * @param useCache Should we use the cache to retrieve the region information.   * @param retry do we retry   * @param replicaId the replicaId for the region   * @return region locations for this row.   * @throws IOException if IO failure occurs   */
 name|RegionLocations
 name|locateRegion
 parameter_list|(
@@ -6223,9 +6156,6 @@ block|}
 block|}
 block|}
 comment|/**    * Put a newly discovered HRegionLocation into the cache.    * @param tableName The table name.    * @param location the new location    */
-annotation|@
-name|Override
-specifier|public
 name|void
 name|cacheLocation
 parameter_list|(
@@ -6273,7 +6203,6 @@ name|row
 argument_list|)
 return|;
 block|}
-specifier|public
 name|void
 name|clearRegionCache
 parameter_list|(
@@ -6296,10 +6225,7 @@ name|row
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Delete all cached entries of a table that maps to a specific location.    */
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Clear any caches that pertain to server name<code>sn</code>.    * @param sn A server name    */
 name|void
 name|clearCaches
 parameter_list|(
@@ -6329,9 +6255,7 @@ name|clearCache
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Allows flushing the region cache of all locations that pertain to<code>tableName</code>    * @param tableName Name of the table whose regions we are to remove from cache.    */
 name|void
 name|clearRegionCache
 parameter_list|(
@@ -10091,9 +10015,6 @@ name|newHrl
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|public
 name|void
 name|deleteCachedRegionLocation
 parameter_list|(
@@ -10111,9 +10032,6 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Update the location with the new value (if the exception is a RegionMovedException)    * or delete it from the cache. Does nothing if we can be sure from the exception that    * the location is still accurate, or if the cache has already been updated.    * @param exception an object (to simplify user code) on which we will try to find a nested    *   or wrapped or both RegionMovedException    * @param source server that is the source of the location update.    */
-annotation|@
-name|Override
-specifier|public
 name|void
 name|updateCachedLocations
 parameter_list|(

@@ -1442,12 +1442,9 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// create table
-name|ClusterConnection
+name|Connection
 name|conn
 init|=
-operator|(
-name|ClusterConnection
-operator|)
 name|TEST_UTIL
 operator|.
 name|getConnection

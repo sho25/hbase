@@ -143,7 +143,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory

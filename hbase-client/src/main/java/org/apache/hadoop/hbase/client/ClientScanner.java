@@ -484,7 +484,7 @@ name|maxScannerResultSize
 decl_stmt|;
 specifier|private
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|protected
@@ -548,7 +548,7 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory
@@ -799,7 +799,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|protected
-name|ClusterConnection
+name|ConnectionImplementation
 name|getConnection
 parameter_list|()
 block|{

@@ -2075,12 +2075,7 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-operator|(
-operator|(
-name|ClusterConnection
-operator|)
 name|connection
-operator|)
 operator|.
 name|clearRegionLocationCache
 argument_list|()

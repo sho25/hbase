@@ -254,7 +254,7 @@ name|BufferedMutatorImpl
 block|{
 name|MyBufferedMutator
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|RpcRetryingCallerFactory

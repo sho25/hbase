@@ -807,7 +807,7 @@ name|STRONG
 decl_stmt|;
 specifier|private
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|private

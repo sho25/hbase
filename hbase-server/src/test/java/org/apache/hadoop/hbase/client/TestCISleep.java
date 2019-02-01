@@ -724,7 +724,7 @@ name|Object
 argument_list|>
 argument_list|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|TEST_UTIL
 operator|.

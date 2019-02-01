@@ -406,7 +406,7 @@ name|pool
 decl_stmt|;
 specifier|protected
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|cConnection
 decl_stmt|;
 specifier|protected
@@ -463,7 +463,7 @@ parameter_list|,
 name|TableName
 name|tableName
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|cConnection
 parameter_list|,
 specifier|final
@@ -975,21 +975,9 @@ else|else
 block|{
 comment|// We cannot get the primary replica location, it is possible that the region
 comment|// server hosting meta is down, it needs to proceed to try cached replicas.
-if|if
-condition|(
-name|cConnection
-operator|instanceof
-name|ConnectionImplementation
-condition|)
-block|{
 name|rl
 operator|=
-operator|(
-operator|(
-name|ConnectionImplementation
-operator|)
 name|cConnection
-operator|)
 operator|.
 name|getCachedLocation
 argument_list|(
@@ -1018,14 +1006,6 @@ name|skipPrimary
 operator|=
 literal|true
 expr_stmt|;
-block|}
-else|else
-block|{
-comment|// For completeness
-throw|throw
-name|e
-throw|;
-block|}
 block|}
 block|}
 specifier|final
@@ -1592,7 +1572,7 @@ parameter_list|,
 name|int
 name|replicaId
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|cConnection
 parameter_list|,
 name|TableName

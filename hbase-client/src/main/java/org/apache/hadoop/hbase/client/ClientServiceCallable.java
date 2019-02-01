@@ -159,6 +159,9 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
+operator|(
+name|ConnectionImplementation
+operator|)
 name|connection
 argument_list|,
 name|tableName

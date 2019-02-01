@@ -793,7 +793,7 @@ argument_list|)
 expr_stmt|;
 comment|// Get mocked connection.   Getting the connection will register it so when HBaseAdmin is
 comment|// constructed with same configuration, it will find this mocked connection.
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
 name|HConnectionTestingUtility
@@ -803,7 +803,7 @@ argument_list|(
 name|configuration
 argument_list|)
 decl_stmt|;
-comment|// Mock so we get back the master interface.  Make it so when createTable is called, we throw
+comment|// Mock so we get back the master interface. Make it so when createTable is called, we throw
 comment|// the PleaseHoldException.
 name|MasterKeepAliveConnection
 name|masterAdmin
@@ -1957,12 +1957,12 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
 name|mock
 argument_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|.
 name|class
 argument_list|)

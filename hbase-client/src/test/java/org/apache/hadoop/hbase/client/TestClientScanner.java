@@ -535,7 +535,7 @@ decl_stmt|;
 name|Configuration
 name|conf
 decl_stmt|;
-name|ClusterConnection
+name|ConnectionImplementation
 name|clusterConn
 decl_stmt|;
 name|RpcRetryingCallerFactory
@@ -569,7 +569,7 @@ name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|.
 name|class
 argument_list|)
@@ -692,7 +692,7 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory

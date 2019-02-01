@@ -298,7 +298,7 @@ decl_stmt|;
 annotation|@
 name|Mock
 specifier|private
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 annotation|@
