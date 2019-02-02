@@ -239,7 +239,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|TestLoadIncrementalHFiles
+name|TestBulkLoadHFiles
 import|;
 end_import
 
@@ -620,7 +620,7 @@ expr_stmt|;
 name|int
 name|actual
 init|=
-name|TestLoadIncrementalHFiles
+name|TestBulkLoadHFiles
 operator|.
 name|loadHFiles
 argument_list|(
@@ -752,7 +752,7 @@ expr_stmt|;
 name|int
 name|actual1
 init|=
-name|TestLoadIncrementalHFiles
+name|TestBulkLoadHFiles
 operator|.
 name|loadHFiles
 argument_list|(

@@ -1503,6 +1503,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|tool
+operator|.
+name|BulkLoadHFilesTool
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -19301,7 +19317,11 @@ name|print
 argument_list|(
 literal|"Bulk load command looks like: "
 operator|+
-literal|"hbase org.apache.hadoop.hbase.tool.LoadIncrementalHFiles "
+name|BulkLoadHFilesTool
+operator|.
+name|NAME
+operator|+
+literal|" "
 operator|+
 name|path
 operator|.

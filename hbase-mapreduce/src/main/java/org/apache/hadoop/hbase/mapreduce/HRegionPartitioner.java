@@ -228,7 +228,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  *  *<p>This class is not suitable as partitioner creating hfiles  * for incremental bulk loads as region spread will likely change between time of  * hfile creation and load time. See {@link org.apache.hadoop.hbase.tool.LoadIncrementalHFiles}  * and<a href="http://hbase.apache.org/book.html#arch.bulk.load">Bulk Load</a>.</p>  *  * @param<KEY>  The type of the key.  * @param<VALUE>  The type of the value.  */
+comment|/**  * This is used to partition the output keys into groups of keys.  * Keys are grouped according to the regions that currently exist  * so that each reducer fills a single region so load is distributed.  *  *<p>This class is not suitable as partitioner creating hfiles  * for incremental bulk loads as region spread will likely change between time of  * hfile creation and load time. See {@link org.apache.hadoop.hbase.tool.BulkLoadHFiles}  * and<a href="http://hbase.apache.org/book.html#arch.bulk.load">Bulk Load</a>.</p>  *  * @param<KEY>  The type of the key.  * @param<VALUE>  The type of the value.  */
 end_comment
 
 begin_class

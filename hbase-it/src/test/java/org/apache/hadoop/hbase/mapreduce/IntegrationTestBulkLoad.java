@@ -437,22 +437,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Table
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|TableDescriptor
 import|;
 end_import
@@ -597,7 +581,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 import|;
 end_import
 
@@ -1988,17 +1972,6 @@ operator|.
 name|getAdmin
 argument_list|()
 init|;
-name|Table
-name|table
-operator|=
-name|conn
-operator|.
-name|getTable
-argument_list|(
-name|getTablename
-argument_list|()
-argument_list|)
-init|;
 name|RegionLocator
 name|regionLocator
 operator|=
@@ -2018,10 +1991,13 @@ name|configureIncrementalLoad
 argument_list|(
 name|job
 argument_list|,
-name|table
+name|admin
 operator|.
 name|getDescriptor
+argument_list|(
+name|getTablename
 argument_list|()
+argument_list|)
 argument_list|,
 name|regionLocator
 argument_list|)
@@ -2039,12 +2015,14 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Create a new loader.
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 name|loader
 init|=
-operator|new
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)
@@ -2052,18 +2030,14 @@ decl_stmt|;
 comment|// Load the HFiles in.
 name|loader
 operator|.
-name|doBulkLoad
+name|bulkLoad
 argument_list|(
+name|getTablename
+argument_list|()
+argument_list|,
 name|p
-argument_list|,
-name|admin
-argument_list|,
-name|table
-argument_list|,
-name|regionLocator
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Delete the files.
 name|util
 operator|.

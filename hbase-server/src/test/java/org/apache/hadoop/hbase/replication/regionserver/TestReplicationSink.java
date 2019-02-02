@@ -479,7 +479,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 import|;
 end_import
 
@@ -2113,7 +2113,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testRethrowRetriesExhaustedWithDetailsException
+name|testRethrowRetriesExhaustedException
 parameter_list|()
 throws|throws
 name|Exception
@@ -2340,7 +2340,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 name|e
 parameter_list|)
 block|{         }

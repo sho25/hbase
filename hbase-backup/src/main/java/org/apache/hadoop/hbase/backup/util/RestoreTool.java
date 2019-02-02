@@ -409,7 +409,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFilesTool
 import|;
 end_import
 
@@ -2635,7 +2635,7 @@ block|}
 block|}
 block|}
 return|return
-name|LoadIncrementalHFiles
+name|BulkLoadHFilesTool
 operator|.
 name|inferBoundaries
 argument_list|(
@@ -2643,7 +2643,7 @@ name|map
 argument_list|)
 return|;
 block|}
-comment|/**    * Prepare the table for bulkload, most codes copied from    * {@link LoadIncrementalHFiles#createTable(TableName, Path, Admin)}    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
+comment|/**    * Prepare the table for bulkload, most codes copied from {@code createTable} method in    * {@code BulkLoadHFilesTool}.    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
 specifier|private
 name|void
 name|checkAndCreateTable

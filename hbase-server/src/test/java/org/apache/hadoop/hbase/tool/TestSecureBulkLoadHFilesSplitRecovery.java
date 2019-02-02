@@ -190,7 +190,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reruns TestSecureLoadIncrementalHFilesSplitRecovery using LoadIncrementalHFiles in secure mode.  * This suite is unable to verify the security handoff/turnove as miniCluster is running as system  * user thus has root privileges and delegation tokens don't seem to work on miniDFS.  *<p>  * Thus SecureBulkload can only be completely verified by running integration tests against a secure  * cluster. This suite is still invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
+comment|/**  * Reruns TestBulkLoadHFilesSplitRecovery using BulkLoadHFiles in secure mode.  * This suite is unable to verify the security handoff/turnove as miniCluster is running as system  * user thus has root privileges and delegation tokens don't seem to work on miniDFS.  *<p/>  * Thus SecureBulkload can only be completely verified by running integration tests against a secure  * cluster. This suite is still invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
 end_comment
 
 begin_class
@@ -209,9 +209,9 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestSecureLoadIncrementalHFilesSplitRecovery
+name|TestSecureBulkLoadHFilesSplitRecovery
 extends|extends
-name|TestLoadIncrementalHFilesSplitRecovery
+name|TestBulkLoadHFilesSplitRecovery
 block|{
 annotation|@
 name|ClassRule
@@ -225,7 +225,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestSecureLoadIncrementalHFilesSplitRecovery
+name|TestSecureBulkLoadHFilesSplitRecovery
 operator|.
 name|class
 argument_list|)

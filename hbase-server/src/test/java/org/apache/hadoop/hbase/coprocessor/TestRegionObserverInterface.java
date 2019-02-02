@@ -833,7 +833,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 import|;
 end_import
 
@@ -4332,24 +4332,18 @@ name|A
 argument_list|)
 expr_stmt|;
 comment|// Bulk load
-operator|new
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)
 operator|.
-name|doBulkLoad
+name|bulkLoad
 argument_list|(
+name|tableName
+argument_list|,
 name|dir
-argument_list|,
-name|util
-operator|.
-name|getAdmin
-argument_list|()
-argument_list|,
-name|table
-argument_list|,
-name|locator
 argument_list|)
 expr_stmt|;
 name|verifyMethodResult

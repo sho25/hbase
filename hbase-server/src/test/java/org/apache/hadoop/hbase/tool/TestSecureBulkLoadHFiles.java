@@ -196,7 +196,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Reruns TestLoadIncrementalHFiles using LoadIncrementalHFiles in secure mode. This suite is unable  * to verify the security handoff/turnover as miniCluster is running as system user thus has root  * privileges and delegation tokens don't seem to work on miniDFS.  *<p>  * Thus SecureBulkload can only be completely verified by running integration tests against a secure  * cluster. This suite is still invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
+comment|/**  * Reruns TestBulkLoadHFiles using BulkLoadHFiles in secure mode. This suite is unable  * to verify the security handoff/turnover as miniCluster is running as system user thus has root  * privileges and delegation tokens don't seem to work on miniDFS.  *<p/>  * Thus SecureBulkload can only be completely verified by running integration tests against a secure  * cluster. This suite is still invaluable as it verifies the other mechanisms that need to be  * supported as part of a LoadIncrementalFiles call.  */
 end_comment
 
 begin_class
@@ -215,9 +215,9 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestSecureLoadIncrementalHFiles
+name|TestSecureBulkLoadHFiles
 extends|extends
-name|TestLoadIncrementalHFiles
+name|TestBulkLoadHFiles
 block|{
 annotation|@
 name|ClassRule
@@ -231,7 +231,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestSecureLoadIncrementalHFiles
+name|TestSecureBulkLoadHFiles
 operator|.
 name|class
 argument_list|)
@@ -279,7 +279,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 operator|.
 name|MAX_FILES_PER_REGION_PER_FAMILY
 argument_list|,

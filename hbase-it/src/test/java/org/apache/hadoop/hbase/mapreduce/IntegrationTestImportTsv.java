@@ -367,7 +367,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFilesTool
 import|;
 end_import
 
@@ -520,7 +520,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Validate ImportTsv + LoadIncrementalHFiles on a distributed cluster.  */
+comment|/**  * Validate ImportTsv + BulkLoadFiles on a distributed cluster.  */
 end_comment
 
 begin_class
@@ -958,14 +958,10 @@ operator|.
 name|run
 argument_list|(
 operator|new
-name|LoadIncrementalHFiles
-argument_list|(
-operator|new
-name|Configuration
+name|BulkLoadHFilesTool
 argument_list|(
 name|getConf
 argument_list|()
-argument_list|)
 argument_list|)
 argument_list|,
 name|args

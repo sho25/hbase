@@ -1059,7 +1059,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 import|;
 end_import
 
@@ -5147,24 +5147,18 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-operator|new
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)
 operator|.
-name|doBulkLoad
+name|bulkLoad
 argument_list|(
+name|currentTableName
+argument_list|,
 name|tableDir
-argument_list|,
-name|admin
-argument_list|,
-name|currentTable
-argument_list|,
-name|singleTableInfo
-operator|.
-name|getRegionLocator
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Ensure data shows up
@@ -5181,7 +5175,7 @@ block|{
 comment|// no rows should be extracted
 name|assertEquals
 argument_list|(
-literal|"LoadIncrementalHFiles should put expected data in table"
+literal|"BulkLoadHFiles should put expected data in table"
 argument_list|,
 name|expectedRows
 argument_list|,
@@ -5209,7 +5203,7 @@ name|ROWSPERSPLIT
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"LoadIncrementalHFiles should put expected data in table"
+literal|"BulkLoadHFiles should put expected data in table"
 argument_list|,
 name|expectedRows
 argument_list|,
@@ -8405,21 +8399,21 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Perform the actual load
-operator|new
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)
 operator|.
-name|doBulkLoad
+name|bulkLoad
 argument_list|(
-name|testDir
-argument_list|,
-name|admin
-argument_list|,
 name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|,
-name|locator
+name|testDir
 argument_list|)
 expr_stmt|;
 block|}
@@ -8440,7 +8434,7 @@ name|ROWSPERSPLIT
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|"LoadIncrementalHFiles should put expected data in table"
+literal|"BulkLoadHFiles should put expected data in table"
 argument_list|,
 name|expectedRows
 argument_list|,
@@ -9028,21 +9022,21 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Perform the actual load
-operator|new
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
+operator|.
+name|create
 argument_list|(
 name|conf
 argument_list|)
 operator|.
-name|doBulkLoad
+name|bulkLoad
 argument_list|(
-name|testDir
-argument_list|,
-name|admin
-argument_list|,
 name|table
+operator|.
+name|getName
+argument_list|()
 argument_list|,
-name|regionLocator
+name|testDir
 argument_list|)
 expr_stmt|;
 comment|// Ensure data shows up
@@ -9060,7 +9054,7 @@ name|ROWSPERSPLIT
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|"LoadIncrementalHFiles should put expected data in table"
+literal|"BulkLoadHFiles should put expected data in table"
 argument_list|,
 name|expectedRows
 operator|+

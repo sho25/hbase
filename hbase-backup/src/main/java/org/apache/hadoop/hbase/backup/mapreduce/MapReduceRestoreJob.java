@@ -35,26 +35,6 @@ name|util
 operator|.
 name|BackupUtils
 operator|.
-name|failed
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|backup
-operator|.
-name|util
-operator|.
-name|BackupUtils
-operator|.
 name|succeeded
 import|;
 end_import
@@ -187,7 +167,7 @@ name|hbase
 operator|.
 name|tool
 operator|.
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 import|;
 end_import
 
@@ -240,7 +220,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * MapReduce implementation of {@link RestoreJob}  *  * For backup restore, it runs {@link MapReduceHFileSplitterJob} job and creates  * HFiles which are aligned with a region boundaries of a table being  * restored.  *  * The resulting HFiles then are loaded using HBase bulk load tool  * {@link LoadIncrementalHFiles}  */
+comment|/**  * MapReduce implementation of {@link RestoreJob}  *  * For backup restore, it runs {@link MapReduceHFileSplitterJob} job and creates  * HFiles which are aligned with a region boundaries of a table being  * restored.  *  * The resulting HFiles then are loaded using HBase bulk load tool {@link BulkLoadHFiles}.  */
 end_comment
 
 begin_class
@@ -492,9 +472,6 @@ decl_stmt|;
 name|int
 name|result
 decl_stmt|;
-name|int
-name|loaderResult
-decl_stmt|;
 try|try
 block|{
 name|player
@@ -523,7 +500,7 @@ argument_list|)
 condition|)
 block|{
 comment|// do bulk load
-name|LoadIncrementalHFiles
+name|BulkLoadHFiles
 name|loader
 init|=
 name|BackupUtils
@@ -552,40 +529,22 @@ name|bulkOutputPath
 argument_list|)
 expr_stmt|;
 block|}
-name|String
-index|[]
-name|args
-init|=
-block|{
-name|bulkOutputPath
+if|if
+condition|(
+name|loader
 operator|.
-name|toString
-argument_list|()
-block|,
+name|bulkLoad
+argument_list|(
 name|newTableNames
 index|[
 name|i
 index|]
+argument_list|,
+name|bulkOutputPath
+argument_list|)
 operator|.
-name|getNameAsString
+name|isEmpty
 argument_list|()
-block|}
-decl_stmt|;
-name|loaderResult
-operator|=
-name|loader
-operator|.
-name|run
-argument_list|(
-name|args
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|failed
-argument_list|(
-name|loaderResult
-argument_list|)
 condition|)
 block|{
 throw|throw
@@ -596,9 +555,7 @@ literal|"Can not restore from backup directory "
 operator|+
 name|dirs
 operator|+
-literal|" (check Hadoop and HBase logs). Bulk loader return code ="
-operator|+
-name|loaderResult
+literal|" (check Hadoop and HBase logs). Bulk loader returns null"
 argument_list|)
 throw|;
 block|}
