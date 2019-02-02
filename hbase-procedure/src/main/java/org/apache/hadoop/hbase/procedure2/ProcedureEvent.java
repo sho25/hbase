@@ -230,7 +230,65 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Wakes up the suspended procedures only if the given {@code proc} is waiting on this event.    *<p/>    * Mainly used by region assignment to reject stale OpenRegionProcedure/CloseRegionProcedure. Use    * with caution as it will cause performance issue if there are lots of procedures waiting on the    * event.    */
+specifier|public
+specifier|synchronized
+name|boolean
+name|wakeIfSuspended
+parameter_list|(
+name|AbstractProcedureScheduler
+name|procedureScheduler
+parameter_list|,
+name|Procedure
+argument_list|<
+name|?
+argument_list|>
+name|proc
+parameter_list|)
+block|{
+if|if
+condition|(
+name|suspendedProcedures
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|anyMatch
+argument_list|(
+name|p
+lambda|->
+name|p
+operator|.
+name|getProcId
+argument_list|()
+operator|==
+name|proc
+operator|.
+name|getProcId
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|wake
+argument_list|(
+name|procedureScheduler
+argument_list|)
+block|;
+return|return
+literal|true
+return|;
+block|}
+return|return
+literal|false
+return|;
+block|}
+end_class
+
+begin_comment
 comment|/**    * Wakes up all the given events and puts the procedures waiting on them back into    * ProcedureScheduler queues.    */
+end_comment
+
+begin_function
 specifier|public
 specifier|static
 name|void
@@ -252,7 +310,13 @@ name|events
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Only to be used by ProcedureScheduler implementations.    * Reason: To wake up multiple events, locking sequence is    * schedLock --> synchronized (event)    * To wake up an event, both schedLock() and synchronized(event) are required.    * The order is schedLock() --> synchronized(event) because when waking up multiple events    * simultaneously, we keep the scheduler locked until all procedures suspended on these events    * have been added back to the queue (Maybe it's not required? Evaluate!)    * To avoid deadlocks, we want to keep the locking order same even when waking up single event.    * That's why, {@link #wake(AbstractProcedureScheduler)} above uses the same code path as used    * when waking up multiple events.    * Access should remain package-private.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -330,7 +394,13 @@ name|clear
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Access to suspendedProcedures is 'synchronized' on this object, but it's fine to return it    * here for tests.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -342,6 +412,9 @@ return|return
 name|suspendedProcedures
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -370,8 +443,8 @@ operator|+
 name|suspendedProcedures
 return|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 

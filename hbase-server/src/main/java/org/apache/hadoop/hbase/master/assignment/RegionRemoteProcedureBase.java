@@ -486,42 +486,6 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
-name|ProcedureEvent
-argument_list|<
-name|?
-argument_list|>
-name|event
-init|=
-name|regionNode
-operator|.
-name|getProcedureEvent
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|event
-operator|.
-name|isReady
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"The procedure event of procedure {} for region {} to server {} is not suspended, "
-operator|+
-literal|"usually this should not happen, but anyway let's skip the following wake up code, "
-argument_list|,
-name|this
-argument_list|,
-name|region
-argument_list|,
-name|targetServer
-argument_list|)
-expr_stmt|;
-return|return;
-block|}
 name|LOG
 operator|.
 name|warn
@@ -537,16 +501,49 @@ argument_list|,
 name|exception
 argument_list|)
 expr_stmt|;
-name|event
+comment|// This could happen as the RSProcedureDispatcher and dead server processor are executed in
+comment|// different threads. It is possible that we have already scheduled SCP for the targetServer
+comment|// and woken up this procedure, and assigned the region to another RS, and then the
+comment|// RSProcedureDispatcher notices that the targetServer is dead so it can not send the request
+comment|// out and call remoteCallFailed, which makes us arrive here, especially that if the target
+comment|// machine is completely down, which means you can only receive a ConnectionTimeout after a
+comment|// very long time(depends on the timeout settings and in HBase usually it will be at least 15
+comment|// seconds, or even 1 minute). So here we need to check whether we are stilling waiting on the
+comment|// given event, if not, this means that we have already been woken up so do not wake it up
+comment|// again.
+if|if
+condition|(
+operator|!
+name|regionNode
 operator|.
-name|wake
+name|getProcedureEvent
+argument_list|()
+operator|.
+name|wakeIfSuspended
 argument_list|(
 name|env
 operator|.
 name|getProcedureScheduler
 argument_list|()
+argument_list|,
+name|this
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"{} is not waiting on the event for region {}, targer server = {}, ignore."
+argument_list|,
+name|this
+argument_list|,
+name|region
+argument_list|,
+name|targetServer
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 finally|finally
 block|{
