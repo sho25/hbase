@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -217,13 +235,13 @@ name|void
 name|doCall
 parameter_list|()
 block|{
+name|addListener
+argument_list|(
 name|conn
 operator|.
 name|getMasterStub
 argument_list|()
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|stub
 parameter_list|,
@@ -256,6 +274,8 @@ block|}
 name|resetCallTimeout
 argument_list|()
 expr_stmt|;
+name|addListener
+argument_list|(
 name|callable
 operator|.
 name|call
@@ -264,9 +284,7 @@ name|controller
 argument_list|,
 name|stub
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|result
 parameter_list|,

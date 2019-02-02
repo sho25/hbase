@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -489,10 +507,10 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-name|future
-operator|.
-name|whenComplete
+name|addListener
 argument_list|(
+name|future
+argument_list|,
 parameter_list|(
 name|r
 parameter_list|,

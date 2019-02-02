@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|com
 operator|.
@@ -1464,6 +1482,8 @@ name|CompletableFuture
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|addListener
+argument_list|(
 name|listReplicationPeers
 argument_list|(
 name|Pattern
@@ -1473,9 +1493,7 @@ argument_list|(
 name|peerId
 argument_list|)
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|peers
 parameter_list|,

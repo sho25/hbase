@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|com
 operator|.
@@ -1811,13 +1829,13 @@ name|epochAndState
 operator|>>>
 literal|2L
 decl_stmt|;
+name|addListener
+argument_list|(
 name|writer
 operator|.
 name|sync
 argument_list|()
-operator|.
-name|whenCompleteAsync
-argument_list|(
+argument_list|,
 parameter_list|(
 name|result
 parameter_list|,

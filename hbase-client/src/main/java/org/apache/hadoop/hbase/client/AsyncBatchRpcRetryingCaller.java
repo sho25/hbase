@@ -142,6 +142,24 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|unwrapCompletionException
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -2988,9 +3006,12 @@ argument_list|)
 block|{
 name|error
 operator|=
+name|unwrapCompletionException
+argument_list|(
 name|translateException
 argument_list|(
 name|error
+argument_list|)
 argument_list|)
 block|;
 if|if

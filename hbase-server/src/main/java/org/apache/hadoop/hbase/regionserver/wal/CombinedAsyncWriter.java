@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -365,13 +383,13 @@ name|forEach
 argument_list|(
 name|w
 lambda|->
+name|addListener
+argument_list|(
 name|w
 operator|.
 name|sync
 argument_list|()
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|length
 parameter_list|,

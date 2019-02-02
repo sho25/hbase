@@ -1286,13 +1286,13 @@ argument_list|>
 name|future
 parameter_list|)
 block|{
+name|addListener
+argument_list|(
 name|registry
 operator|.
 name|getMasterAddress
 argument_list|()
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|sn
 parameter_list|,

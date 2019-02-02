@@ -444,6 +444,8 @@ block|}
 name|resetCallTimeout
 argument_list|()
 expr_stmt|;
+name|addListener
+argument_list|(
 name|callable
 operator|.
 name|call
@@ -454,9 +456,7 @@ name|loc
 argument_list|,
 name|stub
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|result
 parameter_list|,

@@ -16,6 +16,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -621,15 +639,15 @@ argument_list|,
 name|time
 argument_list|)
 expr_stmt|;
+name|addListener
+argument_list|(
 name|metaTable
 operator|.
 name|get
 argument_list|(
 name|get
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|result
 parameter_list|,
@@ -751,6 +769,8 @@ argument_list|(
 name|regionName
 argument_list|)
 decl_stmt|;
+name|addListener
+argument_list|(
 name|metaTable
 operator|.
 name|get
@@ -773,9 +793,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|r
 parameter_list|,
@@ -897,6 +915,8 @@ name|CompletableFuture
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|addListener
+argument_list|(
 name|metaTable
 operator|.
 name|scanAll
@@ -919,9 +939,7 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|results
 parameter_list|,
@@ -1230,6 +1248,8 @@ name|CompletableFuture
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|addListener
+argument_list|(
 name|getTableRegionsAndLocations
 argument_list|(
 name|metaTable
@@ -1238,9 +1258,7 @@ name|tableName
 argument_list|,
 literal|true
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|locations
 parameter_list|,
@@ -1644,6 +1662,8 @@ decl_stmt|;
 end_decl_stmt
 
 begin_expr_stmt
+name|addListener
+argument_list|(
 name|scanMeta
 argument_list|(
 name|metaTable
@@ -1656,9 +1676,7 @@ name|REGION
 argument_list|,
 name|visitor
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|v
 parameter_list|,

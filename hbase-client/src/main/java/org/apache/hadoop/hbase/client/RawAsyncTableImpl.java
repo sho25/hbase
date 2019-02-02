@@ -4185,6 +4185,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|addListener
+argument_list|(
 name|coprocessorService
 argument_list|(
 name|stubMaker
@@ -4198,9 +4200,7 @@ operator|.
 name|getStartKey
 argument_list|()
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|r
 parameter_list|,

@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|addListener
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -467,6 +485,8 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
+name|addListener
+argument_list|(
 name|ConnectionFactory
 operator|.
 name|createAsyncConnection
@@ -474,9 +494,7 @@ argument_list|(
 name|getConf
 argument_list|()
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|conn
 parameter_list|,
@@ -613,10 +631,10 @@ name|CompletableFuture
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|f
-operator|.
-name|whenComplete
+name|addListener
 argument_list|(
+name|f
+argument_list|,
 parameter_list|(
 name|conn
 parameter_list|,
@@ -817,10 +835,10 @@ init|=
 name|getConn
 argument_list|()
 decl_stmt|;
-name|future
-operator|.
-name|whenComplete
+name|addListener
 argument_list|(
+name|future
+argument_list|,
 parameter_list|(
 name|conn
 parameter_list|,
@@ -868,6 +886,8 @@ argument_list|,
 name|threadPool
 argument_list|)
 decl_stmt|;
+name|addListener
+argument_list|(
 name|table
 operator|.
 name|put
@@ -895,9 +915,7 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|putResp
 parameter_list|,
@@ -941,6 +959,8 @@ operator|+
 literal|" succeeded, try getting"
 argument_list|)
 expr_stmt|;
+name|addListener
+argument_list|(
 name|table
 operator|.
 name|get
@@ -954,9 +974,7 @@ name|i
 argument_list|)
 argument_list|)
 argument_list|)
-operator|.
-name|whenComplete
-argument_list|(
+argument_list|,
 parameter_list|(
 name|result
 parameter_list|,
