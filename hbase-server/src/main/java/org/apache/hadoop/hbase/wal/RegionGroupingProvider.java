@@ -779,6 +779,26 @@ name|factory
 operator|=
 name|factory
 expr_stmt|;
+if|if
+condition|(
+name|META_WAL_PROVIDER_ID
+operator|.
+name|equals
+argument_list|(
+name|providerId
+argument_list|)
+condition|)
+block|{
+comment|// do not change the provider id if it is for meta
+name|this
+operator|.
+name|providerId
+operator|=
+name|providerId
+expr_stmt|;
+block|}
+else|else
+block|{
 name|StringBuilder
 name|sb
 init|=
@@ -843,6 +863,7 @@ operator|.
 name|toString
 argument_list|()
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|strategy
