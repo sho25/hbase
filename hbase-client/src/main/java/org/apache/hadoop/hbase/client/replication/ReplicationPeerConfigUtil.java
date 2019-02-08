@@ -2211,16 +2211,8 @@ operator|.
 name|newBuilder
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|peerConfig
-operator|.
-name|getClusterKey
-argument_list|()
-operator|!=
-literal|null
-condition|)
-block|{
+comment|// we used to set cluster key as required so here we must always set it, until we can make sure
+comment|// that no one uses the old proto file.
 name|builder
 operator|.
 name|setClusterkey
@@ -2229,9 +2221,17 @@ name|peerConfig
 operator|.
 name|getClusterKey
 argument_list|()
+operator|!=
+literal|null
+condition|?
+name|peerConfig
+operator|.
+name|getClusterKey
+argument_list|()
+else|:
+literal|""
 argument_list|)
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|peerConfig
