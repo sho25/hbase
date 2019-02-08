@@ -382,19 +382,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Loading source cluster "
-operator|+
-name|replicationClusterId
-operator|+
-literal|" file system configurations from xml files under directory "
-operator|+
-name|replicationConfDir
-argument_list|)
-expr_stmt|;
 name|File
 name|confDir
 init|=
@@ -406,6 +393,21 @@ argument_list|,
 name|replicationClusterId
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Loading source cluster "
+operator|+
+name|replicationClusterId
+operator|+
+literal|" file system configurations from xml "
+operator|+
+literal|"files under directory "
+operator|+
+name|confDir
+argument_list|)
+expr_stmt|;
 name|String
 index|[]
 name|listofConfFiles
