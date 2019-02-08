@@ -3635,6 +3635,16 @@ expr_stmt|;
 block|}
 block|}
 block|}
+name|void
+name|clearCache
+parameter_list|()
+block|{
+name|cache
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 comment|// only used for testing whether we have cached the location for a region.
 annotation|@
 name|VisibleForTesting

@@ -159,6 +159,11 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
+comment|/**    * Clear all the entries in the region location cache, for all the tables.    *<p/>    * If you only want to clear the cache for a specific table, use    * {@link AsyncTableRegionLocator#clearRegionLocationCache()}.    *<p/>    * This may cause performance issue so use it with caution.    */
+name|void
+name|clearRegionLocationCache
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve an {@link AsyncTable} implementation for accessing a table.    *<p>    * The returned instance will use default configs. Use {@link #getTableBuilder(TableName)} if    * you want to customize some configs.    *<p>    * This method no longer checks table existence. An exception will be thrown if the table does not    * exist only when the first operation is attempted.    *<p>    * The returned {@code CompletableFuture} will be finished directly in the rpc framework's    * callback thread, so typically you should not do any time consuming work inside these methods.    * And also the observer style scan API will use {@link AdvancedScanResultConsumer} which is    * designed for experts only. Only use it when you know what you are doing.    * @param tableName the name of the table    * @return an AsyncTable to use for interactions with this table    * @see #getTableBuilder(TableName)    */
 specifier|default
 name|AsyncTable

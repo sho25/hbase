@@ -1037,6 +1037,21 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|void
+name|clearCache
+parameter_list|()
+block|{
+name|metaRegionLocator
+operator|.
+name|clearCache
+argument_list|()
+expr_stmt|;
+name|nonMetaRegionLocator
+operator|.
+name|clearCache
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 end_class
 
