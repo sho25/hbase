@@ -3030,10 +3030,12 @@ name|now
 operator|+
 literal|5
 argument_list|,
-literal|"s"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"s"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|exportT

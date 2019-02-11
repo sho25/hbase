@@ -1010,10 +1010,12 @@ name|addAuthInfo
 argument_list|(
 literal|"digest"
 argument_list|,
-literal|"hbase:rox"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"hbase:rox"
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Save the previous ACL
@@ -1288,10 +1290,12 @@ name|addAuthInfo
 argument_list|(
 literal|"digest"
 argument_list|,
-literal|"hbase:rox"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"hbase:rox"
+argument_list|)
 argument_list|)
 expr_stmt|;
 try|try

@@ -2165,8 +2165,9 @@ name|assertEquals
 argument_list|(
 literal|"Data13"
 argument_list|,
-operator|new
-name|String
+name|Bytes
+operator|.
+name|toString
 argument_list|(
 name|b1
 argument_list|)
