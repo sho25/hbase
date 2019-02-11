@@ -3694,7 +3694,7 @@ operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|connection
 argument_list|,
@@ -4074,7 +4074,7 @@ operator|.
 name|injectNonceGeneratorForTesting
 argument_list|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|connection
 argument_list|,

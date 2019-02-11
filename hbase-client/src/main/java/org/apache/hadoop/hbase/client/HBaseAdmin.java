@@ -4870,7 +4870,7 @@ comment|/** @return Connection used by this object. */
 annotation|@
 name|Override
 specifier|public
-name|Connection
+name|ConnectionImplementation
 name|getConnection
 parameter_list|()
 block|{
@@ -5061,7 +5061,7 @@ specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|RpcRetryingCallerFactory
@@ -13250,11 +13250,11 @@ comment|// Check ZK first.
 comment|// If the connection exists, we may have a connection to ZK that does not work anymore
 try|try
 init|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|ConnectionFactory
 operator|.

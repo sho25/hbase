@@ -264,7 +264,7 @@ comment|/**    * @param connection    * @param tableName    * @param scan    * @
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName
@@ -298,7 +298,7 @@ comment|/**    * @param connection    * @param tableName    * @param scan    * @
 specifier|public
 name|ReversedScannerCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName

@@ -265,7 +265,7 @@ name|long
 name|operationTimeoutNs
 parameter_list|)
 function_decl|;
-comment|/**    * Return all the replicas for a region. Used for regiong replica replication.    */
+comment|/**    * Return all the replicas for a region. Used for region replica replication.    */
 name|CompletableFuture
 argument_list|<
 name|RegionLocations

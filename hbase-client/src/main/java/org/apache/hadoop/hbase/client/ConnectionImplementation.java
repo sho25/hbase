@@ -2210,7 +2210,7 @@ name|Private
 class|class
 name|ConnectionImplementation
 implements|implements
-name|ClusterConnection
+name|Connection
 implements|,
 name|Closeable
 block|{
@@ -3101,25 +3101,17 @@ specifier|static
 name|NonceGenerator
 name|injectNonceGeneratorForTesting
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|NonceGenerator
 name|cnm
 parameter_list|)
 block|{
-name|ConnectionImplementation
-name|connImpl
-init|=
-operator|(
-name|ConnectionImplementation
-operator|)
-name|conn
-decl_stmt|;
 name|NonceGenerator
 name|ng
 init|=
-name|connImpl
+name|conn
 operator|.
 name|getNonceGenerator
 argument_list|()
@@ -3641,8 +3633,7 @@ name|rpcControllerFactory
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return the MetricsConnection instance associated with this connection.    */
 specifier|public
 name|MetricsConnection
 name|getConnectionMetrics
@@ -4226,8 +4217,6 @@ block|}
 comment|/**    * @return true if the master is running, throws an exception otherwise    * @throws org.apache.hadoop.hbase.MasterNotRunningException - if the master is not running    * @deprecated this has been deprecated without a replacement    */
 annotation|@
 name|Deprecated
-annotation|@
-name|Override
 specifier|public
 name|boolean
 name|isMasterRunning
@@ -4311,8 +4300,7 @@ name|row
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * A table that isTableEnabled == false and isTableDisabled == false    * is possible. This happens when a table has a lot of regions    * that must be processed.    * @param tableName table name    * @return true if the table is enabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableEnabled
@@ -4339,8 +4327,7 @@ name|ENABLED
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @param tableName table name    * @return true if the table is disabled, false otherwise    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableDisabled
@@ -4367,8 +4354,7 @@ name|DISABLED
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Use this api to check if the table has been created with the specified number of    * splitkeys which was used while creating the given table.    * Note : If this api is used after a table's region gets splitted, the api may return    * false.    * @param tableName    *          tableName    * @param splitKeys    *          splitKeys used while creating table    * @throws IOException    *           if a remote or network exception occurs    */
 specifier|public
 name|boolean
 name|isTableAvailable
@@ -5080,7 +5066,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**   *   * @param tableName table to get regions of   * @param row the row   * @param useCache Should we use the cache to retrieve the region information.   * @param retry do we retry   * @param replicaId the replicaId for the region   * @return region locations for this row.   * @throws IOException if IO failure occurs   */
+comment|/**    * @param tableName table to get regions of    * @param row the row    * @param useCache Should we use the cache to retrieve the region information.    * @param retry do we retry    * @param replicaId the replicaId for the region    * @return region locations for this row.    * @throws IOException if IO failure occurs    */
 name|RegionLocations
 name|locateRegion
 parameter_list|(
@@ -6242,6 +6228,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Allows flushing the region cache.    */
 annotation|@
 name|Override
 specifier|public
@@ -6973,8 +6960,7 @@ block|}
 block|}
 block|}
 block|}
-annotation|@
-name|Override
+comment|/**    * Get the admin service for master.    */
 specifier|public
 name|AdminProtos
 operator|.
@@ -6999,8 +6985,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Establishes a connection to the region server at the specified address.    * @param serverName the region server to connect to    * @return proxy for HRegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|AdminProtos
 operator|.
@@ -7106,8 +7091,7 @@ block|}
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Establishes a connection to the region server at the specified address, and returns a region    * client protocol.    * @param serverName the region server to connect to    * @return ClientProtocol proxy for RegionServer    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|BlockingInterface
 name|getClient
@@ -7219,8 +7203,6 @@ argument_list|(
 name|this
 argument_list|)
 decl_stmt|;
-annotation|@
-name|Override
 specifier|public
 name|MasterKeepAliveConnection
 name|getMaster
@@ -10015,6 +9997,7 @@ name|newHrl
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Deletes cached locations for the specific region.    * @param location The location object for the region, to be purged from cache.    */
 name|void
 name|deleteCachedRegionLocation
 parameter_list|(
@@ -10343,8 +10326,7 @@ name|regionInfo
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return Default AsyncProcess associated with this connection.    */
 specifier|public
 name|AsyncProcess
 name|getAsyncProcess
@@ -10354,8 +10336,7 @@ return|return
 name|asyncProcess
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return the current statistics tracker associated with this connection    */
 specifier|public
 name|ServerStatisticTracker
 name|getStatisticsTracker
@@ -10367,8 +10348,7 @@ operator|.
 name|stats
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return the configured client backoff policy    */
 specifier|public
 name|ClientBackoffPolicy
 name|getBackoffPolicy
@@ -10491,8 +10471,7 @@ operator|.
 name|aborted
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return the number of region servers that are currently running    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|int
 name|getCurrentNrHRS
@@ -10628,8 +10607,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return Nonce generator for this ClusterConnection; may be null if disabled in configuration.    */
 specifier|public
 name|NonceGenerator
 name|getNonceGenerator
@@ -10639,8 +10617,7 @@ return|return
 name|nonceGenerator
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Retrieve TableState, represent current table state.    * @param tableName table state for    * @return state of the table    */
 specifier|public
 name|TableState
 name|getTableState
@@ -10685,8 +10662,7 @@ return|return
 name|tableState
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * Returns a new RpcRetryingCallerFactory from the given {@link Configuration}.    * This RpcRetryingCallerFactory lets the users create {@link RpcRetryingCaller}s which can be    * intercepted with the configured {@link RetryingCallerInterceptor}    * @param conf configuration    * @return RpcRetryingCallerFactory    */
 specifier|public
 name|RpcRetryingCallerFactory
 name|getNewRpcRetryingCallerFactory
@@ -10713,8 +10689,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return true when this connection uses a {@link org.apache.hadoop.hbase.codec.Codec} and so    *         supports cell blocks.    */
 specifier|public
 name|boolean
 name|hasCellBlockSupport
@@ -10729,8 +10704,7 @@ name|hasCellBlockSupport
 argument_list|()
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return a ConnectionConfiguration object holding parsed configuration values    */
 specifier|public
 name|ConnectionConfiguration
 name|getConnectionConfiguration
@@ -10742,8 +10716,7 @@ operator|.
 name|connectionConfig
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return Connection's RpcRetryingCallerFactory instance    */
 specifier|public
 name|RpcRetryingCallerFactory
 name|getRpcRetryingCallerFactory
@@ -10755,8 +10728,7 @@ operator|.
 name|rpcCallerFactory
 return|;
 block|}
-annotation|@
-name|Override
+comment|/**    * @return Connection's RpcControllerFactory instance    */
 specifier|public
 name|RpcControllerFactory
 name|getRpcControllerFactory

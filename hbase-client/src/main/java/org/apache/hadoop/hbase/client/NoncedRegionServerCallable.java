@@ -92,7 +92,7 @@ comment|/**    * @param connection Connection to use.    * @param tableName Tabl
 specifier|public
 name|NoncedRegionServerCallable
 parameter_list|(
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName

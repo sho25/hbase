@@ -1458,11 +1458,11 @@ decl_stmt|;
 name|RegionInfo
 name|hri
 decl_stmt|;
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|TEST_UTIL
 operator|.
@@ -3511,7 +3511,7 @@ specifier|private
 name|void
 name|verifyRoundRobinDistribution
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|c
 parameter_list|,
 name|RegionLocator

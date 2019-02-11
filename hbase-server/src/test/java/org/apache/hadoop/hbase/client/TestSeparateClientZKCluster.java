@@ -1458,12 +1458,9 @@ operator|.
 name|getAdmin
 argument_list|()
 decl_stmt|;
-name|HTable
+name|Table
 name|table
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable

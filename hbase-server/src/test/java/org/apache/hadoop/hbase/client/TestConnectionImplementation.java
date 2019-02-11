@@ -5349,11 +5349,11 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// This should be enough to connect
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|ConnectionFactory
 operator|.

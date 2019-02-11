@@ -2741,7 +2741,7 @@ block|{
 return|return
 name|master
 operator|.
-name|getClusterConnection
+name|getAsyncClusterConnection
 argument_list|()
 operator|.
 name|getNonceGenerator
@@ -2764,7 +2764,7 @@ block|{
 return|return
 name|master
 operator|.
-name|getClusterConnection
+name|getAsyncClusterConnection
 argument_list|()
 operator|.
 name|getNonceGenerator

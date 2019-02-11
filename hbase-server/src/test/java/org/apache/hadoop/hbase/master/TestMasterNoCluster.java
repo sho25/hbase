@@ -251,7 +251,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -1168,7 +1168,7 @@ comment|// Insert a mock for the connection, use TESTUTIL.getConfiguration rathe
 comment|// the conf from the master; the conf will already have an ClusterConnection
 comment|// associate so the below mocking of a connection will fail.
 specifier|final
-name|ClusterConnection
+name|Connection
 name|mockedConnection
 init|=
 name|HConnectionTestingUtility
@@ -1330,19 +1330,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ClusterConnection
+name|Connection
 name|getConnection
-parameter_list|()
-block|{
-return|return
-name|mockedConnection
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|ClusterConnection
-name|getClusterConnection
 parameter_list|()
 block|{
 return|return
@@ -1687,7 +1676,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ClusterConnection
+name|Connection
 name|getConnection
 parameter_list|()
 block|{

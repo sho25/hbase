@@ -154,7 +154,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Hbck fixup tool APIs. Obtain an instance from {@link ClusterConnection#getHbck()} and call  * {@link #close()} when done.  *<p>WARNING: the below methods can damage the cluster. It may leave the cluster in an  * indeterminate state, e.g. region not assigned, or some hdfs files left behind. After running  * any of the below, operators may have to do some clean up on hdfs or schedule some assign  * procedures to get regions back online. DO AT YOUR OWN RISK. For experienced users only.  *  * @see ConnectionFactory  * @see ClusterConnection  * @since 2.0.2, 2.1.1  */
+comment|/**  * Hbck fixup tool APIs. Obtain an instance from {@link Connection#getHbck()} and call  * {@link #close()} when done.  *<p>WARNING: the below methods can damage the cluster. It may leave the cluster in an  * indeterminate state, e.g. region not assigned, or some hdfs files left behind. After running  * any of the below, operators may have to do some clean up on hdfs or schedule some assign  * procedures to get regions back online. DO AT YOUR OWN RISK. For experienced users only.  *  * @see ConnectionFactory  * @since 2.0.2, 2.1.1  */
 end_comment
 
 begin_interface

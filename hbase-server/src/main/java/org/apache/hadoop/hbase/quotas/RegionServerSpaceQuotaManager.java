@@ -517,7 +517,7 @@ name|this
 argument_list|,
 name|rsServices
 operator|.
-name|getClusterConnection
+name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;

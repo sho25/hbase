@@ -281,7 +281,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -1274,12 +1274,9 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-name|ClusterConnection
+name|Connection
 name|connection
 init|=
-operator|(
-name|ClusterConnection
-operator|)
 name|ConnectionFactory
 operator|.
 name|createConnection

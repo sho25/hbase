@@ -326,7 +326,6 @@ annotation|@
 name|InterfaceStability
 operator|.
 name|Evolving
-specifier|public
 class|class
 name|BufferedMutatorImpl
 implements|implements
@@ -472,7 +471,7 @@ annotation|@
 name|VisibleForTesting
 name|BufferedMutatorImpl
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|BufferedMutatorParams

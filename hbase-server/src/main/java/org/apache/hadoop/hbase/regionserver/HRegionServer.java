@@ -853,22 +853,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|ClusterConnectionFactory
 import|;
 end_import
@@ -3577,10 +3561,10 @@ specifier|protected
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
-comment|/**    * Cluster connection to be shared by services.    * Initialized at server startup and closed when server shuts down.    * Clients must never close it explicitly.    * Clients hosted by this Server should make use of this clusterConnection rather than create    * their own; if they create their own, there is no way for the hosting server to shutdown    * ongoing client RPCs.    */
+comment|/**    * Connection to be shared by services.    *<p/>    * Initialized at server startup and closed when server shuts down.    *<p/>    * Clients must never close it explicitly.    *<p/>    * Clients hosted by this Server should make use of this connection rather than create their own;    * if they create their own, there is no way for the hosting server to shutdown ongoing client    * RPCs.    */
 specifier|protected
-name|ClusterConnection
-name|clusterConnection
+name|Connection
+name|connection
 decl_stmt|;
 comment|/**    * The asynchronous cluster connection to be shared by services.    */
 specifier|protected
@@ -5504,8 +5488,8 @@ return|;
 block|}
 comment|/**    * Create a 'smarter' Connection, one that is capable of by-passing RPC if the request is to the    * local server; i.e. a short-circuit Connection. Safe to use going to local or remote server.    */
 specifier|private
-name|ClusterConnection
-name|createClusterConnection
+name|Connection
+name|createConnection
 parameter_list|()
 throws|throws
 name|IOException
@@ -5513,7 +5497,7 @@ block|{
 comment|// Create a cluster connection that when appropriate, can short-circuit and go directly to the
 comment|// local server if the request is to the local server bypassing RPC. Can be used for both local
 comment|// and remote invocations.
-name|ClusterConnection
+name|Connection
 name|conn
 init|=
 name|ConnectionUtils
@@ -5652,14 +5636,14 @@ name|IOException
 block|{
 if|if
 condition|(
-name|clusterConnection
+name|connection
 operator|==
 literal|null
 condition|)
 block|{
-name|clusterConnection
+name|connection
 operator|=
-name|createClusterConnection
+name|createConnection
 argument_list|()
 expr_stmt|;
 name|asyncClusterConnection
@@ -6736,12 +6720,12 @@ if|if
 condition|(
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|!=
 literal|null
 operator|&&
 operator|!
-name|clusterConnection
+name|connection
 operator|.
 name|isClosed
 argument_list|()
@@ -6751,7 +6735,7 @@ try|try
 block|{
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|.
 name|close
 argument_list|()
@@ -12209,21 +12193,9 @@ name|getConnection
 parameter_list|()
 block|{
 return|return
-name|getClusterConnection
-argument_list|()
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|ClusterConnection
-name|getClusterConnection
-parameter_list|()
-block|{
-return|return
 name|this
 operator|.
-name|clusterConnection
+name|connection
 return|;
 block|}
 annotation|@
@@ -12776,7 +12748,7 @@ name|MetaTableAccessor
 operator|.
 name|updateRegionLocation
 argument_list|(
-name|clusterConnection
+name|connection
 argument_list|,
 name|hris
 index|[
@@ -12938,14 +12910,14 @@ while|while
 condition|(
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|!=
 literal|null
 operator|&&
 operator|!
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|.
 name|isClosed
 argument_list|()
@@ -19201,7 +19173,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|clusterConnection
+name|connection
 operator|.
 name|getAdmin
 argument_list|()

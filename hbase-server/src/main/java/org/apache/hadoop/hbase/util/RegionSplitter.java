@@ -283,20 +283,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -3699,6 +3685,8 @@ operator|.
 name|getRegionLocation
 argument_list|(
 name|split
+argument_list|,
+literal|true
 argument_list|)
 operator|.
 name|getRegion
@@ -3810,7 +3798,7 @@ argument_list|)
 expr_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 range|:
 name|check
@@ -3818,7 +3806,7 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|HRegionInfo
+name|RegionInfo
 index|[
 name|check
 operator|.

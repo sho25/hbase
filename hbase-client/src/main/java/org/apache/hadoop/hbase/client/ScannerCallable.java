@@ -605,11 +605,11 @@ specifier|final
 name|RpcControllerFactory
 name|rpcControllerFactory
 decl_stmt|;
-comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating    *        {@link com.google.protobuf.RpcController}    */
+comment|/**    * @param connection which connection    * @param tableName table callable is on    * @param scan the scan to execute    * @param scanMetrics the ScanMetrics to used, if it is null, ScannerCallable won't collect    *          metrics    * @param rpcControllerFactory factory to use when creating    *          {@link com.google.protobuf.RpcController}    */
 specifier|public
 name|ScannerCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName
@@ -641,11 +641,11 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param id the replicaId    */
+comment|/**    * @param connection    * @param tableName    * @param scan    * @param scanMetrics    * @param id the replicaId    */
 specifier|public
 name|ScannerCallable
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName

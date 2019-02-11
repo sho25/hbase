@@ -1286,7 +1286,7 @@ name|server
 init|=
 operator|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|admin
 operator|.
@@ -2306,11 +2306,11 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|TEST_UTIL
 operator|.
@@ -5044,11 +5044,11 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|ClusterConnection
+name|ConnectionImplementation
 name|con
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|TEST_UTIL
 operator|.

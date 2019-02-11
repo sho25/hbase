@@ -244,7 +244,7 @@ operator|new
 name|TestName
 argument_list|()
 decl_stmt|;
-comment|/**    * My BufferedMutator.    * Just to prove that I can insert a BM other than default.    */
+comment|/**    * My BufferedMutator. Just to prove that I can insert a BM other than default.    */
 specifier|public
 specifier|static
 class|class

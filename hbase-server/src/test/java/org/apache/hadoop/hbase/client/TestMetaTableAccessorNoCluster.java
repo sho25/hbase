@@ -1124,7 +1124,10 @@ name|toBytes
 argument_list|(
 name|sn
 operator|.
-name|getHostAndPort
+name|getAddress
+argument_list|()
+operator|.
+name|toString
 argument_list|()
 argument_list|)
 argument_list|)

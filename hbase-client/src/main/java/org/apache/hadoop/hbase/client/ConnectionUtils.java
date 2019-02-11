@@ -814,6 +814,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/**    * Key for configuration in Configuration whose value is the class we implement making a new    * Connection instance.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_CLIENT_CONNECTION_IMPL
+init|=
+literal|"hbase.client.connection.impl"
+decl_stmt|;
 specifier|private
 name|ConnectionUtils
 parameter_list|()
@@ -917,7 +926,7 @@ specifier|static
 name|NonceGenerator
 name|injectNonceGeneratorForTesting
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|NonceGenerator
@@ -1220,7 +1229,7 @@ block|}
 comment|/**    * Creates a short-circuit connection that can bypass the RPC layer (serialization,    * deserialization, networking, etc..) when talking to a local server.    * @param conf the current configuration    * @param pool the thread pool to use for batch operations    * @param user the user the connection is for    * @param serverName the local server name    * @param admin the admin interface of the local server    * @param client the client interface of the local server    * @return an short-circuit connection.    * @throws IOException if IO failure occurred    */
 specifier|public
 specifier|static
-name|ClusterConnection
+name|ConnectionImplementation
 name|createShortCircuitConnection
 parameter_list|(
 specifier|final
@@ -1306,7 +1315,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|ClusterConnection
+name|ConnectionUtils
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,

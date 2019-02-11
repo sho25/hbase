@@ -97,22 +97,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Connection
 import|;
 end_import
@@ -187,11 +171,6 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Returns a reference to the servers' cluster connection. Prefer {@link #getConnection()}.    *    * Important note: this method returns a reference to Connection which is managed    * by Server itself, so callers must NOT attempt to close connection obtained.    */
-name|ClusterConnection
-name|getClusterConnection
-parameter_list|()
 function_decl|;
 comment|/**    * Returns a reference to the servers' async connection.    *<p/>    * Important note: this method returns a reference to Connection which is managed by Server    * itself, so callers must NOT attempt to close connection obtained.    */
 specifier|default

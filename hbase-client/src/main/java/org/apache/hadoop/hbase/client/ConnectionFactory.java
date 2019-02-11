@@ -365,7 +365,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|ClusterConnection
+name|ConnectionUtils
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,

@@ -520,12 +520,15 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
+operator|(
+name|ConnectionImplementation
+operator|)
 name|regionServer
 operator|.
-name|getClusterConnection
+name|getConnection
 argument_list|()
 decl_stmt|;
 name|Table

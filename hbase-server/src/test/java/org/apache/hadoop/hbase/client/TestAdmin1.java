@@ -2995,7 +2995,7 @@ argument_list|)
 decl_stmt|;
 operator|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|TEST_UTIL
 operator|.

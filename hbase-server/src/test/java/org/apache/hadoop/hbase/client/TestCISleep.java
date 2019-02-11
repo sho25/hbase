@@ -598,6 +598,9 @@ argument_list|<
 name|Object
 argument_list|>
 argument_list|(
+operator|(
+name|ConnectionImplementation
+operator|)
 name|TEST_UTIL
 operator|.
 name|getConnection
@@ -849,6 +852,9 @@ argument_list|<
 name|Object
 argument_list|>
 argument_list|(
+operator|(
+name|ConnectionImplementation
+operator|)
 name|TEST_UTIL
 operator|.
 name|getConnection

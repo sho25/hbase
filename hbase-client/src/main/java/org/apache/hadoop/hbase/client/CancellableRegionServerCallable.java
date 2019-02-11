@@ -168,7 +168,7 @@ name|rpcTimeout
 decl_stmt|;
 name|CancellableRegionServerCallable
 parameter_list|(
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName

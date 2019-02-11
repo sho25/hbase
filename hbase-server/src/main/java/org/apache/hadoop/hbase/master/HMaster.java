@@ -7341,7 +7341,7 @@ name|spaceQuotaSnapshotNotifier
 operator|.
 name|initialize
 argument_list|(
-name|getClusterConnection
+name|getConnection
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -7732,7 +7732,7 @@ name|MetaTableAccessor
 operator|.
 name|getTableState
 argument_list|(
-name|getClusterConnection
+name|getConnection
 argument_list|()
 argument_list|,
 name|TableName
@@ -10600,7 +10600,7 @@ name|plan
 operator|.
 name|execute
 argument_list|(
-name|clusterConnection
+name|connection
 operator|.
 name|getAdmin
 argument_list|()
@@ -16581,14 +16581,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|clusterConnection
+name|connection
 operator|.
 name|close
 argument_list|()

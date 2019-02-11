@@ -7656,7 +7656,7 @@ specifier|private
 name|void
 name|checkPeriodicFlushParameters
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|MyAsyncProcess

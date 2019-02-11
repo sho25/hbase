@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|ColumnFamilyDescriptorBuilder
 import|;
 end_import
 
@@ -207,7 +207,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ColumnFamilyDescriptorBuilder
+name|Connection
 import|;
 end_import
 
@@ -915,7 +915,7 @@ name|procedureStore
 decl_stmt|;
 specifier|private
 specifier|final
-name|ClusterConnection
+name|Connection
 name|connection
 decl_stmt|;
 specifier|private
@@ -1929,7 +1929,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ClusterConnection
+name|Connection
 name|getConnection
 parameter_list|()
 block|{

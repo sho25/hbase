@@ -247,7 +247,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -434,7 +434,7 @@ name|conf
 decl_stmt|;
 specifier|protected
 specifier|final
-name|ClusterConnection
+name|Connection
 name|connection
 decl_stmt|;
 comment|// all reader / writer threads will share this connection
@@ -904,9 +904,6 @@ name|this
 operator|.
 name|connection
 operator|=
-operator|(
-name|ClusterConnection
-operator|)
 name|ConnectionFactory
 operator|.
 name|createConnection

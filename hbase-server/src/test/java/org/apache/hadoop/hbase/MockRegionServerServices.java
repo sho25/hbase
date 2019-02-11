@@ -201,22 +201,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Connection
 import|;
 end_import
@@ -1130,7 +1114,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|ClusterConnection
+name|Connection
 name|getConnection
 parameter_list|()
 block|{
@@ -1441,7 +1425,6 @@ name|ServerNonceManager
 name|getNonceManager
 parameter_list|()
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|null
 return|;
@@ -1470,7 +1453,6 @@ name|Service
 name|service
 parameter_list|)
 block|{
-comment|// TODO Auto-generated method stub
 return|return
 literal|false
 return|;
@@ -1495,17 +1477,6 @@ parameter_list|()
 block|{
 return|return
 literal|0
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|ClusterConnection
-name|getClusterConnection
-parameter_list|()
-block|{
-return|return
-literal|null
 return|;
 block|}
 annotation|@

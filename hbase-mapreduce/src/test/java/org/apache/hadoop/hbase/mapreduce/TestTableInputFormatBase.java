@@ -25,7 +25,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
 import|;
 end_import
 
@@ -35,7 +35,7 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Mockito
+name|ArgumentMatchers
 operator|.
 name|any
 import|;
@@ -47,7 +47,7 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|Mockito
+name|ArgumentMatchers
 operator|.
 name|anyBoolean
 import|;
@@ -307,7 +307,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Connection
+name|ConnectionUtils
 import|;
 end_import
 
@@ -710,7 +710,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-name|ClusterConnection
+name|ConnectionUtils
 operator|.
 name|HBASE_CLIENT_CONNECTION_IMPL
 argument_list|,

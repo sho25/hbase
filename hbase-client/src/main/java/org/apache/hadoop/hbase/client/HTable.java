@@ -1005,10 +1005,6 @@ name|pool
 return|;
 block|}
 comment|/**    * Creates an object to access a HBase table.    * Used by HBase internally.  DO NOT USE. See {@link ConnectionFactory} class comment for how to    * get a {@link Table} instance (use {@link Table} instead of {@link HTable}).    * @param connection Connection to be used.    * @param builder The table builder    * @param rpcCallerFactory The RPC caller factory    * @param rpcControllerFactory The RPC controller factory    * @param pool ExecutorService to be used.    */
-annotation|@
-name|InterfaceAudience
-operator|.
-name|Private
 specifier|protected
 name|HTable
 parameter_list|(
@@ -2584,7 +2580,7 @@ name|R
 argument_list|>
 name|callback
 parameter_list|,
-name|ClusterConnection
+name|Connection
 name|connection
 parameter_list|,
 name|ExecutorService
@@ -2598,10 +2594,18 @@ name|InterruptedIOException
 throws|,
 name|RetriesExhaustedWithDetailsException
 block|{
+name|ConnectionImplementation
+name|connImpl
+init|=
+operator|(
+name|ConnectionImplementation
+operator|)
+name|connection
+decl_stmt|;
 name|int
 name|operationTimeout
 init|=
-name|connection
+name|connImpl
 operator|.
 name|getConnectionConfiguration
 argument_list|()
@@ -2698,7 +2702,7 @@ decl_stmt|;
 name|AsyncRequestFuture
 name|ars
 init|=
-name|connection
+name|connImpl
 operator|.
 name|getAsyncProcess
 argument_list|()

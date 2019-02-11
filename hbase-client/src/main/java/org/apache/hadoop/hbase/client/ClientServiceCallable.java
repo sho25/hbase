@@ -140,7 +140,7 @@ block|{
 specifier|public
 name|ClientServiceCallable
 parameter_list|(
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 name|TableName
@@ -159,9 +159,6 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-operator|(
-name|ConnectionImplementation
-operator|)
 name|connection
 argument_list|,
 name|tableName

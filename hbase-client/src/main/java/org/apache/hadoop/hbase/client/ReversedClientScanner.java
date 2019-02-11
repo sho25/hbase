@@ -130,7 +130,7 @@ name|ReversedClientScanner
 extends|extends
 name|ClientScanner
 block|{
-comment|/**    * Create a new ReversibleClientScanner for the specified table Note that the passed    * {@link Scan}'s start row maybe changed.    * @param conf    * @param scan    * @param tableName    * @param connection    * @param pool    * @param primaryOperationTimeout    * @throws IOException    */
+comment|/**    * Create a new ReversibleClientScanner for the specified table Note that the passed    * {@link Scan}'s start row maybe changed.    */
 specifier|public
 name|ReversedClientScanner
 parameter_list|(

@@ -227,7 +227,7 @@ name|row
 decl_stmt|;
 specifier|private
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 decl_stmt|;
 specifier|private
@@ -248,7 +248,7 @@ decl_stmt|;
 comment|/**    * Constructor    * @param conn connection to use    * @param table to connect to    * @param row to locate region with    */
 name|RegionCoprocessorRpcChannel
 parameter_list|(
-name|ClusterConnection
+name|ConnectionImplementation
 name|conn
 parameter_list|,
 name|TableName

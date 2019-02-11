@@ -156,7 +156,7 @@ name|Closeable
 block|{
 specifier|protected
 specifier|final
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 decl_stmt|;
 specifier|protected
@@ -170,8 +170,7 @@ name|rpcController
 decl_stmt|;
 name|MasterCallable
 parameter_list|(
-specifier|final
-name|Connection
+name|ConnectionImplementation
 name|connection
 parameter_list|,
 specifier|final
@@ -183,9 +182,6 @@ name|this
 operator|.
 name|connection
 operator|=
-operator|(
-name|ClusterConnection
-operator|)
 name|connection
 expr_stmt|;
 name|this

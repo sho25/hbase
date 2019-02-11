@@ -3565,11 +3565,11 @@ literal|"get works and is not stale done"
 argument_list|)
 expr_stmt|;
 comment|//reset
-name|ClusterConnection
+name|ConnectionImplementation
 name|connection
 init|=
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|HTU
 operator|.
@@ -4083,7 +4083,7 @@ name|ap
 init|=
 operator|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|HTU
 operator|.
@@ -4198,7 +4198,7 @@ name|operationTimeout
 init|=
 operator|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|HTU
 operator|.
@@ -4217,7 +4217,7 @@ name|readTimeout
 init|=
 operator|(
 operator|(
-name|ClusterConnection
+name|ConnectionImplementation
 operator|)
 name|HTU
 operator|.
