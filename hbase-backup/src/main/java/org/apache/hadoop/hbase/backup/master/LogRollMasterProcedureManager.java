@@ -339,6 +339,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -828,6 +844,10 @@ block|{
 comment|// Get backup root path
 name|data
 operator|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
 name|conf
 operator|.
 name|get
@@ -837,9 +857,7 @@ argument_list|)
 operator|.
 name|getValue
 argument_list|()
-operator|.
-name|getBytes
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 name|Procedure

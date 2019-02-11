@@ -494,10 +494,12 @@ name|byte
 index|[]
 name|bval
 init|=
-literal|"this is a much larger byte array"
+name|Bytes
 operator|.
-name|getBytes
-argument_list|()
+name|toBytes
+argument_list|(
+literal|"this is a much larger byte array"
+argument_list|)
 decl_stmt|;
 name|bf1
 operator|.
