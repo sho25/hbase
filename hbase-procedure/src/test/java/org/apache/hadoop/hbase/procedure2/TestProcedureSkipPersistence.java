@@ -754,6 +754,13 @@ name|proc
 operator|.
 name|isWaiting
 argument_list|()
+operator|&&
+name|procExecutor
+operator|.
+name|getActiveExecutorCount
+argument_list|()
+operator|==
+literal|0
 argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
@@ -786,6 +793,7 @@ name|procId
 argument_list|)
 decl_stmt|;
 return|return
+operator|(
 name|p
 operator|.
 name|isWaiting
@@ -795,6 +803,14 @@ name|p
 operator|.
 name|isFinished
 argument_list|()
+operator|)
+operator|&&
+name|procExecutor
+operator|.
+name|getActiveExecutorCount
+argument_list|()
+operator|==
+literal|0
 return|;
 block|}
 argument_list|)
