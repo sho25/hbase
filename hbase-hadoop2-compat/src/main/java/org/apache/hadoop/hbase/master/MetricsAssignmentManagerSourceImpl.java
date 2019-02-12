@@ -356,14 +356,14 @@ name|setRITOldestAge
 parameter_list|(
 specifier|final
 name|long
-name|ritCount
+name|ritOldestAge
 parameter_list|)
 block|{
 name|ritOldestAgeGauge
 operator|.
 name|set
 argument_list|(
-name|ritCount
+name|ritOldestAge
 argument_list|)
 expr_stmt|;
 block|}
