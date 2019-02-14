@@ -471,6 +471,9 @@ expr_stmt|;
 block|}
 argument_list|)
 expr_stmt|;
+return|return
+name|future
+return|;
 block|}
 else|else
 block|{
