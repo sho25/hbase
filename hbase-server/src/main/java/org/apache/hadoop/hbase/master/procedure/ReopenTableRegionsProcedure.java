@@ -505,6 +505,8 @@ operator|.
 name|info
 argument_list|(
 literal|"Table {} is disabled, give up reopening its regions"
+argument_list|,
+name|tableName
 argument_list|)
 expr_stmt|;
 return|return

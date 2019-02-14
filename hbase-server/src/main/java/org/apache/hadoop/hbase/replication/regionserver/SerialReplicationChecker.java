@@ -1270,6 +1270,8 @@ operator|.
 name|trace
 argument_list|(
 literal|"The sequence id for {} is continuous, pass"
+argument_list|,
+name|entry
 argument_list|)
 expr_stmt|;
 name|previousPushedSeqId
