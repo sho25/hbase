@@ -906,6 +906,26 @@ block|{
 comment|// nothing to rollback, pre-create is just table-state checks.
 comment|// We can fail if the table does exist or the descriptor is malformed.
 comment|// TODO: coprocessor rollback semantic is still undefined.
+if|if
+condition|(
+name|hasException
+argument_list|()
+comment|/* avoid NPE */
+operator|&&
+name|getException
+argument_list|()
+operator|.
+name|getCause
+argument_list|()
+operator|.
+name|getClass
+argument_list|()
+operator|!=
+name|TableExistsException
+operator|.
+name|class
+condition|)
+block|{
 name|DeleteTableProcedure
 operator|.
 name|deleteTableStates
@@ -940,6 +960,7 @@ name|getTableName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|releaseSyncLatch
 argument_list|()
