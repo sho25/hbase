@@ -221,6 +221,8 @@ name|int
 name|minor
 parameter_list|)
 block|{
+comment|// Note: this won't work if the shortcut similar to the one in HRegionServer is used
+comment|//       without the corresponding version handling.
 return|return
 name|VersionInfoUtil
 operator|.

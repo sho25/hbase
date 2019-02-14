@@ -1413,6 +1413,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|MasterRpcServicesVersionWrapper
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|RegionState
 operator|.
 name|State
@@ -13780,8 +13796,13 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// Wrap the shortcut in a class providing our version to the calls where it's relevant.
+comment|// Normally, RpcServer-based threadlocals do that.
 name|intRssStub
 operator|=
+operator|new
+name|MasterRpcServicesVersionWrapper
+argument_list|(
 operator|(
 operator|(
 name|HMaster
@@ -13791,6 +13812,7 @@ operator|)
 operator|.
 name|getMasterRpcServices
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|intLockStub
 operator|=
