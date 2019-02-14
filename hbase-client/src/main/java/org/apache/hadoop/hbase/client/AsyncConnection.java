@@ -346,6 +346,11 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
+comment|/**    * Returns whether the connection is closed or not.    * @return true if this connection is closed    */
+name|boolean
+name|isClosed
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster. The returned Hbck is not guaranteed to    * be thread-safe. A new instance should be created by each thread. This is a lightweight    * operation. Pooling or caching of the returned Hbck instance is not recommended.    *<p/>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<p/>    * This will be used mostly by hbck tool.    * @return an Hbck instance for active master. Active master is fetched from the zookeeper.    */
 annotation|@
 name|InterfaceAudience

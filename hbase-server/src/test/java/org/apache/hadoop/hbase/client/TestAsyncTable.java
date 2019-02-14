@@ -835,6 +835,14 @@ operator|.
 name|get
 argument_list|()
 expr_stmt|;
+name|assertFalse
+argument_list|(
+name|ASYNC_CONN
+operator|.
+name|isClosed
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 end_function
 
@@ -854,6 +862,14 @@ operator|.
 name|closeQuietly
 argument_list|(
 name|ASYNC_CONN
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|ASYNC_CONN
+operator|.
+name|isClosed
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

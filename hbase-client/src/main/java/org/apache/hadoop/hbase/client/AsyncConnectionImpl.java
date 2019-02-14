@@ -802,6 +802,13 @@ specifier|private
 name|ChoreService
 name|authService
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|closed
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|AsyncConnectionImpl
 parameter_list|(
@@ -1028,6 +1035,15 @@ name|void
 name|close
 parameter_list|()
 block|{
+comment|// As the code below is safe to be executed in parallel, here we do not use CAS or lock, just a
+comment|// simple volatile flag.
+if|if
+condition|(
+name|closed
+condition|)
+block|{
+return|return;
+block|}
 name|IOUtils
 operator|.
 name|closeQuietly
@@ -1055,6 +1071,21 @@ name|shutdown
 argument_list|()
 expr_stmt|;
 block|}
+name|closed
+operator|=
+literal|true
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|isClosed
+parameter_list|()
+block|{
+return|return
+name|closed
+return|;
 block|}
 annotation|@
 name|Override
