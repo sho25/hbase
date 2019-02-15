@@ -120,6 +120,10 @@ specifier|private
 name|long
 name|periodicFlushTimeoutNs
 decl_stmt|;
+specifier|private
+name|int
+name|maxKeyValueSize
+decl_stmt|;
 specifier|public
 name|AsyncBufferedMutatorBuilderImpl
 parameter_list|(
@@ -158,6 +162,15 @@ operator|=
 name|connConf
 operator|.
 name|getWriteBufferPeriodicFlushTimeoutNs
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|maxKeyValueSize
+operator|=
+name|connConf
+operator|.
+name|getMaxKeyValueSize
 argument_list|()
 expr_stmt|;
 name|this
@@ -305,7 +318,7 @@ name|writeBufferSize
 operator|>
 literal|0
 argument_list|,
-literal|"writeBufferSize %d must be>= 0"
+literal|"writeBufferSize %d must be> 0"
 argument_list|,
 name|writeBufferSize
 argument_list|)
@@ -351,6 +364,39 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|AsyncBufferedMutatorBuilder
+name|setMaxKeyValueSize
+parameter_list|(
+name|int
+name|maxKeyValueSize
+parameter_list|)
+block|{
+name|Preconditions
+operator|.
+name|checkArgument
+argument_list|(
+name|maxKeyValueSize
+operator|>
+literal|0
+argument_list|,
+literal|"maxKeyValueSize %d must be> 0"
+argument_list|,
+name|maxKeyValueSize
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|maxKeyValueSize
+operator|=
+name|maxKeyValueSize
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|AsyncBufferedMutator
 name|build
 parameter_list|()
@@ -369,6 +415,8 @@ argument_list|,
 name|writeBufferSize
 argument_list|,
 name|periodicFlushTimeoutNs
+argument_list|,
+name|maxKeyValueSize
 argument_list|)
 return|;
 block|}

@@ -187,6 +187,14 @@ name|long
 name|writeBufferSize
 parameter_list|)
 function_decl|;
+comment|/**    * Override the maximum key-value size specified by the provided {@link AsyncConnection}'s    * {@link org.apache.hadoop.conf.Configuration} instance, via the configuration key    * {@code hbase.client.keyvalue.maxsize}.    */
+name|AsyncBufferedMutatorBuilder
+name|setMaxKeyValueSize
+parameter_list|(
+name|int
+name|maxKeyValueSize
+parameter_list|)
+function_decl|;
 comment|/**    * Create the {@link AsyncBufferedMutator} instance.    */
 name|AsyncBufferedMutator
 name|build

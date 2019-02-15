@@ -1970,6 +1970,9 @@ name|writeBufferSize
 parameter_list|,
 name|long
 name|periodicFlushTimeoutNs
+parameter_list|,
+name|int
+name|maxKeyValueSize
 parameter_list|)
 block|{
 name|super
@@ -1981,6 +1984,8 @@ argument_list|,
 name|writeBufferSize
 argument_list|,
 name|periodicFlushTimeoutNs
+argument_list|,
+name|maxKeyValueSize
 argument_list|)
 expr_stmt|;
 block|}
@@ -2072,6 +2077,10 @@ name|toNanos
 argument_list|(
 literal|200
 argument_list|)
+argument_list|,
+literal|1024
+operator|*
+literal|1024
 argument_list|)
 init|)
 block|{

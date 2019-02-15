@@ -907,7 +907,7 @@ operator|instanceof
 name|Put
 condition|)
 block|{
-name|HTable
+name|ConnectionUtils
 operator|.
 name|validatePut
 argument_list|(
