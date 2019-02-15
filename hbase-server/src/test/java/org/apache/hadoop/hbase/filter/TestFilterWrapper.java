@@ -756,9 +756,8 @@ name|assertEquals
 argument_list|(
 literal|"Returned row is not correct"
 argument_list|,
-name|Bytes
-operator|.
-name|toString
+operator|new
+name|String
 argument_list|(
 name|CellUtil
 operator|.

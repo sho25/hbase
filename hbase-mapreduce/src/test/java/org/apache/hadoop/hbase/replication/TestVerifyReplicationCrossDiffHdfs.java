@@ -1274,9 +1274,8 @@ argument_list|()
 argument_list|,
 name|TABLE_NAME
 argument_list|,
-name|Bytes
-operator|.
-name|toString
+operator|new
+name|String
 argument_list|(
 name|FAMILY
 argument_list|)
@@ -1332,9 +1331,8 @@ argument_list|()
 argument_list|,
 name|TABLE_NAME
 argument_list|,
-name|Bytes
-operator|.
-name|toString
+operator|new
+name|String
 argument_list|(
 name|FAMILY
 argument_list|)

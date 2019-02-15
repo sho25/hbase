@@ -1778,10 +1778,6 @@ argument_list|)
 operator|.
 name|write
 argument_list|(
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|String
 operator|.
 name|valueOf
@@ -1793,7 +1789,9 @@ argument_list|(
 literal|1000
 argument_list|)
 argument_list|)
-argument_list|)
+operator|.
+name|getBytes
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|long
