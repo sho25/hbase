@@ -1140,7 +1140,7 @@ expr_stmt|;
 name|ScanMetrics
 name|metrics
 init|=
-name|scan
+name|scanner
 operator|.
 name|getScanMetrics
 argument_list|()
