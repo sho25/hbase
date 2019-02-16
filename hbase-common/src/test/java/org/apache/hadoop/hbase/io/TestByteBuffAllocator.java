@@ -883,8 +883,7 @@ name|allocator
 init|=
 name|ByteBuffAllocator
 operator|.
-name|createOnHeap
-argument_list|()
+name|HEAP
 decl_stmt|;
 name|ByteBuff
 name|buf

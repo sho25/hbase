@@ -243,6 +243,20 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// The on-heap allocator is mostly used for testing, but also some non-test usage, such as
+comment|// scanning snapshot, we won't have an RpcServer to initialize the allocator, so just use the
+comment|// default heap allocator, it will just allocate ByteBuffers from heap but wrapped by an ByteBuff.
+specifier|public
+specifier|static
+specifier|final
+name|ByteBuffAllocator
+name|HEAP
+init|=
+name|ByteBuffAllocator
+operator|.
+name|createOnHeap
+argument_list|()
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -480,7 +494,7 @@ return|;
 block|}
 block|}
 comment|/**    * Initialize an {@link ByteBuffAllocator} which only allocate ByteBuffer from on-heap, it's    * designed for testing purpose or disabled reservoir case.    * @return allocator to allocate on-heap ByteBuffer.    */
-specifier|public
+specifier|private
 specifier|static
 name|ByteBuffAllocator
 name|createOnHeap
@@ -612,6 +626,23 @@ block|}
 block|}
 comment|// Allocated from heap, let the JVM free its memory.
 return|return
+name|allocateOnHeap
+argument_list|(
+name|this
+operator|.
+name|bufSize
+argument_list|)
+return|;
+block|}
+specifier|private
+name|SingleByteBuff
+name|allocateOnHeap
+parameter_list|(
+name|int
+name|size
+parameter_list|)
+block|{
+return|return
 operator|new
 name|SingleByteBuff
 argument_list|(
@@ -621,9 +652,7 @@ name|ByteBuffer
 operator|.
 name|allocate
 argument_list|(
-name|this
-operator|.
-name|bufSize
+name|size
 argument_list|)
 argument_list|)
 return|;

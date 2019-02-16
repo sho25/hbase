@@ -43,6 +43,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -374,6 +390,11 @@ parameter_list|)
 function_decl|;
 name|RpcScheduler
 name|getScheduler
+parameter_list|()
+function_decl|;
+comment|/**    * Allocator to allocate/free the ByteBuffers, those ByteBuffers can be on-heap or off-heap.    * @return byte buffer allocator    */
+name|ByteBuffAllocator
+name|getByteBuffAllocator
 parameter_list|()
 function_decl|;
 name|void

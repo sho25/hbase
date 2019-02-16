@@ -75,6 +75,26 @@ name|java
 operator|.
 name|util
 operator|.
+name|ArrayList
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -178,6 +198,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
 import|;
 end_import
 
@@ -671,6 +707,10 @@ name|nextBlockOnDiskSize
 init|=
 name|UNSET
 decl_stmt|;
+specifier|private
+name|ByteBuffAllocator
+name|allocator
+decl_stmt|;
 comment|/**    * On a checksum failure, do these many succeeding read requests using hdfs checksums before    * auto-reenabling hbase checksum verification.    */
 specifier|static
 specifier|final
@@ -941,6 +981,8 @@ operator|.
 name|getInt
 argument_list|()
 decl_stmt|;
+comment|// TODO make the newly created HFileBlock use the off-heap allocator, Need change the
+comment|// deserializer or change the deserialize interface.
 return|return
 operator|new
 name|HFileBlock
@@ -956,6 +998,10 @@ argument_list|,
 name|nextBlockOnDiskSize
 argument_list|,
 literal|null
+argument_list|,
+name|ByteBuffAllocator
+operator|.
+name|HEAP
 argument_list|)
 return|;
 block|}
@@ -1075,6 +1121,10 @@ argument_list|,
 name|that
 operator|.
 name|fileContext
+argument_list|,
+name|that
+operator|.
+name|allocator
 argument_list|)
 expr_stmt|;
 if|if
@@ -1163,6 +1213,9 @@ name|onDiskDataSizeWithHeader
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 block|{
 name|init
@@ -1182,6 +1235,8 @@ argument_list|,
 name|nextBlockOnDiskSize
 argument_list|,
 name|fileContext
+argument_list|,
+name|allocator
 argument_list|)
 expr_stmt|;
 name|this
@@ -1233,6 +1288,9 @@ name|nextBlockOnDiskSize
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 throws|throws
 name|IOException
@@ -1443,6 +1501,8 @@ argument_list|,
 name|nextBlockOnDiskSize
 argument_list|,
 name|fileContext
+argument_list|,
+name|allocator
 argument_list|)
 expr_stmt|;
 name|this
@@ -1500,6 +1560,9 @@ name|nextBlockOnDiskSize
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 block|{
 name|this
@@ -1549,6 +1612,12 @@ operator|.
 name|fileContext
 operator|=
 name|fileContext
+expr_stmt|;
+name|this
+operator|.
+name|allocator
+operator|=
+name|allocator
 expr_stmt|;
 block|}
 comment|/**    * Parse total on disk size including header and checksum.    * @param headerBuf Header ByteBuffer. Presumed exact size of header.    * @param verifyChecksum true if checksum verification is in use.    * @return Size of the block with header included.    */
@@ -1599,6 +1668,51 @@ parameter_list|()
 block|{
 return|return
 name|blockType
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|int
+name|refCnt
+parameter_list|()
+block|{
+return|return
+name|buf
+operator|.
+name|refCnt
+argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|HFileBlock
+name|retain
+parameter_list|()
+block|{
+name|buf
+operator|.
+name|retain
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+return|;
+block|}
+comment|/**    * Call {@link ByteBuff#release()} to decrease the reference count, if no other reference, it will    * return back the {@link ByteBuffer} to {@link org.apache.hadoop.hbase.io.ByteBuffAllocator}    */
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|release
+parameter_list|()
+block|{
+return|return
+name|buf
+operator|.
+name|release
+argument_list|()
 return|;
 block|}
 comment|/** @return get data block encoding id that was used to encode this block */
@@ -2674,15 +2788,11 @@ decl_stmt|;
 name|ByteBuff
 name|newBuf
 init|=
-operator|new
-name|SingleByteBuff
-argument_list|(
-name|ByteBuffer
+name|allocator
 operator|.
 name|allocate
 argument_list|(
 name|capacityNeeded
-argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Copy header bytes into newBuf.
@@ -2760,7 +2870,7 @@ name|bufCapacity
 init|=
 name|buf
 operator|.
-name|capacity
+name|remaining
 argument_list|()
 decl_stmt|;
 return|return
@@ -4508,6 +4618,11 @@ operator|.
 name|length
 argument_list|,
 name|newContext
+argument_list|,
+name|cacheConf
+operator|.
+name|getByteBuffAllocator
+argument_list|()
 argument_list|)
 return|;
 block|}
@@ -4532,7 +4647,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/** Iterator for {@link HFileBlock}s. */
+comment|/**    * Iterator for reading {@link HFileBlock}s in load-on-open-section, such as root data index    * block, meta index block, file info block etc.    */
 interface|interface
 name|BlockIterator
 block|{
@@ -4543,7 +4658,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Similar to {@link #nextBlock()} but checks block type, throws an      * exception if incorrect, and returns the HFile block      */
+comment|/**      * Similar to {@link #nextBlock()} but checks block type, throws an exception if incorrect, and      * returns the HFile block      */
 name|HFileBlock
 name|nextBlockWithBlockType
 parameter_list|(
@@ -4552,6 +4667,11 @@ name|blockType
 parameter_list|)
 throws|throws
 name|IOException
+function_decl|;
+comment|/**      * Now we use the {@link ByteBuffAllocator} to manage the nio ByteBuffers for HFileBlocks, so we      * must deallocate all of the ByteBuffers in the end life. the BlockIterator's life cycle is      * starting from opening an HFileReader and stopped when the HFileReader#close, so we will keep      * track all the read blocks until we call {@link BlockIterator#freeBlocks()} when closing the      * HFileReader. Sum bytes of those blocks in load-on-open section should be quite small, so      * tracking them should be OK.      */
+name|void
+name|freeBlocks
+parameter_list|()
 function_decl|;
 block|}
 comment|/** An HFile block reader with iteration ability. */
@@ -4763,6 +4883,11 @@ name|pathName
 decl_stmt|;
 specifier|private
 specifier|final
+name|ByteBuffAllocator
+name|allocator
+decl_stmt|;
+specifier|private
+specifier|final
 name|Lock
 name|streamLock
 init|=
@@ -4786,6 +4911,9 @@ name|path
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 throws|throws
 name|IOException
@@ -4839,6 +4967,12 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
+name|allocator
+operator|=
+name|allocator
+expr_stmt|;
+name|this
+operator|.
 name|streamWrapper
 operator|=
 name|stream
@@ -4881,6 +5015,9 @@ name|fileSize
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 throws|throws
 name|IOException
@@ -4900,6 +5037,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|fileContext
+argument_list|,
+name|allocator
 argument_list|)
 expr_stmt|;
 block|}
@@ -4930,6 +5069,26 @@ operator|new
 name|BlockIterator
 argument_list|()
 block|{
+specifier|private
+specifier|volatile
+name|boolean
+name|freed
+init|=
+literal|false
+decl_stmt|;
+comment|// Tracking all read blocks until we call freeBlocks.
+specifier|private
+name|List
+argument_list|<
+name|HFileBlock
+argument_list|>
+name|blockTracker
+init|=
+operator|new
+name|ArrayList
+argument_list|<>
+argument_list|()
+decl_stmt|;
 specifier|private
 name|long
 name|offset
@@ -4992,7 +5151,9 @@ operator|.
 name|getNextBlockOnDiskSize
 argument_list|()
 expr_stmt|;
-return|return
+name|HFileBlock
+name|uncompressed
+init|=
 name|b
 operator|.
 name|unpack
@@ -5001,6 +5162,30 @@ name|fileContext
 argument_list|,
 name|owner
 argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|uncompressed
+operator|!=
+name|b
+condition|)
+block|{
+name|b
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+comment|// Need to release the compressed Block now.
+block|}
+name|blockTracker
+operator|.
+name|add
+argument_list|(
+name|uncompressed
+argument_list|)
+expr_stmt|;
+return|return
+name|uncompressed
 return|;
 block|}
 annotation|@
@@ -5051,6 +5236,38 @@ block|}
 return|return
 name|blk
 return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|freeBlocks
+parameter_list|()
+block|{
+if|if
+condition|(
+name|freed
+condition|)
+block|{
+return|return;
+block|}
+name|blockTracker
+operator|.
+name|forEach
+argument_list|(
+name|HFileBlock
+operator|::
+name|release
+argument_list|)
+expr_stmt|;
+name|blockTracker
+operator|=
+literal|null
+expr_stmt|;
+name|freed
+operator|=
+literal|true
+expr_stmt|;
 block|}
 block|}
 return|;
@@ -5986,17 +6203,13 @@ comment|// the header we read last time through here.
 name|ByteBuff
 name|onDiskBlock
 init|=
-operator|new
-name|SingleByteBuff
-argument_list|(
-name|ByteBuffer
+name|allocator
 operator|.
 name|allocate
 argument_list|(
 name|onDiskSizeWithHeader
 operator|+
 name|hdrSize
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -6124,6 +6337,11 @@ operator|.
 name|duplicate
 argument_list|()
 operator|.
+name|position
+argument_list|(
+literal|0
+argument_list|)
+operator|.
 name|limit
 argument_list|(
 name|onDiskSizeWithHeader
@@ -6196,6 +6414,8 @@ argument_list|,
 name|nextBlockOnDiskSize
 argument_list|,
 name|fileContext
+argument_list|,
+name|allocator
 argument_list|)
 decl_stmt|;
 comment|// Run check on uncompressed sizings.

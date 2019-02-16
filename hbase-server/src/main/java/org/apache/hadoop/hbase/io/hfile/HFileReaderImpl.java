@@ -99,6 +99,20 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
+name|AtomicBoolean
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|atomic
+operator|.
 name|AtomicInteger
 import|;
 end_import
@@ -852,6 +866,14 @@ operator|new
 name|IdLock
 argument_list|()
 decl_stmt|;
+comment|/**    * The iterator will track all blocks in load-on-open section, since we use the    * {@link org.apache.hadoop.hbase.io.ByteBuffAllocator} to manage the ByteBuffers in block now, so    * we must ensure that deallocate all ByteBuffers in the end.    */
+specifier|private
+specifier|final
+name|HFileBlock
+operator|.
+name|BlockIterator
+name|blockIter
+decl_stmt|;
 comment|/**    * Blocks read from the load-on-open section, excluding data root index, meta    * index, and file info.    */
 specifier|private
 name|List
@@ -1091,6 +1113,11 @@ argument_list|,
 name|path
 argument_list|,
 name|hfileContext
+argument_list|,
+name|cacheConf
+operator|.
+name|getByteBuffAllocator
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Comparator class name is stored in the trailer in version 2.
@@ -1128,12 +1155,9 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-comment|// Parse load-on-open data.
-name|HFileBlock
-operator|.
-name|BlockIterator
+comment|// Initialize an block iterator, and parse load-on-open blocks in the following.
 name|blockIter
-init|=
+operator|=
 name|fsBlockReader
 operator|.
 name|blockRange
@@ -1150,7 +1174,7 @@ operator|.
 name|getTrailerSize
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Data index. We also read statistics about the block index written after
 comment|// the root level.
 name|dataBlockIndexReader
@@ -2008,6 +2032,8 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|this
 operator|.
 name|cacheConf
@@ -2015,10 +2041,9 @@ operator|.
 name|getBlockCache
 argument_list|()
 operator|.
-name|ifPresent
-argument_list|(
-name|blockCache
-lambda|->
+name|isPresent
+argument_list|()
+condition|)
 block|{
 name|BlockCacheKey
 name|cacheKey
@@ -2050,7 +2075,13 @@ name|getBlockType
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|blockCache
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
+operator|.
+name|get
+argument_list|()
 operator|.
 name|returnBlock
 argument_list|(
@@ -2060,8 +2091,15 @@ name|block
 argument_list|)
 expr_stmt|;
 block|}
-argument_list|)
+else|else
+block|{
+comment|// Release the block here, it means the RPC path didn't ref to this block any more.
+name|block
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * @return the first key in the file. May be null if file has no entries. Note    *         that this is not the first row key, but rather the byte form of the    *         first KeyValue.    */
@@ -2598,7 +2636,7 @@ expr_stmt|;
 block|}
 specifier|private
 name|void
-name|returnBlockToCache
+name|returnBlock
 parameter_list|(
 name|HFileBlock
 name|block
@@ -2660,7 +2698,7 @@ name|i
 operator|++
 control|)
 block|{
-name|returnBlockToCache
+name|returnBlock
 argument_list|(
 name|this
 operator|.
@@ -2691,7 +2729,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-name|returnBlockToCache
+name|returnBlock
 argument_list|(
 name|this
 operator|.
@@ -5244,8 +5282,6 @@ name|firstDataBlockOffset
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|CorruptHFileException
 block|{
 name|HFileBlock
 name|newBlock
@@ -6423,7 +6459,7 @@ return|;
 block|}
 comment|// Cache Miss, please load.
 name|HFileBlock
-name|metaBlock
+name|compressedBlock
 init|=
 name|fsBlockReader
 operator|.
@@ -6437,6 +6473,11 @@ literal|true
 argument_list|,
 literal|false
 argument_list|)
+decl_stmt|;
+name|HFileBlock
+name|uncompressedBlock
+init|=
+name|compressedBlock
 operator|.
 name|unpack
 argument_list|(
@@ -6445,6 +6486,19 @@ argument_list|,
 name|fsBlockReader
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|compressedBlock
+operator|!=
+name|uncompressedBlock
+condition|)
+block|{
+name|compressedBlock
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
 comment|// Cache the block
 if|if
 condition|(
@@ -6466,7 +6520,7 @@ name|cacheBlock
 argument_list|(
 name|cacheKey
 argument_list|,
-name|metaBlock
+name|uncompressedBlock
 argument_list|,
 name|cacheConf
 operator|.
@@ -6477,7 +6531,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|metaBlock
+name|uncompressedBlock
 return|;
 block|}
 block|}
@@ -6877,6 +6931,15 @@ name|getCategory
 argument_list|()
 decl_stmt|;
 comment|// Cache the block if necessary
+name|AtomicBoolean
+name|cachedRaw
+init|=
+operator|new
+name|AtomicBoolean
+argument_list|(
+literal|false
+argument_list|)
+decl_stmt|;
 name|cacheConf
 operator|.
 name|getBlockCache
@@ -6899,18 +6962,28 @@ name|category
 argument_list|)
 condition|)
 block|{
-name|cache
+name|cachedRaw
 operator|.
-name|cacheBlock
+name|set
 argument_list|(
-name|cacheKey
-argument_list|,
 name|cacheConf
 operator|.
 name|shouldCacheCompressed
 argument_list|(
 name|category
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|cache
+operator|.
+name|cacheBlock
+argument_list|(
+name|cacheKey
+argument_list|,
+name|cachedRaw
+operator|.
+name|get
+argument_list|()
 condition|?
 name|hfileBlock
 else|:
@@ -6926,6 +6999,26 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|unpacked
+operator|!=
+name|hfileBlock
+operator|&&
+operator|!
+name|cachedRaw
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+comment|// End of life here if hfileBlock is an independent block.
+name|hfileBlock
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|updateCacheMetrics
@@ -7156,6 +7249,13 @@ argument_list|(
 name|path
 argument_list|)
 expr_stmt|;
+comment|// Deallocate blocks in load-on-open section
+name|blockIter
+operator|.
+name|freeBlocks
+argument_list|()
+expr_stmt|;
+comment|// Deallocate data blocks
 name|cacheConf
 operator|.
 name|getBlockCache

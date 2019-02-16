@@ -595,6 +595,22 @@ begin_import
 import|import
 name|org
 operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Pair
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|junit
 operator|.
 name|After
@@ -927,7 +943,6 @@ operator|-
 literal|2
 decl_stmt|;
 specifier|private
-specifier|static
 enum|enum
 name|CacheOnWriteType
 block|{
@@ -981,7 +996,6 @@ specifier|final
 name|BlockType
 name|blockType2
 decl_stmt|;
-specifier|private
 name|CacheOnWriteType
 parameter_list|(
 name|String
@@ -1001,7 +1015,6 @@ name|blockType
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
 name|CacheOnWriteType
 parameter_list|(
 name|String
@@ -1971,7 +1984,12 @@ name|Map
 argument_list|<
 name|Long
 argument_list|,
+name|Pair
+argument_list|<
 name|HFileBlock
+argument_list|,
+name|HFileBlock
+argument_list|>
 argument_list|>
 name|cachedBlocks
 init|=
@@ -2074,6 +2092,19 @@ argument_list|(
 name|offset
 argument_list|,
 name|fromCache
+operator|==
+literal|null
+condition|?
+literal|null
+else|:
+name|Pair
+operator|.
+name|newPair
+argument_list|(
+name|block
+argument_list|,
+name|fromCache
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|boolean
@@ -2429,8 +2460,13 @@ argument_list|,
 name|entry
 argument_list|)
 decl_stmt|;
+name|Pair
+argument_list|<
 name|HFileBlock
-name|hFileBlock
+argument_list|,
+name|HFileBlock
+argument_list|>
+name|blockPair
 init|=
 name|cachedBlocks
 operator|.
@@ -2441,20 +2477,24 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|hFileBlock
+name|blockPair
 operator|!=
 literal|null
 condition|)
 block|{
-comment|// call return twice because for the isCache cased the counter would have got incremented
-comment|// twice
+comment|// Call return twice because for the isCache cased the counter would have got incremented
+comment|// twice. Notice that here we need to returnBlock with different blocks. see comments in
+comment|// BucketCache#returnBlock.
 name|blockCache
 operator|.
 name|returnBlock
 argument_list|(
 name|blockCacheKey
 argument_list|,
-name|hFileBlock
+name|blockPair
+operator|.
+name|getSecond
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if
@@ -2493,7 +2533,10 @@ name|returnBlock
 argument_list|(
 name|blockCacheKey
 argument_list|,
-name|hFileBlock
+name|blockPair
+operator|.
+name|getFirst
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2506,7 +2549,10 @@ name|returnBlock
 argument_list|(
 name|blockCacheKey
 argument_list|,
-name|hFileBlock
+name|blockPair
+operator|.
+name|getFirst
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3411,12 +3457,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-operator|(
-operator|(
-name|HRegion
-operator|)
 name|region
-operator|)
 operator|.
 name|close
 argument_list|()

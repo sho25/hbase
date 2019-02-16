@@ -273,6 +273,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|KeyValueUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -2160,7 +2174,9 @@ argument_list|,
 name|cacheConf
 argument_list|)
 expr_stmt|;
-return|return
+name|Cell
+name|cell
+init|=
 name|readPt
 operator|!=
 operator|-
@@ -2184,6 +2200,17 @@ argument_list|(
 name|search
 argument_list|,
 name|cacheMobBlocks
+argument_list|)
+decl_stmt|;
+comment|// Now we will return blocks to allocator for mob cells before shipping to rpc client.
+comment|// it will be memory leak. so just copy cell as an on-heap KV here. will remove this in
+comment|// HBASE-22122 (TODO)
+return|return
+name|KeyValueUtil
+operator|.
+name|copyToNewKeyValue
+argument_list|(
+name|cell
 argument_list|)
 return|;
 block|}

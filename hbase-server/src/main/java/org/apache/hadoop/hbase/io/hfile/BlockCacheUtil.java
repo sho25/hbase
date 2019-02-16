@@ -1091,18 +1091,11 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-literal|null
-operator|==
 name|existingBlock
-condition|)
-block|{
-comment|// Not exist now.
-return|return
-literal|true
-return|;
-block|}
+operator|.
+name|retain
+argument_list|()
+expr_stmt|;
 try|try
 block|{
 name|int

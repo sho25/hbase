@@ -2639,6 +2639,14 @@ name|region
 operator|.
 name|getBlockCache
 argument_list|()
+argument_list|,
+name|region
+operator|.
+name|getRegionServicesForStores
+argument_list|()
+operator|.
+name|getByteBuffAllocator
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

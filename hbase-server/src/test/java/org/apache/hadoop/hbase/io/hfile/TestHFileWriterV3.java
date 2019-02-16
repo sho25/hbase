@@ -333,6 +333,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|ByteBuffAllocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|compress
 operator|.
 name|Compression
@@ -1301,6 +1317,10 @@ argument_list|,
 name|fileSize
 argument_list|,
 name|meta
+argument_list|,
+name|ByteBuffAllocator
+operator|.
+name|HEAP
 argument_list|)
 decl_stmt|;
 comment|// Comparator class name is stored in the trailer in version 3.
