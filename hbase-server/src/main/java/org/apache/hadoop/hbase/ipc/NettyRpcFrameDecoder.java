@@ -629,7 +629,7 @@ name|connection
 operator|.
 name|rpcServer
 operator|.
-name|reservoir
+name|bbAllocator
 argument_list|,
 name|connection
 operator|.

@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+operator|.
+name|NONE
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -89,6 +107,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+operator|.
+name|Recycler
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ByteBufferUtils
@@ -138,28 +174,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
 import|;
 end_import
 
@@ -229,6 +243,54 @@ modifier|...
 name|items
 parameter_list|)
 block|{
+name|this
+argument_list|(
+name|NONE
+argument_list|,
+name|items
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+name|MultiByteBuff
+parameter_list|(
+name|Recycler
+name|recycler
+parameter_list|,
+name|ByteBuffer
+modifier|...
+name|items
+parameter_list|)
+block|{
+name|this
+argument_list|(
+operator|new
+name|RefCnt
+argument_list|(
+name|recycler
+argument_list|)
+argument_list|,
+name|items
+argument_list|)
+expr_stmt|;
+block|}
+specifier|private
+name|MultiByteBuff
+parameter_list|(
+name|RefCnt
+name|refCnt
+parameter_list|,
+name|ByteBuffer
+modifier|...
+name|items
+parameter_list|)
+block|{
+name|this
+operator|.
+name|refCnt
+operator|=
+name|refCnt
+expr_stmt|;
 assert|assert
 name|items
 operator|!=
@@ -371,6 +433,9 @@ block|}
 specifier|private
 name|MultiByteBuff
 parameter_list|(
+name|RefCnt
+name|refCnt
+parameter_list|,
 name|ByteBuffer
 index|[]
 name|items
@@ -392,6 +457,12 @@ name|int
 name|markedIndex
 parameter_list|)
 block|{
+name|this
+operator|.
+name|refCnt
+operator|=
+name|refCnt
+expr_stmt|;
 name|this
 operator|.
 name|items
@@ -491,6 +562,9 @@ name|int
 name|capacity
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|c
 init|=
@@ -529,6 +603,9 @@ name|int
 name|index
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|itemIndex
 init|=
@@ -570,6 +647,9 @@ name|int
 name|offset
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|index
@@ -731,6 +811,9 @@ name|int
 name|index
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|itemIndex
@@ -798,6 +881,9 @@ name|int
 name|offset
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|index
@@ -865,6 +951,9 @@ name|int
 name|index
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|itemIndex
@@ -1061,6 +1150,9 @@ name|int
 name|offset
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|index
@@ -1574,6 +1666,9 @@ name|int
 name|index
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|itemIndex
@@ -1641,6 +1736,9 @@ name|int
 name|offset
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Mostly the index specified will land within this current item. Short circuit for that
 name|int
 name|index
@@ -1705,6 +1803,9 @@ name|int
 name|position
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 return|return
 name|itemBeginPos
 index|[
@@ -1732,6 +1833,9 @@ name|int
 name|position
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Short circuit for positioning within the cur item. Mostly that is the case.
 if|if
 condition|(
@@ -1907,6 +2011,9 @@ name|MultiByteBuff
 name|rewind
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|int
@@ -1975,6 +2082,9 @@ name|MultiByteBuff
 name|mark
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|markedItemIndex
@@ -2002,6 +2112,9 @@ name|MultiByteBuff
 name|reset
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// when the buffer is moved to the next one.. the reset should happen on the previous marked
 comment|// item and the new one should be taken as the base
 if|if
@@ -2093,6 +2206,9 @@ name|int
 name|remaining
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|remain
 init|=
@@ -2139,6 +2255,9 @@ name|boolean
 name|hasRemaining
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 return|return
 name|this
 operator|.
@@ -2180,6 +2299,9 @@ name|byte
 name|get
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -2248,6 +2370,9 @@ name|short
 name|getShort
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|remaining
 init|=
@@ -2336,6 +2461,9 @@ name|int
 name|getInt
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|remaining
 init|=
@@ -2410,6 +2538,9 @@ name|long
 name|getLong
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|remaining
 init|=
@@ -2518,6 +2649,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 while|while
 condition|(
 name|length
@@ -2635,6 +2769,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|itemIndex
 init|=
@@ -2749,6 +2886,9 @@ name|int
 name|limit
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|this
 operator|.
 name|limit
@@ -2960,6 +3100,9 @@ name|MultiByteBuff
 name|slice
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|ByteBuffer
 index|[]
 name|copy
@@ -3022,11 +3165,13 @@ return|return
 operator|new
 name|MultiByteBuff
 argument_list|(
+name|refCnt
+argument_list|,
 name|copy
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns an MBB which is a duplicate version of this MBB. The position, limit and mark    * of the new MBB will be independent than that of the original MBB.    * The content of the new MBB will start at this MBB's current position    * The position, limit and mark of the new MBB would be identical to this MBB in terms of    * values.    * @return a sliced MBB    */
+comment|/**    * Returns an MBB which is a duplicate version of this MBB. The position, limit and mark of the    * new MBB will be independent than that of the original MBB. The content of the new MBB will    * start at this MBB's current position The position, limit and mark of the new MBB would be    * identical to this MBB in terms of values.    * @return a duplicated MBB    */
 annotation|@
 name|Override
 specifier|public
@@ -3034,6 +3179,9 @@ name|MultiByteBuff
 name|duplicate
 parameter_list|()
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|ByteBuffer
 index|[]
 name|itemsCopy
@@ -3085,6 +3233,8 @@ return|return
 operator|new
 name|MultiByteBuff
 argument_list|(
+name|refCnt
+argument_list|,
 name|itemsCopy
 argument_list|,
 name|this
@@ -3120,6 +3270,9 @@ name|byte
 name|b
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3199,6 +3352,9 @@ name|byte
 name|b
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|itemIndex
 init|=
@@ -3253,6 +3409,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|destItemIndex
 init|=
@@ -3496,15 +3655,13 @@ operator|instanceof
 name|SingleByteBuff
 operator|)
 condition|?
-operator|(
-operator|(
-name|SingleByteBuff
-operator|)
 name|buf
-operator|)
 operator|.
-name|getEnclosingByteBuffer
+name|nioByteBuffers
 argument_list|()
+index|[
+literal|0
+index|]
 else|:
 operator|(
 operator|(
@@ -3530,6 +3687,9 @@ name|int
 name|val
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3737,6 +3897,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -3816,6 +3979,9 @@ name|long
 name|val
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -4102,6 +4268,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Get available bytes from this item and remaining from next
 name|int
 name|jump
@@ -4201,6 +4370,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 while|while
 condition|(
 name|length
@@ -4285,6 +4457,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -4425,6 +4600,9 @@ argument_list|>
 name|pair
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|this
@@ -4667,6 +4845,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 comment|// Not used from real read path actually. So not going with
 comment|// optimization
 for|for
@@ -4715,6 +4896,9 @@ name|int
 name|length
 parameter_list|)
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|byte
 index|[]
 name|output
@@ -4754,6 +4938,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
 name|int
 name|total
 init|=
@@ -4836,6 +5023,23 @@ block|}
 block|}
 return|return
 name|total
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|ByteBuffer
+index|[]
+name|nioByteBuffers
+parameter_list|()
+block|{
+name|checkRefCount
+argument_list|()
+expr_stmt|;
+return|return
+name|this
+operator|.
+name|items
 return|;
 block|}
 annotation|@
@@ -4968,19 +5172,20 @@ return|return
 name|hash
 return|;
 block|}
-comment|/**    * @return the ByteBuffers which this wraps.    */
 annotation|@
-name|VisibleForTesting
+name|Override
 specifier|public
-name|ByteBuffer
-index|[]
-name|getEnclosingByteBuffers
+name|MultiByteBuff
+name|retain
 parameter_list|()
 block|{
+name|refCnt
+operator|.
+name|retain
+argument_list|()
+expr_stmt|;
 return|return
 name|this
-operator|.
-name|items
 return|;
 block|}
 block|}

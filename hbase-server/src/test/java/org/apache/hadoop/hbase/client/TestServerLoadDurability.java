@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+operator|.
+name|BUFFER_SIZE_KEY
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -124,22 +142,6 @@ operator|.
 name|hbase
 operator|.
 name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|ByteBufferPool
 import|;
 end_import
 
@@ -498,8 +500,6 @@ name|conf
 operator|.
 name|setInt
 argument_list|(
-name|ByteBufferPool
-operator|.
 name|BUFFER_SIZE_KEY
 argument_list|,
 literal|20

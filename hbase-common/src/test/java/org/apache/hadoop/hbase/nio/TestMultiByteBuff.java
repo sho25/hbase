@@ -2101,7 +2101,7 @@ name|SIZEOF_LONG
 operator|)
 argument_list|)
 expr_stmt|;
-name|MultiByteBuff
+name|ByteBuff
 name|sliced
 init|=
 name|multi
@@ -2155,7 +2155,7 @@ name|getLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|MultiByteBuff
+name|ByteBuff
 name|dup
 init|=
 name|multi

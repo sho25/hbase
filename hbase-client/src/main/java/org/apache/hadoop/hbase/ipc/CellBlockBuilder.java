@@ -213,6 +213,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -318,22 +334,6 @@ operator|.
 name|io
 operator|.
 name|ByteBufferOutputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|ByteBufferPool
 import|;
 end_import
 
@@ -1079,7 +1079,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec to use for encoding    * @param compressor to use for encoding    * @param cellScanner to encode    * @param pool Pool of ByteBuffers to make use of.    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    *         passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has    *         been flipped and is ready for reading. Use limit to find total size. If    *<code>pool</code> was not null, then this returned ByteBuffer came from there and    *         should be returned to the pool when done.    * @throws IOException if encoding the cells fail    */
+comment|/**    * Puts CellScanner Cells into a cell block using passed in<code>codec</code> and/or    *<code>compressor</code>.    * @param codec to use for encoding    * @param compressor to use for encoding    * @param cellScanner to encode    * @param allocator to allocate the {@link ByteBuff}.    * @return Null or byte buffer filled with a cellblock filled with passed-in Cells encoded using    *         passed in<code>codec</code> and/or<code>compressor</code>; the returned buffer has    *         been flipped and is ready for reading. Use limit to find total size. If    *<code>pool</code> was not null, then this returned ByteBuffer came from there and    *         should be returned to the pool when done.    * @throws IOException if encoding the cells fail    */
 specifier|public
 name|ByteBufferListOutputStream
 name|buildCellBlockStream
@@ -1093,8 +1093,8 @@ parameter_list|,
 name|CellScanner
 name|cellScanner
 parameter_list|,
-name|ByteBufferPool
-name|pool
+name|ByteBuffAllocator
+name|allocator
 parameter_list|)
 throws|throws
 name|IOException
@@ -1123,18 +1123,13 @@ name|CellScannerButNoCodecException
 argument_list|()
 throw|;
 block|}
-assert|assert
-name|pool
-operator|!=
-literal|null
-assert|;
 name|ByteBufferListOutputStream
 name|bbos
 init|=
 operator|new
 name|ByteBufferListOutputStream
 argument_list|(
-name|pool
+name|allocator
 argument_list|)
 decl_stmt|;
 name|encodeCellsTo
