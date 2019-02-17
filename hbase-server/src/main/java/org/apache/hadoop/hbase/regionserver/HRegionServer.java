@@ -11037,6 +11037,15 @@ argument_list|,
 name|uncaughtExceptionHandler
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|cacheFlusher
+operator|!=
+literal|null
+condition|)
+block|{
 name|this
 operator|.
 name|cacheFlusher
@@ -11046,6 +11055,7 @@ argument_list|(
 name|uncaughtExceptionHandler
 argument_list|)
 expr_stmt|;
+block|}
 name|Threads
 operator|.
 name|setDaemonThreadRunning
