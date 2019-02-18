@@ -6448,9 +6448,12 @@ argument_list|,
 name|checksumSupport
 argument_list|)
 expr_stmt|;
-name|ByteBuffer
-name|onDiskBlockByteBuffer
+name|ByteBuff
+name|onDiskBlockByteBuff
 init|=
+operator|new
+name|SingleByteBuff
+argument_list|(
 name|ByteBuffer
 operator|.
 name|wrap
@@ -6460,6 +6463,7 @@ argument_list|,
 literal|0
 argument_list|,
 name|onDiskSizeWithHeader
+argument_list|)
 argument_list|)
 decl_stmt|;
 comment|// Verify checksum of the data before using it for building HFileBlock.
@@ -6472,7 +6476,7 @@ name|validateChecksum
 argument_list|(
 name|offset
 argument_list|,
-name|onDiskBlockByteBuffer
+name|onDiskBlockByteBuff
 argument_list|,
 name|hdrSize
 argument_list|)
@@ -6516,11 +6520,7 @@ init|=
 operator|new
 name|HFileBlock
 argument_list|(
-operator|new
-name|SingleByteBuff
-argument_list|(
-name|onDiskBlockByteBuffer
-argument_list|)
+name|onDiskBlockByteBuff
 argument_list|,
 name|checksumSupport
 argument_list|,
@@ -6668,14 +6668,12 @@ parameter_list|(
 name|long
 name|offset
 parameter_list|,
-name|ByteBuffer
+name|ByteBuff
 name|data
 parameter_list|,
 name|int
 name|hdrSize
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// If this is an older version of the block that does not have checksums, then return false
 comment|// indicating that checksum verification did not succeed. Actually, this method should never
