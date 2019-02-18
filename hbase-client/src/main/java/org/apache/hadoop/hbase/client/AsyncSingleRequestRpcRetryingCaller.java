@@ -288,6 +288,9 @@ name|T
 argument_list|>
 name|callable
 parameter_list|,
+name|int
+name|priority
+parameter_list|,
 name|long
 name|pauseNs
 parameter_list|,
@@ -309,6 +312,8 @@ argument_list|(
 name|retryTimer
 argument_list|,
 name|conn
+argument_list|,
+name|priority
 argument_list|,
 name|pauseNs
 argument_list|,

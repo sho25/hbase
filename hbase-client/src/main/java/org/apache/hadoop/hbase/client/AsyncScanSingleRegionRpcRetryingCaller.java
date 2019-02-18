@@ -749,6 +749,11 @@ name|regionServerRemote
 decl_stmt|;
 specifier|private
 specifier|final
+name|int
+name|priority
+decl_stmt|;
+specifier|private
+specifier|final
 name|long
 name|scannerLeaseTimeoutPeriodNs
 decl_stmt|;
@@ -1362,6 +1367,9 @@ parameter_list|,
 name|boolean
 name|isRegionServerRemote
 parameter_list|,
+name|int
+name|priority
+parameter_list|,
 name|long
 name|scannerLeaseTimeoutPeriodNs
 parameter_list|,
@@ -1506,6 +1514,12 @@ argument_list|()
 expr_stmt|;
 name|this
 operator|.
+name|priority
+operator|=
+name|priority
+expr_stmt|;
+name|this
+operator|.
 name|controller
 operator|=
 name|conn
@@ -1514,6 +1528,15 @@ name|rpcControllerFactory
 operator|.
 name|newController
 argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|controller
+operator|.
+name|setPriority
+argument_list|(
+name|priority
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -1581,6 +1604,8 @@ argument_list|(
 name|controller
 argument_list|,
 name|rpcTimeoutNs
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 name|ScanRequest
@@ -2746,6 +2771,8 @@ argument_list|(
 name|controller
 argument_list|,
 name|callTimeoutNs
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 name|ScanRequest
@@ -2843,6 +2870,8 @@ argument_list|(
 name|controller
 argument_list|,
 name|rpcTimeoutNs
+argument_list|,
+name|priority
 argument_list|)
 expr_stmt|;
 name|ScanRequest
