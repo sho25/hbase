@@ -2863,6 +2863,9 @@ name|SYSTEMTABLE_QOS
 init|=
 name|HIGH_QOS
 decl_stmt|;
+comment|/**    * @deprecated the name "META_QOS" is a bit ambiguous, actually only meta region transition can    *             use this priority, and you should not use this directly. Will be removed in 3.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final

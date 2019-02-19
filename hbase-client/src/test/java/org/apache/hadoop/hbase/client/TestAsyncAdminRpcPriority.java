@@ -45,22 +45,6 @@ name|hbase
 operator|.
 name|HConstants
 operator|.
-name|META_QOS
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
 name|NORMAL_QOS
 import|;
 end_import
@@ -1554,7 +1538,7 @@ name|createTable
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any

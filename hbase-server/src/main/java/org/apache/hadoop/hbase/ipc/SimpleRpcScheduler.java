@@ -117,6 +117,22 @@ name|ConfigurationObserver
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|MasterAnnotationReadingPriorityFunction
+import|;
+end_import
+
 begin_comment
 comment|/**  * The default scheduler. Configurable. Maintains isolated handler pools for general ('default'),  * high-priority ('priority'), and replication ('replication') requests. Default behavior is to  * balance the requests across handlers. Add configs to enable balancing by read vs writes, etc.  * See below article for explanation of options.  * @see<a href="http://blog.cloudera.com/blog/2014/12/new-in-cdh-5-2-improvements-for-running-multiple-workloads-on-a-single-hbase-cluster/">Overview on Request Queuing</a>  */
 end_comment
@@ -855,9 +871,9 @@ literal|null
 operator|&&
 name|level
 operator|==
-name|HConstants
+name|MasterAnnotationReadingPriorityFunction
 operator|.
-name|META_QOS
+name|META_TRANSITION_QOS
 condition|)
 block|{
 return|return

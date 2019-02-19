@@ -29,22 +29,6 @@ name|hbase
 operator|.
 name|HConstants
 operator|.
-name|META_QOS
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
 name|NORMAL_QOS
 import|;
 end_import
@@ -2232,7 +2216,7 @@ name|get
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -2601,7 +2585,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -2874,7 +2858,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -3243,7 +3227,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -3571,7 +3555,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -4060,7 +4044,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -4498,7 +4482,7 @@ name|mutate
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -5001,7 +4985,7 @@ name|multi
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -5412,7 +5396,7 @@ name|scan
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any
@@ -5631,7 +5615,7 @@ name|multi
 argument_list|(
 name|assertPriority
 argument_list|(
-name|META_QOS
+name|SYSTEMTABLE_QOS
 argument_list|)
 argument_list|,
 name|any

@@ -221,6 +221,14 @@ extends|extends
 name|AnnotationReadingPriorityFunction
 block|{
 specifier|public
+specifier|static
+specifier|final
+name|int
+name|META_TRANSITION_QOS
+init|=
+literal|300
+decl_stmt|;
+specifier|public
 name|MasterAnnotationReadingPriorityFunction
 parameter_list|(
 specifier|final
@@ -298,13 +306,30 @@ operator|>=
 literal|0
 condition|)
 block|{
+comment|// no one can have higher priority than meta transition.
+if|if
+condition|(
+name|priorityByAnnotation
+operator|>=
+name|META_TRANSITION_QOS
+condition|)
+block|{
+return|return
+name|META_TRANSITION_QOS
+operator|-
+literal|1
+return|;
+block|}
+else|else
+block|{
 return|return
 name|priorityByAnnotation
 return|;
 block|}
+block|}
 comment|// If meta is moving then all the other of reports of state transitions will be
 comment|// un able to edit meta. Those blocked reports should not keep the report that opens meta from
-comment|// running. Hence all reports of meta transitioning should always be in a different thread.
+comment|// running. Hence all reports of meta transition should always be in a different thread.
 comment|// This keeps from deadlocking the cluster.
 if|if
 condition|(
@@ -390,14 +415,28 @@ argument_list|)
 condition|)
 block|{
 return|return
-name|HConstants
-operator|.
-name|META_QOS
+name|META_TRANSITION_QOS
 return|;
 block|}
 block|}
 block|}
 block|}
+return|return
+name|HConstants
+operator|.
+name|HIGH_QOS
+return|;
+block|}
+comment|// also use HIGH_QOS for region server report
+if|if
+condition|(
+name|param
+operator|instanceof
+name|RegionServerStatusProtos
+operator|.
+name|RegionServerReportRequest
+condition|)
+block|{
 return|return
 name|HConstants
 operator|.
