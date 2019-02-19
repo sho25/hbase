@@ -54,6 +54,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -2752,12 +2764,13 @@ operator|.
 name|current
 argument_list|()
 decl_stmt|;
+comment|// The compaction result file has an additional compaction event tracker
 return|return
 name|lastSeenSize
 operator|.
 name|get
 argument_list|()
-operator|==
+operator|<=
 name|QuotaTableUtil
 operator|.
 name|parseSnapshotSize
@@ -2879,12 +2892,13 @@ operator|.
 name|current
 argument_list|()
 decl_stmt|;
+comment|// The compaction result file has an additional compaction event tracker
 return|return
 name|lastSeenSize
 operator|.
 name|get
 argument_list|()
-operator|==
+operator|<=
 name|QuotaTableUtil
 operator|.
 name|parseSnapshotSize
@@ -2950,8 +2964,7 @@ name|current
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Two snapshots of equal size.
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|lastSeenSize
 operator|.
@@ -2959,7 +2972,7 @@ name|get
 argument_list|()
 operator|*
 literal|2
-argument_list|,
+operator|<=
 name|size
 argument_list|)
 expr_stmt|;

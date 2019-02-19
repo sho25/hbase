@@ -2503,6 +2503,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 comment|// After the table is compacted, it should have its own files and be the same size as originally
+comment|// But The compaction result file has an additional compaction event tracker
 name|TEST_UTIL
 operator|.
 name|waitFor
@@ -2535,7 +2536,7 @@ name|snapshot
 operator|.
 name|getUsage
 argument_list|()
-operator|==
+operator|>=
 name|actualInitialSize
 return|;
 block|}

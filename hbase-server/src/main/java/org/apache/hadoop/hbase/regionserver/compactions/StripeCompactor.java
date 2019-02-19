@@ -840,6 +840,11 @@ name|request
 operator|.
 name|isMajor
 argument_list|()
+argument_list|,
+name|request
+operator|.
+name|getFiles
+argument_list|()
 argument_list|)
 decl_stmt|;
 assert|assert

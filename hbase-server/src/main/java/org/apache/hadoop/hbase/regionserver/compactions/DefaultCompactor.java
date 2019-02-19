@@ -494,6 +494,11 @@ name|request
 operator|.
 name|isAllFiles
 argument_list|()
+argument_list|,
+name|request
+operator|.
+name|getFiles
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|writer
