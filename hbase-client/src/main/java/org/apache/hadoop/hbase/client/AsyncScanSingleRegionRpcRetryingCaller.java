@@ -1928,6 +1928,10 @@ operator|||
 name|error
 operator|instanceof
 name|RegionServerStoppedException
+operator|||
+name|error
+operator|instanceof
+name|ScannerResetException
 decl_stmt|;
 name|RetriesExhaustedException
 operator|.
@@ -2054,10 +2058,6 @@ condition|(
 name|error
 operator|instanceof
 name|OutOfOrderScannerNextException
-operator|||
-name|error
-operator|instanceof
-name|ScannerResetException
 condition|)
 block|{
 name|completeWhenError

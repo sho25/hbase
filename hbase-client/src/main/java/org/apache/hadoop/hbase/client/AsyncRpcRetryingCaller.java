@@ -247,6 +247,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|ScannerResetException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ipc
 operator|.
 name|HBaseRpcController
@@ -855,11 +871,24 @@ argument_list|(
 name|t
 argument_list|)
 decl_stmt|;
+comment|// We use this retrying caller to open a scanner, as it is idempotent, but we may throw
+comment|// ScannerResetException, which is a DoNotRetryIOException when opening a scanner as now we will
+comment|// also fetch data when opening a scanner. The intention here is that if we hit a
+comment|// ScannerResetException when scanning then we should try to open a new scanner, instead of
+comment|// retrying on the old one, so it is declared as a DoNotRetryIOException. But here we are
+comment|// exactly trying to open a new scanner, so we should retry on ScannerResetException.
 if|if
 condition|(
 name|error
 operator|instanceof
 name|DoNotRetryIOException
+operator|&&
+operator|!
+operator|(
+name|error
+operator|instanceof
+name|ScannerResetException
+operator|)
 condition|)
 block|{
 name|future
