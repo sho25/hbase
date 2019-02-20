@@ -409,20 +409,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DoNotRetryIOException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseIOException
 import|;
 end_import
@@ -1772,10 +1758,12 @@ expr_stmt|;
 if|if
 condition|(
 name|error
-operator|instanceof
-name|DoNotRetryIOException
+operator|!=
+literal|null
 condition|)
 block|{
+comment|// fail the request itself, no matter whether it is a DoNotRetryIOException, as we have
+comment|// already retried several times
 name|CompletableFuture
 argument_list|<
 name|?

@@ -432,7 +432,7 @@ operator|.
 name|debug
 argument_list|(
 literal|"The fetched meta region location is {}"
-operator|+
+argument_list|,
 name|locs
 argument_list|)
 expr_stmt|;
