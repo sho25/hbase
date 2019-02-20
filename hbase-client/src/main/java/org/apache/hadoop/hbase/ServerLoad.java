@@ -1093,29 +1093,6 @@ name|getReplicationLoadSourceList
 argument_list|()
 return|;
 block|}
-comment|/**    * Call directly from client such as hbase shell    * @return a map of ReplicationLoadSource list per peer id    */
-annotation|@
-name|Override
-specifier|public
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|ReplicationLoadSource
-argument_list|>
-argument_list|>
-name|getReplicationLoadSourceMap
-parameter_list|()
-block|{
-return|return
-name|metrics
-operator|.
-name|getReplicationLoadSourceMap
-argument_list|()
-return|;
-block|}
 comment|/**    * Call directly from client such as hbase shell    * @return ReplicationLoadSink    */
 annotation|@
 name|Override

@@ -176,19 +176,6 @@ argument_list|>
 name|getReplicationLoadSourceList
 parameter_list|()
 function_decl|;
-comment|/**    * Call directly from client such as hbase shell    * @return a map of ReplicationLoadSource list per peer id    */
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|List
-argument_list|<
-name|ReplicationLoadSource
-argument_list|>
-argument_list|>
-name|getReplicationLoadSourceMap
-parameter_list|()
-function_decl|;
 comment|/**    * Call directly from client such as hbase shell    * @return ReplicationLoadSink    */
 annotation|@
 name|Nullable

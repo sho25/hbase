@@ -1960,20 +1960,6 @@ argument_list|(
 name|walPath
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Enqueued {} to source {} during source creation."
-argument_list|,
-name|walPath
-argument_list|,
-name|src
-operator|.
-name|getQueueId
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 block|}
@@ -4067,20 +4053,6 @@ argument_list|(
 name|newLog
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Enqueued {} to source {} while performing postLogRoll operation."
-argument_list|,
-name|newLog
-argument_list|,
-name|source
-operator|.
-name|getQueueId
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 block|}
 annotation|@
@@ -4984,18 +4956,6 @@ argument_list|(
 name|src
 argument_list|)
 expr_stmt|;
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Added source for recovered queue: "
-operator|+
-name|src
-operator|.
-name|getQueueId
-argument_list|()
-argument_list|)
-expr_stmt|;
 for|for
 control|(
 name|String
@@ -5004,18 +4964,6 @@ range|:
 name|walsSet
 control|)
 block|{
-name|LOG
-operator|.
-name|trace
-argument_list|(
-literal|"Enqueueing log from recovered queue for source: "
-operator|+
-name|src
-operator|.
-name|getQueueId
-argument_list|()
-argument_list|)
-expr_stmt|;
 name|src
 operator|.
 name|enqueueLog

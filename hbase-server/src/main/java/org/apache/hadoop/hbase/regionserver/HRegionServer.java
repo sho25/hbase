@@ -8020,7 +8020,7 @@ name|rLS
 range|:
 name|rLoad
 operator|.
-name|getReplicationLoadSourceEntries
+name|getReplicationLoadSourceList
 argument_list|()
 control|)
 block|{

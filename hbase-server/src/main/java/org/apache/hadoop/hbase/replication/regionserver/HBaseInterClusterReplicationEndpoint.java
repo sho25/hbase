@@ -2215,6 +2215,14 @@ operator|.
 name|exec
 argument_list|)
 decl_stmt|;
+name|String
+name|walGroupId
+init|=
+name|replicateContext
+operator|.
+name|getWalGroupId
+argument_list|()
+decl_stmt|;
 name|int
 name|sleepMultiplier
 init|=
@@ -2343,7 +2351,12 @@ expr_stmt|;
 block|}
 try|try
 block|{
+name|long
+name|lastWriteTime
+decl_stmt|;
 comment|// replicate the batches to sink side.
+name|lastWriteTime
+operator|=
 name|parallelReplicate
 argument_list|(
 name|pool
@@ -2353,6 +2366,26 @@ argument_list|,
 name|batches
 argument_list|)
 expr_stmt|;
+comment|// update metrics
+if|if
+condition|(
+name|lastWriteTime
+operator|>
+literal|0
+condition|)
+block|{
+name|this
+operator|.
+name|metrics
+operator|.
+name|setAgeOfLastShippedOp
+argument_list|(
+name|lastWriteTime
+argument_list|,
+name|walGroupId
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
@@ -2363,6 +2396,16 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+comment|// Didn't ship anything, but must still age the last time we did
+name|this
+operator|.
+name|metrics
+operator|.
+name|refreshAgeOfLastShippedOp
+argument_list|(
+name|walGroupId
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|ioe
