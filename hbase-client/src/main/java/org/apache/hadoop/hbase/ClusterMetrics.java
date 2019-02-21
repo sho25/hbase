@@ -397,6 +397,13 @@ name|int
 name|getMasterInfoPort
 parameter_list|()
 function_decl|;
+name|List
+argument_list|<
+name|ServerName
+argument_list|>
+name|getServersName
+parameter_list|()
+function_decl|;
 comment|/**    * @return the average cluster load    */
 specifier|default
 name|double
@@ -469,6 +476,9 @@ name|REGIONS_IN_TRANSITION
 block|,
 comment|/**      * metrics info port      */
 name|MASTER_INFO_PORT
+block|,
+comment|/**      * metrics about live region servers name      */
+name|SERVERS_NAME
 block|}
 block|}
 end_interface
