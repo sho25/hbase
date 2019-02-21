@@ -1921,7 +1921,7 @@ name|rootDir
 init|=
 name|FSUtils
 operator|.
-name|getRootDir
+name|getWALRootDir
 argument_list|(
 name|conf
 argument_list|)
@@ -2013,7 +2013,7 @@ name|fs
 init|=
 name|FSUtils
 operator|.
-name|getCurrentFileSystem
+name|getWALFileSystem
 argument_list|(
 name|conf
 argument_list|)

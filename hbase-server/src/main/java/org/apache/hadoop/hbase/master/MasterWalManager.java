@@ -956,12 +956,7 @@ name|FSUtils
 operator|.
 name|listStatus
 argument_list|(
-name|CommonFSUtils
-operator|.
-name|getWALFileSystem
-argument_list|(
-name|conf
-argument_list|)
+name|fs
 argument_list|,
 name|walDirPath
 argument_list|,
