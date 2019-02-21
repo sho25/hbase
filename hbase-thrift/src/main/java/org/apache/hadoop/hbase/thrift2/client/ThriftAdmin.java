@@ -2920,6 +2920,26 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|boolean
+name|exceedThrottleQuotaSwitch
+parameter_list|(
+name|boolean
+name|enable
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"exceedThrottleQuotaSwitch by pattern not supported in ThriftAdmin"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|HTableDescriptor
 index|[]
 name|disableTables

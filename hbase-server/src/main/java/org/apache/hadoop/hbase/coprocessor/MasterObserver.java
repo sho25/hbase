@@ -3761,6 +3761,48 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before switching exceed throttle quota state.    * @param ctx the coprocessor instance's environment    * @param enable the exceed throttle quota value    */
+specifier|default
+name|void
+name|preSwitchExceedThrottleQuota
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|boolean
+name|enable
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after switching exceed throttle quota state.    * @param ctx the coprocessor instance's environment    * @param oldValue the previously exceed throttle quota value    * @param newValue the newly exceed throttle quota value    */
+specifier|default
+name|void
+name|postSwitchExceedThrottleQuota
+parameter_list|(
+specifier|final
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+specifier|final
+name|boolean
+name|oldValue
+parameter_list|,
+specifier|final
+name|boolean
+name|newValue
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Called before granting user permissions.    * @param ctx the coprocessor instance's environment    * @param userPermission the user and permissions    * @param mergeExistingPermissions True if merge with previous granted permissions    */
 specifier|default
 name|void

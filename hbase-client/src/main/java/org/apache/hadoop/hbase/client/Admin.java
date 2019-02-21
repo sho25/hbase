@@ -4173,6 +4173,17 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Switch the exceed throttle quota. If enabled, user/table/namespace throttle quota    * can be exceeded if region server has availble quota.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous exceed throttle enabled value    */
+name|boolean
+name|exceedThrottleQuotaSwitch
+parameter_list|(
+specifier|final
+name|boolean
+name|enable
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Fetches the table sizes on the filesystem as tracked by the HBase Master.    */
 name|Map
 argument_list|<
