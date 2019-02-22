@@ -117,6 +117,18 @@ name|ws
 operator|.
 name|rs
 operator|.
+name|WebApplicationException
+import|;
+end_import
+
+begin_import
+import|import
+name|javax
+operator|.
+name|ws
+operator|.
+name|rs
+operator|.
 name|core
 operator|.
 name|CacheControl
@@ -925,6 +937,15 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Caught exception"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
 name|servlet
 operator|.
 name|getMetrics
@@ -1318,6 +1339,21 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+comment|// Avoid re-unwrapping the exception
+if|if
+condition|(
+name|e
+operator|instanceof
+name|WebApplicationException
+condition|)
+block|{
+throw|throw
+operator|(
+name|WebApplicationException
+operator|)
+name|e
+throw|;
+block|}
 return|return
 name|processException
 argument_list|(
