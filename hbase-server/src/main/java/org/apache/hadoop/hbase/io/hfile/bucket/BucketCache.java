@@ -1030,6 +1030,7 @@ init|=
 literal|64
 decl_stmt|;
 comment|// Store/read block data
+specifier|transient
 specifier|final
 name|IOEngine
 name|ioEngine
@@ -1037,6 +1038,7 @@ decl_stmt|;
 comment|// Store the block in this map before writing it to cache
 annotation|@
 name|VisibleForTesting
+specifier|transient
 specifier|final
 name|ConcurrentMap
 argument_list|<
@@ -1049,6 +1051,7 @@ decl_stmt|;
 comment|// In this map, store the block's meta data like offset, length
 annotation|@
 name|VisibleForTesting
+specifier|transient
 name|ConcurrentMap
 argument_list|<
 name|BlockCacheKey
@@ -1066,6 +1069,7 @@ decl_stmt|;
 comment|/**    * A list of writer queues.  We have a queue per {@link WriterThread} we have running.    * In other words, the work adding blocks to the BucketCache is divided up amongst the    * running WriterThreads.  Its done by taking hash of the cache key modulo queue count.    * WriterThread when it runs takes whatever has been recently added and 'drains' the entries    * to the BucketCache.  It then updates the ramCache and backingMap accordingly.    */
 annotation|@
 name|VisibleForTesting
+specifier|transient
 specifier|final
 name|ArrayList
 argument_list|<
@@ -1083,6 +1087,7 @@ argument_list|()
 decl_stmt|;
 annotation|@
 name|VisibleForTesting
+specifier|transient
 specifier|final
 name|WriterThread
 index|[]
@@ -1097,6 +1102,7 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
+specifier|transient
 specifier|final
 name|Lock
 name|freeSpaceLock
@@ -1214,6 +1220,7 @@ decl_stmt|;
 comment|/**    * A ReentrantReadWriteLock to lock on a particular block identified by offset.    * The purpose of this is to avoid freeing the block which is being read.    *<p>    * Key set of offsets in BucketCache is limited so soft reference is the best choice here.    */
 annotation|@
 name|VisibleForTesting
+specifier|transient
 specifier|final
 name|IdReadWriteLock
 argument_list|<
@@ -1334,6 +1341,7 @@ argument_list|)
 decl_stmt|;
 comment|/** Statistics thread schedule pool (for heavy debugging, could remove) */
 specifier|private
+specifier|transient
 specifier|final
 name|ScheduledExecutorService
 name|scheduleThreadPool
@@ -1364,6 +1372,7 @@ argument_list|)
 decl_stmt|;
 comment|// Allocate or free space for the block
 specifier|private
+specifier|transient
 name|BucketAllocator
 name|bucketAllocator
 decl_stmt|;

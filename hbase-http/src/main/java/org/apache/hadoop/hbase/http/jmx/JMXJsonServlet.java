@@ -388,17 +388,6 @@ operator|.
 name|getWriter
 argument_list|()
 expr_stmt|;
-name|beanWriter
-operator|=
-name|this
-operator|.
-name|jsonBeanWriter
-operator|.
-name|open
-argument_list|(
-name|writer
-argument_list|)
-expr_stmt|;
 comment|// "callback" parameter implies JSONP outpout
 if|if
 condition|(
@@ -434,6 +423,17 @@ literal|"application/json; charset=utf8"
 argument_list|)
 expr_stmt|;
 block|}
+name|beanWriter
+operator|=
+name|this
+operator|.
+name|jsonBeanWriter
+operator|.
+name|open
+argument_list|(
+name|writer
+argument_list|)
+expr_stmt|;
 comment|// Should we output description on each attribute and bean?
 name|String
 name|tmpStr
@@ -649,11 +649,13 @@ name|beanWriter
 operator|!=
 literal|null
 condition|)
+block|{
 name|beanWriter
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|jsonpcb

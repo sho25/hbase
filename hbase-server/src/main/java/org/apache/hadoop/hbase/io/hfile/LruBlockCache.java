@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -211,40 +211,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -341,6 +307,40 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|hbase
 operator|.
 name|thirdparty
@@ -425,34 +425,6 @@ name|ThreadFactoryBuilder
 import|;
 end_import
 
-begin_import
-import|import
-name|com
-operator|.
-name|fasterxml
-operator|.
-name|jackson
-operator|.
-name|annotation
-operator|.
-name|JsonIgnore
-import|;
-end_import
-
-begin_import
-import|import
-name|com
-operator|.
-name|fasterxml
-operator|.
-name|jackson
-operator|.
-name|annotation
-operator|.
-name|JsonIgnoreProperties
-import|;
-end_import
-
 begin_comment
 comment|/**  * A block cache implementation that is memory-aware using {@link HeapSize},  * memory-bound using an LRU eviction algorithm, and concurrent: backed by a  * {@link ConcurrentHashMap} and with a non-blocking eviction thread giving  * constant-time {@link #cacheBlock} and {@link #getBlock} operations.<p>  *  * Contains three levels of block priority to allow for scan-resistance and in-memory families  * {@link org.apache.hadoop.hbase.HColumnDescriptor#setInMemory(boolean)} (An in-memory column  * family is a column family that should be served from memory if possible):  * single-access, multiple-accesses, and in-memory priority.  * A block is added with an in-memory priority flag if  * {@link org.apache.hadoop.hbase.HColumnDescriptor#isInMemory()}, otherwise a block becomes a  * single access priority the first time it is read into this block cache.  If a block is  * accessed again while in cache, it is marked as a multiple access priority block.  This  * delineation of blocks is used to prevent scans from thrashing the cache adding a  * least-frequently-used element to the eviction algorithm.<p>  *  * Each priority is given its own chunk of the total cache to ensure  * fairness during eviction.  Each priority will retain close to its maximum  * size, however, if any priority is not using its entire chunk the others  * are able to grow beyond their chunk size.<p>  *  * Instantiated at a minimum with the total size and average block size.  * All sizes are in bytes.  The block size is not especially important as this  * cache is fully dynamic in its sizing of blocks.  It is only used for  * pre-allocating data structures and in initial heap estimation of the map.<p>  *  * The detailed constructor defines the sizes for the three priorities (they  * should total to the<code>maximum size</code> defined).  It also sets the levels that  * trigger and control the eviction thread.<p>  *  * The<code>acceptable size</code> is the cache size level which triggers the eviction  * process to start.  It evicts enough blocks to get the size below the  * minimum size specified.<p>  *  * Eviction happens in a separate thread and involves a single full-scan  * of the map.  It determines how many bytes must be freed to reach the minimum  * size, and then while scanning determines the fewest least-recently-used  * blocks necessary from each of the three priorities (would be 3 times bytes  * to free).  It then uses the priority chunk sizes to evict fairly according  * to the relative sizes and usage.  */
 end_comment
@@ -462,13 +434,6 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-annotation|@
-name|JsonIgnoreProperties
-argument_list|(
-block|{
-literal|"encodingCountsForTest"
-block|}
-argument_list|)
 specifier|public
 class|class
 name|LruBlockCache
@@ -657,6 +622,7 @@ literal|1024L
 decl_stmt|;
 comment|/** Concurrent map (the cache) */
 specifier|private
+specifier|transient
 specifier|final
 name|Map
 argument_list|<
@@ -668,6 +634,7 @@ name|map
 decl_stmt|;
 comment|/** Eviction lock (locked when eviction in process) */
 specifier|private
+specifier|transient
 specifier|final
 name|ReentrantLock
 name|evictionLock
@@ -693,12 +660,14 @@ literal|false
 decl_stmt|;
 comment|/** Eviction thread */
 specifier|private
+specifier|transient
 specifier|final
 name|EvictionThread
 name|evictionThread
 decl_stmt|;
 comment|/** Statistics thread schedule pool (for heavy debugging, could remove) */
 specifier|private
+specifier|transient
 specifier|final
 name|ScheduledExecutorService
 name|scheduleThreadPool
@@ -815,6 +784,7 @@ name|forceInMemory
 decl_stmt|;
 comment|/**    * Where to send victims (blocks evicted/missing from the cache). This is used only when we use an    * external cache as L2.    * Note: See org.apache.hadoop.hbase.io.hfile.MemcachedBlockCache    */
 specifier|private
+specifier|transient
 name|BlockCache
 name|victimHandler
 init|=
@@ -5156,8 +5126,6 @@ return|;
 block|}
 annotation|@
 name|Override
-annotation|@
-name|JsonIgnore
 specifier|public
 name|BlockCache
 index|[]
@@ -5170,6 +5138,7 @@ name|victimHandler
 operator|!=
 literal|null
 condition|)
+block|{
 return|return
 operator|new
 name|BlockCache
@@ -5182,6 +5151,7 @@ operator|.
 name|victimHandler
 block|}
 return|;
+block|}
 return|return
 literal|null
 return|;
