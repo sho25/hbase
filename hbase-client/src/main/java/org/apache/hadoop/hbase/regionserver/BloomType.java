@@ -51,9 +51,6 @@ name|ROWCOL
 block|,
 comment|/**    * Bloom enabled with Table row prefix as Key, specify the length of the prefix    */
 name|ROWPREFIX_FIXED_LENGTH
-block|,
-comment|/**    * Bloom enabled with Table row prefix as Key, specify the delimiter of the prefix    */
-name|ROWPREFIX_DELIMITED
 block|}
 end_enum
 

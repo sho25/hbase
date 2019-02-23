@@ -525,22 +525,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|RowPrefixDelimiterBloomContext
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|RowPrefixFixedLengthBloomContext
 import|;
 end_import
@@ -973,22 +957,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 break|break;
-case|case
-name|ROWPREFIX_DELIMITED
-case|:
-name|bloomContext
-operator|=
-operator|new
-name|RowPrefixDelimiterBloomContext
-argument_list|(
-name|generalBloomFilterWriter
-argument_list|,
-name|comparator
-argument_list|,
-name|bloomParam
-argument_list|)
-expr_stmt|;
-break|break;
 default|default:
 throw|throw
 operator|new
@@ -998,7 +966,7 @@ literal|"Invalid Bloom filter type: "
 operator|+
 name|bloomType
 operator|+
-literal|" (ROW or ROWCOL or ROWPREFIX or ROWPREFIX_DELIMITED expected)"
+literal|" (ROW or ROWCOL or ROWPREFIX expected)"
 argument_list|)
 throw|;
 block|}
@@ -1327,7 +1295,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-comment|/*        * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png        * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + Timestamp        *        * 4 Types of Filtering:        *  1. Row = Row        *  2. RowCol = Row + Qualifier        *  3. RowPrefixFixedLength  = Fixed Length Row Prefix        *  4. RowPrefixDelimiter = Delimited Row Prefix        */
+comment|/*        * http://2.bp.blogspot.com/_Cib_A77V54U/StZMrzaKufI/AAAAAAAAADo/ZhK7bGoJdMQ/s400/KeyValue.png        * Key = RowLen + Row + FamilyLen + Column [Family + Qualifier] + Timestamp        *        * 3 Types of Filtering:        *  1. Row = Row        *  2. RowCol = Row + Qualifier        *  3. RowPrefixFixedLength  = Fixed Length Row Prefix        */
 name|bloomContext
 operator|.
 name|writeBloom

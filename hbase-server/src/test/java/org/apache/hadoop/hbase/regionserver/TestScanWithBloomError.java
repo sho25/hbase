@@ -787,17 +787,6 @@ argument_list|,
 literal|10
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-name|BloomFilterUtil
-operator|.
-name|DELIMITER_KEY
-argument_list|,
-literal|"#"
-argument_list|)
-expr_stmt|;
 block|}
 annotation|@
 name|Test
