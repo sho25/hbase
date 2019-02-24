@@ -133,6 +133,24 @@ name|client
 operator|.
 name|AsyncRegionLocatorHelper
 operator|.
+name|mergeRegionLocations
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|AsyncRegionLocatorHelper
+operator|.
 name|removeRegionLocation
 import|;
 end_import
@@ -1412,7 +1430,6 @@ return|;
 block|}
 if|if
 condition|(
-operator|!
 name|Objects
 operator|.
 name|equal
@@ -1509,11 +1526,11 @@ block|}
 name|RegionLocations
 name|mergedLocs
 init|=
-name|oldLocs
-operator|.
-name|mergeLocations
+name|mergeRegionLocations
 argument_list|(
 name|locs
+argument_list|,
+name|oldLocs
 argument_list|)
 decl_stmt|;
 if|if
