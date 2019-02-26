@@ -1285,6 +1285,12 @@ operator|!
 name|compactOnce
 condition|)
 do|;
+comment|//We need to close the store properly, to make sure it will archive compacted files
+name|store
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**      * Create a "mock" HStore that uses the tmpDir specified by the user and      * the store dir to compact as source.      */
 specifier|private
