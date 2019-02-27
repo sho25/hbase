@@ -1762,6 +1762,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Check if rsGroupMap contains the destination rsgroup
 if|if
 condition|(
 name|groupName
@@ -1789,6 +1790,7 @@ literal|" does not exist"
 argument_list|)
 throw|;
 block|}
+comment|// Make a copy of rsGroupMap to update
 name|Map
 argument_list|<
 name|String
@@ -1804,6 +1806,8 @@ argument_list|(
 name|rsGroupMap
 argument_list|)
 decl_stmt|;
+comment|// Remove tables from their original rsgroups
+comment|// and update the copy of rsGroupMap
 for|for
 control|(
 name|TableName
@@ -1861,6 +1865,9 @@ name|src
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|// Add tables to the destination rsgroup
+comment|// and update the copy of rsGroupMap
 if|if
 condition|(
 name|groupName
@@ -1869,7 +1876,7 @@ literal|null
 condition|)
 block|{
 name|RSGroupInfo
-name|dst
+name|dstGroup
 init|=
 operator|new
 name|RSGroupInfo
@@ -1882,27 +1889,27 @@ name|groupName
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|dst
+name|dstGroup
 operator|.
-name|addTable
+name|addAllTables
 argument_list|(
-name|tableName
+name|tableNames
 argument_list|)
 expr_stmt|;
 name|newGroupMap
 operator|.
 name|put
 argument_list|(
-name|dst
+name|dstGroup
 operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|dst
+name|dstGroup
 argument_list|)
 expr_stmt|;
 block|}
-block|}
+comment|// Flush according to the updated copy of rsGroupMap
 name|flushConfig
 argument_list|(
 name|newGroupMap
