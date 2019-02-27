@@ -29,6 +29,22 @@ name|hbase
 operator|.
 name|HConstants
 operator|.
+name|EMPTY_END_ROW
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
 name|NINES
 import|;
 end_import
@@ -1124,13 +1140,10 @@ comment|// in reverse scan, so we check the endKey first. In general, the condit
 comment|// startKey< req.row and endKey>= req.row. Here we split it to endKey == req.row ||
 comment|// (endKey> req.row&& startKey< req.row). The two conditions are equal since startKey<
 comment|// endKey.
-name|int
-name|c
+name|byte
+index|[]
+name|endKey
 init|=
-name|Bytes
-operator|.
-name|compareTo
-argument_list|(
 name|loc
 operator|.
 name|getRegion
@@ -1138,6 +1151,15 @@ argument_list|()
 operator|.
 name|getEndKey
 argument_list|()
+decl_stmt|;
+name|int
+name|c
+init|=
+name|Bytes
+operator|.
+name|compareTo
+argument_list|(
+name|endKey
 argument_list|,
 name|req
 operator|.
@@ -1151,9 +1173,20 @@ operator|==
 literal|0
 operator|||
 operator|(
+operator|(
 name|c
 operator|>
 literal|0
+operator|||
+name|Bytes
+operator|.
+name|equals
+argument_list|(
+name|EMPTY_END_ROW
+argument_list|,
+name|endKey
+argument_list|)
+operator|)
 operator|&&
 name|Bytes
 operator|.
