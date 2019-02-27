@@ -152,6 +152,26 @@ init|=
 literal|"unassign"
 decl_stmt|;
 name|String
+name|MOVE_METRIC_PREFIX
+init|=
+literal|"move"
+decl_stmt|;
+name|String
+name|REOPEN_METRIC_PREFIX
+init|=
+literal|"reopen"
+decl_stmt|;
+name|String
+name|OPEN_METRIC_PREFIX
+init|=
+literal|"open"
+decl_stmt|;
+name|String
+name|CLOSE_METRIC_PREFIX
+init|=
+literal|"close"
+decl_stmt|;
+name|String
 name|SPLIT_METRIC_PREFIX
 init|=
 literal|"split"
@@ -202,14 +222,34 @@ name|void
 name|incrementOperationCounter
 parameter_list|()
 function_decl|;
-comment|/**    * @return {@link OperationMetrics} containing common metrics for assign operation    */
+comment|/**    * @return {@link OperationMetrics} containing common metrics for assign region operation    */
 name|OperationMetrics
 name|getAssignMetrics
 parameter_list|()
 function_decl|;
-comment|/**    * @return {@link OperationMetrics} containing common metrics for unassign operation    */
+comment|/**    * @return {@link OperationMetrics} containing common metrics for unassign region operation    */
 name|OperationMetrics
 name|getUnassignMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for move region operation    */
+name|OperationMetrics
+name|getMoveMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for reopen region operation    */
+name|OperationMetrics
+name|getReopenMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for open region request    */
+name|OperationMetrics
+name|getOpenMetrics
+parameter_list|()
+function_decl|;
+comment|/**    * @return {@link OperationMetrics} containing common metrics for close region request    */
+name|OperationMetrics
+name|getCloseMetrics
 parameter_list|()
 function_decl|;
 comment|/**    * @return {@link OperationMetrics} containing common metrics for split operation    */
