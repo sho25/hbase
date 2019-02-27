@@ -277,9 +277,9 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestServerCrashProcedureWithReplicas
+name|TestSCPWithReplicas
 extends|extends
-name|TestServerCrashProcedure
+name|TestSCP
 block|{
 annotation|@
 name|ClassRule
@@ -293,7 +293,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestServerCrashProcedureWithReplicas
+name|TestSCPWithReplicas
 operator|.
 name|class
 argument_list|)
@@ -308,7 +308,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestServerCrashProcedureWithReplicas
+name|TestSCPWithReplicas
 operator|.
 name|class
 argument_list|)
@@ -375,6 +375,8 @@ return|return
 name|t
 return|;
 block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|assertReplicaDistributed
