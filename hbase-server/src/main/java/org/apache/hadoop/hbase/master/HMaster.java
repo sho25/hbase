@@ -13917,6 +13917,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -14054,6 +14056,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -14200,6 +14204,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -14608,6 +14614,10 @@ parameter_list|,
 specifier|final
 name|long
 name|nonce
+parameter_list|,
+specifier|final
+name|boolean
+name|shouldCheckDescriptor
 parameter_list|)
 throws|throws
 name|IOException
@@ -14720,6 +14730,10 @@ argument_list|,
 name|newDescriptor
 argument_list|,
 name|latch
+argument_list|,
+name|oldDescriptor
+argument_list|,
+name|shouldCheckDescriptor
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -14817,6 +14831,8 @@ argument_list|,
 name|nonceGroup
 argument_list|,
 name|nonce
+argument_list|,
+literal|false
 argument_list|)
 return|;
 block|}
