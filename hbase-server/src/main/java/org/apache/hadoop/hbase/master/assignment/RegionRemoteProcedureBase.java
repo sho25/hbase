@@ -813,6 +813,17 @@ block|}
 block|}
 annotation|@
 name|Override
+specifier|public
+name|boolean
+name|storeInDispatchedQueue
+parameter_list|()
+block|{
+return|return
+literal|false
+return|;
+block|}
+annotation|@
+name|Override
 specifier|protected
 name|void
 name|serializeStateData
