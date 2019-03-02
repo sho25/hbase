@@ -571,7 +571,7 @@ name|user
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a new AsyncConnection instance using the passed {@code conf} and {@code user}.    * AsyncConnection encapsulates all housekeeping for a connection to the cluster. All tables and    * interfaces created from returned connection share zookeeper connection, meta cache, and    * connections to region servers and masters.    *<p>    * The caller is responsible for calling {@link AsyncConnection#close()} on the returned    * connection instance.    *<p>    * Usually you should only create one AsyncConnection instance in your code and use it everywhere    * as it is thread safe.    * @param conf configuration    * @param user the user the asynchronous connection is for    * @return AsyncConnection object wrapped by CompletableFuture    * @throws IOException    */
+comment|/**    * Create a new AsyncConnection instance using the passed {@code conf} and {@code user}.    * AsyncConnection encapsulates all housekeeping for a connection to the cluster. All tables and    * interfaces created from returned connection share zookeeper connection, meta cache, and    * connections to region servers and masters.    *<p>    * The caller is responsible for calling {@link AsyncConnection#close()} on the returned    * connection instance.    *<p>    * Usually you should only create one AsyncConnection instance in your code and use it everywhere    * as it is thread safe.    * @param conf configuration    * @param user the user the asynchronous connection is for    * @return AsyncConnection object wrapped by CompletableFuture    */
 specifier|public
 specifier|static
 name|CompletableFuture
@@ -630,6 +630,11 @@ operator|!=
 literal|null
 condition|)
 block|{
+name|registry
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|future
 operator|.
 name|completeExceptionally
@@ -646,6 +651,11 @@ operator|==
 literal|null
 condition|)
 block|{
+name|registry
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|future
 operator|.
 name|completeExceptionally
@@ -726,6 +736,11 @@ name|Exception
 name|e
 parameter_list|)
 block|{
+name|registry
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
 name|future
 operator|.
 name|completeExceptionally
