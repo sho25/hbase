@@ -719,7 +719,7 @@ if|if
 condition|(
 name|region
 operator|.
-name|getRegionId
+name|getReplicaId
 argument_list|()
 operator|==
 name|RegionReplicaUtil
