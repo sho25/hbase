@@ -2743,7 +2743,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * A utility used to grant a user global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to grant permissions    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to grant a user global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to grant permissions    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(String, Permission, boolean)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2853,7 +2853,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to grant a user table permissions. The permissions will    * be for a table table/column family/qualifier.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to grant permissions    * @param tableName optional table name    * @param f optional column family    * @param q optional qualifier    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to grant a user table permissions. The permissions will    * be for a table table/column family/qualifier.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to grant permissions    * @param tableName optional table name    * @param f optional column family    * @param q optional qualifier    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(String, Permission, boolean)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2980,7 +2980,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to grant a user namespace permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace the short name of the user to grant permissions    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to grant a user namespace permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace the short name of the user to grant permissions    * @param actions the permissions to be granted    * @throws ServiceException    * @deprecated Use {@link Admin#grant(String, Permission, boolean)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3095,7 +3095,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to revoke a user's global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to revoke a user's global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#revoke(String, Permission)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3200,7 +3200,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to revoke a user's table permissions. The permissions will    * be for a table/column family/qualifier.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param tableName optional table name    * @param f optional column family    * @param q optional qualifier    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to revoke a user's table permissions. The permissions will    * be for a table/column family/qualifier.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param tableName optional table name    * @param f optional column family    * @param q optional qualifier    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#revoke(String, Permission)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3322,7 +3322,7 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to revoke a user's namespace permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param namespace optional table name    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * A utility used to revoke a user's namespace permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userShortName the short name of the user to revoke permissions    * @param namespace optional table name    * @param actions the permissions to be revoked    * @throws ServiceException on failure    * @deprecated Use {@link Admin#revoke(String, Permission)} instead.    */
 annotation|@
 name|Deprecated
 specifier|public

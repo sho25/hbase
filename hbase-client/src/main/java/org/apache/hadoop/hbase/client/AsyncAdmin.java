@@ -399,7 +399,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|UserPermission
+name|Permission
 import|;
 end_import
 
@@ -2835,29 +2835,35 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Grants user specific permissions    * @param userPermission user and permissions    * @param mergeExistingPermissions If set to false, later granted permissions will override    *          previous granted permissions. otherwise, it'll merge with previous granted    *          permissions.    */
+comment|/**    * Grants user specific permissions    * @param userName user name    * @param permission the specific permission    * @param mergeExistingPermissions If set to false, later granted permissions will override    *          previous granted permissions. otherwise, it'll merge with previous granted    *          permissions.    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|grant
 parameter_list|(
-name|UserPermission
-name|userPermission
+name|String
+name|userName
+parameter_list|,
+name|Permission
+name|permission
 parameter_list|,
 name|boolean
 name|mergeExistingPermissions
 parameter_list|)
 function_decl|;
-comment|/**    * Revokes user specific permissions    * @param userPermission user and permissions    */
+comment|/**    * Revokes user specific permissions    * @param userName user name    * @param permission the specific permission    */
 name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
 name|revoke
 parameter_list|(
-name|UserPermission
-name|userPermission
+name|String
+name|userName
+parameter_list|,
+name|Permission
+name|permission
 parameter_list|)
 function_decl|;
 block|}

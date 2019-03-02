@@ -12555,7 +12555,7 @@ throws|throws
 name|IOException
 block|{ }
 comment|/* ---- Protobuf AccessControlService implementation ---- */
-comment|/**    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * @deprecated Use {@link Admin#grant(String, Permission, boolean)} instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12684,6 +12684,14 @@ operator|.
 name|grant
 argument_list|(
 name|perm
+operator|.
+name|getUser
+argument_list|()
+argument_list|,
+name|perm
+operator|.
+name|getPermission
+argument_list|()
 argument_list|,
 name|request
 operator|.
@@ -12771,7 +12779,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#revoke(UserPermission)} instead.    */
+comment|/**    * @deprecated Use {@link Admin#revoke(String, Permission)} instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12900,6 +12908,14 @@ operator|.
 name|revoke
 argument_list|(
 name|perm
+operator|.
+name|getUser
+argument_list|()
+argument_list|,
+name|perm
+operator|.
+name|getPermission
+argument_list|()
 argument_list|)
 expr_stmt|;
 if|if

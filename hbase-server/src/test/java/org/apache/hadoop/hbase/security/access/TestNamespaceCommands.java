@@ -2757,9 +2757,6 @@ argument_list|()
 operator|.
 name|grant
 argument_list|(
-operator|new
-name|UserPermission
-argument_list|(
 name|testUser
 argument_list|,
 operator|new
@@ -2770,7 +2767,6 @@ argument_list|,
 name|Action
 operator|.
 name|WRITE
-argument_list|)
 argument_list|)
 argument_list|,
 literal|false
@@ -2819,14 +2815,14 @@ argument_list|()
 operator|.
 name|grant
 argument_list|(
-operator|new
-name|UserPermission
-argument_list|(
 name|USER_GROUP_NS_ADMIN
 operator|.
 name|getShortName
 argument_list|()
 argument_list|,
+operator|new
+name|NamespacePermission
+argument_list|(
 name|TEST_NAMESPACE
 argument_list|,
 name|Action
@@ -2880,9 +2876,6 @@ argument_list|()
 operator|.
 name|revoke
 argument_list|(
-operator|new
-name|UserPermission
-argument_list|(
 name|testUser
 argument_list|,
 operator|new
@@ -2893,7 +2886,6 @@ argument_list|,
 name|Action
 operator|.
 name|WRITE
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2940,9 +2932,6 @@ argument_list|()
 operator|.
 name|revoke
 argument_list|(
-operator|new
-name|UserPermission
-argument_list|(
 name|USER_GROUP_NS_ADMIN
 operator|.
 name|getShortName
@@ -2956,7 +2945,6 @@ argument_list|,
 name|Action
 operator|.
 name|READ
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
