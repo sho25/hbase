@@ -2793,7 +2793,10 @@ literal|false
 argument_list|,
 name|nextCallSeq
 argument_list|,
-literal|false
+name|scan
+operator|.
+name|isScanMetricsEnabled
+argument_list|()
 argument_list|,
 literal|false
 argument_list|,
