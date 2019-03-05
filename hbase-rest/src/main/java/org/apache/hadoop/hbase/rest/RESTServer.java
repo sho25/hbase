@@ -858,6 +858,31 @@ init|=
 literal|"hbase.rest-csrf.browser-useragents-regex"
 decl_stmt|;
 comment|// HACK, making this static for AuthFilter to get at our configuration. Necessary for unit tests.
+annotation|@
+name|edu
+operator|.
+name|umd
+operator|.
+name|cs
+operator|.
+name|findbugs
+operator|.
+name|annotations
+operator|.
+name|SuppressWarnings
+argument_list|(
+name|value
+operator|=
+block|{
+literal|"ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"
+block|,
+literal|"MS_CANNOT_BE_FINAL"
+block|}
+argument_list|,
+name|justification
+operator|=
+literal|"For testing"
+argument_list|)
 specifier|public
 specifier|static
 name|Configuration
