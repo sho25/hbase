@@ -3152,7 +3152,7 @@ argument_list|>
 name|newTableMap
 decl_stmt|;
 comment|// For offline mode persistence is still unavailable
-comment|// We're refreshing in-memory state but only for default servers
+comment|// We're refreshing in-memory state but only for servers in default group
 if|if
 condition|(
 operator|!
@@ -3160,13 +3160,26 @@ name|isOnline
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|newGroupMap
+operator|==
+name|this
+operator|.
+name|rsGroupMap
+condition|)
+block|{
+comment|// When newGroupMap is this.rsGroupMap itself,
+comment|// do not need to check default group and other groups as followed
+return|return;
+block|}
 name|Map
 argument_list|<
 name|String
 argument_list|,
 name|RSGroupInfo
 argument_list|>
-name|m
+name|oldGroupMap
 init|=
 name|Maps
 operator|.
@@ -3178,7 +3191,7 @@ decl_stmt|;
 name|RSGroupInfo
 name|oldDefaultGroup
 init|=
-name|m
+name|oldGroupMap
 operator|.
 name|remove
 argument_list|(
@@ -3202,12 +3215,13 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|m
+name|oldGroupMap
 operator|.
 name|equals
 argument_list|(
 name|newGroupMap
 argument_list|)
+comment|/* compare both tables and servers in other groups */
 operator|||
 operator|!
 name|oldDefaultGroup
@@ -3222,16 +3236,18 @@ operator|.
 name|getTables
 argument_list|()
 argument_list|)
+comment|/* compare tables in default group */
 condition|)
 block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Only default servers can be updated during offline mode"
+literal|"Only servers in default group can be updated during offline mode"
 argument_list|)
 throw|;
 block|}
+comment|// Restore newGroupMap by putting its default group back
 name|newGroupMap
 operator|.
 name|put
@@ -3243,12 +3259,18 @@ argument_list|,
 name|newDefaultGroup
 argument_list|)
 expr_stmt|;
+comment|// Refresh rsGroupMap
+comment|// according to the inputted newGroupMap (an updated copy of rsGroupMap)
 name|rsGroupMap
 operator|=
 name|newGroupMap
 expr_stmt|;
+comment|// Do not need to update tableMap
+comment|// because only the update on servers in default group is allowed above,
+comment|// or IOException will be thrown
 return|return;
 block|}
+comment|/* For online mode, persist to Zookeeper */
 name|newTableMap
 operator|=
 name|flushConfigTable
