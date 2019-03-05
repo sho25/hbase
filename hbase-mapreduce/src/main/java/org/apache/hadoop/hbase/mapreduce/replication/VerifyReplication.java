@@ -940,6 +940,12 @@ name|peerHBaseRootAddress
 init|=
 literal|null
 decl_stmt|;
+comment|//Peer Table Name
+name|String
+name|peerTableName
+init|=
+literal|null
+decl_stmt|;
 specifier|private
 specifier|final
 specifier|static
@@ -1400,6 +1406,33 @@ argument_list|,
 name|PEER_CONFIG_PREFIX
 argument_list|)
 decl_stmt|;
+name|String
+name|peerName
+init|=
+name|peerConf
+operator|.
+name|get
+argument_list|(
+name|NAME
+operator|+
+literal|".peerTableName"
+argument_list|,
+name|tableName
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|TableName
+name|peerTableName
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|peerName
+argument_list|)
+decl_stmt|;
 name|replicatedConnection
 operator|=
 name|ConnectionFactory
@@ -1415,7 +1448,7 @@ name|replicatedConnection
 operator|.
 name|getTable
 argument_list|(
-name|tableName
+name|peerTableName
 argument_list|)
 expr_stmt|;
 name|scan
@@ -2742,6 +2775,34 @@ name|peerQuorumAddress
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|peerTableName
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Peer Table Name: "
+operator|+
+name|peerTableName
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|NAME
+operator|+
+literal|".peerTableName"
+argument_list|,
+name|peerTableName
+argument_list|)
+expr_stmt|;
+block|}
 name|conf
 operator|.
 name|setInt
@@ -3926,6 +3987,36 @@ argument_list|)
 expr_stmt|;
 continue|continue;
 block|}
+specifier|final
+name|String
+name|peerTableNameArgKey
+init|=
+literal|"--peerTableName="
+decl_stmt|;
+if|if
+condition|(
+name|cmd
+operator|.
+name|startsWith
+argument_list|(
+name|peerTableNameArgKey
+argument_list|)
+condition|)
+block|{
+name|peerTableName
+operator|=
+name|cmd
+operator|.
+name|substring
+argument_list|(
+name|peerTableNameArgKey
+operator|.
+name|length
+argument_list|()
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 name|cmd
@@ -4223,11 +4314,11 @@ literal|"Usage: verifyrep [--starttime=X]"
 operator|+
 literal|" [--endtime=Y] [--families=A] [--row-prefixes=B] [--delimiter=] [--recomparesleep=] "
 operator|+
-literal|"[--batch=] [--verbose] [--sourceSnapshotName=P] [--sourceSnapshotTmpDir=Q] "
+literal|"[--batch=] [--verbose] [--peerTableName=] [--sourceSnapshotName=P] "
 operator|+
-literal|"[--peerSnapshotName=R] [--peerSnapshotTmpDir=S] [--peerFSAddress=T] "
+literal|"[--sourceSnapshotTmpDir=Q] [--peerSnapshotName=R] [--peerSnapshotTmpDir=S] "
 operator|+
-literal|"[--peerHBaseRootAddress=U]<peerid|peerQuorumAddress><tablename>"
+literal|"[--peerFSAddress=T] [--peerHBaseRootAddress=U]<peerid|peerQuorumAddress><tablename>"
 argument_list|)
 expr_stmt|;
 name|System
@@ -4347,6 +4438,15 @@ operator|.
 name|println
 argument_list|(
 literal|" verbose      logs row keys of good rows"
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|err
+operator|.
+name|println
+argument_list|(
+literal|" peerTableName  Peer Table Name"
 argument_list|)
 expr_stmt|;
 name|System
