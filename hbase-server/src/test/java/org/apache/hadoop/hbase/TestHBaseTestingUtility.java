@@ -1671,7 +1671,9 @@ name|i
 operator|++
 control|)
 block|{
-name|assertEquals
+comment|// cannot assert the specific port due to the port conflict in which situation
+comment|// it always chooses a bigger port by +1. The below is the same.
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -1682,7 +1684,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|clientPortList1
 index|[
 name|i
@@ -1781,7 +1783,7 @@ operator|.
 name|length
 condition|)
 block|{
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -1792,7 +1794,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|clientPortList2
 index|[
 name|i
@@ -1804,7 +1806,7 @@ else|else
 block|{
 comment|// servers with no specified client port will use defaultClientPort or some other ports
 comment|// based on defaultClientPort
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -1815,7 +1817,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|defaultClientPort
 operator|+
 name|j
@@ -1931,7 +1933,7 @@ argument_list|>
 literal|0
 condition|)
 block|{
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -1942,7 +1944,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|clientPortList3
 index|[
 name|i
@@ -1952,7 +1954,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -1963,7 +1965,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|defaultClientPort
 operator|+
 name|j
@@ -2084,7 +2086,7 @@ argument_list|>
 literal|0
 condition|)
 block|{
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -2095,7 +2097,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|clientPortList4
 index|[
 name|i
@@ -2105,7 +2107,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|assertEquals
+name|assertTrue
 argument_list|(
 name|clientPortListInCluster
 operator|.
@@ -2116,7 +2118,7 @@ argument_list|)
 operator|.
 name|intValue
 argument_list|()
-argument_list|,
+operator|>=
 name|defaultClientPort
 operator|+
 name|j
