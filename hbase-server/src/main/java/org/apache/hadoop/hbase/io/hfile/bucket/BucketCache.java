@@ -2262,7 +2262,39 @@ condition|)
 block|{
 return|return
 operator|new
-name|FileMmapEngine
+name|ExclusiveMemoryMmapIOEngine
+argument_list|(
+name|ioEngineName
+operator|.
+name|substring
+argument_list|(
+literal|5
+argument_list|)
+argument_list|,
+name|capacity
+argument_list|)
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|ioEngineName
+operator|.
+name|startsWith
+argument_list|(
+literal|"pmem:"
+argument_list|)
+condition|)
+block|{
+comment|// This mode of bucket cache creates an IOEngine over a file on the persistent memory
+comment|// device. Since the persistent memory device has its own address space the contents
+comment|// mapped to this address space does not get swapped out like in the case of mmapping
+comment|// on to DRAM. Hence the cells created out of the hfile blocks in the pmem bucket cache
+comment|// can be directly referred to without having to copy them onheap. Once the RPC is done,
+comment|// the blocks can be returned back as in case of ByteBufferIOEngine.
+return|return
+operator|new
+name|SharedMemoryMmapIOEngine
 argument_list|(
 name|ioEngineName
 operator|.
