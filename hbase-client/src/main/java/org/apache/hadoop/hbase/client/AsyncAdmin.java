@@ -720,7 +720,9 @@ name|TableName
 name|tableName
 parameter_list|)
 function_decl|;
-comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false. The return value will be wrapped by a    * {@link CompletableFuture}.    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    */
+comment|/**    * Use this api to check if the table has been created with the specified number of splitkeys    * which was used while creating the given table. Note : If this api is used after a table's    * region gets splitted, the api may return false. The return value will be wrapped by a    * {@link CompletableFuture}.    * @param tableName name of table to check    * @param splitKeys keys to check if the table has been created with all split keys    * @deprecated Since 2.2.0. Will be removed in 3.0.0. Use {@link #isTableAvailable(TableName)}    */
+annotation|@
+name|Deprecated
 name|CompletableFuture
 argument_list|<
 name|Boolean
