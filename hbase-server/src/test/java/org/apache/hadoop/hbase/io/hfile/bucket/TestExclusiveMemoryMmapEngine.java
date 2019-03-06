@@ -182,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Basic test for {@link FileMmapEngine}  */
+comment|/**  * Basic test for {@link ExclusiveMemoryMmapIOEngine}  */
 end_comment
 
 begin_class
@@ -201,7 +201,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestFileMmapEngine
+name|TestExclusiveMemoryMmapEngine
 block|{
 annotation|@
 name|ClassRule
@@ -215,7 +215,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestFileMmapEngine
+name|TestExclusiveMemoryMmapEngine
 operator|.
 name|class
 argument_list|)
@@ -246,11 +246,11 @@ literal|"testFileMmapEngine"
 decl_stmt|;
 try|try
 block|{
-name|FileMmapEngine
+name|ExclusiveMemoryMmapIOEngine
 name|fileMmapEngine
 init|=
 operator|new
-name|FileMmapEngine
+name|ExclusiveMemoryMmapIOEngine
 argument_list|(
 name|filePath
 argument_list|,
