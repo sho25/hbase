@@ -1031,7 +1031,7 @@ decl_stmt|;
 name|IncrementCoalescer
 name|coalescer
 decl_stmt|;
-comment|/**    * Returns a list of all the column families for a given Table.    * @param table table    */
+comment|/**    * Returns a list of all the column families for a given Table.    */
 name|byte
 index|[]
 index|[]

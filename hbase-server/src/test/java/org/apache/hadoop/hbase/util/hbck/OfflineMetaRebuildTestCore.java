@@ -1517,14 +1517,6 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|TableDescriptor
-name|htd
-init|=
-name|htbl
-operator|.
-name|getDescriptor
-argument_list|()
-decl_stmt|;
 name|RegionInfo
 name|hri
 init|=

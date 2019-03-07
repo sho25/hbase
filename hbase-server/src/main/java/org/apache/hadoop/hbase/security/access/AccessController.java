@@ -13514,12 +13514,6 @@ condition|)
 block|{
 comment|// Otherwise, if the requestor has ADMIN or CREATE privs for all listed tables, the
 comment|// request can be granted.
-name|TableName
-index|[]
-name|sns
-init|=
-literal|null
-decl_stmt|;
 try|try
 init|(
 name|Admin
@@ -13537,20 +13531,6 @@ name|getAdmin
 argument_list|()
 init|)
 block|{
-name|sns
-operator|=
-name|admin
-operator|.
-name|listTableNames
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|sns
-operator|==
-literal|null
-condition|)
-return|return;
 for|for
 control|(
 name|TableName
@@ -13570,7 +13550,9 @@ argument_list|(
 name|tableName
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 name|requirePermission
 argument_list|(
 name|ctx

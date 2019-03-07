@@ -125,6 +125,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -203,6 +219,7 @@ argument_list|()
 return|;
 block|}
 comment|/**    *<p>    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This BufferedMutator will    * use the Connection's ExecutorService. This object can be used for long lived operations.    *</p>    *<p>    * The caller is responsible for calling {@link BufferedMutator#close()} on    * the returned {@link BufferedMutator} instance.    *</p>    *<p>    * This accessor will use the connection's ExecutorService and will throw an    * exception in the main thread when an asynchronous exception occurs.    *    * @param tableName the name of the table    *    * @return a {@link BufferedMutator} for the supplied tableName.    */
+specifier|default
 name|BufferedMutator
 name|getBufferedMutator
 parameter_list|(
@@ -211,7 +228,18 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|getBufferedMutator
+argument_list|(
+operator|new
+name|BufferedMutatorParams
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+return|;
+block|}
 comment|/**    * Retrieve a {@link BufferedMutator} for performing client-side buffering of writes. The    * {@link BufferedMutator} returned by this method is thread-safe. This object can be used for    * long lived table operations. The caller is responsible for calling    * {@link BufferedMutator#close()} on the returned {@link BufferedMutator} instance.    *    * @param params details on how to instantiate the {@code BufferedMutator}.    * @return a {@link BufferedMutator} for the supplied tableName.    */
 name|BufferedMutator
 name|getBufferedMutator
@@ -268,6 +296,11 @@ name|ExecutorService
 name|pool
 parameter_list|)
 function_decl|;
+comment|/**    * Convert this connection to an {@link AsyncConnection}.    *<p/>    * Usually we will return the same instance if you call this method multiple times so you can    * consider this as a light-weighted operation.    */
+name|AsyncConnection
+name|toAsyncConnection
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool.    *    * @return an Hbck instance for active master. Active master is fetched from the zookeeper.    */
 annotation|@
 name|InterfaceAudience
@@ -285,13 +318,18 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
+return|return
+name|FutureUtils
+operator|.
+name|get
 argument_list|(
-literal|"Not implemented"
+name|toAsyncConnection
+argument_list|()
+operator|.
+name|getHbck
+argument_list|()
 argument_list|)
-throw|;
+return|;
 block|}
 comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool. This may only be used to by pass getting    * registered master from ZK. In situations where ZK is not available or active master is not    * registered with ZK and user can get master address by other means, master can be explicitly    * specified.    *    * @param masterServer explicit {@link ServerName} for master server    * @return an Hbck instance for a specified master server    */
 annotation|@
@@ -313,13 +351,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-throw|throw
-operator|new
-name|UnsupportedOperationException
+return|return
+name|toAsyncConnection
+argument_list|()
+operator|.
+name|getHbck
 argument_list|(
-literal|"Not implemented"
+name|masterServer
 argument_list|)
-throw|;
+return|;
 block|}
 block|}
 end_interface

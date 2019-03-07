@@ -1458,17 +1458,6 @@ decl_stmt|;
 name|RegionInfo
 name|hri
 decl_stmt|;
-name|ConnectionImplementation
-name|conn
-init|=
-operator|(
-name|ConnectionImplementation
-operator|)
-name|TEST_UTIL
-operator|.
-name|getConnection
-argument_list|()
-decl_stmt|;
 try|try
 init|(
 name|RegionLocator
@@ -2002,7 +1991,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|conn
+name|CONN
 argument_list|,
 name|l
 argument_list|,
@@ -3004,7 +2993,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|conn
+name|CONN
 argument_list|,
 name|l
 argument_list|,
@@ -3160,7 +3149,7 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|conn
+name|CONN
 argument_list|,
 name|l
 argument_list|,

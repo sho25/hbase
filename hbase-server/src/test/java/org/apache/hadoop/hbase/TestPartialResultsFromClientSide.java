@@ -149,22 +149,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|ClientScanner
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Delete
 import|;
 end_import
@@ -2938,7 +2922,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * @param resultSizeRowLimit The row limit that will be enforced through maxResultSize    * @param cachingRowLimit The row limit that will be enforced through caching    * @throws Exception    */
+comment|/**    * @param resultSizeRowLimit The row limit that will be enforced through maxResultSize    * @param cachingRowLimit The row limit that will be enforced through caching    */
 specifier|public
 name|void
 name|testPartialResultsAndCaching
@@ -3003,6 +2987,8 @@ argument_list|(
 name|cachingRowLimit
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -3012,23 +2998,16 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
-name|ClientScanner
-name|clientScanner
-init|=
-operator|(
-name|ClientScanner
-operator|)
-name|scanner
-decl_stmt|;
+init|)
+block|{
 name|Result
 name|r
 init|=
 literal|null
 decl_stmt|;
-comment|// Approximate the number of rows we expect will fit into the specified max rsult size. If this
-comment|// approximation is less than caching, then we expect that the max result size limit will be
-comment|// hit before the caching limit and thus partial results may be seen
+comment|// Approximate the number of rows we expect will fit into the specified max rsult size. If
+comment|// this approximation is less than caching, then we expect that the max result size limit will
+comment|// be hit before the caching limit and thus partial results may be seen
 name|boolean
 name|expectToSeePartialResults
 init|=
@@ -3041,7 +3020,7 @@ condition|(
 operator|(
 name|r
 operator|=
-name|clientScanner
+name|scanner
 operator|.
 name|next
 argument_list|()
@@ -3062,11 +3041,7 @@ name|expectToSeePartialResults
 argument_list|)
 expr_stmt|;
 block|}
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    * @param rows the rows to use    * @param families the families to use    * @param qualifiers the qualifiers to use    * @param value the values to use    * @return the dot product of the given rows, families, qualifiers, and values    * @throws IOException if there is a problem creating one of the Put objects    */
 specifier|static

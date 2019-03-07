@@ -659,6 +659,7 @@ name|VALUE
 argument_list|)
 expr_stmt|;
 block|}
+specifier|private
 specifier|static
 name|Table
 name|createTestTable
@@ -744,7 +745,8 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    * @param rows    * @param families    * @param qualifiers    * @param value    * @return    * @throws IOException    */
+comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    */
+specifier|private
 specifier|static
 name|ArrayList
 argument_list|<
@@ -897,7 +899,7 @@ return|return
 name|puts
 return|;
 block|}
-comment|/**    * @return The approximate heap size of a cell in the test table. All cells should have    *         approximately the same heap size, so the value is cached to avoid repeating the    *         calculation    * @throws Exception    */
+comment|/**    * @return The approximate heap size of a cell in the test table. All cells should have    *         approximately the same heap size, so the value is cached to avoid repeating the    *         calculation    */
 specifier|private
 name|long
 name|getCellHeapSize
@@ -1009,39 +1011,8 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testRowsSeenMetricWithSync
+name|testRowsSeenMetric
 parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|testRowsSeenMetric
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testRowsSeenMetricWithAsync
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|testRowsSeenMetric
-argument_list|(
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-specifier|private
-name|void
-name|testRowsSeenMetric
-parameter_list|(
-name|boolean
-name|async
-parameter_list|)
 throws|throws
 name|Exception
 block|{
@@ -1060,13 +1031,6 @@ operator|.
 name|setScanMetricsEnabled
 argument_list|(
 literal|true
-argument_list|)
-expr_stmt|;
-name|baseScan
-operator|.
-name|setAsyncPrefetch
-argument_list|(
-name|async
 argument_list|)
 expr_stmt|;
 name|testRowsSeenMetric
@@ -1130,7 +1094,7 @@ name|baseScan
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+specifier|private
 name|void
 name|testRowsSeenMetric
 parameter_list|(
@@ -1537,7 +1501,7 @@ name|baseScan
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+specifier|private
 name|void
 name|testRowsFilteredMetric
 parameter_list|(
@@ -1901,7 +1865,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
+specifier|private
 name|void
 name|testRowsFilteredMetric
 parameter_list|(
@@ -1932,6 +1896,7 @@ name|filter
 operator|!=
 literal|null
 condition|)
+block|{
 name|scan
 operator|.
 name|setFilter
@@ -1939,6 +1904,7 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+block|}
 name|testMetric
 argument_list|(
 name|scan
@@ -1951,8 +1917,8 @@ name|expectedNumFiltered
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run the scan to completetion and check the metric against the specified value    * @param scan    * @param metricKey    * @param expectedValue    * @throws Exception    */
-specifier|public
+comment|/**    * Run the scan to completion and check the metric against the specified value    */
+specifier|private
 name|void
 name|testMetric
 parameter_list|(
@@ -1998,7 +1964,7 @@ argument_list|()
 operator|!=
 literal|null
 condition|)
-block|{      }
+block|{     }
 name|scanner
 operator|.
 name|close

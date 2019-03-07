@@ -650,6 +650,17 @@ argument_list|()
 decl_stmt|;
 name|conf
 operator|.
+name|setInt
+argument_list|(
+name|HConstants
+operator|.
+name|HBASE_CLIENT_RETRIES_NUMBER
+argument_list|,
+literal|3
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
 name|setLong
 argument_list|(
 name|HConstants
@@ -1442,20 +1453,6 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|3
-argument_list|)
-expr_stmt|;
 name|TableName
 name|tableName
 init|=
@@ -1545,13 +1542,25 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|DoNotRetryIOException
+name|ScannerResetException
 name|expected
 parameter_list|)
 block|{
+comment|// expected
+block|}
+catch|catch
+parameter_list|(
+name|RetriesExhaustedException
+name|e
+parameter_list|)
+block|{
+comment|// expected
 name|assertThat
 argument_list|(
-name|expected
+name|e
+operator|.
+name|getCause
+argument_list|()
 argument_list|,
 name|instanceOf
 argument_list|(
@@ -1561,7 +1570,6 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// expected
 block|}
 name|assertTrue
 argument_list|(

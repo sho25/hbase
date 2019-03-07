@@ -591,6 +591,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -1682,19 +1692,6 @@ argument_list|(
 literal|"hbase.client.primaryCallTimeout.scan"
 argument_list|,
 literal|1000000
-argument_list|)
-expr_stmt|;
-comment|// Retry less so it can fail faster
-name|HTU
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.client.retries.number"
-argument_list|,
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// Enable meta replica at server side
@@ -4251,6 +4248,9 @@ block|}
 comment|// This test is to test when hbase.client.metaReplicaCallTimeout.scan is configured, meta table
 comment|// scan will always get the result from primary meta region as long as the result is returned
 comment|// within configured hbase.client.metaReplicaCallTimeout.scan from primary meta region.
+comment|// To be rewrite, and meta replicas is not stable
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -4427,6 +4427,9 @@ comment|// This test is to simulate the case that the meta region and the primar
 comment|// are down, hbase client is able to access user replica regions and return stale data.
 comment|// Meta replica is enabled to show the case that the meta replica region could be out of sync
 comment|// with the primary meta region.
+comment|// To be rewrite, and meta replicas is not stable
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

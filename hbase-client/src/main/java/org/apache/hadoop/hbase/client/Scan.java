@@ -3402,6 +3402,9 @@ return|return
 name|asyncPrefetch
 return|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. After building sync client upon async    *             client, the implementation is always 'async prefetch', so this flag is useless now.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|Scan
 name|setAsyncPrefetch

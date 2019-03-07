@@ -339,6 +339,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableNotFoundException
 import|;
 end_import
@@ -468,6 +482,22 @@ operator|.
 name|regionserver
 operator|.
 name|TestRegionServerNoMaster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|UserProvider
 import|;
 end_import
 
@@ -770,6 +800,10 @@ literal|1
 decl_stmt|;
 specifier|private
 specifier|static
+name|TableName
+name|TABLE_NAME
+decl_stmt|;
+specifier|private
 name|Table
 name|table
 init|=
@@ -794,6 +828,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+empty_stmt|;
 specifier|private
 specifier|static
 name|RegionInfo
@@ -1446,8 +1481,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|table
-operator|=
 name|HTU
 operator|.
 name|createTable
@@ -1464,6 +1497,13 @@ block|}
 argument_list|,
 literal|null
 argument_list|)
+expr_stmt|;
+name|TABLE_NAME
+operator|=
+name|hdt
+operator|.
+name|getTableName
+argument_list|()
 expr_stmt|;
 try|try
 init|(
@@ -1595,17 +1635,6 @@ name|TEST_SKIP_REPORTING_TRANSITION
 operator|=
 literal|false
 expr_stmt|;
-if|if
-condition|(
-name|table
-operator|!=
-literal|null
-condition|)
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|HTU
 operator|.
 name|shutdownMiniCluster
@@ -1657,6 +1686,18 @@ name|Exception
 name|ignored
 parameter_list|)
 block|{     }
+name|table
+operator|=
+name|HTU
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
+argument_list|(
+name|TABLE_NAME
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|After
@@ -2138,18 +2179,36 @@ argument_list|(
 name|hriSecondary
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ConnectionImplementation
 name|hc
 init|=
-operator|(
-name|ConnectionImplementation
-operator|)
+name|ConnectionFactory
+operator|.
+name|createConnectionImpl
+argument_list|(
 name|HTU
 operator|.
-name|getConnection
+name|getConfiguration
 argument_list|()
-decl_stmt|;
-try|try
+argument_list|,
+literal|null
+argument_list|,
+name|UserProvider
+operator|.
+name|instantiate
+argument_list|(
+name|HTU
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
+name|getCurrent
+argument_list|()
+argument_list|)
+init|)
 block|{
 name|hc
 operator|.
@@ -3448,6 +3507,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * To be rewrite without ConnectionImplementation    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -4481,6 +4543,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * To be rewrite    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -4499,6 +4564,9 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * To be rewrite    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -4517,6 +4585,9 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * To be rewrite    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -4535,6 +4606,9 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * To be rewrite    */
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

@@ -2097,8 +2097,6 @@ argument_list|,
 literal|"localhost:"
 operator|+
 name|port
-operator|+
-literal|"/hbase"
 argument_list|)
 expr_stmt|;
 name|ExecutorService

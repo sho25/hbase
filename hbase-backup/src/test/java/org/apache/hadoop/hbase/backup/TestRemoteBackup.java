@@ -185,7 +185,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -201,7 +201,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -513,12 +513,9 @@ parameter_list|)
 block|{       }
 try|try
 block|{
-name|HTable
+name|Table
 name|t1
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -691,12 +688,9 @@ argument_list|,
 name|fam2Name
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|t1
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -869,12 +863,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// #5.2 - checking row count of tables for full restore
-name|HTable
+name|Table
 name|hTable
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable

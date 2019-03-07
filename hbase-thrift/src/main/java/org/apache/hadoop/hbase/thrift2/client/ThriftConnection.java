@@ -235,6 +235,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|AsyncConnection
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|BufferedMutator
 import|;
 end_import
@@ -2006,6 +2022,21 @@ operator|new
 name|NotImplementedException
 argument_list|(
 literal|"clearRegionLocationCache not supported in ThriftTable"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|AsyncConnection
+name|toAsyncConnection
+parameter_list|()
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"toAsyncConnection not supported in ThriftTable"
 argument_list|)
 throw|;
 block|}

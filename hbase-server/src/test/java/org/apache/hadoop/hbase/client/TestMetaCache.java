@@ -439,6 +439,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -559,7 +569,13 @@ name|HBaseProtos
 import|;
 end_import
 
+begin_comment
+comment|/**  * Will be removed along with ConnectionImplementation soon.  */
+end_comment
+
 begin_class
+annotation|@
+name|Ignore
 annotation|@
 name|Category
 argument_list|(

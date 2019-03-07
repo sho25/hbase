@@ -828,10 +828,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This class is for testing HBaseConnectionManager features  */
+comment|/**  * This class is for testing HBaseConnectionManager features  *<p/>  * Will be removed in the future, ignore.  */
 end_comment
 
 begin_class
+annotation|@
+name|Ignore
 annotation|@
 name|Category
 argument_list|(

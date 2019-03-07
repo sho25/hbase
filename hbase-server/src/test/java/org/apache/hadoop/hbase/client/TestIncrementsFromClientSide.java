@@ -1519,14 +1519,16 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown IOException"
+literal|"Should have thrown NPE/IOE"
 argument_list|)
 expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|NullPointerException
+decl||
 name|IOException
-name|iox
+name|error
 parameter_list|)
 block|{
 comment|// success
@@ -1549,14 +1551,16 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown IOException"
+literal|"Should have thrown NPE/IOE"
 argument_list|)
 expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
+name|NullPointerException
+decl||
 name|IOException
-name|iox
+name|error
 parameter_list|)
 block|{
 comment|// success
@@ -1590,22 +1594,16 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown IllegalArgumentException"
+literal|"Should have thrown IAE/NPE"
 argument_list|)
 expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
 name|IllegalArgumentException
-name|iax
-parameter_list|)
-block|{
-comment|// success
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|NullPointerException
-name|npe
+name|error
 parameter_list|)
 block|{
 comment|// success
@@ -1635,7 +1633,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"Should have thrown IllegalArgumentException"
+literal|"Should have thrown IAE"
 argument_list|)
 expr_stmt|;
 block|}

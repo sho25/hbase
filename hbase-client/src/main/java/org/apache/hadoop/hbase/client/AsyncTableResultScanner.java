@@ -792,6 +792,17 @@ return|return
 name|scanMetrics
 return|;
 block|}
+name|int
+name|getCacheSize
+parameter_list|()
+block|{
+return|return
+name|queue
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

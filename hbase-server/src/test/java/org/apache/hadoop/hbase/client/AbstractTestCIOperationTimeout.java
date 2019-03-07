@@ -104,7 +104,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Based class for testing operation timeout logic for {@link ConnectionImplementation}.  */
+comment|/**  * Based class for testing operation timeout logic.  */
 end_comment
 
 begin_class
@@ -342,7 +342,7 @@ catch|catch
 parameter_list|(
 name|SocketTimeoutException
 decl||
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 name|e
 parameter_list|)
 block|{

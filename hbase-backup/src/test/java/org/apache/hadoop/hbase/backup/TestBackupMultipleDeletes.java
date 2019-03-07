@@ -177,7 +177,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -193,7 +193,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -464,12 +464,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// #2 - insert some data to table table1
-name|HTable
+name|Table
 name|t1
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -599,12 +596,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// #4 - insert some data to table table2
-name|HTable
+name|Table
 name|t2
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -719,9 +713,6 @@ expr_stmt|;
 comment|// #6 - insert some data to table table1
 name|t1
 operator|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -831,9 +822,6 @@ expr_stmt|;
 comment|// #8 - insert some data to table table2
 name|t2
 operator|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable

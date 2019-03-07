@@ -89,7 +89,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|SharedConnection
+name|client
+operator|.
+name|Connection
 import|;
 end_import
 
@@ -105,7 +107,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Connection
+name|SharedConnection
 import|;
 end_import
 

@@ -37,6 +37,18 @@ begin_import
 import|import static
 name|org
 operator|.
+name|hamcrest
+operator|.
+name|CoreMatchers
+operator|.
+name|instanceOf
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
 name|junit
 operator|.
 name|Assert
@@ -102,6 +114,18 @@ operator|.
 name|Assert
 operator|.
 name|assertSame
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertThat
 import|;
 end_import
 
@@ -18756,21 +18780,6 @@ name|NUM_OPS
 init|=
 literal|100
 decl_stmt|;
-name|int
-name|FAILED_OPS
-init|=
-literal|50
-decl_stmt|;
-name|RetriesExhaustedWithDetailsException
-name|expectedException
-init|=
-literal|null
-decl_stmt|;
-name|IllegalArgumentException
-name|iae
-init|=
-literal|null
-decl_stmt|;
 comment|// 1.1 Put with no column families (local validation, runtime exception)
 name|List
 argument_list|<
@@ -18833,6 +18842,9 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -18840,16 +18852,7 @@ name|IllegalArgumentException
 name|e
 parameter_list|)
 block|{
-name|iae
-operator|=
-name|e
-expr_stmt|;
-block|}
-name|assertNotNull
-argument_list|(
-name|iae
-argument_list|)
-expr_stmt|;
+comment|// expected
 name|assertEquals
 argument_list|(
 name|NUM_OPS
@@ -18860,11 +18863,8 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// 1.2 Put with invalid column family
-name|iae
-operator|=
-literal|null
-expr_stmt|;
 name|puts
 operator|.
 name|clear
@@ -18878,7 +18878,7 @@ init|=
 literal|0
 init|;
 name|i
-operator|!=
+operator|<
 name|NUM_OPS
 condition|;
 name|i
@@ -18942,52 +18942,33 @@ argument_list|(
 name|puts
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 name|e
 parameter_list|)
 block|{
-name|expectedException
-operator|=
+comment|// expected
+name|assertThat
+argument_list|(
 name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|,
+name|instanceOf
+argument_list|(
+name|NoSuchColumnFamilyException
+operator|.
+name|class
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
-name|assertNotNull
-argument_list|(
-name|expectedException
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|FAILED_OPS
-argument_list|,
-name|expectedException
-operator|.
-name|exceptions
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|expectedException
-operator|.
-name|actions
-operator|.
-name|contains
-argument_list|(
-name|puts
-operator|.
-name|get
-argument_list|(
-literal|1
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// 2.1 Get non-existent rows
 name|List
 argument_list|<
@@ -19031,7 +19012,6 @@ name|i
 argument_list|)
 argument_list|)
 decl_stmt|;
-comment|// get.addColumn(FAMILY, FAMILY);
 name|gets
 operator|.
 name|add
@@ -19065,30 +19045,64 @@ operator|.
 name|length
 argument_list|)
 expr_stmt|;
-name|assertNull
-argument_list|(
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|NUM_OPS
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|Result
+name|getResult
+init|=
 name|getsResult
 index|[
-literal|1
+name|i
 index|]
+decl_stmt|;
+if|if
+condition|(
+name|i
+operator|%
+literal|2
+operator|==
+literal|0
+condition|)
+block|{
+name|assertFalse
+argument_list|(
+name|getResult
 operator|.
-name|getRow
+name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|assertTrue
+argument_list|(
+name|getResult
+operator|.
+name|isEmpty
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 comment|// 2.2 Get with invalid column family
 name|gets
 operator|.
 name|clear
 argument_list|()
-expr_stmt|;
-name|getsResult
-operator|=
-literal|null
-expr_stmt|;
-name|expectedException
-operator|=
-literal|null
 expr_stmt|;
 for|for
 control|(
@@ -19148,8 +19162,6 @@ expr_stmt|;
 block|}
 try|try
 block|{
-name|getsResult
-operator|=
 name|foo
 operator|.
 name|get
@@ -19157,62 +19169,34 @@ argument_list|(
 name|gets
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 name|e
 parameter_list|)
 block|{
-name|expectedException
-operator|=
+comment|// expected
+name|assertThat
+argument_list|(
 name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|,
+name|instanceOf
+argument_list|(
+name|NoSuchColumnFamilyException
+operator|.
+name|class
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
-name|assertNull
-argument_list|(
-name|getsResult
-argument_list|)
-expr_stmt|;
-name|assertNotNull
-argument_list|(
-name|expectedException
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|FAILED_OPS
-argument_list|,
-name|expectedException
-operator|.
-name|exceptions
-operator|.
-name|size
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|assertTrue
-argument_list|(
-name|expectedException
-operator|.
-name|actions
-operator|.
-name|contains
-argument_list|(
-name|gets
-operator|.
-name|get
-argument_list|(
-literal|1
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
 comment|// 3.1 Delete with invalid column family
-name|expectedException
-operator|=
-literal|null
-expr_stmt|;
 name|List
 argument_list|<
 name|Delete
@@ -19291,66 +19275,116 @@ argument_list|(
 name|deletes
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|RetriesExhaustedWithDetailsException
+name|RetriesExhaustedException
 name|e
 parameter_list|)
 block|{
-name|expectedException
-operator|=
+comment|// expected
+name|assertThat
+argument_list|(
 name|e
+operator|.
+name|getCause
+argument_list|()
+argument_list|,
+name|instanceOf
+argument_list|(
+name|NoSuchColumnFamilyException
+operator|.
+name|class
+argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
-name|assertEquals
-argument_list|(
-operator|(
-name|NUM_OPS
-operator|-
-name|FAILED_OPS
-operator|)
-argument_list|,
-name|deletes
+comment|// all valid rows should have been deleted
+name|gets
 operator|.
-name|size
+name|clear
 argument_list|()
+expr_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|NUM_OPS
+condition|;
+name|i
+operator|++
+control|)
+block|{
+name|Get
+name|get
+init|=
+operator|new
+name|Get
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|i
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|gets
+operator|.
+name|add
+argument_list|(
+name|get
+argument_list|)
+expr_stmt|;
+block|}
+name|getsResult
+operator|=
+name|foo
+operator|.
+name|get
+argument_list|(
+name|gets
 argument_list|)
 expr_stmt|;
 name|assertNotNull
 argument_list|(
-name|expectedException
+name|getsResult
 argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|FAILED_OPS
+name|NUM_OPS
 argument_list|,
-name|expectedException
+name|getsResult
 operator|.
-name|exceptions
+name|length
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|Result
+name|getResult
+range|:
+name|getsResult
+control|)
+block|{
+name|assertTrue
+argument_list|(
+name|getResult
 operator|.
-name|size
+name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|expectedException
-operator|.
-name|actions
-operator|.
-name|contains
-argument_list|(
-name|deletes
-operator|.
-name|get
-argument_list|(
-literal|1
-argument_list|)
-argument_list|)
-argument_list|)
-expr_stmt|;
+block|}
 comment|// 3.2 Delete non-existent rows
 name|deletes
 operator|.
@@ -19401,67 +19435,8 @@ argument_list|(
 name|deletes
 argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|deletes
-operator|.
-name|isEmpty
-argument_list|()
-argument_list|)
-expr_stmt|;
 block|}
 block|}
-comment|/*    * Baseline "scalability" test.    *    * Tests one hundred families, one million columns, one million versions    */
-annotation|@
-name|Ignore
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testMillions
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-comment|// 100 families
-comment|// millions of columns
-comment|// millions of versions
-block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testMultipleRegionsAndBatchPuts
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-comment|// Two family table
-comment|// Insert lots of rows
-comment|// Insert to the same row with batched puts
-comment|// Insert to multiple rows with batched puts
-comment|// Split the table
-comment|// Get row from first region
-comment|// Get row from second region
-comment|// Scan all rows
-comment|// Insert to multiple regions with batched puts
-comment|// Get row from first region
-comment|// Get row from second region
-comment|// Scan all rows
-block|}
-annotation|@
-name|Ignore
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testMultipleRowMultipleFamily
-parameter_list|()
-throws|throws
-name|Exception
-block|{    }
 comment|//
 comment|// JIRA Testers
 comment|//
@@ -36232,8 +36207,6 @@ comment|// We can still access A through newA because it has the table informati
 comment|// cached. And if it needs to recalibrate, that will cause the information
 comment|// to be reloaded.
 comment|// Test user metadata
-try|try
-init|(
 name|Admin
 name|admin
 init|=
@@ -36241,8 +36214,7 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-init|)
-block|{
+decl_stmt|;
 comment|// make a modifiable descriptor
 name|HTableDescriptor
 name|desc
@@ -36285,7 +36257,6 @@ operator|.
 name|getFamilies
 argument_list|()
 control|)
-block|{
 name|c
 operator|.
 name|setValue
@@ -36295,7 +36266,6 @@ argument_list|,
 name|attrValue
 argument_list|)
 expr_stmt|;
-block|}
 comment|// update metadata for all regions of this table
 name|admin
 operator|.
@@ -36312,11 +36282,9 @@ argument_list|(
 name|tableAname
 argument_list|)
 expr_stmt|;
-block|}
 comment|// Test that attribute changes were applied
-name|HTableDescriptor
 name|desc
-init|=
+operator|=
 operator|new
 name|HTableDescriptor
 argument_list|(
@@ -36325,7 +36293,7 @@ operator|.
 name|getDescriptor
 argument_list|()
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|"wrong table descriptor returned"
@@ -37996,7 +37964,7 @@ argument_list|(
 name|d
 argument_list|)
 expr_stmt|;
-comment|// TODO: Trying mutateRow again.  The batch was failing with a one try only.
+comment|// TODO: Trying mutateRow again. The batch was failing with a one try only.
 name|t
 operator|.
 name|mutateRow
@@ -38052,7 +38020,7 @@ index|]
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|//Test that we get a region level exception
+comment|// Test that we get a region level exception
 try|try
 block|{
 name|arm
@@ -38117,6 +38085,14 @@ argument_list|(
 literal|"Expected NoSuchColumnFamilyException"
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|NoSuchColumnFamilyException
+name|e
+parameter_list|)
+block|{
+return|return;
 block|}
 catch|catch
 parameter_list|(
@@ -39212,11 +39188,7 @@ index|[
 name|j
 index|]
 decl_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
+name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
@@ -39232,13 +39204,8 @@ argument_list|(
 name|cellWithoutWal
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
+name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
@@ -39254,13 +39221,8 @@ argument_list|(
 name|cellWithoutWal
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
+name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
@@ -39276,13 +39238,8 @@ argument_list|(
 name|cellWithoutWal
 argument_list|)
 argument_list|)
-argument_list|)
 expr_stmt|;
-name|assertTrue
-argument_list|(
-name|Bytes
-operator|.
-name|equals
+name|assertArrayEquals
 argument_list|(
 name|CellUtil
 operator|.
@@ -39296,7 +39253,6 @@ operator|.
 name|cloneValue
 argument_list|(
 name|cellWithoutWal
-argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -52198,6 +52154,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+comment|// to be removed
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public

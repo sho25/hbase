@@ -2695,8 +2695,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// performs table scan during which the underlying table is disabled
-comment|// assert that we get 410 (Gone)
 annotation|@
 name|Test
 specifier|public
@@ -2706,6 +2704,16 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
+operator|.
+name|disableTable
+argument_list|(
+name|TABLE_TO_BE_DISABLED
+argument_list|)
+expr_stmt|;
 name|ScannerModel
 name|model
 init|=
@@ -2755,6 +2763,7 @@ name|createProtobufOutput
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// we will see the exception when we actually want to get the result.
 name|assertEquals
 argument_list|(
 literal|201
@@ -2778,16 +2787,6 @@ argument_list|(
 name|scannerURI
 argument_list|)
 expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getAdmin
-argument_list|()
-operator|.
-name|disableTable
-argument_list|(
-name|TABLE_TO_BE_DISABLED
-argument_list|)
-expr_stmt|;
 name|response
 operator|=
 name|client
@@ -2801,21 +2800,14 @@ operator|.
 name|MIMETYPE_PROTOBUF
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
-literal|"got "
-operator|+
-name|response
-operator|.
-name|getCode
-argument_list|()
+literal|410
 argument_list|,
 name|response
 operator|.
 name|getCode
 argument_list|()
-operator|==
-literal|410
 argument_list|)
 expr_stmt|;
 block|}

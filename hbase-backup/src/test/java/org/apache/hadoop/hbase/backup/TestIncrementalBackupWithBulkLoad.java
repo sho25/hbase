@@ -191,7 +191,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HTable
+name|Put
 import|;
 end_import
 
@@ -207,7 +207,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
+name|Table
 import|;
 end_import
 
@@ -510,12 +510,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// #2 - insert some data to table table1
-name|HTable
+name|Table
 name|t1
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable
@@ -925,12 +922,9 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HTable
+name|Table
 name|hTable
 init|=
-operator|(
-name|HTable
-operator|)
 name|conn
 operator|.
 name|getTable

@@ -122,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Based class for testing rpc timeout logic for {@link ConnectionImplementation}.  */
+comment|/**  * Based class for testing rpc timeout logic.  */
 end_comment
 
 begin_class

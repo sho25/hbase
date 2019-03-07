@@ -10600,7 +10600,10 @@ name|plan
 operator|.
 name|execute
 argument_list|(
-name|connection
+name|asyncClusterConnection
+operator|.
+name|toConnection
+argument_list|()
 operator|.
 name|getAdmin
 argument_list|()
@@ -16577,23 +16580,6 @@ comment|// Shutdown our cluster connection. This will kill any hosted RPCs that 
 comment|// this is what we want especially if the Master is in startup phase doing call outs to
 comment|// hbase:meta, etc. when cluster is down. Without ths connection close, we'd have to wait on
 comment|// the rpc to timeout.
-if|if
-condition|(
-name|this
-operator|.
-name|connection
-operator|!=
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|connection
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
 if|if
 condition|(
 name|this

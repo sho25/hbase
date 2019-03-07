@@ -1567,13 +1567,6 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|admin
-operator|=
-name|TEST_UTIL
-operator|.
-name|getAdmin
-argument_list|()
-expr_stmt|;
 comment|// Base conf2 on conf1 so it gets the right zk cluster.
 name|conf1
 operator|=
@@ -1728,6 +1721,13 @@ name|startMiniCluster
 argument_list|(
 literal|1
 argument_list|)
+expr_stmt|;
+name|admin
+operator|=
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
 expr_stmt|;
 name|ReplicationPeerConfig
 name|rpc
