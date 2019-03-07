@@ -9096,6 +9096,9 @@ argument_list|)
 decl_stmt|;
 comment|// init the chunkCreator
 name|ChunkCreator
+name|chunkCreator
+init|=
+name|ChunkCreator
 operator|.
 name|initialize
 argument_list|(
@@ -9113,7 +9116,7 @@ name|this
 operator|.
 name|hMemManager
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 block|}
 block|}
 specifier|private
