@@ -362,6 +362,13 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+name|region
+operator|.
+name|setRestoredRegion
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 comment|// we won't initialize the MobFileCache when not running in RS process. so provided an
 comment|// initialized cache. Consider the case: an CF was set from an mob to non-mob. if we only
 comment|// initialize cache for MOB region, NPE from HMobStore will still happen. So Initialize the

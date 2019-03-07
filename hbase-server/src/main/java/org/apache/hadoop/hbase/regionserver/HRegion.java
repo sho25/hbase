@@ -3290,6 +3290,26 @@ specifier|private
 name|FileSystem
 name|walFS
 decl_stmt|;
+comment|// set to true if the region is restored from snapshot
+specifier|private
+name|boolean
+name|isRestoredRegion
+init|=
+literal|false
+decl_stmt|;
+specifier|public
+name|void
+name|setRestoredRegion
+parameter_list|(
+name|boolean
+name|restoredRegion
+parameter_list|)
+block|{
+name|isRestoredRegion
+operator|=
+name|restoredRegion
+expr_stmt|;
+block|}
 comment|// The internal wait duration to acquire a lock before read/update
 comment|// from the region. It is not per row. The purpose of this wait time
 comment|// is to avoid waiting a long time while the region is busy, so that
@@ -5474,6 +5494,9 @@ argument_list|)
 expr_stmt|;
 if|if
 condition|(
+operator|!
+name|isRestoredRegion
+operator|&&
 name|ServerRegionReplicaUtil
 operator|.
 name|shouldReplayRecoveredEdits
@@ -5765,6 +5788,19 @@ block|}
 comment|// Use maximum of log sequenceid or that which was found in stores
 comment|// (particularly if no recovered edits, seqid will be -1).
 name|long
+name|nextSeqId
+init|=
+name|maxSeqId
+operator|+
+literal|1
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|isRestoredRegion
+condition|)
+block|{
+name|long
 name|maxSeqIdFromFile
 init|=
 name|WALSplitter
@@ -5778,9 +5814,8 @@ name|getWALRegionDirOfDefaultReplica
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|long
 name|nextSeqId
-init|=
+operator|=
 name|Math
 operator|.
 name|max
@@ -5791,7 +5826,7 @@ name|maxSeqIdFromFile
 argument_list|)
 operator|+
 literal|1
-decl_stmt|;
+expr_stmt|;
 comment|// The openSeqNum will always be increase even for read only region, as we rely on it to
 comment|// determine whether a region has been successfully reopend, so here we always need to update
 comment|// the max sequence id file.
@@ -5836,6 +5871,7 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 name|LOG
 operator|.
