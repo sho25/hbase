@@ -1781,6 +1781,7 @@ name|snapshotName
 parameter_list|)
 function_decl|;
 comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1793,8 +1794,37 @@ parameter_list|,
 name|boolean
 name|takeFailSafeSnapshot
 parameter_list|)
+block|{
+return|return
+name|restoreSnapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|takeFailSafeSnapshot
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to true, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot true if the failsafe snapshot should be taken    * @param restoreAcl<code>true</code> to restore acl of snapshot    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|restoreSnapshot
+parameter_list|(
+name|String
+name|snapshotName
+parameter_list|,
+name|boolean
+name|takeFailSafeSnapshot
+parameter_list|,
+name|boolean
+name|restoreAcl
+parameter_list|)
 function_decl|;
 comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1806,6 +1836,34 @@ name|snapshotName
 parameter_list|,
 name|TableName
 name|tableName
+parameter_list|)
+block|{
+return|return
+name|cloneSnapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl<code>true</code> to restore acl of snapshot    */
+name|CompletableFuture
+argument_list|<
+name|Void
+argument_list|>
+name|cloneSnapshot
+parameter_list|(
+name|String
+name|snapshotName
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 function_decl|;
 comment|/**    * List completed snapshots.    * @return a list of snapshot descriptors for completed snapshots wrapped by a    *         {@link CompletableFuture}    */

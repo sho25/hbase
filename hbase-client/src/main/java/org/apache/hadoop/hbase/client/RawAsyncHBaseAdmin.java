@@ -16067,6 +16067,9 @@ name|snapshotName
 parameter_list|,
 name|boolean
 name|takeFailSafeSnapshot
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 name|CompletableFuture
@@ -16239,6 +16242,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|finalTableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -16306,6 +16311,8 @@ argument_list|,
 name|finalTableName
 argument_list|,
 name|takeFailSafeSnapshot
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -16342,6 +16349,9 @@ name|tableName
 parameter_list|,
 name|boolean
 name|takeFailSafeSnapshot
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 if|if
@@ -16479,6 +16489,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|tableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|,
 parameter_list|(
@@ -16503,6 +16515,8 @@ argument_list|(
 name|failSafeSnapshotSnapshotName
 argument_list|,
 name|tableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|,
 parameter_list|(
@@ -16643,6 +16657,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|tableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 return|;
 block|}
@@ -16727,6 +16743,9 @@ name|snapshotName
 parameter_list|,
 name|TableName
 name|tableName
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 name|CompletableFuture
@@ -16798,6 +16817,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|tableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -16824,6 +16845,9 @@ name|snapshotName
 parameter_list|,
 name|TableName
 name|tableName
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 name|SnapshotProtos
@@ -16934,6 +16958,11 @@ name|ng
 operator|.
 name|newNonce
 argument_list|()
+argument_list|)
+operator|.
+name|setRestoreACL
+argument_list|(
+name|restoreAcl
 argument_list|)
 operator|.
 name|build

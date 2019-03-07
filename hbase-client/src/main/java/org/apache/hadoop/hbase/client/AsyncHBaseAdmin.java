@@ -2607,6 +2607,9 @@ name|snapshotName
 parameter_list|,
 name|boolean
 name|takeFailSafeSnapshot
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 return|return
@@ -2619,6 +2622,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|takeFailSafeSnapshot
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 return|;
@@ -2637,6 +2642,9 @@ name|snapshotName
 parameter_list|,
 name|TableName
 name|tableName
+parameter_list|,
+name|boolean
+name|restoreAcl
 parameter_list|)
 block|{
 return|return
@@ -2649,6 +2657,8 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|tableName
+argument_list|,
+name|restoreAcl
 argument_list|)
 argument_list|)
 return|;
