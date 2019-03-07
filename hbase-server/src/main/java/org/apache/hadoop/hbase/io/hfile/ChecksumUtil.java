@@ -304,7 +304,7 @@ name|String
 name|pathName
 parameter_list|)
 block|{
-comment|// Almost all of the HFile Block are about 64KB, so it would be a SingleByteBuff, use the
+comment|// Almost all of the HFile Block are about 64KB, and it would be a SingleByteBuff, use the
 comment|// Hadoop's verify checksum directly, because it'll use the native checksum, which has no extra
 comment|// byte[] allocation or copying. (HBASE-21917)
 if|if
@@ -419,8 +419,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|// Only when the dataBlock is larger than 4MB (default buffer size in BucketCache), the block
-comment|// will be an MultiByteBuff. we use a small byte[] to update the checksum many times for
+comment|// If the block is a MultiByteBuff. we use a small byte[] to update the checksum many times for
 comment|// reducing GC pressure. it's a rare case.
 name|int
 name|checksumTypeSize
