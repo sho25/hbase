@@ -18,6 +18,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
+operator|.
+name|get
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -96,6 +114,18 @@ operator|.
 name|concurrent
 operator|.
 name|Future
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|TimeUnit
 import|;
 end_import
 
@@ -320,6 +350,24 @@ operator|.
 name|hbase
 operator|.
 name|TableNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|replication
+operator|.
+name|ReplicationPeerConfigUtil
 import|;
 end_import
 
@@ -615,6 +663,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -650,8 +714,14 @@ name|Abortable
 extends|,
 name|Closeable
 block|{
+comment|/**    * Return the operation timeout for a rpc call.    * @see #getSyncWaitTimeout()    */
 name|int
 name|getOperationTimeout
+parameter_list|()
+function_decl|;
+comment|/**    * Return the blocking wait time for an asynchronous operation. Can be configured by    * {@code hbase.client.sync.wait.timeout.msec}.    *<p/>    * For several operations, such as createTable, deleteTable, etc, the rpc call will finish right    * after we schedule a procedure at master side, so the timeout will not be controlled by the    * above {@link #getOperationTimeout()}. And timeout value here tells you how much time we will    * wait until the procedure at master side is finished.    *<p/>    * In general, you can consider that the implementation for XXXX method is just a    * XXXXAsync().get(getSyncWaitTimeout(), TimeUnit.MILLISECONDS).    * @see #getOperationTimeout()    */
+name|int
+name|getSyncWaitTimeout
 parameter_list|()
 function_decl|;
 annotation|@
@@ -721,6 +791,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * List all the userspace tables that match the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTables()    */
+specifier|default
 name|List
 argument_list|<
 name|TableDescriptor
@@ -732,7 +803,16 @@ name|pattern
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|listTableDescriptors
+argument_list|(
+name|pattern
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
 comment|/**    * List all the userspace tables matching the given regular expression.    *    * @param regex The regular expression to match against    * @return a list of read-only HTableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTableDescriptors(Pattern)    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listTableDescriptors(Pattern)} instead.    */
 annotation|@
 name|Deprecated
@@ -803,6 +883,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * List all of the names of userspace tables.    * @param pattern The regular expression to match against    * @return array of table names    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|TableName
 index|[]
 name|listTableNames
@@ -812,7 +893,16 @@ name|pattern
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|listTableNames
+argument_list|(
+name|pattern
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
 comment|/**    * List all of the names of userspace tables.    * @param regex The regular expression to match against    * @return TableName[] table names    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version. Use    *             {@link #listTableNames(Pattern)} instead.    */
 annotation|@
 name|Deprecated
@@ -914,6 +1004,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+specifier|default
 name|void
 name|createTable
 parameter_list|(
@@ -927,7 +1018,25 @@ name|splitKeys
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|createTableAsync
+argument_list|(
+name|desc
+argument_list|,
+name|splitKeys
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -946,7 +1055,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Deletes a table. Synchronous operation.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Deletes a table. Synchronous operation.    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|deleteTable
 parameter_list|(
@@ -955,7 +1065,23 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|deleteTableAsync
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Deletes the table but does not block and wait for it to be completely removed.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -996,6 +1122,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Truncate a table.    * Synchronous operation.    *    * @param tableName name of table to truncate    * @param preserveSplits<code>true</code> if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|truncateTable
 parameter_list|(
@@ -1007,7 +1134,25 @@ name|preserveSplits
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|truncateTableAsync
+argument_list|(
+name|tableName
+argument_list|,
+name|preserveSplits
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Truncate the table but does not block and wait for it to be completely enabled. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param tableName name of table to delete    * @param preserveSplits<code>true</code> if the splits should be preserved    * @throws IOException if a remote or network exception occurs    * @return the result of the async truncate. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
 name|Future
 argument_list|<
@@ -1024,7 +1169,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable a table.  May timeout.  Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    *    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs There could be couple types of    * IOException TableNotFoundException means the table doesn't exist. TableNotDisabledException    * means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Enable a table. May timeout. Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs There could be couple types of    *           IOException TableNotFoundException means the table doesn't exist.    *           TableNotDisabledException means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
+specifier|default
 name|void
 name|enableTable
 parameter_list|(
@@ -1033,7 +1179,23 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|enableTableAsync
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Enable the table but does not block and wait for it to be completely enabled.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table to delete    * @throws IOException if a remote or network exception occurs    * @return the result of the async enable. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -1086,7 +1248,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Disable table and wait on completion.  May timeout eventually.  Use {@link    * #disableTableAsync(org.apache.hadoop.hbase.TableName)} and    * {@link #isTableDisabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * enabled state for it to be disabled.    *    * @param tableName    * @throws IOException There could be couple types of IOException TableNotFoundException means the    * table doesn't exist. TableNotEnabledException means the table isn't in enabled state.    */
+comment|/**    * Disable table and wait on completion. May timeout eventually. Use    * {@link #disableTableAsync(org.apache.hadoop.hbase.TableName)} and    * {@link #isTableDisabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * enabled state for it to be disabled.    * @param tableName    * @throws IOException There could be couple types of IOException TableNotFoundException means the    *           table doesn't exist. TableNotEnabledException means the table isn't in enabled state.    */
+specifier|default
 name|void
 name|disableTable
 parameter_list|(
@@ -1095,7 +1258,23 @@ name|tableName
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|disableTableAsync
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Disable tables matching the passed in pattern and wait on completion. Warning: Use this method    * carefully, there is no prompting and the effect is immediate. Consider using {@link    * #listTableDescriptors(Pattern)} and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    *    * @param regex The regular expression to match table names against    * @return Table descriptors for tables that couldn't be disabled    *         The return htds are read-only    * @throws IOException    * @see #disableTables(java.util.regex.Pattern)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @deprecated since 2.0 version and will be removed in 3.0 version    *             This is just a trivial helper method without any magic.    *             Consider using {@link #listTableDescriptors(Pattern)}    *             and {@link #disableTable(org.apache.hadoop.hbase.TableName)}    */
 annotation|@
 name|Deprecated
@@ -1229,6 +1408,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Add a column family to an existing table. Synchronous operation.    * Use {@link #addColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|addColumnFamily
 parameter_list|(
@@ -1240,7 +1420,25 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|addColumnFamilyAsync
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Add a column family to an existing table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of the table to add column family to    * @param columnFamily column family descriptor of column family to be added    * @throws IOException if a remote or network exception occurs    * @return the result of the async add column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -1274,6 +1472,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Delete a column family from a table. Synchronous operation.    * Use {@link #deleteColumnFamily(TableName, byte[])} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|deleteColumnFamily
 parameter_list|(
@@ -1286,7 +1485,25 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|deleteColumnFamilyAsync
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Delete a column family from a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily name of column family to be deleted    * @throws IOException if a remote or network exception occurs    * @return the result of the async delete column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -1304,7 +1521,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing column family on a table. Synchronous operation.    * Use {@link #modifyColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
+comment|/**    * Modify an existing column family on a table. Synchronous operation. Use    * {@link #modifyColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it returns    * a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @deprecated As of release 2.0.0.    *             This will be removed in HBase 3.0.0.    *             Use {@link #modifyColumnFamily(TableName, ColumnFamilyDescriptor)}.    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -1329,6 +1546,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Modify an existing column family on a table. Synchronous operation.    * Use {@link #modifyColumnFamilyAsync(TableName, ColumnFamilyDescriptor)} instead because it    * returns a {@link Future} from which you can learn whether success or failure.    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|modifyColumnFamily
 parameter_list|(
@@ -1340,7 +1558,25 @@ name|columnFamily
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|modifyColumnFamilyAsync
+argument_list|(
+name|tableName
+argument_list|,
+name|columnFamily
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Modify an existing column family on a table. Asynchronous operation.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table    * @param columnFamily new column family descriptor to use    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify column family. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
@@ -2163,9 +2399,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing table, more IRB friendly version.    *    * @param tableName name of table.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTable(TableDescriptor)}    */
+comment|/**    * Modify an existing table, more IRB friendly version.    * @param tableName name of table.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.0 version and will be removed in 3.0 version. use    *             {@link #modifyTable(TableDescriptor)}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|void
 name|modifyTable
 parameter_list|(
@@ -2177,8 +2414,46 @@ name|td
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+if|if
+condition|(
+operator|!
+name|tableName
+operator|.
+name|equals
+argument_list|(
+name|td
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"the specified table name '"
+operator|+
+name|tableName
+operator|+
+literal|"' doesn't match with the HTD one: "
+operator|+
+name|td
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+throw|;
+block|}
+name|modifyTable
+argument_list|(
+name|td
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Modify an existing table, more IRB friendly version.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|modifyTable
 parameter_list|(
@@ -2187,10 +2462,27 @@ name|td
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|modifyTableAsync
+argument_list|(
+name|td
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Modify an existing table, more IRB friendly version. Asynchronous operation.  This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param tableName name of table.    * @param td modified description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    * @deprecated since 2.0 version and will be removed in 3.0 version.    *             use {@link #modifyTableAsync(TableDescriptor)}    */
 annotation|@
 name|Deprecated
+specifier|default
 name|Future
 argument_list|<
 name|Void
@@ -2205,8 +2497,46 @@ name|td
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Modify an existing table, more IRB (ruby) friendly version. Asynchronous operation. This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param td description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *     operation to complete    */
+block|{
+if|if
+condition|(
+operator|!
+name|tableName
+operator|.
+name|equals
+argument_list|(
+name|td
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"the specified table name '"
+operator|+
+name|tableName
+operator|+
+literal|"' doesn't match with the HTD one: "
+operator|+
+name|td
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+throw|;
+block|}
+return|return
+name|modifyTableAsync
+argument_list|(
+name|td
+argument_list|)
+return|;
+block|}
+comment|/**    * Modify an existing table, more IRB (ruby) friendly version. Asynchronous operation. This means that    * it may be a while before your schema change is updated across all of the table.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param td description of the table    * @throws IOException if a remote or network exception occurs    * @return the result of the async modify. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete    */
 name|Future
 argument_list|<
 name|Void
@@ -2219,14 +2549,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    *<p>    * Shuts down the HBase cluster.    *</p>    *<p>    * Notice that, a success shutdown call may ends with an error since the remote server has already    * been shutdown.    *</p>    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Shuts down the HBase cluster.    *<p/>    * Notice that, a success shutdown call may ends with an error since the remote server has already    * been shutdown.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|shutdown
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    *<p>    * Shuts down the current HBase master only. Does not shutdown the cluster.    *</p>    *<p>    * Notice that, a success stopMaster call may ends with an error since the remote server has    * already been shutdown.    *</p>    * @throws IOException if a remote or network exception occurs    * @see #shutdown()    */
+comment|/**    * Shuts down the current HBase master only. Does not shutdown the cluster.    *<p/>    * Notice that, a success stopMaster call may ends with an error since the remote server has    * already been shutdown.    * @throws IOException if a remote or network exception occurs    * @see #shutdown()    */
 name|void
 name|stopMaster
 parameter_list|()
@@ -2434,7 +2764,8 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception    * is thrown.    *    * @param descriptor descriptor which describes the new namespace.    */
+comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception is    * thrown.    * @param descriptor descriptor which describes the new namespace.    */
+specifier|default
 name|void
 name|createNamespace
 parameter_list|(
@@ -2443,8 +2774,24 @@ name|descriptor
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Create a new namespace.    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+block|{
+name|get
+argument_list|(
+name|createNamespaceAsync
+argument_list|(
+name|descriptor
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a new namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -2457,7 +2804,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing namespace.  Blocks until namespace has been successfully modified or an    * exception is thrown.    *    * @param descriptor descriptor which describes the new namespace    */
+comment|/**    * Modify an existing namespace. Blocks until namespace has been successfully modified or an    * exception is thrown.    * @param descriptor descriptor which describes the new namespace    */
+specifier|default
 name|void
 name|modifyNamespace
 parameter_list|(
@@ -2466,8 +2814,24 @@ name|descriptor
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Modify an existing namespace.    *    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+block|{
+name|get
+argument_list|(
+name|modifyNamespaceAsync
+argument_list|(
+name|descriptor
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Modify an existing namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -2480,7 +2844,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * Blocks until namespace has been successfully deleted or an    * exception is thrown.    *    * @param name namespace name    */
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed. Blocks until    * namespace has been successfully deleted or an exception is thrown.    * @param name namespace name    */
+specifier|default
 name|void
 name|deleteNamespace
 parameter_list|(
@@ -2489,8 +2854,24 @@ name|name
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    *    * @param name namespace name    * @return the result of the async delete namespace operation. Use Future.get(long, TimeUnit) to    *  wait on the operation to complete.    */
+block|{
+name|get
+argument_list|(
+name|deleteNamespaceAsync
+argument_list|(
+name|name
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @return the result of the async delete namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -2503,7 +2884,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get a namespace descriptor by name.    *    * @param name name of namespace descriptor    * @return A descriptor    * @throws org.apache.hadoop.hbase.NamespaceNotFoundException    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Get a namespace descriptor by name.    * @param name name of namespace descriptor    * @return A descriptor    * @throws org.apache.hadoop.hbase.NamespaceNotFoundException    * @throws IOException if a remote or network exception occurs    */
 name|NamespaceDescriptor
 name|getNamespaceDescriptor
 parameter_list|(
@@ -2536,7 +2917,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace.    *    * @param name namespace name    * @return returns a list of TableDescriptors    * @throws IOException    */
+comment|/**    * Get list of table descriptors by namespace.    * @param name namespace name    * @return returns a list of TableDescriptors    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -2550,7 +2931,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table names by namespace.    *    * @param name namespace name    * @return The list of table names in the namespace    * @throws IOException    */
+comment|/**    * Get list of table names by namespace.    * @param name namespace name    * @return The list of table names in the namespace    */
 name|TableName
 index|[]
 name|listTableNamesByNamespace
@@ -2645,9 +3026,10 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
+comment|/**    * Abort a procedure.    *<p/>    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does    *         not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
 annotation|@
 name|Deprecated
+specifier|default
 name|boolean
 name|abortProcedure
 parameter_list|(
@@ -2659,7 +3041,26 @@ name|mayInterruptIfRunning
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+return|return
+name|get
+argument_list|(
+name|abortProcedureAsync
+argument_list|(
+name|procId
+argument_list|,
+name|mayInterruptIfRunning
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+return|;
+block|}
 comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
 annotation|@
 name|Deprecated
@@ -2817,7 +3218,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a {@link    * org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate naming.    * Snapshot names follow the same naming constraints as tables in HBase. See {@link    * org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+comment|/**    * Take a snapshot for the given table. If the table is enabled, a FLUSH-type snapshot will be    * taken. If the table is disabled, an offline snapshot is taken. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * a different type or with different parameters) will fail with a    * {@link org.apache.hadoop.hbase.snapshot.SnapshotCreationException} indicating the duplicate    * naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+specifier|default
 name|void
 name|snapshot
 parameter_list|(
@@ -2833,8 +3235,23 @@ throws|,
 name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
-function_decl|;
-comment|/**    * Create a timestamp consistent snapshot for the given table. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * different type or with different parameters) will fail with a {@link SnapshotCreationException}    * indicating the duplicate naming. Snapshot names follow the same naming constraints as tables in    * HBase.    *    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+block|{
+name|snapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+name|SnapshotType
+operator|.
+name|FLUSH
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a timestamp consistent snapshot for the given table. Snapshots are considered unique    * based on<b>the name of the snapshot</b>. Attempts to take a snapshot with the same name (even    * different type or with different parameters) will fail with a {@link SnapshotCreationException}    * indicating the duplicate naming. Snapshot names follow the same naming constraints as tables in    * HBase.    * @param snapshotName name of the snapshot to be created    * @param tableName name of the table for which snapshot is created    * @throws IOException if a remote or network exception occurs    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    * @deprecated since 2.3.0, will be removed in 3.0.0. Use {@link #snapshot(String, TableName)}    *             instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|snapshot
 parameter_list|(
@@ -2851,8 +3268,22 @@ throws|,
 name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
-function_decl|;
-comment|/**    * Create typed snapshot of the table. Snapshots are considered unique based on<b>the name of the    * snapshot</b>. Attempts to take a snapshot with the same name (even a different type or with    * different parameters) will fail with a {@link SnapshotCreationException} indicating the    * duplicate naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    *    * @param snapshotName name to give the snapshot on the filesystem. Must be unique from all other    * snapshots stored on the cluster    * @param tableName name of the table to snapshot    * @param type type of snapshot to take    * @throws IOException we fail to reach the master    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+block|{
+name|snapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create typed snapshot of the table. Snapshots are considered unique based on<b>the name of the    * snapshot</b>. Attempts to take a snapshot with the same name (even a different type or with    * different parameters) will fail with a {@link SnapshotCreationException} indicating the    * duplicate naming. Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}.    * @param snapshotName name to give the snapshot on the filesystem. Must be unique from all other    *          snapshots stored on the cluster    * @param tableName name of the table to snapshot    * @param type type of snapshot to take    * @throws IOException we fail to reach the master    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+specifier|default
 name|void
 name|snapshot
 parameter_list|(
@@ -2871,8 +3302,22 @@ throws|,
 name|SnapshotCreationException
 throws|,
 name|IllegalArgumentException
-function_decl|;
-comment|/**    * Take a snapshot and wait for the server to complete that snapshot (blocking). Only a single    * snapshot should be taken at a time for an instance of HBase, or results may be undefined (you    * can tell multiple HBase clusters to snapshot at the same time, but only one at a time for a    * single cluster). Snapshots are considered unique based on<b>the name of the snapshot</b>.    * Attempts to take a snapshot with the same name (even a different type or with different    * parameters) will fail with a {@link SnapshotCreationException} indicating the duplicate naming.    * Snapshot names follow the same naming constraints as tables in HBase. See {@link    * org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}. You should probably    * use {@link #snapshot(String, org.apache.hadoop.hbase.TableName)} or    * {@link #snapshot(byte[], org.apache.hadoop.hbase.TableName)} unless you are sure about the type    * of snapshot that you want to take.    *    * @param snapshot snapshot to take    * @throws IOException or we lose contact with the master.    * @throws SnapshotCreationException if snapshot failed to be taken    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+block|{
+name|snapshot
+argument_list|(
+operator|new
+name|SnapshotDescription
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+name|type
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Take a snapshot and wait for the server to complete that snapshot (blocking). Only a single    * snapshot should be taken at a time for an instance of HBase, or results may be undefined (you    * can tell multiple HBase clusters to snapshot at the same time, but only one at a time for a    * single cluster). Snapshots are considered unique based on<b>the name of the snapshot</b>.    * Attempts to take a snapshot with the same name (even a different type or with different    * parameters) will fail with a {@link SnapshotCreationException} indicating the duplicate naming.    * Snapshot names follow the same naming constraints as tables in HBase. See    * {@link org.apache.hadoop.hbase.TableName#isLegalFullyQualifiedTableName(byte[])}. You should    * probably use {@link #snapshot(String, org.apache.hadoop.hbase.TableName)} or    * {@link #snapshot(byte[], org.apache.hadoop.hbase.TableName)} unless you are sure about the type    * of snapshot that you want to take.    * @param snapshot snapshot to take    * @throws IOException or we lose contact with the master.    * @throws SnapshotCreationException if snapshot failed to be taken    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
 name|void
 name|snapshot
 parameter_list|(
@@ -2889,6 +3334,11 @@ function_decl|;
 comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    * @deprecated Since 2.0.0. Will be removed in 3.0.0. Use    * {@link #snapshotAsync(SnapshotDescription)} instead.    */
 annotation|@
 name|Deprecated
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"FutureReturnValueIgnored"
+argument_list|)
 specifier|default
 name|void
 name|takeSnapshotAsync
@@ -2907,8 +3357,11 @@ name|snapshot
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    *    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
-name|void
+comment|/**    * Take a snapshot without waiting for the server to complete that snapshot (asynchronous) Only a    * single snapshot should be taken at a time, or results may be undefined.    * @param snapshot snapshot to take    * @throws IOException if the snapshot did not succeed or we lose contact with the master.    * @throws SnapshotCreationException if snapshot creation failed    * @throws IllegalArgumentException if the snapshot request is formatted incorrectly    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
 name|snapshotAsync
 parameter_list|(
 name|SnapshotDescription
@@ -2933,7 +3386,10 @@ name|HBaseSnapshotException
 throws|,
 name|UnknownSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.RestoreSnapshotException if snapshot failed to be    * restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to    *<code>true</code>, a snapshot of the current table is taken before executing the restore    * operation. In case of restore failure, the failsafe snapshot will be restored. If the restore    * completes without problem the failsafe snapshot is deleted.    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws org.apache.hadoop.hbase.snapshot.RestoreSnapshotException if snapshot failed to be    *           restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    * @deprecated since 2.3.0, will be removed in 3.0.0. Use {@link #restoreSnapshot(String)}    *             instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|restoreSnapshot
 parameter_list|(
@@ -2945,8 +3401,19 @@ throws|throws
 name|IOException
 throws|,
 name|RestoreSnapshotException
-function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+block|{
+name|restoreSnapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to    *<code>true</code>, a snapshot of the current table is taken before executing the restore    * operation. In case of restore failure, the failsafe snapshot will be restored. If the restore    * completes without problem the failsafe snapshot is deleted.    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
@@ -2958,7 +3425,9 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to<code>true</code>, a    * snapshot of the current table is taken before executing the restore operation. In case of    * restore failure, the failsafe snapshot will be restored. If the restore completes without    * problem the failsafe snapshot is deleted.    *    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @return the result of the async restore snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If the    * "hbase.snapshot.restore.take.failsafe.snapshot" configuration property is set to    *<code>true</code>, a snapshot of the current table is taken before executing the restore    * operation. In case of restore failure, the failsafe snapshot will be restored. If the restore    * completes without problem the failsafe snapshot is deleted.    * @param snapshotName name of the snapshot to restore    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @return the result of the async restore snapshot. You can use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    * @deprecated since 2.3.0, will be removed in 3.0.0. The implementation does not take care of the    *             failsafe property, so do not use it any more.    */
+annotation|@
+name|Deprecated
 name|Future
 argument_list|<
 name|Void
@@ -2973,7 +3442,10 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken    * before executing the restore operation. In case of restore failure, the failsafe snapshot will    * be restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    * @deprecated since 2.3.0, will be removed in 3.0.0. Use    *             {@link #restoreSnapshot(String, boolean)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|restoreSnapshot
 parameter_list|(
@@ -2988,8 +3460,22 @@ throws|throws
 name|IOException
 throws|,
 name|RestoreSnapshotException
-function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    *    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+block|{
+name|restoreSnapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|takeFailSafeSnapshot
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken    * before executing the restore operation. In case of restore failure, the failsafe snapshot will    * be restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+specifier|default
 name|void
 name|restoreSnapshot
 parameter_list|(
@@ -3003,8 +3489,18 @@ throws|throws
 name|IOException
 throws|,
 name|RestoreSnapshotException
-function_decl|;
-comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken before    * executing the restore operation. In case of restore failure, the failsafe snapshot will be    * restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @param restoreAcl<code>true</code> to restore acl of snapshot    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
+block|{
+name|restoreSnapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|takeFailSafeSnapshot
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Restore the specified snapshot on the original table. (The table must be disabled) If    * 'takeFailSafeSnapshot' is set to<code>true</code>, a snapshot of the current table is taken    * before executing the restore operation. In case of restore failure, the failsafe snapshot will    * be restored. If the restore completes without problem the failsafe snapshot is deleted. The    * failsafe snapshot name is configurable by using the property    * "hbase.snapshot.restore.failsafe.name".    * @param snapshotName name of the snapshot to restore    * @param takeFailSafeSnapshot<code>true</code> if the failsafe snapshot should be taken    * @param restoreAcl<code>true</code> to restore acl of snapshot    * @throws IOException if a remote or network exception occurs    * @throws RestoreSnapshotException if snapshot failed to be restored    * @throws IllegalArgumentException if the restore request is formatted incorrectly    */
 name|void
 name|restoreSnapshot
 parameter_list|(
@@ -3022,7 +3518,10 @@ name|IOException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    * @deprecated since 2.3.0, will be removed in 3.0.0. Use    *             {@link #cloneSnapshot(String, TableName)} instead.    */
+annotation|@
+name|Deprecated
+specifier|default
 name|void
 name|cloneSnapshot
 parameter_list|(
@@ -3039,8 +3538,50 @@ throws|,
 name|TableExistsException
 throws|,
 name|RestoreSnapshotException
-function_decl|;
+block|{
+name|cloneSnapshot
+argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
+name|snapshotName
+argument_list|)
+argument_list|,
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+specifier|default
+name|void
+name|cloneSnapshot
+parameter_list|(
+name|String
+name|snapshotName
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
+block|{
+name|cloneSnapshot
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl<code>true</code> to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+specifier|default
 name|void
 name|cloneSnapshot
 parameter_list|(
@@ -3059,25 +3600,29 @@ throws|,
 name|TableExistsException
 throws|,
 name|RestoreSnapshotException
-function_decl|;
-comment|/**    * Create a new table by cloning the snapshot content.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
-name|void
-name|cloneSnapshot
-parameter_list|(
-name|String
+block|{
+name|get
+argument_list|(
+name|cloneSnapshotAsync
+argument_list|(
 name|snapshotName
-parameter_list|,
-name|TableName
+argument_list|,
 name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|TableExistsException
-throws|,
-name|RestoreSnapshotException
-function_decl|;
-comment|/**    * Create a new table by cloning the snapshot content, but does not block    * and wait for it to be completely cloned.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    *    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be cloned already exists    * @return the result of the async clone snapshot. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+argument_list|,
+name|restoreAcl
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content, but does not block and wait for it to be    * completely cloned. You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation or    * TimeoutException in case the wait timeout was not long enough to allow the operation to    * complete.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be cloned already exists    * @return the result of the async clone snapshot. You can use Future.get(long, TimeUnit) to wait    *         on the operation to complete.    */
+specifier|default
 name|Future
 argument_list|<
 name|Void
@@ -3094,6 +3639,40 @@ throws|throws
 name|IOException
 throws|,
 name|TableExistsException
+block|{
+return|return
+name|cloneSnapshotAsync
+argument_list|(
+name|snapshotName
+argument_list|,
+name|tableName
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Create a new table by cloning the snapshot content.    * @param snapshotName name of the snapshot to be cloned    * @param tableName name of the table where the snapshot will be restored    * @param restoreAcl<code>true</code> to clone acl into newly created table    * @throws IOException if a remote or network exception occurs    * @throws TableExistsException if table to be created already exists    * @throws RestoreSnapshotException if snapshot failed to be cloned    * @throws IllegalArgumentException if the specified table has not a valid name    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|cloneSnapshotAsync
+parameter_list|(
+name|String
+name|snapshotName
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|boolean
+name|restoreAcl
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|TableExistsException
+throws|,
+name|RestoreSnapshotException
 function_decl|;
 comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
 name|void
@@ -3152,7 +3731,7 @@ name|props
 argument_list|)
 return|;
 block|}
-comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
+comment|/**    * Execute a distributed procedure on a cluster.    * @param signature A distributed procedure is uniquely identified by its signature (default the    *          root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    *          optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
 name|byte
 index|[]
 name|execProcedureWithReturn
@@ -3657,6 +4236,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Add a new replication peer for replicating data to slave cluster.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @param enabled peer state, true if ENABLED and false if DISABLED    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|addReplicationPeer
 parameter_list|(
@@ -3671,8 +4251,28 @@ name|enabled
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Add a new replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+block|{
+name|get
+argument_list|(
+name|addReplicationPeerAsync
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|,
+name|enabled
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Add a new replication peer but does not block and wait for it.    *<p/>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig configuration for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
 specifier|default
 name|Future
 argument_list|<
@@ -3720,6 +4320,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Remove a peer and stop the replication.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|removeReplicationPeer
 parameter_list|(
@@ -3728,7 +4329,23 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|removeReplicationPeerAsync
+argument_list|(
+name|peerId
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Remove a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
@@ -3743,6 +4360,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Restart the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|enableReplicationPeer
 parameter_list|(
@@ -3751,7 +4369,23 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|enableReplicationPeerAsync
+argument_list|(
+name|peerId
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Enable a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
@@ -3766,6 +4400,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Stop the replication stream to the specified peer.    * @param peerId a short name that identifies the peer    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|disableReplicationPeer
 parameter_list|(
@@ -3774,8 +4409,24 @@ name|peerId
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Disable a replication peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+block|{
+name|get
+argument_list|(
+name|disableReplicationPeerAsync
+argument_list|(
+name|peerId
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Disable a replication peer but does not block and wait for it.    *<p/>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -3799,6 +4450,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Update the peerConfig for the specified peer.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the replication peer    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|updateReplicationPeerConfig
 parameter_list|(
@@ -3810,8 +4462,26 @@ name|peerConfig
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Update the peerConfig for the specified peer but does not block and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
+block|{
+name|get
+argument_list|(
+name|updateReplicationPeerConfigAsync
+argument_list|(
+name|peerId
+argument_list|,
+name|peerConfig
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Update the peerConfig for the specified peer but does not block and wait for it.    *<p/>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param peerConfig new config for the replication peer    * @return the result of the async operation    * @throws IOException IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -3828,6 +4498,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Append the replicable table column family config from the specified peer.    * @param id a short that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException if tableCfs has conflict with existing config    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|appendReplicationPeerTableCFs
 parameter_list|(
@@ -3849,8 +4520,52 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-function_decl|;
+block|{
+if|if
+condition|(
+name|tableCfs
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"tableCfs is null"
+argument_list|)
+throw|;
+block|}
+name|ReplicationPeerConfig
+name|peerConfig
+init|=
+name|getReplicationPeerConfig
+argument_list|(
+name|id
+argument_list|)
+decl_stmt|;
+name|ReplicationPeerConfig
+name|newPeerConfig
+init|=
+name|ReplicationPeerConfigUtil
+operator|.
+name|appendTableCFsToReplicationPeerConfig
+argument_list|(
+name|tableCfs
+argument_list|,
+name|peerConfig
+argument_list|)
+decl_stmt|;
+name|updateReplicationPeerConfig
+argument_list|(
+name|id
+argument_list|,
+name|newPeerConfig
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Remove some table-cfs from config of the specified peer.    * @param id a short name that identifies the cluster    * @param tableCfs A map from tableName to column family names    * @throws ReplicationException if tableCfs has conflict with existing config    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|removeReplicationPeerTableCFs
 parameter_list|(
@@ -3872,7 +4587,52 @@ throws|throws
 name|ReplicationException
 throws|,
 name|IOException
-function_decl|;
+block|{
+if|if
+condition|(
+name|tableCfs
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|ReplicationException
+argument_list|(
+literal|"tableCfs is null"
+argument_list|)
+throw|;
+block|}
+name|ReplicationPeerConfig
+name|peerConfig
+init|=
+name|getReplicationPeerConfig
+argument_list|(
+name|id
+argument_list|)
+decl_stmt|;
+name|ReplicationPeerConfig
+name|newPeerConfig
+init|=
+name|ReplicationPeerConfigUtil
+operator|.
+name|removeTableCFsFromReplicationPeerConfig
+argument_list|(
+name|tableCfs
+argument_list|,
+name|peerConfig
+argument_list|,
+name|id
+argument_list|)
+decl_stmt|;
+name|updateReplicationPeerConfig
+argument_list|(
+name|id
+argument_list|,
+name|newPeerConfig
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Return a list of replication peers.    * @return a list of replication peers description    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
@@ -3897,6 +4657,7 @@ throws|throws
 name|IOException
 function_decl|;
 comment|/**    * Transit current cluster to a new state in a synchronous replication peer.    * @param peerId a short name that identifies the peer    * @param state a new state of current cluster    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|transitReplicationPeerSyncReplicationState
 parameter_list|(
@@ -3908,7 +4669,25 @@ name|state
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
+block|{
+name|get
+argument_list|(
+name|transitReplicationPeerSyncReplicationStateAsync
+argument_list|(
+name|peerId
+argument_list|,
+name|state
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Transit current cluster to a new state in a synchronous replication peer. But does not block    * and wait for it.    *<p>    * You can use Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    * @param peerId a short name that identifies the peer    * @param state a new state of current cluster    * @throws IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
@@ -4126,7 +4905,6 @@ name|ServerName
 argument_list|>
 name|clearDeadServers
 parameter_list|(
-specifier|final
 name|List
 argument_list|<
 name|ServerName
@@ -4136,19 +4914,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Create a new table by cloning the existent table schema.    *    * @param tableName name of the table to be cloned    * @param newTableName name of the new table where the table will be created    * @param preserveSplits True if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Create a new table by cloning the existent table schema.    * @param tableName name of the table to be cloned    * @param newTableName name of the new table where the table will be created    * @param preserveSplits True if the splits should be preserved    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|cloneTableSchema
 parameter_list|(
-specifier|final
 name|TableName
 name|tableName
 parameter_list|,
-specifier|final
 name|TableName
 name|newTableName
 parameter_list|,
-specifier|final
 name|boolean
 name|preserveSplits
 parameter_list|)
@@ -4159,7 +4934,6 @@ comment|/**    * Switch the rpc throttle enable state.    * @param enable Set to
 name|boolean
 name|switchRpcThrottle
 parameter_list|(
-specifier|final
 name|boolean
 name|enable
 parameter_list|)
