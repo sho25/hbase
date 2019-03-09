@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -19,13 +19,13 @@ end_package
 
 begin_import
 import|import static
+name|org
+operator|.
 name|junit
 operator|.
-name|framework
+name|Assert
 operator|.
-name|TestCase
-operator|.
-name|assertTrue
+name|assertEquals
 import|;
 end_import
 
@@ -37,7 +37,17 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
+name|IOException
 import|;
 end_import
 
@@ -313,15 +323,9 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
+name|junit
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Threads
+name|AfterClass
 import|;
 end_import
 
@@ -331,7 +335,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|AfterClass
+name|Before
 import|;
 end_import
 
@@ -514,7 +518,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class to test HBaseHbck.  * Spins up the minicluster once at test start and then takes it down afterward.  * Add any testing of HBaseHbck functionality here.  */
+comment|/**  * Class to test HBaseHbck. Spins up the minicluster once at test start and then takes it down  * afterward. Add any testing of HBaseHbck functionality here.  */
 end_comment
 
 begin_class
@@ -788,6 +792,23 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|Before
+specifier|public
+name|void
+name|setUp
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+name|TEST_UTIL
+operator|.
+name|ensureSomeRegionServersAvailable
+argument_list|(
+literal|3
+argument_list|)
+expr_stmt|;
+block|}
 specifier|public
 specifier|static
 class|class
@@ -810,6 +831,15 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+block|{
+literal|"rawtypes"
+block|,
+literal|"unchecked"
+block|}
+argument_list|)
 annotation|@
 name|Override
 specifier|protected
@@ -891,7 +921,7 @@ argument_list|(
 literal|500
 argument_list|)
 expr_stmt|;
-comment|//bypass the procedure
+comment|// bypass the procedure
 name|List
 argument_list|<
 name|Long
@@ -1486,8 +1516,12 @@ literal|0
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|pids
-operator|=
+name|List
+argument_list|<
+name|Long
+argument_list|>
+name|newPids
+init|=
 name|hbck
 operator|.
 name|scheduleServerCrashProcedure
@@ -1504,18 +1538,17 @@ name|serverName
 argument_list|)
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|assertTrue
 argument_list|(
-name|pids
+name|newPids
 operator|.
 name|get
 argument_list|(
 literal|0
 argument_list|)
-operator|==
-operator|-
-literal|1
+operator|<
+literal|0
 argument_list|)
 expr_stmt|;
 name|LOG
@@ -1524,12 +1557,17 @@ name|info
 argument_list|(
 literal|"pid is {}"
 argument_list|,
-name|pids
+name|newPids
 operator|.
 name|get
 argument_list|(
 literal|0
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|waitOnPids
+argument_list|(
+name|pids
 argument_list|)
 expr_stmt|;
 block|}
@@ -1544,43 +1582,27 @@ argument_list|>
 name|pids
 parameter_list|)
 block|{
-for|for
-control|(
-name|Long
-name|pid
-range|:
-name|pids
-control|)
-block|{
-while|while
-condition|(
-operator|!
 name|TEST_UTIL
 operator|.
-name|getHBaseCluster
+name|waitFor
+argument_list|(
+literal|60000
+argument_list|,
+parameter_list|()
+lambda|->
+name|pids
+operator|.
+name|stream
 argument_list|()
 operator|.
-name|getMaster
-argument_list|()
-operator|.
-name|getMasterProcedureExecutor
-argument_list|()
-operator|.
+name|allMatch
+argument_list|(
+name|procExec
+operator|::
 name|isFinished
-argument_list|(
-name|pid
 argument_list|)
-condition|)
-block|{
-name|Threads
-operator|.
-name|sleep
-argument_list|(
-literal|100
 argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 end_class

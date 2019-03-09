@@ -17681,6 +17681,16 @@ name|server
 argument_list|)
 condition|)
 block|{
+name|master
+operator|.
+name|getServerManager
+argument_list|()
+operator|.
+name|moveFromOnlineToDeadServers
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
 name|ProcedureExecutor
 argument_list|<
 name|MasterProcedureEnv
