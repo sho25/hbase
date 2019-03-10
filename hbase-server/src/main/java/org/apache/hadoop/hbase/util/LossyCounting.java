@@ -175,11 +175,18 @@ specifier|private
 name|long
 name|totalDataCount
 decl_stmt|;
+specifier|private
+name|String
+name|name
+decl_stmt|;
 specifier|public
 name|LossyCounting
 parameter_list|(
 name|double
 name|errorRate
+parameter_list|,
+name|String
+name|name
 parameter_list|)
 block|{
 name|this
@@ -187,6 +194,12 @@ operator|.
 name|errorRate
 operator|=
 name|errorRate
+expr_stmt|;
+name|this
+operator|.
+name|name
+operator|=
+name|name
 expr_stmt|;
 if|if
 condition|(
@@ -250,7 +263,10 @@ expr_stmt|;
 block|}
 specifier|public
 name|LossyCounting
-parameter_list|()
+parameter_list|(
+name|String
+name|name
+parameter_list|)
 block|{
 name|this
 argument_list|(
@@ -267,6 +283,8 @@ name|DEFAULT_LOSSY_COUNTING_ERROR_RATE
 argument_list|,
 literal|0.02
 argument_list|)
+argument_list|,
+name|name
 argument_list|)
 expr_stmt|;
 block|}
@@ -415,13 +433,15 @@ expr_stmt|;
 block|}
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 name|String
 operator|.
 name|format
 argument_list|(
-literal|"Swept %d elements."
+literal|"%s swept %d elements."
+argument_list|,
+name|name
 argument_list|,
 name|dataToBeSwept
 operator|.

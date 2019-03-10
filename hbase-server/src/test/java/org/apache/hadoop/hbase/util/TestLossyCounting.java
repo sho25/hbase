@@ -158,6 +158,8 @@ operator|new
 name|LossyCounting
 argument_list|(
 literal|0.01
+argument_list|,
+literal|"testBucketSize"
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -175,7 +177,9 @@ name|lossyCounting2
 init|=
 operator|new
 name|LossyCounting
-argument_list|()
+argument_list|(
+literal|"testBucketSize2"
+argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -202,6 +206,8 @@ operator|new
 name|LossyCounting
 argument_list|(
 literal|0.01
+argument_list|,
+literal|"testAddByOne"
 argument_list|)
 decl_stmt|;
 for|for
@@ -294,6 +300,8 @@ operator|new
 name|LossyCounting
 argument_list|(
 literal|0.01
+argument_list|,
+literal|"testSweep1"
 argument_list|)
 decl_stmt|;
 for|for
@@ -361,6 +369,8 @@ operator|new
 name|LossyCounting
 argument_list|(
 literal|0.1
+argument_list|,
+literal|"testSweep2"
 argument_list|)
 decl_stmt|;
 for|for
