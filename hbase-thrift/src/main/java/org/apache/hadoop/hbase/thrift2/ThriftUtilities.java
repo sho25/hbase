@@ -1746,17 +1746,12 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-operator|!
 name|in
 operator|.
 name|isSetColumns
 argument_list|()
 condition|)
 block|{
-return|return
-name|out
-return|;
-block|}
 for|for
 control|(
 name|TColumn
@@ -1804,6 +1799,7 @@ name|getFamily
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 if|if
