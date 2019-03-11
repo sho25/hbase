@@ -5375,6 +5375,57 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Test
+specifier|public
+name|void
+name|testNullByteArrayKeyValueFailure
+parameter_list|()
+block|{
+comment|//can't add to testCheckKeyValueBytesFailureCase because it
+comment|//goes through the InputStream KeyValue API which can't produce a null buffer
+try|try
+block|{
+name|KeyValue
+name|kv
+init|=
+operator|new
+name|KeyValue
+argument_list|(
+literal|null
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|)
+decl_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IllegalArgumentException
+name|iae
+parameter_list|)
+block|{
+name|assertEquals
+argument_list|(
+literal|"Invalid to have null byte array in KeyValue."
+argument_list|,
+name|iae
+operator|.
+name|getMessage
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+name|fail
+argument_list|(
+literal|"Should have thrown an IllegalArgumentException when "
+operator|+
+literal|"creating a KeyValue with a null buffer"
+argument_list|)
+expr_stmt|;
+block|}
 specifier|private
 specifier|static
 class|class
@@ -5675,7 +5726,7 @@ block|,
 literal|"Overflow when reading value part at position=25"
 block|,
 literal|"Invalid tags length in KeyValue at position=26"
-block|, }
+block|}
 decl_stmt|;
 name|byte
 index|[]

@@ -2495,9 +2495,13 @@ name|int
 name|length
 parameter_list|)
 block|{
-return|return
-literal|", KeyValueBytesHex="
-operator|+
+name|String
+name|bufferContents
+init|=
+name|buf
+operator|!=
+literal|null
+condition|?
 name|Bytes
 operator|.
 name|toStringBinary
@@ -2508,6 +2512,13 @@ name|offset
 argument_list|,
 name|length
 argument_list|)
+else|:
+literal|"<null>"
+decl_stmt|;
+return|return
+literal|", KeyValueBytesHex="
+operator|+
+name|bufferContents
 operator|+
 literal|", offset="
 operator|+
@@ -2536,6 +2547,23 @@ name|boolean
 name|withTags
 parameter_list|)
 block|{
+if|if
+condition|(
+name|buf
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Invalid to have null "
+operator|+
+literal|"byte array in KeyValue."
+argument_list|)
+throw|;
+block|}
 name|int
 name|pos
 init|=
