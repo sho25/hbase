@@ -1282,7 +1282,7 @@ decl_stmt|;
 comment|// This constant is public since the client can modify this when setting
 comment|// up their conf object and thus refer to this symbol.
 comment|// It is present for backwards compatibility reasons. Use it only to
-comment|// override the auto-detection of datablock encoding.
+comment|// override the auto-detection of datablock encoding and compression.
 specifier|public
 specifier|static
 specifier|final
@@ -1290,6 +1290,14 @@ name|String
 name|DATABLOCK_ENCODING_OVERRIDE_CONF_KEY
 init|=
 literal|"hbase.mapreduce.hfileoutputformat.datablock.encoding"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|COMPRESSION_OVERRIDE_CONF_KEY
+init|=
+literal|"hbase.mapreduce.hfileoutputformat.compression"
 decl_stmt|;
 comment|/**    * Keep locality while generating HFiles for bulkload. See HBASE-12596    */
 specifier|public
@@ -1558,6 +1566,44 @@ argument_list|(
 name|defaultCompressionStr
 argument_list|)
 decl_stmt|;
+name|String
+name|compressionStr
+init|=
+name|conf
+operator|.
+name|get
+argument_list|(
+name|COMPRESSION_OVERRIDE_CONF_KEY
+argument_list|)
+decl_stmt|;
+specifier|final
+name|Algorithm
+name|overriddenCompression
+decl_stmt|;
+if|if
+condition|(
+name|compressionStr
+operator|!=
+literal|null
+condition|)
+block|{
+name|overriddenCompression
+operator|=
+name|Compression
+operator|.
+name|getCompressionAlgorithmByName
+argument_list|(
+name|compressionStr
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
+name|overriddenCompression
+operator|=
+literal|null
+expr_stmt|;
+block|}
 specifier|final
 name|boolean
 name|compactionExclude
@@ -2751,13 +2797,23 @@ decl_stmt|;
 name|Algorithm
 name|compression
 init|=
+name|overriddenCompression
+decl_stmt|;
+name|compression
+operator|=
+name|compression
+operator|==
+literal|null
+condition|?
 name|compressionMap
 operator|.
 name|get
 argument_list|(
 name|tableAndFamily
 argument_list|)
-decl_stmt|;
+else|:
+name|compression
+expr_stmt|;
 name|compression
 operator|=
 name|compression
