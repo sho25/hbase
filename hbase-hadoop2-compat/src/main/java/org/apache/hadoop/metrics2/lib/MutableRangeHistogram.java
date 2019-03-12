@@ -384,7 +384,7 @@ block|}
 name|long
 name|val
 init|=
-name|histogram
+name|snapshot
 operator|.
 name|getCount
 argument_list|()
