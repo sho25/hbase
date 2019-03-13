@@ -1144,7 +1144,8 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Turn the Merge switch on or off.    * @param on    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+comment|/**    * Turn the Merge switch on or off.    * @param enabled enabled or not    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -1152,7 +1153,30 @@ argument_list|>
 name|mergeSwitch
 parameter_list|(
 name|boolean
-name|on
+name|enabled
+parameter_list|)
+block|{
+return|return
+name|mergeSwitch
+argument_list|(
+name|enabled
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn the Merge switch on or off.    *<p/>    * Notice that, the method itself is always non-blocking, which means it will always return    * immediately. The {@code drainMerges} parameter only effects when will we complete the returned    * {@link CompletableFuture}.    * @param enabled enabled or not    * @param drainMerges If<code>true</code>, it waits until current merge() call, if outstanding,    *          to return.    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|mergeSwitch
+parameter_list|(
+name|boolean
+name|enabled
+parameter_list|,
+name|boolean
+name|drainMerges
 parameter_list|)
 function_decl|;
 comment|/**    * Query the current state of the Merge switch.    * @return true if the switch is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
@@ -1163,7 +1187,8 @@ argument_list|>
 name|isMergeEnabled
 parameter_list|()
 function_decl|;
-comment|/**    * Turn the Split switch on or off.    * @param on    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+comment|/**    * Turn the Split switch on or off.    * @param enabled enabled or not    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -1171,7 +1196,30 @@ argument_list|>
 name|splitSwitch
 parameter_list|(
 name|boolean
-name|on
+name|enabled
+parameter_list|)
+block|{
+return|return
+name|splitSwitch
+argument_list|(
+name|enabled
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn the Split switch on or off.    *<p/>    * Notice that, the method itself is always non-blocking, which means it will always return    * immediately. The {@code drainSplits} parameter only effects when will we complete the returned    * {@link CompletableFuture}.    * @param enabled enabled or not    * @param drainSplits If<code>true</code>, it waits until current split() call, if outstanding,    *          to return.    * @return Previous switch value wrapped by a {@link CompletableFuture}    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|splitSwitch
+parameter_list|(
+name|boolean
+name|enabled
+parameter_list|,
+name|boolean
+name|drainSplits
 parameter_list|)
 function_decl|;
 comment|/**    * Query the current state of the Split switch.    * @return true if the switch is on, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}    */
@@ -2511,7 +2559,8 @@ argument_list|>
 name|getSecurityCapabilities
 parameter_list|()
 function_decl|;
-comment|/**    * Turn the load balancer on or off.    * @param on    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
+comment|/**    * Turn the load balancer on or off.    * @param on Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
+specifier|default
 name|CompletableFuture
 argument_list|<
 name|Boolean
@@ -2520,6 +2569,29 @@ name|balancerSwitch
 parameter_list|(
 name|boolean
 name|on
+parameter_list|)
+block|{
+return|return
+name|balancerSwitch
+argument_list|(
+name|on
+argument_list|,
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Turn the load balancer on or off.    *<p/>    * Notice that, the method itself is always non-blocking, which means it will always return    * immediately. The {@code drainRITs} parameter only effects when will we complete the returned    * {@link CompletableFuture}.    * @param on Set to<code>true</code> to enable,<code>false</code> to disable.    * @param drainRITs If<code>true</code>, it waits until current balance() call, if outstanding,    *          to return.    * @return Previous balancer value wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|balancerSwitch
+parameter_list|(
+name|boolean
+name|on
+parameter_list|,
+name|boolean
+name|drainRITs
 parameter_list|)
 function_decl|;
 comment|/**    * Invoke the balancer. Will run the balancer and if regions to move, it will go ahead and do the    * reassignments. Can NOT run for various reasons. Check logs.    * @return True if balancer ran, false otherwise. The return value will be wrapped by a    *         {@link CompletableFuture}.    */

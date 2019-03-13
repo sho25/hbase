@@ -1699,7 +1699,10 @@ argument_list|>
 name|mergeSwitch
 parameter_list|(
 name|boolean
-name|on
+name|enabled
+parameter_list|,
+name|boolean
+name|drainMerges
 parameter_list|)
 block|{
 return|return
@@ -1709,7 +1712,9 @@ name|rawAdmin
 operator|.
 name|mergeSwitch
 argument_list|(
-name|on
+name|enabled
+argument_list|,
+name|drainMerges
 argument_list|)
 argument_list|)
 return|;
@@ -1744,7 +1749,10 @@ argument_list|>
 name|splitSwitch
 parameter_list|(
 name|boolean
-name|on
+name|enabled
+parameter_list|,
+name|boolean
+name|drainSplits
 parameter_list|)
 block|{
 return|return
@@ -1754,7 +1762,9 @@ name|rawAdmin
 operator|.
 name|splitSwitch
 argument_list|(
-name|on
+name|enabled
+argument_list|,
+name|drainSplits
 argument_list|)
 argument_list|)
 return|;
@@ -3629,6 +3639,9 @@ name|balancerSwitch
 parameter_list|(
 name|boolean
 name|on
+parameter_list|,
+name|boolean
+name|drainRITs
 parameter_list|)
 block|{
 return|return
@@ -3639,6 +3652,8 @@ operator|.
 name|balancerSwitch
 argument_list|(
 name|on
+argument_list|,
+name|drainRITs
 argument_list|)
 argument_list|)
 return|;
