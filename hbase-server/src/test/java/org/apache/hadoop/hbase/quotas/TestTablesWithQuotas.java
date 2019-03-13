@@ -1244,7 +1244,7 @@ name|when
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|missingTable
 argument_list|)

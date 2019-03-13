@@ -5356,8 +5356,6 @@ name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|LABELS_TABLE_NAME
-argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;

@@ -889,7 +889,7 @@ argument_list|()
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,
@@ -1047,7 +1047,7 @@ comment|// Now try to run balance, and verify no regions are moved to the 2 regi
 comment|// started.
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -1060,7 +1060,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1282,7 +1282,7 @@ name|addAll
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.
@@ -1829,7 +1829,7 @@ name|hri
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TableName
 operator|.
@@ -2069,7 +2069,7 @@ name|region
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2139,7 +2139,7 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -2153,7 +2153,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2213,7 +2213,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2313,7 +2313,7 @@ name|misplacedRegion
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2547,7 +2547,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -2560,7 +2560,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2702,7 +2702,7 @@ name|region
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2842,7 +2842,7 @@ name|REGION_NUM
 argument_list|,
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -2853,7 +2853,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -2866,7 +2866,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2966,7 +2966,7 @@ name|region
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -3299,7 +3299,7 @@ name|REGION_NUM
 argument_list|,
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -3310,7 +3310,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -3323,7 +3323,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3423,7 +3423,7 @@ name|region
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -3956,7 +3956,7 @@ name|REGION_NUM
 argument_list|,
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)
@@ -3967,7 +3967,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -3980,7 +3980,7 @@ literal|"Balancer did not run"
 argument_list|,
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4024,7 +4024,7 @@ name|hri
 range|:
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

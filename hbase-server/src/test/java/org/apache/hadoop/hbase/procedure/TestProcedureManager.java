@@ -359,7 +359,7 @@ name|result
 init|=
 name|admin
 operator|.
-name|execProcedureWithRet
+name|execProcedureWithReturn
 argument_list|(
 name|SimpleMasterProcedureManager
 operator|.

@@ -3862,11 +3862,11 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"cluster status:\n"
+literal|"cluster metrics:\n"
 operator|+
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3887,7 +3887,7 @@ name|join
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|table
 argument_list|)

@@ -4715,7 +4715,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

@@ -129,20 +129,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|MiniHBaseCluster
 import|;
 end_import
@@ -218,6 +204,22 @@ operator|.
 name|client
 operator|.
 name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -888,7 +890,7 @@ block|{
 comment|// Turn off balancer
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,
@@ -945,7 +947,7 @@ block|}
 comment|// Turn on balancer
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -983,7 +985,7 @@ argument_list|)
 decl_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 init|=
@@ -1094,7 +1096,7 @@ specifier|final
 name|ServerName
 name|sn
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 modifier|...
 name|regions
 parameter_list|)
@@ -1237,7 +1239,7 @@ block|}
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|createTable
 parameter_list|(
@@ -1348,7 +1350,7 @@ block|}
 specifier|private
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|assertRegionCount
 parameter_list|(
@@ -1370,13 +1372,13 @@ argument_list|()
 expr_stmt|;
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|tableRegions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

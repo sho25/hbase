@@ -1023,7 +1023,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 expr_stmt|;
 block|}
@@ -1156,7 +1156,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|// Admin.getTableDescriptor()
+comment|// Admin.getDescriptor()
 name|testMasterOperationIsRetried
 argument_list|(
 operator|new
@@ -1177,7 +1177,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|TableName
 operator|.
@@ -1264,7 +1264,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|getTableDescriptorsByTableName
+name|listTableDescriptors
 argument_list|(
 operator|new
 name|ArrayList
@@ -1493,7 +1493,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|// Admin.setBalancerRunning()
+comment|// Admin.balancerSwitch()
 name|testMasterOperationIsRetried
 argument_list|(
 operator|new
@@ -1514,7 +1514,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -1574,7 +1574,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-comment|// Admin.balancer()
+comment|// Admin.balance()
 name|testMasterOperationIsRetried
 argument_list|(
 operator|new
@@ -1595,7 +1595,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 expr_stmt|;
 block|}
@@ -1672,7 +1672,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 argument_list|(
 literal|true
 argument_list|)
@@ -1751,7 +1751,7 @@ name|Exception
 block|{
 name|admin
 operator|.
-name|runCatalogScan
+name|runCatalogJanitor
 argument_list|()
 expr_stmt|;
 block|}

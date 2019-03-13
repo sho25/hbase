@@ -799,7 +799,7 @@ name|getRegionByEncodedName
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)
@@ -826,7 +826,7 @@ name|numRegionsBeforeSplit
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)
@@ -837,11 +837,11 @@ decl_stmt|;
 comment|// Check if we can successfully split after compaction
 name|admin
 operator|.
-name|splitRegion
+name|splitRegionAsync
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)
@@ -856,6 +856,9 @@ argument_list|()
 argument_list|,
 name|ROW_C
 argument_list|)
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 name|util
 operator|.
@@ -1166,7 +1169,7 @@ name|getRegionByEncodedName
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)

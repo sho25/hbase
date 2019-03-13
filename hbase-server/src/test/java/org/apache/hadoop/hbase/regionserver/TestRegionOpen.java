@@ -37,18 +37,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|fail
 import|;
 end_import
@@ -270,6 +258,22 @@ operator|.
 name|client
 operator|.
 name|ConnectionFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -921,13 +925,13 @@ expr_stmt|;
 comment|// We should only have 1 region online
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

@@ -751,11 +751,15 @@ block|{
 name|HTableDescriptor
 name|tableDesc
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|LOG

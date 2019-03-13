@@ -129,20 +129,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -530,7 +516,6 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|Before
 specifier|public
@@ -542,7 +527,6 @@ name|Exception
 block|{
 comment|// Nothing to do.
 block|}
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|After
 specifier|public
@@ -554,7 +538,7 @@ name|Exception
 block|{
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|TEST_UTIL
@@ -562,7 +546,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 control|)
 block|{

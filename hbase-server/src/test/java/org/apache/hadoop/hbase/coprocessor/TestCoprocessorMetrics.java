@@ -1742,12 +1742,12 @@ init|)
 block|{
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 control|)
 block|{

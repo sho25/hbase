@@ -1429,7 +1429,7 @@ parameter_list|)
 lambda|->
 name|admin
 operator|.
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 argument_list|(
 literal|true
 argument_list|)

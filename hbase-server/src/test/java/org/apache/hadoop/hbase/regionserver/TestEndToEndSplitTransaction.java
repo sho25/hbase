@@ -1929,7 +1929,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|splitRegion
+name|splitRegionAsync
 argument_list|(
 name|region
 operator|.
@@ -1938,6 +1938,9 @@ argument_list|()
 argument_list|,
 name|splitPoint
 argument_list|)
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 comment|// wait until the split is complete
 name|blockUntilRegionSplit

@@ -707,7 +707,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,

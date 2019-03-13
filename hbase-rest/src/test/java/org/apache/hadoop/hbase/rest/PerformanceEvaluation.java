@@ -3058,7 +3058,7 @@ block|{
 name|HTableDescriptor
 name|tableDescriptor
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 decl_stmt|;
 if|if
@@ -3235,7 +3235,7 @@ return|;
 block|}
 specifier|protected
 name|HTableDescriptor
-name|getTableDescriptor
+name|getDescriptor
 parameter_list|()
 block|{
 if|if

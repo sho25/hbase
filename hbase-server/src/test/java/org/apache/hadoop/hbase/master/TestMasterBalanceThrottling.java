@@ -119,7 +119,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -133,7 +133,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -901,7 +903,7 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 range|:
 name|TEST_UTIL
@@ -909,7 +911,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

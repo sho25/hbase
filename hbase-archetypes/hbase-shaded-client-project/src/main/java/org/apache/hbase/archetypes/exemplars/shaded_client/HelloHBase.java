@@ -393,7 +393,7 @@ init|)
 block|{
 name|admin
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 expr_stmt|;
 comment|// assure connection successfully established

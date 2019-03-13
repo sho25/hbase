@@ -85,6 +85,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ExecutionException
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -681,6 +693,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ExecutionException
 block|{
 specifier|final
 name|AssignmentManager
@@ -737,7 +751,7 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -973,7 +987,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*  * Splits a region  * @param t Region to split.  * @return List of region locations  * @throws IOException, InterruptedException  */
+comment|/**    * Splits a region    * @param t Region to split.    * @return List of region locations    */
 specifier|private
 name|List
 argument_list|<
@@ -989,6 +1003,8 @@ throws|throws
 name|IOException
 throws|,
 name|InterruptedException
+throws|,
+name|ExecutionException
 block|{
 name|List
 argument_list|<
@@ -1020,13 +1036,18 @@ argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|splitRegion
+name|splitRegionAsync
 argument_list|(
 name|r
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
+operator|.
+name|get
+argument_list|()
 expr_stmt|;
 name|admin
 operator|.

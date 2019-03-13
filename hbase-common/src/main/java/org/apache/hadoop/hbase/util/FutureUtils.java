@@ -606,7 +606,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * A helper class for getting the result of a Future, and convert the error to an    * {@link IOException}.    */
+comment|/**    * A helper class for getting the result of a Future with timeout, and convert the error to an    * {@link IOException}.    */
 specifier|public
 specifier|static
 parameter_list|<

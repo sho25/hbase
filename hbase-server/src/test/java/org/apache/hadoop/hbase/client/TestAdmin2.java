@@ -637,16 +637,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Before
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|BeforeClass
 import|;
 end_import
@@ -810,8 +800,9 @@ name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
 specifier|private
+specifier|static
 name|Admin
-name|admin
+name|ADMIN
 decl_stmt|;
 annotation|@
 name|Rule
@@ -916,6 +907,13 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
+name|ADMIN
+operator|=
+name|TEST_UTIL
+operator|.
+name|getAdmin
+argument_list|()
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass
@@ -934,25 +932,6 @@ argument_list|()
 expr_stmt|;
 block|}
 annotation|@
-name|Before
-specifier|public
-name|void
-name|setUp
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|this
-operator|.
-name|admin
-operator|=
-name|TEST_UTIL
-operator|.
-name|getHBaseAdmin
-argument_list|()
-expr_stmt|;
-block|}
-annotation|@
 name|After
 specifier|public
 name|void
@@ -963,14 +942,12 @@ name|Exception
 block|{
 for|for
 control|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 range|:
-name|this
+name|ADMIN
 operator|.
-name|admin
-operator|.
-name|listTables
+name|listTableDescriptors
 argument_list|()
 control|)
 block|{
@@ -1002,9 +979,7 @@ literal|null
 decl_stmt|;
 try|try
 block|{
-name|this
-operator|.
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -1138,9 +1113,7 @@ specifier|final
 name|Admin
 name|localAdmin
 init|=
-name|this
-operator|.
-name|admin
+name|ADMIN
 decl_stmt|;
 for|for
 control|(
@@ -1402,14 +1375,14 @@ name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
 name|htd1
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -1434,7 +1407,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/***    * HMaster.createTable used to be kind of synchronous call    * Thus creating of table with lots of regions can cause RPC timeout    * After the fix to make createTable truly async, RPC timeout shouldn't be an    * issue anymore    * @throws Exception    */
+comment|/***    * HMaster.createTable used to be kind of synchronous call    * Thus creating of table with lots of regions can cause RPC timeout    * After the fix to make createTable truly async, RPC timeout shouldn't be an    * issue anymore    */
 annotation|@
 name|Test
 specifier|public
@@ -1704,7 +1677,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Test that user table names can contain '-' and '.' so long as they do not    * start with same. HBASE-771    * @throws IOException    */
+comment|/**    * Test that user table names can contain '-' and '.' so long as they do not    * start with same. HBASE-771    */
 annotation|@
 name|Test
 specifier|public
@@ -1841,7 +1814,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * For HADOOP-2579    * @throws IOException    */
+comment|/**    * For HADOOP-2579    */
 annotation|@
 name|Test
 argument_list|(
@@ -1900,7 +1873,7 @@ name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Can't disable a table if the table isn't in enabled state    * @throws IOException    */
+comment|/**    * Can't disable a table if the table isn't in enabled state    */
 annotation|@
 name|Test
 argument_list|(
@@ -1947,18 +1920,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|this
-operator|.
-name|admin
+name|ADMIN
 operator|.
 name|disableTable
 argument_list|(
 name|name
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|admin
+name|ADMIN
 operator|.
 name|disableTable
 argument_list|(
@@ -1966,7 +1935,7 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Can't enable a table if the table isn't in disabled state    * @throws IOException    */
+comment|/**    * Can't enable a table if the table isn't in disabled state    */
 annotation|@
 name|Test
 argument_list|(
@@ -1999,6 +1968,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -2012,12 +1983,9 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
-name|this
-operator|.
-name|admin
+name|ADMIN
 operator|.
 name|enableTable
 argument_list|(
@@ -2025,16 +1993,8 @@ name|name
 argument_list|)
 expr_stmt|;
 block|}
-finally|finally
-block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
-block|}
-comment|/**    * For HADOOP-2579    * @throws IOException    */
+comment|/**    * For HADOOP-2579    */
 annotation|@
 name|Test
 argument_list|(
@@ -2061,6 +2021,8 @@ argument_list|(
 literal|"testTableNotFoundExceptionWithoutAnyTables"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -2073,7 +2035,8 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|ht
 operator|.
 name|get
@@ -2090,6 +2053,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -2174,7 +2138,7 @@ name|info
 operator|=
 name|regionInfo
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|unassign
 argument_list|(
@@ -2373,7 +2337,7 @@ name|regionInfo
 expr_stmt|;
 try|try
 block|{
-name|admin
+name|ADMIN
 operator|.
 name|unassign
 argument_list|(
@@ -2517,7 +2481,7 @@ name|info
 operator|=
 name|regionInfo
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|unassign
 argument_list|(
@@ -2722,7 +2686,7 @@ argument_list|(
 name|hcd
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -2836,7 +2800,7 @@ name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -2855,7 +2819,7 @@ name|RegionInfo
 argument_list|>
 name|RegionInfos
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -3140,7 +3104,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-name|admin
+name|ADMIN
 operator|.
 name|rollWALWriter
 argument_list|(
@@ -3433,7 +3397,7 @@ name|CATALOG_FAMILY
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -3676,9 +3640,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|this
-operator|.
-name|admin
+name|ADMIN
 operator|.
 name|disableTable
 argument_list|(
@@ -3766,7 +3728,7 @@ name|Exception
 block|{
 try|try
 block|{
-name|admin
+name|ADMIN
 operator|.
 name|isTableEnabled
 argument_list|(
@@ -3795,7 +3757,7 @@ parameter_list|)
 block|{     }
 try|try
 block|{
-name|admin
+name|ADMIN
 operator|.
 name|isTableDisabled
 argument_list|(
@@ -4004,7 +3966,7 @@ block|{
 name|boolean
 name|initialState
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|isBalancerEnabled
 argument_list|()
@@ -4013,9 +3975,9 @@ comment|// Start the balancer, wait for it.
 name|boolean
 name|prevState
 init|=
-name|admin
+name|ADMIN
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -4037,7 +3999,7 @@ argument_list|(
 operator|!
 name|initialState
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|isBalancerEnabled
 argument_list|()
@@ -4046,9 +4008,9 @@ expr_stmt|;
 comment|// Reset it back to what it was
 name|prevState
 operator|=
-name|admin
+name|ADMIN
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 name|initialState
 argument_list|,
@@ -4069,7 +4031,7 @@ name|assertEquals
 argument_list|(
 name|initialState
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|isBalancerEnabled
 argument_list|()
@@ -4088,7 +4050,7 @@ block|{
 name|boolean
 name|initialState
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|isNormalizerEnabled
 argument_list|()
@@ -4097,9 +4059,9 @@ comment|// flip state
 name|boolean
 name|prevState
 init|=
-name|admin
+name|ADMIN
 operator|.
-name|setNormalizerRunning
+name|normalizerSwitch
 argument_list|(
 operator|!
 name|initialState
@@ -4119,7 +4081,7 @@ argument_list|(
 operator|!
 name|initialState
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|isNormalizerEnabled
 argument_list|()
@@ -4128,9 +4090,9 @@ expr_stmt|;
 comment|// Reset it back to what it was
 name|prevState
 operator|=
-name|admin
+name|ADMIN
 operator|.
-name|setNormalizerRunning
+name|normalizerSwitch
 argument_list|(
 name|initialState
 argument_list|)
@@ -4149,7 +4111,7 @@ name|assertEquals
 argument_list|(
 name|initialState
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|isNormalizerEnabled
 argument_list|()
@@ -4183,7 +4145,7 @@ decl_stmt|;
 name|boolean
 name|abortResult
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|abortProcedure
 argument_list|(
@@ -4210,7 +4172,7 @@ block|{
 name|String
 name|procList
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getProcedures
 argument_list|()
@@ -4238,7 +4200,7 @@ block|{
 name|String
 name|lockList
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getLocks
 argument_list|()
@@ -4269,7 +4231,7 @@ name|ServerName
 argument_list|>
 name|decommissionedRegionServers
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|listDecommissionedRegionServers
 argument_list|()
@@ -4322,7 +4284,7 @@ operator|new
 name|ArrayList
 argument_list|<>
 argument_list|(
-name|admin
+name|ADMIN
 operator|.
 name|getClusterMetrics
 argument_list|(
@@ -4397,7 +4359,7 @@ name|RegionInfo
 argument_list|>
 name|regionsOnServer
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -4411,7 +4373,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -4473,7 +4435,7 @@ argument_list|(
 literal|0
 argument_list|)
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -4497,7 +4459,7 @@ literal|1
 argument_list|)
 decl_stmt|;
 comment|// Decommission
-name|admin
+name|ADMIN
 operator|.
 name|decommissionRegionServers
 argument_list|(
@@ -4520,7 +4482,7 @@ name|assertEquals
 argument_list|(
 literal|2
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|listDecommissionedRegionServers
 argument_list|()
@@ -4615,7 +4577,7 @@ name|toList
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|recommissionRegionServer
 argument_list|(
@@ -4627,7 +4589,7 @@ expr_stmt|;
 block|}
 name|assertTrue
 argument_list|(
-name|admin
+name|ADMIN
 operator|.
 name|listDecommissionedRegionServers
 argument_list|()
@@ -4778,7 +4740,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|admin
+name|ADMIN
 operator|.
 name|flush
 argument_list|(
@@ -4894,7 +4856,7 @@ operator|(
 operator|(
 name|ClusterConnection
 operator|)
-name|admin
+name|ADMIN
 operator|.
 name|getConnection
 argument_list|()
@@ -5022,7 +4984,7 @@ name|RegionInfo
 argument_list|>
 name|regions
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -5045,7 +5007,7 @@ name|originalCount
 argument_list|)
 expr_stmt|;
 comment|// split the table and wait until region count increases
-name|admin
+name|ADMIN
 operator|.
 name|split
 argument_list|(
@@ -5082,7 +5044,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -5106,7 +5068,7 @@ name|TableDescriptorBuilder
 operator|.
 name|newBuilder
 argument_list|(
-name|admin
+name|ADMIN
 operator|.
 name|getDescriptor
 argument_list|(
@@ -5122,7 +5084,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|modifyTable
 argument_list|(
@@ -5133,7 +5095,7 @@ name|assertEquals
 argument_list|(
 literal|11111111
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getDescriptor
 argument_list|(
@@ -5211,7 +5173,7 @@ name|RegionInfo
 argument_list|>
 name|regions
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -5262,7 +5224,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 decl_stmt|;
 comment|// merge the table regions and wait until region count decreases
-name|admin
+name|ADMIN
 operator|.
 name|mergeRegionsAsync
 argument_list|(
@@ -5296,7 +5258,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -5320,7 +5282,7 @@ name|TableDescriptorBuilder
 operator|.
 name|newBuilder
 argument_list|(
-name|admin
+name|ADMIN
 operator|.
 name|getDescriptor
 argument_list|(
@@ -5336,7 +5298,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|modifyTable
 argument_list|(
@@ -5347,7 +5309,7 @@ name|assertEquals
 argument_list|(
 literal|11111111
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getDescriptor
 argument_list|(

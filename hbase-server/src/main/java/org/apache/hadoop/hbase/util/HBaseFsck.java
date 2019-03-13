@@ -12292,7 +12292,7 @@ name|numReplicas
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|hi
 operator|.
@@ -12582,7 +12582,7 @@ name|numReplicas
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|hi
 operator|.
@@ -12888,7 +12888,7 @@ name|replicationCount
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|hri
 operator|.
@@ -13671,7 +13671,7 @@ name|numReplicas
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|hbi
 operator|.
@@ -13853,7 +13853,7 @@ name|numReplicas
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|hbi
 operator|.
@@ -19687,7 +19687,7 @@ name|metaReplication
 init|=
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|TableName
 operator|.

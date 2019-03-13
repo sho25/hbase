@@ -219,20 +219,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -264,6 +250,22 @@ operator|.
 name|client
 operator|.
 name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -1466,7 +1468,7 @@ try|try
 block|{
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1608,7 +1610,7 @@ decl_stmt|;
 comment|// take the snapshot async
 name|admin
 operator|.
-name|takeSnapshotAsync
+name|snapshotAsync
 argument_list|(
 operator|new
 name|SnapshotDescription
@@ -1767,13 +1769,13 @@ expr_stmt|;
 comment|// Merge two regions
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -1787,7 +1789,7 @@ argument_list|,
 operator|new
 name|Comparator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|()
 block|{
@@ -1797,10 +1799,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|r1
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|r2
 parameter_list|)
 block|{
@@ -1829,7 +1831,7 @@ name|numRegions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -1910,7 +1912,7 @@ name|numRegionsAfterMerge
 argument_list|,
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -2030,13 +2032,13 @@ expr_stmt|;
 comment|// Merge two regions
 name|List
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|regions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -2050,7 +2052,7 @@ argument_list|,
 operator|new
 name|Comparator
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 argument_list|()
 block|{
@@ -2060,10 +2062,10 @@ specifier|public
 name|int
 name|compare
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|r1
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|r2
 parameter_list|)
 block|{
@@ -2092,7 +2094,7 @@ name|numRegions
 init|=
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -2172,7 +2174,7 @@ name|numRegionsAfterMerge
 argument_list|,
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
@@ -2502,7 +2504,7 @@ argument_list|)
 expr_stmt|;
 name|admin
 operator|.
-name|takeSnapshotAsync
+name|snapshotAsync
 argument_list|(
 name|ss
 argument_list|)
@@ -2932,7 +2934,7 @@ while|while
 condition|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)

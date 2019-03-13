@@ -1075,7 +1075,7 @@ block|{
 name|TableDescriptor
 name|tableDescriptor
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|region
 operator|.
@@ -1140,7 +1140,7 @@ block|}
 comment|/**    * return TableDescriptor for a given tableName    *    * @param tableName the table name    * @return TableDescriptor    * @throws IOException    */
 specifier|protected
 name|TableDescriptor
-name|getTableDescriptor
+name|getDescriptor
 parameter_list|(
 name|TableName
 name|tableName

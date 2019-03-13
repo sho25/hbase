@@ -823,7 +823,7 @@ name|monitor
 argument_list|)
 return|;
 block|}
-comment|/**    * Return a SnapshotManifest instance with the information already loaded in-memory.    *    SnapshotManifest manifest = SnapshotManifest.open(...)    *    TableDescriptor htd = manifest.getTableDescriptor()    *    for (SnapshotRegionManifest regionManifest: manifest.getRegionManifests())    *      hri = regionManifest.getRegionInfo()    *      for (regionManifest.getFamilyFiles())    *        ...    */
+comment|/**    * Return a SnapshotManifest instance with the information already loaded in-memory.    *    SnapshotManifest manifest = SnapshotManifest.open(...)    *    TableDescriptor htd = manifest.getDescriptor()    *    for (SnapshotRegionManifest regionManifest: manifest.getRegionManifests())    *      hri = regionManifest.getRegionInfo()    *      for (regionManifest.getFamilyFiles())    *        ...    */
 specifier|public
 specifier|static
 name|SnapshotManifest

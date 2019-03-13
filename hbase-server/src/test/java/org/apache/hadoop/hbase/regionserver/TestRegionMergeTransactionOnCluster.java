@@ -1531,7 +1531,7 @@ argument_list|)
 expr_stmt|;
 name|ADMIN
 operator|.
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 argument_list|(
 literal|false
 argument_list|)
@@ -2078,7 +2078,7 @@ name|cleaned
 operator|=
 name|ADMIN
 operator|.
-name|runCatalogScan
+name|runCatalogJanitor
 argument_list|()
 expr_stmt|;
 name|LOG
@@ -2210,7 +2210,7 @@ finally|finally
 block|{
 name|ADMIN
 operator|.
-name|enableCatalogJanitor
+name|catalogJanitorSwitch
 argument_list|(
 literal|true
 argument_list|)

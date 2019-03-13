@@ -1655,7 +1655,7 @@ block|{
 name|TableDescriptor
 name|htd
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|parent
 operator|.
@@ -1737,7 +1737,7 @@ block|{
 name|TableDescriptor
 name|htd
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|child
 operator|.
@@ -1876,7 +1876,7 @@ block|{
 return|return
 name|hasGlobalReplicationScope
 argument_list|(
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1927,7 +1927,7 @@ return|;
 block|}
 specifier|private
 name|TableDescriptor
-name|getTableDescriptor
+name|getDescriptor
 parameter_list|(
 name|TableName
 name|tableName

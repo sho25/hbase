@@ -1725,8 +1725,6 @@ name|ADMIN
 operator|.
 name|modifyTable
 argument_list|(
-name|tableName
-argument_list|,
 name|desc
 argument_list|)
 expr_stmt|;
@@ -1743,7 +1741,7 @@ name|info
 argument_list|(
 name|ADMIN
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1837,8 +1835,6 @@ name|ADMIN
 operator|.
 name|modifyTable
 argument_list|(
-name|tableName
-argument_list|,
 name|desc
 argument_list|)
 expr_stmt|;

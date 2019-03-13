@@ -681,7 +681,7 @@ operator|.
 name|getHBaseAdmin
 argument_list|()
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TEST_TABLE
 argument_list|)

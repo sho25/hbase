@@ -4480,7 +4480,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,
@@ -4608,7 +4608,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,
@@ -4660,7 +4660,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|false
 argument_list|,
@@ -5176,7 +5176,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|setBalancerRunning
+name|balancerSwitch
 argument_list|(
 literal|true
 argument_list|,

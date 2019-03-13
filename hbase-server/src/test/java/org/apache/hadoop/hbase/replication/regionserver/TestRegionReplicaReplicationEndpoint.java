@@ -1410,11 +1410,6 @@ operator|.
 name|modifyTable
 argument_list|(
 name|htd
-operator|.
-name|getTableName
-argument_list|()
-argument_list|,
-name|htd
 argument_list|)
 expr_stmt|;
 name|HTU
@@ -2893,8 +2888,6 @@ argument_list|()
 operator|.
 name|modifyTable
 argument_list|(
-name|toBeDisabledTable
-argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
@@ -2972,8 +2965,6 @@ argument_list|()
 operator|.
 name|modifyTable
 argument_list|(
-name|toBeDisabledTable
-argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;

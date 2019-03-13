@@ -1892,7 +1892,7 @@ name|result
 operator|=
 name|admin
 operator|.
-name|balancer
+name|balance
 argument_list|()
 expr_stmt|;
 block|}

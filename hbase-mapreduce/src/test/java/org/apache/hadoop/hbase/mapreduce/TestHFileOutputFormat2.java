@@ -5079,7 +5079,10 @@ name|tableNameStr
 init|=
 name|singleTableInfo
 operator|.
-name|getHTableDescriptor
+name|getTableDescriptor
+argument_list|()
+operator|.
+name|getTableName
 argument_list|()
 operator|.
 name|getNameAsString
@@ -5089,7 +5092,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Running LoadIncrementalHFiles on table"
+literal|"Running BulkLoadHFiles on table"
 operator|+
 name|tableNameStr
 argument_list|)
@@ -8271,7 +8274,7 @@ name|Path
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAMES
 index|[
@@ -8812,7 +8815,7 @@ name|Path
 argument_list|(
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|TABLE_NAMES
 index|[
@@ -9450,7 +9453,7 @@ name|TableInfo
 argument_list|(
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tname
 argument_list|)

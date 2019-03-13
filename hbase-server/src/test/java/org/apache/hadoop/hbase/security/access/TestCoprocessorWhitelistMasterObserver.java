@@ -65,6 +65,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -749,8 +761,6 @@ argument_list|()
 operator|.
 name|modifyTable
 argument_list|(
-name|TEST_TABLE
-argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
@@ -961,8 +971,6 @@ name|admin
 operator|.
 name|modifyTable
 argument_list|(
-name|TEST_TABLE
-argument_list|,
 name|htd
 argument_list|)
 expr_stmt|;
@@ -972,10 +980,10 @@ literal|1
 argument_list|,
 name|t
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 operator|.
-name|getCoprocessors
+name|getCoprocessorDescriptors
 argument_list|()
 operator|.
 name|size
@@ -1319,15 +1327,15 @@ expr_stmt|;
 comment|// ensure table was not created
 name|assertEquals
 argument_list|(
-operator|new
-name|HTableDescriptor
-index|[
 literal|0
-index|]
 argument_list|,
 name|admin
 operator|.
-name|listTables
+name|listTableDescriptors
+argument_list|(
+name|Pattern
+operator|.
+name|compile
 argument_list|(
 literal|"^"
 operator|+
@@ -1338,6 +1346,10 @@ argument_list|()
 operator|+
 literal|"$"
 argument_list|)
+argument_list|)
+operator|.
+name|size
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

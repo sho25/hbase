@@ -1623,7 +1623,7 @@ operator|.
 name|getAdmin
 argument_list|()
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|tableName
 argument_list|)

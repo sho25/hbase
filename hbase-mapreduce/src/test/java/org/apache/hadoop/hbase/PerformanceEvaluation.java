@@ -2483,9 +2483,12 @@ name|desc
 init|=
 name|exists
 condition|?
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|admin
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|TableName
 operator|.
@@ -2494,6 +2497,7 @@ argument_list|(
 name|opts
 operator|.
 name|tableName
+argument_list|)
 argument_list|)
 argument_list|)
 else|:

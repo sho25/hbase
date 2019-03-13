@@ -152,8 +152,7 @@ parameter_list|(
 name|TableName
 name|tableName
 parameter_list|,
-name|byte
-index|[]
+name|String
 name|snapshotName
 parameter_list|,
 name|int

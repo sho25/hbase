@@ -91,7 +91,7 @@ specifier|public
 interface|interface
 name|BulkLoadObserver
 block|{
-comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTableDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
+comment|/**       * Called as part of SecureBulkLoadEndpoint.prepareBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
 specifier|default
 name|void
 name|prePrepareBulkLoad
@@ -105,7 +105,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
-comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getTableDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
+comment|/**       * Called as part of SecureBulkLoadEndpoint.cleanupBulkLoad() RPC call.       * It can't bypass the default action, e.g., ctx.bypass() won't have effect.       * If you need to get the region or table name, get it from the       *<code>ctx</code> as follows:<code>code>ctx.getEnvironment().getRegion()</code>. Use       * getRegionInfo to fetch the encodedName and use getDescriptor() to get the tableName.       * @param ctx the environment to interact with the framework and master       */
 specifier|default
 name|void
 name|preCleanupBulkLoad

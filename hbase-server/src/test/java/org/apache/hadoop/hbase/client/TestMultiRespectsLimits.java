@@ -659,7 +659,7 @@ block|{
 return|return
 name|admin
 operator|.
-name|getTableRegions
+name|getRegions
 argument_list|(
 name|tableName
 argument_list|)

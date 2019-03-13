@@ -3027,30 +3027,11 @@ comment|// While restoring above, if the HBase Master which was initially the Ac
 comment|// and the restore put the cluster back to Initial configuration, HAdmin instance will need
 comment|// to refresh its connections (otherwise it will return incorrect information) or we can
 comment|// point it to new instance.
-try|try
-block|{
 name|admin
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|ioe
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"While closing the old connection"
-argument_list|,
-name|ioe
-argument_list|)
-expr_stmt|;
-block|}
 name|this
 operator|.
 name|admin

@@ -1256,7 +1256,7 @@ decl_stmt|;
 name|TableDescriptor
 name|htd
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|mergedRegion
 operator|.
@@ -2383,7 +2383,7 @@ decl_stmt|;
 name|TableDescriptor
 name|parentDescriptor
 init|=
-name|getTableDescriptor
+name|getDescriptor
 argument_list|(
 name|parent
 operator|.
@@ -2511,7 +2511,7 @@ return|;
 block|}
 specifier|private
 name|TableDescriptor
-name|getTableDescriptor
+name|getDescriptor
 parameter_list|(
 specifier|final
 name|TableName
