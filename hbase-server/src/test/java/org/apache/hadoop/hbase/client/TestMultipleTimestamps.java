@@ -2885,13 +2885,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Arrays
-operator|.
-name|asList
-argument_list|(
-name|rowIndexes
-argument_list|)
-expr_stmt|;
 name|byte
 name|startRow
 index|[]
