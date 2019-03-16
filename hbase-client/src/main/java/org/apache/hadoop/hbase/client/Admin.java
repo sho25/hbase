@@ -1622,7 +1622,8 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. Asynchronous operation.    *    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
+comment|/**    * Merge two regions. Asynchronous operation.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge two    *          adjacent regions    */
+specifier|default
 name|Future
 argument_list|<
 name|Void
@@ -1642,8 +1643,43 @@ name|forcible
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Merge regions. Asynchronous operation.    *    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          adjacent regions    * @throws IOException    */
+block|{
+name|byte
+index|[]
+index|[]
+name|nameofRegionsToMerge
+init|=
+operator|new
+name|byte
+index|[
+literal|2
+index|]
+index|[]
+decl_stmt|;
+name|nameofRegionsToMerge
+index|[
+literal|0
+index|]
+operator|=
+name|nameOfRegionA
+expr_stmt|;
+name|nameofRegionsToMerge
+index|[
+literal|1
+index|]
+operator|=
+name|nameOfRegionB
+expr_stmt|;
+return|return
+name|mergeRegionsAsync
+argument_list|(
+name|nameofRegionsToMerge
+argument_list|,
+name|forcible
+argument_list|)
+return|;
+block|}
+comment|/**    * Merge regions. Asynchronous operation.    *<p/>    * You may get a {@code DoNotRetryIOException} if you pass more than two regions in but the master    * does not support merging more than two regions. At least till 2.2.0, we still only support    * merging two regions.    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          adjacent regions    */
 name|Future
 argument_list|<
 name|Void
