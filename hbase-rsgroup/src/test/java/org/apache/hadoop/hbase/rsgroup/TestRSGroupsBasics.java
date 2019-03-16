@@ -564,7 +564,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|4
+name|NUM_SLAVES_BASE
 argument_list|,
 name|defaultInfo
 operator|.
@@ -575,7 +575,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Assignment of root and meta regions.
+comment|// Assignment of meta and rsgroup regions.
 name|int
 name|count
 init|=
@@ -593,7 +593,7 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-comment|// 2 meta, group
+comment|// 2 (meta and rsgroup)
 name|assertEquals
 argument_list|(
 literal|2
@@ -1433,6 +1433,13 @@ argument_list|(
 literal|"testClearDeadServers"
 argument_list|)
 expr_stmt|;
+comment|// move region servers from default group to new group
+specifier|final
+name|int
+name|serverCountToMoveToNewGroup
+init|=
+literal|3
+decl_stmt|;
 specifier|final
 name|RSGroupInfo
 name|newGroup
@@ -1447,9 +1454,10 @@ name|getMethodName
 argument_list|()
 argument_list|)
 argument_list|,
-literal|3
+name|serverCountToMoveToNewGroup
 argument_list|)
 decl_stmt|;
+comment|// get the existing dead servers
 name|NUM_DEAD_SERVERS
 operator|=
 name|cluster
@@ -1463,8 +1471,9 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
+comment|// stop 1 region server in new group
 name|ServerName
-name|targetServer
+name|serverToStop
 init|=
 name|getServerName
 argument_list|(
@@ -1488,7 +1497,7 @@ name|admin
 operator|.
 name|stopRegionServer
 argument_list|(
-name|targetServer
+name|serverToStop
 operator|.
 name|getAddress
 argument_list|()
@@ -1571,7 +1580,7 @@ argument_list|()
 operator|.
 name|containsKey
 argument_list|(
-name|targetServer
+name|serverToStop
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1587,7 +1596,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-name|targetServer
+name|serverToStop
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1600,7 +1609,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-name|targetServer
+name|serverToStop
 operator|.
 name|getAddress
 argument_list|()
@@ -1622,7 +1631,7 @@ name|Lists
 operator|.
 name|newArrayList
 argument_list|(
-name|targetServer
+name|serverToStop
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -1636,6 +1645,7 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// the stopped region server gets cleared and removed from the group
 name|Set
 argument_list|<
 name|Address
@@ -1661,7 +1671,7 @@ name|newGroupServers
 operator|.
 name|contains
 argument_list|(
-name|targetServer
+name|serverToStop
 operator|.
 name|getAddress
 argument_list|()
@@ -1670,7 +1680,10 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|2
+name|serverCountToMoveToNewGroup
+operator|-
+literal|1
+comment|/* 1 stopped */
 argument_list|,
 name|newGroupServers
 operator|.
@@ -1695,6 +1708,7 @@ argument_list|(
 literal|"testClearNotProcessedDeadServer"
 argument_list|)
 expr_stmt|;
+comment|// get the existing dead servers
 name|NUM_DEAD_SERVERS
 operator|=
 name|cluster
@@ -1708,22 +1722,30 @@ operator|.
 name|size
 argument_list|()
 expr_stmt|;
+comment|// move region servers from default group to "dead server" group
+specifier|final
+name|int
+name|serverCountToMoveToDeadServerGroup
+init|=
+literal|1
+decl_stmt|;
 name|RSGroupInfo
-name|appInfo
+name|deadServerGroup
 init|=
 name|addGroup
 argument_list|(
 literal|"deadServerGroup"
 argument_list|,
-literal|1
+name|serverCountToMoveToDeadServerGroup
 argument_list|)
 decl_stmt|;
+comment|// stop 1 region servers in "dead server" group
 name|ServerName
-name|targetServer
+name|serverToStop
 init|=
 name|getServerName
 argument_list|(
-name|appInfo
+name|deadServerGroup
 operator|.
 name|getServers
 argument_list|()
@@ -1743,7 +1765,7 @@ name|admin
 operator|.
 name|stopRegionServer
 argument_list|(
-name|targetServer
+name|serverToStop
 operator|.
 name|getAddress
 argument_list|()
@@ -1804,6 +1826,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+comment|// the one and only region server in the group does not get cleared, even though it is stopped
 name|List
 argument_list|<
 name|ServerName
@@ -1818,18 +1841,60 @@ name|Lists
 operator|.
 name|newArrayList
 argument_list|(
-name|targetServer
+name|serverToStop
 argument_list|)
 argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|1
+name|serverCountToMoveToDeadServerGroup
 argument_list|,
 name|notClearedServers
 operator|.
 name|size
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|Set
+argument_list|<
+name|Address
+argument_list|>
+name|ServersInDeadServerGroup
+init|=
+name|rsGroupAdmin
+operator|.
+name|getRSGroupInfo
+argument_list|(
+name|deadServerGroup
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+operator|.
+name|getServers
+argument_list|()
+decl_stmt|;
+name|assertEquals
+argument_list|(
+name|serverCountToMoveToDeadServerGroup
+argument_list|,
+name|ServersInDeadServerGroup
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+name|ServersInDeadServerGroup
+operator|.
+name|contains
+argument_list|(
+name|serverToStop
+operator|.
+name|getAddress
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
