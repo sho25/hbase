@@ -577,7 +577,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|Permission
+name|UserPermission
 import|;
 end_import
 
@@ -4998,11 +4998,8 @@ specifier|public
 name|void
 name|grant
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|,
 name|boolean
 name|mergeExistingPermissions
@@ -5022,11 +5019,8 @@ specifier|public
 name|void
 name|revoke
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|)
 block|{
 throw|throw

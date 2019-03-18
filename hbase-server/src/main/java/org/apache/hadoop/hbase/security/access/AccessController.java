@@ -5816,14 +5816,25 @@ name|UserPermission
 argument_list|(
 name|owner
 argument_list|,
+name|Permission
+operator|.
+name|newBuilder
+argument_list|(
 name|desc
 operator|.
 name|getTableName
 argument_list|()
-argument_list|,
+argument_list|)
+operator|.
+name|withActions
+argument_list|(
 name|Action
 operator|.
 name|values
+argument_list|()
+argument_list|)
+operator|.
+name|build
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -6430,14 +6441,25 @@ name|UserPermission
 argument_list|(
 name|owner
 argument_list|,
+name|Permission
+operator|.
+name|newBuilder
+argument_list|(
 name|currentDesc
 operator|.
 name|getTableName
 argument_list|()
-argument_list|,
+argument_list|)
+operator|.
+name|withActions
+argument_list|(
 name|Action
 operator|.
 name|values
+argument_list|()
+argument_list|)
+operator|.
+name|build
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -12555,7 +12577,7 @@ throws|throws
 name|IOException
 block|{ }
 comment|/* ---- Protobuf AccessControlService implementation ---- */
-comment|/**    * @deprecated Use {@link Admin#grant(String, Permission, boolean)} instead.    */
+comment|/**    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12683,6 +12705,9 @@ argument_list|()
 operator|.
 name|grant
 argument_list|(
+operator|new
+name|UserPermission
+argument_list|(
 name|perm
 operator|.
 name|getUser
@@ -12692,6 +12717,7 @@ name|perm
 operator|.
 name|getPermission
 argument_list|()
+argument_list|)
 argument_list|,
 name|request
 operator|.
@@ -12779,7 +12805,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#revoke(String, Permission)} instead.    */
+comment|/**    * @deprecated Use {@link Admin#revoke(UserPermission)} instead.    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12907,6 +12933,9 @@ argument_list|()
 operator|.
 name|revoke
 argument_list|(
+operator|new
+name|UserPermission
+argument_list|(
 name|perm
 operator|.
 name|getUser
@@ -12916,6 +12945,7 @@ name|perm
 operator|.
 name|getPermission
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 if|if
@@ -13539,9 +13569,20 @@ name|UserPermission
 argument_list|(
 name|user
 argument_list|,
+name|Permission
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|withActions
+argument_list|(
 name|Action
 operator|.
 name|values
+argument_list|()
+argument_list|)
+operator|.
+name|build
 argument_list|()
 argument_list|)
 argument_list|)

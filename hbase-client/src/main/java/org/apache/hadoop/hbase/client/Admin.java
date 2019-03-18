@@ -525,7 +525,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|Permission
+name|UserPermission
 import|;
 end_import
 
@@ -3694,15 +3694,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Grants user specific permissions    * @param userName user name    * @param permission the specific permission    * @param mergeExistingPermissions If set to false, later granted permissions will override    *          previous granted permissions. otherwise, it'll merge with previous granted    *          permissions.    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Grants user specific permissions    * @param userPermission user name and the specific permission    * @param mergeExistingPermissions If set to false, later granted permissions will override    *          previous granted permissions. otherwise, it'll merge with previous granted    *          permissions.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|grant
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|,
 name|boolean
 name|mergeExistingPermissions
@@ -3710,15 +3707,12 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Revokes user specific permissions    * @param userName user name    * @param permission the specific permission    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Revokes user specific permissions    * @param userPermission user name and the specific permission    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|revoke
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|)
 throws|throws
 name|IOException

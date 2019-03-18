@@ -373,7 +373,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|Permission
+name|UserPermission
 import|;
 end_import
 
@@ -4326,11 +4326,8 @@ name|Void
 argument_list|>
 name|grant
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|,
 name|boolean
 name|mergeExistingPermissions
@@ -4343,9 +4340,7 @@ name|rawAdmin
 operator|.
 name|grant
 argument_list|(
-name|userName
-argument_list|,
-name|permission
+name|userPermission
 argument_list|,
 name|mergeExistingPermissions
 argument_list|)
@@ -4361,11 +4356,8 @@ name|Void
 argument_list|>
 name|revoke
 parameter_list|(
-name|String
-name|userName
-parameter_list|,
-name|Permission
-name|permission
+name|UserPermission
+name|userPermission
 parameter_list|)
 block|{
 return|return
@@ -4375,9 +4367,7 @@ name|rawAdmin
 operator|.
 name|revoke
 argument_list|(
-name|userName
-argument_list|,
-name|permission
+name|userPermission
 argument_list|)
 argument_list|)
 return|;
