@@ -2726,7 +2726,9 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing snapshot.    *    * @param snapshotName name of the snapshot    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Delete an existing snapshot.    *    * @param snapshotName name of the snapshot    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.2.0. Will be removed in 3.0.0. Use {@link #deleteSnapshot(String)} instead.    */
+annotation|@
+name|Deprecated
 name|void
 name|deleteSnapshot
 parameter_list|(
