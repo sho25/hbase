@@ -501,6 +501,23 @@ name|boolean
 name|includeSysTables
 parameter_list|)
 function_decl|;
+comment|/**    * List specific tables including system tables.    * @param tableNames the table list to match against    * @return - returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|List
+argument_list|<
+name|TableName
+argument_list|>
+name|tableNames
+parameter_list|)
+function_decl|;
 comment|/**    * Get list of table descriptors by namespace.    * @param name namespace name    * @return returns a list of TableDescriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<
