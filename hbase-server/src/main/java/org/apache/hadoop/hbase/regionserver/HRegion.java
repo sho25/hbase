@@ -17530,7 +17530,7 @@ operator|instanceof
 name|Put
 condition|)
 block|{
-name|region
+name|HRegion
 operator|.
 name|updateCellTimestamps
 argument_list|(
