@@ -294,6 +294,15 @@ argument_list|,
 name|clonedTableName
 argument_list|)
 expr_stmt|;
+name|verifyRowCount
+argument_list|(
+name|TEST_UTIL
+argument_list|,
+name|clonedTableName
+argument_list|,
+name|snapshot1Rows
+argument_list|)
+expr_stmt|;
 name|RegionStates
 name|regionStates
 init|=
