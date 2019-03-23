@@ -1792,6 +1792,13 @@ name|getScheme
 argument_list|()
 argument_list|)
 operator|||
+name|workingURI
+operator|.
+name|getAuthority
+argument_list|()
+operator|==
+literal|null
+operator|||
 operator|!
 name|workingURI
 operator|.

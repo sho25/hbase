@@ -883,7 +883,7 @@ name|SEPARATOR
 argument_list|)
 return|;
 block|}
-comment|/**    * Determines if the given workingDir is a subdirectory of the default working snapshot directory    * @param workingDir a directory to check    * @param conf configuration for the HBase cluster    * @return true if the given workingDir is a subdirectory of the default working directory for    *   snapshots, false otherwise    */
+comment|/**    * Determines if the given workingDir is a subdirectory of the default working snapshot directory    * @param workingDir a directory to check    * @param conf configuration for the HBase cluster    * @return true if the given workingDir is a subdirectory of the default working directory for    *   snapshots, false otherwise    * @throws IOException if we can't get the root dir    */
 specifier|public
 specifier|static
 name|boolean
@@ -896,23 +896,19 @@ parameter_list|,
 name|Configuration
 name|conf
 parameter_list|)
+throws|throws
+name|IOException
 block|{
 name|Path
 name|defaultWorkingDir
 init|=
 name|getDefaultWorkingSnapshotDir
 argument_list|(
-operator|new
-name|Path
+name|FSUtils
+operator|.
+name|getRootDir
 argument_list|(
 name|conf
-operator|.
-name|get
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_DIR
-argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;
