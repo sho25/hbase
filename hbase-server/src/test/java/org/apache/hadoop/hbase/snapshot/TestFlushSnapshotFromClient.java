@@ -1128,16 +1128,10 @@ name|snapshotString
 init|=
 literal|"skipFlushTableSnapshot"
 decl_stmt|;
-name|byte
-index|[]
+name|String
 name|snapshot
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|snapshotString
-argument_list|)
 decl_stmt|;
 name|admin
 operator|.

@@ -2099,16 +2099,10 @@ name|snapshotName
 init|=
 literal|"snapshot"
 decl_stmt|;
-name|byte
-index|[]
+name|String
 name|snapshotNameBytes
 init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|snapshotName
-argument_list|)
 decl_stmt|;
 name|admin
 operator|.

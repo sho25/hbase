@@ -4045,25 +4045,6 @@ specifier|public
 name|void
 name|deleteSnapshot
 parameter_list|(
-name|byte
-index|[]
-name|snapshotName
-parameter_list|)
-block|{
-throw|throw
-operator|new
-name|NotImplementedException
-argument_list|(
-literal|"deleteSnapshot not supported in ThriftAdmin"
-argument_list|)
-throw|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|deleteSnapshot
-parameter_list|(
 name|String
 name|snapshotName
 parameter_list|)
