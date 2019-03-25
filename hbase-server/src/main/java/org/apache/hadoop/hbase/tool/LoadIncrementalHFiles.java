@@ -2091,10 +2091,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Bulk load operation did not find any files to load in "
+literal|"Bulk load operation did not find any files to load in directory {}. "
 operator|+
-literal|"directory "
-operator|+
+literal|"Does it contain files in subdirectories that correspond to column family names?"
+argument_list|,
+operator|(
 name|hfofDir
 operator|!=
 literal|null
@@ -2108,10 +2109,7 @@ name|toString
 argument_list|()
 else|:
 literal|""
-operator|+
-literal|".  Does it contain files in "
-operator|+
-literal|"subdirectories that correspond to column family names?"
+operator|)
 argument_list|)
 expr_stmt|;
 return|return
