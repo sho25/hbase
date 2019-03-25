@@ -3403,7 +3403,9 @@ name|request
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * A utility used to get user's global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @throws ServiceException on failure    */
+comment|/**    * A utility used to get user's global permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @throws ServiceException on failure    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
@@ -3436,7 +3438,9 @@ name|EMPTY_STRING
 argument_list|)
 return|;
 block|}
-comment|/**    * A utility used to get user's global permissions based on the specified user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    */
+comment|/**    * A utility used to get user's global permissions based on the specified user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
@@ -3578,7 +3582,9 @@ return|return
 name|perms
 return|;
 block|}
-comment|/**    * A utility used to get user table permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param t optional table name    * @throws ServiceException    */
+comment|/**    * A utility used to get user table permissions.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param t optional table name    * @throws ServiceException    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
@@ -3620,7 +3626,9 @@ name|EMPTY_STRING
 argument_list|)
 return|;
 block|}
-comment|/**    * A utility used to get user table permissions based on the column family, column qualifier and    * user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param t optional table name    * @param columnFamily Column family    * @param columnQualifier Column qualifier    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    */
+comment|/**    * A utility used to get user table permissions based on the column family, column qualifier and    * user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param t optional table name    * @param columnFamily Column family    * @param columnQualifier Column qualifier    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
@@ -3843,7 +3851,9 @@ return|return
 name|perms
 return|;
 block|}
-comment|/**    * A utility used to get permissions for selected namespace.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace name of the namespace    * @throws ServiceException    */
+comment|/**    * A utility used to get permissions for selected namespace.    *<p>    * It's also called by the shell, in case you want to find references.    *    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace name of the namespace    * @throws ServiceException    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List
@@ -3882,7 +3892,9 @@ name|EMPTY_STRING
 argument_list|)
 return|;
 block|}
-comment|/**    * A utility used to get permissions for selected namespace based on the specified user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace name of the namespace    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    */
+comment|/**    * A utility used to get permissions for selected namespace based on the specified user name.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param namespace name of the namespace    * @param userName User name, if empty then all user permissions will be retrieved.    * @throws ServiceException    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|List

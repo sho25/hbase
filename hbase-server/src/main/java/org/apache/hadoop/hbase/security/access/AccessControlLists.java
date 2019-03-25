@@ -3120,6 +3120,7 @@ name|perms
 return|;
 block|}
 comment|/**    * Returns the currently granted permissions for a given table as the specified user plus    * associated permissions.    */
+specifier|public
 specifier|static
 name|List
 argument_list|<
@@ -3177,6 +3178,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns the currently granted permissions for a given namespace as the specified user plus    * associated permissions.    */
+specifier|public
 specifier|static
 name|List
 argument_list|<
@@ -3225,6 +3227,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns the currently granted permissions for a given table/namespace with associated    * permissions based on the specified column family, column qualifier and user name.    * @param conf the configuration    * @param entryName Table name or the namespace    * @param cf Column family    * @param cq Column qualifier    * @param user User name to be filtered from permission as requested    * @param hasFilterUser true if filter user is provided, otherwise false.    * @return List of UserPermissions    * @throws IOException on failure    */
+specifier|public
 specifier|static
 name|List
 argument_list|<

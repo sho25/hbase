@@ -3877,6 +3877,68 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{   }
+comment|/**    * Called before getting user permissions.    * @param ctx the coprocessor instance's environment    * @param userName the user name, null if get all user permissions    * @param namespace the namespace, null if don't get namespace permission    * @param tableName the table name, null if don't get table permission    * @param family the table column family, null if don't get table family permission    * @param qualifier the table column qualifier, null if don't get table qualifier permission    * @throws IOException if something went wrong    */
+specifier|default
+name|void
+name|preGetUserPermissions
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|userName
+parameter_list|,
+name|String
+name|namespace
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
+comment|/**    * Called after getting user permissions.    * @param ctx the coprocessor instance's environment    * @param userName the user name, null if get all user permissions    * @param namespace the namespace, null if don't get namespace permission    * @param tableName the table name, null if don't get table permission    * @param family the table column family, null if don't get table family permission    * @param qualifier the table column qualifier, null if don't get table qualifier permission    * @throws IOException if something went wrong    */
+specifier|default
+name|void
+name|postGetUserPermissions
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|String
+name|userName
+parameter_list|,
+name|String
+name|namespace
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+name|byte
+index|[]
+name|family
+parameter_list|,
+name|byte
+index|[]
+name|qualifier
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 
