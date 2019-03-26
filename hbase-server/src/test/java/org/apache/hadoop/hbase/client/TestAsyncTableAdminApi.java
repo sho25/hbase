@@ -1166,8 +1166,6 @@ operator|.
 name|isTableAvailable
 argument_list|(
 name|tableName
-argument_list|,
-name|splitKeys
 argument_list|)
 operator|.
 name|get
@@ -3971,8 +3969,6 @@ operator|.
 name|isTableAvailable
 argument_list|(
 name|tableName
-argument_list|,
-name|splitKeys
 argument_list|)
 operator|.
 name|get
@@ -4103,8 +4099,6 @@ operator|.
 name|isTableAvailable
 argument_list|(
 name|newTableName
-argument_list|,
-name|splitKeys
 argument_list|)
 operator|.
 name|get
