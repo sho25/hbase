@@ -925,7 +925,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    */
+comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found.    * @param tableName table to compact    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -948,7 +948,7 @@ name|NORMAL
 argument_list|)
 return|;
 block|}
-comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table. If not present, compact the table's all    *          column families.    */
+comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found.    * @param tableName table to compact    * @param columnFamily column family within a table. If not present, compact the table's all    *          column families.    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -977,7 +977,7 @@ name|NORMAL
 argument_list|)
 return|;
 block|}
-comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+comment|/**    * Compact a table. When the returned CompletableFuture is done, it only means the compact request    * was sent to HBase and may need some time to finish the compact operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found for    * normal compaction type.    * @param tableName table to compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -991,7 +991,7 @@ name|CompactType
 name|compactType
 parameter_list|)
 function_decl|;
-comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+comment|/**    * Compact a column family within a table. When the returned CompletableFuture is done, it only    * means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found for    * normal compaction type.    * @param tableName table to compact    * @param columnFamily column family within a table    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1037,7 +1037,7 @@ index|[]
 name|columnFamily
 parameter_list|)
 function_decl|;
-comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    */
+comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found.    * @param tableName table to major compact    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -1060,7 +1060,7 @@ name|NORMAL
 argument_list|)
 return|;
 block|}
-comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    */
+comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found for    * normal compaction. type.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    */
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -1089,7 +1089,7 @@ name|NORMAL
 argument_list|)
 return|;
 block|}
-comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * @param tableName table to major compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+comment|/**    * Major compact a table. When the returned CompletableFuture is done, it only means the compact    * request was sent to HBase and may need some time to finish the compact operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found for    * normal compaction type.    * @param tableName table to major compact    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
 name|CompletableFuture
 argument_list|<
 name|Void
@@ -1103,7 +1103,7 @@ name|CompactType
 name|compactType
 parameter_list|)
 function_decl|;
-comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
+comment|/**    * Major compact a column family within a table. When the returned CompletableFuture is done, it    * only means the compact request was sent to HBase and may need some time to finish the compact    * operation.    * Throws {@link org.apache.hadoop.hbase.TableNotFoundException} if table not found.    * @param tableName table to major compact    * @param columnFamily column family within a table. If not present, major compact the table's all    *          column families.    * @param compactType {@link org.apache.hadoop.hbase.client.CompactType}    */
 name|CompletableFuture
 argument_list|<
 name|Void
