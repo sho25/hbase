@@ -42,6 +42,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -320,6 +332,24 @@ operator|.
 name|assignment
 operator|.
 name|OpenRegionProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|assignment
+operator|.
+name|TransitRegionStateProcedure
 import|;
 end_import
 
@@ -1100,7 +1130,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testRegionOpenProcedureIsNotHandledByDisPatcher
+name|testRegionOpenProcedureIsNotHandledByDispatcher
 parameter_list|()
 throws|throws
 name|Exception
@@ -1158,6 +1188,9 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
+name|MasterProcedureEnv
+name|env
+init|=
 name|master
 operator|.
 name|getMasterProcedureExecutor
@@ -1165,6 +1198,8 @@ argument_list|()
 operator|.
 name|getEnvironment
 argument_list|()
+decl_stmt|;
+name|env
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -1177,6 +1212,20 @@ argument_list|(
 name|hri
 argument_list|)
 expr_stmt|;
+name|TransitRegionStateProcedure
+name|proc
+init|=
+name|TransitRegionStateProcedure
+operator|.
+name|assign
+argument_list|(
+name|env
+argument_list|,
+name|hri
+argument_list|,
+literal|null
+argument_list|)
+decl_stmt|;
 name|ServerName
 name|worker
 init|=
@@ -1199,6 +1248,8 @@ init|=
 operator|new
 name|OpenRegionProcedure
 argument_list|(
+name|proc
+argument_list|,
 name|hri
 argument_list|,
 name|worker
@@ -1242,6 +1293,9 @@ name|TimeUnit
 operator|.
 name|MILLISECONDS
 argument_list|)
+expr_stmt|;
+name|fail
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch

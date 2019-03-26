@@ -330,6 +330,11 @@ name|regionInfo
 decl_stmt|;
 specifier|private
 specifier|final
+name|long
+name|openProcId
+decl_stmt|;
+specifier|private
+specifier|final
 name|TableDescriptor
 name|tableDesc
 decl_stmt|;
@@ -351,6 +356,9 @@ name|server
 parameter_list|,
 name|RegionInfo
 name|regionInfo
+parameter_list|,
+name|long
+name|openProcId
 parameter_list|,
 annotation|@
 name|Nullable
@@ -376,6 +384,12 @@ operator|.
 name|regionInfo
 operator|=
 name|regionInfo
+expr_stmt|;
+name|this
+operator|.
+name|openProcId
+operator|=
+name|openProcId
 expr_stmt|;
 name|this
 operator|.
@@ -475,6 +489,8 @@ argument_list|,
 name|HConstants
 operator|.
 name|NO_SEQNUM
+argument_list|,
+name|openProcId
 argument_list|,
 name|masterSystemTime
 argument_list|,
@@ -761,6 +777,8 @@ name|PostOpenDeployContext
 argument_list|(
 name|region
 argument_list|,
+name|openProcId
+argument_list|,
 name|masterSystemTime
 argument_list|)
 argument_list|)
@@ -887,6 +905,9 @@ parameter_list|,
 name|RegionInfo
 name|regionInfo
 parameter_list|,
+name|long
+name|openProcId
+parameter_list|,
 name|TableDescriptor
 name|tableDesc
 parameter_list|,
@@ -962,6 +983,8 @@ argument_list|(
 name|server
 argument_list|,
 name|regionInfo
+argument_list|,
+name|openProcId
 argument_list|,
 name|tableDesc
 argument_list|,

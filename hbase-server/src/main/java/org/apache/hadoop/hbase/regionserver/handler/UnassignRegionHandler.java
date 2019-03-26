@@ -308,8 +308,14 @@ specifier|final
 name|String
 name|encodedName
 decl_stmt|;
+specifier|private
+specifier|final
+name|long
+name|closeProcId
+decl_stmt|;
 comment|// If true, the hosting server is aborting. Region close process is different
 comment|// when we are aborting.
+comment|// TODO: not used yet, we still use the old CloseRegionHandler when aborting
 specifier|private
 specifier|final
 name|boolean
@@ -333,6 +339,9 @@ name|server
 parameter_list|,
 name|String
 name|encodedName
+parameter_list|,
+name|long
+name|closeProcId
 parameter_list|,
 name|boolean
 name|abort
@@ -358,6 +367,12 @@ operator|.
 name|encodedName
 operator|=
 name|encodedName
+expr_stmt|;
+name|this
+operator|.
+name|closeProcId
+operator|=
+name|closeProcId
 expr_stmt|;
 name|this
 operator|.
@@ -662,6 +677,8 @@ name|HConstants
 operator|.
 name|NO_SEQNUM
 argument_list|,
+name|closeProcId
+argument_list|,
 operator|-
 literal|1
 argument_list|,
@@ -754,6 +771,9 @@ parameter_list|,
 name|String
 name|encodedName
 parameter_list|,
+name|long
+name|closeProcId
+parameter_list|,
 name|boolean
 name|abort
 parameter_list|,
@@ -805,6 +825,8 @@ argument_list|(
 name|server
 argument_list|,
 name|encodedName
+argument_list|,
+name|closeProcId
 argument_list|,
 name|abort
 argument_list|,

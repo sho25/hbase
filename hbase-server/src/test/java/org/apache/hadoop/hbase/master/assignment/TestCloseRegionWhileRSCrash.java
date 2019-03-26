@@ -171,6 +171,22 @@ name|hbase
 operator|.
 name|master
 operator|.
+name|HMaster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
 name|ServerManager
 import|;
 end_import
@@ -998,9 +1014,6 @@ operator|.
 name|getMasterProcedureExecutor
 argument_list|()
 decl_stmt|;
-name|long
-name|dummyProcId
-init|=
 name|procExec
 operator|.
 name|submitProcedure
@@ -1014,7 +1027,7 @@ name|getServerName
 argument_list|()
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 name|ARRIVE
 operator|.
 name|await
@@ -1139,7 +1152,10 @@ argument_list|,
 literal|3
 argument_list|)
 expr_stmt|;
-comment|// let's close the connection to make sure that the SCP can not update meta successfully
+comment|// close connection to make sure that we can not finish the TRSP
+name|HMaster
+name|master
+init|=
 name|UTIL
 operator|.
 name|getMiniHBaseCluster
@@ -1147,6 +1163,8 @@ argument_list|()
 operator|.
 name|getMaster
 argument_list|()
+decl_stmt|;
+name|master
 operator|.
 name|getConnection
 argument_list|()
@@ -1167,35 +1185,14 @@ literal|30000
 argument_list|,
 parameter_list|()
 lambda|->
-name|procExec
+operator|!
+name|master
 operator|.
-name|isFinished
-argument_list|(
-name|dummyProcId
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|sleep
-argument_list|(
-literal|2000
-argument_list|)
-expr_stmt|;
-comment|// here we restart
-name|UTIL
-operator|.
-name|getMiniHBaseCluster
+name|isAlive
 argument_list|()
-operator|.
-name|stopMaster
-argument_list|(
-literal|0
 argument_list|)
-operator|.
-name|join
-argument_list|()
 expr_stmt|;
+comment|// here we start a new master
 name|UTIL
 operator|.
 name|getMiniHBaseCluster

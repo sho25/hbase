@@ -22275,6 +22275,11 @@ name|regionServer
 argument_list|,
 name|regionInfo
 argument_list|,
+name|regionOpenInfo
+operator|.
+name|getOpenProcId
+argument_list|()
+argument_list|,
 name|tableDesc
 argument_list|,
 name|masterSystemTime
@@ -22358,6 +22363,11 @@ argument_list|(
 name|regionServer
 argument_list|,
 name|encodedName
+argument_list|,
+name|request
+operator|.
+name|getCloseProcId
+argument_list|()
 argument_list|,
 literal|false
 argument_list|,

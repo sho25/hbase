@@ -145,6 +145,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|Procedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -796,6 +812,10 @@ name|HConstants
 operator|.
 name|NO_SEQNUM
 argument_list|,
+name|Procedure
+operator|.
+name|NO_PROC_ID
+argument_list|,
 operator|-
 literal|1
 argument_list|,
@@ -1174,6 +1194,10 @@ name|PostOpenDeployContext
 argument_list|(
 name|region
 argument_list|,
+name|Procedure
+operator|.
+name|NO_PROC_ID
+argument_list|,
 name|masterSystemTime
 argument_list|)
 argument_list|)
@@ -1246,7 +1270,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// We're done.  Set flag then wake up anyone waiting on thread to complete.
+comment|// We're done. Set flag then wake up anyone waiting on thread to complete.
 name|this
 operator|.
 name|signaller

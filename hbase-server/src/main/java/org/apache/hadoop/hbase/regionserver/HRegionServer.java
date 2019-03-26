@@ -12298,6 +12298,14 @@ name|getRegion
 argument_list|()
 decl_stmt|;
 name|long
+name|openProcId
+init|=
+name|context
+operator|.
+name|getOpenProcId
+argument_list|()
+decl_stmt|;
+name|long
 name|masterSystemTime
 init|=
 name|context
@@ -12314,8 +12322,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Post open deploy tasks for "
-operator|+
+literal|"Post open deploy tasks for {}, openProcId={}, masterSystemTime={}"
+argument_list|,
 name|r
 operator|.
 name|getRegionInfo
@@ -12323,6 +12331,10 @@ argument_list|()
 operator|.
 name|getRegionNameAsString
 argument_list|()
+argument_list|,
+name|openProcId
+argument_list|,
+name|masterSystemTime
 argument_list|)
 expr_stmt|;
 comment|// Do checks to see if we need to compact (references or too many files)
@@ -12420,6 +12432,8 @@ name|OPENED
 argument_list|,
 name|openSeqNum
 argument_list|,
+name|openProcId
+argument_list|,
 name|masterSystemTime
 argument_list|,
 name|r
@@ -12509,6 +12523,15 @@ init|=
 name|context
 operator|.
 name|getHris
+argument_list|()
+decl_stmt|;
+name|long
+index|[]
+name|procIds
+init|=
+name|context
+operator|.
+name|getProcIds
 argument_list|()
 decl_stmt|;
 if|if
@@ -12724,6 +12747,22 @@ name|toRegionInfo
 argument_list|(
 name|hri
 argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+for|for
+control|(
+name|long
+name|procId
+range|:
+name|procIds
+control|)
+block|{
+name|transition
+operator|.
+name|addProcId
+argument_list|(
+name|procId
 argument_list|)
 expr_stmt|;
 block|}
