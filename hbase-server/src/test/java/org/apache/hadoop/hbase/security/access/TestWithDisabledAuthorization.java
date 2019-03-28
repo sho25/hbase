@@ -1975,11 +1975,6 @@ argument_list|,
 name|SUPERUSER
 argument_list|,
 name|USER_ADMIN
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkGlobalAdmin
 argument_list|,
 name|USER_OWNER
 argument_list|,
@@ -2034,11 +2029,6 @@ argument_list|,
 name|SUPERUSER
 argument_list|,
 name|USER_ADMIN
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkGlobalRead
 argument_list|,
 name|USER_OWNER
 argument_list|,
@@ -2099,11 +2089,6 @@ argument_list|,
 name|SUPERUSER
 argument_list|,
 name|USER_ADMIN
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkGlobalReadWrite
 argument_list|,
 name|USER_OWNER
 argument_list|,
@@ -2169,11 +2154,6 @@ argument_list|,
 name|USER_ADMIN
 argument_list|,
 name|USER_OWNER
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkTableAdmin
 argument_list|,
 name|USER_CREATE
 argument_list|,
@@ -2239,11 +2219,6 @@ argument_list|,
 name|USER_OWNER
 argument_list|,
 name|USER_CREATE
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkTableCreate
 argument_list|,
 name|USER_RW
 argument_list|,
@@ -2307,11 +2282,6 @@ argument_list|,
 name|USER_OWNER
 argument_list|,
 name|USER_CREATE
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkTableRead
 argument_list|,
 name|USER_RW
 argument_list|,
@@ -2381,11 +2351,6 @@ argument_list|,
 name|USER_OWNER
 argument_list|,
 name|USER_CREATE
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkTableReadWrite
 argument_list|,
 name|USER_RW
 argument_list|,
@@ -2453,11 +2418,6 @@ argument_list|,
 name|USER_RW
 argument_list|,
 name|USER_RO
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkColumnRead
 argument_list|,
 name|USER_QUAL
 argument_list|,
@@ -2525,11 +2485,6 @@ argument_list|,
 name|USER_CREATE
 argument_list|,
 name|USER_RW
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkColumnReadWrite
 argument_list|,
 name|USER_RO
 argument_list|,
@@ -2597,11 +2552,6 @@ argument_list|,
 name|USER_RO
 argument_list|,
 name|USER_QUAL
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkQualifierRead
 argument_list|,
 name|USER_NONE
 argument_list|)
@@ -2669,11 +2619,6 @@ argument_list|,
 name|USER_RW
 argument_list|,
 name|USER_QUAL
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkQualifierReadWrite
 argument_list|,
 name|USER_RO
 argument_list|,
@@ -2699,11 +2644,6 @@ block|{
 name|checkTablePerms
 argument_list|(
 name|TEST_UTIL
-argument_list|,
-name|TEST_TABLE
-operator|.
-name|getTableName
-argument_list|()
 argument_list|,
 operator|new
 name|Permission
@@ -2792,11 +2732,6 @@ argument_list|,
 name|USER_RW
 argument_list|,
 name|USER_RO
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkMultiQualifierRead
 argument_list|,
 name|USER_QUAL
 argument_list|,
@@ -2822,11 +2757,6 @@ block|{
 name|checkTablePerms
 argument_list|(
 name|TEST_UTIL
-argument_list|,
-name|TEST_TABLE
-operator|.
-name|getTableName
-argument_list|()
 argument_list|,
 operator|new
 name|Permission
@@ -2929,11 +2859,6 @@ argument_list|,
 name|USER_CREATE
 argument_list|,
 name|USER_RW
-argument_list|)
-expr_stmt|;
-name|verifyDenied
-argument_list|(
-name|checkMultiQualifierReadWrite
 argument_list|,
 name|USER_RO
 argument_list|,
@@ -2975,7 +2900,7 @@ literal|0
 index|]
 argument_list|)
 decl_stmt|;
-comment|// If we check now, the test user won't have permissions
+comment|// If we check now, the test user have permissions because authorization is disabled
 name|AccessTestAction
 name|checkTableRead
 init|=
@@ -3018,7 +2943,7 @@ return|;
 block|}
 block|}
 decl_stmt|;
-name|verifyDenied
+name|verifyAllowed
 argument_list|(
 name|tblUser
 argument_list|,
@@ -3169,7 +3094,7 @@ name|READ
 argument_list|)
 expr_stmt|;
 comment|// Now the permission check will indicate revocation but the actual op will still succeed
-name|verifyDenied
+name|verifyAllowed
 argument_list|(
 name|tblUser
 argument_list|,

@@ -4060,7 +4060,9 @@ return|return
 name|perms
 return|;
 block|}
-comment|/**    * Validates whether specified user has permission to perform actions on the mentioned table,    * column family or column qualifier.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param tableName Table name, it shouldn't be null or empty.    * @param columnFamily The column family. Optional argument, can be empty. If empty then    *          validation will happen at table level.    * @param columnQualifier The column qualifier. Optional argument, can be empty. If empty then    *          validation will happen at table and column family level. columnQualifier will not be    *          considered if columnFamily is passed as null or empty.    * @param userName User name, it shouldn't be null or empty.    * @param actions Actions    * @return true if access allowed, otherwise false    * @throws ServiceException    */
+comment|/**    * Validates whether specified user has permission to perform actions on the mentioned table,    * column family or column qualifier.    * @param controller RpcController    * @param protocol the AccessControlService protocol proxy    * @param tableName Table name, it shouldn't be null or empty.    * @param columnFamily The column family. Optional argument, can be empty. If empty then    *          validation will happen at table level.    * @param columnQualifier The column qualifier. Optional argument, can be empty. If empty then    *          validation will happen at table and column family level. columnQualifier will not be    *          considered if columnFamily is passed as null or empty.    * @param userName User name, it shouldn't be null or empty.    * @param actions Actions    * @return true if access allowed, otherwise false    * @throws ServiceException    * @deprecated Use {@link Admin#hasUserPermissions(String, List)} instead.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
