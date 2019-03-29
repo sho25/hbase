@@ -233,6 +233,20 @@ name|StringUtils
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|htrace
+operator|.
+name|core
+operator|.
+name|TraceScope
+import|;
+end_import
+
 begin_comment
 comment|/**  * The request processing logic, which is usually executed in thread pools provided by an  * {@link RpcScheduler}.  Call {@link #run()} to actually execute the contained  * RpcServer.Call  */
 end_comment
@@ -599,6 +613,11 @@ argument_list|(
 name|call
 argument_list|)
 expr_stmt|;
+name|TraceScope
+name|traceScope
+init|=
+literal|null
+decl_stmt|;
 try|try
 block|{
 if|if
@@ -694,6 +713,8 @@ literal|"."
 operator|+
 name|methodName
 decl_stmt|;
+name|traceScope
+operator|=
 name|TraceUtil
 operator|.
 name|createTrace
@@ -827,6 +848,19 @@ block|}
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|traceScope
+operator|!=
+literal|null
+condition|)
+block|{
+name|traceScope
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+block|}
 name|RpcServer
 operator|.
 name|CurCall

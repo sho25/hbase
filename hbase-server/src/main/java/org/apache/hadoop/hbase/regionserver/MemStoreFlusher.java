@@ -3195,6 +3195,8 @@ name|void
 name|reclaimMemStoreMemory
 parameter_list|()
 block|{
+try|try
+init|(
 name|TraceScope
 name|scope
 init|=
@@ -3204,7 +3206,8 @@ name|createTrace
 argument_list|(
 literal|"MemStoreFluser.reclaimMemStoreMemory"
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|FlushType
 name|flushType
 init|=
@@ -3576,18 +3579,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|scope
-operator|!=
-literal|null
-condition|)
-block|{
-name|scope
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 block|}
 specifier|private
