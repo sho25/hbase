@@ -1432,7 +1432,7 @@ name|void
 name|testMergeRegionsInvalidRegionCount
 parameter_list|()
 throws|throws
-name|InterruptedException
+name|Exception
 block|{
 name|byte
 index|[]
