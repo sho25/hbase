@@ -754,15 +754,7 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|first
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

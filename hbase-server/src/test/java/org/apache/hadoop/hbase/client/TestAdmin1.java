@@ -8976,8 +8976,6 @@ argument_list|()
 operator|.
 name|getRegionName
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|get

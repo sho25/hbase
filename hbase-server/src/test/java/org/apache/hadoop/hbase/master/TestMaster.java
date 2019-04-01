@@ -1498,8 +1498,6 @@ name|hri
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|fail
@@ -1637,8 +1635,6 @@ argument_list|)
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|fail

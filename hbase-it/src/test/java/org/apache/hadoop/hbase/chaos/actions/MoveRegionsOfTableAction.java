@@ -177,22 +177,6 @@ name|RegionInfo
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/** * Action that tries to move every region of a table. */
 end_comment
@@ -508,7 +492,7 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|String
+name|ServerName
 name|destServerName
 init|=
 name|servers
@@ -524,9 +508,6 @@ operator|.
 name|length
 argument_list|)
 index|]
-operator|.
-name|getServerName
-argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
@@ -551,12 +532,7 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|destServerName
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

@@ -1172,8 +1172,7 @@ name|get
 argument_list|)
 decl_stmt|;
 comment|// move meta region and confirm client could detect
-name|byte
-index|[]
+name|ServerName
 name|destServerName
 init|=
 literal|null
@@ -1216,15 +1215,7 @@ condition|)
 block|{
 name|destServerName
 operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|name
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 expr_stmt|;
 break|break;
 block|}
@@ -1317,15 +1308,7 @@ condition|)
 block|{
 name|destServerName
 operator|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|name
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 expr_stmt|;
 break|break;
 block|}

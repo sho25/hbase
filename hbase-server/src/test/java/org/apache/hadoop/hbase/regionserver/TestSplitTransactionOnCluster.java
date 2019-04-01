@@ -2672,8 +2672,6 @@ name|hri
 operator|.
 name|getRegionName
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|fail
@@ -4069,8 +4067,6 @@ name|hri
 operator|.
 name|getRegionName
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|List
@@ -6269,8 +6265,6 @@ name|hri
 operator|.
 name|getRegionName
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 for|for
@@ -6547,18 +6541,10 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|hrs
 operator|.
 name|getServerName
 argument_list|()
-operator|.
-name|toString
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

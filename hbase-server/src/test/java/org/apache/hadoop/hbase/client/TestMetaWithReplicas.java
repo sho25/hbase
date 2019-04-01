@@ -1176,15 +1176,7 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|destinationServerName
-operator|.
-name|toString
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1798,8 +1790,6 @@ argument_list|()
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// wait for the move to complete
@@ -3438,15 +3428,7 @@ operator|.
 name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
 name|moveToServer
-operator|.
-name|getServerName
-argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|int

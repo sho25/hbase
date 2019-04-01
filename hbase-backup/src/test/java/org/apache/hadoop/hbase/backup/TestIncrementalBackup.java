@@ -1027,8 +1027,6 @@ operator|.
 name|splitRegionAsync
 argument_list|(
 name|name
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|get

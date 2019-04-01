@@ -1042,8 +1042,6 @@ name|r
 operator|.
 name|getEncodedNameAsBytes
 argument_list|()
-argument_list|,
-literal|null
 argument_list|)
 operator|.
 name|get
