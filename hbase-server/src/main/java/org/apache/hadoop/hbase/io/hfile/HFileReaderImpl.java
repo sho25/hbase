@@ -1512,11 +1512,12 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: Could we use block iterator in here? Would that get stuff into the cache?
-name|HFileBlock
-name|prevBlock
+comment|// Don't use BlockIterator here, because it's designed to read load-on-open section.
+name|long
+name|onDiskSizeOfNextBlock
 init|=
-literal|null
+operator|-
+literal|1
 decl_stmt|;
 while|while
 condition|(
@@ -1539,21 +1540,6 @@ comment|// Perhaps we got our block from cache? Unlikely as this may be, if it h
 comment|// the internal-to-hfileblock thread local which holds the overread that gets the
 comment|// next header, will not have happened...so, pass in the onDiskSize gotten from the
 comment|// cached block. This 'optimization' triggers extremely rarely I'd say.
-name|long
-name|onDiskSize
-init|=
-name|prevBlock
-operator|!=
-literal|null
-condition|?
-name|prevBlock
-operator|.
-name|getNextBlockOnDiskSize
-argument_list|()
-else|:
-operator|-
-literal|1
-decl_stmt|;
 name|HFileBlock
 name|block
 init|=
@@ -1561,12 +1547,12 @@ name|readBlock
 argument_list|(
 name|offset
 argument_list|,
-name|onDiskSize
+name|onDiskSizeOfNextBlock
 argument_list|,
-comment|/*cacheBlock=*/
+comment|/* cacheBlock= */
 literal|true
 argument_list|,
-comment|/*pread=*/
+comment|/* pread= */
 literal|true
 argument_list|,
 literal|false
@@ -1578,18 +1564,14 @@ argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
-comment|// Need not update the current block. Ideally here the readBlock won't find the
-comment|// block in cache. We call this readBlock so that block data is read from FS and
-comment|// cached in BC. So there is no reference count increment that happens here.
-comment|// The return will ideally be a noop because the block is not of MemoryType SHARED.
-name|returnBlock
-argument_list|(
-name|block
-argument_list|)
-expr_stmt|;
-name|prevBlock
+try|try
+block|{
+name|onDiskSizeOfNextBlock
 operator|=
 name|block
+operator|.
+name|getNextBlockOnDiskSize
+argument_list|()
 expr_stmt|;
 name|offset
 operator|+=
@@ -1598,6 +1580,18 @@ operator|.
 name|getOnDiskSizeWithHeader
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// Ideally here the readBlock won't find the block in cache. We call this
+comment|// readBlock so that block data is read from FS and cached in BC. we must call
+comment|// returnBlock here to decrease the reference count of block.
+name|returnBlock
+argument_list|(
+name|block
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 catch|catch
@@ -6472,6 +6466,8 @@ argument_list|,
 literal|true
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|HFileBlock
@@ -6534,6 +6530,57 @@ return|return
 name|uncompressedBlock
 return|;
 block|}
+block|}
+comment|/**    * If expected block is data block, we'll allocate the ByteBuff of block from    * {@link org.apache.hadoop.hbase.io.ByteBuffAllocator} and it's usually an off-heap one,    * otherwise it will allocate from heap.    * @see org.apache.hadoop.hbase.io.hfile.HFileBlock.FSReader#readBlockData(long, long, boolean,    *      boolean, boolean)    */
+specifier|private
+name|boolean
+name|shouldUseHeap
+parameter_list|(
+name|BlockType
+name|expectedBlockType
+parameter_list|)
+block|{
+if|if
+condition|(
+name|cacheConf
+operator|.
+name|getBlockCache
+argument_list|()
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+operator|!
+name|cacheConf
+operator|.
+name|isCombinedBlockCache
+argument_list|()
+condition|)
+block|{
+comment|// Block to cache in LruBlockCache must be an heap one. So just allocate block memory from
+comment|// heap for saving an extra off-heap to heap copying.
+return|return
+literal|true
+return|;
+block|}
+return|return
+name|expectedBlockType
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|expectedBlockType
+operator|.
+name|isData
+argument_list|()
+return|;
 block|}
 annotation|@
 name|Override
@@ -6896,6 +6943,11 @@ name|pread
 argument_list|,
 operator|!
 name|isCompaction
+argument_list|,
+name|shouldUseHeap
+argument_list|(
+name|expectedBlockType
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|validateBlockType

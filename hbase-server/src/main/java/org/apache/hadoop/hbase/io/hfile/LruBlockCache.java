@@ -1411,6 +1411,57 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * The block cached in LRUBlockCache will always be an heap block: on the one side, the heap    * access will be more faster then off-heap, the small index block or meta block cached in    * CombinedBlockCache will benefit a lot. on other side, the LRUBlockCache size is always    * calculated based on the total heap size, if caching an off-heap block in LRUBlockCache, the    * heap size will be messed up. Here we will clone the block into an heap block if it's an    * off-heap block, otherwise just use the original block. The key point is maintain the refCnt of    * the block (HBASE-22127):<br>    * 1. if cache the cloned heap block, its refCnt is an totally new one, it's easy to handle;<br>    * 2. if cache the original heap block, we're sure that it won't be tracked in ByteBuffAllocator's    * reservoir, if both RPC and LRUBlockCache release the block, then it can be garbage collected by    * JVM, so need a retain here.    * @param buf the original block    * @return an block with an heap memory backend.    */
+specifier|private
+name|Cacheable
+name|asReferencedHeapBlock
+parameter_list|(
+name|Cacheable
+name|buf
+parameter_list|)
+block|{
+if|if
+condition|(
+name|buf
+operator|instanceof
+name|HFileBlock
+condition|)
+block|{
+name|HFileBlock
+name|blk
+init|=
+operator|(
+operator|(
+name|HFileBlock
+operator|)
+name|buf
+operator|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|blk
+operator|.
+name|isOnHeap
+argument_list|()
+condition|)
+block|{
+return|return
+name|blk
+operator|.
+name|deepCloneOnHeap
+argument_list|()
+return|;
+block|}
+block|}
+comment|// The block will be referenced by this LRUBlockCache, so should increase its refCnt here.
+return|return
+name|buf
+operator|.
+name|retain
+argument_list|()
+return|;
+block|}
 comment|// BlockCache implementation
 comment|/**    * Cache the block with the specified name and buffer.    *<p>    * It is assumed this will NOT be called on an already cached block. In rare cases (HBASE-8547)    * this can happen, for which we compare the buffer contents.    *    * @param cacheKey block's cache key    * @param buf      block buffer    * @param inMemory if block is in-memory    */
 annotation|@
@@ -1617,11 +1668,13 @@ expr_stmt|;
 block|}
 return|return;
 block|}
-comment|// The block will be referenced by the LRUBlockCache, so should increase the refCnt here.
+comment|// Ensure that the block is an heap one.
 name|buf
-operator|.
-name|retain
-argument_list|()
+operator|=
+name|asReferencedHeapBlock
+argument_list|(
+name|buf
+argument_list|)
 expr_stmt|;
 name|cb
 operator|=
@@ -2048,7 +2101,7 @@ operator|)
 name|original
 operator|)
 operator|.
-name|deepClone
+name|deepCloneOnHeap
 argument_list|()
 expr_stmt|;
 comment|// deepClone an new one, so need to put the original one back to free it.

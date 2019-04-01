@@ -1208,6 +1208,17 @@ argument_list|)
 return|;
 block|}
 specifier|public
+name|boolean
+name|isCombinedBlockCache
+parameter_list|()
+block|{
+return|return
+name|blockCache
+operator|instanceof
+name|CombinedBlockCache
+return|;
+block|}
+specifier|public
 name|ByteBuffAllocator
 name|getByteBuffAllocator
 parameter_list|()

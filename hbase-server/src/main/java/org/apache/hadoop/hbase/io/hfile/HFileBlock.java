@@ -3025,6 +3025,18 @@ name|size
 argument_list|)
 return|;
 block|}
+comment|/**    * @return true to indicate the block is allocated from JVM heap, otherwise from off-heap.    */
+name|boolean
+name|isOnHeap
+parameter_list|()
+block|{
+return|return
+name|buf
+operator|.
+name|hasArray
+argument_list|()
+return|;
+block|}
 comment|/**    * Unified version 2 {@link HFile} block writer. The intended usage pattern    * is as follows:    *<ol>    *<li>Construct an {@link HFileBlock.Writer}, providing a compression algorithm.    *<li>Call {@link Writer#startWriting} and get a data stream to write to.    *<li>Write your data into the stream.    *<li>Call Writer#writeHeaderAndData(FSDataOutputStream) as many times as you need to.    * store the serialized block into an external stream.    *<li>Repeat to write more blocks.    *</ol>    *<p>    */
 specifier|static
 class|class
@@ -4678,7 +4690,7 @@ comment|/** An HFile block reader with iteration ability. */
 interface|interface
 name|FSReader
 block|{
-comment|/**      * Reads the block at the given offset in the file with the given on-disk      * size and uncompressed size.      *      * @param offset      * @param onDiskSize the on-disk size of the entire block, including all      *          applicable headers, or -1 if unknown      * @return the newly read block      */
+comment|/**      * Reads the block at the given offset in the file with the given on-disk size and uncompressed      * size.      * @param offset of the file to read      * @param onDiskSize the on-disk size of the entire block, including all applicable headers, or      *          -1 if unknown      * @param pread true to use pread, otherwise use the stream read.      * @param updateMetrics update the metrics or not.      * @param intoHeap allocate the block's ByteBuff by {@link ByteBuffAllocator} or JVM heap. For      *          LRUBlockCache, we must ensure that the block to cache is an heap one, because the      *          memory occupation is based on heap now, also for {@link CombinedBlockCache}, we use      *          the heap LRUBlockCache as L1 cache to cache small blocks such as IndexBlock or      *          MetaBlock for faster access. So introduce an flag here to decide whether allocate      *          from JVM heap or not so that we can avoid an extra off-heap to heap memory copy when      *          using LRUBlockCache. For most cases, we known what's the expected block type we'll      *          read, while for some special case (Example: HFileReaderImpl#readNextDataBlock()), we      *          cannot pre-decide what's the expected block type, then we can only allocate block's      *          ByteBuff from {@link ByteBuffAllocator} firstly, and then when caching it in      *          {@link LruBlockCache} we'll check whether the ByteBuff is from heap or not, if not      *          then we'll clone it to an heap one and cache it.      * @return the newly read block      */
 name|HFileBlock
 name|readBlockData
 parameter_list|(
@@ -4693,6 +4705,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|updateMetrics
+parameter_list|,
+name|boolean
+name|intoHeap
 parameter_list|)
 throws|throws
 name|IOException
@@ -5135,6 +5150,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|offset
@@ -5438,7 +5455,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**      * Reads a version 2 block (version 1 blocks not supported and not expected). Tries to do as      * little memory allocation as possible, using the provided on-disk size.      *      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header, or -1 if unknown; i.e. when iterating over blocks reading      *          in the file metadata info.      * @param pread whether to use a positional read      */
+comment|/**      * Reads a version 2 block (version 1 blocks not supported and not expected). Tries to do as      * little memory allocation as possible, using the provided on-disk size.      * @param offset the offset in the stream to read at      * @param onDiskSizeWithHeaderL the on-disk size of the block, including the header, or -1 if      *          unknown; i.e. when iterating over blocks reading in the file metadata info.      * @param pread whether to use a positional read      * @param updateMetrics whether to update the metrics      * @param intoHeap allocate ByteBuff of block from heap or off-heap.      * @see FSReader#readBlockData(long, long, boolean, boolean, boolean) for more details about the      *      useHeap.      */
 annotation|@
 name|Override
 specifier|public
@@ -5456,6 +5473,9 @@ name|pread
 parameter_list|,
 name|boolean
 name|updateMetrics
+parameter_list|,
+name|boolean
+name|intoHeap
 parameter_list|)
 throws|throws
 name|IOException
@@ -5499,6 +5519,8 @@ argument_list|,
 name|doVerificationThruHBaseChecksum
 argument_list|,
 name|updateMetrics
+argument_list|,
+name|intoHeap
 argument_list|)
 decl_stmt|;
 if|if
@@ -5616,6 +5638,8 @@ argument_list|,
 name|doVerificationThruHBaseChecksum
 argument_list|,
 name|updateMetrics
+argument_list|,
+name|intoHeap
 argument_list|)
 expr_stmt|;
 if|if
@@ -5978,7 +6002,38 @@ return|return
 name|nextBlockOnDiskSize
 return|;
 block|}
-comment|/**      * Reads a version 2 block.      *      * @param offset the offset in the stream to read at.      * @param onDiskSizeWithHeaderL the on-disk size of the block, including      *          the header and checksums if present or -1 if unknown (as a long). Can be -1      *          if we are doing raw iteration of blocks as when loading up file metadata; i.e.      *          the first read of a new file. Usually non-null gotten from the file index.      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums.      *        If HBase checksum is switched off, then use HDFS checksum. Can also flip on/off      *        reading same file if we hit a troublesome patch in an hfile.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
+specifier|private
+name|ByteBuff
+name|allocate
+parameter_list|(
+name|int
+name|size
+parameter_list|,
+name|boolean
+name|intoHeap
+parameter_list|)
+block|{
+return|return
+name|intoHeap
+condition|?
+name|ByteBuffAllocator
+operator|.
+name|HEAP
+operator|.
+name|allocate
+argument_list|(
+name|size
+argument_list|)
+else|:
+name|allocator
+operator|.
+name|allocate
+argument_list|(
+name|size
+argument_list|)
+return|;
+block|}
+comment|/**      * Reads a version 2 block.      * @param offset the offset in the stream to read at.      * @param onDiskSizeWithHeaderL the on-disk size of the block, including the header and      *          checksums if present or -1 if unknown (as a long). Can be -1 if we are doing raw      *          iteration of blocks as when loading up file metadata; i.e. the first read of a new      *          file. Usually non-null gotten from the file index.      * @param pread whether to use a positional read      * @param verifyChecksum Whether to use HBase checksums. If HBase checksum is switched off, then      *          use HDFS checksum. Can also flip on/off reading same file if we hit a troublesome      *          patch in an hfile.      * @param updateMetrics whether need to update the metrics.      * @param intoHeap allocate the ByteBuff of block from heap or off-heap.      * @return the HFileBlock or null if there is a HBase checksum mismatch      */
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -6002,6 +6057,9 @@ name|verifyChecksum
 parameter_list|,
 name|boolean
 name|updateMetrics
+parameter_list|,
+name|boolean
+name|intoHeap
 parameter_list|)
 throws|throws
 name|IOException
@@ -6203,13 +6261,15 @@ comment|// the header we read last time through here.
 name|ByteBuff
 name|onDiskBlock
 init|=
-name|allocator
+name|this
 operator|.
 name|allocate
 argument_list|(
 name|onDiskSizeWithHeader
 operator|+
 name|hdrSize
+argument_list|,
+name|intoHeap
 argument_list|)
 decl_stmt|;
 name|boolean
@@ -7614,7 +7674,7 @@ return|;
 block|}
 specifier|public
 name|HFileBlock
-name|deepClone
+name|deepCloneOnHeap
 parameter_list|()
 block|{
 return|return

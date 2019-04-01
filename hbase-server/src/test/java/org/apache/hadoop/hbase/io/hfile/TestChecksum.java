@@ -814,8 +814,18 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
+name|assertTrue
+argument_list|(
+name|b
+operator|.
+name|isOnHeap
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 name|b
@@ -1221,8 +1231,18 @@ argument_list|,
 literal|false
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
+name|assertTrue
+argument_list|(
+name|b
+operator|.
+name|isOnHeap
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// verify SingleByteBuff checksum.
 name|verifySBBCheckSum
 argument_list|(
@@ -1607,6 +1627,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|b
@@ -1741,6 +1763,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1780,6 +1804,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1818,6 +1844,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|assertTrue
@@ -1912,6 +1940,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 expr_stmt|;
 name|is
@@ -2392,6 +2422,8 @@ argument_list|,
 name|pread
 argument_list|,
 literal|false
+argument_list|,
+literal|true
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -2584,6 +2616,9 @@ name|verifyChecksum
 parameter_list|,
 name|boolean
 name|updateMetrics
+parameter_list|,
+name|boolean
+name|useHeap
 parameter_list|)
 throws|throws
 name|IOException
@@ -2616,6 +2651,8 @@ argument_list|,
 name|verifyChecksum
 argument_list|,
 name|updateMetrics
+argument_list|,
+name|useHeap
 argument_list|)
 decl_stmt|;
 name|corruptDataStream

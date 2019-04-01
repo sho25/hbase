@@ -422,8 +422,6 @@ name|int
 name|ioErrorsTolerationDuration
 parameter_list|)
 throws|throws
-name|FileNotFoundException
-throws|,
 name|IOException
 block|{
 name|super
