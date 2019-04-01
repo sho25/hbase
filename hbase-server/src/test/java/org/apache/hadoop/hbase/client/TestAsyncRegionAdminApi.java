@@ -1380,7 +1380,7 @@ name|rs
 operator|.
 name|getServerName
 argument_list|()
-argument_list|;             try
+argument_list|;         try
 block|{
 name|assertEquals
 argument_list|(
@@ -1437,7 +1437,16 @@ end_class
 begin_expr_stmt
 name|assertEquals
 argument_list|(
-literal|3
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getLiveRegionServerThreads
+argument_list|()
+operator|.
+name|size
+argument_list|()
 argument_list|,
 name|regionServerCount
 operator|.

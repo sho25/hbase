@@ -555,7 +555,7 @@ name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|3
+literal|2
 argument_list|)
 expr_stmt|;
 name|ASYNC_CONN
@@ -759,6 +759,28 @@ operator|.
 name|join
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|admin
+operator|.
+name|isBalancerEnabled
+argument_list|()
+operator|.
+name|join
+argument_list|()
+condition|)
+block|{
+name|admin
+operator|.
+name|balancerSwitch
+argument_list|(
+literal|true
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_function
 

@@ -280,6 +280,15 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|admin
+operator|.
+name|balancerSwitch
+argument_list|(
+literal|false
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
 name|List
 argument_list|<
 name|ServerName
@@ -349,7 +358,16 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|2
+name|TEST_UTIL
+operator|.
+name|getHBaseCluster
+argument_list|()
+operator|.
+name|getLiveRegionServerThreads
+argument_list|()
+operator|.
+name|size
+argument_list|()
 argument_list|,
 name|clusterRegionServers
 operator|.
@@ -537,6 +555,16 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Maybe the TRSP is still not finished at master side, since the reportRegionTransition just
+comment|// updates the procedure store, and we still need to wake up the procedure and execute it in the
+comment|// procedure executor, which is asynchronous
+name|TEST_UTIL
+operator|.
+name|waitUntilNoRegionsInTransition
+argument_list|(
+literal|10000
+argument_list|)
+expr_stmt|;
 comment|// Recommission and load regions
 for|for
 control|(
