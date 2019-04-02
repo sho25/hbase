@@ -15,7 +15,7 @@ name|hbase
 operator|.
 name|io
 operator|.
-name|hfile
+name|util
 package|;
 end_package
 
@@ -126,9 +126,17 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
+specifier|final
 class|class
 name|BlockIOUtils
 block|{
+comment|// Disallow instantiation
+specifier|private
+name|BlockIOUtils
+parameter_list|()
+block|{    }
+specifier|public
 specifier|static
 name|boolean
 name|isByteBufferReadable
@@ -185,6 +193,7 @@ name|ByteBufferReadable
 return|;
 block|}
 comment|/**    * Read length bytes into ByteBuffers directly.    * @param buf the destination {@link ByteBuff}    * @param dis the HDFS input stream which implement the ByteBufferReadable interface.    * @param length bytes to read.    * @throws IOException exception to throw if any error happen    */
+specifier|public
 specifier|static
 name|void
 name|readFully
@@ -382,6 +391,123 @@ name|bytesRead
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Copying bytes from InputStream to {@link ByteBuff} by using an temporary heap byte[] (default    * size is 1024 now).    * @param in the InputStream to read    * @param out the destination {@link ByteBuff}    * @param length to read    * @throws IOException if any io error encountered.    */
+specifier|public
+specifier|static
+name|void
+name|readFullyWithHeapBuffer
+parameter_list|(
+name|InputStream
+name|in
+parameter_list|,
+name|ByteBuff
+name|out
+parameter_list|,
+name|int
+name|length
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|byte
+index|[]
+name|buffer
+init|=
+operator|new
+name|byte
+index|[
+literal|1024
+index|]
+decl_stmt|;
+if|if
+condition|(
+name|length
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Length must not be negative: "
+operator|+
+name|length
+argument_list|)
+throw|;
+block|}
+name|int
+name|remain
+init|=
+name|length
+decl_stmt|,
+name|count
+decl_stmt|;
+while|while
+condition|(
+name|remain
+operator|>
+literal|0
+condition|)
+block|{
+name|count
+operator|=
+name|in
+operator|.
+name|read
+argument_list|(
+name|buffer
+argument_list|,
+literal|0
+argument_list|,
+name|Math
+operator|.
+name|min
+argument_list|(
+name|remain
+argument_list|,
+name|buffer
+operator|.
+name|length
+argument_list|)
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|count
+operator|<
+literal|0
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Premature EOF from inputStream, but still need "
+operator|+
+name|remain
+operator|+
+literal|" bytes"
+argument_list|)
+throw|;
+block|}
+name|out
+operator|.
+name|put
+argument_list|(
+name|buffer
+argument_list|,
+literal|0
+argument_list|,
+name|count
+argument_list|)
+expr_stmt|;
+name|remain
+operator|-=
+name|count
+expr_stmt|;
+block|}
+block|}
 comment|/**    * Read from an input stream at least<code>necessaryLen</code> and if possible,    *<code>extraLen</code> also if available. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but specifies a number of "extra"    * bytes to also optionally read.    * @param in the input stream to read from    * @param buf the buffer to read into    * @param bufOffset the destination offset in the buffer    * @param necessaryLen the number of bytes that are absolutely necessary to read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if succeeded reading the extra bytes    * @throws IOException if failed to read the necessary bytes    */
 specifier|private
 specifier|static
@@ -500,6 +626,7 @@ literal|0
 return|;
 block|}
 comment|/**    * Read bytes into ByteBuffers directly, those buffers either contains the extraLen bytes or only    * contains necessaryLen bytes, which depends on how much bytes do the last time we read.    * @param buf the destination {@link ByteBuff}.    * @param dis input stream to read.    * @param necessaryLen bytes which we must read    * @param extraLen bytes which we may read    * @return if the returned flag is true, then we've finished to read the extraLen into our    *         ByteBuffers, otherwise we've not read the extraLen bytes yet.    * @throws IOException if failed to read the necessary bytes.    */
+specifier|public
 specifier|static
 name|boolean
 name|readWithExtra
@@ -742,6 +869,7 @@ operator|)
 return|;
 block|}
 comment|/**    * Read from an input stream at least<code>necessaryLen</code> and if possible,    *<code>extraLen</code> also if available. Analogous to    * {@link IOUtils#readFully(InputStream, byte[], int, int)}, but uses positional read and    * specifies a number of "extra" bytes that would be desirable but not absolutely necessary to    * read.    * @param buff ByteBuff to read into.    * @param dis the input stream to read from    * @param position the position within the stream from which to start reading    * @param necessaryLen the number of bytes that are absolutely necessary to read    * @param extraLen the number of extra bytes that would be nice to read    * @return true if and only if extraLen is> 0 and reading those extra bytes was successful    * @throws IOException if failed to read the necessary bytes    */
+specifier|public
 specifier|static
 name|boolean
 name|preadWithExtra

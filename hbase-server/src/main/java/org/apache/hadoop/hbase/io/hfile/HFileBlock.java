@@ -223,6 +223,24 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|util
+operator|.
+name|BlockIOUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1880,11 +1898,29 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Returns a buffer that does not include the header or checksum.    *    * @return the buffer with header skipped and checksum omitted.    */
+comment|/**    * Returns a buffer that does not include the header and checksum.    * @return the buffer with header skipped and checksum omitted.    */
 specifier|public
 name|ByteBuff
 name|getBufferWithoutHeader
 parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|getBufferWithoutHeader
+argument_list|(
+literal|false
+argument_list|)
+return|;
+block|}
+comment|/**    * Returns a buffer that does not include the header or checksum.    * @param withChecksum to indicate whether include the checksum or not.    * @return the buffer with header skipped and checksum omitted.    */
+specifier|public
+name|ByteBuff
+name|getBufferWithoutHeader
+parameter_list|(
+name|boolean
+name|withChecksum
+parameter_list|)
 block|{
 name|ByteBuff
 name|dup
@@ -1892,7 +1928,16 @@ init|=
 name|getBufferReadOnly
 argument_list|()
 decl_stmt|;
-comment|// Now set it up so Buffer spans content only -- no header or no checksums.
+name|int
+name|delta
+init|=
+name|withChecksum
+condition|?
+literal|0
+else|:
+name|totalChecksumBytes
+argument_list|()
+decl_stmt|;
 return|return
 name|dup
 operator|.
@@ -1909,8 +1954,7 @@ operator|.
 name|limit
 argument_list|()
 operator|-
-name|totalChecksumBytes
-argument_list|()
+name|delta
 argument_list|)
 operator|.
 name|slice
@@ -2206,18 +2250,23 @@ init|=
 name|headerSize
 argument_list|()
 decl_stmt|;
+name|dup
+operator|.
+name|rewind
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|dup
 operator|.
-name|capacity
+name|remaining
 argument_list|()
 operator|!=
 name|expectedBufLimit
 operator|&&
 name|dup
 operator|.
-name|capacity
+name|remaining
 argument_list|()
 operator|!=
 name|expectedBufLimit
@@ -2233,7 +2282,7 @@ literal|"Invalid buffer capacity: "
 operator|+
 name|dup
 operator|.
-name|capacity
+name|remaining
 argument_list|()
 operator|+
 literal|", expected "
@@ -2751,7 +2800,9 @@ argument_list|,
 name|unpacked
 operator|.
 name|getBufferWithoutHeader
-argument_list|()
+argument_list|(
+literal|true
+argument_list|)
 argument_list|,
 name|dup
 argument_list|)
@@ -2798,7 +2849,6 @@ name|capacityNeeded
 argument_list|)
 decl_stmt|;
 comment|// Copy header bytes into newBuf.
-comment|// newBuf is HBB so no issue in calling array()
 name|buf
 operator|.
 name|position
