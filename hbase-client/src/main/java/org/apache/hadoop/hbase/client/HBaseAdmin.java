@@ -12225,7 +12225,9 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
-throw|throw
+name|IOException
+name|ioe
+init|=
 operator|new
 name|InterruptedIOException
 argument_list|(
@@ -12233,6 +12235,16 @@ literal|"Interrupt while waiting on "
 operator|+
 name|future
 argument_list|)
+decl_stmt|;
+name|ioe
+operator|.
+name|initCause
+argument_list|(
+name|e
+argument_list|)
+expr_stmt|;
+throw|throw
+name|ioe
 throw|;
 block|}
 catch|catch
