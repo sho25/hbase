@@ -405,6 +405,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|Superusers
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|User
 import|;
 end_import
@@ -2014,6 +2030,18 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|user
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|Superusers
+operator|.
+name|isSuperUser
+argument_list|(
+name|user
+argument_list|)
+operator|&&
 name|spaceQuotaManager
 operator|!=
 literal|null
@@ -2032,6 +2060,8 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+comment|// Enter here only when:
+comment|// It's a user generated req, the user is super user, quotas enabled, compactions disabled.
 name|String
 name|reason
 init|=

@@ -342,6 +342,21 @@ throw|;
 block|}
 if|if
 condition|(
+name|user
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IllegalArgumentException
+argument_list|(
+literal|"Null user passed for super user check"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
 name|superUsers
 operator|.
 name|contains
