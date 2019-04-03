@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * IO engine that stores data in memory using an array of ByteBuffers  * {@link ByteBufferArray}.  *  *<h2>How it Works</h2>  * First, see {@link ByteBufferArray} and how it gives a view across multiple ByteBuffers managed  * by it internally. This class does the physical BB create and the write and read to the  * underlying BBs. So we will create N BBs based on the total BC capacity specified on create  * of the ByteBufferArray. So say we have 10 GB of off heap BucketCache, we will create 2560 such  * BBs inside our ByteBufferArray.  *   *<p>Now the way BucketCache works is that the entire 10 GB is split into diff sized buckets: by  * default from 5 KB to 513 KB. Within each bucket of a particular size, there are  * usually more than one bucket 'block'. The way it is calculate in bucketcache is that the total  * bucketcache size is divided by 4 (hard-coded currently) * max size option. So using defaults,  * buckets will be is 4 * 513kb (the biggest default value) = 2052kb. A bucket of 2052kb at offset  * zero will serve out bucket 'blocks' of 5kb, the next bucket will do the next size up and so on  * up to the maximum (default) of 513kb).  *   *<p>When we write blocks to the bucketcache, we will see which bucket size group it best fits.  * So a 4 KB block size goes to the 5 KB size group. Each of the block writes, writes within its  * appropriate bucket. Though the bucket is '4kb' in size, it will occupy one of the   * 5 KB bucket 'blocks' (even if actual size of the bucket is less). Bucket 'blocks' will not span  * buckets.  *   *<p>But you can see the physical memory under the bucket 'blocks' can be split across the  * underlying backing BBs from ByteBufferArray. All is split into 4 MB sized BBs.  *   *<p>Each Bucket knows its offset in the entire space of BC and when block is written the offset  * arrives at ByteBufferArray and it figures which BB to write to. It may so happen that the entire  * block to be written does not fit a particular backing ByteBufferArray so the remainder goes to  * another BB. See {@link ByteBufferArray#putMultiple(long, int, byte[])}.  So said all these, when we read a block it may be possible that the bytes of that blocks is physically placed in 2 adjucent BBs.  In such case also, we avoid any copy need by having the MBB...  */
+comment|/**  * IO engine that stores data in memory using an array of ByteBuffers {@link ByteBufferArray}.  *<p>  *<h2>How it Works</h2> First, see {@link ByteBufferArray} and how it gives a view across multiple  * ByteBuffers managed by it internally. This class does the physical BB create and the write and  * read to the underlying BBs. So we will create N BBs based on the total BC capacity specified on  * create of the ByteBufferArray. So say we have 10 GB of off heap BucketCache, we will create 2560  * such BBs inside our ByteBufferArray.<br>  *<p>  * Now the way BucketCache works is that the entire 10 GB is split into diff sized buckets: by  * default from 5 KB to 513 KB. Within each bucket of a particular size, there are usually more than  * one bucket 'block'. The way it is calculate in bucketcache is that the total bucketcache size is  * divided by 4 (hard-coded currently) * max size option. So using defaults, buckets will be is 4 *  * 513kb (the biggest default value) = 2052kb. A bucket of 2052kb at offset zero will serve out  * bucket 'blocks' of 5kb, the next bucket will do the next size up and so on up to the maximum  * (default) of 513kb).<br>  *<p>  * When we write blocks to the bucketcache, we will see which bucket size group it best fits. So a 4  * KB block size goes to the 5 KB size group. Each of the block writes, writes within its  * appropriate bucket. Though the bucket is '4kb' in size, it will occupy one of the 5 KB bucket  * 'blocks' (even if actual size of the bucket is less). Bucket 'blocks' will not span buckets.<br>  *<p>  * But you can see the physical memory under the bucket 'blocks' can be split across the underlying  * backing BBs from ByteBufferArray. All is split into 4 MB sized BBs.<br>  *<p>  * Each Bucket knows its offset in the entire space of BC and when block is written the offset  * arrives at ByteBufferArray and it figures which BB to write to. It may so happen that the entire  * block to be written does not fit a particular backing ByteBufferArray so the remainder goes to  * another BB. See {@link ByteBufferArray#write(long, ByteBuff)}.<br>  * So said all these, when we read a block it may be possible that the bytes of that blocks is  * physically placed in 2 adjucent BBs. In such case also, we avoid any copy need by having the  * MBB...  */
 end_comment
 
 begin_class
@@ -202,23 +202,10 @@ expr_stmt|;
 name|ByteBufferAllocator
 name|allocator
 init|=
-operator|new
-name|ByteBufferAllocator
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|ByteBuffer
-name|allocate
 parameter_list|(
-name|long
 name|size
 parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
+lambda|->
 name|ByteBuffer
 operator|.
 name|allocateDirect
@@ -228,9 +215,6 @@ name|int
 operator|)
 name|size
 argument_list|)
-return|;
-block|}
-block|}
 decl_stmt|;
 name|bufferArray
 operator|=
@@ -352,7 +336,7 @@ name|SHARED
 argument_list|)
 return|;
 block|}
-comment|/**    * Transfers data from the given byte buffer to the buffer array    * @param srcBuffer the given byte buffer from which bytes are to be read    * @param offset The offset in the ByteBufferArray of the first byte to be    *          written    * @throws IOException throws IOException if writing to the array throws exception    */
+comment|/**    * Transfers data from the given {@link ByteBuffer} to the buffer array. Position of source will    * be advanced by the {@link ByteBuffer#remaining()}.    * @param src the given byte buffer from which bytes are to be read.    * @param offset The offset in the ByteBufferArray of the first byte to be written    * @throws IOException throws IOException if writing to the array throws exception    */
 annotation|@
 name|Override
 specifier|public
@@ -360,7 +344,7 @@ name|void
 name|write
 parameter_list|(
 name|ByteBuffer
-name|srcBuffer
+name|src
 parameter_list|,
 name|long
 name|offset
@@ -368,35 +352,22 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-assert|assert
-name|srcBuffer
-operator|.
-name|hasArray
-argument_list|()
-assert|;
 name|bufferArray
 operator|.
-name|putMultiple
+name|write
 argument_list|(
 name|offset
 argument_list|,
-name|srcBuffer
+name|ByteBuff
 operator|.
-name|remaining
-argument_list|()
-argument_list|,
-name|srcBuffer
-operator|.
-name|array
-argument_list|()
-argument_list|,
-name|srcBuffer
-operator|.
-name|arrayOffset
-argument_list|()
+name|wrap
+argument_list|(
+name|src
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * Transfers data from the given {@link ByteBuff} to the buffer array. Position of source will be    * advanced by the {@link ByteBuffer#remaining()}.    * @param src the given byte buffer from which bytes are to be read.    * @param offset The offset in the ByteBufferArray of the first byte to be written    * @throws IOException throws IOException if writing to the array throws exception    */
 annotation|@
 name|Override
 specifier|public
@@ -404,7 +375,7 @@ name|void
 name|write
 parameter_list|(
 name|ByteBuff
-name|srcBuffer
+name|src
 parameter_list|,
 name|long
 name|offset
@@ -412,34 +383,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// When caching block into BucketCache there will be single buffer backing for this HFileBlock.
-comment|// This will work for now. But from the DFS itself if we get DBB then this may not hold true.
-assert|assert
-name|srcBuffer
-operator|.
-name|hasArray
-argument_list|()
-assert|;
 name|bufferArray
 operator|.
-name|putMultiple
+name|write
 argument_list|(
 name|offset
 argument_list|,
-name|srcBuffer
-operator|.
-name|remaining
-argument_list|()
-argument_list|,
-name|srcBuffer
-operator|.
-name|array
-argument_list|()
-argument_list|,
-name|srcBuffer
-operator|.
-name|arrayOffset
-argument_list|()
+name|src
 argument_list|)
 expr_stmt|;
 block|}
