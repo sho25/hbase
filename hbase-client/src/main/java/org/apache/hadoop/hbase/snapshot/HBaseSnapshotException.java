@@ -157,7 +157,7 @@ parameter_list|(
 name|String
 name|message
 parameter_list|,
-name|Exception
+name|Throwable
 name|e
 parameter_list|)
 block|{

@@ -16691,6 +16691,8 @@ operator|new
 name|RestoreSnapshotException
 argument_list|(
 name|msg
+argument_list|,
+name|err2
 argument_list|)
 argument_list|)
 expr_stmt|;
