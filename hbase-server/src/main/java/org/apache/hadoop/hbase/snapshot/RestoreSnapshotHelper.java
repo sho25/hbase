@@ -4424,6 +4424,8 @@ argument_list|()
 operator|.
 name|getPath
 argument_list|()
+operator|+
+literal|"/"
 argument_list|)
 condition|)
 block|{
