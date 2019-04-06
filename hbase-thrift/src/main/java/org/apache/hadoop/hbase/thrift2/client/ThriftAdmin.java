@@ -4726,6 +4726,27 @@ name|createTableAsync
 parameter_list|(
 name|TableDescriptor
 name|desc
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"createTableAsync not supported in ThriftAdmin"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|createTableAsync
+parameter_list|(
+name|TableDescriptor
+name|desc
 parameter_list|,
 name|byte
 index|[]

@@ -806,6 +806,7 @@ throws|,
 name|IOException
 function_decl|;
 comment|/**    * Creates a new table. Synchronous operation.    *    * @param desc table descriptor for table    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
+specifier|default
 name|void
 name|createTable
 parameter_list|(
@@ -814,8 +815,24 @@ name|desc
 parameter_list|)
 throws|throws
 name|IOException
-function_decl|;
-comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+block|{
+name|get
+argument_list|(
+name|createTableAsync
+argument_list|(
+name|desc
+argument_list|)
+argument_list|,
+name|getSyncWaitTimeout
+argument_list|()
+argument_list|,
+name|TimeUnit
+operator|.
+name|MILLISECONDS
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    */
 name|void
 name|createTable
 parameter_list|(
@@ -870,7 +887,20 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit)    *    to wait on the operation to complete.    */
+comment|/**    * Creates a new table but does not block and wait for it to come online. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    *<p/>    * Throws IllegalArgumentException Bad table name, if the split keys are repeated and if the split    * key has empty byte array.    * @param desc table descriptor for table    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
+name|Future
+argument_list|<
+name|Void
+argument_list|>
+name|createTableAsync
+parameter_list|(
+name|TableDescriptor
+name|desc
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Creates a new table but does not block and wait for it to come online. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    *<p/>    * Throws IllegalArgumentException Bad table name, if the split keys are repeated and if the split    * key has empty byte array.    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
 name|Future
 argument_list|<
 name|Void
