@@ -5979,14 +5979,10 @@ name|future
 operator|.
 name|completeExceptionally
 argument_list|(
-operator|new
-name|IOException
-argument_list|(
 name|controller
 operator|.
-name|errorText
+name|getFailed
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
