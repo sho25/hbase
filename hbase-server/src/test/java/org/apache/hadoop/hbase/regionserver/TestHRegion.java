@@ -46193,6 +46193,9 @@ parameter_list|(
 specifier|final
 name|ColumnFamilyDescriptor
 name|family
+parameter_list|,
+name|boolean
+name|warmup
 parameter_list|)
 throws|throws
 name|IOException
@@ -46252,6 +46255,8 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|warmup
 argument_list|)
 return|;
 block|}
@@ -46266,6 +46271,8 @@ argument_list|,
 name|this
 operator|.
 name|conf
+argument_list|,
+name|warmup
 argument_list|)
 return|;
 block|}
@@ -46292,6 +46299,9 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|confParam
+parameter_list|,
+name|boolean
+name|warmup
 parameter_list|)
 throws|throws
 name|IOException
@@ -46303,6 +46313,8 @@ argument_list|,
 name|family
 argument_list|,
 name|confParam
+argument_list|,
+name|warmup
 argument_list|)
 expr_stmt|;
 block|}

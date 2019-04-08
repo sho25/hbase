@@ -2974,7 +2974,7 @@ name|getProcId
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|public
 name|TransitRegionStateProcedure
 name|createMoveRegionProcedure
 parameter_list|(

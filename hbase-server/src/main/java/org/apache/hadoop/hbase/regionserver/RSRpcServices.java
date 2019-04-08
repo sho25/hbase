@@ -13625,27 +13625,6 @@ return|return
 name|response
 return|;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Warming up Region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|htd
 operator|=
 name|regionServer
@@ -13686,6 +13665,18 @@ return|return
 name|response
 return|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Warming up region "
+operator|+
+name|region
+operator|.
+name|getRegionNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HRegion
 operator|.
 name|warmupHRegion

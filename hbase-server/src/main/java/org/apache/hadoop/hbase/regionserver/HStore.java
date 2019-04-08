@@ -1877,6 +1877,9 @@ parameter_list|,
 specifier|final
 name|Configuration
 name|confParam
+parameter_list|,
+name|boolean
+name|warmup
 parameter_list|)
 throws|throws
 name|IOException
@@ -2234,7 +2237,9 @@ argument_list|>
 name|hStoreFiles
 init|=
 name|loadStoreFiles
-argument_list|()
+argument_list|(
+name|warmup
+argument_list|)
 decl_stmt|;
 comment|// Move the storeSize calculation out of loadStoreFiles() method, because the secondary read
 comment|// replica's refreshStoreFiles() will also use loadStoreFiles() to refresh its store files and
@@ -3153,7 +3158,10 @@ argument_list|<
 name|HStoreFile
 argument_list|>
 name|loadStoreFiles
-parameter_list|()
+parameter_list|(
+name|boolean
+name|warmup
+parameter_list|)
 throws|throws
 name|IOException
 block|{
@@ -3175,6 +3183,8 @@ return|return
 name|openStoreFiles
 argument_list|(
 name|files
+argument_list|,
+name|warmup
 argument_list|)
 return|;
 block|}
@@ -3190,6 +3200,9 @@ argument_list|<
 name|StoreFileInfo
 argument_list|>
 name|files
+parameter_list|,
+name|boolean
+name|warmup
 parameter_list|)
 throws|throws
 name|IOException
@@ -3510,6 +3523,13 @@ throw|throw
 name|ioe
 throw|;
 block|}
+comment|// Should not archive the compacted store files when region warmup. See HBASE-22163.
+if|if
+condition|(
+operator|!
+name|warmup
+condition|)
+block|{
 comment|// Remove the compacted files from result
 name|List
 argument_list|<
@@ -3626,6 +3646,7 @@ argument_list|,
 name|filesToRemove
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|results
@@ -4032,6 +4053,8 @@ init|=
 name|openStoreFiles
 argument_list|(
 name|toBeAddedFiles
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 comment|// propogate the file changes to the underlying store file manager
