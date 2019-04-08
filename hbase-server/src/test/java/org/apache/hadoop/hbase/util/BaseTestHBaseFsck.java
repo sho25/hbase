@@ -2082,7 +2082,7 @@ operator|)
 name|connection
 operator|)
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 name|deleteTable

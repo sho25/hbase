@@ -1545,7 +1545,7 @@ expr_stmt|;
 comment|// invalid connection cache
 name|conn
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 comment|// stop client zk cluster

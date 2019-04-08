@@ -1965,7 +1965,7 @@ operator|)
 name|c
 operator|)
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 block|}
@@ -2151,7 +2151,7 @@ operator|)
 name|c
 operator|)
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 block|}

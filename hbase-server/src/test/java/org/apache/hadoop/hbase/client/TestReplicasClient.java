@@ -1634,7 +1634,7 @@ name|getConnection
 argument_list|()
 operator|)
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 try|try
@@ -1718,7 +1718,7 @@ name|getConnection
 argument_list|()
 operator|)
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 block|}
@@ -2172,7 +2172,7 @@ try|try
 block|{
 name|hc
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 name|RegionLocations
@@ -2238,7 +2238,7 @@ argument_list|)
 expr_stmt|;
 name|hc
 operator|.
-name|clearRegionCache
+name|clearRegionLocationCache
 argument_list|()
 expr_stmt|;
 name|rl
