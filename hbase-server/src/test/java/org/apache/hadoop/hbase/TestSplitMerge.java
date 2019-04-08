@@ -527,6 +527,11 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|waitUntilNoRegionsInTransition
+argument_list|()
+expr_stmt|;
 name|RegionInfo
 name|regionA
 init|=
