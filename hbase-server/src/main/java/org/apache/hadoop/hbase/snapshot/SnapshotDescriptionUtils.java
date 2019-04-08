@@ -536,30 +536,6 @@ literal|60000
 operator|*
 literal|5
 decl_stmt|;
-comment|/**    * By default, check to see if the snapshot is complete (ms)    * @deprecated Use {@link #DEFAULT_MAX_WAIT_TIME} instead.    * */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|SNAPSHOT_TIMEOUT_MILLIS_DEFAULT
-init|=
-literal|60000
-operator|*
-literal|5
-decl_stmt|;
-comment|/**    * Conf key for # of ms elapsed before injecting a snapshot timeout error when waiting for    * completion.    * @deprecated Use {@link #MASTER_SNAPSHOT_TIMEOUT_MILLIS} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|SNAPSHOT_TIMEOUT_MILLIS_KEY
-init|=
-literal|"hbase.snapshot.master.timeoutMillis"
-decl_stmt|;
 specifier|private
 name|SnapshotDescriptionUtils
 parameter_list|()
@@ -619,7 +595,7 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-name|SNAPSHOT_TIMEOUT_MILLIS_KEY
+name|MASTER_SNAPSHOT_TIMEOUT_MILLIS
 argument_list|,
 name|defaultMaxWaitTime
 argument_list|)

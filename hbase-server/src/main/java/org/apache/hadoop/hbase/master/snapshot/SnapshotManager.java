@@ -5707,11 +5707,11 @@ name|getLong
 argument_list|(
 name|SnapshotDescriptionUtils
 operator|.
-name|SNAPSHOT_TIMEOUT_MILLIS_KEY
+name|MASTER_SNAPSHOT_TIMEOUT_MILLIS
 argument_list|,
 name|SnapshotDescriptionUtils
 operator|.
-name|SNAPSHOT_TIMEOUT_MILLIS_DEFAULT
+name|DEFAULT_MAX_WAIT_TIME
 argument_list|)
 argument_list|,
 name|conf
