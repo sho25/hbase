@@ -3463,16 +3463,12 @@ name|RECOVERED_EDITS_DIR
 argument_list|)
 return|;
 block|}
-comment|/**    * Check whether there is recovered.edits in the region dir    * @param walFS FileSystem    * @param conf conf    * @param regionInfo the region to check    * @throws IOException IOException    * @return true if recovered.edits exist in the region dir    */
+comment|/**    * Check whether there is recovered.edits in the region dir    * @param conf conf    * @param regionInfo the region to check    * @throws IOException IOException    * @return true if recovered.edits exist in the region dir    */
 specifier|public
 specifier|static
 name|boolean
 name|hasRecoveredEdits
 parameter_list|(
-specifier|final
-name|FileSystem
-name|walFS
-parameter_list|,
 specifier|final
 name|Configuration
 name|conf
@@ -3531,7 +3527,12 @@ name|files
 init|=
 name|getSplitEditFilesSorted
 argument_list|(
-name|walFS
+name|FSUtils
+operator|.
+name|getWALFileSystem
+argument_list|(
+name|conf
+argument_list|)
 argument_list|,
 name|regionDir
 argument_list|)

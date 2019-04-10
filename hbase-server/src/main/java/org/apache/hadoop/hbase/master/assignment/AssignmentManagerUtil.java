@@ -1380,14 +1380,6 @@ name|hasRecoveredEdits
 argument_list|(
 name|env
 operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getFileSystem
-argument_list|()
-argument_list|,
-name|env
-operator|.
 name|getMasterConfiguration
 argument_list|()
 argument_list|,
