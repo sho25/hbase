@@ -1299,24 +1299,6 @@ name|security
 operator|.
 name|access
 operator|.
-name|AccessControlLists
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|security
-operator|.
-name|access
-operator|.
 name|AccessController
 import|;
 end_import
@@ -1356,6 +1338,24 @@ operator|.
 name|Permission
 operator|.
 name|Action
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
+name|access
+operator|.
+name|PermissionStorage
 import|;
 end_import
 
@@ -19570,13 +19570,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -19699,13 +19699,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeUserPermission
 argument_list|(
@@ -19955,7 +19955,7 @@ literal|false
 decl_stmt|;
 name|perms
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getUserTablePermissions
 argument_list|(
@@ -19988,7 +19988,7 @@ condition|)
 block|{
 name|perms
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getUserNamespacePermissions
 argument_list|(
@@ -20015,7 +20015,7 @@ else|else
 block|{
 name|perms
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getUserPermissions
 argument_list|(
@@ -20049,7 +20049,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// Adding superusers explicitly to the result set as AccessControlLists do not store
+comment|// Adding superusers explicitly to the result set as PermissionStorage do not store
 comment|// them. Also using acl as table name to be inline with the results of global admin and
 comment|// will help in avoiding any leakage of information about being superusers.
 for|for

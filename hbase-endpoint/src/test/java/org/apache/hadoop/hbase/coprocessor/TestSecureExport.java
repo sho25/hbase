@@ -547,7 +547,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|AccessControlLists
+name|Permission
 import|;
 end_import
 
@@ -565,7 +565,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|Permission
+name|PermissionStorage
 import|;
 end_import
 
@@ -1744,7 +1744,7 @@ name|UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1762,7 +1762,7 @@ name|UTIL
 operator|.
 name|waitTableEnabled
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|,
@@ -2042,7 +2042,7 @@ name|assertEquals
 argument_list|(
 literal|4
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(

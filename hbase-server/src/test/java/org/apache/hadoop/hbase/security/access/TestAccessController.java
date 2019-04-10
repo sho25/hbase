@@ -2410,7 +2410,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -3000,7 +3000,7 @@ name|assertEquals
 argument_list|(
 literal|5
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -3108,7 +3108,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -3125,7 +3125,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getNamespacePermissions
 argument_list|(
@@ -3793,7 +3793,7 @@ argument_list|(
 name|CP_ENV
 argument_list|)
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -7816,18 +7816,6 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-init|;
-name|Table
-name|acl
-operator|=
-name|conn
-operator|.
-name|getTable
-argument_list|(
-name|AccessControlLists
-operator|.
-name|ACL_TABLE_NAME
-argument_list|)
 init|)
 block|{
 name|conn
@@ -8020,7 +8008,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -8119,7 +8107,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -12372,7 +12360,7 @@ name|systemUserConnection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -16953,7 +16941,7 @@ name|getUserPermissions
 argument_list|(
 name|systemUserConnection
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|toNamespaceEntry
 argument_list|(
@@ -17557,7 +17545,7 @@ comment|// Verify that we can read sys-tables
 name|String
 name|aclTableName
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|.
@@ -20576,7 +20564,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

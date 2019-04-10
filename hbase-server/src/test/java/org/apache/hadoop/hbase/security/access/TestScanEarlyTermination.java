@@ -828,7 +828,7 @@ name|TEST_UTIL
 operator|.
 name|waitTableEnabled
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1044,7 +1044,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(

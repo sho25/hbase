@@ -1044,7 +1044,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

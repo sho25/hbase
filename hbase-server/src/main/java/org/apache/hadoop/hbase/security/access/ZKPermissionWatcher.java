@@ -797,7 +797,7 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|isNamespaceEntry
 argument_list|(
@@ -1311,7 +1311,7 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|isNamespaceEntry
 argument_list|(
@@ -1323,7 +1323,7 @@ name|authManager
 operator|.
 name|refreshNamespaceCacheFromWritable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|fromNamespaceEntry
 argument_list|(
@@ -1604,7 +1604,7 @@ name|joinZNode
 argument_list|(
 name|zkNode
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|NAMESPACE_PREFIX
 operator|+

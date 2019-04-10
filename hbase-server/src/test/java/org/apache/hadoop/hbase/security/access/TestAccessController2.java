@@ -1009,7 +1009,7 @@ name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1182,7 +1182,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -1305,7 +1305,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -1322,7 +1322,7 @@ name|assertEquals
 argument_list|(
 literal|0
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getNamespacePermissions
 argument_list|(
@@ -1490,7 +1490,7 @@ name|UserPermission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -2334,7 +2334,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2352,7 +2352,7 @@ argument_list|)
 operator|.
 name|addColumn
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_LIST_FAMILY
 argument_list|,
@@ -2486,7 +2486,7 @@ name|conn
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

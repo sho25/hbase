@@ -862,7 +862,7 @@ name|byte
 index|[]
 name|serialized
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|writePermissionsAsBytes
 argument_list|(
@@ -1156,7 +1156,7 @@ name|byte
 index|[]
 name|serialized2
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|writePermissionsAsBytes
 argument_list|(

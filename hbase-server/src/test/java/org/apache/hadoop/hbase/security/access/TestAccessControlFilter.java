@@ -615,7 +615,7 @@ name|TEST_UTIL
 operator|.
 name|waitTableEnabled
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|.

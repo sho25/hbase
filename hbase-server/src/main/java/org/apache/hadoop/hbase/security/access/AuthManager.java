@@ -763,7 +763,7 @@ name|Permission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|readPermissions
 argument_list|(
@@ -790,7 +790,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_GLOBAL_NAME
 argument_list|)
@@ -878,7 +878,7 @@ name|Permission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|readPermissions
 argument_list|(
@@ -1535,7 +1535,7 @@ condition|)
 block|{
 name|table
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 expr_stmt|;
@@ -1803,7 +1803,7 @@ condition|)
 block|{
 name|table
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 expr_stmt|;
@@ -2186,7 +2186,7 @@ name|Permission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getCellPermissionsForUser
 argument_list|(

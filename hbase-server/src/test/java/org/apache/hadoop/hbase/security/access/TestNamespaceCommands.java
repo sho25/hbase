@@ -1184,7 +1184,7 @@ name|UTIL
 operator|.
 name|waitTableAvailable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|.
@@ -1619,7 +1619,7 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1634,7 +1634,7 @@ name|UserPermission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getNamespacePermissions
 argument_list|(
@@ -1728,7 +1728,7 @@ argument_list|)
 expr_stmt|;
 name|perms
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getNamespacePermissions
 argument_list|(
@@ -1866,7 +1866,7 @@ argument_list|)
 expr_stmt|;
 name|perms
 operator|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getNamespacePermissions
 argument_list|(
@@ -3204,7 +3204,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -3295,7 +3295,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

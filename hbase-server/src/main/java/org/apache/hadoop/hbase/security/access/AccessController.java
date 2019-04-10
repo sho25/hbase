@@ -2164,7 +2164,7 @@ argument_list|>
 argument_list|>
 name|tables
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|loadAll
 argument_list|(
@@ -2223,7 +2223,7 @@ name|byte
 index|[]
 name|serialized
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|writePermissionsAsBytes
 argument_list|(
@@ -2338,7 +2338,7 @@ name|matchingFamily
 argument_list|(
 name|cell
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_LIST_FAMILY
 argument_list|)
@@ -2401,7 +2401,7 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2428,7 +2428,7 @@ name|UserPermission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getPermissions
 argument_list|(
@@ -2451,7 +2451,7 @@ name|byte
 index|[]
 name|serialized
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|writePermissionsAsBytes
 argument_list|(
@@ -4415,7 +4415,7 @@ argument_list|(
 operator|new
 name|ArrayBackedTag
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TAG_TYPE
 argument_list|,
@@ -4601,7 +4601,7 @@ operator|.
 name|getType
 argument_list|()
 operator|==
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TAG_TYPE
 condition|)
@@ -5216,7 +5216,7 @@ comment|// this hook is getting called. In such a case, we will need a wait logi
 comment|// wait till the acl table is created.
 if|if
 condition|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|isAclTable
 argument_list|(
@@ -5252,7 +5252,7 @@ argument_list|()
 operator|+
 literal|". "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+
@@ -5362,13 +5362,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -5502,13 +5502,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeTablePermissions
 argument_list|(
@@ -5617,7 +5617,7 @@ name|UserPermission
 argument_list|>
 name|acls
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getUserTablePermissions
 argument_list|(
@@ -5753,13 +5753,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -5966,13 +5966,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -6061,7 +6061,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_GLOBAL_NAME
 argument_list|)
@@ -6077,7 +6077,7 @@ name|AccessDeniedException
 argument_list|(
 literal|"Not allowed to disable "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+
@@ -6572,7 +6572,7 @@ name|admin
 operator|.
 name|tableExists
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -6615,7 +6615,7 @@ name|ColumnFamilyDescriptorBuilder
 operator|.
 name|newBuilder
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_LIST_FAMILY
 argument_list|)
@@ -6666,7 +6666,7 @@ name|TableDescriptorBuilder
 operator|.
 name|newBuilder
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -7289,13 +7289,13 @@ argument_list|()
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeNamespacePermissions
 argument_list|(
@@ -7333,7 +7333,7 @@ name|namespace
 operator|+
 literal|" entry deleted in "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+
@@ -7864,7 +7864,7 @@ return|return;
 block|}
 if|if
 condition|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|isAclRegion
 argument_list|(
@@ -11319,7 +11319,7 @@ operator|.
 name|getType
 argument_list|()
 operator|!=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TAG_TYPE
 condition|)
@@ -11402,7 +11402,7 @@ argument_list|(
 operator|new
 name|ArrayBackedTag
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TAG_TYPE
 argument_list|,
@@ -12250,7 +12250,7 @@ literal|"This method "
 operator|+
 literal|"can only execute at "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+
@@ -12473,7 +12473,7 @@ literal|"This method "
 operator|+
 literal|"can only execute at "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+
@@ -12843,7 +12843,7 @@ literal|"This method "
 operator|+
 literal|"can only execute at "
 operator|+
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 operator|+

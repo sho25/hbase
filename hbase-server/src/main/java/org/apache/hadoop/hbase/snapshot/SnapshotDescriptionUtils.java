@@ -239,7 +239,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|AccessControlLists
+name|PermissionStorage
 import|;
 end_import
 
@@ -1470,7 +1470,7 @@ name|admin
 operator|.
 name|tableExists
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1531,7 +1531,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(

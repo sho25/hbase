@@ -77,7 +77,7 @@ name|security
 operator|.
 name|access
 operator|.
-name|AccessControlLists
+name|PermissionStorage
 import|;
 end_import
 
@@ -274,7 +274,7 @@ name|TEST_UTIL
 operator|.
 name|waitTableEnabled
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

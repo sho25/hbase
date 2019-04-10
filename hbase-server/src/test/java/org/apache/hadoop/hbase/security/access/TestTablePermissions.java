@@ -727,7 +727,7 @@ name|UTIL
 operator|.
 name|waitTableEnabled
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -818,13 +818,13 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeTablePermissions
 argument_list|(
@@ -835,7 +835,7 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeTablePermissions
 argument_list|(
@@ -846,13 +846,13 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|removeTablePermissions
 argument_list|(
 name|conf
 argument_list|,
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|,
@@ -861,7 +861,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * The AccessControlLists.addUserPermission may throw exception before closing the table.    */
+comment|/**    * The PermissionStorage.addUserPermission may throw exception before closing the table.    */
 specifier|private
 name|void
 name|addUserPermission
@@ -880,7 +880,7 @@ name|IOException
 block|{
 try|try
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -971,7 +971,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1010,7 +1010,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1059,7 +1059,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -1075,7 +1075,7 @@ name|UserPermission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -1594,13 +1594,13 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 init|)
 block|{
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|addUserPermission
 argument_list|(
@@ -1656,7 +1656,7 @@ argument_list|>
 argument_list|>
 name|allPerms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|loadAll
 argument_list|(
@@ -1972,7 +1972,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2017,7 +2017,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2061,7 +2061,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2110,7 +2110,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -2126,7 +2126,7 @@ name|UserPermission
 argument_list|>
 name|preperms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -2262,7 +2262,7 @@ name|UserPermission
 argument_list|>
 name|postperms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -2311,7 +2311,7 @@ name|byte
 index|[]
 name|permsData
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|writePermissionsAsBytes
 argument_list|(
@@ -2328,7 +2328,7 @@ name|UserPermission
 argument_list|>
 name|copy
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|readUserPermission
 argument_list|(
@@ -3429,7 +3429,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -3466,7 +3466,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -3515,7 +3515,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)
@@ -3530,7 +3530,7 @@ name|UserPermission
 argument_list|>
 name|perms
 init|=
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|getTablePermissions
 argument_list|(
@@ -3854,7 +3854,7 @@ name|connection
 operator|.
 name|getTable
 argument_list|(
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|ACL_TABLE_NAME
 argument_list|)

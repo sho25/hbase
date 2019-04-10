@@ -4932,7 +4932,7 @@ name|namespace
 parameter_list|)
 block|{
 return|return
-name|AccessControlLists
+name|PermissionStorage
 operator|.
 name|NAMESPACE_PREFIX
 operator|+
