@@ -4856,7 +4856,9 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-literal|"UTF-8"
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|,
 operator|new
@@ -4867,7 +4869,9 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-literal|"UTF-8"
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -4889,7 +4893,9 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|,
-literal|"UTF-8"
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|,
 operator|new
@@ -4908,7 +4914,9 @@ operator|.
 name|getValue
 argument_list|()
 argument_list|,
-literal|"UTF-8"
+name|StandardCharsets
+operator|.
+name|UTF_8
 argument_list|)
 argument_list|)
 expr_stmt|;
