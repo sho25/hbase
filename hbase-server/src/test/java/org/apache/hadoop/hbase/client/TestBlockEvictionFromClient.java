@@ -165,20 +165,6 @@ name|concurrent
 operator|.
 name|atomic
 operator|.
-name|AtomicLong
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
 name|AtomicReference
 import|;
 end_import
@@ -3186,7 +3172,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -3209,7 +3195,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -3833,7 +3819,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -3856,7 +3842,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -4779,7 +4765,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -4802,7 +4788,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -5395,7 +5381,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -5418,7 +5404,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -6401,7 +6387,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -6424,7 +6410,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -6575,7 +6561,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -6598,7 +6584,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7189,7 +7175,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7212,7 +7198,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7429,7 +7415,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7452,7 +7438,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7911,7 +7897,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -7934,7 +7920,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8065,7 +8051,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8088,7 +8074,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8216,7 +8202,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8239,7 +8225,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8727,7 +8713,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -8750,7 +8736,7 @@ operator|)
 name|cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)
@@ -10263,28 +10249,6 @@ name|RegionCoprocessor
 implements|,
 name|RegionObserver
 block|{
-specifier|static
-specifier|final
-name|AtomicLong
-name|sleepTime
-init|=
-operator|new
-name|AtomicLong
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
-specifier|static
-specifier|final
-name|AtomicBoolean
-name|slowDownNext
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|false
-argument_list|)
-decl_stmt|;
 specifier|static
 specifier|final
 name|AtomicInteger

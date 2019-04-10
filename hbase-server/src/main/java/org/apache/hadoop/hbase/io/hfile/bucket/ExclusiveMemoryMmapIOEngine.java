@@ -22,20 +22,12 @@ package|;
 end_package
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
+import|import
+name|java
 operator|.
 name|io
 operator|.
-name|ByteBuffAllocator
-operator|.
-name|HEAP
+name|IOException
 import|;
 end_import
 
@@ -43,9 +35,9 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
+name|nio
 operator|.
-name|IOException
+name|ByteBuffer
 import|;
 end_import
 
@@ -97,24 +89,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheableDeserializer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|nio
 operator|.
 name|ByteBuff
@@ -136,7 +110,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * IO engine that stores data to a file on the local block device using memory mapping  * mechanism  */
+comment|/**  * IO engine that stores data to a file on the local block device using memory mapping mechanism  */
 end_comment
 
 begin_class
@@ -176,17 +150,8 @@ specifier|public
 name|Cacheable
 name|read
 parameter_list|(
-name|long
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|,
-name|CacheableDeserializer
-argument_list|<
-name|Cacheable
-argument_list|>
-name|deserializer
+name|BucketEntry
+name|be
 parameter_list|)
 throws|throws
 name|IOException
@@ -194,27 +159,33 @@ block|{
 name|ByteBuff
 name|dst
 init|=
-name|HEAP
+name|ByteBuff
+operator|.
+name|wrap
+argument_list|(
+name|ByteBuffer
 operator|.
 name|allocate
 argument_list|(
-name|length
+name|be
+operator|.
+name|getLength
+argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|bufferArray
 operator|.
 name|read
 argument_list|(
+name|be
+operator|.
 name|offset
+argument_list|()
 argument_list|,
 name|dst
 argument_list|)
 expr_stmt|;
-return|return
-name|deserializer
-operator|.
-name|deserialize
-argument_list|(
 name|dst
 operator|.
 name|position
@@ -224,10 +195,21 @@ argument_list|)
 operator|.
 name|limit
 argument_list|(
-name|length
+name|be
+operator|.
+name|getLength
+argument_list|()
 argument_list|)
-argument_list|,
-literal|true
+expr_stmt|;
+return|return
+name|be
+operator|.
+name|wrapAsCacheable
+argument_list|(
+name|dst
+operator|.
+name|nioByteBuffers
+argument_list|()
 argument_list|,
 name|MemoryType
 operator|.

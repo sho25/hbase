@@ -996,10 +996,11 @@ return|return
 name|expectedTransferLen
 return|;
 block|}
-comment|/**    * Creates a ByteBuff from a given array of ByteBuffers from the given offset to the length    * specified. For eg, if there are 4 buffers forming an array each with length 10 and if we call    * asSubBuffer(5, 10) then we will create an MBB consisting of two BBs and the first one be a BB    * from 'position' 5 to a 'length' 5 and the 2nd BB will be from 'position' 0 to 'length' 5.    * @param offset the position in the whole array which is composited by multiple byte buffers.    * @param len the length of bytes    * @return a ByteBuff formed from the underlying ByteBuffers    */
+comment|/**    * Creates a sub-array from a given array of ByteBuffers from the given offset to the length    * specified. For eg, if there are 4 buffers forming an array each with length 10 and if we call    * asSubByteBuffers(5, 10) then we will create an sub-array consisting of two BBs and the first    * one be a BB from 'position' 5 to a 'length' 5 and the 2nd BB will be from 'position' 0 to    * 'length' 5.    * @param offset the position in the whole array which is composited by multiple byte buffers.    * @param len the length of bytes    * @return the underlying ByteBuffers, each ByteBuffer is a slice from the backend and will have a    *         zero position.    */
 specifier|public
-name|ByteBuff
-name|asSubByteBuff
+name|ByteBuffer
+index|[]
+name|asSubByteBuffers
 parameter_list|(
 name|long
 name|offset
@@ -1076,12 +1077,7 @@ operator|==
 name|len
 assert|;
 return|return
-name|ByteBuff
-operator|.
-name|wrap
-argument_list|(
 name|mbb
-argument_list|)
 return|;
 block|}
 comment|/**    * Iterator to fetch ByteBuffers from offset with given length in this big logical array.    */

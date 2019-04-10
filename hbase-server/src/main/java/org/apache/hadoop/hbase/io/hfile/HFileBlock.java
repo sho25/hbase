@@ -899,8 +899,9 @@ argument_list|()
 decl_stmt|;
 name|newByteBuff
 operator|=
-operator|new
-name|SingleByteBuff
+name|ByteBuff
+operator|.
+name|wrap
 argument_list|(
 name|ByteBuffer
 operator|.
@@ -1136,8 +1137,9 @@ name|this
 operator|.
 name|buf
 operator|=
-operator|new
-name|SingleByteBuff
+name|ByteBuff
+operator|.
+name|wrap
 argument_list|(
 name|ByteBuffer
 operator|.

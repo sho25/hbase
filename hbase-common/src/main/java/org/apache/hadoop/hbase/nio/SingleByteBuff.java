@@ -266,7 +266,6 @@ name|buf
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
 name|SingleByteBuff
 parameter_list|(
 name|RefCnt

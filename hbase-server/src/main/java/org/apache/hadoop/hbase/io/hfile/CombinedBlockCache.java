@@ -1456,7 +1456,7 @@ annotation|@
 name|VisibleForTesting
 specifier|public
 name|int
-name|getRefCount
+name|getRpcRefCount
 parameter_list|(
 name|BlockCacheKey
 name|cacheKey
@@ -1480,7 +1480,7 @@ operator|.
 name|l2Cache
 operator|)
 operator|.
-name|getRefCount
+name|getRpcRefCount
 argument_list|(
 name|cacheKey
 argument_list|)

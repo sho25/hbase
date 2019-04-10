@@ -131,6 +131,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|exceptions
+operator|.
+name|IllegalArgumentIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|hfile
@@ -169,43 +185,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|CacheableDeserializer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|nio
 operator|.
 name|ByteBuff
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|nio
-operator|.
-name|SingleByteBuff
 import|;
 end_import
 
@@ -753,28 +735,35 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Transfers data from file to the given byte buffer    * @param offset The offset in the file where the first byte to be read    * @param length The length of buffer that should be allocated for reading    *               from the file channel    * @return number of bytes read    * @throws IOException    */
+comment|/**    * Transfers data from file to the given byte buffer    * @param be an {@link BucketEntry} which maintains an (offset, len, refCnt)    * @return the {@link Cacheable} with block data inside.    * @throws IOException if any IO error happen.    */
 annotation|@
 name|Override
 specifier|public
 name|Cacheable
 name|read
 parameter_list|(
-name|long
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|,
-name|CacheableDeserializer
-argument_list|<
-name|Cacheable
-argument_list|>
-name|deserializer
+name|BucketEntry
+name|be
 parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|long
+name|offset
+init|=
+name|be
+operator|.
+name|offset
+argument_list|()
+decl_stmt|;
+name|int
+name|length
+init|=
+name|be
+operator|.
+name|getLength
+argument_list|()
+decl_stmt|;
 name|Preconditions
 operator|.
 name|checkArgument
@@ -813,9 +802,9 @@ name|offset
 argument_list|)
 expr_stmt|;
 comment|// The buffer created out of the fileChannel is formed by copying the data from the file
-comment|// Hence in this case there is no shared memory that we point to. Even if the BucketCache evicts
-comment|// this buffer from the file the data is already copied and there is no need to ensure that
-comment|// the results are not corrupted before consuming them.
+comment|// Hence in this case there is no shared memory that we point to. Even if the BucketCache
+comment|// evicts this buffer from the file the data is already copied and there is no need to
+comment|// ensure that the results are not corrupted before consuming them.
 if|if
 condition|(
 name|dstBuffer
@@ -828,7 +817,7 @@ condition|)
 block|{
 throw|throw
 operator|new
-name|RuntimeException
+name|IllegalArgumentIOException
 argument_list|(
 literal|"Only "
 operator|+
@@ -852,17 +841,16 @@ name|rewind
 argument_list|()
 expr_stmt|;
 return|return
-name|deserializer
+name|be
 operator|.
-name|deserialize
+name|wrapAsCacheable
 argument_list|(
 operator|new
-name|SingleByteBuff
-argument_list|(
+name|ByteBuffer
+index|[]
+block|{
 name|dstBuffer
-argument_list|)
-argument_list|,
-literal|true
+block|}
 argument_list|,
 name|MemoryType
 operator|.

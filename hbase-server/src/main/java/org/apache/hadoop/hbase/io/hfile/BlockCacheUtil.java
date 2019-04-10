@@ -1075,6 +1075,7 @@ name|Cacheable
 name|newBlock
 parameter_list|)
 block|{
+comment|// NOTICE: The getBlock has retained the existingBlock inside.
 name|Cacheable
 name|existingBlock
 init|=
@@ -1091,11 +1092,6 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|existingBlock
-operator|.
-name|retain
-argument_list|()
-expr_stmt|;
 try|try
 block|{
 name|int

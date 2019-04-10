@@ -274,7 +274,6 @@ name|items
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
 name|MultiByteBuff
 parameter_list|(
 name|RefCnt

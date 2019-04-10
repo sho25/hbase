@@ -277,8 +277,6 @@ name|Map
 argument_list|<
 name|BlockCacheKey
 argument_list|,
-name|BucketCache
-operator|.
 name|BucketEntry
 argument_list|>
 name|backingMap
@@ -306,8 +304,6 @@ name|Entry
 argument_list|<
 name|BlockCacheKey
 argument_list|,
-name|BucketCache
-operator|.
 name|BucketEntry
 argument_list|>
 name|entry
@@ -574,8 +570,6 @@ operator|.
 name|BucketEntry
 name|toPB
 parameter_list|(
-name|BucketCache
-operator|.
 name|BucketEntry
 name|entry
 parameter_list|)
@@ -695,8 +689,6 @@ name|ConcurrentHashMap
 argument_list|<
 name|BlockCacheKey
 argument_list|,
-name|BucketCache
-operator|.
 name|BucketEntry
 argument_list|>
 name|fromPB
@@ -721,8 +713,6 @@ name|ConcurrentHashMap
 argument_list|<
 name|BlockCacheKey
 argument_list|,
-name|BucketCache
-operator|.
 name|BucketEntry
 argument_list|>
 name|result
@@ -795,14 +785,10 @@ operator|.
 name|getValue
 argument_list|()
 decl_stmt|;
-name|BucketCache
-operator|.
 name|BucketEntry
 name|value
 init|=
 operator|new
-name|BucketCache
-operator|.
 name|BucketEntry
 argument_list|(
 name|protoValue
