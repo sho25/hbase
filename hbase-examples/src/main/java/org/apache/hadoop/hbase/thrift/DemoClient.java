@@ -842,7 +842,7 @@ argument_list|,
 literal|"auth-conf,auth-int,auth"
 argument_list|)
 expr_stmt|;
-comment|/**            * The Thrift server the DemoClient is trying to connect to            * must have a matching principal, and support authentication.            *            * The HBase cluster must be secure, allow proxy user.            */
+comment|/*        * The Thrift server the DemoClient is trying to connect to        * must have a matching principal, and support authentication.        *        * The HBase cluster must be secure, allow proxy user.        */
 name|transport
 operator|=
 operator|new
@@ -906,9 +906,7 @@ argument_list|(
 literal|"demo_table"
 argument_list|)
 decl_stmt|;
-comment|//
 comment|// Scan all tables, look for the demo table and delete it.
-comment|//
 name|System
 operator|.
 name|out
@@ -1026,9 +1024,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|//
 comment|// Create the demo table with two column families, entry: and unused:
-comment|//
 name|ArrayList
 argument_list|<
 name|ColumnDescriptor
@@ -1239,14 +1235,9 @@ argument_list|)
 operator|+
 literal|", maxVer: "
 operator|+
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|col2
 operator|.
 name|maxVersions
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1265,9 +1256,7 @@ name|writeToWal
 init|=
 literal|false
 decl_stmt|;
-comment|//
 comment|// Test UTF-8 handling
-comment|//
 name|byte
 index|[]
 name|invalid
@@ -1702,9 +1691,7 @@ name|entry
 argument_list|)
 expr_stmt|;
 block|}
-comment|//
 comment|// Run some operations on a bunch of rows
-comment|//
 for|for
 control|(
 name|int
@@ -2998,12 +2985,14 @@ condition|(
 operator|!
 name|secure
 condition|)
+block|{
 return|return
 operator|new
 name|Subject
 argument_list|()
 return|;
-comment|/*        * To authenticate the DemoClient, kinit should be invoked ahead.        * Here we try to get the Kerberos credential from the ticket cache.        */
+block|}
+comment|/*      * To authenticate the DemoClient, kinit should be invoked ahead.      * Here we try to get the Kerberos credential from the ticket cache.      */
 name|LoginContext
 name|context
 init|=
