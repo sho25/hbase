@@ -584,12 +584,10 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+comment|// we crashed a rs, so it is possible that there are other regions on the rs which will also be
+comment|// reassigned, so here we just assert greater than, not the exact number.
+name|assertTrue
 argument_list|(
-name|assignSubmittedCount
-operator|+
-literal|1
-argument_list|,
 name|assignProcMetrics
 operator|.
 name|getSubmittedCounter
@@ -597,6 +595,8 @@ argument_list|()
 operator|.
 name|getCount
 argument_list|()
+operator|>
+name|assignSubmittedCount
 argument_list|)
 expr_stmt|;
 name|assertEquals
