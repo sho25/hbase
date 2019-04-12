@@ -449,6 +449,19 @@ name|FileStatus
 name|file
 parameter_list|)
 block|{
+comment|// just for overriding the findbugs NP warnings, as the parameter is marked as Nullable in
+comment|// the guava Predicate.
+if|if
+condition|(
+name|file
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|String
 name|hfile
 init|=

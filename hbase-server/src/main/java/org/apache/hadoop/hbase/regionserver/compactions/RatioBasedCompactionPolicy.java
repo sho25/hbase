@@ -693,8 +693,6 @@ operator|!
 name|tryingMajor
 condition|)
 block|{
-name|candidateSelection
-operator|=
 name|filterBulk
 argument_list|(
 name|candidateSelection
