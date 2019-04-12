@@ -143,6 +143,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Connection
 import|;
 end_import
@@ -160,22 +176,6 @@ operator|.
 name|client
 operator|.
 name|ConnectionFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|HBaseAdmin
 import|;
 end_import
 
@@ -457,12 +457,9 @@ argument_list|(
 name|conf1
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
-operator|(
-name|HBaseAdmin
-operator|)
 name|conn
 operator|.
 name|getAdmin
@@ -879,12 +876,12 @@ name|table1
 argument_list|)
 expr_stmt|;
 comment|// #5.1 - check tables for full restore */
-name|HBaseAdmin
+name|Admin
 name|hAdmin
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// #6 - restore incremental backup for table1

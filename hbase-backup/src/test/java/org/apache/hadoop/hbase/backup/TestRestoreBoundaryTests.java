@@ -97,7 +97,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -300,12 +300,12 @@ literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hba
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|assertTrue
@@ -419,12 +419,12 @@ literal|false
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hba
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|assertTrue

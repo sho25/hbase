@@ -109,7 +109,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Delete
+name|Admin
 import|;
 end_import
 
@@ -125,7 +125,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Delete
 import|;
 end_import
 
@@ -362,12 +362,12 @@ argument_list|(
 name|table1
 argument_list|)
 decl_stmt|;
-name|HBaseAdmin
+name|Admin
 name|hba
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// delete row

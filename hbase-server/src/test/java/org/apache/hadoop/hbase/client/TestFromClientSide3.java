@@ -2273,7 +2273,7 @@ decl_stmt|;
 try|try
 init|(
 name|Table
-name|hTable
+name|table
 init|=
 name|TEST_UTIL
 operator|.
@@ -2323,7 +2323,7 @@ name|performMultiplePutAndFlush
 argument_list|(
 name|admin
 argument_list|,
-name|hTable
+name|table
 argument_list|,
 name|row
 argument_list|,
@@ -2501,7 +2501,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|hTable
+name|table
 operator|.
 name|getDescriptor
 argument_list|()
@@ -2540,7 +2540,7 @@ name|performMultiplePutAndFlush
 argument_list|(
 name|admin
 argument_list|,
-name|hTable
+name|table
 argument_list|,
 name|row
 argument_list|,
@@ -2842,7 +2842,7 @@ argument_list|)
 expr_stmt|;
 name|assertNull
 argument_list|(
-name|hTable
+name|table
 operator|.
 name|getDescriptor
 argument_list|()

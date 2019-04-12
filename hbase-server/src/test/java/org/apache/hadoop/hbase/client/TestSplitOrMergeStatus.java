@@ -369,7 +369,6 @@ operator|new
 name|TestName
 argument_list|()
 decl_stmt|;
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|BeforeClass
 specifier|public
@@ -388,7 +387,6 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @throws java.lang.Exception    */
 annotation|@
 name|AfterClass
 specifier|public
@@ -508,6 +506,8 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
+try|try
+block|{
 name|admin
 operator|.
 name|split
@@ -518,6 +518,18 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|fail
+argument_list|()
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+name|e
+parameter_list|)
+block|{
+comment|// expected
+block|}
 name|int
 name|count
 init|=

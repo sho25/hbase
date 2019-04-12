@@ -735,22 +735,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Hbck
 import|;
 end_import
@@ -7058,6 +7042,13 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|splitKeys
+operator|!=
+literal|null
+condition|)
+block|{
 name|getAdmin
 argument_list|()
 operator|.
@@ -7068,6 +7059,18 @@ argument_list|,
 name|splitKeys
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|getAdmin
+argument_list|()
+operator|.
+name|createTable
+argument_list|(
+name|td
+argument_list|)
+expr_stmt|;
+block|}
 comment|// HBaseAdmin only waits for regions to appear in hbase:meta
 comment|// we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
@@ -7156,6 +7159,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|splitRows
+operator|!=
+literal|null
+condition|)
+block|{
 name|getAdmin
 argument_list|()
 operator|.
@@ -7169,6 +7179,21 @@ argument_list|,
 name|splitRows
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|getAdmin
+argument_list|()
+operator|.
+name|createTable
+argument_list|(
+name|builder
+operator|.
+name|build
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 comment|// HBaseAdmin only waits for regions to appear in hbase:meta
 comment|// we should wait until they are assigned
 name|waitUntilAllRegionsAssigned
@@ -7399,6 +7424,13 @@ name|hcd
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|splitKeys
+operator|!=
+literal|null
+condition|)
+block|{
 name|getAdmin
 argument_list|()
 operator|.
@@ -7409,6 +7441,18 @@ argument_list|,
 name|splitKeys
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|getAdmin
+argument_list|()
+operator|.
+name|createTable
+argument_list|(
+name|desc
+argument_list|)
+expr_stmt|;
+block|}
 comment|// HBaseAdmin only waits for regions to appear in hbase:meta we should wait until they are
 comment|// assigned
 name|waitUntilAllRegionsAssigned
@@ -14268,48 +14312,6 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Returns a Admin instance.    * This instance is shared between HBaseTestingUtility instance users. Closing it has no effect,    * it will be closed automatically when the cluster shutdowns    *    * @return HBaseAdmin instance which is guaranteed to support only {@link Admin} interface.    *   Functions in HBaseAdmin not provided by {@link Admin} interface can be changed/deleted    *   anytime.    * @deprecated Since 2.0. Will be removed in 3.0. Use {@link #getAdmin()} instead.    */
-end_comment
-
-begin_function
-annotation|@
-name|Deprecated
-specifier|public
-specifier|synchronized
-name|HBaseAdmin
-name|getHBaseAdmin
-parameter_list|()
-throws|throws
-name|IOException
-block|{
-if|if
-condition|(
-name|hbaseAdmin
-operator|==
-literal|null
-condition|)
-block|{
-name|this
-operator|.
-name|hbaseAdmin
-operator|=
-operator|(
-name|HBaseAdmin
-operator|)
-name|getConnection
-argument_list|()
-operator|.
-name|getAdmin
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-name|hbaseAdmin
-return|;
-block|}
-end_function
-
-begin_comment
 comment|/**    * Returns an Admin instance which is shared between HBaseTestingUtility instance users.    * Closing it has no effect, it will be closed automatically when the cluster shutdowns    */
 end_comment
 
@@ -14333,9 +14335,6 @@ name|this
 operator|.
 name|hbaseAdmin
 operator|=
-operator|(
-name|HBaseAdmin
-operator|)
 name|getConnection
 argument_list|()
 operator|.
@@ -14351,7 +14350,7 @@ end_function
 
 begin_decl_stmt
 specifier|private
-name|HBaseAdmin
+name|Admin
 name|hbaseAdmin
 init|=
 literal|null

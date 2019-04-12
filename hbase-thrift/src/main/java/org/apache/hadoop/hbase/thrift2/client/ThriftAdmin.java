@@ -3555,6 +3555,27 @@ name|getRegionMetrics
 parameter_list|(
 name|ServerName
 name|serverName
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"getRegionMetrics not supported in ThriftAdmin"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|List
+argument_list|<
+name|RegionMetrics
+argument_list|>
+name|getRegionMetrics
+parameter_list|(
+name|ServerName
+name|serverName
 parameter_list|,
 name|TableName
 name|tableName

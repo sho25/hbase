@@ -401,6 +401,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FutureUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Pair
 import|;
 end_import
@@ -1853,6 +1869,13 @@ condition|(
 name|async
 condition|)
 block|{
+if|if
+condition|(
+name|splitPoint
+operator|!=
+literal|null
+condition|)
+block|{
 name|ADMIN
 operator|.
 name|split
@@ -1862,6 +1885,17 @@ argument_list|,
 name|splitPoint
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|ADMIN
+operator|.
+name|split
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
 specifier|final
 name|AtomicInteger
 name|count
@@ -2706,6 +2740,10 @@ comment|// the element at index 1 would be a replica (since the metareader gives
 comment|// regions). Try splitting that region via the split API . Should fail
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getAdmin
@@ -2726,9 +2764,7 @@ operator|.
 name|getRegionName
 argument_list|()
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2756,9 +2792,13 @@ comment|// regions). Try splitting that region via a different split API (the di
 comment|// this API goes direct to the regionserver skipping any checks in the admin). Should fail
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|splitRegionAsync
@@ -2772,6 +2812,9 @@ argument_list|)
 operator|.
 name|getFirst
 argument_list|()
+operator|.
+name|getEncodedNameAsBytes
+argument_list|()
 argument_list|,
 operator|new
 name|byte
@@ -2783,11 +2826,12 @@ operator|)
 literal|'1'
 block|}
 argument_list|)
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|IOException
+name|IllegalArgumentException
 name|ex
 parameter_list|)
 block|{
@@ -2808,6 +2852,10 @@ expr_stmt|;
 comment|// testing Sync split operation
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getAdmin
@@ -2838,9 +2886,7 @@ operator|)
 literal|'1'
 block|}
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2866,6 +2912,10 @@ expr_stmt|;
 comment|// Try merging a replica with another. Should fail.
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getAdmin
@@ -2901,9 +2951,7 @@ argument_list|()
 argument_list|,
 literal|true
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 catch|catch
@@ -2993,20 +3041,15 @@ operator|.
 name|NO_NONCE
 argument_list|)
 decl_stmt|;
-operator|(
-operator|(
-name|ConnectionImplementation
-operator|)
 name|TEST_UTIL
 operator|.
-name|getAdmin
+name|getMiniHBaseCluster
 argument_list|()
-operator|.
-name|getConnection
-argument_list|()
-operator|)
 operator|.
 name|getMaster
+argument_list|()
+operator|.
+name|getMasterRpcServices
 argument_list|()
 operator|.
 name|mergeTableRegions
@@ -3944,6 +3987,10 @@ decl_stmt|;
 comment|// 0
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|ADMIN
 operator|.
 name|mergeRegionsAsync
@@ -3959,9 +4006,7 @@ index|]
 argument_list|,
 literal|false
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|()
@@ -3978,6 +4023,10 @@ block|}
 comment|// 1
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|ADMIN
 operator|.
 name|mergeRegionsAsync
@@ -4000,9 +4049,7 @@ block|}
 argument_list|,
 literal|false
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|()
@@ -4019,6 +4066,10 @@ block|}
 comment|// 3
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|ADMIN
 operator|.
 name|mergeRegionsAsync
@@ -4046,9 +4097,7 @@ argument_list|)
 argument_list|,
 literal|false
 argument_list|)
-operator|.
-name|get
-argument_list|()
+argument_list|)
 expr_stmt|;
 name|fail
 argument_list|()

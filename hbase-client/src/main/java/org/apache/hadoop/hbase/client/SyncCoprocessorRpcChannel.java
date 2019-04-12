@@ -154,10 +154,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Base class which provides clients with an RPC connection to  * call coprocessor endpoint {@link com.google.protobuf.Service}s.  * Note that clients should not use this class directly, except through  * {@link org.apache.hadoop.hbase.client.Table#coprocessorService(byte[])}.  */
+comment|/**  * Base class which provides clients with an RPC connection to  * call coprocessor endpoint {@link com.google.protobuf.Service}s.  * Note that clients should not use this class directly, except through  * {@link org.apache.hadoop.hbase.client.Table#coprocessorService(byte[])}.  * @deprecated Please stop using this class again, as it is too low level, which is part of the rpc  *             framework for HBase. Will be deleted in 4.0.0.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

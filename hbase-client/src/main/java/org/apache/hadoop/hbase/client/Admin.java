@@ -918,7 +918,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table but does not block and wait for it to come online. You can use    * Future.get(long, TimeUnit) to wait on the operation to complete. It may throw    * ExecutionException if there was an error while executing the operation or TimeoutException in    * case the wait timeout was not long enough to allow the operation to complete.    *<p/>    * Throws IllegalArgumentException Bad table name, if the split keys are repeated and if the split    * key has empty byte array.    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
+comment|/**    * Creates a new table but does not block and wait for it to come online.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Throws IllegalArgumentException Bad table name, if the split keys    *    are repeated and if the split key has empty byte array.    *    * @param desc table descriptor for table    * @param splitKeys keys to check if the table has been created with all split keys    * @throws IOException if a remote or network exception occurs    * @return the result of the async creation. You can use Future.get(long, TimeUnit) to wait on the    *         operation to complete.    */
 name|Future
 argument_list|<
 name|Void
@@ -1602,7 +1602,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Move the region<code>rencodedRegionName</code> to<code>destServerName</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    *          suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    *          then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver. A server name is made of    *          host, port and startcode. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if we can't find a region named<code>encodedRegionName</code>    */
+comment|/**    * Move the region<code>encodedRegionName</code> to<code>destServerName</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    *          suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    *          then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver. A server name is made of    *          host, port and startcode. Here is an example:    *<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if we can't find a region named<code>encodedRegionName</code>    */
 name|void
 name|move
 parameter_list|(
@@ -1847,7 +1847,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split a table. The method will execute split action for each region in table.    * Asynchronous operation.    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split a table. The method will execute split action for each region in table.    * @param tableName table to split    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
@@ -1857,7 +1857,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Split a table. Asynchronous operation.    *    * @param tableName table to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
+comment|/**    * Split a table.    * @param tableName table to split    * @param splitPoint the explicit position to split on    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|split
 parameter_list|(
@@ -2096,7 +2096,6 @@ argument_list|()
 return|;
 block|}
 comment|/**    * Get {@link RegionMetrics} of all regions hosted on a regionserver.    *    * @param serverName region server from which {@link RegionMetrics} is required.    * @return a {@link RegionMetrics} list of all regions hosted on a region server    * @throws IOException if a remote or network exception occurs    */
-specifier|default
 name|List
 argument_list|<
 name|RegionMetrics
@@ -2108,16 +2107,7 @@ name|serverName
 parameter_list|)
 throws|throws
 name|IOException
-block|{
-return|return
-name|getRegionMetrics
-argument_list|(
-name|serverName
-argument_list|,
-literal|null
-argument_list|)
-return|;
-block|}
+function_decl|;
 comment|/**    * Get {@link RegionMetrics} of all regions hosted on a regionserver for a table.    *    * @param serverName region server from which {@link RegionMetrics} is required.    * @param tableName get {@link RegionMetrics} of regions belonging to the table    * @return region metrics map of all regions of a table hosted on a region server    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
@@ -2954,12 +2944,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the active    * master.<p> The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access    * a published coprocessor {@link com.google.protobuf.Service} using standard protobuf service    * invocations:</p><div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService();    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @return A MasterCoprocessorRpcChannel instance    */
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance connected to the active    * master.<p> The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access    * a published coprocessor {@link com.google.protobuf.Service} using standard protobuf service    * invocations:</p><div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService();    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @return A MasterCoprocessorRpcChannel instance    * @deprecated since 3.0.0, will removed in 4.0.0. This is too low level, please stop using it any    *             more. Use the coprocessorService methods in {@link AsyncAdmin} instead.    */
+annotation|@
+name|Deprecated
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|()
 function_decl|;
-comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param serverName the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    */
+comment|/**    * Creates and returns a {@link com.google.protobuf.RpcChannel} instance    * connected to the passed region server.    *    *<p>    * The obtained {@link com.google.protobuf.RpcChannel} instance can be used to access a published    * coprocessor {@link com.google.protobuf.Service} using standard protobuf service invocations:    *</p>    *    *<div style="background-color: #cccccc; padding: 2px">    *<blockquote><pre>    * CoprocessorRpcChannel channel = myAdmin.coprocessorService(serverName);    * MyService.BlockingInterface service = MyService.newBlockingStub(channel);    * MyCallRequest request = MyCallRequest.newBuilder()    *     ...    *     .build();    * MyCallResponse response = service.myCall(null, request);    *</pre></blockquote></div>    *    * @param serverName the server name to which the endpoint call is made    * @return A RegionServerCoprocessorRpcChannel instance    * @deprecated since 3.0.0, will removed in 4.0.0. This is too low level, please stop using it any    *             more. Use the coprocessorService methods in {@link AsyncAdmin} instead.    */
+annotation|@
+name|Deprecated
 name|CoprocessorRpcChannel
 name|coprocessorService
 parameter_list|(

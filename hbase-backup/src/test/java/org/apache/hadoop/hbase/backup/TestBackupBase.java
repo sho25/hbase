@@ -523,22 +523,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|Put
 import|;
 end_import
@@ -2192,7 +2176,7 @@ name|deleteAllSnapshots
 argument_list|(
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -2656,12 +2640,12 @@ operator|+
 name|tid
 argument_list|)
 expr_stmt|;
-name|HBaseAdmin
+name|Admin
 name|ha
 init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 comment|// Create namespaces

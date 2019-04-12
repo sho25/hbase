@@ -1451,8 +1451,6 @@ operator|.
 name|createTable
 argument_list|(
 name|htd
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 try|try
@@ -1595,8 +1593,6 @@ operator|.
 name|createTable
 argument_list|(
 name|htd
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 try|try

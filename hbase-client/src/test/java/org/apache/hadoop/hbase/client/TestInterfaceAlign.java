@@ -323,6 +323,13 @@ name|class
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|asyncAdminMethodNames
+operator|.
+name|remove
+argument_list|(
+literal|"coprocessorService"
+argument_list|)
+expr_stmt|;
 name|adminMethodNames
 operator|.
 name|forEach

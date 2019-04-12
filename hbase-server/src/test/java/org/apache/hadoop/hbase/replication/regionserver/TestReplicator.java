@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|HBaseAdmin
+name|Admin
 import|;
 end_import
 
@@ -969,12 +969,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HBaseAdmin
+name|Admin
 name|admin
 init|=
 name|util
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 decl_stmt|;
 name|admin

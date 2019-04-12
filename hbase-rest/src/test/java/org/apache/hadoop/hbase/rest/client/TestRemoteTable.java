@@ -4415,7 +4415,7 @@ expr_stmt|;
 comment|// Truncate the test table for inserting test scenarios rows keys
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|disableTable
@@ -4425,7 +4425,7 @@ argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|truncateTable

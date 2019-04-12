@@ -678,7 +678,7 @@ name|hri
 range|:
 name|UTIL
 operator|.
-name|getHBaseAdmin
+name|getAdmin
 argument_list|()
 operator|.
 name|getRegions
