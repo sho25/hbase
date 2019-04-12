@@ -165,28 +165,6 @@ name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
 init|=
 literal|"ROWS_FILTERED"
 decl_stmt|;
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-17886">HBASE-17886</a>).    *             Use {@link #COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME}.    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|COUNT_OF_ROWS_SCANNED_KEY
-init|=
-name|COUNT_OF_ROWS_SCANNED_KEY_METRIC_NAME
-decl_stmt|;
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-17886">HBASE-17886</a>).    *             Use {@link #COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME}.    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|COUNT_OF_ROWS_FILTERED_KEY
-init|=
-name|COUNT_OF_ROWS_FILTERED_KEY_METRIC_NAME
-decl_stmt|;
 comment|/**    * number of rows filtered during scan RPC    */
 specifier|public
 specifier|final
