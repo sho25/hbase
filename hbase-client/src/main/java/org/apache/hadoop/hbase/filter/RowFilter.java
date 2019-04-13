@@ -174,29 +174,6 @@ name|filterOutRow
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Constructor.    * @param rowCompareOp the compare op for row matching    * @param rowComparator the comparator for row matching    * @deprecated Since 2.0.0. Will remove in 3.0.0. Use    * {@link #RowFilter(CompareOperator, ByteArrayComparable)}} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|RowFilter
-parameter_list|(
-specifier|final
-name|CompareOp
-name|rowCompareOp
-parameter_list|,
-specifier|final
-name|ByteArrayComparable
-name|rowComparator
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|rowCompareOp
-argument_list|,
-name|rowComparator
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Constructor.    * @param op the compare op for row matching    * @param rowComparator the comparator for row matching    */
 specifier|public
 name|RowFilter

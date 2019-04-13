@@ -168,29 +168,6 @@ name|QualifierFilter
 extends|extends
 name|CompareFilter
 block|{
-comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #QualifierFilter(CompareOperator, ByteArrayComparable)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|QualifierFilter
-parameter_list|(
-specifier|final
-name|CompareOp
-name|op
-parameter_list|,
-specifier|final
-name|ByteArrayComparable
-name|qualifierComparator
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|op
-argument_list|,
-name|qualifierComparator
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Constructor.    * @param op the compare op for column qualifier matching    * @param qualifierComparator the comparator for column qualifier matching    */
 specifier|public
 name|QualifierFilter

@@ -168,29 +168,6 @@ name|FamilyFilter
 extends|extends
 name|CompareFilter
 block|{
-comment|/**    * Constructor.    *    * @param familyCompareOp  the compare op for column family matching    * @param familyComparator the comparator for column family matching    * @deprecated  Since 2.0.0. Will be removed in 3.0.0.    *  Use {@link #FamilyFilter(CompareOperator, ByteArrayComparable)}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|FamilyFilter
-parameter_list|(
-specifier|final
-name|CompareOp
-name|familyCompareOp
-parameter_list|,
-specifier|final
-name|ByteArrayComparable
-name|familyComparator
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|familyCompareOp
-argument_list|,
-name|familyComparator
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Constructor.    *    * @param op  the compare op for column family matching    * @param familyComparator the comparator for column family matching    */
 specifier|public
 name|FamilyFilter

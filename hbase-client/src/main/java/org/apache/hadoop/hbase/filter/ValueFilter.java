@@ -168,27 +168,6 @@ name|ValueFilter
 extends|extends
 name|CompareFilter
 block|{
-comment|/**    * Constructor.    * @param valueCompareOp the compare op for value matching    * @param valueComparator the comparator for value matching    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * Use {@link #ValueFilter(CompareOperator, ByteArrayComparable)}    */
-specifier|public
-name|ValueFilter
-parameter_list|(
-specifier|final
-name|CompareOp
-name|valueCompareOp
-parameter_list|,
-specifier|final
-name|ByteArrayComparable
-name|valueComparator
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|valueCompareOp
-argument_list|,
-name|valueComparator
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Constructor.    * @param valueCompareOp the compare op for value matching    * @param valueComparator the comparator for value matching    */
 specifier|public
 name|ValueFilter

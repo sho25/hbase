@@ -1826,7 +1826,7 @@ name|op
 operator|=
 name|dcf
 operator|.
-name|getOperator
+name|getCompareOperator
 argument_list|()
 operator|.
 name|toString
@@ -2145,7 +2145,7 @@ operator|)
 name|filter
 operator|)
 operator|.
-name|getOperator
+name|getCompareOperator
 argument_list|()
 operator|.
 name|toString
