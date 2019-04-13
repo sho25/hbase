@@ -53,7 +53,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|*
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -67,7 +67,35 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseClassTestRule
+name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|QosTestHelper
 import|;
 end_import
 

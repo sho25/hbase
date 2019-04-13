@@ -225,20 +225,6 @@ end_import
 
 begin_import
 import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|mapreduce
-operator|.
-name|Job
-import|;
-end_import
-
-begin_import
-import|import
 name|java
 operator|.
 name|io

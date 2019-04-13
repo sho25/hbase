@@ -215,22 +215,6 @@ name|MatchCode
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
 begin_comment
 comment|/**  * A tracker both implementing ColumnTracker and DeleteTracker, used for mvcc-sensitive scanning.  * We should make sure in one QueryMatcher the ColumnTracker and DeleteTracker is the same instance.  */
 end_comment
