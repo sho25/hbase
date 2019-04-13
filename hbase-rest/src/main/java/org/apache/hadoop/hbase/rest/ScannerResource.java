@@ -727,7 +727,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception occured while processing "
+literal|"Exception occurred while processing "
 operator|+
 name|uriInfo
 operator|.

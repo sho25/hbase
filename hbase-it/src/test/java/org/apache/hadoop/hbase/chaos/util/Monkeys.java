@@ -295,7 +295,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Exception occured when running chaos monkeys: "
+literal|"Exception occurred when running chaos monkeys: "
 argument_list|,
 name|e
 argument_list|)
@@ -470,7 +470,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Interruption occured while stopping chaos monkeys "
+literal|"Interruption occurred while stopping chaos monkeys "
 operator|+
 name|e
 argument_list|)

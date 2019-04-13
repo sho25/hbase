@@ -866,7 +866,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Fatal error occured while opening region {}, aborting..."
+literal|"Fatal error occurred while opening region {}, aborting..."
 argument_list|,
 name|regionInfo
 operator|.

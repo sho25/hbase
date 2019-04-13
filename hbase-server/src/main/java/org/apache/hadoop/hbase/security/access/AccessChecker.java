@@ -2575,7 +2575,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Error occured while retrieving group for "
+literal|"Error occurred while retrieving group for "
 operator|+
 name|user
 argument_list|,

@@ -312,7 +312,7 @@ name|IOException
 argument_list|(
 literal|"Failed to close at least one writer, please see the warn log above. "
 operator|+
-literal|"The cause is the first exception occured"
+literal|"The cause is the first exception occurred"
 argument_list|,
 name|error
 argument_list|)
