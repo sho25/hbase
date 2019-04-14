@@ -85,20 +85,6 @@ operator|=
 name|compactionPressure
 expr_stmt|;
 block|}
-comment|/**    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #getMemStoreLoad()} instead    */
-annotation|@
-name|Deprecated
-specifier|public
-name|int
-name|getMemstoreLoad
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|memstoreLoad
-return|;
-block|}
 specifier|public
 name|int
 name|getMemStoreLoad
