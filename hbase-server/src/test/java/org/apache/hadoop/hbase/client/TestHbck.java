@@ -2074,7 +2074,7 @@ argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
-name|waitNoProcedureRunning
+name|waitAllProcedures
 argument_list|(
 name|master
 operator|.
@@ -2459,7 +2459,7 @@ argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
-name|waitNoProcedureRunning
+name|waitAllProcedures
 argument_list|(
 name|master
 operator|.
@@ -2688,7 +2688,7 @@ argument_list|)
 expr_stmt|;
 name|ProcedureTestingUtility
 operator|.
-name|waitNoProcedureRunning
+name|waitAllProcedures
 argument_list|(
 name|master
 operator|.
