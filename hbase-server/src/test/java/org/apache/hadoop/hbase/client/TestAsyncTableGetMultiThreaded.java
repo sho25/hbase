@@ -1017,6 +1017,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// sleep a bit so we do not add to much load to the test machine as we have 20 threads here
+name|Thread
+operator|.
+name|sleep
+argument_list|(
+literal|10
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 annotation|@
@@ -1028,6 +1036,13 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Test started ======"
+argument_list|)
+expr_stmt|;
 name|int
 name|numThreads
 init|=
@@ -1114,6 +1129,18 @@ empty_stmt|;
 end_empty_stmt
 
 begin_expr_stmt
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Scheduled {} read threads ======"
+argument_list|,
+name|numThreads
+argument_list|)
+expr_stmt|;
+end_expr_stmt
+
+begin_expr_stmt
 name|Collections
 operator|.
 name|shuffle
@@ -1168,6 +1195,22 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Splitting at {} ======, region count before splitting is {}"
+argument_list|,
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|splitPoint
+argument_list|)
+argument_list|,
+name|oldRegionCount
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|split
@@ -1232,22 +1275,61 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-for|for
-control|(
+name|List
+argument_list|<
 name|HRegion
-name|region
-range|:
+argument_list|>
+name|regions
+init|=
 name|TEST_UTIL
 operator|.
-name|getHBaseCluster
+name|getMiniHBaseCluster
 argument_list|()
 operator|.
 name|getRegions
 argument_list|(
 name|TABLE_NAME
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Split at {} ======, region count after splitting is {}"
+argument_list|,
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|splitPoint
+argument_list|)
+argument_list|,
+name|regions
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+for|for
+control|(
+name|HRegion
+name|region
+range|:
+name|regions
 control|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Compact {} ======"
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|region
 operator|.
 name|compact
@@ -1261,18 +1343,22 @@ control|(
 name|HRegion
 name|region
 range|:
-name|TEST_UTIL
-operator|.
-name|getHBaseCluster
-argument_list|()
-operator|.
-name|getRegions
-argument_list|(
-name|TABLE_NAME
-argument_list|)
+name|regions
 control|)
 block|{
 comment|// Waiting for compaction to complete and references are cleaned up
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Waiting for compaction on {} ======"
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|RetryCounter
 name|retrier
 init|=
@@ -1363,6 +1449,18 @@ name|sleepUntilNextRetry
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Compaction on {} finished, close and archive compacted files ======"
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|region
 operator|.
 name|getStores
@@ -1376,6 +1474,18 @@ operator|.
 name|closeAndArchiveCompactedFiles
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Close and archive compacted files on {} done ======"
+argument_list|,
+name|region
+operator|.
+name|getRegionInfo
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|Thread
 operator|.
@@ -1384,11 +1494,25 @@ argument_list|(
 literal|5000
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Balancing cluster ======"
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|balance
 argument_list|(
 literal|true
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Balance cluster done ======"
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1455,6 +1579,17 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Moving meta from {} to {} ======"
+argument_list|,
+name|metaServer
+argument_list|,
+name|newMetaServer
+argument_list|)
+expr_stmt|;
 name|admin
 operator|.
 name|move
@@ -1469,6 +1604,13 @@ argument_list|,
 name|newMetaServer
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Move meta done ======"
+argument_list|)
+expr_stmt|;
 name|Thread
 operator|.
 name|sleep
@@ -1478,6 +1620,16 @@ argument_list|)
 expr_stmt|;
 block|}
 end_for
+
+begin_expr_stmt
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Read test finished, shutdown thread pool ======"
+argument_list|)
+expr_stmt|;
+end_expr_stmt
 
 begin_expr_stmt
 name|stop
@@ -1500,22 +1652,54 @@ end_expr_stmt
 begin_for
 for|for
 control|(
-name|Future
-argument_list|<
-name|?
-argument_list|>
-name|future
-range|:
-name|futures
+name|int
+name|i
+init|=
+literal|0
+init|;
+name|i
+operator|<
+name|numThreads
+condition|;
+name|i
+operator|++
 control|)
 block|{
-name|future
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Waiting for {} threads to finish, remaining {} ======"
+argument_list|,
+name|numThreads
+argument_list|,
+name|numThreads
+operator|-
+name|i
+argument_list|)
+expr_stmt|;
+name|futures
+operator|.
+name|get
+argument_list|(
+name|i
+argument_list|)
 operator|.
 name|get
 argument_list|()
 expr_stmt|;
 block|}
 end_for
+
+begin_expr_stmt
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"====== Test test finished ======"
+argument_list|)
+expr_stmt|;
+end_expr_stmt
 
 unit|} }
 end_unit
