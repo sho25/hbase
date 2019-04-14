@@ -301,6 +301,9 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. We use a common timer in the whole client    *             implementation so you can not set it any more.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|long
 name|getWriteBufferPeriodicFlushTimerTickMs
@@ -310,7 +313,9 @@ return|return
 name|writeBufferPeriodicFlushTimerTickMs
 return|;
 block|}
-comment|/**    * Set the TimerTick how often the buffer timeout if checked.    */
+comment|/**    * Set the TimerTick how often the buffer timeout if checked.    * @deprecated Since 3.0.0, will be removed in 4.0.0. We use a common timer in the whole client    *             implementation so you can not set it any more.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|BufferedMutatorParams
 name|setWriteBufferPeriodicFlushTimerTickMs
@@ -385,7 +390,9 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @return Name of the class we will use when we construct a    * {@link BufferedMutator} instance or null if default implementation.    */
+comment|/**    * @return Name of the class we will use when we construct a {@link BufferedMutator} instance or    *         null if default implementation.    * @deprecated Since 3.0.0, will be removed in 4.0.0. You can not set it any more as the    *             implementation has to use too many internal stuffs in HBase.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|String
 name|getImplementationClassName
@@ -397,7 +404,9 @@ operator|.
 name|implementationClassName
 return|;
 block|}
-comment|/**    * Specify a BufferedMutator implementation other than the default.    * @param implementationClassName Name of the BufferedMutator implementation class    */
+comment|/**    * Specify a BufferedMutator implementation other than the default.    * @param implementationClassName Name of the BufferedMutator implementation class    * @deprecated Since 3.0.0, will be removed in 4.0.0. You can not set it any more as the    *             implementation has to use too many internal stuffs in HBase.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|BufferedMutatorParams
 name|implementationClassName
@@ -448,7 +457,6 @@ return|return
 name|this
 return|;
 block|}
-comment|/*    * (non-Javadoc)    *    * @see java.lang.Object#clone()    */
 annotation|@
 name|edu
 operator|.

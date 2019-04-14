@@ -104,7 +104,9 @@ name|BufferedMutator
 extends|extends
 name|Closeable
 block|{
-comment|/**    * Key to use setting non-default BufferedMutator implementation in Configuration.    */
+comment|/**    * Key to use setting non-default BufferedMutator implementation in Configuration.    *<p/>    * @deprecated Since 3.0.0, will be removed in 4.0.0. For internal test use only, do not use it    *             any more.    */
+annotation|@
+name|Deprecated
 name|String
 name|CLASSNAME_KEY
 init|=
@@ -251,7 +253,9 @@ name|long
 name|getWriteBufferSize
 parameter_list|()
 function_decl|;
-comment|/**    * Set rpc timeout for this mutator instance    */
+comment|/**    * Set rpc timeout for this mutator instance    * @deprecated Since 3.0.0, will be removed in 4.0.0. Please set this through the    *             {@link BufferedMutatorParams}.    */
+annotation|@
+name|Deprecated
 name|void
 name|setRpcTimeout
 parameter_list|(
@@ -259,7 +263,9 @@ name|int
 name|timeout
 parameter_list|)
 function_decl|;
-comment|/**    * Set operation timeout for this mutator instance    */
+comment|/**    * Set operation timeout for this mutator instance    * @deprecated Since 3.0.0, will be removed in 4.0.0. Please set this through the    *             {@link BufferedMutatorParams}.    */
+annotation|@
+name|Deprecated
 name|void
 name|setOperationTimeout
 parameter_list|(
