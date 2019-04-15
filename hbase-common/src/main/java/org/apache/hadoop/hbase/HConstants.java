@@ -312,7 +312,12 @@ comment|/**    * Status codes used for return values of bulk operations.    */
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 specifier|public
 enum|enum
 name|OperationStatusCode

@@ -23,11 +23,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -47,6 +47,20 @@ name|OperationStatusCode
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
 comment|/**  *   * This class stores the Operation status code and the exception message  * that occurs in case of failure of operations like put, delete, etc.  * This class is added with a purpose of adding more details or info regarding  * the operation status in future.  *  */
 end_comment
@@ -55,12 +69,18 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 specifier|public
 class|class
 name|OperationStatus
 block|{
 comment|/** Singleton for successful operations.  */
+specifier|public
 specifier|static
 specifier|final
 name|OperationStatus
@@ -75,6 +95,7 @@ name|SUCCESS
 argument_list|)
 decl_stmt|;
 comment|/** Singleton for failed operations.  */
+specifier|public
 specifier|static
 specifier|final
 name|OperationStatus
@@ -89,6 +110,7 @@ name|FAILURE
 argument_list|)
 decl_stmt|;
 comment|/** Singleton for operations not yet run.  */
+specifier|public
 specifier|static
 specifier|final
 name|OperationStatus
