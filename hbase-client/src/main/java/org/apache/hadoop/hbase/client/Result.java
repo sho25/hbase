@@ -3617,18 +3617,6 @@ return|return
 name|stale
 return|;
 block|}
-comment|/**    * @deprecated the word 'partial' ambiguous, use {@link #mayHaveMoreCellsInRow()} instead.    *             Deprecated since 1.4.0.    * @see #mayHaveMoreCellsInRow()    */
-annotation|@
-name|Deprecated
-specifier|public
-name|boolean
-name|isPartial
-parameter_list|()
-block|{
-return|return
-name|mayHaveMoreCellsInRow
-return|;
-block|}
 comment|/**    * For scanning large rows, the RS may choose to return the cells chunk by chunk to prevent OOM    * or timeout. This flag is used to tell you if the current Result is the last one of the current    * row. False means this Result is the last one. True means there MAY be more cells belonging to    * the current row.    * If you don't use {@link Scan#setAllowPartialResults(boolean)} or {@link Scan#setBatch(int)},    * this method will always return false because the Result must contains all cells in one Row.    */
 specifier|public
 name|boolean
