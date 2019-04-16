@@ -315,6 +315,22 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|LeaseException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|RegionServerStoppedException
 import|;
 end_import
@@ -1489,6 +1505,10 @@ operator|||
 name|e
 operator|instanceof
 name|ScannerResetException
+operator|||
+name|e
+operator|instanceof
+name|LeaseException
 condition|)
 block|{
 comment|// Pass. It is easier writing the if loop test as list of what is allowed rather than
