@@ -219,7 +219,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|CollectionUtils
+name|ConcurrentMapUtils
 import|;
 end_import
 
@@ -304,7 +304,7 @@ return|return
 operator|(
 name|Timer
 operator|)
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 argument_list|(
@@ -343,7 +343,7 @@ return|return
 operator|(
 name|Histogram
 operator|)
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 argument_list|(
@@ -382,7 +382,7 @@ return|return
 operator|(
 name|Meter
 operator|)
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 argument_list|(
@@ -421,7 +421,7 @@ return|return
 operator|(
 name|Counter
 operator|)
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 argument_list|(
@@ -487,7 +487,7 @@ name|metric
 parameter_list|)
 block|{
 return|return
-name|CollectionUtils
+name|ConcurrentMapUtils
 operator|.
 name|computeIfAbsent
 argument_list|(
