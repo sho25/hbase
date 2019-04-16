@@ -224,18 +224,10 @@ name|batchPool
 init|=
 literal|null
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|AsyncConnectionImpl
 name|conn
-decl_stmt|;
-comment|/**    * @deprecated we can not implement all the related stuffs at once so keep it here for now, will    *             remove it after we implement all the stuffs, like Admin, RegionLocator, etc.    */
-annotation|@
-name|Deprecated
-specifier|private
-specifier|final
-name|ConnectionImplementation
-name|oldConn
 decl_stmt|;
 specifier|private
 specifier|final
@@ -246,9 +238,6 @@ name|ConnectionOverAsyncConnection
 parameter_list|(
 name|AsyncConnectionImpl
 name|conn
-parameter_list|,
-name|ConnectionImplementation
-name|oldConn
 parameter_list|)
 block|{
 name|this
@@ -256,12 +245,6 @@ operator|.
 name|conn
 operator|=
 name|conn
-expr_stmt|;
-name|this
-operator|.
-name|oldConn
-operator|=
-name|oldConn
 expr_stmt|;
 name|this
 operator|.
@@ -562,11 +545,15 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|oldConn
+operator|new
+name|RegionLocatorOverAsyncTableRegionLocator
+argument_list|(
+name|conn
 operator|.
 name|getRegionLocator
 argument_list|(
 name|tableName
+argument_list|)
 argument_list|)
 return|;
 block|}
@@ -626,7 +613,7 @@ block|}
 comment|// will be called from AsyncConnection, to avoid infinite loop as in the above method we will call
 comment|// AsyncConnection.close.
 name|void
-name|closeConnImpl
+name|closePool
 parameter_list|()
 block|{
 name|ExecutorService
