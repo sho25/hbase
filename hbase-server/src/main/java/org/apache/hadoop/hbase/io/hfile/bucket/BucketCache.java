@@ -874,7 +874,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * BucketCache#ramCache and BucketCache#backingMap in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link org.apache.hadoop.hbase.io.hfile.CombinedBlockCache}), combined with  * LruBlockCache to decrease CMS GC and heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache#setVictimCache}  */
+comment|/**  * BucketCache uses {@link BucketAllocator} to allocate/free blocks, and uses  * BucketCache#ramCache and BucketCache#backingMap in order to  * determine if a given element is in the cache. The bucket cache can use on-heap or  * off-heap memory {@link ByteBufferIOEngine} or in a file {@link FileIOEngine} to  * store/read the block data.  *  *<p>Eviction is via a similar algorithm as used in  * {@link org.apache.hadoop.hbase.io.hfile.LruBlockCache}  *  *<p>BucketCache can be used as mainly a block cache (see  * {@link org.apache.hadoop.hbase.io.hfile.CombinedBlockCache}), combined with  * a BlockCache to decrease CMS GC and heap fragmentation.  *  *<p>It also can be used as a secondary cache (e.g. using a file on ssd/fusionio to store  * blocks) to enlarge cache space via a victim cache.  */
 end_comment
 
 begin_class
@@ -2372,7 +2372,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Cache the block to ramCache    * @param cacheKey block's cache key    * @param cachedItem block buffer    * @param inMemory if block is in-memory    * @param wait if true, blocking wait when queue is full    */
-specifier|private
+specifier|public
 name|void
 name|cacheBlockWithWait
 parameter_list|(
@@ -3868,7 +3868,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-specifier|private
+specifier|public
 name|long
 name|acceptableSize
 parameter_list|()

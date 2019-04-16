@@ -669,7 +669,7 @@ operator|)
 name|blockCache
 argument_list|)
 operator|.
-name|getOnHeapCache
+name|getFirstLevelCache
 argument_list|()
 return|;
 block|}

@@ -2069,12 +2069,12 @@ name|CombinedBlockCache
 operator|)
 name|blockCache
 decl_stmt|;
-name|LruBlockCache
+name|FirstLevelBlockCache
 name|lbc
 init|=
 name|cbc
 operator|.
-name|onHeapCache
+name|l1Cache
 decl_stmt|;
 name|assertEquals
 argument_list|(
@@ -2182,7 +2182,12 @@ specifier|final
 name|long
 name|justTooBigSize
 init|=
+operator|(
+operator|(
+name|LruBlockCache
+operator|)
 name|lbc
+operator|)
 operator|.
 name|acceptableSize
 argument_list|()
