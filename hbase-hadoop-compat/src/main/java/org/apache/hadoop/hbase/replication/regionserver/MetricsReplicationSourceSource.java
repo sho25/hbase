@@ -84,17 +84,6 @@ name|SOURCE_SHIPPED_BATCHES
 init|=
 literal|"source.shippedBatches"
 decl_stmt|;
-comment|/**    * @deprecated Use {@link #SOURCE_SHIPPED_BYTES} instead    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|SOURCE_SHIPPED_KBS
-init|=
-literal|"source.shippedKBs"
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
