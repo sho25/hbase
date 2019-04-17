@@ -248,19 +248,6 @@ operator|.
 name|sizeOfLogQueue
 return|;
 block|}
-comment|/**    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * @see #getTimestampOfLastShippedOp()    */
-annotation|@
-name|Deprecated
-specifier|public
-name|long
-name|getTimeStampOfLastShippedOp
-parameter_list|()
-block|{
-return|return
-name|getTimestampOfLastShippedOp
-argument_list|()
-return|;
-block|}
 specifier|public
 name|long
 name|getTimestampOfLastShippedOp
