@@ -93,19 +93,6 @@ operator|.
 name|ageOfLastAppliedOp
 return|;
 block|}
-comment|/**    * @deprecated Since hbase-2.0.0. Will be removed in 3.0.0.    * @see #getTimestampsOfLastAppliedOp()    */
-annotation|@
-name|Deprecated
-specifier|public
-name|long
-name|getTimeStampsOfLastAppliedOp
-parameter_list|()
-block|{
-return|return
-name|getTimestampsOfLastAppliedOp
-argument_list|()
-return|;
-block|}
 specifier|public
 name|long
 name|getTimestampsOfLastAppliedOp
