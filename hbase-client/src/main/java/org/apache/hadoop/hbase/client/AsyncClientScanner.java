@@ -1308,6 +1308,11 @@ name|getPrimaryTimeoutNs
 argument_list|()
 argument_list|,
 name|retryTimer
+argument_list|,
+name|conn
+operator|.
+name|getConnectionMetrics
+argument_list|()
 argument_list|)
 argument_list|,
 parameter_list|(

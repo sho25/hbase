@@ -2346,7 +2346,7 @@ comment|// thread executor shared by all Table instances created
 comment|// by this connection
 specifier|private
 specifier|volatile
-name|ExecutorService
+name|ThreadPoolExecutor
 name|batchPool
 init|=
 literal|null
@@ -2355,7 +2355,7 @@ comment|// meta thread executor shared by all Table instances created
 comment|// by this connection
 specifier|private
 specifier|volatile
-name|ExecutorService
+name|ThreadPoolExecutor
 name|metaLookupPool
 init|=
 literal|null
@@ -2497,6 +2497,9 @@ name|this
 operator|.
 name|batchPool
 operator|=
+operator|(
+name|ThreadPoolExecutor
+operator|)
 name|pool
 expr_stmt|;
 name|this
@@ -2796,6 +2799,17 @@ operator|new
 name|MetricsConnection
 argument_list|(
 name|this
+operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|this
+operator|::
+name|getBatchPool
+argument_list|,
+name|this
+operator|::
+name|getMetaLookupPool
 argument_list|)
 expr_stmt|;
 block|}
@@ -3641,7 +3655,7 @@ name|metrics
 return|;
 block|}
 specifier|private
-name|ExecutorService
+name|ThreadPoolExecutor
 name|getBatchPool
 parameter_list|()
 block|{
@@ -3707,7 +3721,7 @@ name|batchPool
 return|;
 block|}
 specifier|private
-name|ExecutorService
+name|ThreadPoolExecutor
 name|getThreadPool
 parameter_list|(
 name|int
@@ -3862,7 +3876,7 @@ name|tpe
 return|;
 block|}
 specifier|private
-name|ExecutorService
+name|ThreadPoolExecutor
 name|getMetaLookupPool
 parameter_list|()
 block|{
