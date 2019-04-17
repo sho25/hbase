@@ -1062,6 +1062,9 @@ name|seekKey
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 decl_stmt|;
 name|MobTestUtil
 operator|.
@@ -1126,6 +1129,9 @@ name|seekKey
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 expr_stmt|;
 name|MobTestUtil
 operator|.
@@ -1194,6 +1200,9 @@ name|seekKey
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 expr_stmt|;
 name|MobTestUtil
 operator|.
@@ -1271,6 +1280,9 @@ name|seekKey
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 expr_stmt|;
 name|MobTestUtil
 operator|.
@@ -1316,8 +1328,10 @@ argument_list|,
 name|upperKey
 argument_list|)
 expr_stmt|;
-name|cell
-operator|=
+name|Assert
+operator|.
+name|assertNull
+argument_list|(
 name|cachedMobFile
 operator|.
 name|readCell
@@ -1326,12 +1340,6 @@ name|seekKey
 argument_list|,
 literal|false
 argument_list|)
-expr_stmt|;
-name|Assert
-operator|.
-name|assertNull
-argument_list|(
-name|cell
 argument_list|)
 expr_stmt|;
 block|}

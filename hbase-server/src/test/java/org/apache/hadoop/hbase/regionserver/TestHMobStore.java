@@ -3771,7 +3771,7 @@ argument_list|,
 name|targetPath
 argument_list|)
 expr_stmt|;
-comment|//resolve
+comment|// resolve
 name|Cell
 name|resultCell1
 init|=
@@ -3783,6 +3783,9 @@ name|seekKey1
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 decl_stmt|;
 name|Cell
 name|resultCell2
@@ -3795,6 +3798,9 @@ name|seekKey2
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 decl_stmt|;
 name|Cell
 name|resultCell3
@@ -3807,8 +3813,11 @@ name|seekKey3
 argument_list|,
 literal|false
 argument_list|)
+operator|.
+name|getCell
+argument_list|()
 decl_stmt|;
-comment|//compare
+comment|// compare
 name|Assert
 operator|.
 name|assertEquals

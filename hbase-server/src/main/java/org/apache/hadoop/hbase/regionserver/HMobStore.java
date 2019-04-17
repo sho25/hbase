@@ -273,20 +273,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValueUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
 import|;
 end_import
@@ -430,6 +416,22 @@ operator|.
 name|hfile
 operator|.
 name|CorruptHFileException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|mob
+operator|.
+name|MobCell
 import|;
 end_import
 
@@ -1704,9 +1706,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Reads the cell from the mob file, and the read point does not count.    * This is used for DefaultMobStoreCompactor where we can read empty value for the missing cell.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
+comment|/**    * Reads the cell from the mob file, and the read point does not count. This is used for    * DefaultMobStoreCompactor where we can read empty value for the missing cell.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @return The cell found in the mob file.    * @throws IOException    */
 specifier|public
-name|Cell
+name|MobCell
 name|resolve
 parameter_list|(
 name|Cell
@@ -1732,9 +1734,9 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @param readEmptyValueOnMobCellMiss Whether return null value when the mob file is    *        missing or corrupt.    * @return The cell found in the mob file.    * @throws IOException    */
+comment|/**    * Reads the cell from the mob file.    * @param reference The cell found in the HBase, its value is a path to a mob file.    * @param cacheBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @param readEmptyValueOnMobCellMiss Whether return null value when the mob file is missing or    *          corrupt.    * @return The cell found in the mob file.    * @throws IOException    */
 specifier|public
-name|Cell
+name|MobCell
 name|resolve
 parameter_list|(
 name|Cell
@@ -1752,8 +1754,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Cell
-name|result
+name|MobCell
+name|mobCell
 init|=
 literal|null
 decl_stmt|;
@@ -1946,7 +1948,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|result
+name|mobCell
 operator|=
 name|readCell
 argument_list|(
@@ -1967,7 +1969,7 @@ block|}
 block|}
 if|if
 condition|(
-name|result
+name|mobCell
 operator|==
 literal|null
 condition|)
@@ -1981,8 +1983,9 @@ operator|+
 literal|"qualifier,timestamp,type and tags but with an empty value to return."
 argument_list|)
 expr_stmt|;
-name|result
-operator|=
+name|Cell
+name|cell
+init|=
 name|ExtendedCellBuilderFactory
 operator|.
 name|create
@@ -2089,15 +2092,23 @@ argument_list|)
 operator|.
 name|build
 argument_list|()
+decl_stmt|;
+name|mobCell
+operator|=
+operator|new
+name|MobCell
+argument_list|(
+name|cell
+argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|result
+name|mobCell
 return|;
 block|}
 comment|/**    * Reads the cell from a mob file.    * The mob file might be located in different directories.    * 1. The working directory.    * 2. The archive directory.    * Reads the cell from the files located in both of the above directories.    * @param locations The possible locations where the mob files are saved.    * @param fileName The file to be read.    * @param search The cell to be searched.    * @param cacheMobBlocks Whether the scanner should cache blocks.    * @param readPt the read point.    * @param readEmptyValueOnMobCellMiss Whether return null value when the mob file is    *        missing or corrupt.    * @return The found cell. Null if there's no such a cell.    * @throws IOException    */
 specifier|private
-name|Cell
+name|MobCell
 name|readCell
 parameter_list|(
 name|List
@@ -2174,9 +2185,7 @@ argument_list|,
 name|cacheConf
 argument_list|)
 expr_stmt|;
-name|Cell
-name|cell
-init|=
+return|return
 name|readPt
 operator|!=
 operator|-
@@ -2200,17 +2209,6 @@ argument_list|(
 name|search
 argument_list|,
 name|cacheMobBlocks
-argument_list|)
-decl_stmt|;
-comment|// Now we will return blocks to allocator for mob cells before shipping to rpc client.
-comment|// it will be memory leak. so just copy cell as an on-heap KV here. will remove this in
-comment|// HBASE-22122 (TODO)
-return|return
-name|KeyValueUtil
-operator|.
-name|copyToNewKeyValue
-argument_list|(
-name|cell
 argument_list|)
 return|;
 block|}

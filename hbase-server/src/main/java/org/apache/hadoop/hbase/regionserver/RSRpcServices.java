@@ -4250,7 +4250,7 @@ name|BATCH_ROWS_THRESHOLD_DEFAULT
 init|=
 literal|5000
 decl_stmt|;
-specifier|protected
+specifier|public
 specifier|static
 specifier|final
 name|String

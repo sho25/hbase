@@ -1323,8 +1323,11 @@ block|}
 else|else
 block|{
 comment|// If the value is not larger than the threshold, it's not regarded a mob. Retrieve
-comment|// the mob cell from the mob file, and write it back to the store file.
-name|Cell
+comment|// the mob cell from the mob file, and write it back to the store file. Must
+comment|// close the mob scanner once the life cycle finished.
+try|try
+init|(
+name|MobCell
 name|mobCell
 init|=
 name|mobStore
@@ -1335,10 +1338,14 @@ name|c
 argument_list|,
 literal|false
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 if|if
 condition|(
 name|mobCell
+operator|.
+name|getCell
+argument_list|()
 operator|.
 name|getValueLength
 argument_list|()
@@ -1352,6 +1359,9 @@ operator|.
 name|setSequenceId
 argument_list|(
 name|mobCell
+operator|.
+name|getCell
+argument_list|()
 argument_list|,
 name|c
 operator|.
@@ -1364,6 +1374,9 @@ operator|.
 name|append
 argument_list|(
 name|mobCell
+operator|.
+name|getCell
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|cellsCountCompactedFromMob
@@ -1372,6 +1385,9 @@ expr_stmt|;
 name|cellsSizeCompactedFromMob
 operator|+=
 name|mobCell
+operator|.
+name|getCell
+argument_list|()
 operator|.
 name|getValueLength
 argument_list|()
@@ -1389,6 +1405,7 @@ argument_list|(
 name|c
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
