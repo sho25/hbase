@@ -109,27 +109,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterCell(Cell)} below.    *     * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param buffer buffer containing row key    * @param offset offset into buffer where row key starts    * @param length length of the row key    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use {@link #filterRowKey(Cell)}    */
-annotation|@
-name|Deprecated
-specifier|abstract
-specifier|public
-name|boolean
-name|filterRowKey
-parameter_list|(
-name|byte
-index|[]
-name|buffer
-parameter_list|,
-name|int
-name|offset
-parameter_list|,
-name|int
-name|length
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Filters a row based on the row key. If this returns true, the entire row will be excluded. If    * false, each KeyValue in the row will be passed to {@link #filterCell(Cell)} below.    * If {@link #filterAllRemaining()} returns true, then {@link #filterRowKey(Cell)} should    * also return true.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param firstRowCell The first cell coming in the new row    * @return true, remove entire row, false, include the row (maybe).    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */
 specifier|abstract
 specifier|public
@@ -151,28 +130,6 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *     * If filterRowKey returns true, filterKeyValue needs to be consistent with it.    *     * filterKeyValue can assume that filterRowKey has already been called for the row.    *     * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *     * @param c the Cell in question    * @return code as described below, Filter.ReturnCode.INCLUDE by default    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Instead use filterCell(Cell)    */
-annotation|@
-name|Deprecated
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-specifier|final
-name|Cell
-name|c
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|Filter
-operator|.
-name|ReturnCode
-operator|.
-name|INCLUDE
-return|;
-block|}
 comment|/**    * A way to filter based on the column family, column qualifier and/or the column value. Return    * code is described below. This allows filters to filter only certain number of columns, then    * terminate without matching ever column.    *    * If filterRowKey returns true, filterCell needs to be consistent with it.    *    * filterCell can assume that filterRowKey has already been called for the row.    *    * If your filter returns<code>ReturnCode.NEXT_ROW</code>, it should return    *<code>ReturnCode.NEXT_ROW</code> until {@link #reset()} is called just in case the caller calls    * for the next row.    *    * Concrete implementers can signal a failure condition in their code by throwing an    * {@link IOException}.    *    * @param c the Cell in question    * @return code as described below    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    * @see Filter.ReturnCode    */
 specifier|public
 name|ReturnCode
@@ -186,10 +143,9 @@ throws|throws
 name|IOException
 block|{
 return|return
-name|filterKeyValue
-argument_list|(
-name|c
-argument_list|)
+name|ReturnCode
+operator|.
+name|INCLUDE
 return|;
 block|}
 comment|/**    * Give the filter a chance to transform the passed KeyValue. If the Cell is changed a new    * Cell object must be returned.    *     * @see org.apache.hadoop.hbase.KeyValue#shallowCopy()    *      The transformed KeyValue is what is eventually returned to the client. Most filters will    *      return the passed KeyValue unchanged.    * @see org.apache.hadoop.hbase.filter.KeyOnlyFilter#transformCell(Cell) for an example of a    *      transformation.    *     *      Concrete implementers can signal a failure condition in their code by throwing an    *      {@link IOException}.    *     * @param v the KeyValue in question    * @return the changed KeyValue    * @throws IOException in case an I/O or an filter specific failure needs to be signaled.    */

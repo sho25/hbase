@@ -463,26 +463,6 @@ return|return
 name|transformed
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|ReturnCode
-name|filterKeyValue
-parameter_list|(
-specifier|final
-name|Cell
-name|c
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|filterCell
-argument_list|(
-name|c
-argument_list|)
-return|;
-block|}
 comment|/**    * Filters that never filter by modifying the returned List of Cells can inherit this    * implementation that does nothing. {@inheritDoc}    */
 annotation|@
 name|Override
