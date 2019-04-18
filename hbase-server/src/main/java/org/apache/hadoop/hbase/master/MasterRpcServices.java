@@ -9506,7 +9506,8 @@ name|checkPermissions
 argument_list|(
 name|desc
 argument_list|,
-name|accessChecker
+name|getAccessChecker
+argument_list|()
 argument_list|,
 name|RpcServer
 operator|.
@@ -20338,7 +20339,8 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|accessChecker
+name|getAccessChecker
+argument_list|()
 operator|!=
 literal|null
 condition|)
@@ -20354,7 +20356,8 @@ block|{
 name|boolean
 name|hasUserPermission
 init|=
-name|accessChecker
+name|getAccessChecker
+argument_list|()
 operator|.
 name|hasUserPermission
 argument_list|(

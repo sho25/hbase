@@ -55,7 +55,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertTrue
+name|assertFalse
 import|;
 end_import
 
@@ -1274,7 +1274,7 @@ operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
-name|assertTrue
+name|assertFalse
 argument_list|(
 literal|"region server should have aborted due to FaultyAccessController"
 argument_list|,

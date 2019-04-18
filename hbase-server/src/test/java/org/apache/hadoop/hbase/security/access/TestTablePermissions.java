@@ -3747,12 +3747,9 @@ comment|/**      * test a race condition causing AuthManager to sometimes fail g
 name|AuthManager
 name|authManager
 init|=
+operator|new
 name|AuthManager
-operator|.
-name|getOrCreate
 argument_list|(
-name|ZKW
-argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;

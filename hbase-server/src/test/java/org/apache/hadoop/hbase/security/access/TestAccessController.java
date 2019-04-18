@@ -2654,25 +2654,6 @@ operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
-name|int
-name|total
-init|=
-name|AuthManager
-operator|.
-name|getTotalRefCount
-argument_list|()
-decl_stmt|;
-name|assertTrue
-argument_list|(
-literal|"Unexpected reference count: "
-operator|+
-name|total
-argument_list|,
-name|total
-operator|==
-literal|0
-argument_list|)
-expr_stmt|;
 block|}
 specifier|private
 specifier|static
