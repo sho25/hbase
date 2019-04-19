@@ -463,6 +463,9 @@ argument_list|,
 name|newLoc
 argument_list|,
 name|rme
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|addToCache

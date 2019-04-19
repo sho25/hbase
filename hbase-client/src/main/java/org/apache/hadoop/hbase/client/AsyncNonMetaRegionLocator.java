@@ -2013,6 +2013,22 @@ name|locs
 argument_list|)
 expr_stmt|;
 block|}
+comment|// remove HRegionLocation with null location, i.e, getServerName returns null.
+if|if
+condition|(
+name|locs
+operator|!=
+literal|null
+condition|)
+block|{
+name|locs
+operator|=
+name|locs
+operator|.
+name|removeElementsWithNullLocation
+argument_list|()
+expr_stmt|;
+block|}
 comment|// the default region location should always be presented when fetching from meta, otherwise
 comment|// let's fail the request.
 if|if
