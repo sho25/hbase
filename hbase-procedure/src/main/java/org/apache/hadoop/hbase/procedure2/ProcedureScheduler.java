@@ -207,7 +207,7 @@ argument_list|>
 name|getLocks
 parameter_list|()
 function_decl|;
-comment|/**    * @return {@link LockedResource} for resource of specified type& name. null if resource is not locked.    */
+comment|/**    * @return {@link LockedResource} for resource of specified type& name. null if resource is not    *         locked.    */
 name|LockedResource
 name|getLockResource
 parameter_list|(

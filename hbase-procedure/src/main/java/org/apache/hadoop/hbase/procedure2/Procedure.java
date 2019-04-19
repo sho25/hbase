@@ -503,7 +503,7 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple times in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures to run or ourselves if there is more work to do or null if the    * procedure is done.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried later.    * @throws InterruptedException the procedure will be added back to the queue and retried later.    * @throws ProcedureSuspendedException Signal to the executor that Procedure has suspended itself and    * has set itself up waiting for an external event to wake it back up again.    */
+comment|/**    * The main code of the procedure. It must be idempotent since execute()    * may be called multiple times in case of machine failure in the middle    * of the execution.    * @param env the environment passed to the ProcedureExecutor    * @return a set of sub-procedures to run or ourselves if there is more work to do or null if the    *         procedure is done.    * @throws ProcedureYieldException the procedure will be added back to the queue and retried    *         later.    * @throws InterruptedException the procedure will be added back to the queue and retried later.    * @throws ProcedureSuspendedException Signal to the executor that Procedure has suspended itself    *         and has set itself up waiting for an external event to wake it back up again.    */
 specifier|protected
 specifier|abstract
 name|Procedure
@@ -907,7 +907,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * TODO      * Enable later when this is being used.      * Currently owner not used.     if (hasOwner()) {       sb.append(", owner=");       sb.append(getOwner());     }*/
+comment|/*      * TODO      * Enable later when this is being used.      * Currently owner not used.     if (hasOwner()) {       sb.append(", owner=");       sb.append(getOwner());     }*/
 name|sb
 operator|.
 name|append
@@ -1521,7 +1521,7 @@ operator|=
 name|result
 expr_stmt|;
 block|}
-comment|/**    * Will only be called when loading procedures from procedure store, where we need to record    * whether the procedure has already held a lock. Later we will call    * {@link #restoreLock(Object, ProcedureStore)} to actually acquire the lock.    */
+comment|/**    * Will only be called when loading procedures from procedure store, where we need to record    * whether the procedure has already held a lock. Later we will call    * {@link #restoreLock(Object)} to actually acquire the lock.    */
 specifier|final
 name|void
 name|lockedWhenLoading
@@ -1621,7 +1621,7 @@ name|hasException
 argument_list|()
 return|;
 block|}
-comment|/**    * @return true if the procedure is finished. The Procedure may be completed successfully or    * rolledback.    */
+comment|/**    * @return true if the procedure is finished. The Procedure may be completed successfully or    *         rolledback.    */
 specifier|public
 specifier|synchronized
 name|boolean

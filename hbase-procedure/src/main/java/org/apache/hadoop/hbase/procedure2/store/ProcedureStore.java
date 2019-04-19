@@ -35,6 +35,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|Procedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -54,22 +70,6 @@ operator|.
 name|audience
 operator|.
 name|InterfaceStability
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|Procedure
 import|;
 end_import
 
@@ -206,7 +206,7 @@ name|ProcedureStoreListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Start/Open the procedure store    * @param numThreads    */
+comment|/**    * Start/Open the procedure store    * @param numThreads number of threads to be used by the procedure store    */
 name|void
 name|start
 parameter_list|(

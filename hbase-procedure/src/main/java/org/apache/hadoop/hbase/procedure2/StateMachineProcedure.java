@@ -493,6 +493,7 @@ operator|.
 name|hasOwner
 argument_list|()
 condition|)
+block|{
 name|proc
 operator|.
 name|setOwner
@@ -501,6 +502,7 @@ name|getOwner
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|subProcList
 operator|.
 name|add
@@ -545,9 +547,11 @@ operator|||
 name|isFailed
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|TState
 name|state
 init|=
@@ -657,11 +661,13 @@ operator|!
 name|hasMoreState
 argument_list|()
 condition|)
+block|{
 name|setNextState
 argument_list|(
 name|EOF_STATE
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|subProcList
@@ -751,9 +757,11 @@ condition|(
 name|isEofState
 argument_list|()
 condition|)
+block|{
 name|stateCount
 operator|--
 expr_stmt|;
+block|}
 try|try
 block|{
 name|updateTimestamp

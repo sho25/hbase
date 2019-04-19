@@ -268,6 +268,7 @@ operator|<<
 literal|40
 operator|)
 condition|)
+block|{
 return|return
 name|String
 operator|.
@@ -284,6 +285,7 @@ literal|40
 operator|)
 argument_list|)
 return|;
+block|}
 if|if
 condition|(
 name|size
@@ -294,6 +296,7 @@ operator|<<
 literal|30
 operator|)
 condition|)
+block|{
 return|return
 name|String
 operator|.
@@ -310,6 +313,7 @@ literal|30
 operator|)
 argument_list|)
 return|;
+block|}
 if|if
 condition|(
 name|size
@@ -320,6 +324,7 @@ operator|<<
 literal|20
 operator|)
 condition|)
+block|{
 return|return
 name|String
 operator|.
@@ -336,6 +341,7 @@ literal|20
 operator|)
 argument_list|)
 return|;
+block|}
 if|if
 condition|(
 name|size
@@ -346,6 +352,7 @@ operator|<<
 literal|10
 operator|)
 condition|)
+block|{
 return|return
 name|String
 operator|.
@@ -362,6 +369,7 @@ literal|10
 operator|)
 argument_list|)
 return|;
+block|}
 return|return
 name|String
 operator|.

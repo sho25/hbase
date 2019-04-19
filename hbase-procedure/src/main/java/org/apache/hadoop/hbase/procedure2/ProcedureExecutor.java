@@ -2243,7 +2243,6 @@ default|default:
 break|break;
 block|}
 block|}
-comment|// add the nonce to the map
 if|if
 condition|(
 name|nonceKey
@@ -2260,19 +2259,19 @@ argument_list|,
 name|procId
 argument_list|)
 expr_stmt|;
+comment|// add the nonce to the map
 block|}
 block|}
-comment|// 2. Initialize the stacks
-comment|// In the old implementation, for procedures in FAILED state, we will push it into the
-comment|// ProcedureScheduler directly to execute the rollback. But this does not work after we
-comment|// introduce the restore lock stage.
-comment|// For now, when we acquire a xlock, we will remove the queue from runQueue in scheduler, and
-comment|// then when a procedure which has lock access, for example, a sub procedure of the procedure
-comment|// which has the xlock, is pushed into the scheduler, we will add the queue back to let the
-comment|// workers poll from it. The assumption here is that, the procedure which has the xlock should
-comment|// have been polled out already, so when loading we can not add the procedure to scheduler first
-comment|// and then call acquireLock, since the procedure is still in the queue, and since we will
-comment|// remove the queue from runQueue, then no one can poll it out, then there is a dead lock
+comment|// 2. Initialize the stacks: In the old implementation, for procedures in FAILED state, we will
+comment|// push it into the ProcedureScheduler directly to execute the rollback. But this does not work
+comment|// after we introduce the restore lock stage. For now, when we acquire a xlock, we will remove
+comment|// the queue from runQueue in scheduler, and then when a procedure which has lock access, for
+comment|// example, a sub procedure of the procedure which has the xlock, is pushed into the scheduler,
+comment|// we will add the queue back to let the workers poll from it. The assumption here is that, the
+comment|// procedure which has the xlock should have been polled out already, so when loading we can not
+comment|// add the procedure to scheduler first and then call acquireLock, since the procedure is still
+comment|// in the queue, and since we will remove the queue from runQueue, then no one can poll it out,
+comment|// then there is a dead lock
 name|List
 argument_list|<
 name|Procedure
@@ -2601,14 +2600,12 @@ name|hasChildren
 argument_list|()
 condition|)
 block|{
-comment|// Normally, WAITING procedures should be waken by its children.
-comment|// But, there is a case that, all the children are successful and before
-comment|// they can wake up their parent procedure, the master was killed.
-comment|// So, during recovering the procedures from ProcedureWal, its children
-comment|// are not loaded because of their SUCCESS state.
-comment|// So we need to continue to run this WAITING procedure. But before
-comment|// executing, we need to set its state to RUNNABLE, otherwise, a exception
-comment|// will throw:
+comment|// Normally, WAITING procedures should be waken by its children. But, there is a case that,
+comment|// all the children are successful and before they can wake up their parent procedure, the
+comment|// master was killed. So, during recovering the procedures from ProcedureWal, its children
+comment|// are not loaded because of their SUCCESS state. So we need to continue to run this WAITING
+comment|// procedure. But before executing, we need to set its state to RUNNABLE, otherwise, a
+comment|// exception will throw:
 comment|// Preconditions.checkArgument(procedure.getState() == ProcedureState.RUNNABLE,
 comment|// "NOT RUNNABLE! " + procedure.toString());
 name|proc
@@ -3523,7 +3520,7 @@ comment|// =====================================================================
 end_comment
 
 begin_comment
-comment|/**    * Create a NoneKey from the specified nonceGroup and nonce.    * @param nonceGroup    * @param nonce    * @return the generated NonceKey    */
+comment|/**    * Create a NonceKey from the specified nonceGroup and nonce.    * @param nonceGroup the group to use for the {@link NonceKey}    * @param nonce the nonce to use in the {@link NonceKey}    * @return the generated NonceKey    */
 end_comment
 
 begin_function
@@ -3582,10 +3579,12 @@ name|nonceKey
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
+block|}
 comment|// check if we have already a Reserved ID for the nonce
 name|Long
 name|oldProcId
@@ -3630,10 +3629,12 @@ name|oldProcId
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
+block|}
 block|}
 comment|// we found a registered nonce, but the procedure may not have been submitted yet.
 comment|// since the client expect the procedure to be submitted, spin here until it is.
@@ -3733,7 +3734,9 @@ name|nonceKey
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 specifier|final
 name|Long
 name|procId
@@ -3751,7 +3754,9 @@ name|procId
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 comment|// if the procedure was not submitted, remove the nonce
 if|if
 condition|(
@@ -6045,7 +6050,9 @@ name|procId
 operator|>=
 literal|0
 condition|)
+block|{
 break|break;
+block|}
 block|}
 while|while
 condition|(

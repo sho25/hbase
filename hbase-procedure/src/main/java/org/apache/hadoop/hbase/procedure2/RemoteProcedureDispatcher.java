@@ -939,9 +939,11 @@ name|node
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|node
 operator|.
 name|abortOperationsInQueue

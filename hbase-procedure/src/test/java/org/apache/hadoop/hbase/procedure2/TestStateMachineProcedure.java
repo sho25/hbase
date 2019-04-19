@@ -350,9 +350,11 @@ name|this
 operator|==
 name|other
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -362,9 +364,11 @@ operator|instanceof
 name|Exception
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 comment|// we are going to serialize the exception in the test,
 comment|// so the instance comparison will not match
 return|return

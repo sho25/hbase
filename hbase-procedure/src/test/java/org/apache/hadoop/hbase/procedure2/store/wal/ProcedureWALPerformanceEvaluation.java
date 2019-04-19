@@ -127,9 +127,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|fs
+name|conf
 operator|.
-name|*
+name|Configuration
 import|;
 end_import
 
@@ -141,9 +141,37 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|fs
 operator|.
-name|*
+name|FSDataOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|Path
 import|;
 end_import
 
@@ -191,7 +219,7 @@ name|procedure2
 operator|.
 name|util
 operator|.
-name|*
+name|StringUtils
 import|;
 end_import
 

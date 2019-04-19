@@ -791,6 +791,7 @@ name|step
 operator|!=
 literal|1
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -798,6 +799,7 @@ argument_list|(
 literal|25
 argument_list|)
 expr_stmt|;
+block|}
 comment|// try to register a procedure with the same nonce
 comment|// we should get back the old procId
 name|assertEquals
@@ -1327,6 +1329,7 @@ condition|;
 operator|++
 name|i
 control|)
+block|{
 name|threads
 index|[
 name|i
@@ -1335,6 +1338,7 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -1351,6 +1355,7 @@ condition|;
 operator|++
 name|i
 control|)
+block|{
 name|Threads
 operator|.
 name|shutdown
@@ -1361,6 +1366,7 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
+block|}
 name|ProcedureTestingUtility
 operator|.
 name|waitNoProcedureRunning

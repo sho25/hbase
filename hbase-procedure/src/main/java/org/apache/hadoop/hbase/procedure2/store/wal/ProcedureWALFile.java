@@ -586,7 +586,9 @@ name|stream
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|stream
@@ -922,9 +924,11 @@ name|this
 operator|==
 name|o
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 operator|!
@@ -934,9 +938,11 @@ operator|instanceof
 name|ProcedureWALFile
 operator|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|compareTo
 argument_list|(

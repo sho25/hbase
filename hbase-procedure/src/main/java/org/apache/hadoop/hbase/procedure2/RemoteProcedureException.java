@@ -35,6 +35,22 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|ForeignExceptionUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|ipc
 operator|.
 name|RemoteException
@@ -91,22 +107,6 @@ name|ForeignExceptionMessage
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|ForeignExceptionUtil
-import|;
-end_import
-
 begin_comment
 comment|/**  * A RemoteProcedureException is an exception from another thread or process.  *<p>  * RemoteProcedureExceptions are sent to 'remote' peers to signal an abort in the face of failures.  * When serialized for transmission we encode using Protobufs to ensure version compatibility.  *<p>  * RemoteProcedureException exceptions contain a Throwable as its cause.  * This can be a "regular" exception generated locally or a ProxyThrowable that is a representation  * of the original exception created on original 'remote' source.  These ProxyThrowables have their  * their stacks traces and messages overridden to reflect the original 'remote' exception.  */
 end_comment
@@ -137,7 +137,7 @@ specifier|final
 name|String
 name|source
 decl_stmt|;
-comment|/**    * Create a new RemoteProcedureException that can be serialized.    * It is assumed that this came form a local source.    * @param source    * @param cause    */
+comment|/**    * Create a new RemoteProcedureException that can be serialized.    * It is assumed that this came form a local source.    * @param source the host or thread name of the source    * @param cause the actual cause of the exception    */
 specifier|public
 name|RemoteProcedureException
 parameter_list|(
@@ -329,7 +329,7 @@ name|toByteArray
 argument_list|()
 return|;
 block|}
-comment|/**    * Takes a series of bytes and tries to generate an RemoteProcedureException instance for it.    * @param bytes    * @return the ForeignExcpetion instance    * @throws InvalidProtocolBufferException if there was deserialization problem this is thrown.    */
+comment|/**    * Takes a series of bytes and tries to generate an RemoteProcedureException instance for it.    * @param bytes the bytes to generate the {@link RemoteProcedureException} from    * @return the ForeignExcpetion instance    * @throws IOException if there was deserialization problem this is thrown.    */
 specifier|public
 specifier|static
 name|RemoteProcedureException

@@ -375,6 +375,7 @@ end_import
 
 begin_class
 specifier|public
+specifier|final
 class|class
 name|ProcedureTestingUtility
 block|{
@@ -1438,7 +1439,9 @@ name|testing
 operator|==
 literal|null
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|procExecutor

@@ -699,6 +699,7 @@ operator|--
 operator|>
 literal|0
 condition|)
+block|{
 name|subprocStack
 operator|.
 name|add
@@ -706,6 +707,7 @@ argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 for|for
 control|(

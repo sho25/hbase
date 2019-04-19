@@ -327,17 +327,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test that I can override the toString for its state value.    * @throws ProcedureYieldException    * @throws InterruptedException    */
+comment|/**    * Test that I can override the toString for its state value.    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testBasicToString
 parameter_list|()
-throws|throws
-name|ProcedureYieldException
-throws|,
-name|InterruptedException
 block|{
 name|BasicProcedure
 name|p

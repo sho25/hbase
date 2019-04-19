@@ -3222,7 +3222,9 @@ name|count
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|offset
@@ -4673,6 +4675,7 @@ name|i
 operator|>
 literal|0
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleepWithoutInterrupt
@@ -4682,6 +4685,7 @@ operator|*
 name|i
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 block|{
 if|if

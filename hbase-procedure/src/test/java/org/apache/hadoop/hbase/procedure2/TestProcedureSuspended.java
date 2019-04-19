@@ -861,6 +861,7 @@ argument_list|()
 operator|<
 literal|100
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -868,6 +869,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 literal|0
@@ -911,6 +913,7 @@ argument_list|()
 operator|<
 literal|100
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -918,6 +921,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|p1
@@ -1010,6 +1014,7 @@ argument_list|()
 operator|<
 name|size
 condition|)
+block|{
 name|Threads
 operator|.
 name|sleep
@@ -1017,6 +1022,7 @@ argument_list|(
 literal|10
 argument_list|)
 expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
@@ -1354,9 +1360,6 @@ name|TestProcEnv
 name|env
 parameter_list|)
 block|{
-if|if
-condition|(
-operator|(
 name|hasLock
 operator|=
 name|lock
@@ -1367,7 +1370,10 @@ literal|false
 argument_list|,
 literal|true
 argument_list|)
-operator|)
+expr_stmt|;
+if|if
+condition|(
+name|hasLock
 condition|)
 block|{
 name|LOG
