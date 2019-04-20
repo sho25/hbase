@@ -533,6 +533,21 @@ name|build
 argument_list|()
 return|;
 block|}
+else|else
+block|{
+comment|// Updated the connection access time for each client next() call
+name|RESTServlet
+operator|.
+name|getInstance
+argument_list|()
+operator|.
+name|getConnectionCache
+argument_list|()
+operator|.
+name|updateConnectionAccessTime
+argument_list|()
+expr_stmt|;
+block|}
 name|CellSetModel
 name|model
 init|=

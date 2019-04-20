@@ -261,6 +261,7 @@ specifier|final
 name|JvmPauseMonitor
 name|pauseMonitor
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -268,6 +269,7 @@ name|CLEANUP_INTERVAL
 init|=
 literal|"hbase.rest.connection.cleanup-interval"
 decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -307,6 +309,16 @@ operator|)
 assert|;
 return|return
 name|INSTANCE
+return|;
+block|}
+comment|/**    * @return the ConnectionCache instance    */
+specifier|public
+name|ConnectionCache
+name|getConnectionCache
+parameter_list|()
+block|{
+return|return
+name|connectionCache
 return|;
 block|}
 comment|/**    * @param conf Existing configuration to use in rest servlet    * @param userProvider the login user provider    * @return the RESTServlet singleton instance    * @throws IOException    */
