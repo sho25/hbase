@@ -3430,7 +3430,7 @@ condition|)
 block|{
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 block|}
@@ -3438,7 +3438,7 @@ else|else
 block|{
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -3822,7 +3822,7 @@ condition|)
 block|{
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)

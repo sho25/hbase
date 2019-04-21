@@ -2239,7 +2239,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -2654,7 +2654,7 @@ argument_list|)
 decl_stmt|;
 name|g
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|3
 argument_list|)
@@ -2677,7 +2677,7 @@ argument_list|)
 decl_stmt|;
 name|get2
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|3
 argument_list|)

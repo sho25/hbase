@@ -2335,7 +2335,7 @@ expr_stmt|;
 block|}
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|numVersions
 argument_list|)
@@ -2629,7 +2629,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|numVersions
 argument_list|)

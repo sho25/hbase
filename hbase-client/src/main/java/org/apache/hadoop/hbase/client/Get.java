@@ -250,7 +250,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used to perform Get operations on a single row.  *<p>  * To get everything for a row, instantiate a Get object with the row to get.  * To further narrow the scope of what to Get, use the methods below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimestamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #setMaxVersions(int) setMaxVersions}.  *<p>  * To add a filter, call {@link #setFilter(Filter) setFilter}.  */
+comment|/**  * Used to perform Get operations on a single row.  *<p>  * To get everything for a row, instantiate a Get object with the row to get.  * To further narrow the scope of what to Get, use the methods below.  *<p>  * To get all columns from specific families, execute {@link #addFamily(byte[]) addFamily}  * for each family to retrieve.  *<p>  * To get specific columns, execute {@link #addColumn(byte[], byte[]) addColumn}  * for each column to retrieve.  *<p>  * To only retrieve columns within a specific range of version timestamps,  * execute {@link #setTimeRange(long, long) setTimeRange}.  *<p>  * To only retrieve columns with a specific timestamp, execute  * {@link #setTimestamp(long) setTimestamp}.  *<p>  * To limit the number of versions of each column to be returned, execute  * {@link #readVersions(int) readVersions}.  *<p>  * To add a filter, call {@link #setFilter(Filter) setFilter}.  */
 end_comment
 
 begin_class
@@ -797,34 +797,6 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * This will always return the default value which is false as client cannot set the value to this    * property any more.    * @deprecated since 2.0.0 and will be removed in 3.0.0    */
-annotation|@
-name|Deprecated
-specifier|public
-name|boolean
-name|isClosestRowBefore
-parameter_list|()
-block|{
-return|return
-name|closestRowBefore
-return|;
-block|}
-comment|/**    * This is not used any more and does nothing. Use reverse scan instead.    * @deprecated since 2.0.0 and will be removed in 3.0.0    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Get
-name|setClosestRowBefore
-parameter_list|(
-name|boolean
-name|closestRowBefore
-parameter_list|)
-block|{
-comment|// do Nothing
-return|return
-name|this
-return|;
-block|}
 comment|/**    * Get all columns from the specified family.    *<p>    * Overrides previous calls to addColumn for this family.    * @param family family name    * @return the Get object    */
 specifier|public
 name|Get
@@ -964,28 +936,6 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get versions of columns with the specified timestamp.    * @param timestamp version timestamp    * @return this for invocation chaining    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #setTimestamp(long)} instead    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Get
-name|setTimeStamp
-parameter_list|(
-name|long
-name|timestamp
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|this
-operator|.
-name|setTimestamp
-argument_list|(
-name|timestamp
-argument_list|)
-return|;
-block|}
 comment|/**    * Get versions of columns with the specified timestamp.    * @param timestamp version timestamp    * @return this for invocation chaining    */
 specifier|public
 name|Get
@@ -1064,39 +1014,6 @@ argument_list|,
 name|minStamp
 argument_list|,
 name|maxStamp
-argument_list|)
-return|;
-block|}
-comment|/**    * Get all available versions.    * @return this for invocation chaining    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readAllVersions()} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Get
-name|setMaxVersions
-parameter_list|()
-block|{
-return|return
-name|readAllVersions
-argument_list|()
-return|;
-block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @throws IOException if invalid number of versions    * @return this for invocation chaining    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readVersions(int)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Get
-name|setMaxVersions
-parameter_list|(
-name|int
-name|maxVersions
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-name|readVersions
-argument_list|(
-name|maxVersions
 argument_list|)
 return|;
 block|}

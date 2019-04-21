@@ -1106,7 +1106,7 @@ argument_list|,
 name|col1
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1141,7 +1141,7 @@ argument_list|,
 name|col2
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1188,7 +1188,7 @@ argument_list|,
 name|col2
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1224,7 +1224,7 @@ argument_list|,
 name|col1
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1269,7 +1269,7 @@ argument_list|,
 name|col2
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1305,7 +1305,7 @@ argument_list|,
 name|col1
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1417,7 +1417,7 @@ argument_list|,
 name|col2
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)
@@ -1453,7 +1453,7 @@ argument_list|,
 name|col1
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|100
 argument_list|)

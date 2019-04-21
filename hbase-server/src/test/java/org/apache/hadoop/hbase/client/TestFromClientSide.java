@@ -10243,7 +10243,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -10676,7 +10676,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -10928,7 +10928,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|result
@@ -11193,7 +11193,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|result
@@ -11790,7 +11790,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -12158,7 +12158,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -12872,7 +12872,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -12948,7 +12948,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -13179,7 +13179,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -13274,7 +13274,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -13564,7 +13564,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -13679,7 +13679,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -14017,7 +14017,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -14090,7 +14090,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -14169,7 +14169,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -14643,7 +14643,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15171,7 +15171,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15248,7 +15248,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15335,7 +15335,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15383,7 +15383,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15470,7 +15470,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -15563,7 +15563,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -16059,7 +16059,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -16389,7 +16389,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -16703,7 +16703,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -17227,7 +17227,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -17409,7 +17409,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -17645,7 +17645,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -17777,7 +17777,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -18095,7 +18095,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -18161,7 +18161,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -22020,7 +22020,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -22132,7 +22132,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -22243,7 +22243,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -22653,7 +22653,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -22738,7 +22738,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -29860,7 +29860,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -30293,7 +30293,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|2
 argument_list|)
@@ -30564,7 +30564,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|7
 argument_list|)
@@ -30813,7 +30813,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|7
 argument_list|)
@@ -31394,7 +31394,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -31762,7 +31762,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -32246,7 +32246,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 comment|// Check that the column indeed has the right values at timestamps 1 and
@@ -32637,7 +32637,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 comment|// Check that the column indeed has the right values at timestamps 1 and
@@ -33072,7 +33072,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 comment|// Check that the column indeed has the right values at timestamps 1 and
@@ -39314,7 +39314,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 for|for
@@ -39594,7 +39594,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 for|for
@@ -52739,7 +52739,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -52862,7 +52862,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -53117,7 +53117,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -53244,7 +53244,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -53351,7 +53351,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|Integer
 operator|.
@@ -53690,7 +53690,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|3
 argument_list|)
@@ -53843,7 +53843,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -53996,7 +53996,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|5
 argument_list|)

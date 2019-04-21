@@ -560,7 +560,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|3
 argument_list|)
@@ -725,7 +725,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|tss
 operator|.
@@ -852,7 +852,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|kvs
 operator|.

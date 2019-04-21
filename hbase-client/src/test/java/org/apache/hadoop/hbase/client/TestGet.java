@@ -1374,7 +1374,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|11
 argument_list|)

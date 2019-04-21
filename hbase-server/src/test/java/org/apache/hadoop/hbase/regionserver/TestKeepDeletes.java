@@ -910,7 +910,7 @@ argument_list|)
 decl_stmt|;
 name|g
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|g
@@ -1574,7 +1574,7 @@ argument_list|)
 decl_stmt|;
 name|gOne
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|gOne
@@ -1649,7 +1649,7 @@ argument_list|)
 decl_stmt|;
 name|g
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|g
@@ -5426,7 +5426,7 @@ argument_list|)
 decl_stmt|;
 name|g
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|g
@@ -5957,7 +5957,7 @@ argument_list|)
 expr_stmt|;
 name|g
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|g

@@ -612,7 +612,7 @@ argument_list|(
 literal|1000
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|9999
 argument_list|)

@@ -19404,7 +19404,7 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|Result
@@ -28102,7 +28102,7 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|Cell
@@ -29751,7 +29751,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -30292,7 +30292,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 literal|1
 argument_list|)
@@ -30537,7 +30537,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|res
@@ -30620,7 +30620,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|res
@@ -30733,7 +30733,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|res
@@ -30816,7 +30816,7 @@ argument_list|)
 expr_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 expr_stmt|;
 name|res
@@ -33382,7 +33382,7 @@ argument_list|(
 name|family
 argument_list|)
 operator|.
-name|setMaxVersions
+name|readAllVersions
 argument_list|()
 decl_stmt|;
 name|Cell

@@ -4346,7 +4346,7 @@ condition|)
 block|{
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|proto
 operator|.

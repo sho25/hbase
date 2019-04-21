@@ -14982,7 +14982,7 @@ argument_list|)
 decl_stmt|;
 name|get
 operator|.
-name|setMaxVersions
+name|readVersions
 argument_list|(
 name|count
 argument_list|)
