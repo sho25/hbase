@@ -2055,16 +2055,8 @@ parameter_list|(
 name|ServerName
 name|server
 parameter_list|,
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
 name|MultiResponse
-operator|.
-name|RegionResult
-argument_list|>
-name|results
+name|resp
 parameter_list|)
 block|{
 comment|// Do nothing for avoiding the NPE if we test the ClientBackofPolicy.

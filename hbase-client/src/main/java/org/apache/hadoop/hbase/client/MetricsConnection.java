@@ -2399,11 +2399,14 @@ name|incrNormalRunners
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** Increment the number of delay runner counts. */
+comment|/** Increment the number of delay runner counts and update delay interval of delay runner. */
 specifier|public
 name|void
-name|incrDelayRunners
-parameter_list|()
+name|incrDelayRunnersAndUpdateDelayInterval
+parameter_list|(
+name|long
+name|interval
+parameter_list|)
 block|{
 name|this
 operator|.
@@ -2412,16 +2415,6 @@ operator|.
 name|incrDelayRunners
 argument_list|()
 expr_stmt|;
-block|}
-comment|/** Update delay interval of delay runner. */
-specifier|public
-name|void
-name|updateDelayInterval
-parameter_list|(
-name|long
-name|interval
-parameter_list|)
-block|{
 name|this
 operator|.
 name|runnerStats

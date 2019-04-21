@@ -2683,6 +2683,8 @@ parameter_list|)
 lambda|->
 name|RawAsyncTableImpl
 operator|.
+name|this
+operator|.
 block|<Boolean> mutateRow(controller
 argument_list|,
 name|loc
@@ -2783,7 +2785,6 @@ end_comment
 
 begin_function
 specifier|private
-specifier|static
 parameter_list|<
 name|RESP
 parameter_list|>
@@ -2939,6 +2940,28 @@ name|cellScanner
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|ConnectionUtils
+operator|.
+name|updateStats
+argument_list|(
+name|conn
+operator|.
+name|getStatisticsTracker
+argument_list|()
+argument_list|,
+name|conn
+operator|.
+name|getConnectionMetrics
+argument_list|()
+argument_list|,
+name|loc
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|multiResp
+argument_list|)
+expr_stmt|;
 name|Throwable
 name|ex
 init|=
@@ -3105,7 +3128,7 @@ parameter_list|,
 name|stub
 parameter_list|)
 lambda|->
-name|RawAsyncTableImpl
+name|this
 operator|.
 block|<Void> mutateRow(controller
 argument_list|,
