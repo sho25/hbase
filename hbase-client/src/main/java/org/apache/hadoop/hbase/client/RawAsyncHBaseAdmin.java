@@ -12652,6 +12652,8 @@ operator|.
 name|getRegionLocation
 argument_list|(
 name|splitPoint
+argument_list|,
+literal|true
 argument_list|)
 argument_list|,
 parameter_list|(
