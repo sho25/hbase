@@ -2860,7 +2860,20 @@ parameter_list|(
 name|int
 name|operationTimeout
 parameter_list|)
-block|{              }
+block|{             }
+annotation|@
+name|Override
+specifier|public
+name|RegionLocator
+name|getRegionLocator
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 return|;
 block|}

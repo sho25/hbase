@@ -299,6 +299,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionLocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Result
 import|;
 end_import
@@ -2794,6 +2810,23 @@ operator|new
 name|NotImplementedException
 argument_list|(
 literal|"coprocessorService not supported in ThriftTable"
+argument_list|)
+throw|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|RegionLocator
+name|getRegionLocator
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"getRegionLocator not supported in ThriftTable"
 argument_list|)
 throw|;
 block|}

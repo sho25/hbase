@@ -263,6 +263,19 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
+comment|/**    * Gets the {@link TableDescriptor} for this table.    */
+name|CompletableFuture
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|getDescriptor
+parameter_list|()
+function_decl|;
+comment|/**    * Gets the {@link AsyncTableRegionLocator} for this table.    */
+name|AsyncTableRegionLocator
+name|getRegionLocator
+parameter_list|()
+function_decl|;
 comment|/**    * Get timeout of each rpc request in this Table instance. It will be overridden by a more    * specific rpc timeout config such as readRpcTimeout or writeRpcTimeout.    * @see #getReadRpcTimeout(TimeUnit)    * @see #getWriteRpcTimeout(TimeUnit)    * @param unit the unit of time the timeout to be represented in    * @return rpc timeout in the specified time unit    */
 name|long
 name|getRpcTimeout
