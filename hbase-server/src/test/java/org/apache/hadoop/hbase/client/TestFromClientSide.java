@@ -52540,7 +52540,7 @@ argument_list|,
 operator|new
 name|byte
 index|[
-literal|10
+literal|2
 operator|*
 literal|1024
 index|]
