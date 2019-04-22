@@ -481,13 +481,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// After the use return back the block if it was served from a cache.
-name|reader
-operator|.
-name|returnBlock
-argument_list|(
+comment|// After the use, should release the block to deallocate byte buffers.
 name|bloomBlock
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 if|if
@@ -686,13 +684,11 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// After the use return back the block if it was served from a cache.
-name|reader
-operator|.
-name|returnBlock
-argument_list|(
+comment|// After the use, should release the block to deallocate the byte buffers.
 name|bloomBlock
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 if|if

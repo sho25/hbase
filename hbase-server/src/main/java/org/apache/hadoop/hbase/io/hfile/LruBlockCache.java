@@ -2104,15 +2104,11 @@ operator|.
 name|deepCloneOnHeap
 argument_list|()
 expr_stmt|;
-comment|// deepClone an new one, so need to put the original one back to free it.
-name|victimHandler
-operator|.
-name|returnBlock
-argument_list|(
-name|cacheKey
-argument_list|,
+comment|// deepClone an new one, so need to release the original one to deallocate it.
 name|original
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 name|cacheBlock

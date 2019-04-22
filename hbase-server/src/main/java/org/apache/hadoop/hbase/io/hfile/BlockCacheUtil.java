@@ -1169,15 +1169,11 @@ block|}
 block|}
 finally|finally
 block|{
-comment|// return the block since we need to decrement the count
-name|blockCache
-operator|.
-name|returnBlock
-argument_list|(
-name|cacheKey
-argument_list|,
+comment|// Release this block to decrement the reference count.
 name|existingBlock
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 block|}

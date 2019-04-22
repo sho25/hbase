@@ -1799,14 +1799,10 @@ block|}
 block|}
 finally|finally
 block|{
-name|combined
-operator|.
-name|returnBlock
-argument_list|(
-name|key
-argument_list|,
 name|cachedBlock
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 name|block

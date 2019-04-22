@@ -2095,14 +2095,20 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-comment|// Return the bloom block so that its ref count can be decremented.
-name|reader
-operator|.
-name|returnBlock
-argument_list|(
+comment|// Release the bloom block so that its ref count can be decremented.
+if|if
+condition|(
 name|bloomBlock
-argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|bloomBlock
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 literal|true

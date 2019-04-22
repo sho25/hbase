@@ -1602,14 +1602,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**      * Return the given block back to the cache, if it was obtained from cache.      * @param block Block to be returned.      */
-name|void
-name|returnBlock
-parameter_list|(
-name|HFileBlock
-name|block
-parameter_list|)
-function_decl|;
 block|}
 comment|/** An interface used by clients to open and iterate an {@link HFile}. */
 specifier|public

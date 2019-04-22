@@ -1657,16 +1657,17 @@ if|if
 condition|(
 operator|!
 name|dataBlock
+operator|&&
+name|block
+operator|!=
+literal|null
 condition|)
 block|{
-comment|// Return the block immediately if it is not the
-comment|// data block
-name|cachingBlockReader
-operator|.
-name|returnBlock
-argument_list|(
+comment|// Release the block immediately if it is not the data block
 name|block
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 block|}
@@ -1686,13 +1687,19 @@ assert|;
 comment|// Though we have retrieved a data block we have found an issue
 comment|// in the retrieved data block. Hence returned the block so that
 comment|// the ref count can be decremented
-name|cachingBlockReader
-operator|.
-name|returnBlock
-argument_list|(
+if|if
+condition|(
 name|block
-argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|block
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
+block|}
 throw|throw
 operator|new
 name|IOException
@@ -1926,12 +1933,10 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|cachingBlockReader
-operator|.
-name|returnBlock
-argument_list|(
 name|midLeafBlock
-argument_list|)
+operator|.
+name|release
+argument_list|()
 expr_stmt|;
 block|}
 block|}

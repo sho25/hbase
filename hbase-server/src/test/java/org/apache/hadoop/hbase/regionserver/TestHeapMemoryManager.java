@@ -5345,19 +5345,6 @@ return|return
 literal|null
 return|;
 block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|returnBlock
-parameter_list|(
-name|BlockCacheKey
-name|cacheKey
-parameter_list|,
-name|Cacheable
-name|buf
-parameter_list|)
-block|{     }
 specifier|public
 name|void
 name|setTestBlockSize
