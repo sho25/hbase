@@ -780,7 +780,7 @@ name|Test
 argument_list|(
 name|expected
 operator|=
-name|SocketTimeoutException
+name|RetriesExhaustedException
 operator|.
 name|class
 argument_list|)
@@ -813,7 +813,7 @@ name|Test
 argument_list|(
 name|expected
 operator|=
-name|SocketTimeoutException
+name|RetriesExhaustedException
 operator|.
 name|class
 argument_list|)
