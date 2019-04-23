@@ -348,7 +348,7 @@ block|}
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 specifier|synchronized
 name|void
 name|doStart
