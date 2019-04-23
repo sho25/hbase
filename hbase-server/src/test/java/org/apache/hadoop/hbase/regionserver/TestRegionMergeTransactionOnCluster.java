@@ -113,18 +113,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|TimeUnit
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
@@ -666,6 +654,22 @@ operator|.
 name|util
 operator|.
 name|FSUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|FutureUtils
 import|;
 end_import
 
@@ -2262,15 +2266,6 @@ operator|.
 name|getAdmin
 argument_list|()
 decl_stmt|;
-specifier|final
-name|int
-name|syncWaitTimeout
-init|=
-literal|10
-operator|*
-literal|60000
-decl_stmt|;
-comment|// 10min
 try|try
 block|{
 comment|// Create table and load data.
@@ -2346,6 +2341,10 @@ expr_stmt|;
 try|try
 block|{
 comment|// Merge offline region. Region a is offline here
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|admin
 operator|.
 name|mergeRegionsAsync
@@ -2362,14 +2361,6 @@ argument_list|()
 argument_list|,
 literal|false
 argument_list|)
-operator|.
-name|get
-argument_list|(
-name|syncWaitTimeout
-argument_list|,
-name|TimeUnit
-operator|.
-name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 name|fail
@@ -2404,6 +2395,10 @@ block|}
 try|try
 block|{
 comment|// Merge the same region: b and b.
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|admin
 operator|.
 name|mergeRegionsAsync
@@ -2419,6 +2414,7 @@ name|getEncodedNameAsBytes
 argument_list|()
 argument_list|,
 literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail
@@ -2458,6 +2454,10 @@ block|}
 try|try
 block|{
 comment|// Merge unknown regions
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|admin
 operator|.
 name|mergeRegionsAsync
@@ -2477,6 +2477,7 @@ literal|"-f2"
 argument_list|)
 argument_list|,
 literal|true
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail

@@ -1085,6 +1085,22 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|FutureUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|HBaseFsck
 import|;
 end_import
@@ -2652,6 +2668,10 @@ comment|// We don't roll back here anymore. Instead we fail-fast on construction
 comment|// split transaction. Catch the exception instead.
 try|try
 block|{
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
 name|this
 operator|.
 name|admin
@@ -2662,6 +2682,7 @@ name|hri
 operator|.
 name|getRegionName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|fail
