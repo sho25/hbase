@@ -279,7 +279,9 @@ specifier|final
 name|String
 name|KRB_PRINCIPAL
 init|=
-literal|"hbase.regionserver.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_PRINCIPAL
 decl_stmt|;
 specifier|public
 specifier|static
@@ -287,7 +289,9 @@ specifier|final
 name|String
 name|MASTER_KRB_PRINCIPAL
 init|=
-literal|"hbase.master.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|MASTER_KRB_PRINCIPAL
 decl_stmt|;
 specifier|public
 specifier|static
@@ -295,7 +299,9 @@ specifier|final
 name|String
 name|KRB_KEYTAB_FILE
 init|=
-literal|"hbase.regionserver.keytab.file"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_KEYTAB_FILE
 decl_stmt|;
 specifier|public
 specifier|static

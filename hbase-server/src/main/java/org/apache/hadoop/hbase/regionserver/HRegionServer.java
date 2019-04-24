@@ -1825,6 +1825,22 @@ name|hbase
 operator|.
 name|security
 operator|.
+name|SecurityConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|security
+operator|.
 name|Superusers
 import|;
 end_import
@@ -3981,6 +3997,15 @@ name|MASTERLESS_CONFIG_NAME
 init|=
 literal|"hbase.masterless"
 decl_stmt|;
+comment|/**regionserver codec list **/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONSERVER_CODEC
+init|=
+literal|"hbase.regionserver.codecs"
+decl_stmt|;
 comment|/**    * Starts a HRegionServer at the default location    */
 comment|// Don't start any services or managers in here in the Constructor.
 comment|// Defer till after we register with the Master as much as possible. See #startServices.
@@ -5092,9 +5117,13 @@ name|user
 operator|.
 name|login
 argument_list|(
-literal|"hbase.regionserver.keytab.file"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_KEYTAB_FILE
 argument_list|,
-literal|"hbase.regionserver.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_PRINCIPAL
 argument_list|,
 name|host
 argument_list|)
@@ -5415,7 +5444,7 @@ name|c
 operator|.
 name|getStrings
 argument_list|(
-literal|"hbase.regionserver.codecs"
+name|REGIONSERVER_CODEC
 argument_list|,
 operator|(
 name|String

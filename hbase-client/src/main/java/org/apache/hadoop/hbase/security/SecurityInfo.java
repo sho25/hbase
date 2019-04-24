@@ -228,7 +228,9 @@ argument_list|,
 operator|new
 name|SecurityInfo
 argument_list|(
-literal|"hbase.regionserver.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_PRINCIPAL
 argument_list|,
 name|Kind
 operator|.
@@ -253,7 +255,9 @@ argument_list|,
 operator|new
 name|SecurityInfo
 argument_list|(
-literal|"hbase.regionserver.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|REGIONSERVER_KRB_PRINCIPAL
 argument_list|,
 name|Kind
 operator|.
@@ -276,7 +280,9 @@ argument_list|,
 operator|new
 name|SecurityInfo
 argument_list|(
-literal|"hbase.master.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|MASTER_KRB_PRINCIPAL
 argument_list|,
 name|Kind
 operator|.
@@ -301,7 +307,9 @@ argument_list|,
 operator|new
 name|SecurityInfo
 argument_list|(
-literal|"hbase.master.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|MASTER_KRB_PRINCIPAL
 argument_list|,
 name|Kind
 operator|.
@@ -326,7 +334,9 @@ argument_list|,
 operator|new
 name|SecurityInfo
 argument_list|(
-literal|"hbase.master.kerberos.principal"
+name|SecurityConstants
+operator|.
+name|MASTER_KRB_PRINCIPAL
 argument_list|,
 name|Kind
 operator|.
