@@ -1428,19 +1428,6 @@ return|return
 name|tablename
 return|;
 block|}
-comment|/** @return log sequence number    * @deprecated Use {@link #getSequenceId()}    */
-annotation|@
-name|Deprecated
-specifier|public
-name|long
-name|getLogSeqNum
-parameter_list|()
-block|{
-return|return
-name|getSequenceId
-argument_list|()
-return|;
-block|}
 comment|/**    * Used to set original sequenceId for WALKeyImpl during WAL replay    */
 specifier|public
 name|void
