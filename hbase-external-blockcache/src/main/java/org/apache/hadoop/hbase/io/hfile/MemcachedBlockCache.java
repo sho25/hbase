@@ -203,6 +203,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|ByteBuffAllocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|hfile
 operator|.
 name|Cacheable
@@ -1267,7 +1283,9 @@ name|deserialize
 argument_list|(
 name|buf
 argument_list|,
-literal|true
+name|ByteBuffAllocator
+operator|.
+name|HEAP
 argument_list|,
 name|MemoryType
 operator|.
@@ -1285,7 +1303,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Error deserializing data from memcached"
+literal|"Failed to deserialize data from memcached"
 argument_list|,
 name|e
 argument_list|)

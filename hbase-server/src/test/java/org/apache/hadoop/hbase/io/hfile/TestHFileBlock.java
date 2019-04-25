@@ -31,6 +31,24 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|ByteBuffAllocator
+operator|.
+name|HEAP
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|compress
 operator|.
 name|Compression
@@ -1074,8 +1092,6 @@ name|alloc
 operator|=
 name|useHeapAllocator
 condition|?
-name|ByteBuffAllocator
-operator|.
 name|HEAP
 else|:
 name|createOffHeapAlloc
@@ -3687,7 +3703,7 @@ argument_list|(
 name|serialized
 argument_list|)
 argument_list|,
-name|reuseBuffer
+name|HEAP
 argument_list|,
 name|MemoryType
 operator|.
@@ -3715,7 +3731,7 @@ condition|)
 block|{
 name|assertEquals
 argument_list|(
-literal|"Deserializaed block cannot be unpacked correctly."
+literal|"Deserialized block cannot be unpacked correctly."
 argument_list|,
 name|blockUnpacked
 argument_list|,
@@ -6195,8 +6211,6 @@ literal|1
 argument_list|,
 name|meta
 argument_list|,
-name|ByteBuffAllocator
-operator|.
 name|HEAP
 argument_list|)
 decl_stmt|;

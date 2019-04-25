@@ -602,7 +602,7 @@ name|setDeserialiserIndex
 argument_list|(
 name|entry
 operator|.
-name|deserialiserIndex
+name|deserializerIndex
 argument_list|)
 operator|.
 name|setAccessCounter
@@ -877,12 +877,12 @@ name|HFileBlock
 operator|.
 name|BLOCK_DESERIALIZER
 operator|.
-name|getDeserialiserIdentifier
+name|getDeserializerIdentifier
 argument_list|()
 decl_stmt|;
 name|value
 operator|.
-name|deserialiserIndex
+name|deserializerIndex
 operator|=
 operator|(
 name|byte
