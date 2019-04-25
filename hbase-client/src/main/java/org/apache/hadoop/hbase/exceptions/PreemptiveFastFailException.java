@@ -56,10 +56,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown when the client believes that we are trying to communicate to has  * been repeatedly unresponsive for a while.  *  * On receiving such an exception. The ConnectionManager will skip all  * retries and fast fail the operation.  */
+comment|/**  * Thrown when the client believes that we are trying to communicate to has  * been repeatedly unresponsive for a while.  *  * On receiving such an exception. The ConnectionManager will skip all  * retries and fast fail the operation.  * @deprecated since 2.3.0, and will be removed in 4.0.0.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
