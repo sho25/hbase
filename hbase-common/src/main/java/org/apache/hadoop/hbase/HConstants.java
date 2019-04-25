@@ -3338,7 +3338,9 @@ init|=
 literal|"hbase.bucketcache.size"
 decl_stmt|;
 comment|/**    * HConstants for fast fail on the client side follow    */
-comment|/**    * Config for enabling/disabling the fast fail mode.    */
+comment|/**    * Config for enabling/disabling the fast fail mode.    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3347,6 +3349,9 @@ name|HBASE_CLIENT_FAST_FAIL_MODE_ENABLED
 init|=
 literal|"hbase.client.fast.fail.mode.enabled"
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3355,6 +3360,9 @@ name|HBASE_CLIENT_ENABLE_FAST_FAIL_MODE_DEFAULT
 init|=
 literal|false
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3363,6 +3371,9 @@ name|HBASE_CLIENT_FAST_FAIL_THREASHOLD_MS
 init|=
 literal|"hbase.client.fastfail.threshold"
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3371,6 +3382,9 @@ name|HBASE_CLIENT_FAST_FAIL_THREASHOLD_MS_DEFAULT
 init|=
 literal|60000
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3379,6 +3393,9 @@ name|HBASE_CLIENT_FAILURE_MAP_CLEANUP_INTERVAL_MS
 init|=
 literal|"hbase.client.failure.map.cleanup.interval"
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3387,6 +3404,9 @@ name|HBASE_CLIENT_FAILURE_MAP_CLEANUP_INTERVAL_MS_DEFAULT
 init|=
 literal|600000
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3395,6 +3415,9 @@ name|HBASE_CLIENT_FAST_FAIL_CLEANUP_MS_DURATION_MS
 init|=
 literal|"hbase.client.fast.fail.cleanup.duration"
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -3403,6 +3426,9 @@ name|HBASE_CLIENT_FAST_FAIL_CLEANUP_DURATION_MS_DEFAULT
 init|=
 literal|600000
 decl_stmt|;
+comment|/**    * @deprecated since 2.3.0, and in 3.0.0 the actually implementation will be removed so config    *             this value will have no effect. The constants itself will be removed in 4.0.0.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
