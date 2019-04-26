@@ -655,8 +655,6 @@ name|kvs
 operator|.
 name|put
 argument_list|(
-name|HConnectionTestingUtility
-operator|.
 name|SleepAtFirstRpcCall
 operator|.
 name|SLEEP_TIME_CONF_KEY
@@ -668,8 +666,6 @@ name|hdt
 operator|.
 name|addCoprocessor
 argument_list|(
-name|HConnectionTestingUtility
-operator|.
 name|SleepAtFirstRpcCall
 operator|.
 name|class

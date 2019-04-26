@@ -239,22 +239,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|RegionInfoBuilder
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|TableDescriptor
 import|;
 end_import
@@ -1292,40 +1276,16 @@ name|se
 argument_list|)
 throw|;
 block|}
-comment|// Mock n ClusterConnection and an AdminProtocol implementation. Have the
-comment|// ClusterConnection return the HRI.  Have the HRI return a few mocked up responses
-comment|// to make our test work.
 name|this
 operator|.
 name|connection
 operator|=
 name|HConnectionTestingUtility
 operator|.
-name|getMockedConnectionAndDecorate
+name|getMockedConnection
 argument_list|(
 name|getConfiguration
 argument_list|()
-argument_list|,
-name|Mockito
-operator|.
-name|mock
-argument_list|(
-name|AdminProtos
-operator|.
-name|AdminService
-operator|.
-name|BlockingInterface
-operator|.
-name|class
-argument_list|)
-argument_list|,
-name|ri
-argument_list|,
-name|MOCK_MASTER_SERVERNAME
-argument_list|,
-name|RegionInfoBuilder
-operator|.
-name|FIRST_META_REGIONINFO
 argument_list|)
 expr_stmt|;
 comment|// Set hbase.rootdir into test dir.

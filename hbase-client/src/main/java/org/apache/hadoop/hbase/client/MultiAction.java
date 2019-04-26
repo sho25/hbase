@@ -132,7 +132,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Container for Actions (i.e. Get, Delete, or Put), which are grouped by  * regionName. Intended to be used with {@link AsyncProcess}.  */
+comment|/**  * Container for Actions (i.e. Get, Delete, or Put), which are grouped by regionName.  */
 end_comment
 
 begin_class

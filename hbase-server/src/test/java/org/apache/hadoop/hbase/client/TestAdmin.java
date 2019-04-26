@@ -1991,8 +1991,6 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|CONN
-argument_list|,
 name|l
 argument_list|,
 name|expectedRegions
@@ -2993,8 +2991,6 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|CONN
-argument_list|,
 name|l
 argument_list|,
 name|expectedRegions
@@ -3149,8 +3145,6 @@ argument_list|)
 expr_stmt|;
 name|verifyRoundRobinDistribution
 argument_list|(
-name|CONN
-argument_list|,
 name|l
 argument_list|,
 name|expectedRegions
@@ -3500,9 +3494,6 @@ specifier|private
 name|void
 name|verifyRoundRobinDistribution
 parameter_list|(
-name|ConnectionImplementation
-name|c
-parameter_list|,
 name|RegionLocator
 name|regionLocator
 parameter_list|,
@@ -3515,9 +3506,15 @@ block|{
 name|int
 name|numRS
 init|=
-name|c
+name|TEST_UTIL
 operator|.
-name|getCurrentNrHRS
+name|getMiniHBaseCluster
+argument_list|()
+operator|.
+name|getRegionServerThreads
+argument_list|()
+operator|.
+name|size
 argument_list|()
 decl_stmt|;
 name|List

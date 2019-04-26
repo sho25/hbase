@@ -105,22 +105,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|security
-operator|.
-name|UserProvider
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|ClientTests
@@ -198,7 +182,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Tests that we fail fast when hostname resolution is not working and do not cache  * unresolved InetSocketAddresses.  */
+comment|/**  * Tests that we fail fast when hostname resolution is not working and do not cache unresolved  * InetSocketAddresses.  */
 end_comment
 
 begin_class
@@ -240,10 +224,14 @@ specifier|private
 specifier|static
 name|HBaseTestingUtility
 name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|ConnectionImplementation
+name|AsyncConnectionImpl
 name|CONN
 decl_stmt|;
 annotation|@
@@ -257,33 +245,18 @@ throws|throws
 name|Exception
 block|{
 name|TEST_UTIL
-operator|=
-name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
-argument_list|()
-expr_stmt|;
-name|TEST_UTIL
 operator|.
 name|startMiniCluster
 argument_list|()
 expr_stmt|;
 name|CONN
 operator|=
+operator|(
+name|AsyncConnectionImpl
+operator|)
 name|ConnectionFactory
 operator|.
-name|createConnectionImpl
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
-literal|null
-argument_list|,
-name|UserProvider
-operator|.
-name|instantiate
+name|createAsyncConnection
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -291,9 +264,8 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 operator|.
-name|getCurrent
+name|get
 argument_list|()
-argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -352,7 +324,7 @@ try|try
 block|{
 name|CONN
 operator|.
-name|getAdmin
+name|getAdminStub
 argument_list|(
 name|master
 argument_list|)
@@ -393,7 +365,7 @@ argument_list|)
 decl_stmt|;
 name|CONN
 operator|.
-name|getAdmin
+name|getAdminStub
 argument_list|(
 name|badHost
 argument_list|)
@@ -441,7 +413,7 @@ try|try
 block|{
 name|CONN
 operator|.
-name|getClient
+name|getRegionServerStub
 argument_list|(
 name|rs
 argument_list|)
@@ -482,7 +454,7 @@ argument_list|)
 decl_stmt|;
 name|CONN
 operator|.
-name|getAdmin
+name|getRegionServerStub
 argument_list|(
 name|badHost
 argument_list|)

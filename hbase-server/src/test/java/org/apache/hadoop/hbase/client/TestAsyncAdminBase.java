@@ -29,7 +29,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AsyncProcess
+name|AsyncConnectionConfiguration
 operator|.
 name|START_LOG_ERRORS_AFTER_COUNT_KEY
 import|;

@@ -194,6 +194,14 @@ init|=
 literal|1000000
 decl_stmt|;
 comment|// 1s
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOG_SCANNER_ACTIVITY
+init|=
+literal|"hbase.client.log.scanner.activity"
+decl_stmt|;
 specifier|private
 specifier|final
 name|long

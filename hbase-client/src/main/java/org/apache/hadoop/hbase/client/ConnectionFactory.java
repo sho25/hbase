@@ -503,35 +503,6 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Create a {@link ConnectionImplementation}, internal use only.    */
-specifier|static
-name|ConnectionImplementation
-name|createConnectionImpl
-parameter_list|(
-name|Configuration
-name|conf
-parameter_list|,
-name|ExecutorService
-name|pool
-parameter_list|,
-name|User
-name|user
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-return|return
-operator|new
-name|ConnectionImplementation
-argument_list|(
-name|conf
-argument_list|,
-name|pool
-argument_list|,
-name|user
-argument_list|)
-return|;
-block|}
 comment|/**    * Call {@link #createAsyncConnection(Configuration)} using default HBaseConfiguration.    * @see #createAsyncConnection(Configuration)    * @return AsyncConnection object wrapped by CompletableFuture    */
 specifier|public
 specifier|static

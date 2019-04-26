@@ -427,7 +427,7 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-name|ScannerCallable
+name|ConnectionConfiguration
 operator|.
 name|LOG_SCANNER_ACTIVITY
 argument_list|,

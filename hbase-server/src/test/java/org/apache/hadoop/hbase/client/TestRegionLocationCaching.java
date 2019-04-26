@@ -197,16 +197,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -225,13 +215,7 @@ name|Category
 import|;
 end_import
 
-begin_comment
-comment|/**  * To be rewrite to check async meta cache.  */
-end_comment
-
 begin_class
-annotation|@
-name|Ignore
 annotation|@
 name|Category
 argument_list|(
@@ -666,10 +650,16 @@ name|number
 init|=
 operator|(
 operator|(
-name|ConnectionImplementation
+name|AsyncConnectionImpl
 operator|)
 name|conn
+operator|.
+name|toAsyncConnection
+argument_list|()
 operator|)
+operator|.
+name|getLocator
+argument_list|()
 operator|.
 name|getNumberOfCachedRegionLocations
 argument_list|(
