@@ -696,7 +696,13 @@ argument_list|()
 operator|.
 name|write
 argument_list|(
-literal|"ASYNC_PROFILER_HOME env is not set."
+literal|"ASYNC_PROFILER_HOME env is not set.\n\n"
+operator|+
+literal|"Please ensure the prerequsites for the Profiler Servlet have been installed and the\n"
+operator|+
+literal|"environment is properly configured. For more information please see\n"
+operator|+
+literal|"http://hbase.apache.org/book.html#profiler\n"
 argument_list|)
 expr_stmt|;
 return|return;
@@ -1765,6 +1771,7 @@ name|SVG
 return|;
 block|}
 specifier|private
+specifier|static
 name|void
 name|setResponseHeader
 parameter_list|(
@@ -1843,6 +1850,71 @@ block|}
 return|return
 name|asyncProfilerHome
 return|;
+block|}
+specifier|public
+specifier|static
+class|class
+name|DisabledServlet
+extends|extends
+name|HttpServlet
+block|{
+specifier|private
+specifier|static
+specifier|final
+name|long
+name|serialVersionUID
+init|=
+literal|1L
+decl_stmt|;
+annotation|@
+name|Override
+specifier|protected
+name|void
+name|doGet
+parameter_list|(
+specifier|final
+name|HttpServletRequest
+name|req
+parameter_list|,
+specifier|final
+name|HttpServletResponse
+name|resp
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|resp
+operator|.
+name|setStatus
+argument_list|(
+name|HttpServletResponse
+operator|.
+name|SC_INTERNAL_SERVER_ERROR
+argument_list|)
+expr_stmt|;
+name|setResponseHeader
+argument_list|(
+name|resp
+argument_list|)
+expr_stmt|;
+name|resp
+operator|.
+name|getWriter
+argument_list|()
+operator|.
+name|write
+argument_list|(
+literal|"The profiler servlet was disabled at startup.\n\n"
+operator|+
+literal|"Please ensure the prerequsites for the Profiler Servlet have been installed and the\n"
+operator|+
+literal|"environment is properly configured. For more information please see\n"
+operator|+
+literal|"http://hbase.apache.org/book.html#profiler\n"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 block|}
 block|}
 end_class
