@@ -345,7 +345,7 @@ name|thrift2
 operator|.
 name|generated
 operator|.
-name|TCompareOp
+name|TCompareOperator
 import|;
 end_import
 
@@ -2344,7 +2344,7 @@ name|family
 argument_list|,
 name|qualifier
 argument_list|,
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|EQUAL
 argument_list|,

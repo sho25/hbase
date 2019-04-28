@@ -825,7 +825,7 @@ name|thrift2
 operator|.
 name|generated
 operator|.
-name|TCompareOp
+name|TCompareOperator
 import|;
 end_import
 
@@ -2346,7 +2346,7 @@ parameter_list|,
 name|ByteBuffer
 name|qualifier
 parameter_list|,
-name|TCompareOp
+name|TCompareOperator
 name|compareOp
 parameter_list|,
 name|ByteBuffer

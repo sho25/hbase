@@ -903,7 +903,7 @@ name|thrift2
 operator|.
 name|generated
 operator|.
-name|TCompareOp
+name|TCompareOperator
 import|;
 end_import
 
@@ -5200,7 +5200,7 @@ specifier|static
 name|CompareOperator
 name|compareOpFromThrift
 parameter_list|(
-name|TCompareOp
+name|TCompareOperator
 name|tCompareOp
 parameter_list|)
 block|{
@@ -9627,7 +9627,7 @@ return|;
 block|}
 specifier|public
 specifier|static
-name|TCompareOp
+name|TCompareOperator
 name|compareOpFromHBase
 parameter_list|(
 name|CompareOperator
@@ -9643,7 +9643,7 @@ case|case
 name|LESS
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|LESS
 return|;
@@ -9651,7 +9651,7 @@ case|case
 name|LESS_OR_EQUAL
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|LESS_OR_EQUAL
 return|;
@@ -9659,7 +9659,7 @@ case|case
 name|EQUAL
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|EQUAL
 return|;
@@ -9667,7 +9667,7 @@ case|case
 name|NOT_EQUAL
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|NOT_EQUAL
 return|;
@@ -9675,7 +9675,7 @@ case|case
 name|GREATER_OR_EQUAL
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|GREATER_OR_EQUAL
 return|;
@@ -9683,7 +9683,7 @@ case|case
 name|GREATER
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|GREATER
 return|;
@@ -9691,7 +9691,7 @@ case|case
 name|NO_OP
 case|:
 return|return
-name|TCompareOp
+name|TCompareOperator
 operator|.
 name|NO_OP
 return|;
