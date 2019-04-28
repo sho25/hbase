@@ -404,6 +404,11 @@ name|RegionReplicaTestHelper
 operator|.
 name|waitUntilAllMetaReplicasHavingRegionLocation
 argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
 name|registry
 argument_list|,
 name|REGION_REPLICATION
