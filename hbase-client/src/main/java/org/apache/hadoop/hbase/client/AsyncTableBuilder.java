@@ -149,12 +149,26 @@ name|TimeUnit
 name|unit
 parameter_list|)
 function_decl|;
-comment|/**    * Set the base pause time for retrying. We use an exponential policy to generate sleep time when    * retrying.    */
+comment|/**    * Set the base pause time for retrying. We use an exponential policy to generate sleep time when    * retrying.    * @see #setRetryPauseForCQTBE(long, TimeUnit)    */
 name|AsyncTableBuilder
 argument_list|<
 name|C
 argument_list|>
 name|setRetryPause
+parameter_list|(
+name|long
+name|pause
+parameter_list|,
+name|TimeUnit
+name|unit
+parameter_list|)
+function_decl|;
+comment|/**    * Set the base pause time for retrying when we hit {@code CallQueueTooBigException}. We use an    * exponential policy to generate sleep time when retrying.    *<p/>    * This value should be greater than the normal pause value which could be set with the above    * {@link #setRetryPause(long, TimeUnit)} method, as usually {@code CallQueueTooBigException}    * means the server is overloaded. We just use the normal pause value for    * {@code CallQueueTooBigException} if here you specify a smaller value.    * @see #setRetryPause(long, TimeUnit)    */
+name|AsyncTableBuilder
+argument_list|<
+name|C
+argument_list|>
+name|setRetryPauseForCQTBE
 parameter_list|(
 name|long
 name|pause

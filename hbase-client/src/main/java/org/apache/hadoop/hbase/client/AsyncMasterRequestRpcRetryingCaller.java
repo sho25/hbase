@@ -226,6 +226,9 @@ parameter_list|,
 name|long
 name|pauseNs
 parameter_list|,
+name|long
+name|pauseForCQTBENs
+parameter_list|,
 name|int
 name|maxRetries
 parameter_list|,
@@ -248,6 +251,8 @@ argument_list|,
 name|priority
 argument_list|,
 name|pauseNs
+argument_list|,
+name|pauseForCQTBENs
 argument_list|,
 name|maxRetries
 argument_list|,

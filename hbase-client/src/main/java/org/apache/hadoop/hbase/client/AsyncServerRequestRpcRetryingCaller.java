@@ -227,6 +227,9 @@ parameter_list|,
 name|long
 name|pauseNs
 parameter_list|,
+name|long
+name|pauseForCQTBENs
+parameter_list|,
 name|int
 name|maxAttempts
 parameter_list|,
@@ -260,6 +263,8 @@ operator|.
 name|NORMAL_QOS
 argument_list|,
 name|pauseNs
+argument_list|,
+name|pauseForCQTBENs
 argument_list|,
 name|maxAttempts
 argument_list|,
