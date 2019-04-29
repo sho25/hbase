@@ -497,11 +497,13 @@ argument_list|()
 operator|instanceof
 name|IOException
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
 argument_list|()
 throw|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -614,7 +616,7 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|/**        * This is used to trigger the custom definition (faulty)        * of refresh HFiles API.        */
+comment|/*        * This is used to trigger the custom definition (faulty)        * of refresh HFiles API.        */
 try|try
 block|{
 if|if

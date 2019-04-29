@@ -434,7 +434,9 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"This demo assumes you have a table called \"example\" with a column family called \"family1\""
+literal|"This demo assumes you have a table called \"example\" with a column "
+operator|+
+literal|"family called \"family1\""
 argument_list|)
 expr_stmt|;
 comment|// use passed in arguments instead of defaults
@@ -684,7 +686,7 @@ condition|(
 name|secure
 condition|)
 block|{
-comment|/**        * The Thrift server the DemoClient is trying to connect to        * must have a matching principal, and support authentication.        *        * The HBase cluster must be secure, allow proxy user.        */
+comment|/*        * The Thrift server the DemoClient is trying to connect to        * must have a matching principal, and support authentication.        *        * The HBase cluster must be secure, allow proxy user.        */
 name|Map
 argument_list|<
 name|String
@@ -1027,11 +1029,13 @@ condition|(
 operator|!
 name|secure
 condition|)
+block|{
 return|return
 operator|new
 name|Subject
 argument_list|()
 return|;
+block|}
 comment|/*      * To authenticate the DemoClient, kinit should be invoked ahead.      * Here we try to get the Kerberos credential from the ticket cache.      */
 name|LoginContext
 name|context

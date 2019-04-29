@@ -328,7 +328,7 @@ specifier|final
 name|Connection
 name|connection
 decl_stmt|;
-comment|/**    * Constructor with Conf object    *    * @param cfg    */
+comment|/**    * Constructor with Conf object    *    * @param cfg the {@link Configuration} object to use    */
 specifier|public
 name|RefreshHFilesClient
 parameter_list|(

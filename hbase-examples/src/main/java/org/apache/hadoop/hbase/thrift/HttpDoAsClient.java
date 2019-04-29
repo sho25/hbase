@@ -1223,14 +1223,9 @@ argument_list|)
 operator|+
 literal|", maxVer: "
 operator|+
-name|Integer
-operator|.
-name|toString
-argument_list|(
 name|col2
 operator|.
 name|maxVersions
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -1744,11 +1739,13 @@ condition|(
 operator|!
 name|secure
 condition|)
+block|{
 return|return
 operator|new
 name|Subject
 argument_list|()
 return|;
+block|}
 comment|/*      * To authenticate the DemoClient, kinit should be invoked ahead.      * Here we try to get the Kerberos credential from the ticket cache.      */
 name|LoginContext
 name|context
