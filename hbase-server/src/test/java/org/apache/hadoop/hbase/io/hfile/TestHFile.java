@@ -1109,7 +1109,7 @@ name|assertEquals
 argument_list|(
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|,
 literal|0
@@ -1131,7 +1131,7 @@ name|assertEquals
 argument_list|(
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|,
 name|bufCount
@@ -1216,7 +1216,7 @@ name|bufCount
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1450,7 +1450,7 @@ name|bufCount
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1474,7 +1474,7 @@ name|bufCount
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1830,7 +1830,7 @@ name|bufCount
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;

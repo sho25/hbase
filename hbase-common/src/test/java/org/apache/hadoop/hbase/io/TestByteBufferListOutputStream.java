@@ -370,7 +370,7 @@ literal|0
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -644,7 +644,7 @@ literal|3
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;

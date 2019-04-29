@@ -1668,6 +1668,57 @@ name|AVERAGE_REGION_SIZE_DESC
 init|=
 literal|"Average region size over the RegionServer including memstore and storefile sizes."
 decl_stmt|;
+comment|/** Metrics for {@link org.apache.hadoop.hbase.io.ByteBuffAllocator} **/
+name|String
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_NUM
+init|=
+literal|"ByteBuffAllocatorHeapAllocationNum"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_NUM_DESC
+init|=
+literal|"Number of heap allocation from ByteBuffAllocator"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_NUM
+init|=
+literal|"ByteBuffAllocatorPoolAllocationNum"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_NUM_DESC
+init|=
+literal|"Number of pool allocation from ByteBuffAllocator"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOACTION_RATIO
+init|=
+literal|"ByteBuffAllocatorHeapAllocationRatio"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOACTION_RATIO_DESC
+init|=
+literal|"Ratio of heap allocation from ByteBuffAllocator, means heapAllocation/totalAllocation"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_TOTAL_BUFFER_COUNT
+init|=
+literal|"ByteBuffAllocatorTotalBufferCount"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_TOTAL_BUFFER_COUNT_DESC
+init|=
+literal|"Total buffer count in ByteBuffAllocator"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_FREE_BUFFER_COUNT
+init|=
+literal|"ByteBuffAllocatorFreeBufferCount"
+decl_stmt|;
+name|String
+name|BYTE_BUFF_ALLOCATOR_FREE_BUFFER_COUNT_DESC
+init|=
+literal|"Free buffer count in ByteBuffAllocator"
+decl_stmt|;
 block|}
 end_interface
 

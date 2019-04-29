@@ -242,7 +242,6 @@ name|int
 name|getFlushQueueSize
 parameter_list|()
 function_decl|;
-specifier|public
 name|long
 name|getMemStoreLimit
 parameter_list|()
@@ -308,49 +307,41 @@ name|getBlockCacheFailedInsertions
 parameter_list|()
 function_decl|;
 comment|/**    * Hit count of L1 cache.    */
-specifier|public
 name|long
 name|getL1CacheHitCount
 parameter_list|()
 function_decl|;
 comment|/**    * Miss count of L1 cache.    */
-specifier|public
 name|long
 name|getL1CacheMissCount
 parameter_list|()
 function_decl|;
 comment|/**    * Hit ratio of L1 cache.    */
-specifier|public
 name|double
 name|getL1CacheHitRatio
 parameter_list|()
 function_decl|;
 comment|/**    * Miss ratio of L1 cache.    */
-specifier|public
 name|double
 name|getL1CacheMissRatio
 parameter_list|()
 function_decl|;
 comment|/**    * Hit count of L2 cache.    */
-specifier|public
 name|long
 name|getL2CacheHitCount
 parameter_list|()
 function_decl|;
 comment|/**    * Miss count of L2 cache.    */
-specifier|public
 name|long
 name|getL2CacheMissCount
 parameter_list|()
 function_decl|;
 comment|/**    * Hit ratio of L2 cache.    */
-specifier|public
 name|double
 name|getL2CacheHitRatio
 parameter_list|()
 function_decl|;
 comment|/**    * Miss ratio of L2 cache.    */
-specifier|public
 name|double
 name|getL2CacheMissRatio
 parameter_list|()
@@ -587,6 +578,26 @@ parameter_list|()
 function_decl|;
 name|long
 name|getTotalRowActionRequestCount
+parameter_list|()
+function_decl|;
+name|long
+name|getByteBuffAllocatorHeapAllocationNum
+parameter_list|()
+function_decl|;
+name|long
+name|getByteBuffAllocatorPoolAllocationNum
+parameter_list|()
+function_decl|;
+name|double
+name|getByteBuffAllocatorHeapAllocRatio
+parameter_list|()
+function_decl|;
+name|long
+name|getByteBuffAllocatorTotalBufferCount
+parameter_list|()
+function_decl|;
+name|long
+name|getByteBuffAllocatorFreeBufferCount
 parameter_list|()
 function_decl|;
 block|}

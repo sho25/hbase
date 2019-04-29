@@ -1318,7 +1318,7 @@ name|MAX_BUFFER_COUNT
 argument_list|,
 name|alloc
 operator|.
-name|getQueueSize
+name|getFreeBufferCount
 argument_list|()
 argument_list|)
 expr_stmt|;
