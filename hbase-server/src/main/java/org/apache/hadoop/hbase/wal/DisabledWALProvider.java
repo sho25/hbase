@@ -648,7 +648,11 @@ name|listener
 operator|.
 name|logRollRequested
 argument_list|(
-literal|false
+name|WALActionsListener
+operator|.
+name|RollRequestReason
+operator|.
+name|ERROR
 argument_list|)
 expr_stmt|;
 block|}

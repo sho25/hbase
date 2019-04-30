@@ -148,7 +148,17 @@ decl_stmt|;
 name|String
 name|ROLL_REQUESTED_DESC
 init|=
-literal|"How many times a log roll has been requested total"
+literal|"How many times a roll has been requested total"
+decl_stmt|;
+name|String
+name|ERROR_ROLL_REQUESTED
+init|=
+literal|"errorRollRequest"
+decl_stmt|;
+name|String
+name|ERROR_ROLL_REQUESTED_DESC
+init|=
+literal|"How many times a roll was requested due to I/O or other errors."
 decl_stmt|;
 name|String
 name|LOW_REPLICA_ROLL_REQUESTED
@@ -158,7 +168,27 @@ decl_stmt|;
 name|String
 name|LOW_REPLICA_ROLL_REQUESTED_DESC
 init|=
-literal|"How many times a log roll was requested due to too few DN's in the write pipeline."
+literal|"How many times a roll was requested due to too few datanodes in the write pipeline."
+decl_stmt|;
+name|String
+name|SLOW_SYNC_ROLL_REQUESTED
+init|=
+literal|"slowSyncRollRequest"
+decl_stmt|;
+name|String
+name|SLOW_SYNC_ROLL_REQUESTED_DESC
+init|=
+literal|"How many times a roll was requested due to sync too slow on the write pipeline."
+decl_stmt|;
+name|String
+name|SIZE_ROLL_REQUESTED
+init|=
+literal|"sizeRollRequest"
+decl_stmt|;
+name|String
+name|SIZE_ROLL_REQUESTED_DESC
+init|=
+literal|"How many times a roll was requested due to file size roll threshold."
 decl_stmt|;
 name|String
 name|WRITTEN_BYTES
@@ -209,11 +239,23 @@ name|incrementLogRollRequested
 parameter_list|()
 function_decl|;
 name|void
+name|incrementErrorLogRoll
+parameter_list|()
+function_decl|;
+name|void
 name|incrementLowReplicationLogRoll
 parameter_list|()
 function_decl|;
 name|long
 name|getSlowAppendCount
+parameter_list|()
+function_decl|;
+name|void
+name|incrementSlowSyncLogRoll
+parameter_list|()
+function_decl|;
+name|void
+name|incrementSizeLogRoll
 parameter_list|()
 function_decl|;
 name|void

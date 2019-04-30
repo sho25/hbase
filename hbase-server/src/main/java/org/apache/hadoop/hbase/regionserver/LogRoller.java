@@ -478,8 +478,10 @@ specifier|public
 name|void
 name|logRollRequested
 parameter_list|(
-name|boolean
-name|lowReplicas
+name|WALActionsListener
+operator|.
+name|RollRequestReason
+name|reason
 parameter_list|)
 block|{
 name|walNeedsRoll

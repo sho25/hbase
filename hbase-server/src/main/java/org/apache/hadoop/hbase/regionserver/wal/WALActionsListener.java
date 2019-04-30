@@ -118,6 +118,24 @@ specifier|public
 interface|interface
 name|WALActionsListener
 block|{
+comment|/** The reason for the log roll request. */
+specifier|static
+enum|enum
+name|RollRequestReason
+block|{
+comment|/** The length of the log exceeds the roll size threshold. */
+name|SIZE
+block|,
+comment|/** Too few replicas in the writer pipeline. */
+name|LOW_REPLICATION
+block|,
+comment|/** Too much time spent waiting for sync. */
+name|SLOW_SYNC
+block|,
+comment|/** I/O or other error. */
+name|ERROR
+block|}
+empty_stmt|;
 comment|/**    * The WAL is going to be rolled. The oldPath can be null if this is    * the first log file from the regionserver.    * @param oldPath the path to the old wal    * @param newPath the path to the new wal    */
 specifier|default
 name|void
@@ -179,8 +197,8 @@ specifier|default
 name|void
 name|logRollRequested
 parameter_list|(
-name|boolean
-name|tooFewReplicas
+name|RollRequestReason
+name|reason
 parameter_list|)
 block|{}
 comment|/**    * The WAL is about to close.    */
