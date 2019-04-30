@@ -1023,7 +1023,7 @@ name|reload
 argument_list|)
 argument_list|,
 parameter_list|(
-name|r
+name|locs
 parameter_list|,
 name|e
 parameter_list|)
@@ -1055,16 +1055,16 @@ name|future
 operator|.
 name|complete
 argument_list|(
-name|r
+name|locs
 argument_list|)
 expr_stmt|;
 return|return;
 block|}
 comment|// check if the number of region replicas is correct, and also the primary region name
-comment|// matches
+comment|// matches, and also there is no null elements in the returned RegionLocations
 if|if
 condition|(
-name|r
+name|locs
 operator|.
 name|size
 argument_list|()
@@ -1074,11 +1074,21 @@ operator|.
 name|getRegionReplication
 argument_list|()
 operator|&&
+name|locs
+operator|.
+name|size
+argument_list|()
+operator|==
+name|locs
+operator|.
+name|numNonNullElements
+argument_list|()
+operator|&&
 name|Bytes
 operator|.
 name|equals
 argument_list|(
-name|r
+name|locs
 operator|.
 name|getDefaultRegionLocation
 argument_list|()
@@ -1097,7 +1107,7 @@ name|future
 operator|.
 name|complete
 argument_list|(
-name|r
+name|locs
 argument_list|)
 expr_stmt|;
 block|}
