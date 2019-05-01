@@ -25,16 +25,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|FileNotFoundException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|IOException
 import|;
 end_import
@@ -130,6 +120,20 @@ operator|.
 name|locks
 operator|.
 name|Lock
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|ArrayUtils
 import|;
 end_import
 
@@ -413,14 +417,6 @@ specifier|final
 name|Timer
 name|refreshTimer
 decl_stmt|;
-specifier|private
-name|long
-name|lastModifiedTime
-init|=
-name|Long
-operator|.
-name|MIN_VALUE
-decl_stmt|;
 comment|/**    * Create a snapshot file cache for all snapshots under the specified [root]/.snapshot on the    * filesystem.    *<p>    * Immediately loads the file cache.    * @param conf to extract the configured {@link FileSystem} where the snapshots are stored and    *          hbase root directory    * @param cacheRefreshPeriod frequency (ms) with which the cache should be refreshed    * @param refreshThreadName name of the cache refresh thread    * @param inspectSnapshotFiles Filter to apply to each snapshot to extract the files.    * @throws IOException if the {@link FileSystem} or root directory cannot be loaded    */
 specifier|public
 name|SnapshotFileCache
@@ -541,18 +537,15 @@ name|cacheRefreshPeriod
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Trigger a cache refresh, even if its before the next cache refresh. Does not affect pending    * cache refreshes.    *<p>    * Blocks until the cache is refreshed.    *<p>    * Exposed for TESTING.    */
+comment|/**    * Trigger a cache refresh, even if its before the next cache refresh. Does not affect pending    * cache refreshes.    *<p/>    * Blocks until the cache is refreshed.    *<p/>    * Exposed for TESTING.    */
 specifier|public
+specifier|synchronized
 name|void
 name|triggerCacheRefreshForTesting
 parameter_list|()
 block|{
 try|try
 block|{
-name|SnapshotFileCache
-operator|.
-name|this
-operator|.
 name|refreshCache
 argument_list|()
 expr_stmt|;
@@ -583,7 +576,7 @@ name|cache
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Check to see if any of the passed file names is contained in any of the snapshots.    * First checks an in-memory cache of the files to keep. If its not in the cache, then the cache    * is refreshed and the cache checked again for that file.    * This ensures that we never return files that exist.    *<p>    * Note this may lead to periodic false positives for the file being referenced. Periodically, the    * cache is refreshed even if there are no requests to ensure that the false negatives get removed    * eventually. For instance, suppose you have a file in the snapshot and it gets loaded into the    * cache. Then at some point later that snapshot is deleted. If the cache has not been refreshed    * at that point, cache will still think the file system contains that file and return    *<tt>true</tt>, even if it is no longer present (false positive). However, if the file never was    * on the filesystem, we will never find it and always return<tt>false</tt>.    * @param files file to check, NOTE: Relies that files are loaded from hdfs before method    *              is called (NOT LAZY)    * @return<tt>unReferencedFiles</tt> the collection of files that do not have snapshot references    * @throws IOException if there is an unexpected error reaching the filesystem.    */
+comment|/**    * Check to see if any of the passed file names is contained in any of the snapshots. First checks    * an in-memory cache of the files to keep. If its not in the cache, then the cache is refreshed    * and the cache checked again for that file. This ensures that we never return files that exist.    *<p>    * Note this may lead to periodic false positives for the file being referenced. Periodically, the    * cache is refreshed even if there are no requests to ensure that the false negatives get removed    * eventually. For instance, suppose you have a file in the snapshot and it gets loaded into the    * cache. Then at some point later that snapshot is deleted. If the cache has not been refreshed    * at that point, cache will still think the file system contains that file and return    *<tt>true</tt>, even if it is no longer present (false positive). However, if the file never was    * on the filesystem, we will never find it and always return<tt>false</tt>.    * @param files file to check, NOTE: Relies that files are loaded from hdfs before method is    *          called (NOT LAZY)    * @return<tt>unReferencedFiles</tt> the collection of files that do not have snapshot references    * @throws IOException if there is an unexpected error reaching the filesystem.    */
 comment|// XXX this is inefficient to synchronize on the method, when what we really need to guard against
 comment|// is an illegal access to the cache. Really we could do a mutex-guarded pointer swap on the
 comment|// cache, but that seems overkill at the moment and isn't necessarily a bottleneck.
@@ -770,113 +763,18 @@ name|unReferencedFiles
 return|;
 block|}
 specifier|private
-specifier|synchronized
 name|void
 name|refreshCache
 parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|// get the status of the snapshots directory and check if it is has changes
-name|FileStatus
-name|dirStatus
-decl_stmt|;
-try|try
-block|{
-name|dirStatus
-operator|=
-name|fs
-operator|.
-name|getFileStatus
-argument_list|(
-name|snapshotDir
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|FileNotFoundException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|cache
-operator|.
-name|size
-argument_list|()
-operator|>
-literal|0
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Snapshot directory: "
-operator|+
-name|snapshotDir
-operator|+
-literal|" doesn't exist"
-argument_list|)
-expr_stmt|;
-block|}
-return|return;
-block|}
-comment|// if the snapshot directory wasn't modified since we last check, we are done
-if|if
-condition|(
-name|dirStatus
-operator|.
-name|getModificationTime
-argument_list|()
-operator|<=
-name|this
-operator|.
-name|lastModifiedTime
-condition|)
-return|return;
-comment|// directory was modified, so we need to reload our cache
-comment|// there could be a slight race here where we miss the cache, check the directory modification
-comment|// time, then someone updates the directory, causing us to not scan the directory again.
-comment|// However, snapshot directories are only created once, so this isn't an issue.
-comment|// 1. update the modified time
-name|this
-operator|.
-name|lastModifiedTime
-operator|=
-name|dirStatus
-operator|.
-name|getModificationTime
-argument_list|()
-expr_stmt|;
-comment|// 2.clear the cache
-name|this
-operator|.
-name|cache
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|SnapshotDirectoryInfo
-argument_list|>
-name|known
-init|=
-operator|new
-name|HashMap
-argument_list|<>
-argument_list|()
-decl_stmt|;
-comment|// 3. check each of the snapshot directories
+comment|// just list the snapshot directory directly, do not check the modification time for the root
+comment|// snapshot directory, as some file system implementations do not modify the parent directory's
+comment|// modTime when there are new sub items, for example, S3.
 name|FileStatus
 index|[]
-name|snapshots
+name|snapshotDirs
 init|=
 name|FSUtils
 operator|.
@@ -885,13 +783,40 @@ argument_list|(
 name|fs
 argument_list|,
 name|snapshotDir
+argument_list|,
+name|p
+lambda|->
+operator|!
+name|p
+operator|.
+name|getName
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|SnapshotDescriptionUtils
+operator|.
+name|SNAPSHOT_TMP_DIR_NAME
+argument_list|)
 argument_list|)
 decl_stmt|;
+comment|// clear the cache, as in the below code, either we will also clear the snapshots, or we will
+comment|// refill the file name cache again.
+name|this
+operator|.
+name|cache
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
-name|snapshots
-operator|==
-literal|null
+name|ArrayUtils
+operator|.
+name|isEmpty
+argument_list|(
+name|snapshotDirs
+argument_list|)
 condition|)
 block|{
 comment|// remove all the remembered snapshots because we don't have any left
@@ -916,7 +841,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No snapshots on-disk, cache empty"
+literal|"No snapshots on-disk, clear cache"
 argument_list|)
 expr_stmt|;
 block|}
@@ -929,19 +854,33 @@ argument_list|()
 expr_stmt|;
 return|return;
 block|}
-comment|// 3.1 iterate through the on-disk snapshots
+comment|// iterate over all the cached snapshots and see if we need to update some, it is not an
+comment|// expensive operation if we do not reload the manifest of snapshots.
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|SnapshotDirectoryInfo
+argument_list|>
+name|newSnapshots
+init|=
+operator|new
+name|HashMap
+argument_list|<>
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|FileStatus
-name|snapshot
+name|snapshotDir
 range|:
-name|snapshots
+name|snapshotDirs
 control|)
 block|{
 name|String
 name|name
 init|=
-name|snapshot
+name|snapshotDir
 operator|.
 name|getPath
 argument_list|()
@@ -949,20 +888,6 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|// its not the tmp dir,
-if|if
-condition|(
-operator|!
-name|name
-operator|.
-name|equals
-argument_list|(
-name|SnapshotDescriptionUtils
-operator|.
-name|SNAPSHOT_TMP_DIR_NAME
-argument_list|)
-condition|)
-block|{
 name|SnapshotDirectoryInfo
 name|files
 init|=
@@ -975,7 +900,7 @@ argument_list|(
 name|name
 argument_list|)
 decl_stmt|;
-comment|// 3.1.1 if we don't know about the snapshot or its been modified, we need to update the
+comment|// if we don't know about the snapshot or its been modified, we need to update the
 comment|// files the latter could occur where I create a snapshot, then delete it, and then make a
 comment|// new snapshot with the same name. We will need to update the cache the information from
 comment|// that new snapshot, even though it has the same name as the files referenced have
@@ -990,14 +915,13 @@ name|files
 operator|.
 name|hasBeenModified
 argument_list|(
-name|snapshot
+name|snapshotDir
 operator|.
 name|getModificationTime
 argument_list|()
 argument_list|)
 condition|)
 block|{
-comment|// get all files for the snapshot and create a new info
 name|Collection
 argument_list|<
 name|String
@@ -1008,7 +932,7 @@ name|fileInspector
 operator|.
 name|filesUnderSnapshot
 argument_list|(
-name|snapshot
+name|snapshotDir
 operator|.
 name|getPath
 argument_list|()
@@ -1019,7 +943,7 @@ operator|=
 operator|new
 name|SnapshotDirectoryInfo
 argument_list|(
-name|snapshot
+name|snapshotDir
 operator|.
 name|getModificationTime
 argument_list|()
@@ -1028,7 +952,7 @@ name|storedFiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|// 3.2 add all the files to cache
+comment|// add all the files to cache
 name|this
 operator|.
 name|cache
@@ -1041,7 +965,7 @@ name|getFiles
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|known
+name|newSnapshots
 operator|.
 name|put
 argument_list|(
@@ -1051,8 +975,7 @@ name|files
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-comment|// 4. set the snapshots we are tracking
+comment|// set the snapshots we are tracking
 name|this
 operator|.
 name|snapshots
@@ -1066,7 +989,7 @@ name|snapshots
 operator|.
 name|putAll
 argument_list|(
-name|known
+name|newSnapshots
 argument_list|)
 expr_stmt|;
 block|}
@@ -1083,6 +1006,13 @@ specifier|public
 name|void
 name|run
 parameter_list|()
+block|{
+synchronized|synchronized
+init|(
+name|SnapshotFileCache
+operator|.
+name|this
+init|)
 block|{
 try|try
 block|{
@@ -1109,6 +1039,18 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+comment|// clear all the cached entries if we meet an error
+name|cache
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|snapshots
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 block|}
 block|}
