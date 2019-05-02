@@ -1733,24 +1733,15 @@ operator|.
 name|walEditsStopOffset
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Reached end of expected edits area at offset "
-operator|+
+literal|"Reached end of expected edits area at offset {}"
+argument_list|,
 name|originalPosition
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -2014,20 +2005,12 @@ name|getFollowingKvCount
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"WALKey has no KVs that follow it; trying the next one. current offset="
-operator|+
+literal|"WALKey has no KVs that follow it; trying the next one. current offset={}"
+argument_list|,
 name|this
 operator|.
 name|inputStream
@@ -2036,7 +2019,6 @@ name|getPos
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|seekOnFs
 argument_list|(
 name|originalPosition
@@ -2135,14 +2117,6 @@ name|Throwable
 name|t
 parameter_list|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
@@ -2152,7 +2126,6 @@ argument_list|,
 name|t
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 name|String
 name|message
@@ -2266,22 +2239,14 @@ operator|<
 literal|0
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
+name|warn
 argument_list|(
 literal|"Encountered a malformed edit, but can't seek back to last good position "
 operator|+
-literal|"because originalPosition is negative. last offset="
-operator|+
+literal|"because originalPosition is negative. last offset={}"
+argument_list|,
 name|this
 operator|.
 name|inputStream
@@ -2292,7 +2257,6 @@ argument_list|,
 name|eof
 argument_list|)
 expr_stmt|;
-block|}
 throw|throw
 name|eof
 throw|;
@@ -2310,26 +2274,17 @@ operator|&&
 name|resetPosition
 condition|)
 block|{
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
+name|warn
 argument_list|(
 literal|"Encountered a malformed edit, seeking to the beginning of the WAL since "
 operator|+
-literal|"current position and original position match at "
-operator|+
+literal|"current position and original position match at {}"
+argument_list|,
 name|originalPosition
 argument_list|)
 expr_stmt|;
-block|}
 name|seekOnFs
 argument_list|(
 literal|0
@@ -2340,35 +2295,24 @@ else|else
 block|{
 comment|// Else restore our position to original location in hope that next time through we will
 comment|// read successfully.
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|trace
+name|warn
 argument_list|(
 literal|"Encountered a malformed edit, seeking back to last good position in file, "
 operator|+
-literal|"from "
-operator|+
+literal|"from {} to {}"
+argument_list|,
 name|inputStream
 operator|.
 name|getPos
 argument_list|()
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|originalPosition
 argument_list|,
 name|eof
 argument_list|)
 expr_stmt|;
-block|}
 name|seekOnFs
 argument_list|(
 name|originalPosition
