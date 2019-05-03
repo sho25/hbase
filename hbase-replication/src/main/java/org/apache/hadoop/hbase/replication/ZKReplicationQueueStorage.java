@@ -1411,9 +1411,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Bad version(or node exist) when persist the last pushed sequence id to zookeeper storage, "
+literal|"Bad version(or node exist) when persist the last pushed sequence id to zookeeper "
 operator|+
-literal|"Retry = "
+literal|"storage, Retry = "
 operator|+
 name|retry
 operator|+
