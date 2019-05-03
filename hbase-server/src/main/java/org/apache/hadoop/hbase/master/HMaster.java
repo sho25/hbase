@@ -16136,6 +16136,9 @@ condition|)
 block|{
 return|return;
 block|}
+name|setAbortRequested
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|cpHost

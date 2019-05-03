@@ -13262,11 +13262,8 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|abortRequested
-operator|=
-literal|true
+name|setAbortRequested
+argument_list|()
 expr_stmt|;
 comment|// HBASE-4014: show list of coprocessors that were loaded to help debug
 comment|// regionserver crashes.Note that we're implicitly using
@@ -13434,6 +13431,19 @@ literal|true
 argument_list|,
 literal|null
 argument_list|)
+expr_stmt|;
+block|}
+specifier|protected
+specifier|final
+name|void
+name|setAbortRequested
+parameter_list|()
+block|{
+name|this
+operator|.
+name|abortRequested
+operator|=
+literal|true
 expr_stmt|;
 block|}
 comment|/**    * @see HRegionServer#abort(String, Throwable)    */
