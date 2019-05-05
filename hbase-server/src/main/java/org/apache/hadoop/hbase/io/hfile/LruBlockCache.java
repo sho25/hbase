@@ -2938,7 +2938,10 @@ expr_stmt|;
 name|int
 name|remainingBuckets
 init|=
-literal|3
+name|bucketQueue
+operator|.
+name|size
+argument_list|()
 decl_stmt|;
 name|BlockBucket
 name|bucket
