@@ -288,7 +288,7 @@ name|addToScanners
 argument_list|(
 name|segments
 argument_list|,
-name|Integer
+name|Long
 operator|.
 name|MAX_VALUE
 argument_list|,
