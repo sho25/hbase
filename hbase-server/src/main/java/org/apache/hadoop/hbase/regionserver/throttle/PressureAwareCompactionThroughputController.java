@@ -362,15 +362,21 @@ if|if
 condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
+name|isDebugEnabled
 argument_list|()
 condition|)
 block|{
-comment|// TODO: FIX!!! Don't log unless some activity or a change in config. Making TRACE
-comment|// in the meantime.
+if|if
+condition|(
+name|maxThroughputToSet
+operator|!=
+name|getMaxThroughput
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
-name|trace
+name|debug
 argument_list|(
 literal|"CompactionPressure is "
 operator|+
@@ -384,6 +390,33 @@ name|maxThroughputToSet
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+elseif|else
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
+argument_list|(
+literal|"CompactionPressure is "
+operator|+
+name|compactionPressure
+operator|+
+literal|", keep throughput throttling to "
+operator|+
+name|throughputDesc
+argument_list|(
+name|maxThroughputToSet
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|this
 operator|.
