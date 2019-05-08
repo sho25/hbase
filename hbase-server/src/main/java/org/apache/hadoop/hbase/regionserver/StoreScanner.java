@@ -582,8 +582,8 @@ init|=
 literal|0
 decl_stmt|;
 comment|// Used to indicate that the scanner has closed (see HBASE-1107)
-comment|// Do not need to be volatile because it's always accessed via synchronized methods
 specifier|private
+specifier|volatile
 name|boolean
 name|closing
 init|=
@@ -809,6 +809,16 @@ specifier|private
 specifier|final
 name|ReentrantLock
 name|flushLock
+init|=
+operator|new
+name|ReentrantLock
+argument_list|()
+decl_stmt|;
+comment|// lock for closing.
+specifier|private
+specifier|final
+name|ReentrantLock
+name|closeLock
 init|=
 operator|new
 name|ReentrantLock
@@ -2433,6 +2443,15 @@ name|boolean
 name|withDelayedScannersClose
 parameter_list|)
 block|{
+name|closeLock
+operator|.
+name|lock
+argument_list|()
+expr_stmt|;
+comment|// If the closeLock is acquired then any subsequent updateReaders()
+comment|// call is ignored.
+try|try
+block|{
 if|if
 condition|(
 name|this
@@ -2562,6 +2581,15 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
+block|}
+block|}
+finally|finally
+block|{
+name|closeLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 annotation|@
@@ -4014,6 +4042,11 @@ condition|)
 block|{
 return|return;
 block|}
+name|boolean
+name|updateReaders
+init|=
+literal|false
+decl_stmt|;
 name|flushLock
 operator|.
 name|lock
@@ -4021,6 +4054,51 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+if|if
+condition|(
+operator|!
+name|closeLock
+operator|.
+name|tryLock
+argument_list|()
+condition|)
+block|{
+comment|// The reason for doing this is that when the current store scanner does not retrieve
+comment|// any new cells, then the scanner is considered to be done. The heap of this scanner
+comment|// is not closed till the shipped() call is completed. Hence in that case if at all
+comment|// the partial close (close (false)) has been called before updateReaders(), there is no
+comment|// need for the updateReaders() to happen.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"StoreScanner already has the close lock. There is no need to updateReaders"
+argument_list|)
+expr_stmt|;
+comment|// no lock acquired.
+return|return;
+block|}
+comment|// lock acquired
+name|updateReaders
+operator|=
+literal|true
+expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|closing
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"StoreScanner already closing. There is no need to updateReaders"
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 name|flushed
 operator|=
 literal|true
@@ -4122,6 +4200,17 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|updateReaders
+condition|)
+block|{
+name|closeLock
+operator|.
+name|unlock
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 comment|// Let the next() call handle re-creating and seeking
 block|}
