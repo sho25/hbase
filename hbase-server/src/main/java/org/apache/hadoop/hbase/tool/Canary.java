@@ -7031,6 +7031,16 @@ if|if
 condition|(
 name|admin
 operator|.
+name|tableExists
+argument_list|(
+name|td
+operator|.
+name|getTableName
+argument_list|()
+argument_list|)
+operator|&&
+name|admin
+operator|.
 name|isTableEnabled
 argument_list|(
 name|td
