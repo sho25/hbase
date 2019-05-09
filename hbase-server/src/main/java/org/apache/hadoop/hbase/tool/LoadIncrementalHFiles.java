@@ -1560,29 +1560,33 @@ name|println
 argument_list|(
 literal|"usage: "
 operator|+
-name|NAME
+literal|"bin/hbase completebulkload<-Dargs> "
 operator|+
-literal|" /path/to/hfileoutputformat-output tablename -loadTable"
+literal|"</path/to/hfileoutputformat-output><tablename>\n"
 operator|+
-literal|"\n -D"
+literal|"\t-D"
 operator|+
 name|CREATE_TABLE_CONF_KEY
 operator|+
-literal|"=no - can be used to avoid creation of table by "
+literal|"=no can be used to avoid creation "
 operator|+
-literal|"this tool\n  Note: if you set this to 'no', then the target table must already exist "
+literal|"of a table by this tool.\n"
 operator|+
-literal|"in HBase\n -loadTable implies your baseDirectory to store file has a depth of 3 ,you"
+literal|"\t Note: if you set this to 'no', then target table must already exist.\n"
 operator|+
-literal|" must have an existing table\n-D"
+literal|"\t-D"
 operator|+
 name|IGNORE_UNMATCHED_CF_CONF_KEY
 operator|+
-literal|"=yes - can be used "
+literal|"=yes can be used to ignore "
 operator|+
-literal|"to ignore unmatched column families\n"
+literal|"unmatched column families.\n"
 operator|+
-literal|"\n"
+literal|"\t-loadTable switch implies your baseDirectory to store file has a "
+operator|+
+literal|"depth of 3, table must exist\n"
+operator|+
+literal|"\t and -loadTable switch is the last option on the command line.\n\n"
 argument_list|)
 expr_stmt|;
 block|}
