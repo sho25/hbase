@@ -5366,6 +5366,24 @@ argument_list|(
 name|in
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|flushedSequenceId
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|".lastflushedseqids found at {} is empty"
+argument_list|,
+name|lastFlushedSeqIdPath
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
 for|for
 control|(
 name|FlushedRegionSequenceId

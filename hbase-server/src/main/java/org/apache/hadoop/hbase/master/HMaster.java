@@ -6557,7 +6557,7 @@ parameter_list|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Failed to load last flushed sequence id of regions"
 operator|+
