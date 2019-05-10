@@ -1994,11 +1994,9 @@ operator|.
 name|getAssignmentManager
 argument_list|()
 operator|.
-name|regionClosed
+name|regionClosedAbnormally
 argument_list|(
 name|regionNode
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -2037,6 +2035,37 @@ name|remoteProc
 operator|=
 literal|null
 expr_stmt|;
+block|}
+comment|// will be called after we finish loading the meta entry for this region.
+comment|// used to change the state of the region node if we have a sub procedure, as we may not persist
+comment|// the state to meta yet. See the code in RegionRemoteProcedureBase.execute for more details.
+name|void
+name|stateLoaded
+parameter_list|(
+name|AssignmentManager
+name|am
+parameter_list|,
+name|RegionStateNode
+name|regionNode
+parameter_list|)
+block|{
+if|if
+condition|(
+name|remoteProc
+operator|!=
+literal|null
+condition|)
+block|{
+name|remoteProc
+operator|.
+name|stateLoaded
+argument_list|(
+name|am
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Override

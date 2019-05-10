@@ -1550,6 +1550,29 @@ name|getState
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regionNode
+operator|.
+name|getProcedure
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|regionNode
+operator|.
+name|getProcedure
+argument_list|()
+operator|.
+name|stateLoaded
+argument_list|(
+name|this
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+block|}
 name|setMetaAssigned
 argument_list|(
 name|regionState
@@ -1631,14 +1654,12 @@ literal|null
 condition|)
 block|{
 comment|// This is possible, as we will detach the procedure from the RSN before we
-comment|// actually finish the procedure. This is because that, we will update the region state
-comment|// directly in the reportTransition method for TRSP, and theoretically the region transition
-comment|// has been done, so we need to detach the procedure from the RSN. But actually the
-comment|// procedure has not been marked as done in the pv2 framework yet, so it is possible that we
-comment|// schedule a new TRSP immediately and when arriving here, we will find out that there are
-comment|// multiple TRSPs for the region. But we can make sure that, only the last one can take the
-comment|// charge, the previous ones should have all been finished already.
-comment|// So here we will compare the proc id, the greater one will win.
+comment|// actually finish the procedure. This is because that, we will detach the TRSP from the RSN
+comment|// during execution, at that time, the procedure has not been marked as done in the pv2
+comment|// framework yet, so it is possible that we schedule a new TRSP immediately and when
+comment|// arriving here, we will find out that there are multiple TRSPs for the region. But we can
+comment|// make sure that, only the last one can take the charge, the previous ones should have all
+comment|// been finished already. So here we will compare the proc id, the greater one will win.
 if|if
 condition|(
 name|existingProc
@@ -6757,6 +6778,31 @@ name|regionNode
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|regionNode
+operator|.
+name|getProcedure
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|regionNode
+operator|.
+name|getProcedure
+argument_list|()
+operator|.
+name|stateLoaded
+argument_list|(
+name|AssignmentManager
+operator|.
+name|this
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 argument_list|)
@@ -7385,8 +7431,9 @@ name|OPEN
 block|}
 decl_stmt|;
 comment|// ============================================================================================
-comment|//  Region Status update
-comment|//  Should only be called in TransitRegionStateProcedure
+comment|// Region Status update
+comment|// Should only be called in TransitRegionStateProcedure(and related procedures), as the locking
+comment|// and pre-assumptions are very tricky.
 comment|// ============================================================================================
 specifier|private
 name|void
@@ -7502,7 +7549,7 @@ name|incrementOperationCounter
 argument_list|()
 expr_stmt|;
 block|}
-comment|// should be called within the synchronized block of RegionStateNode.
+comment|// should be called under the RegionStateNode lock
 comment|// The parameter 'giveUp' means whether we will try to open the region again, if it is true, then
 comment|// we will persist the FAILED_OPEN state into hbase:meta.
 name|void
@@ -7619,73 +7666,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|// should be called within the synchronized block of RegionStateNode
-name|void
-name|regionOpened
-parameter_list|(
-name|RegionStateNode
-name|regionNode
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-comment|// TODO: OPENING Updates hbase:meta too... we need to do both here and there?
-comment|// That is a lot of hbase:meta writing.
-name|transitStateAndUpdate
-argument_list|(
-name|regionNode
-argument_list|,
-name|State
-operator|.
-name|OPEN
-argument_list|,
-name|STATES_EXPECTED_ON_OPEN
-argument_list|)
-expr_stmt|;
-name|RegionInfo
-name|hri
-init|=
-name|regionNode
-operator|.
-name|getRegionInfo
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|isMetaRegion
-argument_list|(
-name|hri
-argument_list|)
-condition|)
-block|{
-comment|// Usually we'd set a table ENABLED at this stage but hbase:meta is ALWAYs enabled, it
-comment|// can't be disabled -- so skip the RPC (besides... enabled is managed by TableStateManager
-comment|// which is backed by hbase:meta... Avoid setting ENABLED to avoid having to update state
-comment|// on table that contains state.
-name|setMetaAssigned
-argument_list|(
-name|hri
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-block|}
-name|regionStates
-operator|.
-name|addRegionToServer
-argument_list|(
-name|regionNode
-argument_list|)
-expr_stmt|;
-name|regionStates
-operator|.
-name|removeFromFailedOpen
-argument_list|(
-name|hri
-argument_list|)
-expr_stmt|;
-block|}
-comment|// should be called within the synchronized block of RegionStateNode
+comment|// should be called under the RegionStateNode lock
 name|void
 name|regionClosing
 parameter_list|(
@@ -7745,17 +7726,122 @@ name|incrementOperationCounter
 argument_list|()
 expr_stmt|;
 block|}
-comment|// should be called within the synchronized block of RegionStateNode
-comment|// The parameter 'normally' means whether we are closed cleanly, if it is true, then it means that
-comment|// we are closed due to a RS crash.
+comment|// for open and close, they will first be persist to the procedure store in
+comment|// RegionRemoteProcedureBase. So here we will first change the in memory state as it is considered
+comment|// as succeeded if the persistence to procedure store is succeeded, and then when the
+comment|// RegionRemoteProcedureBase is woken up, we will persist the RegionStateNode to hbase:meta.
+comment|// should be called under the RegionStateNode lock
 name|void
-name|regionClosed
+name|regionOpenedWithoutPersistingToMeta
 parameter_list|(
 name|RegionStateNode
 name|regionNode
-parameter_list|,
-name|boolean
-name|normally
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|regionNode
+operator|.
+name|transitionState
+argument_list|(
+name|State
+operator|.
+name|OPEN
+argument_list|,
+name|STATES_EXPECTED_ON_OPEN
+argument_list|)
+expr_stmt|;
+name|RegionInfo
+name|regionInfo
+init|=
+name|regionNode
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+name|regionStates
+operator|.
+name|addRegionToServer
+argument_list|(
+name|regionNode
+argument_list|)
+expr_stmt|;
+name|regionStates
+operator|.
+name|removeFromFailedOpen
+argument_list|(
+name|regionInfo
+argument_list|)
+expr_stmt|;
+block|}
+comment|// should be called under the RegionStateNode lock
+name|void
+name|regionClosedWithoutPersistingToMeta
+parameter_list|(
+name|RegionStateNode
+name|regionNode
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|ServerName
+name|regionLocation
+init|=
+name|regionNode
+operator|.
+name|getRegionLocation
+argument_list|()
+decl_stmt|;
+name|regionNode
+operator|.
+name|transitionState
+argument_list|(
+name|State
+operator|.
+name|CLOSED
+argument_list|,
+name|STATES_EXPECTED_ON_CLOSED
+argument_list|)
+expr_stmt|;
+name|regionNode
+operator|.
+name|setRegionLocation
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|regionLocation
+operator|!=
+literal|null
+condition|)
+block|{
+name|regionNode
+operator|.
+name|setLastHost
+argument_list|(
+name|regionLocation
+argument_list|)
+expr_stmt|;
+name|regionStates
+operator|.
+name|removeRegionFromServer
+argument_list|(
+name|regionLocation
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// should be called under the RegionStateNode lock
+comment|// for SCP
+name|void
+name|regionClosedAbnormally
+parameter_list|(
+name|RegionStateNode
+name|regionNode
 parameter_list|)
 throws|throws
 name|IOException
@@ -7778,26 +7864,6 @@ operator|.
 name|getRegionLocation
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|normally
-condition|)
-block|{
-name|regionNode
-operator|.
-name|transitionState
-argument_list|(
-name|State
-operator|.
-name|CLOSED
-argument_list|,
-name|STATES_EXPECTED_ON_CLOSED
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-comment|// For SCP
 name|regionNode
 operator|.
 name|transitionState
@@ -7807,7 +7873,6 @@ operator|.
 name|ABNORMALLY_CLOSED
 argument_list|)
 expr_stmt|;
-block|}
 name|regionNode
 operator|.
 name|setRegionLocation
@@ -7884,6 +7949,63 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+name|void
+name|persistToMeta
+parameter_list|(
+name|RegionStateNode
+name|regionNode
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|regionStateStore
+operator|.
+name|updateRegionLocation
+argument_list|(
+name|regionNode
+argument_list|)
+expr_stmt|;
+name|RegionInfo
+name|regionInfo
+init|=
+name|regionNode
+operator|.
+name|getRegionInfo
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|isMetaRegion
+argument_list|(
+name|regionInfo
+argument_list|)
+operator|&&
+name|regionNode
+operator|.
+name|getState
+argument_list|()
+operator|==
+name|State
+operator|.
+name|OPEN
+condition|)
+block|{
+comment|// Usually we'd set a table ENABLED at this stage but hbase:meta is ALWAYs enabled, it
+comment|// can't be disabled -- so skip the RPC (besides... enabled is managed by TableStateManager
+comment|// which is backed by hbase:meta... Avoid setting ENABLED to avoid having to update state
+comment|// on table that contains state.
+name|setMetaAssigned
+argument_list|(
+name|regionInfo
+argument_list|,
+literal|true
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|// ============================================================================================
+comment|// The above methods can only be called in TransitRegionStateProcedure(and related procedures)
+comment|// ============================================================================================
 specifier|public
 name|void
 name|markRegionAsSplit
