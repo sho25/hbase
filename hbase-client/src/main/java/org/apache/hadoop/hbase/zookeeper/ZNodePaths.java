@@ -929,7 +929,7 @@ name|replicaId
 argument_list|)
 return|;
 block|}
-comment|/**    * Parse the meta replicaId from the passed znode    * @param znode    * @return replicaId    */
+comment|/**    * Parse the meta replicaId from the passed znode    * @param znode the name of the znode, does not include baseZNode    * @return replicaId    */
 specifier|public
 name|int
 name|getMetaReplicaIdFromZnode
@@ -973,7 +973,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Is it the default meta replica's znode    * @param znode    * @return true or false    */
+comment|/**    * Is it the default meta replica's znode    * @param znode the name of the znode, does not include baseZNode    * @return true or false    */
 specifier|public
 name|boolean
 name|isDefaultMetaReplicaZnode
