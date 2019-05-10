@@ -13005,7 +13005,6 @@ name|info
 argument_list|(
 literal|"Flushing "
 operator|+
-operator|+
 name|storesToFlush
 operator|.
 name|size

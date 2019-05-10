@@ -2470,7 +2470,6 @@ name|info
 argument_list|(
 literal|"Split occurred while grouping HFiles, retry attempt "
 operator|+
-operator|+
 name|count
 operator|+
 literal|" with "

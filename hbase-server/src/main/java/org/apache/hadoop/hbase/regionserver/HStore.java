@@ -12299,7 +12299,6 @@ argument_list|()
 operator|+
 literal|", sequenceid="
 operator|+
-operator|+
 name|storeFile
 operator|.
 name|getReader
