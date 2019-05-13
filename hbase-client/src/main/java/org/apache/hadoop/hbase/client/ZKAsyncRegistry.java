@@ -941,6 +941,26 @@ argument_list|>
 name|metaReplicaZNodes
 parameter_list|)
 block|{
+if|if
+condition|(
+name|metaReplicaZNodes
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|future
+operator|.
+name|completeExceptionally
+argument_list|(
+operator|new
+name|IOException
+argument_list|(
+literal|"No meta znode available"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|HRegionLocation
 index|[]
 name|locs
