@@ -241,7 +241,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorHeapAllocationNum
+name|getByteBuffAllocatorHeapAllocationBytes
 parameter_list|()
 block|{
 return|return
@@ -252,7 +252,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorPoolAllocationNum
+name|getByteBuffAllocatorPoolAllocationBytes
 parameter_list|()
 block|{
 return|return
@@ -285,7 +285,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorFreeBufferCount
+name|getByteBuffAllocatorUsedBufferCount
 parameter_list|()
 block|{
 return|return

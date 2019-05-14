@@ -4599,7 +4599,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorHeapAllocationNum
+name|getByteBuffAllocatorHeapAllocationBytes
 parameter_list|()
 block|{
 return|return
@@ -4607,7 +4607,7 @@ name|this
 operator|.
 name|allocator
 operator|.
-name|getHeapAllocationNum
+name|getHeapAllocationBytes
 argument_list|()
 return|;
 block|}
@@ -4615,7 +4615,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorPoolAllocationNum
+name|getByteBuffAllocatorPoolAllocationBytes
 parameter_list|()
 block|{
 return|return
@@ -4623,7 +4623,7 @@ name|this
 operator|.
 name|allocator
 operator|.
-name|getPoolAllocationNum
+name|getPoolAllocationBytes
 argument_list|()
 return|;
 block|}
@@ -4663,7 +4663,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getByteBuffAllocatorFreeBufferCount
+name|getByteBuffAllocatorUsedBufferCount
 parameter_list|()
 block|{
 return|return
@@ -4671,7 +4671,7 @@ name|this
 operator|.
 name|allocator
 operator|.
-name|getFreeBufferCount
+name|getUsedBufferCount
 argument_list|()
 return|;
 block|}

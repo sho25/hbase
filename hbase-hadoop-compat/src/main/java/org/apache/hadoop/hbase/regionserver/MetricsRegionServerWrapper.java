@@ -581,11 +581,11 @@ name|getTotalRowActionRequestCount
 parameter_list|()
 function_decl|;
 name|long
-name|getByteBuffAllocatorHeapAllocationNum
+name|getByteBuffAllocatorHeapAllocationBytes
 parameter_list|()
 function_decl|;
 name|long
-name|getByteBuffAllocatorPoolAllocationNum
+name|getByteBuffAllocatorPoolAllocationBytes
 parameter_list|()
 function_decl|;
 name|double
@@ -597,7 +597,7 @@ name|getByteBuffAllocatorTotalBufferCount
 parameter_list|()
 function_decl|;
 name|long
-name|getByteBuffAllocatorFreeBufferCount
+name|getByteBuffAllocatorUsedBufferCount
 parameter_list|()
 function_decl|;
 block|}

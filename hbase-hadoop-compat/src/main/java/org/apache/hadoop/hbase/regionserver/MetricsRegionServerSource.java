@@ -1670,32 +1670,32 @@ literal|"Average region size over the RegionServer including memstore and storef
 decl_stmt|;
 comment|/** Metrics for {@link org.apache.hadoop.hbase.io.ByteBuffAllocator} **/
 name|String
-name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_NUM
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_BYTES
 init|=
-literal|"ByteBuffAllocatorHeapAllocationNum"
+literal|"ByteBuffAllocatorHeapAllocationBytes"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_NUM_DESC
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_BYTES_DESC
 init|=
-literal|"Number of heap allocation from ByteBuffAllocator"
+literal|"Bytes of heap allocation from ByteBuffAllocator"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_NUM
+name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_BYTES
 init|=
-literal|"ByteBuffAllocatorPoolAllocationNum"
+literal|"ByteBuffAllocatorPoolAllocationBytes"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_NUM_DESC
+name|BYTE_BUFF_ALLOCATOR_POOL_ALLOCATION_BYTES_DESC
 init|=
-literal|"Number of pool allocation from ByteBuffAllocator"
+literal|"Bytes of pool allocation from ByteBuffAllocator"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOACTION_RATIO
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_RATIO
 init|=
 literal|"ByteBuffAllocatorHeapAllocationRatio"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOACTION_RATIO_DESC
+name|BYTE_BUFF_ALLOCATOR_HEAP_ALLOCATION_RATIO_DESC
 init|=
 literal|"Ratio of heap allocation from ByteBuffAllocator, means heapAllocation/totalAllocation"
 decl_stmt|;
@@ -1710,14 +1710,14 @@ init|=
 literal|"Total buffer count in ByteBuffAllocator"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_FREE_BUFFER_COUNT
+name|BYTE_BUFF_ALLOCATOR_USED_BUFFER_COUNT
 init|=
-literal|"ByteBuffAllocatorFreeBufferCount"
+literal|"ByteBuffAllocatorUsedBufferCount"
 decl_stmt|;
 name|String
-name|BYTE_BUFF_ALLOCATOR_FREE_BUFFER_COUNT_DESC
+name|BYTE_BUFF_ALLOCATOR_USED_BUFFER_COUNT_DESC
 init|=
-literal|"Free buffer count in ByteBuffAllocator"
+literal|"Used buffer count in ByteBuffAllocator"
 decl_stmt|;
 block|}
 end_interface
