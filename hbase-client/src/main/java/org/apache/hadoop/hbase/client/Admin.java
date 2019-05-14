@@ -709,7 +709,7 @@ name|Connection
 name|getConnection
 parameter_list|()
 function_decl|;
-comment|/**    * @param tableName Table to check.    * @return<code>true</code> if table exists already.    * @throws IOException    */
+comment|/**    * @param tableName Table to check.    * @return<code>true</code> if table exists already.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|tableExists
 parameter_list|(
@@ -1280,7 +1280,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get all the online regions on a region server.    *    * @return List of {@link RegionInfo}    * @throws java.io.IOException    */
+comment|/**    * Get all the online regions on a region server.    *    * @return List of {@link RegionInfo}    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|RegionInfo
@@ -2271,7 +2271,15 @@ name|NamespaceNotFoundException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * List available namespace descriptors.    * @return List of descriptors    */
+comment|/**    * List available namespaces    *    * @return List of namespace names    * @throws IOException if a remote or network exception occurs    */
+name|String
+index|[]
+name|listNamespaces
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * List available namespace descriptors    *    * @return List of descriptors    * @throws IOException if a remote or network exception occurs    */
 name|NamespaceDescriptor
 index|[]
 name|listNamespaceDescriptors
@@ -2279,7 +2287,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table descriptors by namespace.    * @param name namespace name    * @return returns a list of TableDescriptors    */
+comment|/**    * Get list of table descriptors by namespace.    * @param name namespace name    * @return returns a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|TableDescriptor
@@ -2293,7 +2301,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get list of table names by namespace.    * @param name namespace name    * @return The list of table names in the namespace    */
+comment|/**    * Get list of table names by namespace.    * @param name namespace name    * @return The list of table names in the namespace    * @throws IOException if a remote or network exception occurs    */
 name|TableName
 index|[]
 name|listTableNamesByNamespace
@@ -2304,7 +2312,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the regions of a given table.    *    * @param tableName the name of the table    * @return List of {@link RegionInfo}.    */
+comment|/**    * Get the regions of a given table.    *    * @param tableName the name of the table    * @return List of {@link RegionInfo}.    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|RegionInfo
@@ -2339,7 +2347,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure.    *<p/>    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does    *         not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
+comment|/**    * Abort a procedure.    *<p/>    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does    *         not exist    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.1.1 -- to be removed.    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -2374,7 +2382,7 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
-comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException    * @deprecated Since 2.1.1 -- to be removed.    */
+comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.1.1 -- to be removed.    */
 annotation|@
 name|Deprecated
 name|Future
@@ -2392,7 +2400,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get procedures.    * @return procedure list in JSON    * @throws IOException    */
+comment|/**    * Get procedures.    * @return procedure list in JSON    * @throws IOException if a remote or network exception occurs    */
 name|String
 name|getProcedures
 parameter_list|()

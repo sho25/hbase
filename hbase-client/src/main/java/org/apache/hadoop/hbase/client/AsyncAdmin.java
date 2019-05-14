@@ -870,6 +870,17 @@ name|String
 name|name
 parameter_list|)
 function_decl|;
+comment|/**    * List available namespaces    * @return List of namespaces wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|List
+argument_list|<
+name|String
+argument_list|>
+argument_list|>
+name|listNamespaces
+parameter_list|()
+function_decl|;
 comment|/**    * List available namespace descriptors    * @return List of descriptors wrapped by a {@link CompletableFuture}.    */
 name|CompletableFuture
 argument_list|<

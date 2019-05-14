@@ -2893,6 +2893,28 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
+name|ListNamespacesRequest
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|generated
+operator|.
+name|MasterProtos
+operator|.
 name|ListTableDescriptorsByNamespaceRequest
 import|;
 end_import
@@ -10107,7 +10129,7 @@ block|}
 argument_list|)
 return|;
 block|}
-comment|/**    * Merge two regions. Synchronous operation.    * Note: It is not feasible to predict the length of merge.    *   Therefore, this is for internal testing only.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException    */
+comment|/**    * Merge two regions. Synchronous operation.    * Note: It is not feasible to predict the length of merge.    *   Therefore, this is for internal testing only.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge    *          two adjacent regions    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -10581,7 +10603,7 @@ literal|"MERGE_REGIONS"
 return|;
 block|}
 block|}
-comment|/**    * Split one region. Synchronous operation.    * Note: It is not feasible to predict the length of split.    *   Therefore, this is for internal testing only.    * @param regionName encoded or full name of region    * @param splitPoint key where region splits    * @throws IOException    */
+comment|/**    * Split one region. Synchronous operation.    * Note: It is not feasible to predict the length of split.    *   Therefore, this is for internal testing only.    * @param regionName encoded or full name of region    * @param splitPoint key where region splits    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -10613,7 +10635,7 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Split one region. Synchronous operation.    * @param regionName region to be split    * @param splitPoint split point    * @param timeout how long to wait on split    * @param units time units    * @throws IOException    */
+comment|/**    * Split one region. Synchronous operation.    * @param regionName region to be split    * @param splitPoint split point    * @param timeout how long to wait on split    * @param units time units    * @throws IOException if a remote or network exception occurs    */
 specifier|public
 name|void
 name|splitRegionSync
@@ -11244,7 +11266,7 @@ literal|"MODIFY"
 return|;
 block|}
 block|}
-comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegionLocation(Connection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException    */
+comment|/**    * @param regionName Name of a region.    * @return a pair of HRegionInfo and ServerName if<code>regionName</code> is    *  a verified region name (we call {@link    *  MetaTableAccessor#getRegionLocation(Connection, byte[])}    *  else null.    * Throw IllegalArgumentException if<code>regionName</code> is null.    * @throws IOException if a remote or network exception occurs    */
 name|Pair
 argument_list|<
 name|RegionInfo
@@ -12686,6 +12708,90 @@ block|}
 argument_list|)
 return|;
 block|}
+comment|/**    * List available namespaces    * @return List of namespace names    * @throws IOException if a remote or network exception occurs    */
+annotation|@
+name|Override
+specifier|public
+name|String
+index|[]
+name|listNamespaces
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|executeCallable
+argument_list|(
+operator|new
+name|MasterCallable
+argument_list|<
+name|String
+index|[]
+argument_list|>
+argument_list|(
+name|getConnection
+argument_list|()
+argument_list|,
+name|getRpcControllerFactory
+argument_list|()
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|protected
+name|String
+index|[]
+name|rpcCall
+parameter_list|()
+throws|throws
+name|Exception
+block|{
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|list
+init|=
+name|master
+operator|.
+name|listNamespaces
+argument_list|(
+name|getRpcController
+argument_list|()
+argument_list|,
+name|ListNamespacesRequest
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|build
+argument_list|()
+argument_list|)
+operator|.
+name|getNamespaceNameList
+argument_list|()
+decl_stmt|;
+return|return
+name|list
+operator|.
+name|toArray
+argument_list|(
+operator|new
+name|String
+index|[
+name|list
+operator|.
+name|size
+argument_list|()
+index|]
+argument_list|)
+return|;
+block|}
+block|}
+argument_list|)
+return|;
+block|}
+comment|/**    * List available namespace descriptors    * @return List of descriptors    * @throws IOException if a remote or network exception occurs    */
 annotation|@
 name|Override
 specifier|public
@@ -21151,7 +21257,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Connect to peer and check the table descriptor on peer:    *<ol>    *<li>Create the same table on peer when not exist.</li>    *<li>Throw an exception if the table already has replication enabled on any of the column    * families.</li>    *<li>Throw an exception if the table exists on peer cluster but descriptors are not same.</li>    *</ol>    * @param tableName name of the table to sync to the peer    * @param splits table split keys    * @throws IOException    */
+comment|/**    * Connect to peer and check the table descriptor on peer:    *<ol>    *<li>Create the same table on peer when not exist.</li>    *<li>Throw an exception if the table already has replication enabled on any of the column    * families.</li>    *<li>Throw an exception if the table exists on peer cluster but descriptors are not same.</li>    *</ol>    * @param tableName name of the table to sync to the peer    * @param splits table split keys    * @throws IOException if a remote or network exception occurs    */
 end_comment
 
 begin_function

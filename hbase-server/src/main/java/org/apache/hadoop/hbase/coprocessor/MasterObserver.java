@@ -2250,6 +2250,47 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called before a listNamespaces request has been processed.    * @param ctx the environment to interact with the framework and master    * @param namespaces an empty list, can be filled with what to return if bypassing    * @throws IOException if something went wrong    */
+specifier|default
+name|void
+name|preListNamespaces
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|namespaces
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+comment|/**    * Called after a listNamespaces request has been processed.    * @param ctx the environment to interact with the framework and master    * @param namespaces the list of namespaces about to be returned    * @throws IOException if something went wrong    */
+specifier|default
+name|void
+name|postListNamespaces
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|namespaces
+parameter_list|)
+throws|throws
+name|IOException
+block|{}
+empty_stmt|;
 comment|/**    * Called before a listNamespaceDescriptors request has been processed.    * @param ctx the environment to interact with the framework and master    * @param descriptors an empty list, can be filled with what to return by coprocessor    */
 specifier|default
 name|void
