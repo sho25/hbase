@@ -850,7 +850,7 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    */
+comment|/**    * Creates a new table with the specified number of regions.  The start key specified will become    * the end key of the first region of the table, and the end key specified will become the start    * key of the last region of the table (the first region has a null start key and the last region    * has a null end key). BigInteger math will be used to divide the key range specified into enough    * segments to make the required number of total regions. Synchronous operation.    *    * @param desc table descriptor for table    * @param startKey beginning of key range    * @param endKey end of key range    * @param numRegions the total number of regions to create    * @throws IOException if a remote or network exception occurs    * @throws IllegalArgumentException if the table name is reserved    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    */
 name|void
 name|createTable
 parameter_list|(
@@ -871,7 +871,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException    */
+comment|/**    * Creates a new table with an initial set of empty regions defined by the specified split keys.    * The total number of regions created will be the number of split keys plus one. Synchronous    * operation. Note : Avoid passing empty split key.    *    * @param desc table descriptor for table    * @param splitKeys array of split keys for the initial regions of the table    * @throws IllegalArgumentException if the table name is reserved, if the split keys are repeated    * and if the split key has empty byte array.    * @throws org.apache.hadoop.hbase.MasterNotRunningException if master is not running    * @throws org.apache.hadoop.hbase.TableExistsException if table already exists (If concurrent    * threads, the table may have been created between test-for-existence and attempt-at-creation).    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|createTable
@@ -1024,7 +1024,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable a table. May timeout. Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    * @param tableName name of the table    * @throws IOException if a remote or network exception occurs There could be couple types of    *           IOException TableNotFoundException means the table doesn't exist.    *           TableNotDisabledException means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
+comment|/**    * Enable a table. May timeout. Use {@link #enableTableAsync(org.apache.hadoop.hbase.TableName)}    * and {@link #isTableEnabled(org.apache.hadoop.hbase.TableName)} instead. The table has to be in    * disabled state for it to be enabled.    * @param tableName name of the table    * @throws IOException There could be couple types of    *           IOException TableNotFoundException means the table doesn't exist.    *           TableNotDisabledException means the table isn't in disabled state.    * @see #isTableEnabled(org.apache.hadoop.hbase.TableName)    * @see #disableTable(org.apache.hadoop.hbase.TableName)    * @see #enableTableAsync(org.apache.hadoop.hbase.TableName)    */
 specifier|default
 name|void
 name|enableTable
@@ -1492,7 +1492,7 @@ name|IOException
 throws|,
 name|InterruptedException
 function_decl|;
-comment|/**    * Turn the compaction on or off. Disabling compactions will also interrupt any currently ongoing    * compactions. This state is ephemeral. The setting will be lost on restart. Compaction    * can also be enabled/disabled by modifying configuration hbase.regionserver.compaction.enabled    * in hbase-site.xml.    *    * @param switchState     Set to<code>true</code> to enable,<code>false</code> to disable.    * @param serverNamesList list of region servers.    * @return Previous compaction states for region servers    */
+comment|/**    * Turn the compaction on or off. Disabling compactions will also interrupt any currently ongoing    * compactions. This state is ephemeral. The setting will be lost on restart. Compaction    * can also be enabled/disabled by modifying configuration hbase.regionserver.compaction.enabled    * in hbase-site.xml.    *    * @param switchState     Set to<code>true</code> to enable,<code>false</code> to disable.    * @param serverNamesList list of region servers.    * @return Previous compaction states for region servers    * @throws IOException if a remote or network exception occurs    */
 name|Map
 argument_list|<
 name|ServerName
@@ -1616,7 +1616,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Assign a Region.    * @param regionName Region name to assign.    */
+comment|/**    * Assign a Region.    * @param regionName Region name to assign.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|assign
 parameter_list|(
@@ -1627,7 +1627,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], ServerName)} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If<code>true</code>, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    */
+comment|/**    * Unassign a region from current hosting regionserver.  Region will then be assigned to a    * regionserver chosen at random.  Region could be reassigned back to the same server.  Use {@link    * #move(byte[], ServerName)} if you want to control the region movement.    *    * @param regionName Region to unassign. Will clear any existing RegionPlan if one found.    * @param force If<code>true</code>, force unassign (Will remove region from regions-in-transition too if    * present. If results in double assignment use hbck -fix to resolve. To be used by experts).    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|unassign
 parameter_list|(
@@ -1641,7 +1641,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region. This is a special method that should be used by    * experts or hbck.    *    * @param regionName Region to offline.    * @throws IOException    */
+comment|/**    * Offline specified region from master's in-memory state. It will not attempt to reassign the    * region as in unassign. This API can be used when a region not served by any region server and    * still online as per Master's in memory state. If this API is incorrectly used on active region    * then master will loose track of that region. This is a special method that should be used by    * experts or hbck.    *    * @param regionName Region to offline.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|offline
 parameter_list|(
@@ -1652,7 +1652,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the load balancer on or off.    * @param onOrOff Set to<code>true</code> to enable,<code>false</code> to disable.    * @param synchronous If<code>true</code>, it waits until current balance() call, if outstanding,    *          to return.    * @return Previous balancer value    */
+comment|/**    * Turn the load balancer on or off.    * @param onOrOff Set to<code>true</code> to enable,<code>false</code> to disable.    * @param synchronous If<code>true</code>, it waits until current balance() call, if outstanding,    *          to return.    * @return Previous balancer value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|balancerSwitch
 parameter_list|(
@@ -1665,14 +1665,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    */
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will go ahead and do the    * reassignments.  Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|balance
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    */
+comment|/**    * Invoke the balancer.  Will run the balancer and if regions to move, it will    * go ahead and do the reassignments. If there is region in transition, force parameter of true    * would still run balancer. Can *not* run for other reasons.  Check    * logs.    * @param force whether we should force balance even if there is region in transition    * @return<code>true</code> if balancer ran,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|balance
 parameter_list|(
@@ -1682,7 +1682,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the balancer.    *    * @return<code>true</code> if the balancer is enabled,<code>false</code> otherwise.    */
+comment|/**    * Query the current state of the balancer.    *    * @return<code>true</code> if the balancer is enabled,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isBalancerEnabled
 parameter_list|()
@@ -1700,21 +1700,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if region normalizer ran,<code>false</code> otherwise.    */
+comment|/**    * Invoke region normalizer. Can NOT run for various reasons.  Check logs.    *    * @return<code>true</code> if region normalizer ran,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|normalize
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the region normalizer.    *    * @return<code>true</code> if region normalizer is enabled,<code>false</code> otherwise.    */
+comment|/**    * Query the current state of the region normalizer.    *    * @return<code>true</code> if region normalizer is enabled,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isNormalizerEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    */
+comment|/**    * Turn region normalizer on or off.    *    * @return Previous normalizer value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|normalizerSwitch
 parameter_list|(
@@ -1724,7 +1724,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable/Disable the catalog janitor/    *    * @param onOrOff if<code>true</code> enables the catalog janitor    * @return the previous state    */
+comment|/**    * Enable/Disable the catalog janitor/    *    * @param onOrOff if<code>true</code> enables the catalog janitor    * @return the previous state    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|catalogJanitorSwitch
 parameter_list|(
@@ -1734,21 +1734,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Ask for a scan of the catalog table.    *    * @return the number of entries cleaned    */
+comment|/**    * Ask for a scan of the catalog table.    *    * @return the number of entries cleaned    * @throws IOException if a remote or network exception occurs    */
 name|int
 name|runCatalogJanitor
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query on the catalog janitor state (Enabled/Disabled?).    *    */
+comment|/**    * Query on the catalog janitor state (Enabled/Disabled?).    *    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isCatalogJanitorEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Enable/Disable the cleaner chore.    *    * @param onOrOff if<code>true</code> enables the cleaner chore    * @return the previous state    * @throws IOException    */
+comment|/**    * Enable/Disable the cleaner chore.    *    * @param onOrOff if<code>true</code> enables the cleaner chore    * @return the previous state    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|cleanerChoreSwitch
 parameter_list|(
@@ -1758,21 +1758,21 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Ask for cleaner chore to run.    *    * @return<code>true</code> if cleaner chore ran,<code>false</code> otherwise    * @throws IOException    */
+comment|/**    * Ask for cleaner chore to run.    *    * @return<code>true</code> if cleaner chore ran,<code>false</code> otherwise    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|runCleanerChore
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query on the cleaner chore state (Enabled/Disabled?).    *    * @throws IOException    */
+comment|/**    * Query on the cleaner chore state (Enabled/Disabled?).    *    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isCleanerChoreEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Merge two regions. Asynchronous operation.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge two    *          adjacent regions    */
+comment|/**    * Merge two regions. Asynchronous operation.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge two    *          adjacent regions    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|Future
 argument_list|<
@@ -1829,7 +1829,7 @@ name|forcible
 argument_list|)
 return|;
 block|}
-comment|/**    * Merge regions. Asynchronous operation.    *<p/>    * You may get a {@code DoNotRetryIOException} if you pass more than two regions in but the master    * does not support merging more than two regions. At least till 2.2.0, we still only support    * merging two regions.    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          adjacent regions    */
+comment|/**    * Merge regions. Asynchronous operation.    *<p/>    * You may get a {@code DoNotRetryIOException} if you pass more than two regions in but the master    * does not support merging more than two regions. At least till 2.2.0, we still only support    * merging two regions.    * @param nameofRegionsToMerge encoded or full name of daughter regions    * @param forcible<code>true</code> if do a compulsory merge, otherwise we will only merge    *          adjacent regions    * @throws IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -2139,7 +2139,7 @@ name|Configuration
 name|getConfiguration
 parameter_list|()
 function_decl|;
-comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception is    * thrown.    * @param descriptor descriptor which describes the new namespace.    */
+comment|/**    * Create a new namespace. Blocks until namespace has been successfully created or an exception is    * thrown.    * @param descriptor descriptor which describes the new namespace.    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|createNamespace
@@ -2166,7 +2166,7 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
+comment|/**    * Create a new namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async create namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    * @throws IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -2179,7 +2179,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Modify an existing namespace. Blocks until namespace has been successfully modified or an    * exception is thrown.    * @param descriptor descriptor which describes the new namespace    */
+comment|/**    * Modify an existing namespace. Blocks until namespace has been successfully modified or an    * exception is thrown.    * @param descriptor descriptor which describes the new namespace    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|modifyNamespace
@@ -2206,7 +2206,7 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Modify an existing namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
+comment|/**    * Modify an existing namespace.    * @param descriptor descriptor which describes the new namespace    * @return the result of the async modify namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    * @throws IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -2219,7 +2219,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed. Blocks until    * namespace has been successfully deleted or an exception is thrown.    * @param name namespace name    */
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed. Blocks until    * namespace has been successfully deleted or an exception is thrown.    * @param name namespace name    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|void
 name|deleteNamespace
@@ -2246,7 +2246,7 @@ name|MILLISECONDS
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @return the result of the async delete namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    */
+comment|/**    * Delete an existing namespace. Only empty namespaces (no tables) can be removed.    * @param name namespace name    * @return the result of the async delete namespace operation. Use Future.get(long, TimeUnit) to    *         wait on the operation to complete.    * @throws IOException if a remote or network exception occurs    */
 name|Future
 argument_list|<
 name|Void
@@ -2795,7 +2795,7 @@ name|TableExistsException
 throws|,
 name|RestoreSnapshotException
 function_decl|;
-comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException    */
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|execProcedure
 parameter_list|(
@@ -2816,7 +2816,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException    */
+comment|/**    * Execute a distributed procedure on a cluster.    *    * @param signature A distributed procedure is uniquely identified by its signature (default the    * root ZK node name of the procedure).    * @param instance The instance name of the procedure. For some procedures, this parameter is    * optional.    * @param props Property/Value pairs of properties passing to the procedure    * @return data returned after procedure execution. null if no return data.    * @throws IOException if a remote or network exception occurs    */
 name|byte
 index|[]
 name|execProcedureWithReturn
@@ -2967,7 +2967,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Update the configuration and trigger an online config change    * on the regionserver.    * @param server : The server whose config needs to be updated.    * @throws IOException    */
+comment|/**    * Update the configuration and trigger an online config change    * on the regionserver.    * @param server : The server whose config needs to be updated.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|updateConfiguration
 parameter_list|(
@@ -2977,14 +2977,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Update the configuration and trigger an online config change    * on all the regionservers.    * @throws IOException    */
+comment|/**    * Update the configuration and trigger an online config change    * on all the regionservers.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|updateConfiguration
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException    */
+comment|/**    * Get the info port of the current master if one is available.    * @return master info port    * @throws IOException if a remote or network exception occurs    */
 specifier|default
 name|int
 name|getMasterInfoPort
@@ -3009,7 +3009,7 @@ name|getMasterInfoPort
 argument_list|()
 return|;
 block|}
-comment|/**    * Return the set of supported security capabilities.    * @throws IOException    * @throws UnsupportedOperationException    */
+comment|/**    * Return the set of supported security capabilities.    * @throws IOException if a remote or network exception occurs    * @throws UnsupportedOperationException    */
 name|List
 argument_list|<
 name|SecurityCapability
@@ -3019,7 +3019,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the split switch on or off.    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current split() call, if outstanding,    *          to return.    * @return Previous switch value    */
+comment|/**    * Turn the split switch on or off.    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current split() call, if outstanding,    *          to return.    * @return Previous switch value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|splitSwitch
 parameter_list|(
@@ -3032,7 +3032,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Turn the merge switch on or off.    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current merge() call, if outstanding,    *          to return.    * @return Previous switch value    */
+comment|/**    * Turn the merge switch on or off.    * @param enabled enabled or not    * @param synchronous If<code>true</code>, it waits until current merge() call, if outstanding,    *          to return.    * @return Previous switch value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|mergeSwitch
 parameter_list|(
@@ -3045,14 +3045,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the split switch.    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    */
+comment|/**    * Query the current state of the split switch.    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isSplitEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Query the current state of the merge switch.    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    */
+comment|/**    * Query the current state of the merge switch.    * @return<code>true</code> if the switch is enabled,<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isMergeEnabled
 parameter_list|()
@@ -3627,7 +3627,7 @@ name|getSyncReplicationState
 argument_list|()
 return|;
 block|}
-comment|/**    * Mark region server(s) as decommissioned to prevent additional regions from getting    * assigned to them. Optionally unload the regions on the servers. If there are multiple servers    * to be decommissioned, decommissioning them at the same time can prevent wasteful region    * movements. Region unloading is asynchronous.    * @param servers The list of servers to decommission.    * @param offload True to offload the regions from the decommissioned servers    */
+comment|/**    * Mark region server(s) as decommissioned to prevent additional regions from getting    * assigned to them. Optionally unload the regions on the servers. If there are multiple servers    * to be decommissioned, decommissioning them at the same time can prevent wasteful region    * movements. Region unloading is asynchronous.    * @param servers The list of servers to decommission.    * @param offload True to offload the regions from the decommissioned servers    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|decommissionRegionServers
 parameter_list|(
@@ -3643,7 +3643,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * List region servers marked as decommissioned, which can not be assigned regions.    * @return List of decommissioned region servers.    */
+comment|/**    * List region servers marked as decommissioned, which can not be assigned regions.    * @return List of decommissioned region servers.    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|ServerName
@@ -3653,7 +3653,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Remove decommission marker from a region server to allow regions assignments.    * Load regions onto the server if a list of regions is given. Region loading is    * asynchronous.    * @param server The server to recommission.    * @param encodedRegionNames Regions to load onto the server.    */
+comment|/**    * Remove decommission marker from a region server to allow regions assignments.    * Load regions onto the server if a list of regions is given. Region loading is    * asynchronous.    * @param server The server to recommission.    * @param encodedRegionNames Regions to load onto the server.    * @throws IOException if a remote or network exception occurs    */
 name|void
 name|recommissionRegionServer
 parameter_list|(
@@ -3670,7 +3670,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Find all table and column families that are replicated from this cluster    * @return the replicated table-cfs list of this cluster.    */
+comment|/**    * Find all table and column families that are replicated from this cluster    * @return the replicated table-cfs list of this cluster.    * @throws IOException if a remote or network exception occurs    */
 name|List
 argument_list|<
 name|TableCFs
@@ -3778,7 +3778,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Switch the rpc throttle enable state.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous rpc throttle enabled value    */
+comment|/**    * Switch the rpc throttle enable state.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous rpc throttle enabled value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|switchRpcThrottle
 parameter_list|(
@@ -3788,14 +3788,14 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get if the rpc throttle is enabled.    * @return True if rpc throttle is enabled    */
+comment|/**    * Get if the rpc throttle is enabled.    * @return True if rpc throttle is enabled    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|isRpcThrottleEnabled
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Switch the exceed throttle quota. If enabled, user/table/namespace throttle quota    * can be exceeded if region server has availble quota.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous exceed throttle enabled value    */
+comment|/**    * Switch the exceed throttle quota. If enabled, user/table/namespace throttle quota    * can be exceeded if region server has availble quota.    * @param enable Set to<code>true</code> to enable,<code>false</code> to disable.    * @return Previous exceed throttle enabled value    * @throws IOException if a remote or network exception occurs    */
 name|boolean
 name|exceedThrottleQuotaSwitch
 parameter_list|(
@@ -3806,7 +3806,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Fetches the table sizes on the filesystem as tracked by the HBase Master.    */
+comment|/**    * Fetches the table sizes on the filesystem as tracked by the HBase Master.    * @throws IOException if a remote or network exception occurs    */
 name|Map
 argument_list|<
 name|TableName
@@ -3818,7 +3818,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Fetches the observed {@link SpaceQuotaSnapshotView}s observed by a RegionServer.    */
+comment|/**    * Fetches the observed {@link SpaceQuotaSnapshotView}s observed by a RegionServer.    * @throws IOException if a remote or network exception occurs    */
 name|Map
 argument_list|<
 name|TableName
@@ -3835,7 +3835,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns the Master's view of a quota on the given {@code namespace} or null if the Master has    * no quota information on that namespace.    */
+comment|/**    * Returns the Master's view of a quota on the given {@code namespace} or null if the Master has    * no quota information on that namespace.    * @throws IOException if a remote or network exception occurs    */
 name|SpaceQuotaSnapshotView
 name|getCurrentSpaceQuotaSnapshot
 parameter_list|(
@@ -3845,7 +3845,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Returns the Master's view of a quota on the given {@code tableName} or null if the Master has    * no quota information on that table.    */
+comment|/**    * Returns the Master's view of a quota on the given {@code tableName} or null if the Master has    * no quota information on that table.    * @throws IOException if a remote or network exception occurs    */
 name|SpaceQuotaSnapshotView
 name|getCurrentSpaceQuotaSnapshot
 parameter_list|(
