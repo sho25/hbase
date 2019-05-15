@@ -698,7 +698,6 @@ name|HMaster
 name|master
 decl_stmt|;
 specifier|protected
-specifier|static
 name|boolean
 name|INIT
 init|=
