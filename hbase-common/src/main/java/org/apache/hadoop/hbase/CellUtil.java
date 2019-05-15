@@ -4925,9 +4925,16 @@ name|seqId
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell.    *    * Note that this method is a LimitedPrivate API and may change between minor releases.    * @param cell    * @param ts    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    */
 annotation|@
-name|Deprecated
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 specifier|public
 specifier|static
 name|void
@@ -4952,9 +4959,16 @@ name|ts
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the given timestamp to the cell.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    */
+comment|/**    * Sets the given timestamp to the cell.    *    * Note that this method is a LimitedPrivate API and may change between minor releases.    * @param cell    * @param ts buffer containing the timestamp value    * @param tsOffset offset to the new timestamp    * @throws IOException when the passed cell is not of type {@link ExtendedCell}    */
 annotation|@
-name|Deprecated
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|COPROC
+argument_list|)
 specifier|public
 specifier|static
 name|void
