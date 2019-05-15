@@ -1743,6 +1743,8 @@ argument_list|(
 name|c
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1760,7 +1762,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 if|if
 condition|(
 name|t
@@ -1908,16 +1911,12 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|connection
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -2052,6 +2051,8 @@ argument_list|(
 name|desc
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|h
 init|=
@@ -2064,7 +2065,8 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|long
 name|ts
 init|=
@@ -2456,11 +2458,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|h
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * Basic client side validation of HBASE-10118    */
 annotation|@
@@ -2534,6 +2532,8 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -2545,7 +2545,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// future timestamp
 name|long
 name|ts
@@ -2799,11 +2800,7 @@ name|COLUMN
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * Verifies that getConfiguration returns the same Configuration object used    * to create the HTable instance.    */
 annotation|@
@@ -2855,6 +2852,8 @@ operator|.
 name|getConfiguration
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -2866,7 +2865,8 @@ name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|assertSame
 argument_list|(
 name|conf
@@ -2877,6 +2877,7 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Test from client side of an involved filter against a multi family that    * involves deletes.    */
 annotation|@
@@ -2948,6 +2949,8 @@ literal|"trans-group"
 argument_list|)
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -2959,7 +2962,8 @@ name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|String
 name|value
 init|=
@@ -3069,6 +3073,8 @@ argument_list|,
 name|keyPrefix3
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -3081,7 +3087,8 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|System
 operator|.
 name|out
@@ -3253,6 +3260,8 @@ name|table
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 specifier|private
 name|void
@@ -3902,6 +3911,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -3913,7 +3924,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|rowCount
 init|=
@@ -4266,6 +4278,7 @@ argument_list|,
 name|countGreater
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/*    * @param key    * @return Scan with RowFilter that does LESS than passed key.    */
 specifier|private
@@ -4660,6 +4673,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -4671,7 +4686,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -4751,6 +4767,7 @@ name|close
 argument_list|()
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -4794,6 +4811,8 @@ operator|.
 name|MAX_KEYVALUE_SIZE_KEY
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -4805,7 +4824,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 name|value
@@ -4941,7 +4961,8 @@ parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{}
+block|{       }
+block|}
 name|conf
 operator|.
 name|set
@@ -4977,6 +4998,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -4988,7 +5011,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -5174,6 +5198,8 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -5183,7 +5209,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|expectedIndex
 init|=
@@ -5194,12 +5221,7 @@ control|(
 name|Result
 name|result
 range|:
-name|ht
-operator|.
-name|getScanner
-argument_list|(
-name|scan
-argument_list|)
+name|scanner
 control|)
 block|{
 name|assertEquals
@@ -5275,11 +5297,8 @@ argument_list|,
 name|expectedIndex
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -5304,6 +5323,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -5315,7 +5336,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -5470,6 +5492,8 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -5479,7 +5503,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|expectedIndex
 init|=
@@ -5490,12 +5515,7 @@ control|(
 name|Result
 name|result
 range|:
-name|ht
-operator|.
-name|getScanner
-argument_list|(
-name|scan
-argument_list|)
+name|scanner
 control|)
 block|{
 name|assertEquals
@@ -5538,11 +5558,8 @@ argument_list|,
 name|expectedIndex
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -5567,6 +5584,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -5578,7 +5597,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -5756,6 +5776,8 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -5765,7 +5787,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -5776,12 +5799,7 @@ control|(
 name|Result
 name|result
 range|:
-name|ht
-operator|.
-name|getScanner
-argument_list|(
-name|scan
-argument_list|)
+name|scanner
 control|)
 block|{
 name|assertEquals
@@ -5848,11 +5866,8 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Test simple table and non-existent row cases.    */
 annotation|@
@@ -5878,6 +5893,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -5889,7 +5906,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -6547,6 +6565,7 @@ name|VALUE
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * Test basic puts, gets, scans, and deletes for a single row    * in a multiple family table.    */
 annotation|@
 name|Test
@@ -6619,6 +6638,8 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -6630,7 +6651,8 @@ name|tableName
 argument_list|,
 name|FAMILIES
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Get
 name|get
 decl_stmt|;
@@ -8812,6 +8834,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -8892,6 +8915,8 @@ name|Exception
 name|e
 parameter_list|)
 block|{}
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -8903,7 +8928,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Null row (should NOT work)
 try|try
 block|{
@@ -8949,7 +8975,7 @@ parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{}
+block|{       }
 comment|// Null qualifier (should work)
 block|{
 name|Put
@@ -9051,9 +9077,13 @@ name|result
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|// Use a new table
+try|try
+init|(
+name|Table
 name|ht
-operator|=
+init|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -9072,7 +9102,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 comment|// Empty qualifier, byte[0] instead of null (should work)
 try|try
 block|{
@@ -9393,6 +9424,7 @@ argument_list|)
 throw|;
 block|}
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -9416,6 +9448,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -9427,7 +9461,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Work for Put
 name|Put
 name|put
@@ -9805,6 +9840,7 @@ name|delete
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -9849,6 +9885,8 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -9862,7 +9900,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert 4 versions of same column
 name|Put
 name|put
@@ -12462,6 +12501,7 @@ literal|9
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -12530,6 +12570,8 @@ argument_list|,
 literal|10
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -12543,7 +12585,8 @@ name|FAMILIES
 argument_list|,
 name|LIMITS
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert limit + 1 on each family
 name|Put
 name|put
@@ -14398,6 +14441,7 @@ literal|9
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -14407,6 +14451,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -14414,7 +14460,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|TableName
 name|tableName
@@ -14469,6 +14516,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -14482,7 +14531,8 @@ name|FAMILY
 argument_list|,
 literal|5
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -14506,6 +14556,7 @@ condition|;
 name|q
 operator|++
 control|)
+block|{
 for|for
 control|(
 name|int
@@ -14520,6 +14571,7 @@ condition|;
 name|t
 operator|++
 control|)
+block|{
 name|put
 operator|.
 name|addColumn
@@ -14542,6 +14594,8 @@ name|t
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|ht
 operator|.
 name|put
@@ -14721,16 +14775,8 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -14795,6 +14841,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -14802,10 +14850,10 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|;
 name|Table
 name|ht
-init|=
+operator|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -14816,7 +14864,8 @@ name|FAMILY
 argument_list|,
 literal|5
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -14860,6 +14909,7 @@ condition|;
 name|q
 operator|++
 control|)
+block|{
 for|for
 control|(
 name|int
@@ -14874,6 +14924,7 @@ condition|;
 name|t
 operator|++
 control|)
+block|{
 name|put
 operator|.
 name|addColumn
@@ -14896,6 +14947,8 @@ name|t
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|ht
 operator|.
 name|put
@@ -14944,6 +14997,7 @@ condition|;
 name|q
 operator|++
 control|)
+block|{
 for|for
 control|(
 name|int
@@ -14958,6 +15012,7 @@ condition|;
 name|t
 operator|++
 control|)
+block|{
 name|put
 operator|.
 name|addColumn
@@ -14980,6 +15035,8 @@ name|t
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 name|ht
 operator|.
 name|put
@@ -15640,16 +15697,7 @@ literal|2
 argument_list|)
 expr_stmt|;
 block|}
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -15714,6 +15762,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -15727,7 +15777,8 @@ name|FAMILIES
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -15858,6 +15909,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -15933,6 +15985,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -15946,7 +16000,8 @@ name|FAMILIES
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -18716,6 +18771,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 comment|/**    * Test batch operations with combination of valid and invalid args    */
 annotation|@
 name|Test
@@ -18740,6 +18796,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|foo
 init|=
@@ -18759,7 +18817,8 @@ block|}
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|NUM_OPS
 init|=
@@ -19419,6 +19478,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/*    * Baseline "scalability" test.    *    * Tests one hundred families, one million columns, one million versions    */
 annotation|@
 name|Ignore
@@ -19531,6 +19591,8 @@ argument_list|,
 name|numColsPerRow
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -19542,7 +19604,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert rows
 for|for
 control|(
@@ -19739,6 +19802,8 @@ operator|new
 name|Scan
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -19748,7 +19813,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|rowCount
 init|=
@@ -19829,11 +19895,6 @@ name|rowCount
 operator|++
 expr_stmt|;
 block|}
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Expected to scan "
@@ -19851,6 +19912,7 @@ operator|==
 name|numRows
 argument_list|)
 expr_stmt|;
+block|}
 comment|// flush and try again
 name|TEST_UTIL
 operator|.
@@ -19947,19 +20009,24 @@ operator|new
 name|Scan
 argument_list|()
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|ht
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|rowCount
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 while|while
 condition|(
 operator|(
@@ -20035,11 +20102,6 @@ name|rowCount
 operator|++
 expr_stmt|;
 block|}
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|assertTrue
 argument_list|(
 literal|"Expected to scan "
@@ -20057,6 +20119,8 @@ operator|==
 name|numRows
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * HBASE-861    *    get with timestamp will return a value if there is a version with an    *    earlier timestamp    */
 annotation|@
@@ -20103,6 +20167,8 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -20116,7 +20182,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert three versions
 name|Put
 name|put
@@ -20642,6 +20709,7 @@ index|]
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * HBASE-33    *    Add a HTable get/obtainScanner method that retrieves all versions of a    *    particular column and row between two timestamps    */
 annotation|@
 name|Test
@@ -20687,6 +20755,8 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -20700,7 +20770,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert lots versions
 name|Put
 name|put
@@ -21143,6 +21214,7 @@ literal|3
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * HBASE-1014    *    commit(BatchUpdate) method should return timestamp    */
 annotation|@
 name|Test
@@ -21167,6 +21239,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -21180,7 +21254,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|long
 name|manualStamp
 init|=
@@ -21262,6 +21337,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * HBASE-1182    *    Scan for columns> some timestamp    */
 annotation|@
 name|Test
@@ -21307,6 +21383,8 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -21320,7 +21398,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert lots versions
 name|Put
 name|put
@@ -21687,6 +21766,7 @@ literal|5
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**    * HBASE-52    *    Add a means of scanning over all versions    */
 annotation|@
 name|Test
@@ -21732,6 +21812,8 @@ argument_list|(
 literal|7
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -21745,7 +21827,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert lots versions
 name|Put
 name|put
@@ -21959,6 +22042,7 @@ argument_list|,
 literal|5
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|//
 comment|// Bulk Testers
@@ -29466,6 +29550,8 @@ argument_list|,
 literal|20
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -29479,7 +29565,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert 4 versions of same column
 name|Put
 name|put
@@ -32066,6 +32153,7 @@ literal|9
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -32089,6 +32177,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|hTable
 init|=
@@ -32102,7 +32192,8 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Write a column with values at timestamp 1, 2 and 3
 name|byte
 index|[]
@@ -32449,6 +32540,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -32472,6 +32564,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|hTable
 init|=
@@ -32485,15 +32579,16 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|;
 name|Admin
 name|admin
-init|=
+operator|=
 name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 comment|// Write a column with values at timestamp 1, 2 and 3
 name|byte
 index|[]
@@ -32884,6 +32979,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -32907,6 +33003,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|hTable
 init|=
@@ -32920,15 +33018,16 @@ name|FAMILY
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|;
 name|Admin
 name|admin
-init|=
+operator|=
 name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 comment|// Write a column with values at timestamp 1, 2 and 3
 name|byte
 index|[]
@@ -33341,6 +33440,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -33350,6 +33450,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -33369,7 +33471,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Get
 name|get
 init|=
@@ -33405,6 +33508,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -33414,6 +33518,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -33433,7 +33539,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -33567,6 +33674,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -33576,6 +33684,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -33595,7 +33705,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -33724,6 +33835,7 @@ literal|"Row missing as it should be"
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -33793,6 +33905,8 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -33820,7 +33934,8 @@ block|,
 name|SMALL_FAMILY
 block|}
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -33996,6 +34111,8 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -34005,7 +34122,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|Result
@@ -34052,6 +34170,8 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -34085,6 +34205,8 @@ argument_list|(
 literal|100
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -34104,7 +34226,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|boolean
 name|caughtNSCFE
 init|=
@@ -34161,6 +34284,7 @@ name|caughtNSCFE
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -34212,6 +34336,8 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -34239,7 +34365,8 @@ block|,
 name|SMALL_FAMILY
 block|}
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|ArrayList
 argument_list|<
 name|Put
@@ -34339,6 +34466,8 @@ argument_list|(
 name|CONTENTS_FAMILY
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -34348,7 +34477,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|nbRows
 init|=
@@ -34366,9 +34496,11 @@ name|row
 range|:
 name|scanner
 control|)
+block|{
 name|nbRows
 operator|++
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|NB_BATCH_ROWS
@@ -34376,6 +34508,8 @@ argument_list|,
 name|nbRows
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -34428,6 +34562,8 @@ name|NB_BATCH_ROWS
 init|=
 literal|10
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -34455,7 +34591,8 @@ block|,
 name|SMALL_FAMILY
 block|}
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|ArrayList
 argument_list|<
 name|Put
@@ -34557,6 +34694,8 @@ argument_list|(
 name|CONTENTS_FAMILY
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -34566,7 +34705,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|nbRows
 init|=
@@ -34584,9 +34724,11 @@ name|row
 range|:
 name|scanner
 control|)
+block|{
 name|nbRows
 operator|++
 expr_stmt|;
+block|}
 name|assertEquals
 argument_list|(
 name|NB_BATCH_ROWS
@@ -34596,6 +34738,8 @@ argument_list|,
 name|nbRows
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -34806,6 +34950,8 @@ literal|"fam2"
 argument_list|)
 decl_stmt|;
 comment|// Open table
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -34833,7 +34979,8 @@ block|,
 name|FAM2
 block|}
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert some values
 name|Put
 name|put
@@ -34981,8 +35128,8 @@ name|put
 argument_list|)
 expr_stmt|;
 name|long
-name|times
 index|[]
+name|times
 init|=
 operator|new
 name|long
@@ -35012,6 +35159,8 @@ argument_list|(
 name|FAM2
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|s
 init|=
@@ -35021,8 +35170,7 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|int
 name|index
@@ -35072,14 +35220,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-block|}
-finally|finally
-block|{
-name|s
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 for|for
 control|(
@@ -35204,16 +35344,18 @@ argument_list|(
 name|FAM2
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|s
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
-try|try
+init|)
 block|{
 name|int
 name|index
@@ -35262,15 +35404,6 @@ name|getTimestamp
 argument_list|()
 expr_stmt|;
 block|}
-block|}
-block|}
-finally|finally
-block|{
-name|s
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 for|for
 control|(
@@ -35323,6 +35456,8 @@ name|i
 index|]
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 block|}
 block|}
@@ -35430,6 +35565,8 @@ name|FAMILY
 argument_list|)
 expr_stmt|;
 block|}
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -35437,7 +35574,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|TableDescriptor
@@ -35565,6 +35703,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 comment|/**    * simple test that just executes parts of the client    * API that accept a pre-created Connection instance    */
 annotation|@
 name|Test
@@ -35600,6 +35739,8 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Connection
 name|conn
 init|=
@@ -35612,25 +35753,26 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|;
 name|Table
 name|t
-init|=
+operator|=
 name|conn
 operator|.
 name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
+init|;
 name|Admin
 name|admin
-init|=
+operator|=
 name|conn
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 name|assertTrue
 argument_list|(
 name|admin
@@ -35658,11 +35800,7 @@ name|isEmpty
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * test of that unmanaged HConnections are able to reconnect    * properly (see HBASE-5058)    */
 annotation|@
@@ -35699,6 +35837,8 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Connection
 name|conn
 init|=
@@ -35711,7 +35851,10 @@ operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|)
+block|{
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -35721,12 +35864,10 @@ name|getTable
 argument_list|(
 name|tableName
 argument_list|)
-decl_stmt|;
-try|try
-init|(
+init|;
 name|Admin
 name|admin
-init|=
+operator|=
 name|conn
 operator|.
 name|getAdmin
@@ -35871,6 +36012,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -35947,6 +36089,8 @@ argument_list|(
 literal|"value"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|a
 init|=
@@ -35960,10 +36104,10 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
-decl_stmt|;
+init|;
 name|Table
 name|b
-init|=
+operator|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -35974,7 +36118,8 @@ name|HConstants
 operator|.
 name|CATALOG_FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -36005,6 +36150,8 @@ name|put
 argument_list|)
 expr_stmt|;
 comment|// open a new connection to A and a connection to b
+try|try
+init|(
 name|Table
 name|newA
 init|=
@@ -36017,7 +36164,8 @@ name|getTable
 argument_list|(
 name|tableAname
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// copy data from A to B
 name|Scan
 name|scan
@@ -36035,6 +36183,8 @@ operator|.
 name|CATALOG_FAMILY
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|s
 init|=
@@ -36044,8 +36194,7 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 for|for
 control|(
@@ -36103,15 +36252,10 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-finally|finally
-block|{
-name|s
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 comment|// Opening a new connection to A will cause the tables to be reloaded
+try|try
+init|(
 name|Table
 name|anotherA
 init|=
@@ -36124,7 +36268,8 @@ name|getTable
 argument_list|(
 name|tableAname
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Get
 name|get
 init|=
@@ -36150,10 +36295,13 @@ argument_list|(
 name|get
 argument_list|)
 expr_stmt|;
+block|}
 comment|// We can still access A through newA because it has the table information
 comment|// cached. And if it needs to recalibrate, that will cause the information
 comment|// to be reloaded.
 comment|// Test user metadata
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -36161,7 +36309,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 comment|// make a modifiable descriptor
 name|HTableDescriptor
 name|desc
@@ -36204,6 +36353,7 @@ operator|.
 name|getFamilies
 argument_list|()
 control|)
+block|{
 name|c
 operator|.
 name|setValue
@@ -36213,6 +36363,7 @@ argument_list|,
 name|attrValue
 argument_list|)
 expr_stmt|;
+block|}
 comment|// update metadata for all regions of this table
 name|admin
 operator|.
@@ -36229,14 +36380,16 @@ argument_list|(
 name|tableAname
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Test that attribute changes were applied
+name|HTableDescriptor
 name|desc
-operator|=
+init|=
 name|a
 operator|.
 name|getTableDescriptor
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|assertEquals
 argument_list|(
 literal|"wrong table descriptor returned"
@@ -36330,6 +36483,7 @@ operator|!=
 literal|0
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@
@@ -37457,6 +37611,8 @@ argument_list|(
 literal|"testRow1"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -37468,7 +37624,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|p
 init|=
@@ -37678,6 +37835,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -37708,6 +37866,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -37719,7 +37879,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -38053,6 +38214,7 @@ name|e
 throw|;
 block|}
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -38083,6 +38245,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -38094,7 +38258,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Append
 name|append1
 init|=
@@ -38257,11 +38422,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -38293,6 +38454,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -38304,7 +38467,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 name|v1
@@ -38594,6 +38758,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 specifier|private
 name|List
 argument_list|<
@@ -38632,6 +38797,8 @@ else|:
 literal|"testAppendWithoutWAL"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -38643,7 +38810,8 @@ name|TABLENAME
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|byte
 index|[]
@@ -38966,6 +39134,7 @@ return|return
 name|results
 return|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -39263,6 +39432,8 @@ argument_list|,
 name|poolSize
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -39284,7 +39455,8 @@ name|Integer
 operator|.
 name|MAX_VALUE
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|long
 name|ts
@@ -39473,6 +39645,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
+block|}
 annotation|@
 name|Ignore
 argument_list|(
@@ -39543,6 +39716,8 @@ argument_list|,
 name|poolSize
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 specifier|final
 name|Table
 name|table
@@ -39563,7 +39738,8 @@ block|}
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|long
 name|ts
@@ -39985,7 +40161,7 @@ parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{           }
+block|{             }
 catch|catch
 parameter_list|(
 name|AssertionError
@@ -40047,6 +40223,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -40080,6 +40257,8 @@ argument_list|(
 literal|"abcd"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -40099,7 +40278,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put1
 init|=
@@ -40323,7 +40503,8 @@ parameter_list|(
 name|Exception
 name|e
 parameter_list|)
-block|{}
+block|{       }
+block|}
 block|}
 annotation|@
 name|Test
@@ -40334,6 +40515,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -40353,7 +40536,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|long
 name|ts
@@ -40703,6 +40887,7 @@ name|ok
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -40760,6 +40945,8 @@ argument_list|(
 literal|"dddd"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -40779,7 +40966,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put2
 init|=
@@ -41488,6 +41676,7 @@ name|ok
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -41509,6 +41698,8 @@ argument_list|(
 literal|"aaaa"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -41528,7 +41719,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -41607,6 +41799,7 @@ name|ok
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -41664,6 +41857,8 @@ argument_list|(
 literal|"dddd"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -41683,7 +41878,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put2
 init|=
@@ -42443,6 +42639,7 @@ name|ok
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 comment|/**   * Test ScanMetrics   */
 annotation|@
 name|Test
@@ -42474,6 +42671,8 @@ argument_list|)
 decl_stmt|;
 comment|// Set up test table:
 comment|// Create table:
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -42485,7 +42684,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|numOfRegions
 init|=
@@ -42623,6 +42823,8 @@ name|numRecords
 init|=
 literal|0
 decl_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -42632,7 +42834,8 @@ name|getScanner
 argument_list|(
 name|scan1
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|Result
@@ -42645,11 +42848,6 @@ name|numRecords
 operator|++
 expr_stmt|;
 block|}
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -42672,6 +42870,7 @@ name|getScanMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// turn on scan metrics
 name|Scan
 name|scan2
@@ -42696,15 +42895,19 @@ operator|+
 literal|1
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|ht
 operator|.
 name|getScanner
 argument_list|(
 name|scan2
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|Result
@@ -42719,7 +42922,7 @@ operator|-
 literal|1
 argument_list|)
 control|)
-block|{     }
+block|{         }
 name|scanner
 operator|.
 name|close
@@ -42734,6 +42937,7 @@ name|getScanMetrics
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// set caching to 1, because metrics are collected in each roundtrip only
 name|scan2
 operator|=
@@ -42755,15 +42959,19 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|ht
 operator|.
 name|getScanner
 argument_list|(
 name|scan2
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 comment|// per HBASE-5717, this should still collect even if you don't run all the way to
 comment|// the end of the scanner. So this is asking for 2 of the 3 rows we inserted.
 for|for
@@ -42780,12 +42988,7 @@ operator|-
 literal|1
 argument_list|)
 control|)
-block|{     }
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|{         }
 name|ScanMetrics
 name|scanMetrics
 init|=
@@ -42808,6 +43011,7 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// check byte counters
 name|scan2
 operator|=
@@ -42829,15 +43033,19 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|ht
 operator|.
 name|getScanner
 argument_list|(
 name|scan2
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 name|int
 name|numBytes
 init|=
@@ -42883,13 +43091,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|ScanMetrics
 name|scanMetrics
-operator|=
+init|=
 name|scanner
 operator|.
 name|getScanMetrics
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Did not count the result bytes"
@@ -42904,6 +43113,7 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// check byte counters on a small scan
 name|scan2
 operator|=
@@ -42932,19 +43142,24 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|ht
 operator|.
 name|getScanner
 argument_list|(
 name|scan2
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|numBytes
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -42985,13 +43200,14 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+name|ScanMetrics
 name|scanMetrics
-operator|=
+init|=
 name|scanner
 operator|.
 name|getScanMetrics
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|assertEquals
 argument_list|(
 literal|"Did not count the result bytes"
@@ -43006,10 +43222,12 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// now, test that the metrics are still collected even if you don't call close, but do
 comment|// run past the end of all the records
-comment|/** There seems to be a timing issue here.  Comment out for now. Fix when time.     Scan scanWithoutClose = new Scan();     scanWithoutClose.setCaching(1);     scanWithoutClose.setScanMetricsEnabled(true);     ResultScanner scannerWithoutClose = ht.getScanner(scanWithoutClose);     for (Result result : scannerWithoutClose.next(numRecords + 1)) {     }     ScanMetrics scanMetricsWithoutClose = getScanMetrics(scanWithoutClose);     assertEquals("Did not access all the regions in the table", numOfRegions,         scanMetricsWithoutClose.countOfRegions.get());     */
-comment|// finally, test that the metrics are collected correctly if you both run past all the records,
+comment|/** There seems to be a timing issue here.  Comment out for now. Fix when time.        Scan scanWithoutClose = new Scan();        scanWithoutClose.setCaching(1);        scanWithoutClose.setScanMetricsEnabled(true);        ResultScanner scannerWithoutClose = ht.getScanner(scanWithoutClose);        for (Result result : scannerWithoutClose.next(numRecords + 1)) {        }        ScanMetrics scanMetricsWithoutClose = getScanMetrics(scanWithoutClose);        assertEquals("Did not access all the regions in the table", numOfRegions,        scanMetricsWithoutClose.countOfRegions.get());        */
+comment|// finally,
+comment|// test that the metrics are collected correctly if you both run past all the records,
 comment|// AND close the scanner
 name|Scan
 name|scanWithClose
@@ -43033,6 +43251,8 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scannerWithClose
 init|=
@@ -43042,7 +43262,8 @@ name|getScanner
 argument_list|(
 name|scanWithClose
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|Result
@@ -43057,7 +43278,7 @@ operator|+
 literal|1
 argument_list|)
 control|)
-block|{     }
+block|{         }
 name|scannerWithClose
 operator|.
 name|close
@@ -43085,6 +43306,8 @@ name|get
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Tests that cache on write works all the way up from the client-side.    *    * Performs inserts, flushes, and compactions, verifying changes in the block    * cache along the way.    */
 annotation|@
@@ -43121,6 +43344,8 @@ argument_list|(
 literal|"data"
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -43132,7 +43357,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 try|try
 init|(
 name|RegionLocator
@@ -43964,6 +44190,7 @@ name|getMissCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|private
@@ -44911,6 +45138,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|foo
 init|=
@@ -44930,7 +45159,8 @@ block|}
 argument_list|,
 literal|10
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|List
 argument_list|<
 name|Put
@@ -45074,6 +45304,8 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -45083,7 +45315,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Result
 index|[]
 name|bar
@@ -45105,6 +45338,8 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -45114,6 +45349,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -45133,7 +45370,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -45307,6 +45545,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -45316,6 +45555,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -45335,7 +45576,8 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 try|try
 block|{
 name|Put
@@ -45662,11 +45904,7 @@ literal|"KeyValue SHOULD allow negative timestamps"
 argument_list|)
 expr_stmt|;
 block|}
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -45691,6 +45929,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -45702,7 +45942,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 name|row
@@ -45885,6 +46126,8 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -45894,7 +46137,8 @@ name|getScanner
 argument_list|(
 name|s
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -45936,13 +46180,9 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-comment|// then if we decrease the number of versions, but keep the scan raw, we should see exactly that
-comment|// number of versions
+block|}
+comment|// then if we decrease the number of versions, but keep the scan raw, we should see exactly
+comment|// that number of versions
 name|versions
 operator|=
 literal|2
@@ -45954,19 +46194,24 @@ argument_list|(
 name|versions
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|s
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -46003,11 +46248,7 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 comment|// finally, if we turn off raw scanning, but max out the number of versions, we should go back
 comment|// to seeing just three
 name|versions
@@ -46021,19 +46262,24 @@ argument_list|(
 name|versions
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|s
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -46070,16 +46316,8 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 name|TEST_UTIL
 operator|.
 name|deleteTable
@@ -46112,6 +46350,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -46123,7 +46363,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert one row each region
 name|Put
 name|put
@@ -46424,6 +46665,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -46448,6 +46690,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -46459,7 +46703,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Insert one row each region
 name|int
 name|insertNum
@@ -46524,6 +46769,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// normal scan
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -46535,7 +46782,8 @@ operator|new
 name|Scan
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -46569,6 +46817,7 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
+block|}
 comment|// small scan
 name|Scan
 name|scan
@@ -46599,19 +46848,24 @@ argument_list|(
 literal|2
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -46641,6 +46895,8 @@ name|count
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -46664,6 +46920,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -46675,7 +46933,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -47015,6 +47274,8 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -47024,7 +47285,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Result
 name|result
 init|=
@@ -47053,16 +47315,8 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -47087,6 +47341,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -47098,7 +47354,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -47282,6 +47539,8 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -47291,7 +47550,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|expectedIndex
 init|=
@@ -47411,16 +47671,8 @@ argument_list|,
 name|expectedIndex
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -47445,6 +47697,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -47456,7 +47710,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -47632,6 +47887,8 @@ argument_list|(
 name|filter
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -47641,7 +47898,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -47724,16 +47982,8 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|scanner
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Test simple table and non-existent row cases.    */
 annotation|@
@@ -47759,6 +48009,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -47770,7 +48022,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 index|[]
@@ -48152,11 +48405,7 @@ argument_list|(
 name|result
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -48181,6 +48430,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -48192,7 +48443,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 comment|// Null qualifier (should work)
 name|Put
 name|put
@@ -48259,9 +48511,13 @@ argument_list|(
 name|delete
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Use a new table
+try|try
+init|(
+name|Table
 name|ht
-operator|=
+init|=
 name|TEST_UTIL
 operator|.
 name|createTable
@@ -48280,16 +48536,18 @@ argument_list|)
 argument_list|,
 name|FAMILY
 argument_list|)
-expr_stmt|;
+init|)
+block|{
 comment|// Empty qualifier, byte[0] instead of null (should work)
+name|Put
 name|put
-operator|=
+init|=
 operator|new
 name|Put
 argument_list|(
 name|ROW
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|put
 operator|.
 name|addColumn
@@ -48341,14 +48599,15 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
+name|Delete
 name|delete
-operator|=
+init|=
 operator|new
 name|Delete
 argument_list|(
 name|ROW
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|delete
 operator|.
 name|addColumns
@@ -48440,11 +48699,7 @@ argument_list|,
 literal|null
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 annotation|@
 name|Test
@@ -48521,6 +48776,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -48534,7 +48791,8 @@ name|FAMILIES
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -50331,11 +50589,7 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 comment|/**    * Tests reversed scan under multi regions    */
 annotation|@
@@ -50481,6 +50735,8 @@ literal|2
 argument_list|)
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -50494,7 +50750,8 @@ name|FAMILY
 argument_list|,
 name|splitRows
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
@@ -50594,6 +50851,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// scan forward
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -50605,7 +50864,8 @@ operator|new
 name|Scan
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -50639,6 +50899,7 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
+block|}
 comment|// scan backward
 name|Scan
 name|scan
@@ -50654,19 +50915,24 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
 name|byte
 index|[]
 name|lastRow
@@ -50754,11 +51020,8 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Tests reversed scan under multi regions    */
 annotation|@
@@ -50838,6 +51101,8 @@ literal|"010"
 argument_list|)
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -50851,7 +51116,8 @@ name|FAMILY
 argument_list|,
 name|splitRows
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|TEST_UTIL
 operator|.
 name|waitUntilAllRegionsAssigned
@@ -50981,6 +51247,8 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// scan forward
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -50992,7 +51260,8 @@ operator|new
 name|Scan
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -51026,6 +51295,7 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
+block|}
 name|reverseScanTest
 argument_list|(
 name|table
@@ -51040,11 +51310,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
 block|}
 specifier|private
 name|void
@@ -51074,6 +51340,8 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|ResultScanner
 name|scanner
 init|=
@@ -51083,7 +51351,8 @@ name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|int
 name|count
 init|=
@@ -51176,6 +51445,7 @@ argument_list|,
 name|count
 argument_list|)
 expr_stmt|;
+block|}
 name|scan
 operator|=
 operator|new
@@ -51208,23 +51478,30 @@ literal|"002"
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
+name|byte
+index|[]
 name|lastRow
-operator|=
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -51307,6 +51584,7 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// 000 001 002
+block|}
 name|scan
 operator|=
 operator|new
@@ -51351,23 +51629,30 @@ literal|"000"
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
+name|byte
+index|[]
 name|lastRow
-operator|=
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -51450,6 +51735,7 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// 001 002
+block|}
 name|scan
 operator|=
 operator|new
@@ -51482,23 +51768,30 @@ literal|"001"
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
+name|byte
+index|[]
 name|lastRow
-operator|=
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -51581,6 +51874,7 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// 000 001
+block|}
 name|scan
 operator|=
 operator|new
@@ -51613,23 +51907,30 @@ literal|"000"
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
+name|byte
+index|[]
 name|lastRow
-operator|=
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -51712,6 +52013,7 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// 000
+block|}
 name|scan
 operator|=
 operator|new
@@ -51756,23 +52058,30 @@ literal|"002"
 argument_list|)
 argument_list|)
 expr_stmt|;
+try|try
+init|(
+name|ResultScanner
 name|scanner
-operator|=
+init|=
 name|table
 operator|.
 name|getScanner
 argument_list|(
 name|scan
 argument_list|)
-expr_stmt|;
+init|)
+block|{
+name|int
 name|count
-operator|=
+init|=
 literal|0
-expr_stmt|;
+decl_stmt|;
+name|byte
+index|[]
 name|lastRow
-operator|=
+init|=
 literal|null
-expr_stmt|;
+decl_stmt|;
 for|for
 control|(
 name|Result
@@ -51855,6 +52164,7 @@ name|count
 argument_list|)
 expr_stmt|;
 comment|// 003 004 005 006
+block|}
 block|}
 specifier|private
 specifier|static
@@ -52122,6 +52432,8 @@ name|HBaseTestingUtility
 operator|.
 name|KEYS_FOR_HBA_CREATE_TABLE
 decl_stmt|;
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -52129,7 +52441,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 name|admin
 operator|.
 name|createTable
@@ -52274,6 +52587,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 annotation|@
 name|Test
 specifier|public
@@ -52338,6 +52652,8 @@ argument_list|(
 name|fam
 argument_list|)
 expr_stmt|;
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -52345,7 +52661,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 name|admin
 operator|.
 name|createTable
@@ -52353,6 +52670,7 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Will succeed
 try|try
 init|(
@@ -52572,6 +52890,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -52579,7 +52899,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|TableName
 name|tableName
@@ -52622,6 +52943,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -52635,7 +52958,8 @@ name|FAMILY
 argument_list|,
 literal|5
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -52935,16 +53259,8 @@ argument_list|,
 literal|2
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -52955,6 +53271,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -52962,7 +53280,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|TableName
 name|tableName
@@ -53005,6 +53324,8 @@ block|,
 literal|5000
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|ht
 init|=
@@ -53018,7 +53339,8 @@ name|FAMILY
 argument_list|,
 literal|5
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|Put
 name|put
 init|=
@@ -53414,16 +53736,8 @@ argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
-name|ht
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Test for HBASE-17125    */
 annotation|@
@@ -53435,6 +53749,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
 name|Admin
 name|admin
 init|=
@@ -53442,7 +53758,8 @@ name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|TableName
 name|tableName
@@ -53457,6 +53774,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -53470,7 +53789,8 @@ name|FAMILY
 argument_list|,
 literal|3
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|byte
 index|[]
 name|VALUEA
@@ -54044,16 +54364,8 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|table
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-name|admin
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
+block|}
+block|}
 block|}
 annotation|@
 name|Test
@@ -54078,6 +54390,8 @@ name|getMethodName
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|table
 init|=
@@ -54089,7 +54403,8 @@ name|tableName
 argument_list|,
 name|FAMILY
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 specifier|final
 name|byte
 index|[]
@@ -54398,6 +54713,7 @@ name|next
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@
