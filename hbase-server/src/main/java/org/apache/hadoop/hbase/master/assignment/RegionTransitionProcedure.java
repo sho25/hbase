@@ -35,6 +35,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
@@ -659,7 +669,10 @@ annotation|@
 name|Override
 specifier|public
 specifier|abstract
+name|Optional
+argument_list|<
 name|RemoteOperation
+argument_list|>
 name|remoteCallBuild
 parameter_list|(
 name|MasterProcedureEnv

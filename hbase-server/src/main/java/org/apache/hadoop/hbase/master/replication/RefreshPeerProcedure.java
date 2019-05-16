@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -597,7 +607,10 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|RemoteOperation
+argument_list|>
 name|remoteCallBuild
 parameter_list|(
 name|MasterProcedureEnv
@@ -616,6 +629,10 @@ name|remote
 argument_list|)
 assert|;
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 operator|new
 name|ServerOperation
 argument_list|(
@@ -666,6 +683,7 @@ argument_list|()
 operator|.
 name|toByteArray
 argument_list|()
+argument_list|)
 argument_list|)
 return|;
 block|}

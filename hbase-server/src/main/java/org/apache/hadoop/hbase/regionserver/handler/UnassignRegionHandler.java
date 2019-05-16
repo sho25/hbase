@@ -145,7 +145,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -161,7 +161,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionServerServices
+name|Region
 import|;
 end_import
 
@@ -334,7 +334,7 @@ decl_stmt|;
 specifier|public
 name|UnassignRegionHandler
 parameter_list|(
-name|RegionServerServices
+name|HRegionServer
 name|server
 parameter_list|,
 name|String
@@ -397,13 +397,13 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RegionServerServices
+name|HRegionServer
 name|getServer
 parameter_list|()
 block|{
 return|return
 operator|(
-name|RegionServerServices
+name|HRegionServer
 operator|)
 name|server
 return|;
@@ -417,7 +417,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionServerServices
+name|HRegionServer
 name|rs
 init|=
 name|getServer
@@ -523,9 +523,6 @@ block|}
 name|HRegion
 name|region
 init|=
-operator|(
-name|HRegion
-operator|)
 name|rs
 operator|.
 name|getRegion
@@ -700,6 +697,14 @@ name|regionName
 argument_list|)
 throw|;
 block|}
+comment|// Cache the close region procedure id after report region transition succeed.
+name|rs
+operator|.
+name|finishRegionProcedure
+argument_list|(
+name|closeProcId
+argument_list|)
+expr_stmt|;
 name|rs
 operator|.
 name|getRegionsInTransitionInRS
@@ -765,7 +770,7 @@ specifier|static
 name|UnassignRegionHandler
 name|create
 parameter_list|(
-name|RegionServerServices
+name|HRegionServer
 name|server
 parameter_list|,
 name|String

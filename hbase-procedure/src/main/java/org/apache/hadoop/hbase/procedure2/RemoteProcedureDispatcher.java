@@ -65,6 +65,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -1081,8 +1091,11 @@ parameter_list|,
 name|TRemote
 parameter_list|>
 block|{
-comment|/**      * For building the remote operation.      */
+comment|/**      * For building the remote operation.      * May be empty if no need to send remote call. Usually, this means the RemoteProcedure has been      * finished already. This is possible, as we may have already sent the procedure to RS but then      * the rpc connection is broken so the executeProcedures call fails, but the RS does receive the      * procedure and execute it and then report back, before we retry again.      */
+name|Optional
+argument_list|<
 name|RemoteOperation
+argument_list|>
 name|remoteCallBuild
 parameter_list|(
 name|TEnv
@@ -1220,7 +1233,10 @@ range|:
 name|remoteProcedures
 control|)
 block|{
+name|Optional
+argument_list|<
 name|RemoteOperation
+argument_list|>
 name|operation
 init|=
 name|proc
@@ -1232,16 +1248,23 @@ argument_list|,
 name|remote
 argument_list|)
 decl_stmt|;
+name|operation
+operator|.
+name|ifPresent
+argument_list|(
+name|op
+lambda|->
 name|requestByType
 operator|.
 name|put
 argument_list|(
-name|operation
+name|op
 operator|.
 name|getClass
 argument_list|()
 argument_list|,
-name|operation
+name|op
+argument_list|)
 argument_list|)
 expr_stmt|;
 block|}

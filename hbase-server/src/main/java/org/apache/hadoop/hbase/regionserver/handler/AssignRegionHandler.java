@@ -163,7 +163,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
+name|HRegionServer
 import|;
 end_import
 
@@ -179,7 +179,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|RegionServerServices
+name|Region
 import|;
 end_import
 
@@ -351,7 +351,7 @@ decl_stmt|;
 specifier|public
 name|AssignRegionHandler
 parameter_list|(
-name|RegionServerServices
+name|HRegionServer
 name|server
 parameter_list|,
 name|RegionInfo
@@ -414,13 +414,13 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|private
-name|RegionServerServices
+name|HRegionServer
 name|getServer
 parameter_list|()
 block|{
 return|return
 operator|(
-name|RegionServerServices
+name|HRegionServer
 operator|)
 name|server
 return|;
@@ -449,7 +449,7 @@ argument_list|,
 name|error
 argument_list|)
 expr_stmt|;
-name|RegionServerServices
+name|HRegionServer
 name|rs
 init|=
 name|getServer
@@ -522,7 +522,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RegionServerServices
+name|HRegionServer
 name|rs
 init|=
 name|getServer
@@ -586,15 +586,6 @@ comment|// have already finished the opening. For this case we do not need to ca
 comment|// reportRegionStateTransition any more.
 return|return;
 block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Open {}"
-argument_list|,
-name|regionName
-argument_list|)
-expr_stmt|;
 name|Boolean
 name|previous
 init|=
@@ -681,6 +672,15 @@ expr_stmt|;
 block|}
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Open {}"
+argument_list|,
+name|regionName
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|region
 decl_stmt|;
@@ -799,6 +799,14 @@ argument_list|,
 name|regionName
 argument_list|)
 expr_stmt|;
+comment|// Cache the open region procedure id after report region transition succeed.
+name|rs
+operator|.
+name|finishRegionProcedure
+argument_list|(
+name|openProcId
+argument_list|)
+expr_stmt|;
 name|Boolean
 name|current
 init|=
@@ -899,7 +907,7 @@ specifier|static
 name|AssignRegionHandler
 name|create
 parameter_list|(
-name|RegionServerServices
+name|HRegionServer
 name|server
 parameter_list|,
 name|RegionInfo

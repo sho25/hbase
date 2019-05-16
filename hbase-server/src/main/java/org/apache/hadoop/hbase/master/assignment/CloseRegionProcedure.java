@@ -339,14 +339,8 @@ annotation|@
 name|Override
 specifier|public
 name|RemoteOperation
-name|remoteCallBuild
-parameter_list|(
-name|MasterProcedureEnv
-name|env
-parameter_list|,
-name|ServerName
-name|remote
-parameter_list|)
+name|newRemoteOperation
+parameter_list|()
 block|{
 return|return
 operator|new

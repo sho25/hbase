@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -444,9 +454,12 @@ block|}
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|RemoteProcedureDispatcher
 operator|.
 name|RemoteOperation
+argument_list|>
 name|remoteCallBuild
 parameter_list|(
 name|MasterProcedureEnv
@@ -457,6 +470,10 @@ name|serverName
 parameter_list|)
 block|{
 return|return
+name|Optional
+operator|.
+name|of
+argument_list|(
 operator|new
 name|RSProcedureDispatcher
 operator|.
@@ -488,6 +505,7 @@ argument_list|()
 operator|.
 name|toByteArray
 argument_list|()
+argument_list|)
 argument_list|)
 return|;
 block|}

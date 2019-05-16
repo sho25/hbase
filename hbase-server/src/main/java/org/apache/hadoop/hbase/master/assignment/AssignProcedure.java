@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -604,7 +614,10 @@ block|{   }
 annotation|@
 name|Override
 specifier|public
+name|Optional
+argument_list|<
 name|RemoteOperation
+argument_list|>
 name|remoteCallBuild
 parameter_list|(
 specifier|final
@@ -617,7 +630,10 @@ name|serverName
 parameter_list|)
 block|{
 return|return
-literal|null
+name|Optional
+operator|.
+name|empty
+argument_list|()
 return|;
 block|}
 annotation|@
