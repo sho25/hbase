@@ -186,6 +186,45 @@ specifier|public
 specifier|static
 specifier|final
 name|int
+name|FIXED_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+comment|// Algorithm, checksumType, encoding, Encryption.Context, hfileName reference
+literal|5
+operator|*
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|+
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+comment|// usesHBaseChecksum, includesMvcc, includesTags and compressTags
+literal|4
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_BOOLEAN
+operator|+
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
 name|DEFAULT_BYTES_PER_CHECKSUM
 init|=
 literal|16
@@ -767,7 +806,7 @@ operator|.
 name|hfileName
 return|;
 block|}
-comment|/**    * HeapSize implementation    * NOTE : The heapsize should be altered as and when new state variable are added    * @return heap size of the HFileContext    */
+comment|/**    * HeapSize implementation. NOTE : The heapsize should be altered as and when new state variable    * are added    * @return heap size of the HFileContext    */
 annotation|@
 name|Override
 specifier|public
@@ -778,38 +817,7 @@ block|{
 name|long
 name|size
 init|=
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|OBJECT
-operator|+
-comment|// Algorithm reference, encodingon, checksumtype, Encryption.Context reference
-literal|5
-operator|*
-name|ClassSize
-operator|.
-name|REFERENCE
-operator|+
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|+
-comment|// usesHBaseChecksum, includesMvcc, includesTags and compressTags
-literal|4
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_BOOLEAN
-operator|+
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-argument_list|)
+name|FIXED_OVERHEAD
 decl_stmt|;
 if|if
 condition|(

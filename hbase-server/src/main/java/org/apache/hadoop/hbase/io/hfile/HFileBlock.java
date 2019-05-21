@@ -609,6 +609,43 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|FIXED_OVERHEAD
+init|=
+name|ClassSize
+operator|.
+name|align
+argument_list|(
+name|ClassSize
+operator|.
+name|OBJECT
+operator|+
+comment|// BlockType, ByteBuff, MemoryType, HFileContext, ByteBuffAllocator
+literal|5
+operator|*
+name|ClassSize
+operator|.
+name|REFERENCE
+operator|+
+comment|// On-disk size, uncompressed size, and next block's on-disk size
+comment|// bytePerChecksum and onDiskDataSize
+literal|4
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_INT
+operator|+
+comment|// This and previous block offset
+literal|2
+operator|*
+name|Bytes
+operator|.
+name|SIZEOF_LONG
+argument_list|)
+decl_stmt|;
 comment|// Block Header fields.
 comment|// TODO: encapsulate Header related logic in this inner class.
 specifier|static
@@ -2940,43 +2977,15 @@ block|{
 name|long
 name|size
 init|=
-name|ClassSize
-operator|.
-name|align
-argument_list|(
-name|ClassSize
-operator|.
-name|OBJECT
-operator|+
-comment|// Block type, multi byte buffer, MemoryType and meta references
-literal|4
-operator|*
-name|ClassSize
-operator|.
-name|REFERENCE
-operator|+
-comment|// On-disk size, uncompressed size, and next block's on-disk size
-comment|// bytePerChecksum and onDiskDataSize
-literal|4
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_INT
-operator|+
-comment|// This and previous block offset
-literal|2
-operator|*
-name|Bytes
-operator|.
-name|SIZEOF_LONG
-operator|+
-comment|// Heap size of the meta object. meta will be always not null.
+name|FIXED_OVERHEAD
+decl_stmt|;
+name|size
+operator|+=
 name|fileContext
 operator|.
 name|heapSize
 argument_list|()
-argument_list|)
-decl_stmt|;
+expr_stmt|;
 if|if
 condition|(
 name|buf
