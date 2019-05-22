@@ -1840,6 +1840,10 @@ operator|+
 literal|"major=2 and minor="
 operator|+
 name|MAX_MINOR_VERSION
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
@@ -1857,12 +1861,17 @@ name|IllegalStateException
 block|{
 specifier|public
 name|BlockIndexNotLoadedException
-parameter_list|()
+parameter_list|(
+name|Path
+name|path
+parameter_list|)
 block|{
 comment|// Add a message in case anyone relies on it as opposed to class name.
 name|super
 argument_list|(
-literal|"Block index not loaded"
+name|path
+operator|+
+literal|" block index not loaded"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2076,7 +2085,9 @@ block|{
 throw|throw
 operator|new
 name|BlockIndexNotLoadedException
-argument_list|()
+argument_list|(
+name|path
+argument_list|)
 throw|;
 block|}
 return|return
@@ -2306,11 +2317,16 @@ name|IllegalStateException
 block|{
 specifier|public
 name|NotSeekedException
-parameter_list|()
+parameter_list|(
+name|Path
+name|path
+parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"Not seeked to a key/value"
+name|path
+operator|+
+literal|" not seeked to a key/value"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2736,7 +2752,12 @@ condition|)
 throw|throw
 operator|new
 name|NotSeekedException
+argument_list|(
+name|reader
+operator|.
+name|getPath
 argument_list|()
+argument_list|)
 throw|;
 block|}
 annotation|@
@@ -3028,6 +3049,13 @@ name|position
 argument_list|()
 operator|+
 literal|" (without header)."
+operator|+
+literal|" path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -3416,6 +3444,13 @@ name|position
 argument_list|()
 operator|+
 literal|" (without header)."
+operator|+
+literal|" path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -3563,6 +3598,13 @@ name|position
 argument_list|()
 operator|+
 literal|" (without header)."
+operator|+
+literal|" path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -3641,6 +3683,13 @@ operator|+
 name|curBlock
 operator|.
 name|getOnDiskSizeWithHeader
+argument_list|()
+operator|+
+literal|", path="
+operator|+
+name|reader
+operator|.
+name|getPath
 argument_list|()
 argument_list|)
 throw|;
@@ -4289,6 +4338,13 @@ argument_list|(
 literal|"Invalid block file offset: "
 operator|+
 name|block
+operator|+
+literal|", path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -4924,13 +4980,6 @@ operator|.
 name|limit
 argument_list|()
 operator|+
-literal|"; HFile name = "
-operator|+
-name|reader
-operator|.
-name|getName
-argument_list|()
-operator|+
 literal|"; currBlock currBlockOffset = "
 operator|+
 name|this
@@ -4938,6 +4987,13 @@ operator|.
 name|curBlock
 operator|.
 name|getOffset
+argument_list|()
+operator|+
+literal|"; path="
+operator|+
+name|reader
+operator|.
+name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -5239,6 +5295,13 @@ name|newBlock
 operator|.
 name|getOffset
 argument_list|()
+operator|+
+literal|", path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -5445,6 +5508,13 @@ name|position
 argument_list|()
 operator|+
 literal|" (without header)."
+operator|+
+literal|", path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -5489,11 +5559,11 @@ argument_list|()
 operator|+
 literal|"; "
 operator|+
-literal|"fileName="
+literal|"HFileName="
 operator|+
 name|reader
 operator|.
-name|getName
+name|getPath
 argument_list|()
 operator|+
 literal|", "
@@ -6117,6 +6187,10 @@ operator|+
 literal|", actual: "
 operator|+
 name|actualDataBlockEncoding
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 expr_stmt|;
 comment|// This is an error scenario. so here we need to decrement the
@@ -6193,7 +6267,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Meta index not loaded"
+name|path
+operator|+
+literal|" meta index not loaded"
 argument_list|)
 throw|;
 block|}
@@ -6451,7 +6527,9 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Block index not loaded"
+name|path
+operator|+
+literal|" block index not loaded"
 argument_list|)
 throw|;
 block|}
@@ -6492,6 +6570,10 @@ operator|+
 literal|", trailer.getLoadOnOpenDataOffset: "
 operator|+
 name|trailerOffset
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
@@ -6700,6 +6782,10 @@ name|getDataBlockEncoding
 argument_list|()
 operator|+
 literal|")"
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
@@ -6970,6 +7056,10 @@ operator|+
 literal|": "
 operator|+
 name|block
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
@@ -7360,6 +7450,13 @@ name|getNameFromId
 argument_list|(
 name|dataBlockEncoderId
 argument_list|)
+operator|+
+literal|", path="
+operator|+
+name|reader
+operator|.
+name|getPath
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -7648,7 +7745,12 @@ block|{
 throw|throw
 operator|new
 name|NotSeekedException
+argument_list|(
+name|reader
+operator|.
+name|getPath
 argument_list|()
+argument_list|)
 throw|;
 block|}
 block|}
@@ -7856,7 +7958,9 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|" is not supported"
+literal|" is not supported, path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
@@ -8059,6 +8163,10 @@ name|getAlgorithm
 argument_list|()
 operator|+
 literal|"' is not available"
+operator|+
+literal|", path="
+operator|+
+name|path
 argument_list|)
 throw|;
 block|}
