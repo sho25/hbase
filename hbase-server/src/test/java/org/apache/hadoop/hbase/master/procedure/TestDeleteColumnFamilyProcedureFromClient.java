@@ -327,7 +327,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -1102,7 +1102,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|isSequenceIdFile
 argument_list|(
@@ -1593,7 +1593,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|isSequenceIdFile
 argument_list|(

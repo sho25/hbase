@@ -873,7 +873,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|MutationReplay
 import|;

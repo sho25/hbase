@@ -503,7 +503,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -1074,7 +1074,7 @@ decl_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(

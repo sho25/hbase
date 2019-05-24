@@ -380,7 +380,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
@@ -395,7 +395,7 @@ name|assertEquals
 argument_list|(
 literal|1000L
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
@@ -405,7 +405,7 @@ name|REGION_DIR
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
@@ -420,7 +420,7 @@ name|assertEquals
 argument_list|(
 literal|2000L
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
@@ -433,7 +433,7 @@ expr_stmt|;
 comment|// can not write a sequence id which is smaller
 try|try
 block|{
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
@@ -465,7 +465,7 @@ block|}
 name|Path
 name|editsdir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -499,7 +499,7 @@ name|p
 parameter_list|)
 block|{
 return|return
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|isSequenceIdFile
 argument_list|(
@@ -527,7 +527,7 @@ name|Path
 argument_list|>
 name|recoveredEdits
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(

@@ -2275,7 +2275,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -2291,7 +2291,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|MutationReplay
 import|;
@@ -5803,7 +5803,7 @@ block|{
 name|long
 name|maxSeqIdFromFile
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
@@ -5856,7 +5856,7 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
@@ -6749,7 +6749,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|writeRegionSequenceIdFile
 argument_list|(
@@ -22160,7 +22160,7 @@ condition|)
 block|{
 name|filesUnderRootDir
 operator|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -22198,7 +22198,7 @@ name|Path
 argument_list|>
 name|files
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -22286,7 +22286,7 @@ comment|// column family. Have to fake out file type too by casting our recovere
 name|String
 name|fakeFamilyName
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -22737,7 +22737,7 @@ block|{
 name|Path
 name|p
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(
@@ -23642,7 +23642,7 @@ block|{
 name|Path
 name|p
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(
@@ -23703,7 +23703,7 @@ block|{
 name|Path
 name|p
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|moveAsideBadEditsFile
 argument_list|(

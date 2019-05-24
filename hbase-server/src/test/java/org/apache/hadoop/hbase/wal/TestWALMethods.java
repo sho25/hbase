@@ -315,24 +315,6 @@ name|wal
 operator|.
 name|WALSplitter
 operator|.
-name|EntryBuffers
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|wal
-operator|.
-name|WALSplitter
-operator|.
 name|PipelineController
 import|;
 end_import
@@ -599,7 +581,7 @@ expr_stmt|;
 name|Path
 name|recoverededits
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -609,7 +591,7 @@ decl_stmt|;
 name|String
 name|first
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -632,7 +614,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -646,7 +628,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -660,7 +642,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -674,7 +656,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -688,7 +670,7 @@ name|fs
 argument_list|,
 name|recoverededits
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -699,7 +681,7 @@ expr_stmt|;
 name|String
 name|last
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -783,7 +765,7 @@ name|Path
 argument_list|>
 name|files
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -838,7 +820,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -856,7 +838,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -874,7 +856,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(
@@ -892,7 +874,7 @@ operator|.
 name|getName
 argument_list|()
 argument_list|,
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|formatRecoveredEditsFileName
 argument_list|(

@@ -457,7 +457,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -1171,7 +1171,7 @@ decl_stmt|;
 name|long
 name|maxSeqId
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(
@@ -1218,7 +1218,7 @@ expr_stmt|;
 name|long
 name|maxSeqId2
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMaxRegionSequenceId
 argument_list|(

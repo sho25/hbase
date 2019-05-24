@@ -2083,7 +2083,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -5506,7 +5506,7 @@ decl_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -5955,7 +5955,7 @@ decl_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -6404,7 +6404,7 @@ decl_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -6701,7 +6701,7 @@ expr_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -7603,7 +7603,7 @@ expr_stmt|;
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -8554,7 +8554,7 @@ comment|// now write those markers to the recovered edits again.
 name|Path
 name|recoveredEditsDir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(

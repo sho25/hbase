@@ -241,7 +241,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -1374,7 +1374,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|hasRecoveredEdits
 argument_list|(

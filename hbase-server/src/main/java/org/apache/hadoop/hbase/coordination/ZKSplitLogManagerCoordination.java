@@ -379,7 +379,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -756,7 +756,7 @@ parameter_list|)
 block|{
 try|try
 block|{
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|finishSplitLogFile
 argument_list|(

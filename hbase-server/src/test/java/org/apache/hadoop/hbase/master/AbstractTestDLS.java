@@ -923,7 +923,7 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
 import|;
 end_import
 
@@ -1815,7 +1815,7 @@ argument_list|)
 name|Path
 name|editsdir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -1869,7 +1869,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|isSequenceIdFile
 argument_list|(

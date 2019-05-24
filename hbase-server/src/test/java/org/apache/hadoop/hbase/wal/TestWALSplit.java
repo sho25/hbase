@@ -2735,7 +2735,7 @@ expr_stmt|;
 name|Path
 name|parent
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -2861,7 +2861,7 @@ decl_stmt|;
 name|Path
 name|p
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionSplitEditsPath
 argument_list|(
@@ -2895,7 +2895,7 @@ argument_list|()
 decl_stmt|;
 name|assertFalse
 argument_list|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|hasRecoveredEdits
 argument_list|(
@@ -2941,7 +2941,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|hasRecoveredEdits
 argument_list|(
@@ -7037,7 +7037,7 @@ name|Path
 argument_list|>
 name|files
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getSplitEditFilesSorted
 argument_list|(
@@ -7553,7 +7553,7 @@ argument_list|)
 name|Path
 name|editsdir
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getRegionDirRecoveredEditsDir
 argument_list|(
@@ -7603,7 +7603,7 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|isSequenceIdFile
 argument_list|(

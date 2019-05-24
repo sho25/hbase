@@ -1905,7 +1905,25 @@ name|hbase
 operator|.
 name|wal
 operator|.
-name|WALSplitter
+name|WALSplitUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|wal
+operator|.
+name|WALSplitUtil
+operator|.
+name|MutationReplay
 import|;
 end_import
 
@@ -8248,8 +8266,6 @@ parameter_list|,
 specifier|final
 name|List
 argument_list|<
-name|WALSplitter
-operator|.
 name|MutationReplay
 argument_list|>
 name|mutations
@@ -8283,8 +8299,6 @@ for|for
 control|(
 name|Iterator
 argument_list|<
-name|WALSplitter
-operator|.
 name|MutationReplay
 argument_list|>
 name|it
@@ -8301,8 +8315,6 @@ argument_list|()
 condition|;
 control|)
 block|{
-name|WALSplitter
-operator|.
 name|MutationReplay
 name|m
 init|=
@@ -8315,7 +8327,8 @@ if|if
 condition|(
 name|m
 operator|.
-name|type
+name|getType
+argument_list|()
 operator|==
 name|MutationType
 operator|.
@@ -8571,8 +8584,6 @@ operator|.
 name|toArray
 argument_list|(
 operator|new
-name|WALSplitter
-operator|.
 name|MutationReplay
 index|[
 name|mutations
@@ -14181,13 +14192,11 @@ argument_list|()
 decl_stmt|;
 name|List
 argument_list|<
-name|WALSplitter
-operator|.
 name|MutationReplay
 argument_list|>
 name|edits
 init|=
-name|WALSplitter
+name|WALSplitUtil
 operator|.
 name|getMutationsFromWALEntry
 argument_list|(
