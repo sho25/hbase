@@ -1770,7 +1770,6 @@ operator|.
 name|SVG
 return|;
 block|}
-specifier|private
 specifier|static
 name|void
 name|setResponseHeader

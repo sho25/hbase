@@ -39,6 +39,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|regex
+operator|.
+name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
 name|javax
 operator|.
 name|servlet
@@ -165,6 +177,20 @@ name|REFRESH_PERIOD
 init|=
 literal|2
 decl_stmt|;
+comment|// Alphanumeric characters, plus percent (url-encoding), equals, and ampersand
+specifier|private
+specifier|static
+specifier|final
+name|Pattern
+name|ALPHA_NUMERIC
+init|=
+name|Pattern
+operator|.
+name|compile
+argument_list|(
+literal|"[a-zA-Z0-9\\%\\=\\&]*"
+argument_list|)
+decl_stmt|;
 annotation|@
 name|Override
 specifier|protected
@@ -229,6 +255,45 @@ operator|+
 literal|" is incomplete. Sending auto-refresh header."
 argument_list|)
 expr_stmt|;
+name|String
+name|refreshUrl
+init|=
+name|req
+operator|.
+name|getRequestURI
+argument_list|()
+decl_stmt|;
+comment|// Rebuild the query string (if we have one)
+if|if
+condition|(
+name|req
+operator|.
+name|getQueryString
+argument_list|()
+operator|!=
+literal|null
+condition|)
+block|{
+name|refreshUrl
+operator|+=
+literal|"?"
+operator|+
+name|sanitize
+argument_list|(
+name|req
+operator|.
+name|getQueryString
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+name|ProfileServlet
+operator|.
+name|setResponseHeader
+argument_list|(
+name|resp
+argument_list|)
+expr_stmt|;
 name|resp
 operator|.
 name|setHeader
@@ -237,12 +302,9 @@ literal|"Refresh"
 argument_list|,
 name|REFRESH_PERIOD
 operator|+
-literal|","
+literal|";"
 operator|+
-name|req
-operator|.
-name|getRequestURI
-argument_list|()
+name|refreshUrl
 argument_list|)
 expr_stmt|;
 name|resp
@@ -256,7 +318,9 @@ literal|"This page will be auto-refreshed every "
 operator|+
 name|REFRESH_PERIOD
 operator|+
-literal|" seconds until the output file is ready."
+literal|" seconds until the output file is ready. Redirecting to "
+operator|+
+name|refreshUrl
 argument_list|)
 expr_stmt|;
 block|}
@@ -272,6 +336,41 @@ name|resp
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+specifier|static
+name|String
+name|sanitize
+parameter_list|(
+name|String
+name|input
+parameter_list|)
+block|{
+comment|// Basic test to try to avoid any XSS attacks or HTML content showing up.
+comment|// Duplicates HtmlQuoting a little, but avoid destroying ampersand.
+if|if
+condition|(
+name|ALPHA_NUMERIC
+operator|.
+name|matcher
+argument_list|(
+name|input
+argument_list|)
+operator|.
+name|matches
+argument_list|()
+condition|)
+block|{
+return|return
+name|input
+return|;
+block|}
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Non-alphanumeric data found in input, aborting."
+argument_list|)
+throw|;
 block|}
 block|}
 end_class
