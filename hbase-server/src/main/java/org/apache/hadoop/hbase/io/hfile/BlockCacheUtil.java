@@ -1091,6 +1091,18 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+literal|null
+operator|==
+name|existingBlock
+condition|)
+block|{
+comment|// Not exist now.
+return|return
+literal|true
+return|;
+block|}
 try|try
 block|{
 name|int
