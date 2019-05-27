@@ -405,28 +405,6 @@ name|common
 operator|.
 name|collect
 operator|.
-name|Lists
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
 name|Maps
 import|;
 end_import
@@ -489,8 +467,6 @@ parameter_list|,
 name|RSGroupInfoManager
 name|rsGroupInfoManager
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|this
 operator|.
@@ -1158,22 +1134,16 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Moves every region from servers which are currently located on these servers,    * but should not be located there.    * @param servers the servers that will move to new group    * @param tables these tables will be kept on the servers, others will be moved    * @param targetGroupName the target group name    * @throws IOException if moving the server and tables fail    */
+comment|/**    * Move every region from servers which are currently located on these servers,    * but should not be located there.    *    * @param servers the servers that will move to new group    * @param targetGroupName the target group name    * @throws IOException if moving the server and tables fail    */
 specifier|private
 name|void
-name|moveRegionsFromServers
+name|moveServerRegionsFromGroup
 parameter_list|(
 name|Set
 argument_list|<
 name|Address
 argument_list|>
 name|servers
-parameter_list|,
-name|Set
-argument_list|<
-name|TableName
-argument_list|>
-name|tables
 parameter_list|,
 name|String
 name|targetGroupName
@@ -1182,7 +1152,7 @@ throws|throws
 name|IOException
 block|{
 name|boolean
-name|foundRegionsToMove
+name|hasRegionsToMove
 decl_stmt|;
 name|RSGroupInfo
 name|targetGrp
@@ -1207,7 +1177,7 @@ argument_list|)
 decl_stmt|;
 do|do
 block|{
-name|foundRegionsToMove
+name|hasRegionsToMove
 operator|=
 literal|false
 expr_stmt|;
@@ -1239,18 +1209,7 @@ operator|.
 name|next
 argument_list|()
 decl_stmt|;
-comment|// Get regions that are associated with this server and filter regions by tables.
-name|List
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|regions
-init|=
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
-decl_stmt|;
+comment|// Get regions that are associated with this server and filter regions by group tables.
 for|for
 control|(
 name|RegionInfo
@@ -1265,67 +1224,6 @@ block|{
 if|if
 condition|(
 operator|!
-name|tables
-operator|.
-name|contains
-argument_list|(
-name|region
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-condition|)
-block|{
-name|regions
-operator|.
-name|add
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving "
-operator|+
-name|regions
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" region(s) from "
-operator|+
-name|rs
-operator|+
-literal|" for server move to "
-operator|+
-name|targetGroupName
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-operator|!
-name|regions
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-for|for
-control|(
-name|RegionInfo
-name|region
-range|:
-name|regions
-control|)
-block|{
-comment|// Regions might get assigned from tables of target group so we need to filter
-if|if
-condition|(
-operator|!
 name|targetGrp
 operator|.
 name|containsTable
@@ -1337,6 +1235,20 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving server region {}, which do not belong to RSGroup {}"
+argument_list|,
+name|region
+operator|.
+name|getShortNameToLog
+argument_list|()
+argument_list|,
+name|targetGroupName
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|master
@@ -1370,19 +1282,30 @@ condition|)
 block|{
 continue|continue;
 block|}
-name|foundRegionsToMove
+name|hasRegionsToMove
 operator|=
 literal|true
 expr_stmt|;
 block|}
 block|}
-block|}
 if|if
 condition|(
 operator|!
-name|foundRegionsToMove
+name|hasRegionsToMove
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Server {} has no more regions to move for RSGroup"
+argument_list|,
+name|rs
+operator|.
+name|getHostname
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|iter
 operator|.
 name|remove
@@ -1427,21 +1350,15 @@ block|}
 block|}
 do|while
 condition|(
-name|foundRegionsToMove
+name|hasRegionsToMove
 condition|)
 do|;
 block|}
-comment|/**    * Moves every region of tables which should be kept on the servers,    * but currently they are located on other servers.    * @param servers the regions of these servers will be kept on the servers, others will be moved    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @throws IOException if moving the region fails    */
+comment|/**    * Moves regions of tables which are not on target group servers.    *    * @param tables the tables that will move to new group    * @param targetGroupName the target group name    * @throws IOException if moving the region fails    */
 specifier|private
 name|void
-name|moveRegionsToServers
+name|moveTableRegionsToGroup
 parameter_list|(
-name|Set
-argument_list|<
-name|Address
-argument_list|>
-name|servers
-parameter_list|,
 name|Set
 argument_list|<
 name|TableName
@@ -1454,6 +1371,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|RSGroupInfo
+name|targetGrp
+init|=
+name|getRSGroupInfo
+argument_list|(
+name|targetGroupName
+argument_list|)
+decl_stmt|;
 for|for
 control|(
 name|TableName
@@ -1462,16 +1387,38 @@ range|:
 name|tables
 control|)
 block|{
+if|if
+condition|(
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|isTableDisabled
+argument_list|(
+name|table
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Skipping move regions because the table {} is disabled"
+argument_list|,
+name|table
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving region(s) from "
-operator|+
+literal|"Moving region(s) for table {} to RSGroup {}"
+argument_list|,
 name|table
-operator|+
-literal|" for table move to "
-operator|+
+argument_list|,
 name|targetGroupName
 argument_list|)
 expr_stmt|;
@@ -1513,9 +1460,9 @@ decl_stmt|;
 if|if
 condition|(
 operator|!
-name|servers
+name|targetGrp
 operator|.
-name|contains
+name|containsServer
 argument_list|(
 name|sn
 operator|.
@@ -1524,6 +1471,20 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Moving region {} to RSGroup {}"
+argument_list|,
+name|region
+operator|.
+name|getShortNameToLog
+argument_list|()
+argument_list|,
+name|targetGroupName
+argument_list|)
+expr_stmt|;
 name|master
 operator|.
 name|getAssignmentManager
@@ -1604,14 +1565,12 @@ comment|// For some reason this difference between null servers and isEmpty is i
 comment|// TODO. Why? Stuff breaks if I equate them.
 return|return;
 block|}
-name|RSGroupInfo
-name|targetGrp
-init|=
+comment|//check target group
 name|getAndCheckRSGroupInfo
 argument_list|(
 name|targetGroupName
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Hold a lock on the manager instance while moving servers to prevent
 comment|// another writer changing our state while we are working.
 synchronized|synchronized
@@ -1855,231 +1814,24 @@ argument_list|,
 name|targetGroupName
 argument_list|)
 decl_stmt|;
-name|List
-argument_list|<
-name|Address
-argument_list|>
-name|editableMovedServers
-init|=
-name|Lists
-operator|.
-name|newArrayList
+name|moveServerRegionsFromGroup
 argument_list|(
 name|movedServers
-argument_list|)
-decl_stmt|;
-name|boolean
-name|foundRegionsToMove
-decl_stmt|;
-do|do
-block|{
-name|foundRegionsToMove
-operator|=
-literal|false
-expr_stmt|;
-for|for
-control|(
-name|Iterator
-argument_list|<
-name|Address
-argument_list|>
-name|iter
-init|=
-name|editableMovedServers
-operator|.
-name|iterator
-argument_list|()
-init|;
-name|iter
-operator|.
-name|hasNext
-argument_list|()
-condition|;
-control|)
-block|{
-name|Address
-name|rs
-init|=
-name|iter
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-comment|// Get regions that are associated with this server.
-name|List
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|regions
-init|=
-name|getRegions
-argument_list|(
-name|rs
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving "
-operator|+
-name|regions
-operator|.
-name|size
-argument_list|()
-operator|+
-literal|" region(s) from "
-operator|+
-name|rs
-operator|+
-literal|" for server move to "
-operator|+
+argument_list|,
 name|targetGroupName
 argument_list|)
 expr_stmt|;
-for|for
-control|(
-name|RegionInfo
-name|region
-range|:
-name|regions
-control|)
-block|{
-comment|// Regions might get assigned from tables of target group so we need to filter
-if|if
-condition|(
-name|targetGrp
-operator|.
-name|containsTable
-argument_list|(
-name|region
-operator|.
-name|getTable
-argument_list|()
-argument_list|)
-condition|)
-block|{
-continue|continue;
-block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving region "
-operator|+
-name|region
-operator|.
-name|getShortNameToLog
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|move
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-if|if
-condition|(
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getRegionState
-argument_list|(
-name|region
-argument_list|)
-operator|.
-name|isFailedOpen
-argument_list|()
-condition|)
-block|{
-comment|// If region is in FAILED_OPEN state, it won't recover, not without
-comment|// operator intervention... in hbase-2.0.0 at least. Continue rather
-comment|// than mark region as 'foundRegionsToMove'.
-continue|continue;
-block|}
-name|foundRegionsToMove
-operator|=
-literal|true
-expr_stmt|;
-block|}
-if|if
-condition|(
-operator|!
-name|foundRegionsToMove
-condition|)
-block|{
-name|iter
-operator|.
-name|remove
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-try|try
-block|{
-name|rsGroupInfoManager
-operator|.
-name|wait
-argument_list|(
-literal|1000
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|InterruptedException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Sleep interrupted"
+literal|"Move servers done: {} => {}"
 argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|Thread
-operator|.
-name|currentThread
-argument_list|()
-operator|.
-name|interrupt
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-do|while
-condition|(
-name|foundRegionsToMove
-condition|)
-do|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Move server done: "
-operator|+
 name|srcGrp
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|"=>"
-operator|+
+argument_list|,
 name|targetGroupName
 argument_list|)
 expr_stmt|;
@@ -2256,15 +2008,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving table "
-operator|+
+literal|"Moving table {} to RSGroup {}"
+argument_list|,
 name|table
 operator|.
 name|getNameAsString
 argument_list|()
-operator|+
-literal|" to RSGroup "
-operator|+
+argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
@@ -2287,87 +2037,13 @@ operator|!=
 literal|null
 condition|)
 block|{
-for|for
-control|(
-name|TableName
-name|table
-range|:
+name|moveTableRegionsToGroup
+argument_list|(
 name|tables
-control|)
-block|{
-if|if
-condition|(
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|isTableDisabled
-argument_list|(
-name|table
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Skipping move regions because the table"
-operator|+
-name|table
-operator|+
-literal|" is disabled."
-argument_list|)
-expr_stmt|;
-continue|continue;
-block|}
-for|for
-control|(
-name|RegionInfo
-name|region
-range|:
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|getRegionsOfTable
-argument_list|(
-name|table
-argument_list|)
-control|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving region "
-operator|+
-name|region
-operator|.
-name|getShortNameToLog
-argument_list|()
-operator|+
-literal|" to RSGroup "
-operator|+
+argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
-name|master
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|move
-argument_list|(
-name|region
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 block|}
 block|}
 block|}
@@ -2690,15 +2366,13 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Not running balancer because "
-operator|+
+literal|"Not running balancer because {} region(s) in transition: {}"
+argument_list|,
 name|groupRIT
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" region(s) in transition: "
-operator|+
+argument_list|,
 name|StringUtils
 operator|.
 name|abbreviate
@@ -2737,8 +2411,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Not running balancer because processing dead regionserver(s): "
-operator|+
+literal|"Not running balancer because processing dead regionserver(s): {}"
+argument_list|,
 name|serverManager
 operator|.
 name|getDeadServers
@@ -2794,15 +2468,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Creating partial plan for table "
-operator|+
+literal|"Creating partial plan for table {} : {}"
+argument_list|,
 name|tableMap
 operator|.
 name|getKey
 argument_list|()
-operator|+
-literal|": "
-operator|+
+argument_list|,
 name|tableMap
 operator|.
 name|getValue
@@ -2829,15 +2501,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Partial plan for table "
-operator|+
+literal|"Partial plan for table {} : {}"
+argument_list|,
 name|tableMap
 operator|.
 name|getKey
 argument_list|()
-operator|+
-literal|": "
-operator|+
+argument_list|,
 name|partialPlans
 argument_list|)
 expr_stmt|;
@@ -2883,12 +2553,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"RSGroup balance "
-operator|+
+literal|"RSGroup balance {} starting with plan count: {}"
+argument_list|,
 name|groupName
-operator|+
-literal|" starting with plan count: "
-operator|+
+argument_list|,
 name|plans
 operator|.
 name|size
@@ -2907,8 +2575,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"balance "
-operator|+
+literal|"balance {}"
+argument_list|,
 name|plan
 argument_list|)
 expr_stmt|;
@@ -2924,12 +2592,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"RSGroup balance "
-operator|+
+literal|"RSGroup balance {} completed after {} seconds"
+argument_list|,
 name|groupName
-operator|+
-literal|" completed after "
-operator|+
+argument_list|,
 operator|(
 name|System
 operator|.
@@ -2938,8 +2604,6 @@ argument_list|()
 operator|-
 name|startTime
 operator|)
-operator|+
-literal|" seconds"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3106,21 +2770,17 @@ argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
-comment|//move regions which should not belong to these tables
-name|moveRegionsFromServers
+comment|//move regions on these servers which do not belong to group tables
+name|moveServerRegionsFromGroup
 argument_list|(
 name|servers
-argument_list|,
-name|tables
 argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
-comment|//move regions which should belong to these servers
-name|moveRegionsToServers
+comment|//move regions of these tables which are not on group servers
+name|moveTableRegionsToGroup
 argument_list|(
-name|servers
-argument_list|,
 name|tables
 argument_list|,
 name|targetGroup
@@ -3131,16 +2791,12 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Move servers and tables done. Severs :"
-operator|+
+literal|"Move servers and tables done. Severs: {}, Tables: {} => {}"
+argument_list|,
 name|servers
-operator|+
-literal|" , Tables : "
-operator|+
+argument_list|,
 name|tables
-operator|+
-literal|" => "
-operator|+
+argument_list|,
 name|targetGroup
 argument_list|)
 expr_stmt|;
@@ -3205,11 +2861,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Remove decommissioned servers "
-operator|+
+literal|"Remove decommissioned servers {} from RSGroup done"
+argument_list|,
 name|servers
-operator|+
-literal|" from rsgroup done."
 argument_list|)
 expr_stmt|;
 block|}
@@ -3638,12 +3292,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding assignments for "
-operator|+
+literal|"Adding assignments for {}: {}"
+argument_list|,
 name|tableName
-operator|+
-literal|": "
-operator|+
+argument_list|,
 name|assignments
 operator|.
 name|get
