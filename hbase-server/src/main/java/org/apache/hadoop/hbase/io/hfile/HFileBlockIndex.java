@@ -1353,11 +1353,6 @@ name|block
 init|=
 literal|null
 decl_stmt|;
-name|boolean
-name|dataBlock
-init|=
-literal|false
-decl_stmt|;
 name|KeyOnlyKeyValue
 name|tmpNextIndexKV
 init|=
@@ -1374,6 +1369,13 @@ condition|)
 block|{
 try|try
 block|{
+comment|// Must initialize it with null here, because if don't and once an exception happen in
+comment|// readBlock, then we'll release the previous assigned block twice in the finally block.
+comment|// (See HBASE-22422)
+name|block
+operator|=
+literal|null
+expr_stmt|;
 if|if
 condition|(
 name|currentBlock
@@ -1515,10 +1517,6 @@ name|isData
 argument_list|()
 condition|)
 block|{
-name|dataBlock
-operator|=
-literal|true
-expr_stmt|;
 break|break;
 block|}
 comment|// Not a data block. This must be a leaf-level or intermediate-level
@@ -1655,12 +1653,18 @@ finally|finally
 block|{
 if|if
 condition|(
-operator|!
-name|dataBlock
-operator|&&
 name|block
 operator|!=
 literal|null
+operator|&&
+operator|!
+name|block
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|isData
+argument_list|()
 condition|)
 block|{
 comment|// Release the block immediately if it is not the data block
@@ -1680,9 +1684,13 @@ name|searchTreeLevel
 condition|)
 block|{
 assert|assert
-name|dataBlock
-operator|==
-literal|true
+name|block
+operator|.
+name|getBlockType
+argument_list|()
+operator|.
+name|isData
+argument_list|()
 assert|;
 comment|// Though we have retrieved a data block we have found an issue
 comment|// in the retrieved data block. Hence returned the block so that
@@ -1715,9 +1723,7 @@ argument_list|)
 throw|;
 block|}
 comment|// set the next indexed key for the current block.
-name|BlockWithScanInfo
-name|blockWithScanInfo
-init|=
+return|return
 operator|new
 name|BlockWithScanInfo
 argument_list|(
@@ -1725,9 +1731,6 @@ name|block
 argument_list|,
 name|nextIndexedKey
 argument_list|)
-decl_stmt|;
-return|return
-name|blockWithScanInfo
 return|;
 block|}
 annotation|@

@@ -1989,9 +1989,33 @@ name|cb
 init|=
 name|map
 operator|.
-name|get
+name|computeIfPresent
 argument_list|(
 name|cacheKey
+argument_list|,
+parameter_list|(
+name|key
+parameter_list|,
+name|val
+parameter_list|)
+lambda|->
+block|{
+comment|// It will be referenced by RPC path, so increase here. NOTICE: Must do the retain inside
+comment|// this block. because if retain outside the map#computeIfPresent, the evictBlock may remove
+comment|// the block and release, then we're retaining a block with refCnt=0 which is disallowed.
+comment|// see HBASE-22422.
+name|val
+operator|.
+name|getBuffer
+argument_list|()
+operator|.
+name|retain
+argument_list|()
+expr_stmt|;
+return|return
+name|val
+return|;
+block|}
 argument_list|)
 decl_stmt|;
 if|if
@@ -2135,6 +2159,7 @@ if|if
 condition|(
 name|updateCacheMetrics
 condition|)
+block|{
 name|stats
 operator|.
 name|hit
@@ -2152,6 +2177,7 @@ name|getBlockType
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|cb
 operator|.
 name|access
@@ -2161,15 +2187,6 @@ operator|.
 name|incrementAndGet
 argument_list|()
 argument_list|)
-expr_stmt|;
-comment|// It will be referenced by RPC path, so increase here.
-name|cb
-operator|.
-name|getBuffer
-argument_list|()
-operator|.
-name|retain
-argument_list|()
 expr_stmt|;
 return|return
 name|cb
@@ -2342,15 +2359,6 @@ return|return
 literal|0
 return|;
 block|}
-comment|// Decrease the block's reference count, and if refCount is 0, then it'll auto-deallocate.
-name|previous
-operator|.
-name|getBuffer
-argument_list|()
-operator|.
-name|release
-argument_list|()
-expr_stmt|;
 name|updateSizeMetrics
 argument_list|(
 name|block
@@ -2459,6 +2467,17 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|// Decrease the block's reference count, and if refCount is 0, then it'll auto-deallocate. DO
+comment|// NOT move this up because if do that then the victimHandler may access the buffer with
+comment|// refCnt = 0 which is disallowed.
+name|previous
+operator|.
+name|getBuffer
+argument_list|()
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
 return|return
 name|block
 operator|.

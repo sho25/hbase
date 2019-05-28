@@ -20,6 +20,24 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
+operator|.
+name|HEAP
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -2706,6 +2724,13 @@ name|allocateBuffer
 argument_list|()
 expr_stmt|;
 comment|// allocates space for the decompressed block
+name|boolean
+name|succ
+init|=
+literal|false
+decl_stmt|;
+try|try
+block|{
 name|HFileBlockDecodingContext
 name|ctx
 init|=
@@ -2725,6 +2750,7 @@ operator|.
 name|getDefaultBlockDecodingContext
 argument_list|()
 decl_stmt|;
+comment|// Create a duplicated buffer without the header part.
 name|ByteBuff
 name|dup
 init|=
@@ -2752,6 +2778,7 @@ operator|.
 name|slice
 argument_list|()
 expr_stmt|;
+comment|// Decode the dup into unpacked#buf
 name|ctx
 operator|.
 name|prepareDecoding
@@ -2776,9 +2803,29 @@ argument_list|,
 name|dup
 argument_list|)
 expr_stmt|;
+name|succ
+operator|=
+literal|true
+expr_stmt|;
 return|return
 name|unpacked
 return|;
+block|}
+finally|finally
+block|{
+if|if
+condition|(
+operator|!
+name|succ
+condition|)
+block|{
+name|unpacked
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 block|}
 comment|/**    * Always allocates a new buffer of the correct size. Copies header bytes    * from the existing buffer. Does not change header fields.    * Reserve room to keep checksum bytes too.    */
 specifier|private
@@ -2847,11 +2894,7 @@ name|buf
 operator|.
 name|limit
 argument_list|(
-name|headerSize
-operator|+
-name|uncompressedSizeWithoutHeader
-operator|+
-name|cksumBytes
+name|capacityNeeded
 argument_list|)
 expr_stmt|;
 block|}
@@ -6009,8 +6052,6 @@ block|{
 return|return
 name|intoHeap
 condition|?
-name|ByteBuffAllocator
-operator|.
 name|HEAP
 operator|.
 name|allocate
@@ -6192,15 +6233,11 @@ expr_stmt|;
 block|}
 name|headerBuf
 operator|=
-operator|new
-name|SingleByteBuff
-argument_list|(
-name|ByteBuffer
+name|HEAP
 operator|.
 name|allocate
 argument_list|(
 name|hdrSize
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|readAtOffset
@@ -6468,6 +6505,10 @@ name|nextBlockOnDiskSize
 argument_list|,
 name|fileContext
 argument_list|,
+name|intoHeap
+condition|?
+name|HEAP
+else|:
 name|allocator
 argument_list|)
 decl_stmt|;

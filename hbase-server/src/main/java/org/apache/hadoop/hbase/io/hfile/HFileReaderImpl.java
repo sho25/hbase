@@ -6700,6 +6700,12 @@ name|getDataBlockEncoding
 argument_list|()
 condition|)
 block|{
+comment|// Remember to release the block when in exceptional path.
+name|cachedBlock
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -6724,9 +6730,7 @@ operator|.
 name|getDataBlockEncoding
 argument_list|()
 operator|+
-literal|")"
-operator|+
-literal|", path="
+literal|"), path="
 operator|+
 name|path
 argument_list|)
@@ -6825,15 +6829,6 @@ name|getCategory
 argument_list|()
 decl_stmt|;
 comment|// Cache the block if necessary
-name|AtomicBoolean
-name|cachedRaw
-init|=
-operator|new
-name|AtomicBoolean
-argument_list|(
-literal|false
-argument_list|)
-decl_stmt|;
 name|cacheConf
 operator|.
 name|getBlockCache
@@ -6856,28 +6851,18 @@ name|category
 argument_list|)
 condition|)
 block|{
-name|cachedRaw
-operator|.
-name|set
-argument_list|(
-name|cacheConf
-operator|.
-name|shouldCacheCompressed
-argument_list|(
-name|category
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|cache
 operator|.
 name|cacheBlock
 argument_list|(
 name|cacheKey
 argument_list|,
-name|cachedRaw
+name|cacheConf
 operator|.
-name|get
-argument_list|()
+name|shouldCacheCompressed
+argument_list|(
+name|category
+argument_list|)
 condition|?
 name|hfileBlock
 else|:
@@ -6898,12 +6883,6 @@ condition|(
 name|unpacked
 operator|!=
 name|hfileBlock
-operator|&&
-operator|!
-name|cachedRaw
-operator|.
-name|get
-argument_list|()
 condition|)
 block|{
 comment|// End of life here if hfileBlock is an independent block.
