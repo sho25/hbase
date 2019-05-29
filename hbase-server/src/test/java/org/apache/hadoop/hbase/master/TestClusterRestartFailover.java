@@ -179,7 +179,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MasterTests
+name|LargeTests
 import|;
 end_import
 
@@ -195,7 +195,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|MasterTests
 import|;
 end_import
 
@@ -272,7 +272,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -452,7 +452,7 @@ name|UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|10000
+literal|30000
 argument_list|,
 parameter_list|()
 lambda|->
@@ -633,7 +633,7 @@ name|UTIL
 operator|.
 name|waitFor
 argument_list|(
-literal|10000
+literal|30000
 argument_list|,
 parameter_list|()
 lambda|->
