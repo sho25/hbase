@@ -1053,11 +1053,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRestoreDisabledSnapshot
@@ -1453,11 +1448,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testRestoreEnabledSnapshot
@@ -1826,11 +1816,6 @@ block|}
 comment|/**    * Test snapshotting a table that is offline    *    * @throws Exception if snapshot does not complete successfully    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|300000
-argument_list|)
 specifier|public
 name|void
 name|testOfflineTableSnapshot
@@ -2101,11 +2086,6 @@ block|}
 comment|/**    * Tests that snapshot has correct contents by taking snapshot, cloning it, then affirming    * the contents of the original and cloned table match    *    * @throws Exception if snapshot does not complete successfully    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testSnapshotCloneContents
@@ -2366,11 +2346,6 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testOfflineTableSnapshotWithEmptyRegion
@@ -2630,11 +2605,6 @@ block|}
 comment|// Ensures that the snapshot is transferred to the proper completed snapshot directory
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|180000
-argument_list|)
 specifier|public
 name|void
 name|testEnsureTemporaryDirectoryTransfer

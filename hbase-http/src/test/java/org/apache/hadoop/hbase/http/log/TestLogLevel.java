@@ -1161,11 +1161,6 @@ block|}
 comment|/**    * Test client command line options. Does not validate server behavior.    * @throws Exception if commands return unexpected results.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|120000
-argument_list|)
 specifier|public
 name|void
 name|testCommandOptions
@@ -2086,11 +2081,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testInfoLogLevel
@@ -2123,11 +2113,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testErrorLogLevel
@@ -2160,11 +2145,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testLogLevelByHttp
@@ -2234,11 +2214,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testLogLevelByHttpWithSpnego
@@ -2308,11 +2283,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testLogLevelByHttps
@@ -2382,11 +2352,6 @@ end_comment
 begin_function
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|60000
-argument_list|)
 specifier|public
 name|void
 name|testLogLevelByHttpsWithSpnego

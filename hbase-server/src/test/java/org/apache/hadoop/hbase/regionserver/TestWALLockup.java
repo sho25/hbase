@@ -1825,11 +1825,6 @@ block|}
 comment|/**    *    * If below is broken, we will see this test timeout because RingBufferEventHandler was stuck in    * attainSafePoint. Everyone will wait for sync to finish forever. See HBASE-14317.    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|30000
-argument_list|)
 specifier|public
 name|void
 name|testRingBufferEventHandlerStuckWhenSyncFailed

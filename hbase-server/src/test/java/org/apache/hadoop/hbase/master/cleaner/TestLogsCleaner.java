@@ -1487,11 +1487,6 @@ block|}
 block|}
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|10000
-argument_list|)
 specifier|public
 name|void
 name|testZooKeeperAbortDuringGetListOfReplicators
@@ -1746,11 +1741,6 @@ block|}
 comment|/**    * When zk is working both files should be returned    * @throws Exception from ZK watcher    */
 annotation|@
 name|Test
-argument_list|(
-name|timeout
-operator|=
-literal|10000
-argument_list|)
 specifier|public
 name|void
 name|testZooKeeperNormal
