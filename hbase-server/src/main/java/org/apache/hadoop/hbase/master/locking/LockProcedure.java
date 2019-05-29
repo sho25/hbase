@@ -506,6 +506,13 @@ specifier|final
 name|CountDownLatch
 name|lockAcquireLatch
 decl_stmt|;
+specifier|private
+specifier|volatile
+name|boolean
+name|suspended
+init|=
+literal|false
+decl_stmt|;
 annotation|@
 name|Override
 specifier|public
@@ -1061,6 +1068,8 @@ name|event
 operator|.
 name|isReady
 argument_list|()
+operator|&&
+name|suspended
 condition|)
 block|{
 name|setState
@@ -1081,6 +1090,10 @@ operator|.
 name|getProcedureScheduler
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|suspended
+operator|=
+literal|false
 expr_stmt|;
 block|}
 block|}
@@ -1190,6 +1203,10 @@ name|ProcedureState
 operator|.
 name|WAITING_TIMEOUT
 argument_list|)
+expr_stmt|;
+name|suspended
+operator|=
+literal|true
 expr_stmt|;
 block|}
 throw|throw
