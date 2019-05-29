@@ -1324,7 +1324,7 @@ name|dst
 argument_list|,
 name|destAddr
 argument_list|,
-name|len
+name|size
 argument_list|)
 expr_stmt|;
 name|len
