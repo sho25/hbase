@@ -288,7 +288,7 @@ name|restartHBaseCluster
 argument_list|(
 name|utility1
 argument_list|,
-name|NUM_SLAVES1
+literal|1
 argument_list|)
 expr_stmt|;
 comment|// add some values to cluster 1
