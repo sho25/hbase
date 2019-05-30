@@ -932,6 +932,19 @@ name|getLastMajorCompactionTimestamp
 argument_list|()
 return|;
 block|}
+comment|/**    * @return the reference count for the stores of this region    */
+specifier|public
+name|int
+name|getStoreRefCount
+parameter_list|()
+block|{
+return|return
+name|metrics
+operator|.
+name|getStoreRefCount
+argument_list|()
+return|;
+block|}
 comment|/**    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
@@ -970,6 +983,20 @@ argument_list|,
 name|this
 operator|.
 name|getStorefiles
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|Strings
+operator|.
+name|appendKeyValue
+argument_list|(
+name|sb
+argument_list|,
+literal|"storeRefCount"
+argument_list|,
+name|this
+operator|.
+name|getStoreRefCount
 argument_list|()
 argument_list|)
 expr_stmt|;

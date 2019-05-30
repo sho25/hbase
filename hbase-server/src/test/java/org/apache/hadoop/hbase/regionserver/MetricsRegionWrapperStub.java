@@ -115,6 +115,17 @@ annotation|@
 name|Override
 specifier|public
 name|long
+name|getStoreRefCount
+parameter_list|()
+block|{
+return|return
+literal|0
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|long
 name|getMemStoreSize
 parameter_list|()
 block|{

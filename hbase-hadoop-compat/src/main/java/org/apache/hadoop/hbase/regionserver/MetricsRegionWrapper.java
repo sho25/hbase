@@ -174,6 +174,11 @@ name|int
 name|getReplicaId
 parameter_list|()
 function_decl|;
+comment|/**    * @return the number of references active on the store    */
+name|long
+name|getStoreRefCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
