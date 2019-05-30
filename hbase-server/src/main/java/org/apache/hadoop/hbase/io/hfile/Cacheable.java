@@ -121,19 +121,6 @@ name|BlockType
 name|getBlockType
 parameter_list|()
 function_decl|;
-comment|/**    * @return the {@code MemoryType} of this Cacheable    */
-name|MemoryType
-name|getMemoryType
-parameter_list|()
-function_decl|;
-comment|/**    * SHARED means when this Cacheable is read back from cache it refers to the same memory area as    * used by the cache for caching it. EXCLUSIVE means when this Cacheable is read back from cache,    * the data was copied to an exclusive memory area of this Cacheable.    */
-enum|enum
-name|MemoryType
-block|{
-name|SHARED
-block|,
-name|EXCLUSIVE
-block|}
 comment|/******************************* ReferenceCounted Interfaces ***********************************/
 comment|/**    * Increase its reference count, and only when no reference we can free the object's memory.    */
 specifier|default

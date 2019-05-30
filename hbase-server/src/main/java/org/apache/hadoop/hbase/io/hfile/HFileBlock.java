@@ -765,14 +765,6 @@ name|offset
 init|=
 name|UNSET
 decl_stmt|;
-specifier|private
-name|MemoryType
-name|memType
-init|=
-name|MemoryType
-operator|.
-name|EXCLUSIVE
-decl_stmt|;
 comment|/**    * The on-disk size of the next block, including the header and checksums if present.    * UNSET if unknown.    *    * Blocks try to carry the size of the next block to read in this data member. Usually    * we get block sizes from the hfile index but sometimes the index is not available:    * e.g. when we read the indexes themselves (indexes are stored in blocks, we do not    * have an index for the indexes). Saves seeks especially around file open when    * there is a flurry of reading in hfile metadata.    */
 specifier|private
 name|int
@@ -919,9 +911,6 @@ name|buf
 parameter_list|,
 name|ByteBuffAllocator
 name|alloc
-parameter_list|,
-name|MemoryType
-name|memType
 parameter_list|)
 throws|throws
 name|IOException
@@ -1013,8 +1002,6 @@ argument_list|(
 name|newByteBuff
 argument_list|,
 name|usesChecksum
-argument_list|,
-name|memType
 argument_list|,
 name|offset
 argument_list|,
@@ -1271,9 +1258,6 @@ parameter_list|,
 name|boolean
 name|usesHBaseChecksum
 parameter_list|,
-name|MemoryType
-name|memType
-parameter_list|,
 specifier|final
 name|long
 name|offset
@@ -1500,12 +1484,6 @@ name|fileContext
 argument_list|,
 name|allocator
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|memType
-operator|=
-name|memType
 expr_stmt|;
 name|this
 operator|.
@@ -6495,10 +6473,6 @@ name|curBlock
 argument_list|,
 name|checksumSupport
 argument_list|,
-name|MemoryType
-operator|.
-name|EXCLUSIVE
-argument_list|,
 name|offset
 argument_list|,
 name|nextBlockOnDiskSize
@@ -7521,34 +7495,6 @@ return|return
 name|this
 operator|.
 name|fileContext
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|MemoryType
-name|getMemoryType
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|memType
-return|;
-block|}
-comment|/**    * @return true if this block is backed by a shared memory area(such as that of a BucketCache).    */
-name|boolean
-name|usesSharedMemory
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|memType
-operator|==
-name|MemoryType
-operator|.
-name|SHARED
 return|;
 block|}
 comment|/**    * Convert the contents of the block header into a human readable string.    * This is mostly helpful for debugging. This assumes that the block    * has minor version> 0.    */

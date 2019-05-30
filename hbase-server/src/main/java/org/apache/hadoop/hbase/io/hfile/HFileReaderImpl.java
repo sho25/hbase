@@ -91,34 +91,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
-name|atomic
-operator|.
-name|AtomicInteger
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -2318,17 +2290,6 @@ specifier|private
 name|long
 name|currMemstoreTS
 decl_stmt|;
-comment|// Updated but never read?
-specifier|protected
-name|AtomicInteger
-name|blockFetches
-init|=
-operator|new
-name|AtomicInteger
-argument_list|(
-literal|0
-argument_list|)
-decl_stmt|;
 specifier|protected
 specifier|final
 name|HFile
@@ -2367,7 +2328,11 @@ specifier|protected
 name|Cell
 name|nextIndexedKey
 decl_stmt|;
-comment|// Current block being used
+comment|// Current block being used. NOTICE: DON't release curBlock separately except in shipped() or
+comment|// close() methods. Because the shipped() or close() will do the release finally, even if any
+comment|// exception occur the curBlock will be released by the close() method (see
+comment|// RegionScannerImpl#handleException). Call the releaseIfNotCurBlock() to release the
+comment|// unreferenced block please.
 specifier|protected
 name|HFileBlock
 name|curBlock
@@ -2446,8 +2411,6 @@ name|block
 operator|!=
 literal|null
 operator|&&
-name|this
-operator|.
 name|curBlock
 operator|!=
 literal|null
@@ -2457,8 +2420,6 @@ operator|.
 name|getOffset
 argument_list|()
 operator|==
-name|this
-operator|.
 name|curBlock
 operator|.
 name|getOffset
@@ -2467,7 +2428,6 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// We don't have to keep ref to EXCLUSIVE type of block
 if|if
 condition|(
 name|this
@@ -2475,13 +2435,6 @@ operator|.
 name|curBlock
 operator|!=
 literal|null
-operator|&&
-name|this
-operator|.
-name|curBlock
-operator|.
-name|usesSharedMemory
-argument_list|()
 condition|)
 block|{
 name|prevBlocks
@@ -2513,13 +2466,6 @@ operator|.
 name|curBlock
 operator|!=
 literal|null
-operator|&&
-name|this
-operator|.
-name|curBlock
-operator|.
-name|usesSharedMemory
-argument_list|()
 condition|)
 block|{
 name|this
@@ -3941,8 +3887,7 @@ operator|==
 literal|null
 condition|)
 block|{
-comment|// This happens if the key e.g. falls before the beginning of the
-comment|// file.
+comment|// This happens if the key e.g. falls before the beginning of the file.
 return|return
 operator|-
 literal|1
@@ -4065,6 +4010,11 @@ literal|1
 condition|)
 block|{
 comment|// we have a 'problem', the key we want is the first of the file.
+name|releaseIfNotCurBlock
+argument_list|(
+name|seekToBlock
+argument_list|)
+expr_stmt|;
 return|return
 literal|false
 return|;
@@ -4072,14 +4022,14 @@ block|}
 comment|// The first key in the current block 'seekToBlock' is greater than the given
 comment|// seekBefore key. We will go ahead by reading the next block that satisfies the
 comment|// given key. Return the current block before reading the next one.
+name|releaseIfNotCurBlock
+argument_list|(
 name|seekToBlock
-operator|.
-name|release
-argument_list|()
+argument_list|)
 expr_stmt|;
 comment|// It is important that we compute and pass onDiskSize to the block
 comment|// reader so that it does not have to read the header separately to
-comment|// figure out the size.  Currently, we do not have a way to do this
+comment|// figure out the size. Currently, we do not have a way to do this
 comment|// correctly in the general case however.
 comment|// TODO: See https://issues.apache.org/jira/browse/HBASE-14576
 name|int
@@ -4134,6 +4084,29 @@ return|return
 literal|true
 return|;
 block|}
+comment|/**      * The curBlock will be released by shipping or close method, so only need to consider releasing      * the block, which was read from HFile before and not referenced by curBlock.      */
+specifier|protected
+name|void
+name|releaseIfNotCurBlock
+parameter_list|(
+name|HFileBlock
+name|block
+parameter_list|)
+block|{
+if|if
+condition|(
+name|curBlock
+operator|!=
+name|block
+condition|)
+block|{
+name|block
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
+block|}
 comment|/**      * Scans blocks in the "scanned" section of the {@link HFile} until the next      * data block is found.      *      * @return the next block, or null if there are no more data blocks      * @throws IOException      */
 annotation|@
 name|edu
@@ -4180,9 +4153,11 @@ name|curBlock
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|HFileBlock
 name|block
 init|=
@@ -4202,6 +4177,11 @@ operator|>=
 name|lastDataBlockOffset
 condition|)
 block|{
+name|releaseIfNotCurBlock
+argument_list|(
+name|block
+argument_list|)
+expr_stmt|;
 return|return
 literal|null
 return|;
@@ -4216,6 +4196,11 @@ operator|<
 literal|0
 condition|)
 block|{
+name|releaseIfNotCurBlock
+argument_list|(
+name|block
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -4286,7 +4271,6 @@ name|isData
 argument_list|()
 condition|)
 block|{
-comment|// Findbugs: NP_NULL_ON_SOME_PATH
 comment|// Whatever block we read we will be returning it unless
 comment|// it is a datablock. Just in case the blocks are non data blocks
 name|block
@@ -5166,6 +5150,11 @@ operator|<
 literal|0
 condition|)
 block|{
+name|releaseIfNotCurBlock
+argument_list|(
+name|newBlock
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -5400,7 +5389,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to      * the the first key/value pair.      *      * @param newBlock the block to make current      */
+comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to the the first      * key/value pair.      * @param newBlock the block read by {@link HFileReaderImpl#readBlock}, it's a totally new block      *          with new allocated {@link ByteBuff}, so if no further reference to this block, we      *          should release it carefully.      */
 specifier|protected
 name|void
 name|updateCurrentBlock
@@ -5411,8 +5400,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Set the active block on the reader
-comment|// sanity check
+try|try
+block|{
 if|if
 condition|(
 name|newBlock
@@ -5429,9 +5418,7 @@ throw|throw
 operator|new
 name|IllegalStateException
 argument_list|(
-literal|"ScannerV2 works only on data "
-operator|+
-literal|"blocks, got "
+literal|"ScannerV2 works only on data blocks, got "
 operator|+
 name|newBlock
 operator|.
@@ -5479,11 +5466,15 @@ expr_stmt|;
 name|readKeyValueLen
 argument_list|()
 expr_stmt|;
-name|blockFetches
-operator|.
-name|incrementAndGet
-argument_list|()
+block|}
+finally|finally
+block|{
+name|releaseIfNotCurBlock
+argument_list|(
+name|newBlock
+argument_list|)
 expr_stmt|;
+block|}
 comment|// Reset the next indexed key
 name|this
 operator|.
@@ -7341,7 +7332,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to      * the the first key/value pair.      *      * @param newBlock the block to make current      * @throws CorruptHFileException      */
+comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to the the first      * key/value pair.      * @param newBlock the block to make current, and read by {@link HFileReaderImpl#readBlock},      *          it's a totally new block with new allocated {@link ByteBuff}, so if no further      *          reference to this block, we should release it carefully.      * @throws CorruptHFileException      */
 annotation|@
 name|Override
 specifier|protected
@@ -7353,6 +7344,8 @@ name|newBlock
 parameter_list|)
 throws|throws
 name|CorruptHFileException
+block|{
+try|try
 block|{
 comment|// sanity checks
 if|if
@@ -7424,7 +7417,7 @@ argument_list|(
 name|dataBlockEncoderId
 argument_list|)
 operator|+
-literal|", path="
+literal|",path="
 operator|+
 name|reader
 operator|.
@@ -7453,11 +7446,15 @@ argument_list|(
 name|encodedBuffer
 argument_list|)
 expr_stmt|;
-name|blockFetches
-operator|.
-name|incrementAndGet
-argument_list|()
+block|}
+finally|finally
+block|{
+name|releaseIfNotCurBlock
+argument_list|(
+name|newBlock
+argument_list|)
 expr_stmt|;
+block|}
 comment|// Reset the next indexed key
 name|this
 operator|.

@@ -65,26 +65,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|hfile
-operator|.
-name|Cacheable
-operator|.
-name|MemoryType
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -175,19 +155,14 @@ decl_stmt|;
 comment|// Here the buffer that is created directly refers to the buffer in the actual buckets.
 comment|// When any cell is referring to the blocks created out of these buckets then it means that
 comment|// those cells are referring to a shared memory area which if evicted by the BucketCache would
-comment|// lead to corruption of results. Hence we set the type of the buffer as SHARED_MEMORY
-comment|// so that the readers using this block are aware of this fact and do the necessary action
-comment|// to prevent eviction till the results are either consumed or copied
+comment|// lead to corruption of results. The readers using this block are aware of this fact and do
+comment|// the necessary action to prevent eviction till the results are either consumed or copied
 return|return
 name|be
 operator|.
 name|wrapAsCacheable
 argument_list|(
 name|buffers
-argument_list|,
-name|MemoryType
-operator|.
-name|SHARED
 argument_list|)
 return|;
 block|}

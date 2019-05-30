@@ -912,6 +912,7 @@ operator|instanceof
 name|HFileBlock
 operator|)
 operator|&&
+operator|!
 operator|(
 operator|(
 name|HFileBlock
@@ -919,7 +920,7 @@ operator|)
 name|value
 operator|)
 operator|.
-name|usesSharedMemory
+name|isOnHeap
 argument_list|()
 condition|)
 block|{
@@ -932,7 +933,7 @@ operator|)
 name|value
 operator|)
 operator|.
-name|deepClone
+name|deepCloneOnHeap
 argument_list|()
 expr_stmt|;
 block|}
@@ -1288,41 +1289,6 @@ operator|.
 name|iterator
 argument_list|()
 return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|void
-name|returnBlock
-parameter_list|(
-name|BlockCacheKey
-name|cacheKey
-parameter_list|,
-name|Cacheable
-name|block
-parameter_list|)
-block|{
-comment|// There is no SHARED type here in L1. But the block might have been served from the L2 victim
-comment|// cache (when the Combined mode = false). So just try return this block to the victim cache.
-comment|// Note : In case of CombinedBlockCache we will have this victim cache configured for L1
-comment|// cache. But CombinedBlockCache will only call returnBlock on L2 cache.
-if|if
-condition|(
-name|victimCache
-operator|!=
-literal|null
-condition|)
-block|{
-name|victimCache
-operator|.
-name|returnBlock
-argument_list|(
-name|cacheKey
-argument_list|,
-name|block
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 specifier|private
 name|void
