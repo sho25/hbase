@@ -1797,11 +1797,7 @@ block|{
 throw|throw
 operator|new
 name|EOFException
-argument_list|(
-literal|"First byte is negative at offset "
-operator|+
-name|originalPosition
-argument_list|)
+argument_list|()
 throw|;
 block|}
 name|size
@@ -2270,7 +2266,10 @@ name|getPos
 argument_list|()
 operator|==
 name|originalPosition
-operator|&&
+condition|)
+block|{
+if|if
+condition|(
 name|resetPosition
 condition|)
 block|{
@@ -2290,6 +2289,19 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Reached the end of file at position {}"
+argument_list|,
+name|originalPosition
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
