@@ -818,6 +818,34 @@ name|name
 argument_list|)
 control|)
 block|{
+comment|// Before 2.2, the global permission which storage in zk is not right. It was saved as a
+comment|// table permission. So here need to handle this for compatibility. See HBASE-22503.
+if|if
+condition|(
+name|permission
+operator|instanceof
+name|TablePermission
+condition|)
+block|{
+name|globalCache
+operator|.
+name|put
+argument_list|(
+name|name
+argument_list|,
+operator|new
+name|GlobalPermission
+argument_list|(
+name|permission
+operator|.
+name|getActions
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+else|else
+block|{
 name|globalCache
 operator|.
 name|put
@@ -830,6 +858,7 @@ operator|)
 name|permission
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 name|mtime
