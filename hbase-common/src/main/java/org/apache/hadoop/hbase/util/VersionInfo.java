@@ -483,7 +483,7 @@ return|return
 literal|0
 return|;
 block|}
-comment|/**    * Returns the version components as String objects    * Examples: "1.2.3" returns ["1", "2", "3"], "4.5.6-SNAPSHOT" returns ["4", "5", "6", "-1"]    * "4.5.6-beta" returns ["4", "5", "6", "-2"], "4.5.6-alpha" returns ["4", "5", "6", "-3"]    * "4.5.6-UNKNOW" returns ["4", "5", "6", "-4"]    * @return the components of the version string    */
+comment|/**    * Returns the version components as String objects    * Examples: "1.4.3" returns ["1", "4", "3"], "4.5.6-SNAPSHOT" returns ["4", "5", "6", "-1"]    * "4.5.6-beta" returns ["4", "5", "6", "-2"], "4.5.6-alpha" returns ["4", "5", "6", "-3"]    * "4.5.6-UNKNOW" returns ["4", "5", "6", "-4"]    * @return the components of the version string    */
 specifier|private
 specifier|static
 name|String

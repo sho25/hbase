@@ -690,7 +690,7 @@ operator||
 name|patch
 return|;
 block|}
-comment|/**    * Returns the version components    * Examples: "1.2.3" returns [1, 2, 3], "4.5.6-SNAPSHOT" returns [4, 5, 6, "SNAPSHOT"]    * @returns the components of the version string    */
+comment|/**    * Returns the version components    * Examples: "1.4.3" returns [1, 4, 3], "4.5.6-SNAPSHOT" returns [4, 5, 6, "SNAPSHOT"]    * @returns the components of the version string    */
 specifier|private
 specifier|static
 name|String
