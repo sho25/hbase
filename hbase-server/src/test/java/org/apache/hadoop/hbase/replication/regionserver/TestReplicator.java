@@ -434,7 +434,7 @@ throws|throws
 name|Exception
 block|{
 comment|// Set RPC size limit to 10kb (will be applied to both source and sink clusters)
-name|conf1
+name|CONF1
 operator|.
 name|setInt
 argument_list|(
@@ -465,14 +465,14 @@ block|{
 comment|// Clear the tables
 name|truncateTable
 argument_list|(
-name|utility1
+name|UTIL1
 argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
 name|truncateTable
 argument_list|(
-name|utility2
+name|UTIL2
 argument_list|,
 name|tableName
 argument_list|)
@@ -490,7 +490,7 @@ argument_list|()
 operator|.
 name|setClusterKey
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -609,7 +609,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -690,7 +690,7 @@ literal|"We did not replicate enough rows"
 argument_list|,
 name|NUM_ROWS
 argument_list|,
-name|utility2
+name|UTIL2
 operator|.
 name|countRows
 argument_list|(
@@ -722,14 +722,14 @@ block|{
 comment|// Clear the tables
 name|truncateTable
 argument_list|(
-name|utility1
+name|UTIL1
 argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
 name|truncateTable
 argument_list|(
-name|utility2
+name|UTIL2
 argument_list|,
 name|tableName
 argument_list|)
@@ -747,7 +747,7 @@ argument_list|()
 operator|.
 name|setClusterKey
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -867,7 +867,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -924,7 +924,7 @@ literal|"We did not replicate enough rows"
 argument_list|,
 name|NUM_ROWS
 argument_list|,
-name|utility2
+name|UTIL2
 operator|.
 name|countRows
 argument_list|(

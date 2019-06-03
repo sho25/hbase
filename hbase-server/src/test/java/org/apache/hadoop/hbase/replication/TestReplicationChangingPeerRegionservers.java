@@ -564,7 +564,7 @@ operator|.
 name|RegionServerThread
 name|r
 range|:
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -573,7 +573,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -590,7 +590,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-name|utility1
+name|UTIL1
 operator|.
 name|deleteTableData
 argument_list|(
@@ -747,7 +747,7 @@ expr_stmt|;
 name|MiniHBaseCluster
 name|peerCluster
 init|=
-name|utility2
+name|UTIL2
 operator|.
 name|getMiniHBaseCluster
 argument_list|()
@@ -899,7 +899,7 @@ condition|)
 block|{
 name|htable1
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|getConnection
 argument_list|()

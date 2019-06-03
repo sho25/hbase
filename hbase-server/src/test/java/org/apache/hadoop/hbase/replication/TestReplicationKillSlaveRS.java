@@ -149,7 +149,7 @@ name|Exception
 block|{
 name|loadTableAndKillRS
 argument_list|(
-name|utility2
+name|UTIL2
 argument_list|)
 expr_stmt|;
 block|}

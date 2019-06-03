@@ -313,7 +313,7 @@ block|{
 name|Admin
 name|hbaseAdmin
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -421,7 +421,7 @@ operator|.
 name|RegionServerThread
 name|thread
 range|:
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -534,7 +534,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Stop rs1, then the queue of rs1 will be transfered to rs0
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -575,7 +575,7 @@ expr_stmt|;
 name|ServerName
 name|server
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()

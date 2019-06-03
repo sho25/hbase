@@ -170,7 +170,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(
@@ -198,7 +198,7 @@ name|Exception
 block|{
 name|loadTableAndKillRS
 argument_list|(
-name|utility1
+name|UTIL1
 argument_list|)
 expr_stmt|;
 block|}

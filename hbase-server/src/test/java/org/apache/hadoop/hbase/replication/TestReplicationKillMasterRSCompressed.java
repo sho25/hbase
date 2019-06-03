@@ -163,7 +163,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(

@@ -354,7 +354,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 init|)
 block|{
@@ -380,7 +380,7 @@ argument_list|)
 expr_stmt|;
 name|initialCount
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|loadTable
 argument_list|(
@@ -512,7 +512,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 init|)
 block|{

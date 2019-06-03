@@ -503,7 +503,7 @@ operator|.
 name|RegionServerThread
 name|r
 range|:
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -512,7 +512,7 @@ name|getRegionServerThreads
 argument_list|()
 control|)
 block|{
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -538,14 +538,14 @@ expr_stmt|;
 name|int
 name|rowCount
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|countRows
 argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|utility1
+name|UTIL1
 operator|.
 name|deleteTableData
 argument_list|(
@@ -685,7 +685,7 @@ comment|// batches. the default max request size is 256M, so all replication ent
 comment|// when replicate at sink side, it'll apply to rs group by table name, so the WAL of test table
 comment|// may apply first, and then test_dropped table, and we will believe that the replication is not
 comment|// got stuck (HBASE-20475).
-name|conf1
+name|CONF1
 operator|.
 name|setInt
 argument_list|(
@@ -754,7 +754,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 try|try
@@ -791,7 +791,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 try|try
@@ -905,7 +905,7 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(
@@ -916,7 +916,7 @@ argument_list|,
 name|allowProceeding
 argument_list|)
 expr_stmt|;
-name|conf1
+name|CONF1
 operator|.
 name|setInt
 argument_list|(
@@ -929,12 +929,12 @@ argument_list|)
 expr_stmt|;
 comment|// make sure we have a single region server only, so that all
 comment|// edits for all tables go there
-name|utility1
+name|UTIL1
 operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
-name|utility1
+name|UTIL1
 operator|.
 name|startMiniHBaseCluster
 argument_list|()
@@ -1011,7 +1011,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|Connection
@@ -1021,7 +1021,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 try|try
@@ -1062,14 +1062,14 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
-name|utility1
+name|UTIL1
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tablename
 argument_list|)
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
@@ -1298,7 +1298,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// just to be safe
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(
@@ -1319,7 +1319,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(
@@ -1330,7 +1330,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|conf1
+name|CONF1
 operator|.
 name|setInt
 argument_list|(
@@ -1343,12 +1343,12 @@ argument_list|)
 expr_stmt|;
 comment|// make sure we have a single region server only, so that all
 comment|// edits for all tables go there
-name|utility1
+name|UTIL1
 operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
-name|utility1
+name|UTIL1
 operator|.
 name|startMiniHBaseCluster
 argument_list|()
@@ -1425,7 +1425,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|Connection
@@ -1435,7 +1435,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 try|try
@@ -1476,14 +1476,14 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
-name|utility1
+name|UTIL1
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tablename
 argument_list|)
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
@@ -1699,7 +1699,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// just to be safe
-name|conf1
+name|CONF1
 operator|.
 name|setBoolean
 argument_list|(

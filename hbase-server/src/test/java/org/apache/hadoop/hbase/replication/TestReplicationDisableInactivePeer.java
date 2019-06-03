@@ -281,7 +281,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|utility2
+name|UTIL2
 operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
@@ -358,7 +358,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|startMiniHBaseCluster
 argument_list|(

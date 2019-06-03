@@ -740,7 +740,7 @@ argument_list|()
 expr_stmt|;
 name|numRegionServers
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -841,7 +841,7 @@ name|RegionServerThread
 argument_list|>
 name|rsThreads
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getMiniHBaseCluster
 argument_list|()
@@ -857,7 +857,7 @@ range|:
 name|rsThreads
 control|)
 block|{
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -875,7 +875,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Wait for  all log roll to finish
-name|utility1
+name|UTIL1
 operator|.
 name|waitFor
 argument_list|(
@@ -1019,7 +1019,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|)
 operator|.
@@ -1041,7 +1041,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -1081,7 +1081,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -1146,7 +1146,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -1266,7 +1266,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|)
 operator|.
@@ -1323,7 +1323,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -1428,7 +1428,7 @@ name|HRegion
 argument_list|>
 name|regions
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -1543,7 +1543,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 argument_list|)
 operator|.
@@ -1570,7 +1570,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|30000
 argument_list|,
@@ -1642,7 +1642,7 @@ argument_list|(
 literal|"testInterClusterReplication"
 argument_list|)
 expr_stmt|;
-name|utility1
+name|UTIL1
 operator|.
 name|deleteTableData
 argument_list|(
@@ -1672,7 +1672,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|)
 operator|.
@@ -1686,7 +1686,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|//test that we can create mutliple WALFilters reflectively
+comment|// test that we can create mutliple WALFilters reflectively
 name|rpc
 operator|.
 name|getConfiguration
@@ -1734,7 +1734,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 init|)
 block|{
@@ -1774,7 +1774,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|60000
 argument_list|,
@@ -1870,7 +1870,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|)
 operator|.
@@ -1884,7 +1884,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|//test that we can create mutliple WALFilters reflectively
+comment|// test that we can create mutliple WALFilters reflectively
 name|rpc
 operator|.
 name|getConfiguration
@@ -1938,7 +1938,7 @@ name|ZKConfig
 operator|.
 name|getZooKeeperClusterKey
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|)
 operator|.
@@ -1952,7 +1952,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-comment|//test that we can create mutliple WALFilters reflectively
+comment|// test that we can create mutliple WALFilters reflectively
 name|rpc
 operator|.
 name|getConfiguration
@@ -1984,7 +1984,7 @@ name|void
 name|testMetricsSourceBaseSourcePassthrough
 parameter_list|()
 block|{
-comment|/*     The replication MetricsSource wraps a MetricsReplicationSourceSourceImpl     and a MetricsReplicationGlobalSourceSource, so that metrics get written to both namespaces.     Both of those classes wrap a MetricsReplicationSourceImpl that implements BaseSource, which     allows for custom JMX metrics.     This test checks to make sure the BaseSource decorator logic on MetricsSource actually calls down through     the two layers of wrapping to the actual BaseSource.     */
+comment|/*      * The replication MetricsSource wraps a MetricsReplicationSourceSourceImpl and a      * MetricsReplicationGlobalSourceSource, so that metrics get written to both namespaces. Both of      * those classes wrap a MetricsReplicationSourceImpl that implements BaseSource, which allows      * for custom JMX metrics. This test checks to make sure the BaseSource decorator logic on      * MetricsSource actually calls down through the two layers of wrapping to the actual      * BaseSource.      */
 name|String
 name|id
 init|=
@@ -2526,7 +2526,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 init|)
 block|{
@@ -2728,7 +2728,7 @@ specifier|static
 name|UUID
 name|uuid
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRandomUUID
 argument_list|()
@@ -3376,7 +3376,7 @@ class|class
 name|EverythingPassesWALEntryFilterSubclass
 extends|extends
 name|EverythingPassesWALEntryFilter
-block|{    }
+block|{   }
 block|}
 end_class
 

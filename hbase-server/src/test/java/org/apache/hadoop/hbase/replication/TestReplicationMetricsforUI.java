@@ -294,7 +294,7 @@ init|(
 name|Admin
 name|hbaseAdmin
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getConnection
 argument_list|()
@@ -384,7 +384,7 @@ expr_stmt|;
 name|HRegionServer
 name|rs
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRSForFirstRegionInTable
 argument_list|(
@@ -624,7 +624,7 @@ expr_stmt|;
 block|}
 name|rs
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRSForFirstRegionInTable
 argument_list|(

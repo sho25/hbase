@@ -27,9 +27,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseClassTestRule
+name|Configuration
 import|;
 end_import
 
@@ -43,9 +43,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|replication
-operator|.
-name|TestReplicationBase
+name|HBaseClassTestRule
 import|;
 end_import
 
@@ -126,16 +124,6 @@ operator|.
 name|wal
 operator|.
 name|WALFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|BeforeClass
 import|;
 end_import
 
@@ -201,16 +189,16 @@ name|class
 argument_list|)
 decl_stmt|;
 annotation|@
-name|BeforeClass
-specifier|public
-specifier|static
+name|Override
+specifier|protected
 name|void
-name|setUpBeforeClass
-parameter_list|()
-throws|throws
-name|Exception
+name|customizeClusterConf
+parameter_list|(
+name|Configuration
+name|conf
+parameter_list|)
 block|{
-name|conf1
+name|conf
 operator|.
 name|set
 argument_list|(
@@ -221,7 +209,7 @@ argument_list|,
 literal|"multiwal"
 argument_list|)
 expr_stmt|;
-name|conf1
+name|conf
 operator|.
 name|set
 argument_list|(
@@ -231,11 +219,6 @@ name|DELEGATE_PROVIDER
 argument_list|,
 literal|"asyncfs"
 argument_list|)
-expr_stmt|;
-name|TestReplicationBase
-operator|.
-name|setUpBeforeClass
-argument_list|()
 expr_stmt|;
 block|}
 block|}

@@ -368,7 +368,7 @@ name|Waiter
 operator|.
 name|waitFor
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 literal|10000
 argument_list|,
@@ -408,7 +408,7 @@ block|{
 name|HRegionServer
 name|hrs
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -421,7 +421,7 @@ decl_stmt|;
 name|RegionInfo
 name|regionInfo
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -474,7 +474,7 @@ init|=
 operator|(
 name|Replication
 operator|)
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -550,7 +550,7 @@ specifier|final
 name|int
 name|numRs
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -600,7 +600,7 @@ block|{
 name|RegionInfo
 name|regionInfo
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -624,7 +624,7 @@ decl_stmt|;
 name|WAL
 name|wal
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -668,7 +668,7 @@ init|=
 operator|new
 name|Path
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getDataTestDir
 argument_list|()
@@ -680,7 +680,7 @@ operator|+
 name|ts
 argument_list|)
 decl_stmt|;
-name|utility1
+name|UTIL1
 operator|.
 name|getTestFileSystem
 argument_list|()
@@ -723,7 +723,7 @@ block|{
 name|HRegionServer
 name|hrs
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()
@@ -777,7 +777,7 @@ expr_stmt|;
 name|RegionInfo
 name|regionInfo
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()

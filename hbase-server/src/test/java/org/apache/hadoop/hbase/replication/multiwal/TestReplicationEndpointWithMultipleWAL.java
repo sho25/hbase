@@ -194,7 +194,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|conf1
+name|CONF1
 operator|.
 name|set
 argument_list|(
@@ -205,7 +205,7 @@ argument_list|,
 literal|"multiwal"
 argument_list|)
 expr_stmt|;
-name|conf1
+name|CONF1
 operator|.
 name|set
 argument_list|(

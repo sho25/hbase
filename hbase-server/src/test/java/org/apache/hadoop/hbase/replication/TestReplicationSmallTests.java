@@ -814,7 +814,7 @@ argument_list|)
 decl_stmt|;
 name|htable1
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|getConnection
 argument_list|()
@@ -1718,7 +1718,7 @@ argument_list|()
 operator|.
 name|setClusterKey
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -2253,7 +2253,7 @@ decl_stmt|;
 name|Admin
 name|hadmin
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -2540,7 +2540,7 @@ decl_stmt|;
 name|HRegion
 name|region
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getMiniHBaseCluster
 argument_list|()
@@ -2617,7 +2617,7 @@ decl_stmt|;
 name|int
 name|index
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getMiniHBaseCluster
 argument_list|()
@@ -2633,7 +2633,7 @@ decl_stmt|;
 name|WAL
 name|wal
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getMiniHBaseCluster
 argument_list|()

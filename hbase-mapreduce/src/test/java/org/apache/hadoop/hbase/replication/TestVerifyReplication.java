@@ -121,16 +121,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|TreeMap
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -833,7 +823,7 @@ block|{
 name|cleanUp
 argument_list|()
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|deleteTableData
 argument_list|(
@@ -894,7 +884,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 try|try
@@ -963,7 +953,7 @@ argument_list|(
 operator|new
 name|Configuration
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 argument_list|,
 name|args
@@ -1314,44 +1304,6 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|scopes
-operator|=
-operator|new
-name|TreeMap
-argument_list|<>
-argument_list|(
-name|Bytes
-operator|.
-name|BYTES_COMPARATOR
-argument_list|)
-expr_stmt|;
-for|for
-control|(
-name|ColumnFamilyDescriptor
-name|f
-range|:
-name|table
-operator|.
-name|getColumnFamilies
-argument_list|()
-control|)
-block|{
-name|scopes
-operator|.
-name|put
-argument_list|(
-name|f
-operator|.
-name|getName
-argument_list|()
-argument_list|,
-name|f
-operator|.
-name|getScope
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
 name|Connection
 name|connection1
 init|=
@@ -1359,7 +1311,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|Connection
@@ -1369,7 +1321,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 try|try
@@ -1418,14 +1370,14 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 expr_stmt|;
 block|}
-name|utility1
+name|UTIL1
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|waitUntilAllRegionsAssigned
 argument_list|(
@@ -1434,7 +1386,7 @@ argument_list|)
 expr_stmt|;
 name|lHtable1
 operator|=
-name|utility1
+name|UTIL1
 operator|.
 name|getConnection
 argument_list|()
@@ -1446,7 +1398,7 @@ argument_list|)
 expr_stmt|;
 name|lHtable2
 operator|=
-name|utility2
+name|UTIL2
 operator|.
 name|getConnection
 argument_list|()
@@ -3247,7 +3199,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -3257,7 +3209,7 @@ name|rootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|String
@@ -3274,7 +3226,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -3305,7 +3257,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -3315,7 +3267,7 @@ name|peerRootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|String
@@ -3332,7 +3284,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -3369,7 +3321,7 @@ decl_stmt|;
 name|String
 name|temPath1
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRandomDir
 argument_list|()
@@ -3421,7 +3373,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
 literal|"2"
@@ -3443,7 +3395,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|temPath1
 argument_list|,
@@ -3452,7 +3404,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|temPath2
 argument_list|,
@@ -3577,7 +3529,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -3613,7 +3565,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -3668,7 +3620,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
 literal|"2"
@@ -3690,7 +3642,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|temPath1
 argument_list|,
@@ -3699,7 +3651,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|temPath2
 argument_list|,
@@ -3730,7 +3682,7 @@ operator|new
 name|String
 index|[]
 block|{
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -3887,7 +3839,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -3897,7 +3849,7 @@ name|rootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|String
@@ -3914,7 +3866,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -3945,7 +3897,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -3955,7 +3907,7 @@ name|peerRootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|String
@@ -3972,7 +3924,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -4009,7 +3961,7 @@ decl_stmt|;
 name|String
 name|tmpPath1
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRandomDir
 argument_list|()
@@ -4061,10 +4013,10 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -4086,7 +4038,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|tmpPath1
 argument_list|,
@@ -4095,7 +4047,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|tmpPath2
 argument_list|,
@@ -4220,7 +4172,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -4256,7 +4208,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -4311,10 +4263,10 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -4336,7 +4288,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|tmpPath1
 argument_list|,
@@ -4345,7 +4297,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|tmpPath2
 argument_list|,
@@ -4553,7 +4505,7 @@ operator|.
 name|getNameAsString
 argument_list|()
 block|,
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -4573,7 +4525,7 @@ argument_list|,
 literal|0
 argument_list|)
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|deleteTableData
 argument_list|(
@@ -4611,7 +4563,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -4621,7 +4573,7 @@ name|rootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 decl_stmt|;
 name|String
@@ -4638,7 +4590,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -4669,7 +4621,7 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|FileSystem
@@ -4679,7 +4631,7 @@ name|peerRootDir
 operator|.
 name|getFileSystem
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 decl_stmt|;
 name|String
@@ -4696,7 +4648,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -4733,7 +4685,7 @@ decl_stmt|;
 name|String
 name|tmpPath1
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getRandomDir
 argument_list|()
@@ -4792,10 +4744,10 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -4817,7 +4769,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|tmpPath1
 argument_list|,
@@ -4826,7 +4778,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|tmpPath2
 argument_list|,
@@ -4951,7 +4903,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -4987,7 +4939,7 @@ name|SnapshotTestingUtils
 operator|.
 name|createSnapshotAndValidate
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getAdmin
 argument_list|()
@@ -5049,10 +5001,10 @@ name|FSUtils
 operator|.
 name|getRootDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 block|,
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -5074,7 +5026,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|,
 name|tmpPath1
 argument_list|,
@@ -5083,7 +5035,7 @@ argument_list|)
 expr_stmt|;
 name|checkRestoreTmpDir
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|,
 name|tmpPath2
 argument_list|,

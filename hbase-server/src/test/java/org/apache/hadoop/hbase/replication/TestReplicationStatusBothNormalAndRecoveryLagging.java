@@ -279,7 +279,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|utility2
+name|UTIL2
 operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
@@ -356,7 +356,7 @@ argument_list|)
 expr_stmt|;
 name|restartHBaseCluster
 argument_list|(
-name|utility1
+name|UTIL1
 argument_list|,
 literal|1
 argument_list|)
@@ -364,7 +364,7 @@ expr_stmt|;
 name|Admin
 name|hbaseAdmin
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getAdmin
 argument_list|()
@@ -372,7 +372,7 @@ decl_stmt|;
 name|ServerName
 name|serverName
 init|=
-name|utility1
+name|UTIL1
 operator|.
 name|getHBaseCluster
 argument_list|()

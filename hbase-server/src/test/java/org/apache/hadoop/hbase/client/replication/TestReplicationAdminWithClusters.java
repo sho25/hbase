@@ -551,7 +551,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 expr_stmt|;
 name|connection2
@@ -560,7 +560,7 @@ name|ConnectionFactory
 operator|.
 name|createConnection
 argument_list|(
-name|conf2
+name|CONF2
 argument_list|)
 expr_stmt|;
 name|admin1
@@ -582,7 +582,7 @@ operator|=
 operator|new
 name|ReplicationAdmin
 argument_list|(
-name|conf1
+name|CONF1
 argument_list|)
 expr_stmt|;
 block|}
@@ -1311,14 +1311,14 @@ block|}
 block|}
 finally|finally
 block|{
-name|utility1
+name|UTIL1
 operator|.
 name|deleteTable
 argument_list|(
 name|tn
 argument_list|)
 expr_stmt|;
-name|utility2
+name|UTIL2
 operator|.
 name|deleteTable
 argument_list|(
@@ -1724,7 +1724,7 @@ name|rpc
 operator|.
 name|setClusterKey
 argument_list|(
-name|utility2
+name|UTIL2
 operator|.
 name|getClusterKey
 argument_list|()
@@ -1924,7 +1924,7 @@ name|getPeerUUID
 parameter_list|()
 block|{
 return|return
-name|utility1
+name|UTIL1
 operator|.
 name|getRandomUUID
 argument_list|()
