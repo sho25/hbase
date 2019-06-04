@@ -3817,6 +3817,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|// Workaround for jdk 11 - reflective access to interface default methods for testGetType
+specifier|private
+specifier|abstract
+class|class
+name|CellForMockito
+implements|implements
+name|Cell
+block|{    }
 annotation|@
 name|Test
 specifier|public
@@ -3826,14 +3834,14 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|Cell
+name|CellForMockito
 name|c
 init|=
 name|Mockito
 operator|.
 name|mock
 argument_list|(
-name|Cell
+name|CellForMockito
 operator|.
 name|class
 argument_list|)
@@ -3853,12 +3861,12 @@ argument_list|()
 expr_stmt|;
 for|for
 control|(
-name|Cell
+name|CellForMockito
 operator|.
 name|Type
 name|type
 range|:
-name|Cell
+name|CellForMockito
 operator|.
 name|Type
 operator|.
