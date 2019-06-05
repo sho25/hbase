@@ -614,6 +614,12 @@ name|addr
 operator|.
 name|isMulticastAddress
 argument_list|()
+operator|||
+operator|!
+name|addr
+operator|.
+name|isSiteLocalAddress
+argument_list|()
 condition|)
 block|{
 continue|continue;
@@ -637,6 +643,10 @@ operator|+
 literal|" on "
 operator|+
 name|ni
+operator|+
+literal|", addr="
+operator|+
+name|addr
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
