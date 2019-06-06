@@ -319,7 +319,7 @@ name|byte
 index|[]
 name|splitkey
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|Cell
 name|splitCell
@@ -331,7 +331,10 @@ name|Cell
 argument_list|>
 name|firstKey
 init|=
-literal|null
+name|Optional
+operator|.
+name|empty
+argument_list|()
 decl_stmt|;
 specifier|private
 name|boolean
@@ -1200,6 +1203,11 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|fk
+operator|.
+name|isPresent
+argument_list|()
+operator|&&
 name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
