@@ -1083,6 +1083,25 @@ argument_list|,
 name|incrBackupId
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|tableDescriptor
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Can't find "
+operator|+
+name|tableName
+operator|+
+literal|"'s descriptor."
+argument_list|)
+throw|;
+block|}
 name|LOG
 operator|.
 name|debug
@@ -2624,7 +2643,7 @@ name|map
 argument_list|)
 return|;
 block|}
-comment|/**    * Prepare the table for bulkload, most codes copied from    * {@link LoadIncrementalHFiles#createTable(TableName, String, Admin)}    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
+comment|/**    * Prepare the table for bulkload, most codes copied from    * {@link LoadIncrementalHFiles#createTable(TableName, Path, Admin)}    * @param conn connection    * @param tableBackupPath path    * @param tableName table name    * @param targetTableName target table name    * @param regionDirList region directory list    * @param htd table descriptor    * @param truncateIfExists truncates table if exists    * @throws IOException exception    */
 specifier|private
 name|void
 name|checkAndCreateTable
