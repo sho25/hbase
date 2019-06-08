@@ -1107,12 +1107,9 @@ operator|.
 name|OPEN
 condition|)
 block|{
-name|future
+name|LOG
 operator|.
-name|completeExceptionally
-argument_list|(
-operator|new
-name|IOException
+name|warn
 argument_list|(
 literal|"Meta region is in state "
 operator|+
@@ -1121,9 +1118,7 @@ operator|.
 name|getFirst
 argument_list|()
 argument_list|)
-argument_list|)
 expr_stmt|;
-return|return;
 block|}
 name|locs
 index|[
