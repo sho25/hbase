@@ -1117,6 +1117,8 @@ return|return
 name|regions
 return|;
 block|}
+comment|/** @return A view of region state nodes for all the regions. */
+specifier|public
 name|Collection
 argument_list|<
 name|RegionStateNode
@@ -1125,12 +1127,18 @@ name|getRegionStateNodes
 parameter_list|()
 block|{
 return|return
+name|Collections
+operator|.
+name|unmodifiableCollection
+argument_list|(
 name|regionsMap
 operator|.
 name|values
 argument_list|()
+argument_list|)
 return|;
 block|}
+comment|/** @return A snapshot of region state nodes for all the regions. */
 specifier|public
 name|ArrayList
 argument_list|<
@@ -1148,9 +1156,7 @@ name|regions
 init|=
 operator|new
 name|ArrayList
-argument_list|<
-name|RegionState
-argument_list|>
+argument_list|<>
 argument_list|(
 name|regionsMap
 operator|.

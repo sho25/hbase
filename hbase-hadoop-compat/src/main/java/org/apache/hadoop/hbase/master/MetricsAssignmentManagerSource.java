@@ -122,6 +122,16 @@ init|=
 literal|"ritDuration"
 decl_stmt|;
 name|String
+name|DEAD_SERVER_OPEN_REGIONS
+init|=
+literal|"deadServerOpenRegions"
+decl_stmt|;
+name|String
+name|UNKNOWN_SERVER_OPEN_REGIONS
+init|=
+literal|"unknownServerOpenRegions"
+decl_stmt|;
+name|String
 name|RIT_COUNT_DESC
 init|=
 literal|"Current number of Regions In Transition (Gauge)."
@@ -215,6 +225,20 @@ name|updateRitDuration
 parameter_list|(
 name|long
 name|duration
+parameter_list|)
+function_decl|;
+name|void
+name|updateDeadServerOpenRegions
+parameter_list|(
+name|int
+name|deadRegions
+parameter_list|)
+function_decl|;
+name|void
+name|updateUnknownServerOpenRegions
+parameter_list|(
+name|int
+name|unknownRegions
 parameter_list|)
 function_decl|;
 comment|/**    * TODO: Remove. This may not be needed now as assign and unassign counts are tracked separately    * Increment the count of operations (assign/unassign).    */
