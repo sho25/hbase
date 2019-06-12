@@ -2636,7 +2636,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * {@see https://issues.apache.org/jira/browse/HBASE-3020}    */
+comment|/**    * @see "https://issues.apache.org/jira/browse/HBASE-3020"    */
 annotation|@
 name|Test
 specifier|public
@@ -6897,7 +6897,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * {@see https://issues.apache.org/jira/browse/HBASE-4862}    */
+comment|/**    * @see "https://issues.apache.org/jira/browse/HBASE-4862"    */
 annotation|@
 name|Test
 specifier|public
