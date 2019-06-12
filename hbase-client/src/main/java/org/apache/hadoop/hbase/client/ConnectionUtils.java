@@ -3096,10 +3096,10 @@ name|query
 operator|.
 name|getConsistency
 argument_list|()
-operator|==
+operator|!=
 name|Consistency
 operator|.
-name|STRONG
+name|TIMELINE
 condition|)
 block|{
 return|return
