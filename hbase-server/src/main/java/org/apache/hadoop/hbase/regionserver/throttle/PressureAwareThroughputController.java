@@ -663,19 +663,6 @@ return|return
 name|sleepTime
 return|;
 block|}
-comment|/**    * Check whether to skip control given delta size and control size    * @param deltaSize Delta size since last control    * @param controlSize Size limit to perform control    * @return a boolean indicates whether to skip this control    */
-specifier|protected
-specifier|abstract
-name|boolean
-name|skipControl
-parameter_list|(
-name|long
-name|deltaSize
-parameter_list|,
-name|long
-name|controlSize
-parameter_list|)
-function_decl|;
 annotation|@
 name|Override
 specifier|public

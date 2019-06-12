@@ -523,24 +523,6 @@ operator|+
 literal|"]"
 return|;
 block|}
-annotation|@
-name|Override
-specifier|protected
-name|boolean
-name|skipControl
-parameter_list|(
-name|long
-name|deltaSize
-parameter_list|,
-name|long
-name|controlSize
-parameter_list|)
-block|{
-comment|// for flush, we control the flow no matter whether the flush size is small
-return|return
-literal|false
-return|;
-block|}
 block|}
 end_class
 
