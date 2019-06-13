@@ -820,9 +820,10 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+operator|!
 name|b
 operator|.
-name|isOnHeap
+name|isSharedMem
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1237,9 +1238,10 @@ argument_list|)
 decl_stmt|;
 name|assertTrue
 argument_list|(
+operator|!
 name|b
 operator|.
-name|isOnHeap
+name|isSharedMem
 argument_list|()
 argument_list|)
 expr_stmt|;

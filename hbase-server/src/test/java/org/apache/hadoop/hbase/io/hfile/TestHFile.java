@@ -1428,7 +1428,7 @@ argument_list|)
 expr_stmt|;
 name|Assert
 operator|.
-name|assertTrue
+name|assertFalse
 argument_list|(
 operator|(
 operator|(
@@ -1437,7 +1437,7 @@ operator|)
 name|cachedBlock
 operator|)
 operator|.
-name|isOnHeap
+name|isSharedMem
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1773,11 +1773,11 @@ condition|)
 block|{
 name|Assert
 operator|.
-name|assertFalse
+name|assertTrue
 argument_list|(
 name|hfb
 operator|.
-name|isOnHeap
+name|isSharedMem
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1787,11 +1787,11 @@ block|{
 comment|// Non-data block will be cached in LRUBlockCache, so it must be an on-heap block.
 name|Assert
 operator|.
-name|assertTrue
+name|assertFalse
 argument_list|(
 name|hfb
 operator|.
-name|isOnHeap
+name|isSharedMem
 argument_list|()
 argument_list|)
 expr_stmt|;

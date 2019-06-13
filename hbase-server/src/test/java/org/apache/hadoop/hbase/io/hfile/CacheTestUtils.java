@@ -1750,7 +1750,12 @@ name|uncompressedSizeWithoutHeader
 argument_list|,
 name|prevBlockOffset
 argument_list|,
+name|ByteBuff
+operator|.
+name|wrap
+argument_list|(
 name|cachedBuffer
+argument_list|)
 argument_list|,
 name|HFileBlock
 operator|.
