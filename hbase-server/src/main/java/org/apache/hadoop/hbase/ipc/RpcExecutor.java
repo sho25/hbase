@@ -724,6 +724,88 @@ argument_list|,
 literal|0.1f
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|Float
+operator|.
+name|compare
+argument_list|(
+name|callQueuesHandlersFactor
+argument_list|,
+literal|1.0f
+argument_list|)
+operator|>
+literal|0
+operator|||
+name|Float
+operator|.
+name|compare
+argument_list|(
+literal|0.0f
+argument_list|,
+name|callQueuesHandlersFactor
+argument_list|)
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
+operator|+
+literal|" is *ILLEGAL*, it should be in range [0.0, 1.0]"
+argument_list|)
+expr_stmt|;
+comment|// For callQueuesHandlersFactor> 1.0, we just set it 1.0f.
+if|if
+condition|(
+name|Float
+operator|.
+name|compare
+argument_list|(
+name|callQueuesHandlersFactor
+argument_list|,
+literal|1.0f
+argument_list|)
+operator|>
+literal|0
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Set "
+operator|+
+name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
+operator|+
+literal|" 1.0f"
+argument_list|)
+expr_stmt|;
+name|callQueuesHandlersFactor
+operator|=
+literal|1.0f
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// But for callQueuesHandlersFactor< 0.0, following method #computeNumCallQueues
+comment|// will compute max(1, -x) => 1 which has same effect of default value.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Set "
+operator|+
+name|CALL_QUEUE_HANDLER_FACTOR_CONF_KEY
+operator|+
+literal|" default value 0.0f"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
 name|this
 operator|.
 name|numCallQueues
