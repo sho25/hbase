@@ -6389,12 +6389,14 @@ parameter_list|)
 block|{
 if|if
 condition|(
+operator|!
 name|cacheConf
 operator|.
 name|getBlockCache
 argument_list|()
-operator|==
-literal|null
+operator|.
+name|isPresent
+argument_list|()
 condition|)
 block|{
 return|return
