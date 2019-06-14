@@ -853,7 +853,7 @@ name|setStorefiles
 argument_list|(
 name|regionMetrics
 operator|.
-name|getStoreCount
+name|getStoreFileCount
 argument_list|()
 argument_list|)
 operator|.
