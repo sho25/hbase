@@ -1450,7 +1450,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -2109,7 +2109,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -2462,7 +2462,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -2862,7 +2862,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -3495,7 +3495,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -4493,7 +4493,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -5068,7 +5068,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -5710,7 +5710,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -6072,7 +6072,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -6860,7 +6860,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -7717,7 +7717,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName

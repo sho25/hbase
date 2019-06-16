@@ -387,7 +387,7 @@ name|equals
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -423,7 +423,7 @@ name|toStringBinary
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

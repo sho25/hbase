@@ -469,7 +469,7 @@ init|=
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -650,7 +650,7 @@ init|=
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

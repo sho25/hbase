@@ -315,7 +315,7 @@ name|HRegionLocation
 argument_list|(
 name|hrl4
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|hrl4

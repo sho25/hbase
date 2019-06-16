@@ -1261,7 +1261,7 @@ name|hri
 init|=
 name|e
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|ServerName

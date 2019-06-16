@@ -1633,7 +1633,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|HRegionFileSystem

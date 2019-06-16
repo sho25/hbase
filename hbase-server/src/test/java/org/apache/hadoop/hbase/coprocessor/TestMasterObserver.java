@@ -5735,7 +5735,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -5748,7 +5748,7 @@ argument_list|(
 literal|1
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -7050,7 +7050,7 @@ name|buildMoveRegionRequest
 argument_list|(
 name|firstGoodPair
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes

@@ -1077,7 +1077,7 @@ name|regionInfo
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|regions
@@ -1558,7 +1558,7 @@ argument_list|<>
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|location

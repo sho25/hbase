@@ -841,7 +841,7 @@ name|splitRegion
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -885,7 +885,7 @@ name|isRegionInRegionStates
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 argument_list|)
@@ -900,7 +900,7 @@ name|isRegionInServerManagerStates
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 argument_list|)
@@ -915,7 +915,7 @@ name|getMetaTableRowResult
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 literal|null
@@ -927,7 +927,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|daughters
@@ -937,7 +937,7 @@ argument_list|(
 literal|1
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -947,7 +947,7 @@ name|cleanParent
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|r
@@ -966,7 +966,7 @@ name|isRegionInRegionStates
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 argument_list|)
@@ -981,7 +981,7 @@ name|isRegionInServerManagerStates
 argument_list|(
 name|parent
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 argument_list|)

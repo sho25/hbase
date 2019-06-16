@@ -10573,7 +10573,7 @@ if|if
 condition|(
 name|metaLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|==
 literal|null
@@ -10635,7 +10635,7 @@ name|MetaEntry
 argument_list|(
 name|metaLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|sn
@@ -10655,7 +10655,7 @@ name|get
 argument_list|(
 name|metaLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -10675,7 +10675,7 @@ name|put
 argument_list|(
 name|metaLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -12734,7 +12734,7 @@ name|hri
 init|=
 name|h
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -20225,7 +20225,7 @@ operator|.
 name|DEFAULT_REPLICA_ID
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|==
 literal|null
@@ -20265,7 +20265,7 @@ operator|.
 name|DEFAULT_REPLICA_ID
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -20323,7 +20323,7 @@ literal|null
 operator|||
 name|h
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|==
 literal|null
@@ -20342,7 +20342,7 @@ name|hri
 operator|=
 name|h
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 name|MetaEntry

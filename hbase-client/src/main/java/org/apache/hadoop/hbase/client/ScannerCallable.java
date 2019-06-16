@@ -179,20 +179,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -1719,7 +1705,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1875,12 +1861,12 @@ operator|=
 name|val
 expr_stmt|;
 block|}
-comment|/**    * @return the HRegionInfo for the current region    */
+comment|/**    * @return the RegionInfo for the current region    */
 annotation|@
 name|Override
 specifier|public
-name|HRegionInfo
-name|getHRegionInfo
+name|RegionInfo
+name|getRegionInfo
 parameter_list|()
 block|{
 if|if
@@ -1897,7 +1883,7 @@ return|return
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 return|;
 block|}

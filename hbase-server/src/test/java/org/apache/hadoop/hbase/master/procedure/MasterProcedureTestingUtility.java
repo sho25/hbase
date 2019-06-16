@@ -1933,7 +1933,7 @@ condition|(
 operator|!
 name|l
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getTable
@@ -1953,7 +1953,7 @@ if|if
 condition|(
 name|l
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|isOffline
@@ -1961,15 +1961,17 @@ argument_list|()
 operator|||
 name|l
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|isSplit
 argument_list|()
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 name|HRegionLocation
 index|[]
 name|locations

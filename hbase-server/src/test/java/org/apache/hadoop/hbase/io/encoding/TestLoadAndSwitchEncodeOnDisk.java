@@ -733,7 +733,7 @@ name|startkey
 init|=
 name|e
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey

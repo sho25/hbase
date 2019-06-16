@@ -65,20 +65,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -689,7 +675,7 @@ name|tableName
 argument_list|,
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -757,10 +743,10 @@ name|tries
 argument_list|)
 return|;
 block|}
-comment|/**    * @return the HRegionInfo for the current region    */
+comment|/**    * @return the RegionInfo for the current region    */
 specifier|public
-name|HRegionInfo
-name|getHRegionInfo
+name|RegionInfo
+name|getRegionInfo
 parameter_list|()
 block|{
 if|if
@@ -781,7 +767,7 @@ name|this
 operator|.
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 return|;
 block|}

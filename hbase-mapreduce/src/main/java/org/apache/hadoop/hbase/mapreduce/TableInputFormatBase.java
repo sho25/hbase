@@ -1298,7 +1298,7 @@ name|getRegionSize
 argument_list|(
 name|regLoc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1666,7 +1666,7 @@ name|regionName
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1677,7 +1677,7 @@ name|encodedRegionName
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName

@@ -253,7 +253,7 @@ name|regionName
 operator|=
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

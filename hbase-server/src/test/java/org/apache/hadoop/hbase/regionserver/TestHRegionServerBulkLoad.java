@@ -1891,7 +1891,7 @@ init|=
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2090,7 +2090,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

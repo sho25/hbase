@@ -960,7 +960,7 @@ index|[
 name|i
 index|]
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1048,7 +1048,7 @@ argument_list|()
 argument_list|,
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2309,7 +2309,7 @@ name|regionName
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2439,7 +2439,7 @@ name|regionName
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

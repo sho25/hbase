@@ -14368,7 +14368,7 @@ name|unassignRegion
 argument_list|(
 name|hrl
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -19860,7 +19860,7 @@ name|withStartRow
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey
@@ -19871,7 +19871,7 @@ name|withStopRow
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey

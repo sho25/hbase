@@ -1438,7 +1438,7 @@ name|regionName
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

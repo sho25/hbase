@@ -1706,7 +1706,7 @@ argument_list|(
 name|rk
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -1748,7 +1748,7 @@ argument_list|(
 name|rk
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|sn
@@ -3432,7 +3432,7 @@ name|updateCachedLocation
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|loc
@@ -3649,7 +3649,7 @@ name|regionName
 init|=
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3661,7 +3661,7 @@ name|encodedRegionNameBytes
 init|=
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -3822,7 +3822,7 @@ literal|"Move starting region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -3838,7 +3838,7 @@ name|move
 argument_list|(
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -3904,7 +3904,7 @@ literal|"Move finished for region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -4273,7 +4273,7 @@ literal|"Move starting region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -4289,7 +4289,7 @@ name|move
 argument_list|(
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -4383,7 +4383,7 @@ literal|"Move finished for region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -4857,7 +4857,7 @@ name|updateCachedLocation
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|location
@@ -4926,7 +4926,7 @@ name|updateCachedLocation
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|location
@@ -4995,7 +4995,7 @@ name|updateCachedLocation
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|anySource
@@ -5061,7 +5061,7 @@ name|updateCachedLocation
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|anySource
@@ -5607,7 +5607,7 @@ name|regionName
 init|=
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -5619,7 +5619,7 @@ name|encodedRegionNameBytes
 init|=
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -5740,7 +5740,7 @@ name|equals
 argument_list|(
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -5924,7 +5924,7 @@ literal|"Move starting region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -5940,7 +5940,7 @@ name|move
 argument_list|(
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -6006,7 +6006,7 @@ literal|"Move finished for region="
 operator|+
 name|toMove
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString

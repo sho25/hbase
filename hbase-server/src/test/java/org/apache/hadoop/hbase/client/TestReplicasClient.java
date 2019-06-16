@@ -796,7 +796,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|hriPrimary
 decl_stmt|;
 specifier|private
@@ -1495,7 +1495,7 @@ argument_list|,
 literal|false
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -1743,7 +1743,7 @@ specifier|private
 name|void
 name|openRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -1847,7 +1847,7 @@ specifier|private
 name|void
 name|closeRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -1915,7 +1915,7 @@ specifier|private
 name|void
 name|checkRegionIsOpened
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -1947,7 +1947,7 @@ specifier|private
 name|boolean
 name|isRegionOpened
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -2033,7 +2033,7 @@ specifier|private
 name|void
 name|flushRegion
 parameter_list|(
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws

@@ -5545,7 +5545,7 @@ name|parent
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|long

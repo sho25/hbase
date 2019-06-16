@@ -2503,7 +2503,7 @@ name|equals
 argument_list|(
 name|primaryLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -2552,7 +2552,7 @@ literal|" because located region "
 operator|+
 name|primaryLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName
@@ -2696,7 +2696,7 @@ operator|.
 name|getDefaultRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|replicaId
@@ -2704,7 +2704,7 @@ argument_list|)
 else|:
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|RegionReplicaReplayCallable
@@ -3238,7 +3238,7 @@ name|equals
 argument_list|(
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -3312,7 +3312,7 @@ name|entriesArray
 argument_list|,
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -3381,7 +3381,7 @@ literal|" because located region "
 operator|+
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedName

@@ -617,7 +617,7 @@ name|tableName
 argument_list|,
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

@@ -457,7 +457,7 @@ name|equals
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -488,7 +488,7 @@ literal|", actual "
 operator|+
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionNameAsString
@@ -515,7 +515,7 @@ name|row
 argument_list|,
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

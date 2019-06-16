@@ -734,7 +734,7 @@ literal|null
 operator|&&
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|containsRow
@@ -777,7 +777,7 @@ literal|null
 else|:
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|)
 argument_list|)
@@ -787,7 +787,7 @@ name|currentKey
 operator|=
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey

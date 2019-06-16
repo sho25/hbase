@@ -1326,7 +1326,7 @@ name|hri
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|ServerName
@@ -3157,7 +3157,7 @@ name|hri
 init|=
 name|metaLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if

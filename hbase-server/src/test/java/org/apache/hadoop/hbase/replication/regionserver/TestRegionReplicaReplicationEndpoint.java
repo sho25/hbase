@@ -2758,7 +2758,7 @@ name|encodedRegionName
 init|=
 name|hrl
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes

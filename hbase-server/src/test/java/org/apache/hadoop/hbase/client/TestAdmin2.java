@@ -3631,7 +3631,7 @@ name|region
 init|=
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|byte

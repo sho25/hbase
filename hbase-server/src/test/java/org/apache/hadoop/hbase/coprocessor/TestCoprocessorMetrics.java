@@ -2657,7 +2657,7 @@ argument_list|(
 name|bar
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|locator
@@ -2667,7 +2667,7 @@ argument_list|(
 name|foo
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3167,7 +3167,7 @@ name|unassign
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEncodedNameAsBytes
@@ -3206,7 +3206,7 @@ name|getOnlineRegion
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3224,7 +3224,7 @@ name|getOnlineRegion
 argument_list|(
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

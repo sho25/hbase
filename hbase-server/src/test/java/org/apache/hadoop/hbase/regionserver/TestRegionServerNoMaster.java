@@ -153,6 +153,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionLocator
 import|;
 end_import
@@ -582,7 +598,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|hri
 decl_stmt|;
 specifier|private
@@ -704,7 +720,7 @@ argument_list|,
 literal|false
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -945,7 +961,7 @@ parameter_list|(
 name|HBaseTestingUtility
 name|HTU
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 parameter_list|)
 throws|throws
@@ -1068,7 +1084,7 @@ parameter_list|,
 name|HRegionServer
 name|rs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -1165,7 +1181,7 @@ parameter_list|,
 name|HRegionServer
 name|rs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws
@@ -1294,7 +1310,7 @@ parameter_list|,
 name|HRegionServer
 name|rs
 parameter_list|,
-name|HRegionInfo
+name|RegionInfo
 name|hri
 parameter_list|)
 throws|throws

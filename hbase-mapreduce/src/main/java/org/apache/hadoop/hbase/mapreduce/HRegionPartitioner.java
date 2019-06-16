@@ -347,7 +347,7 @@ name|get
 argument_list|()
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey

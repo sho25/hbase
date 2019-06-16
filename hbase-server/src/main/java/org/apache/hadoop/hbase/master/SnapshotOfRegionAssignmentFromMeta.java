@@ -717,7 +717,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -815,7 +815,7 @@ index|[
 name|i
 index|]
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 if|if
@@ -853,7 +853,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 comment|// the code below is to handle favored nodes

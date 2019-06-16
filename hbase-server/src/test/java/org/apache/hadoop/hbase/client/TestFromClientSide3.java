@@ -1308,7 +1308,7 @@ name|regName
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2385,7 +2385,7 @@ name|regionName
 init|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2472,7 +2472,7 @@ condition|(
 operator|!
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|isOffline
@@ -2483,7 +2483,7 @@ name|regionName
 operator|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2651,7 +2651,7 @@ name|regionName
 operator|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2793,7 +2793,7 @@ name|regionName
 operator|=
 name|loc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

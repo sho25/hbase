@@ -255,20 +255,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HRegionLocation
 import|;
 end_import
@@ -1274,7 +1260,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|parent
 init|=
 name|locator
@@ -1284,7 +1270,7 @@ argument_list|(
 name|splitPoint
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List
@@ -1350,7 +1336,7 @@ argument_list|)
 expr_stmt|;
 comment|// All regions should have favored nodes    checkIfFavoredNodeInformationIsCorrect(tableName);
 comment|// Get the daughters of parent.
-name|HRegionInfo
+name|RegionInfo
 name|daughter1
 init|=
 name|locator
@@ -1365,7 +1351,7 @@ argument_list|,
 literal|true
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List
@@ -1381,7 +1367,7 @@ argument_list|(
 name|daughter1
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|daughter2
 init|=
 name|locator
@@ -1393,7 +1379,7 @@ argument_list|,
 literal|true
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List
@@ -1678,7 +1664,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionA
 init|=
 name|locator
@@ -1690,10 +1676,10 @@ operator|.
 name|EMPTY_START_ROW
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|regionB
 init|=
 name|locator
@@ -1706,7 +1692,7 @@ literal|0
 index|]
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List
@@ -1827,7 +1813,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|HRegionInfo
+name|RegionInfo
 name|mergedRegion
 init|=
 name|locator
@@ -1839,7 +1825,7 @@ operator|.
 name|EMPTY_START_ROW
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List
@@ -2134,12 +2120,12 @@ name|getAllRegionLocations
 argument_list|()
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|regionInfo
 init|=
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|List

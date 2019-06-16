@@ -129,7 +129,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
+name|TableName
 import|;
 end_import
 
@@ -143,7 +143,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
+name|client
+operator|.
+name|RegionInfo
 import|;
 end_import
 
@@ -493,7 +495,7 @@ name|TABLE1
 argument_list|)
 init|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|firstHRI
 init|=
 name|locator
@@ -506,7 +508,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 name|r1name

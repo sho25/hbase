@@ -191,20 +191,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HRegionInfo
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|NotServingRegionException
 import|;
 end_import
@@ -452,7 +438,7 @@ decl_stmt|;
 comment|// Current region scanner is against. Gets cleared if current region goes
 comment|// wonky: e.g. if it splits on us.
 specifier|protected
-name|HRegionInfo
+name|RegionInfo
 name|currentRegion
 init|=
 literal|null
@@ -1255,7 +1241,7 @@ name|currentRegion
 operator|=
 name|callable
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|()
 expr_stmt|;
 block|}
@@ -1735,7 +1721,7 @@ name|currentRegion
 operator|=
 name|callable
 operator|.
-name|getHRegionInfo
+name|getRegionInfo
 argument_list|()
 expr_stmt|;
 block|}

@@ -1534,7 +1534,7 @@ name|currentKey
 operator|=
 name|regionLocation
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getEndKey
@@ -2053,7 +2053,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2798,7 +2798,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3022,7 +3022,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3218,7 +3218,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3507,7 +3507,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3655,7 +3655,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -3901,7 +3901,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -4218,7 +4218,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -4519,7 +4519,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -4836,7 +4836,7 @@ argument_list|(
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -6723,7 +6723,7 @@ argument_list|(
 name|i
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

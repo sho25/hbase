@@ -3433,7 +3433,7 @@ init|=
 name|getLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -4815,7 +4815,7 @@ operator|.
 name|getDefaultRegionLocation
 argument_list|()
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|mrl
@@ -4865,7 +4865,7 @@ argument_list|(
 literal|1
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|url

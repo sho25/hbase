@@ -371,6 +371,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|TableDescriptor
 import|;
 end_import
@@ -2597,7 +2613,7 @@ name|sk
 init|=
 name|regionLoc
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey
@@ -3696,7 +3712,7 @@ decl_stmt|;
 comment|// see if the new split daughter region has come online
 try|try
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|dri
 init|=
 name|regionLocator
@@ -3706,7 +3722,7 @@ argument_list|(
 name|split
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 decl_stmt|;
 if|if
@@ -3774,7 +3790,7 @@ comment|// when a daughter region is opened, a compaction is triggered
 comment|// wait until compaction completes for both daughter regions
 name|LinkedList
 argument_list|<
-name|HRegionInfo
+name|RegionInfo
 argument_list|>
 name|check
 init|=
@@ -3794,7 +3810,7 @@ argument_list|(
 name|start
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3809,7 +3825,7 @@ argument_list|(
 name|split
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|)
 expr_stmt|;

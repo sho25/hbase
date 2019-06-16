@@ -1005,7 +1005,7 @@ name|put
 argument_list|(
 name|LOC3
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -1066,7 +1066,7 @@ name|put
 argument_list|(
 name|LOC3
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2082,7 +2082,7 @@ name|put
 argument_list|(
 name|LOC1
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2169,7 +2169,7 @@ name|put
 argument_list|(
 name|LOC3
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
@@ -2256,7 +2256,7 @@ name|put
 argument_list|(
 name|LOC3
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName

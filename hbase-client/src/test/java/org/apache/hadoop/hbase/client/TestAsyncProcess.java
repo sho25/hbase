@@ -3380,7 +3380,7 @@ name|row
 argument_list|,
 name|hr
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getStartKey

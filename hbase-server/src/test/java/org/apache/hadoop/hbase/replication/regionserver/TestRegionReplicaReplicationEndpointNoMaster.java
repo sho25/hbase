@@ -908,7 +908,7 @@ name|rs1
 decl_stmt|;
 specifier|private
 specifier|static
-name|HRegionInfo
+name|RegionInfo
 name|hriPrimary
 decl_stmt|;
 specifier|private
@@ -1105,7 +1105,7 @@ argument_list|,
 literal|false
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 expr_stmt|;
 block|}
@@ -1571,7 +1571,7 @@ argument_list|(
 literal|1
 argument_list|)
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 argument_list|,
 name|row

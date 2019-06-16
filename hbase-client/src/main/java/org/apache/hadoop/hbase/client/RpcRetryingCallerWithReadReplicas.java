@@ -792,7 +792,7 @@ name|reg
 init|=
 name|location
 operator|.
-name|getRegionInfo
+name|getRegion
 argument_list|()
 operator|.
 name|getRegionName
