@@ -1560,7 +1560,7 @@ literal|"Waited too much time for put replication"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Integration test for TestReplicationAdmin, removes and re-add a peer cluster    */
+comment|/**    * Removes and re-add a peer cluster    */
 annotation|@
 name|Test
 specifier|public
@@ -2215,7 +2215,7 @@ break|break;
 block|}
 block|}
 block|}
-comment|/**    * Test for HBASE-8663    *<p>    * Create two new Tables with colfamilies enabled for replication then run    * ReplicationAdmin.listReplicated(). Finally verify the table:colfamilies. Note:    * TestReplicationAdmin is a better place for this testing but it would need mocks.    */
+comment|/**    * Test for HBASE-8663    *<p>    * Create two new Tables with colfamilies enabled for replication then run    * {@link Admin#listReplicatedTableCFs()}. Finally verify the table:colfamilies.    */
 annotation|@
 name|Test
 specifier|public

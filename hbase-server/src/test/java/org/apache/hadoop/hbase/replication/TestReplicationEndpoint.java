@@ -1003,9 +1003,9 @@ throws|throws
 name|Exception
 block|{
 comment|// test installing a custom replication endpoint other than the default one.
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"testCustomReplicationEndpoint"
 argument_list|,
@@ -1032,8 +1032,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// check whether the class has been constructed and started
@@ -1192,9 +1190,9 @@ literal|"row42"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testCustomReplicationEndpoint"
 argument_list|)
@@ -1239,9 +1237,12 @@ expr_stmt|;
 name|int
 name|peerCount
 init|=
-name|admin
+name|hbaseAdmin
 operator|.
-name|getPeersCount
+name|listReplicationPeers
+argument_list|()
+operator|.
+name|size
 argument_list|()
 decl_stmt|;
 specifier|final
@@ -1250,9 +1251,9 @@ name|id
 init|=
 literal|"testReplicationEndpointReturnsFalseOnReplicate"
 decl_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 name|id
 argument_list|,
@@ -1279,8 +1280,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 comment|// This test is flakey and then there is so much stuff flying around in here its, hard to
@@ -1288,9 +1287,12 @@ comment|// debug.  Peer needs to be up for the edit to make it across. This wait
 comment|// peer count seems to be a hack that has us not progress till peer is up.
 if|if
 condition|(
-name|admin
+name|hbaseAdmin
 operator|.
-name|getPeersCount
+name|listReplicationPeers
+argument_list|()
+operator|.
+name|size
 argument_list|()
 operator|<=
 name|peerCount
@@ -1399,9 +1401,9 @@ name|get
 argument_list|()
 throw|;
 block|}
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testReplicationEndpointReturnsFalseOnReplicate"
 argument_list|)
@@ -1527,9 +1529,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 name|id
 argument_list|,
@@ -1556,8 +1558,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -1635,9 +1635,9 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testInterClusterReplication"
 argument_list|)
@@ -1715,9 +1715,9 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"testWALEntryFilterFromReplicationEndpoint"
 argument_list|,
@@ -1833,9 +1833,9 @@ name|hasPassedAnEntry
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testWALEntryFilterFromReplicationEndpoint"
 argument_list|)
@@ -1899,9 +1899,9 @@ argument_list|,
 literal|"IAmNotARealWalEntryFilter"
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"testWALEntryFilterAddValidation"
 argument_list|,
@@ -1967,9 +1967,9 @@ argument_list|,
 literal|"IAmNotARealWalEntryFilter"
 argument_list|)
 expr_stmt|;
-name|admin
+name|hbaseAdmin
 operator|.
-name|updatePeerConfig
+name|updateReplicationPeerConfig
 argument_list|(
 literal|"testWALEntryFilterUpdateValidation"
 argument_list|,

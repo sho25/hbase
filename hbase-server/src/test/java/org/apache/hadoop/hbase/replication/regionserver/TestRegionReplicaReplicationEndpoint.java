@@ -347,6 +347,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|ClusterConnection
 import|;
 end_import
@@ -412,24 +428,6 @@ operator|.
 name|client
 operator|.
 name|Table
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|replication
-operator|.
-name|ReplicationAdmin
 import|;
 end_import
 
@@ -1040,17 +1038,21 @@ name|ReplicationException
 block|{
 comment|// create a table with region replicas. Check whether the replication peer is created
 comment|// and replication started.
-name|ReplicationAdmin
+name|Admin
 name|admin
 init|=
-operator|new
-name|ReplicationAdmin
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|HTU
 operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+operator|.
+name|getAdmin
+argument_list|()
 decl_stmt|;
 name|String
 name|peerId
@@ -1068,7 +1070,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -1103,7 +1105,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 name|peerId
 argument_list|)
@@ -1139,7 +1141,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -1196,7 +1198,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -1256,17 +1258,21 @@ name|Exception
 block|{
 comment|// modify a table by adding region replicas. Check whether the replication peer is created
 comment|// and replication started.
-name|ReplicationAdmin
+name|Admin
 name|admin
 init|=
-operator|new
-name|ReplicationAdmin
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|HTU
 operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+operator|.
+name|getAdmin
+argument_list|()
 decl_stmt|;
 name|String
 name|peerId
@@ -1284,7 +1290,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -1319,7 +1325,7 @@ condition|)
 block|{
 name|admin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 name|peerId
 argument_list|)
@@ -1356,7 +1362,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -1430,7 +1436,7 @@ name|peerConfig
 operator|=
 name|admin
 operator|.
-name|getPeerConfig
+name|getReplicationPeerConfig
 argument_list|(
 name|peerId
 argument_list|)
@@ -2569,21 +2575,25 @@ name|htd
 argument_list|)
 expr_stmt|;
 comment|// both tables are created, now pause replication
-name|ReplicationAdmin
+name|Admin
 name|admin
 init|=
-operator|new
-name|ReplicationAdmin
+name|ConnectionFactory
+operator|.
+name|createConnection
 argument_list|(
 name|HTU
 operator|.
 name|getConfiguration
 argument_list|()
 argument_list|)
+operator|.
+name|getAdmin
+argument_list|()
 decl_stmt|;
 name|admin
 operator|.
-name|disablePeer
+name|disableReplicationPeer
 argument_list|(
 name|ServerRegionReplicaUtil
 operator|.
@@ -3001,7 +3011,7 @@ expr_stmt|;
 comment|// now enable the replication
 name|admin
 operator|.
-name|enablePeer
+name|enableReplicationPeer
 argument_list|(
 name|ServerRegionReplicaUtil
 operator|.

@@ -478,9 +478,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Replace the peer set up for us by the base class with a wrapper for this test
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"testReplicatorBatching"
 argument_list|,
@@ -505,8 +505,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|ReplicationEndpointForTest
@@ -701,9 +699,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testReplicatorBatching"
 argument_list|)
@@ -735,9 +733,9 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// Replace the peer set up for us by the base class with a wrapper for this test
-name|admin
+name|hbaseAdmin
 operator|.
-name|addPeer
+name|addReplicationPeer
 argument_list|(
 literal|"testReplicatorWithErrors"
 argument_list|,
@@ -762,8 +760,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-argument_list|,
-literal|null
 argument_list|)
 expr_stmt|;
 name|FailureInjectingReplicationEndpointForTest
@@ -935,9 +931,9 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|admin
+name|hbaseAdmin
 operator|.
-name|removePeer
+name|removeReplicationPeer
 argument_list|(
 literal|"testReplicatorWithErrors"
 argument_list|)

@@ -335,9 +335,9 @@ name|NB_RETRIES
 argument_list|)
 expr_stmt|;
 comment|// disable and start the peer
-name|admin
+name|hbaseAdmin
 operator|.
-name|disablePeer
+name|disableReplicationPeer
 argument_list|(
 literal|"2"
 argument_list|)
@@ -434,9 +434,9 @@ expr_stmt|;
 block|}
 block|}
 comment|// Test enable replication
-name|admin
+name|hbaseAdmin
 operator|.
-name|enablePeer
+name|enableReplicationPeer
 argument_list|(
 literal|"2"
 argument_list|)

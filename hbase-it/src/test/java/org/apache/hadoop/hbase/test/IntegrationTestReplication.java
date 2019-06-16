@@ -825,7 +825,7 @@ decl_stmt|;
 name|IntegrationTestBigLinkedList
 name|integrationTestBigLinkedList
 decl_stmt|;
-comment|/**      * This tears down any tables that existed from before and rebuilds the tables and schemas on      * the source cluster. It then sets up replication from the source to the sink cluster by using      * the {@link org.apache.hadoop.hbase.client.replication.ReplicationAdmin}      * connection.      *      * @throws Exception      */
+comment|/**      * This tears down any tables that existed from before and rebuilds the tables and schemas on      * the source cluster. It then sets up replication from the source to the sink cluster by using      * the {@link org.apache.hadoop.hbase.client.Admin} connection.      *      * @throws Exception      */
 specifier|protected
 name|void
 name|setupTablesAndReplication
