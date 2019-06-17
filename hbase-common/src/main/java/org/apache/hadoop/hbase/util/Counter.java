@@ -74,7 +74,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * High scalable counter. Thread safe.  * @deprecated use {@link java.util.concurrent.atomic.LongAdder} instead.  */
+comment|/**  * High scalable counter. Thread safe.  * @deprecated since 2.0.0 and will be removed in 3.0.0. Use  *   {@link java.util.concurrent.atomic.LongAdder} instead.  * @see java.util.concurrent.atomic.LongAdder  * @see<a href="https://issues.apache.org/jira/browse/HBASE-7612">HBASE-7612</a>  */
 end_comment
 
 begin_class

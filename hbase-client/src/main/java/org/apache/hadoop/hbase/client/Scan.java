@@ -528,7 +528,7 @@ specifier|public
 name|Scan
 parameter_list|()
 block|{}
-comment|/**    * @deprecated use {@code new Scan().withStartRow(startRow).setFilter(filter)} instead.    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@code new Scan().withStartRow(startRow).setFilter(filter)} instead.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -554,7 +554,7 @@ operator|=
 name|filter
 expr_stmt|;
 block|}
-comment|/**    * Create a Scan operation starting at the specified row.    *<p>    * If the specified row does not exist, the Scanner will start from the next closest row after the    * specified row.    * @param startRow row to start scanner at or after    * @deprecated use {@code new Scan().withStartRow(startRow)} instead.    */
+comment|/**    * Create a Scan operation starting at the specified row.    *<p>    * If the specified row does not exist, the Scanner will start from the next closest row after the    * specified row.    * @param startRow row to start scanner at or after    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@code new Scan().withStartRow(startRow)} instead.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -571,7 +571,7 @@ name|startRow
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a Scan operation for the range of rows specified.    * @param startRow row to start scanner at or after (inclusive)    * @param stopRow row to stop scanner before (exclusive)    * @deprecated use {@code new Scan().withStartRow(startRow).withStopRow(stopRow)} instead.    */
+comment|/**    * Create a Scan operation for the range of rows specified.    * @param startRow row to start scanner at or after (inclusive)    * @param stopRow row to stop scanner before (exclusive)    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@code new Scan().withStartRow(startRow).withStopRow(stopRow)} instead.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1505,7 +1505,7 @@ name|maxStamp
 argument_list|)
 return|;
 block|}
-comment|/**    * Set the start row of the scan.    *<p>    * If the specified row does not exist, the Scanner will start from the next closest row after the    * specified row.    * @param startRow row to start scanner at or after    * @return this    * @throws IllegalArgumentException if startRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated use {@link #withStartRow(byte[])} instead. This method may change the inclusive of    *             the stop row to keep compatible with the old behavior.    */
+comment|/**    * Set the start row of the scan.    *<p>    * If the specified row does not exist, the Scanner will start from the next closest row after the    * specified row.    * @param startRow row to start scanner at or after    * @return this    * @throws IllegalArgumentException if startRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #withStartRow(byte[])}    *   instead. This method may change the inclusive of the stop row to keep compatible with the old    *   behavior.    * @see #withStartRow(byte[])    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1628,7 +1628,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Set the stop row of the scan.    *<p>    * The scan will include rows that are lexicographically less than the provided stopRow.    *<p>    *<b>Note:</b> When doing a filter for a rowKey<u>Prefix</u> use    * {@link #setRowPrefixFilter(byte[])}. The 'trailing 0' will not yield the desired result.    *</p>    * @param stopRow row to end at (exclusive)    * @return this    * @throws IllegalArgumentException if stopRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated use {@link #withStopRow(byte[])} instead. This method may change the inclusive of    *             the stop row to keep compatible with the old behavior.    */
+comment|/**    * Set the stop row of the scan.    *<p>    * The scan will include rows that are lexicographically less than the provided stopRow.    *<p>    *<b>Note:</b> When doing a filter for a rowKey<u>Prefix</u> use    * {@link #setRowPrefixFilter(byte[])}. The 'trailing 0' will not yield the desired result.    *</p>    * @param stopRow row to end at (exclusive)    * @return this    * @throws IllegalArgumentException if stopRow does not meet criteria for a row key (when length    *           exceeds {@link HConstants#MAX_ROW_LENGTH})    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #withStopRow(byte[])} instead.    *   This method may change the inclusive of the stop row to keep compatible with the old    *   behavior.    * @see #withStopRow(byte[])    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1902,7 +1902,7 @@ return|return
 name|newStopRow
 return|;
 block|}
-comment|/**    * Get all available versions.    * @return this    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readAllVersions()} instead.    */
+comment|/**    * Get all available versions.    * @return this    * @deprecated since 2.0.0 and will be removed in 3.0.0. It is easy to misunderstand with column    *   family's max versions, so use {@link #readAllVersions()} instead.    * @see #readAllVersions()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17125">HBASE-17125</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1915,7 +1915,7 @@ name|readAllVersions
 argument_list|()
 return|;
 block|}
-comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @return this    * @deprecated It is easy to misunderstand with column family's max versions, so use    *             {@link #readVersions(int)} instead.    */
+comment|/**    * Get up to the specified number of versions of each column.    * @param maxVersions maximum versions for each column    * @return this    * @deprecated since 2.0.0 and will be removed in 3.0.0. It is easy to misunderstand with column    *   family's max versions, so use {@link #readVersions(int)} instead.    * @see #readVersions(int)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17125">HBASE-17125</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3073,7 +3073,7 @@ name|attr
 argument_list|)
 return|;
 block|}
-comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read seek + read is fast but can cause    * two problem (1) resource contention (2) cause too much network io [89-fb] Using pread for    * non-compaction read request https://issues.apache.org/jira/browse/HBASE-7266 On the other hand,    * if setting it true, we would do openScanner,next,closeScanner in one RPC call. It means the    * better performance for small scan. [HBASE-9488]. Generally, if the scan range is within one    * data block(64KB), it could be considered as a small scan.    * @param small    * @deprecated since 2.0.0. Use {@link #setLimit(int)} and {@link #setReadType(ReadType)} instead.    *             And for the one rpc optimization, now we will also fetch data when openScanner, and    *             if the number of rows reaches the limit then we will close the scanner    *             automatically which means we will fall back to one rpc.    * @see #setLimit(int)    * @see #setReadType(ReadType)    */
+comment|/**    * Set whether this scan is a small scan    *<p>    * Small scan should use pread and big scan can use seek + read seek + read is fast but can cause    * two problem (1) resource contention (2) cause too much network io [89-fb] Using pread for    * non-compaction read request https://issues.apache.org/jira/browse/HBASE-7266 On the other hand,    * if setting it true, we would do openScanner,next,closeScanner in one RPC call. It means the    * better performance for small scan. [HBASE-9488]. Generally, if the scan range is within one    * data block(64KB), it could be considered as a small scan.    * @param small    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #setLimit(int)} and    *   {@link #setReadType(ReadType)} instead. And for the one rpc optimization, now we will also    *   fetch data when openScanner, and if the number of rows reaches the limit then we will close    *   the scanner automatically which means we will fall back to one rpc.    * @see #setLimit(int)    * @see #setReadType(ReadType)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17045">HBASE-17045</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3102,7 +3102,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Get whether this scan is a small scan    * @return true if small scan    * @deprecated since 2.0.0. See the comment of {@link #setSmall(boolean)}    */
+comment|/**    * Get whether this scan is a small scan    * @return true if small scan    * @deprecated since 2.0.0 and will be removed in 3.0.0. See the comment of    *   {@link #setSmall(boolean)}    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17045">HBASE-17045</a>    */
 annotation|@
 name|Deprecated
 specifier|public

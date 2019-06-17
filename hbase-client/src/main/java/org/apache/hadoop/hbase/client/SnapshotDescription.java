@@ -106,7 +106,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use the version with the TableName instance instead    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use the version with the TableName    *   instance instead.    * @see #SnapshotDescription(String, TableName)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16892">HBASE-16892</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -156,7 +156,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use the version with the TableName instance instead    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use the version with the TableName    *   instance instead.    * @see #SnapshotDescription(String, TableName, SnapshotType)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16892">HBASE-16892</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -212,7 +212,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use the version with the TableName instance instead    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use the version with the TableName    *   instance instead.    * @see #SnapshotDescription(String, TableName, SnapshotType, String)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16892">HBASE-16892</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -282,7 +282,7 @@ literal|1
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use the version with the TableName instance instead    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use the version with the TableName    *   instance instead.    * @see #SnapshotDescription(String, TableName, SnapshotType, String, long, int)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16892">HBASE-16892</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -398,7 +398,7 @@ operator|.
 name|name
 return|;
 block|}
-comment|/**    * @deprecated Use getTableName() or getTableNameAsString() instead.    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #getTableName()} or    *   {@link #getTableNameAsString()} instead.    * @see #getTableName()    * @see #getTableNameAsString()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-16892">HBASE-16892</a>    */
 annotation|@
 name|Deprecated
 specifier|public

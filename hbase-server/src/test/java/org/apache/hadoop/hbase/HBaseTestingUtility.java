@@ -2011,7 +2011,7 @@ name|HBaseTestingUtility
 extends|extends
 name|HBaseZKTestingUtility
 block|{
-comment|/**    * System property key to get test directory value. Name is as it is because mini dfs has    * hard-codings to put test data here. It should NOT be used directly in HBase, as it's a property    * used in mini dfs.    * @deprecated can be used only with mini dfs    */
+comment|/**    * System property key to get test directory value. Name is as it is because mini dfs has    * hard-codings to put test data here. It should NOT be used directly in HBase, as it's a property    * used in mini dfs.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Can be used only with mini dfs.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19410">HBASE-19410</a>    */
 annotation|@
 name|Deprecated
 specifier|private
@@ -2754,7 +2754,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated use {@link HBaseTestingUtility#HBaseTestingUtility()} instead    * @return a normal HBaseTestingUtility    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #HBaseTestingUtility()}    *   instead.    * @return a normal HBaseTestingUtility    * @see #HBaseTestingUtility()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19841">HBASE-19841</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2769,7 +2769,7 @@ name|HBaseTestingUtility
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated use {@link HBaseTestingUtility#HBaseTestingUtility(Configuration)} instead    * @return a normal HBaseTestingUtility    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #HBaseTestingUtility(Configuration)} instead.    * @return a normal HBaseTestingUtility    * @see #HBaseTestingUtility(Configuration)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19841">HBASE-19841</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4296,7 +4296,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper where WAL's walDir is created separately.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper where WAL's walDir is created separately.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4332,7 +4332,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4344,58 +4344,6 @@ name|numSlaves
 parameter_list|,
 name|boolean
 name|createRootDir
-parameter_list|)
-throws|throws
-name|Exception
-block|{
-name|StartMiniClusterOption
-name|option
-init|=
-name|StartMiniClusterOption
-operator|.
-name|builder
-argument_list|()
-operator|.
-name|numRegionServers
-argument_list|(
-name|numSlaves
-argument_list|)
-operator|.
-name|numDataNodes
-argument_list|(
-name|numSlaves
-argument_list|)
-operator|.
-name|createRootDir
-argument_list|(
-name|createRootDir
-argument_list|)
-operator|.
-name|build
-argument_list|()
-decl_stmt|;
-return|return
-name|startMiniCluster
-argument_list|(
-name|option
-argument_list|)
-return|;
-block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|MiniHBaseCluster
-name|startMiniCluster
-parameter_list|(
-name|int
-name|numSlaves
-parameter_list|,
-name|boolean
-name|createRootDir
-parameter_list|,
-name|boolean
-name|createWALDir
 parameter_list|)
 throws|throws
 name|Exception
@@ -4423,6 +4371,58 @@ argument_list|(
 name|createRootDir
 argument_list|)
 operator|.
+name|build
+argument_list|()
+decl_stmt|;
+return|return
+name|startMiniCluster
+argument_list|(
+name|option
+argument_list|)
+return|;
+block|}
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
+annotation|@
+name|Deprecated
+specifier|public
+name|MiniHBaseCluster
+name|startMiniCluster
+parameter_list|(
+name|int
+name|numSlaves
+parameter_list|,
+name|boolean
+name|createRootDir
+parameter_list|,
+name|boolean
+name|createWALDir
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|StartMiniClusterOption
+name|option
+init|=
+name|StartMiniClusterOption
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|numRegionServers
+argument_list|(
+name|numSlaves
+argument_list|)
+operator|.
+name|numDataNodes
+argument_list|(
+name|numSlaves
+argument_list|)
+operator|.
+name|createRootDir
+argument_list|(
+name|createRootDir
+argument_list|)
+operator|.
 name|createWALDir
 argument_list|(
 name|createWALDir
@@ -4438,7 +4438,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *  {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4495,7 +4495,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4544,7 +4544,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param createRootDir Whether to create a new root or data directory path.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4610,7 +4610,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4668,7 +4668,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4720,7 +4720,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numSlaves Slave node number, for both HBase region server and HDFS data node.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4732,95 +4732,6 @@ name|numMasters
 parameter_list|,
 name|int
 name|numSlaves
-parameter_list|,
-name|String
-index|[]
-name|dataNodeHosts
-parameter_list|,
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|HMaster
-argument_list|>
-name|masterClass
-parameter_list|,
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|MiniHBaseCluster
-operator|.
-name|MiniHBaseClusterRegionServer
-argument_list|>
-name|rsClass
-parameter_list|)
-throws|throws
-name|Exception
-block|{
-name|StartMiniClusterOption
-name|option
-init|=
-name|StartMiniClusterOption
-operator|.
-name|builder
-argument_list|()
-operator|.
-name|numMasters
-argument_list|(
-name|numMasters
-argument_list|)
-operator|.
-name|masterClass
-argument_list|(
-name|masterClass
-argument_list|)
-operator|.
-name|numRegionServers
-argument_list|(
-name|numSlaves
-argument_list|)
-operator|.
-name|rsClass
-argument_list|(
-name|rsClass
-argument_list|)
-operator|.
-name|numDataNodes
-argument_list|(
-name|numSlaves
-argument_list|)
-operator|.
-name|dataNodeHosts
-argument_list|(
-name|dataNodeHosts
-argument_list|)
-operator|.
-name|build
-argument_list|()
-decl_stmt|;
-return|return
-name|startMiniCluster
-argument_list|(
-name|option
-argument_list|)
-return|;
-block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|MiniHBaseCluster
-name|startMiniCluster
-parameter_list|(
-name|int
-name|numMasters
-parameter_list|,
-name|int
-name|numRegionServers
-parameter_list|,
-name|int
-name|numDataNodes
 parameter_list|,
 name|String
 index|[]
@@ -4867,6 +4778,95 @@ argument_list|)
 operator|.
 name|numRegionServers
 argument_list|(
+name|numSlaves
+argument_list|)
+operator|.
+name|rsClass
+argument_list|(
+name|rsClass
+argument_list|)
+operator|.
+name|numDataNodes
+argument_list|(
+name|numSlaves
+argument_list|)
+operator|.
+name|dataNodeHosts
+argument_list|(
+name|dataNodeHosts
+argument_list|)
+operator|.
+name|build
+argument_list|()
+decl_stmt|;
+return|return
+name|startMiniCluster
+argument_list|(
+name|option
+argument_list|)
+return|;
+block|}
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
+annotation|@
+name|Deprecated
+specifier|public
+name|MiniHBaseCluster
+name|startMiniCluster
+parameter_list|(
+name|int
+name|numMasters
+parameter_list|,
+name|int
+name|numRegionServers
+parameter_list|,
+name|int
+name|numDataNodes
+parameter_list|,
+name|String
+index|[]
+name|dataNodeHosts
+parameter_list|,
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|HMaster
+argument_list|>
+name|masterClass
+parameter_list|,
+name|Class
+argument_list|<
+name|?
+extends|extends
+name|MiniHBaseCluster
+operator|.
+name|MiniHBaseClusterRegionServer
+argument_list|>
+name|rsClass
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|StartMiniClusterOption
+name|option
+init|=
+name|StartMiniClusterOption
+operator|.
+name|builder
+argument_list|()
+operator|.
+name|numMasters
+argument_list|(
+name|numMasters
+argument_list|)
+operator|.
+name|masterClass
+argument_list|(
+name|masterClass
+argument_list|)
+operator|.
+name|numRegionServers
+argument_list|(
 name|numRegionServers
 argument_list|)
 operator|.
@@ -4895,7 +4895,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated Use {@link #startMiniCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Start up a minicluster of hbase, dfs, and zookeeper.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param numDataNodes Number of datanodes.    * @param dataNodeHosts The hostnames of DataNodes to run on. If not null, its size will overwrite    *                      HDFS data node number.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniCluster(StartMiniClusterOption)} instead.    * @see #startMiniCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5438,7 +5438,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated Use {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    * @see #startMiniHBaseCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5484,7 +5484,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param rsPorts Ports that RegionServer should use.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated Use {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param rsPorts Ports that RegionServer should use.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    * @see #startMiniHBaseCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5541,7 +5541,7 @@ name|option
 argument_list|)
 return|;
 block|}
-comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param rsPorts Ports that RegionServer should use.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated Use {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    */
+comment|/**    * Starts up mini hbase cluster.    * Usually you won't want this.  You'll usually want {@link #startMiniCluster()}.    * All other options will use default values, defined in {@link StartMiniClusterOption.Builder}.    * @param numMasters Master node number.    * @param numRegionServers Number of region servers.    * @param rsPorts Ports that RegionServer should use.    * @param masterClass The class to use as HMaster, or null for default.    * @param rsClass The class to use as HRegionServer, or null for default.    * @param createRootDir Whether to create a new root or data directory path.    * @param createWALDir Whether to create a new WAL directory.    * @return The mini HBase cluster created.    * @see #shutdownMiniHBaseCluster()    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link #startMiniHBaseCluster(StartMiniClusterOption)} instead.    * @see #startMiniHBaseCluster(StartMiniClusterOption)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21071">HBASE-21071</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -7877,7 +7877,7 @@ name|KEYS_FOR_HBA_CREATE_TABLE
 argument_list|)
 return|;
 block|}
-comment|/**    * Modify a table, synchronous.    * @deprecated just use {@link Admin#modifyTable(TableDescriptor)} directly as it is synchronous    *             now.    */
+comment|/**    * Modify a table, synchronous.    * @deprecated since 3.0.0 and will be removed in 4.0.0. Just use    *   {@link Admin#modifyTable(TableDescriptor)} directly as it is synchronous now.    * @see Admin#modifyTable(TableDescriptor)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-22002">HBASE-22002</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8160,6 +8160,7 @@ operator|.
 name|UTF8_CHARSET
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #createTableDescriptor(TableName, int, int, int, KeepDeletedCells)} instead.    * @see #createTableDescriptor(TableName, int, int, int, KeepDeletedCells)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-13893">HBASE-13893</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8208,7 +8209,7 @@ name|keepDeleted
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a table of name<code>name</code>.    * @param name Name to give table.    * @return Column descriptor.    */
+comment|/**    * Create a table of name<code>name</code>.    * @param name Name to give table.    * @return Column descriptor.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #createTableDescriptor(TableName, int, int, int, KeepDeletedCells)} instead.    * @see #createTableDescriptor(TableName, int, int, int, KeepDeletedCells)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-13893">HBASE-13893</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8603,7 +8604,7 @@ name|wal
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call              {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @deprecated use    * {@link #createLocalHRegion(TableName, byte[], byte[], boolean, Durability, WAL, byte[]...)}    */
+comment|/**    * @param tableName    * @param startKey    * @param stopKey    * @param callingMethod    * @param conf    * @param isReadOnly    * @param families    * @throws IOException    * @return A region on which you must call              {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} when done.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #createLocalHRegion(TableName, byte[], byte[], boolean, Durability, WAL, byte[]...)}    *   instead.    * @see #createLocalHRegion(TableName, byte[], byte[], boolean, Durability, WAL, byte[]...)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-13893">HBASE-13893</a>    */
 annotation|@
 name|Deprecated
 specifier|public

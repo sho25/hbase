@@ -2212,7 +2212,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Obtain an authentication token, for the specified cluster, on behalf of the current user    * and add it to the credentials for the given map reduce job.    *    * The quorumAddress is the key to the ZK ensemble, which contains:    * hbase.zookeeper.quorum, hbase.zookeeper.client.port and    * zookeeper.znode.parent    *    * @param job The job that requires the permission.    * @param quorumAddress string that contains the 3 required configuratins    * @throws IOException When the authentication token cannot be obtained.    * @deprecated Since 1.2.0, use {@link #initCredentialsForCluster(Job, Configuration)} instead.    */
+comment|/**    * Obtain an authentication token, for the specified cluster, on behalf of the current user    * and add it to the credentials for the given map reduce job.    *    * The quorumAddress is the key to the ZK ensemble, which contains:    * hbase.zookeeper.quorum, hbase.zookeeper.client.port and    * zookeeper.znode.parent    *    * @param job The job that requires the permission.    * @param quorumAddress string that contains the 3 required configuratins    * @throws IOException When the authentication token cannot be obtained.    * @deprecated Since 1.2.0 and will be removed in 3.0.0. Use    *   {@link #initCredentialsForCluster(Job, Configuration)} instead.    * @see #initCredentialsForCluster(Job, Configuration)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-14886">HBASE-14886</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3510,7 +3510,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Add the jars containing the given classes to the job's configuration    * such that JobClient will ship them to the cluster and add them to    * the DistributedCache.    * @deprecated rely on {@link #addDependencyJars(Job)} instead.    */
+comment|/**    * Add the jars containing the given classes to the job's configuration    * such that JobClient will ship them to the cluster and add them to    * the DistributedCache.    * @deprecated since 1.3.0 and will be removed in 3.0.0. Use {@link #addDependencyJars(Job)}    *   instead.    * @see #addDependencyJars(Job)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-8386">HBASE-8386</a>    */
 annotation|@
 name|Deprecated
 specifier|public

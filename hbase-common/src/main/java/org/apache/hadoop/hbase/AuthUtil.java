@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Utility methods for helping with security tasks. Downstream users  * may rely on this class to handle authenticating via keytab where  * long running services need access to a secure HBase cluster.  *  * Callers must ensure:  *  *<ul>  *<li>HBase configuration files are in the Classpath  *<li>hbase.client.keytab.file points to a valid keytab on the local filesystem  *<li>hbase.client.kerberos.principal gives the Kerberos principal to use  *</ul>  *  *<pre>  * {@code  *   ChoreService choreService = null;  *   // Presumes HBase configuration files are on the classpath  *   final Configuration conf = HBaseConfiguration.create();  *   final ScheduledChore authChore = AuthUtil.getAuthChore(conf);  *   if (authChore != null) {  *     choreService = new ChoreService("MY_APPLICATION");  *     choreService.scheduleChore(authChore);  *   }  *   try {  *     // do application work  *   } finally {  *     if (choreService != null) {  *       choreService.shutdown();  *     }  *   }  * }  *</pre>  *  * See the "Running Canary in a Kerberos-enabled Cluster" section of the HBase Reference Guide for  * an example of configuring a user of this Auth Chore to run on a secure cluster.  *<pre>  *</pre>  * This class will be internal used only from 2.2.0 version, and will transparently work  * for kerberized applications. For more, please refer  *<a href="http://hbase.apache.org/book.html#hbase.secure.configuration">Client-side Configuration for Secure Operation</a>  *  * @deprecated since 2.2.0, to be removed in hbase-3.0.0.  */
+comment|/**  * Utility methods for helping with security tasks. Downstream users  * may rely on this class to handle authenticating via keytab where  * long running services need access to a secure HBase cluster.  *  * Callers must ensure:  *  *<ul>  *<li>HBase configuration files are in the Classpath  *<li>hbase.client.keytab.file points to a valid keytab on the local filesystem  *<li>hbase.client.kerberos.principal gives the Kerberos principal to use  *</ul>  *  *<pre>  * {@code  *   ChoreService choreService = null;  *   // Presumes HBase configuration files are on the classpath  *   final Configuration conf = HBaseConfiguration.create();  *   final ScheduledChore authChore = AuthUtil.getAuthChore(conf);  *   if (authChore != null) {  *     choreService = new ChoreService("MY_APPLICATION");  *     choreService.scheduleChore(authChore);  *   }  *   try {  *     // do application work  *   } finally {  *     if (choreService != null) {  *       choreService.shutdown();  *     }  *   }  * }  *</pre>  *  * See the "Running Canary in a Kerberos-enabled Cluster" section of the HBase Reference Guide for  * an example of configuring a user of this Auth Chore to run on a secure cluster.  *<pre>  *</pre>  * This class will be internal used only from 2.2.0 version, and will transparently work  * for kerberized applications. For more, please refer  *<a href="http://hbase.apache.org/book.html#hbase.secure.configuration">Client-side Configuration for Secure Operation</a>  *  * @deprecated since 2.2.0, to be marked as  *  {@link org.apache.yetus.audience.InterfaceAudience.Private} in 4.0.0.  * @see<a href="https://issues.apache.org/jira/browse/HBASE-20886">HBASE-20886</a>  */
 end_comment
 
 begin_class
@@ -177,7 +177,6 @@ specifier|final
 class|class
 name|AuthUtil
 block|{
-comment|// TODO: Mark this class InterfaceAudience.Private from 3.0.0
 specifier|private
 specifier|static
 specifier|final
@@ -708,7 +707,7 @@ block|}
 block|}
 return|;
 block|}
-comment|/**    * Checks if security is enabled and if so, launches chore for refreshing kerberos ticket.    * @param conf the hbase service configuration    * @return a ScheduledChore for renewals, if needed, and null otherwise.    * @deprecated Deprecated since 2.2.0, this method will be internal use only after 3.0.0.    */
+comment|/**    * Checks if security is enabled and if so, launches chore for refreshing kerberos ticket.    * @param conf the hbase service configuration    * @return a ScheduledChore for renewals, if needed, and null otherwise.    * @deprecated Deprecated since 2.2.0, this method will be    *   {@link org.apache.yetus.audience.InterfaceAudience.Private} use only after 4.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-20886">HBASE-20886</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -722,7 +721,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// TODO: Mark this method InterfaceAudience.Private from 3.0.0
 name|User
 name|user
 init|=

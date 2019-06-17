@@ -525,7 +525,7 @@ literal|false
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Since 2.0.1. Use {@link #WALEdit(int, boolean)} instead.    */
+comment|/**    * @deprecated since 2.0.1 and will be removed in 4.0.0. Use {@link #WALEdit(int, boolean)}    *   instead.    * @see #WALEdit(int, boolean)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-20781">HBASE-20781</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -543,7 +543,7 @@ name|isReplay
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Since 2.0.1. Use {@link #WALEdit(int, boolean)} instead.    */
+comment|/**    * @deprecated since 2.0.1 and will be removed in 4.0.0. Use {@link #WALEdit(int, boolean)}    *   instead.    * @see #WALEdit(int, boolean)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-20781">HBASE-20781</a>    */
 annotation|@
 name|Deprecated
 specifier|public

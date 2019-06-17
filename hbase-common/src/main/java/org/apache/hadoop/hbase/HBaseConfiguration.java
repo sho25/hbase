@@ -169,7 +169,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    * @deprecated Please use create() instead.    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create() to construct a plain Configuration    * @deprecated since 0.90.0. Please use {@link #create()} instead.    * @see #create()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2036">HBASE-2036</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -195,7 +195,7 @@ literal|" HBaseConfiguration#create() to construct a plain Configuration"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create(conf) to construct a plain Configuration    * @deprecated Please user create(conf) instead.    */
+comment|/**    * Instantiating HBaseConfiguration() is deprecated. Please use    * HBaseConfiguration#create(conf) to construct a plain Configuration    * @deprecated since 0.90.0. Please use {@link #create(Configuration)} instead.    * @see #create(Configuration)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-2036">HBASE-2036</a>    */
 annotation|@
 name|Deprecated
 specifier|public

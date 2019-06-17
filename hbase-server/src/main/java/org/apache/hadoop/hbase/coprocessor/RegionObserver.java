@@ -2282,7 +2282,7 @@ return|return
 name|reader
 return|;
 block|}
-comment|/**    * Called after a new cell has been created during an increment operation, but before    * it is committed to the WAL or memstore.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param opType the operation type    * @param mutation the current mutation    * @param oldCell old cell containing previous value    * @param newCell the new cell containing the computed value    * @return the new cell, possibly changed    * @deprecated Use {@link #postIncrementBeforeWAL} or {@link #postAppendBeforeWAL} instead.    */
+comment|/**    * Called after a new cell has been created during an increment operation, but before    * it is committed to the WAL or memstore.    * Calling {@link org.apache.hadoop.hbase.coprocessor.ObserverContext#bypass()} has no    * effect in this hook.    * @param ctx the environment provided by the region server    * @param opType the operation type    * @param mutation the current mutation    * @param oldCell old cell containing previous value    * @param newCell the new cell containing the computed value    * @return the new cell, possibly changed    * @deprecated since 2.2.0 and will be removedin 4.0.0. Use    *   {@link #postIncrementBeforeWAL(ObserverContext, Mutation, List)} or    *   {@link #postAppendBeforeWAL(ObserverContext, Mutation, List)} instead.    * @see #postIncrementBeforeWAL(ObserverContext, Mutation, List)    * @see #postAppendBeforeWAL(ObserverContext, Mutation, List)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21643">HBASE-21643</a>    */
 annotation|@
 name|Deprecated
 specifier|default

@@ -32,7 +32,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  *  * @deprecated use {@link org.apache.hadoop.hbase.client.RowTooBigException} instead.  */
+comment|/**  * Gets or Scans throw this exception if running without in-row scan flag  * set and row size appears to exceed max configured size (configurable via  * hbase.table.max.rowsize).  *  * @deprecated since 0.99.0. Use {@link org.apache.hadoop.hbase.client.RowTooBigException} instead.  * @see org.apache.hadoop.hbase.client.RowTooBigException  * @see<a href="https://issues.apache.org/jira/browse/HBASE-11893">HBASE-11893</a>  */
 end_comment
 
 begin_class

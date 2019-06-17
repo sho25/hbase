@@ -287,7 +287,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-comment|/**    * @param row row key    * @param roffset row offset    * @param rlength row length    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    * @param timestamp version timestamp    * @param value column value    * @param voffset value offset    * @param vlength value length    * @param visExpression visibility expression to be associated with cell    * @return created Cell    * @throws IOException    */
+comment|/**    * @param row row key    * @param roffset row offset    * @param rlength row length    * @param family family name    * @param foffset family offset    * @param flength family length    * @param qualifier column qualifier    * @param qoffset qualifier offset    * @param qlength qualifier length    * @param timestamp version timestamp    * @param value column value    * @param voffset value offset    * @param vlength value length    * @param visExpression visibility expression to be associated with cell    * @return created Cell    * @throws IOException    * @deprecated since 0.98.9    * @see<a href="https://issues.apache.org/jira/browse/HBASE-10560">HBASE-10560</a>    */
 annotation|@
 name|Deprecated
 specifier|public

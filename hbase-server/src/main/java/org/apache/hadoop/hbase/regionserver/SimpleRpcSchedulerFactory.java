@@ -179,6 +179,7 @@ name|SimpleRpcSchedulerFactory
 implements|implements
 name|RpcSchedulerFactory
 block|{
+comment|/**    * @deprecated since 1.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-12028">HBASE-12028</a>    */
 annotation|@
 name|Override
 annotation|@

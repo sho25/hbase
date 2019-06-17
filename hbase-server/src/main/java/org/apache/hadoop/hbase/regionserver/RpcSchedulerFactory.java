@@ -161,6 +161,7 @@ name|Abortable
 name|server
 parameter_list|)
 function_decl|;
+comment|/**    * @deprecated since 1.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-12028">HBASE-12028</a>    */
 annotation|@
 name|Deprecated
 name|RpcScheduler

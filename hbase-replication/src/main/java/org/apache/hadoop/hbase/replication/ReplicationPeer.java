@@ -212,7 +212,7 @@ name|ReplicationPeerConfigListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * @deprecated Use {@link #registerPeerConfigListener(ReplicationPeerConfigListener)} instead.    */
+comment|/**    * @deprecated since 2.1.0 and will be removed in 4.0.0. Use    *   {@link #registerPeerConfigListener(ReplicationPeerConfigListener)} instead.    * @see #registerPeerConfigListener(ReplicationPeerConfigListener)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-10573">HBASE-19573</a>    */
 annotation|@
 name|Deprecated
 specifier|default

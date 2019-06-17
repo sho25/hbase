@@ -1301,7 +1301,7 @@ operator|.
 name|CASE_INSENSITIVE
 argument_list|)
 decl_stmt|;
-comment|/**    * Table descriptor for namespace table    * @deprecated We have folded the data in namespace table into meta table, so do not use it any    *             more.    */
+comment|/**    * Table descriptor for namespace table    * @deprecated since 3.0.0 and will be removed in 4.0.0. We have folded the data in namespace    *   table into meta table, so do not use it any more.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21154">HBASE-21154</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1973,6 +1973,7 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1994,6 +1995,7 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5650,6 +5652,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**      * @deprecated since 2.0.0 and will be removed in 3.0.0.      * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>      */
 annotation|@
 name|Deprecated
 specifier|public
@@ -5676,6 +5679,7 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|/**      * @deprecated since 2.0.0 and will be removed in 3.0.0.      * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>      */
 comment|// used by admin.rb:alter(table_name,*args) to update owner.
 annotation|@
 name|Deprecated
@@ -5696,6 +5700,7 @@ name|ownerString
 argument_list|)
 return|;
 block|}
+comment|/**      * @deprecated since 2.0.0 and will be removed in 3.0.0.      * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>      */
 annotation|@
 name|Override
 annotation|@

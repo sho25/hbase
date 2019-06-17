@@ -175,6 +175,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 0.90.0    * @see<a href="https://issues.apache.org/jira/browse/HBASE-1923">HBASE-1923</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -185,6 +186,7 @@ name|START
 init|=
 literal|"hbase.simpletotalorder.start"
 decl_stmt|;
+comment|/**    * @deprecated since 0.90.0    * @see<a href="https://issues.apache.org/jira/browse/HBASE-1923">HBASE-1923</a>    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -202,7 +202,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The filter looks for the given columns in KeyValue. Once there is a match for  * any one of the columns, it returns ReturnCode.NEXT_ROW for remaining  * KeyValues in the row.  *<p>  * Note : It may emit KVs which do not have the given columns in them, if  * these KVs happen to occur before a KV which does have a match. Given this  * caveat, this filter is only useful for special cases  * like org.apache.hadoop.hbase.mapreduce.RowCounter.  *<p>  * @deprecated Deprecated in 2.0. See HBASE-13347  */
+comment|/**  * The filter looks for the given columns in KeyValue. Once there is a match for  * any one of the columns, it returns ReturnCode.NEXT_ROW for remaining  * KeyValues in the row.  *<p>  * Note : It may emit KVs which do not have the given columns in them, if  * these KVs happen to occur before a KV which does have a match. Given this  * caveat, this filter is only useful for special cases  * like org.apache.hadoop.hbase.mapreduce.RowCounter.  *<p>  * @deprecated Deprecated in 2.0.0 and will be removed in 3.0.0.  * @see<a href="https://issues.apache.org/jira/browse/HBASE-13347">HBASE-13347</a>  */
 end_comment
 
 begin_class

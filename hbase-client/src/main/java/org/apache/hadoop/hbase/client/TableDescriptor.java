@@ -467,6 +467,7 @@ name|TableName
 name|getTableName
 parameter_list|()
 function_decl|;
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-15583">HBASE-15583</a>    */
 annotation|@
 name|Deprecated
 name|String

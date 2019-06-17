@@ -12129,7 +12129,7 @@ throws|throws
 name|IOException
 block|{ }
 comment|/* ---- Protobuf AccessControlService implementation ---- */
-comment|/**    * @deprecated Use {@link Admin#grant(UserPermission, boolean)} instead.    */
+comment|/**    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link Admin#grant(UserPermission, boolean)} instead.    * @see Admin#grant(UserPermission, boolean)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21739">HBASE-21739</a>    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12357,7 +12357,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#revoke(UserPermission)} instead.    */
+comment|/**    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use {@link Admin#revoke(UserPermission)}    *   instead.    * @see Admin#revoke(UserPermission)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21739">HBASE-21739</a>    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12580,7 +12580,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    */
+comment|/**    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link Admin#getUserPermissions(GetUserPermissionsRequest)} instead.    * @see Admin#getUserPermissions(GetUserPermissionsRequest)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21911">HBASE-21911</a>    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -12941,7 +12941,7 @@ name|response
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#hasUserPermissions(List)} instead.    */
+comment|/**    * @deprecated since 2.2.0 and will be removed 4.0.0. Use {@link Admin#hasUserPermissions(List)}    *   instead.    * @see Admin#hasUserPermissions(List)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-22117">HBASE-22117</a>    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -14708,7 +14708,7 @@ name|getCurrent
 argument_list|()
 return|;
 block|}
-comment|/**    * @deprecated Use {@link Admin#hasUserPermissions(String, List)} instead.    */
+comment|/**    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use    *   {@link Admin#hasUserPermissions(String, List)} instead.    * @see Admin#hasUserPermissions(String, List)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-22117">HBASE-22117</a>    */
 annotation|@
 name|Deprecated
 annotation|@

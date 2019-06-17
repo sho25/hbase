@@ -204,7 +204,7 @@ argument_list|,
 literal|"meta"
 argument_list|)
 decl_stmt|;
-comment|/**    * The Namespace table's name.    * @deprecated We have folded the data in namespace table into meta table, so do not use it any    *             more.    */
+comment|/**    * The Namespace table's name.    * @deprecated since 3.0.0 and will be removed in 4.0.0. We have folded the data in namespace    *   table into meta table, so do not use it any more.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21154">HBASE-21154</a>    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -1544,7 +1544,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move the region<code>rencodedRegionName</code> to<code>destServerName</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    *          suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    *          then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver. If passed the empty byte    *          array we'll assign to a random server. A server name is made of host, port and    *          startcode. Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if we can't find a region named<code>encodedRegionName</code>    * @deprecated Use {@link #move(byte[], ServerName)} instead. And if you want to move the region    *             to a random server, please use {@link #move(byte[])}.    */
+comment|/**    * Move the region<code>rencodedRegionName</code> to<code>destServerName</code>.    * @param encodedRegionName The encoded region name; i.e. the hash that makes up the region name    *          suffix: e.g. if regionname is    *<code>TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.</code>,    *          then the encoded region name is:<code>527db22f95c8a9e0116f0cc13c680396</code>.    * @param destServerName The servername of the destination regionserver. If passed the empty byte    *          array we'll assign to a random server. A server name is made of host, port and    *          startcode. Here is an example:<code> host187.example.com,60020,1289493121758</code>    * @throws IOException if we can't find a region named<code>encodedRegionName</code>    * @deprecated since 2.2.0 and will be removed in 4.0.0. Use {@link #move(byte[], ServerName)}    *   instead. And if you want to move the region to a random server, please use    *   {@link #move(byte[])}.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-22108">HBASE-22108</a>    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -2347,7 +2347,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Abort a procedure.    *<p/>    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does    *         not exist    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.1.1 -- to be removed.    */
+comment|/**    * Abort a procedure.    *<p/>    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does    *         not exist    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.1.1 and will be removed in 4.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21223">HBASE-21223</a>    */
 annotation|@
 name|Deprecated
 specifier|default
@@ -2382,7 +2382,7 @@ name|MILLISECONDS
 argument_list|)
 return|;
 block|}
-comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException if a remote or network exception occurs    * @deprecated Since 2.1.1 -- to be removed.    */
+comment|/**    * Abort a procedure but does not block and wait for completion.    * You can use Future.get(long, TimeUnit) to wait on the operation to complete.    * It may throw ExecutionException if there was an error while executing the operation    * or TimeoutException in case the wait timeout was not long enough to allow the    * operation to complete.    * Do not use. Usually it is ignored but if not, it can do more damage than good. See hbck2.    *    * @param procId ID of the procedure to abort    * @param mayInterruptIfRunning if the proc completed at least one step, should it be aborted?    * @return<code>true</code> if aborted,<code>false</code> if procedure already completed or does not exist    * @throws IOException if a remote or network exception occurs    * @deprecated since 2.1.1 and will be removed in 4.0.0.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-21223">HBASE-21223</a>    */
 annotation|@
 name|Deprecated
 name|Future

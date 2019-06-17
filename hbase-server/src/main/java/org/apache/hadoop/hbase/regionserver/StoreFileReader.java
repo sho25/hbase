@@ -1095,7 +1095,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * @deprecated Do not write further code which depends on this call. Instead    *   use getStoreFileScanner() which uses the StoreFileScanner class/interface    *   which is the preferred way to scan a store with higher level concepts.    *    * @param cacheBlocks should we cache the blocks?    * @param pread use pread (for concurrent small readers)    * @return the underlying HFileScanner    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Do not write further code which depends    *   on this call. Instead use getStoreFileScanner() which uses the StoreFileScanner    *   class/interface which is the preferred way to scan a store with higher level concepts.    *    * @param cacheBlocks should we cache the blocks?    * @param pread use pread (for concurrent small readers)    * @return the underlying HFileScanner    * @see<a href="https://issues.apache.org/jira/browse/HBASE-15296">HBASE-15296</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1120,7 +1120,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * @deprecated Do not write further code which depends on this call. Instead    *   use getStoreFileScanner() which uses the StoreFileScanner class/interface    *   which is the preferred way to scan a store with higher level concepts.    *    * @param cacheBlocks    *          should we cache the blocks?    * @param pread    *          use pread (for concurrent small readers)    * @param isCompaction    *          is scanner being used for compaction?    * @return the underlying HFileScanner    */
+comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Do not write further code which depends    *   on this call. Instead use getStoreFileScanner() which uses the StoreFileScanner    *   class/interface which is the preferred way to scan a store with higher level concepts.    *    * @param cacheBlocks    *          should we cache the blocks?    * @param pread    *          use pread (for concurrent small readers)    * @param isCompaction    *          is scanner being used for compaction?    * @return the underlying HFileScanner    * @see<a href="https://issues.apache.org/jira/browse/HBASE-15296">HBASE-15296</a>    */
 annotation|@
 name|Deprecated
 specifier|public

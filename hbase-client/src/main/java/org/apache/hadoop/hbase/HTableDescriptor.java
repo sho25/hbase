@@ -1581,7 +1581,7 @@ name|other
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns an unmodifiable collection of all the {@link HColumnDescriptor}    * of all the column families of the table.    * @deprecated Use {@link #getColumnFamilies}.    * @return Immutable collection of {@link HColumnDescriptor} of all the    * column families.    */
+comment|/**    * Returns an unmodifiable collection of all the {@link HColumnDescriptor}    * of all the column families of the table.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #getColumnFamilies()} instead.    * @return Immutable collection of {@link HColumnDescriptor} of all the    * column families.    * @see #getColumnFamilies()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-18008">HBASE-18008</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -1790,7 +1790,7 @@ name|getColumnFamilyCount
 argument_list|()
 return|;
 block|}
-comment|/**    * Returns an array all the {@link HColumnDescriptor} of the column families    * of the table.    *    * @return Array of all the HColumnDescriptors of the current table    *    * @see #getFamilies()    */
+comment|/**    * Returns an array all the {@link HColumnDescriptor} of the column families    * of the table.    *    * @return Array of all the HColumnDescriptors of the current table    * @deprecated since 2.0.0 and will be removed in 3.0.0.    * @see #getFamilies()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-18008">HBASE-18008</a>    */
 annotation|@
 name|Deprecated
 annotation|@
@@ -1831,7 +1831,7 @@ index|]
 argument_list|)
 return|;
 block|}
-comment|/**    * Returns the HColumnDescriptor for a specific column family with name as    * specified by the parameter column.    * @param column Column family name    * @return Column descriptor for the passed family name or the family on    * passed in column.    * @deprecated Use {@link #getColumnFamily(byte[])}.    */
+comment|/**    * Returns the HColumnDescriptor for a specific column family with name as    * specified by the parameter column.    * @param column Column family name    * @return Column descriptor for the passed family name or the family on    * passed in column.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #getColumnFamily(byte[])}    *   instead.    * @see #getColumnFamily(byte[])    * @see<a href="https://issues.apache.org/jira/browse/HBASE-18008">HBASE-18008</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2209,6 +2209,7 @@ operator|.
 name|NAMESPACE_TABLEDESC
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 0.94.1    * @see<a href="https://issues.apache.org/jira/browse/HBASE-6188">HBASE-6188</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -2231,6 +2232,7 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * @deprecated since 0.94.1    * @see<a href="https://issues.apache.org/jira/browse/HBASE-6188">HBASE-6188</a>    */
 comment|// used by admin.rb:alter(table_name,*args) to update owner.
 annotation|@
 name|Deprecated
@@ -2254,6 +2256,7 @@ return|return
 name|this
 return|;
 block|}
+comment|/**    * @deprecated since 0.94.1    * @see<a href="https://issues.apache.org/jira/browse/HBASE-6188">HBASE-6188</a>    */
 annotation|@
 name|Override
 annotation|@

@@ -914,7 +914,7 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @return the number of valid bytes in the buffer    * @deprecated use {@link #getLength()} instead    */
+comment|/**    * @return the number of valid bytes in the buffer    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #getLength()} instead.    * @see #getLength()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-11862">HBASE-11862</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -4919,7 +4919,7 @@ name|i
 operator|)
 return|;
 block|}
-comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from buffer.    * @deprecated Use {@link #readAsVLong(byte[],int)} instead.    */
+comment|/**    * Reads a zero-compressed encoded long from input buffer and returns it.    * @param buffer Binary array    * @param offset Offset into array at which vint begins.    * @throws java.io.IOException e    * @return deserialized long from buffer.    * @deprecated since 0.98.12. Use {@link #readAsVLong(byte[],int)} instead.    * @see #readAsVLong(byte[], int)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-6919">HBASE-6919</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8532,7 +8532,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Binary search for keys in indexes.    *    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param offset the offset in the key you want to find    * @param length the length of the key    * @param comparator a comparator to compare.    * @return zero-based index of the key, if the key is present in the array.    *         Otherwise, a value -(i + 1) such that the key is between arr[i -    *         1] and arr[i] non-inclusively, where i is in [0, i], if we define    *         arr[-1] = -Inf and arr[N] = Inf for an N-element array. The above    *         means that this function can return 2N + 1 different values    *         ranging from -(N + 1) to N - 1.    * @deprecated {@link Bytes#binarySearch(byte[][], byte[], int, int)}    */
+comment|/**    * Binary search for keys in indexes.    *    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param offset the offset in the key you want to find    * @param length the length of the key    * @param comparator a comparator to compare.    * @return zero-based index of the key, if the key is present in the array.    *         Otherwise, a value -(i + 1) such that the key is between arr[i -    *         1] and arr[i] non-inclusively, where i is in [0, i], if we define    *         arr[-1] = -Inf and arr[N] = Inf for an N-element array. The above    *         means that this function can return 2N + 1 different values    *         ranging from -(N + 1) to N - 1.    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #binarySearch(byte[][], byte[], int, int)} instead.    * @see #binarySearch(byte[][], byte[], int, int)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-13450">HBASE-13450</a>    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -8707,7 +8707,7 @@ literal|1
 operator|)
 return|;
 block|}
-comment|/**    * Binary search for keys in indexes.    *    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param comparator a comparator to compare.    * @return zero-based index of the key, if the key is present in the array.    *         Otherwise, a value -(i + 1) such that the key is between arr[i -    *         1] and arr[i] non-inclusively, where i is in [0, i], if we define    *         arr[-1] = -Inf and arr[N] = Inf for an N-element array. The above    *         means that this function can return 2N + 1 different values    *         ranging from -(N + 1) to N - 1.    * @return the index of the block    * @deprecated Use {@link Bytes#binarySearch(Cell[], Cell, CellComparator)}    */
+comment|/**    * Binary search for keys in indexes.    *    * @param arr array of byte arrays to search for    * @param key the key you want to find    * @param comparator a comparator to compare.    * @return zero-based index of the key, if the key is present in the array.    *         Otherwise, a value -(i + 1) such that the key is between arr[i -    *         1] and arr[i] non-inclusively, where i is in [0, i], if we define    *         arr[-1] = -Inf and arr[N] = Inf for an N-element array. The above    *         means that this function can return 2N + 1 different values    *         ranging from -(N + 1) to N - 1.    * @return the index of the block    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #binarySearch(Cell[], Cell, CellComparator)} instead.    * @see #binarySearch(Cell[], Cell, CellComparator)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-13450">HBASE-13450</a>    */
 annotation|@
 name|Deprecated
 specifier|public
