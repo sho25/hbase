@@ -1725,7 +1725,7 @@ name|exists
 init|=
 name|htable
 operator|.
-name|existsAll
+name|exists
 argument_list|(
 name|getsFromThrift
 argument_list|(

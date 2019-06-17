@@ -371,6 +371,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Delete
 import|;
 end_import
@@ -1015,7 +1031,7 @@ decl_stmt|;
 name|IncrementCoalescer
 name|coalescer
 decl_stmt|;
-comment|/**    * Returns a list of all the column families for a given Table.    *    * @param table table    * @throws IOException    */
+comment|/**    * Returns a list of all the column families for a given Table.    * @param table table    */
 name|byte
 index|[]
 index|[]
@@ -1027,13 +1043,13 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|HColumnDescriptor
+name|ColumnFamilyDescriptor
 index|[]
 name|cds
 init|=
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 operator|.
 name|getColumnFamilies
@@ -6946,10 +6962,14 @@ expr_stmt|;
 name|HTableDescriptor
 name|desc
 init|=
+operator|new
+name|HTableDescriptor
+argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
+argument_list|)
 decl_stmt|;
 for|for
 control|(

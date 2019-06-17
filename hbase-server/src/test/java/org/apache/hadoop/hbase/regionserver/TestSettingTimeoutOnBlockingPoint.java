@@ -759,8 +759,6 @@ parameter_list|()
 lambda|->
 block|{
 try|try
-block|{
-try|try
 init|(
 name|Table
 name|table
@@ -770,19 +768,22 @@ operator|.
 name|getConnection
 argument_list|()
 operator|.
-name|getTable
+name|getTableBuilder
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
-init|)
-block|{
-name|table
 operator|.
 name|setRpcTimeout
 argument_list|(
 literal|1000
 argument_list|)
-expr_stmt|;
+operator|.
+name|build
+argument_list|()
+init|)
+block|{
 name|Delete
 name|delete
 init|=
@@ -799,7 +800,6 @@ argument_list|(
 name|delete
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -855,23 +855,26 @@ operator|.
 name|getConnection
 argument_list|()
 operator|.
-name|getTable
+name|getTableBuilder
 argument_list|(
 name|tableName
+argument_list|,
+literal|null
 argument_list|)
+operator|.
+name|setRpcTimeout
+argument_list|(
+literal|1000
+argument_list|)
+operator|.
+name|build
+argument_list|()
 init|)
 block|{
 comment|// We have only two handlers. The first thread will get a write lock for row1 and occupy
 comment|// the first handler. The second thread need a read lock for row1, it should quit after 1000
 comment|// ms and give back the handler because it can not get the lock in time.
 comment|// So we can get the value using the second handler.
-name|table
-operator|.
-name|setRpcTimeout
-argument_list|(
-literal|1000
-argument_list|)
-expr_stmt|;
 name|table
 operator|.
 name|get

@@ -783,6 +783,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|ImmutableBytesWritable
@@ -3991,7 +4007,7 @@ name|job
 argument_list|,
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator
@@ -4668,7 +4684,7 @@ name|TableInfo
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|r
@@ -5882,7 +5898,7 @@ name|asList
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 argument_list|)
@@ -6056,7 +6072,7 @@ argument_list|(
 name|table
 argument_list|)
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 block|}
@@ -6282,7 +6298,7 @@ name|asList
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 argument_list|)
@@ -6453,7 +6469,7 @@ argument_list|(
 name|table
 argument_list|)
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 block|}
@@ -6647,7 +6663,7 @@ name|asList
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 argument_list|)
@@ -6818,7 +6834,7 @@ argument_list|(
 name|table
 argument_list|)
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 block|}
@@ -7006,12 +7022,12 @@ argument_list|,
 name|familyToDataBlockEncoding
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|tableDescriptor
 init|=
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 decl_stmt|;
 name|conf
@@ -7204,7 +7220,7 @@ argument_list|(
 name|table
 argument_list|)
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 block|}
@@ -7521,7 +7537,7 @@ argument_list|(
 name|table
 argument_list|)
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 expr_stmt|;
 for|for
@@ -7625,7 +7641,7 @@ name|job
 argument_list|,
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator
@@ -8368,7 +8384,7 @@ name|TableInfo
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|conn
@@ -8999,7 +9015,7 @@ name|TableInfo
 argument_list|(
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator

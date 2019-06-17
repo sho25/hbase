@@ -2020,7 +2020,7 @@ name|job
 argument_list|,
 name|table
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator

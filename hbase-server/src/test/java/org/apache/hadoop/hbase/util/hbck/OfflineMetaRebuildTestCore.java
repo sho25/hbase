@@ -990,7 +990,7 @@ specifier|private
 name|void
 name|dumpMeta
 parameter_list|(
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 parameter_list|)
 throws|throws
@@ -1205,12 +1205,12 @@ argument_list|(
 literal|"Before delete:"
 argument_list|)
 expr_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|tbl
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 decl_stmt|;
 name|dumpMeta
@@ -1517,12 +1517,12 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 decl_stmt|;
-name|HTableDescriptor
+name|TableDescriptor
 name|htd
 init|=
 name|htbl
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 decl_stmt|;
 name|RegionInfo

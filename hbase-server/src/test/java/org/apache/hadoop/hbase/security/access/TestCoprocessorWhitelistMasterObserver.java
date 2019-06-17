@@ -722,7 +722,7 @@ name|HTableDescriptor
 argument_list|(
 name|t
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -791,10 +791,10 @@ literal|0
 argument_list|,
 name|t
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 operator|.
-name|getCoprocessors
+name|getCoprocessorDescriptors
 argument_list|()
 operator|.
 name|size
@@ -937,7 +937,7 @@ name|HTableDescriptor
 argument_list|(
 name|t
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1539,10 +1539,10 @@ literal|1
 argument_list|,
 name|t
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 operator|.
-name|getCoprocessors
+name|getCoprocessorDescriptors
 argument_list|()
 operator|.
 name|size

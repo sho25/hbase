@@ -4603,7 +4603,7 @@ literal|1
 argument_list|,
 name|table
 operator|.
-name|existsAll
+name|exists
 argument_list|(
 name|Collections
 operator|.

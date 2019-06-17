@@ -2383,9 +2383,7 @@ argument_list|)
 return|;
 block|}
 block|}
-annotation|@
-name|Override
-specifier|public
+specifier|private
 name|boolean
 name|checkAndMutate
 parameter_list|(

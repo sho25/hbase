@@ -9267,7 +9267,7 @@ try|try
 block|{
 name|ht
 operator|.
-name|existsAll
+name|exists
 argument_list|(
 name|gets
 argument_list|)

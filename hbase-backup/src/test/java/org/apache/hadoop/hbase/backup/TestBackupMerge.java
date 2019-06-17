@@ -760,7 +760,7 @@ literal|"After incremental restore: "
 operator|+
 name|hTable
 operator|.
-name|getTableDescriptor
+name|getDescriptor
 argument_list|()
 argument_list|)
 expr_stmt|;
