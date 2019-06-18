@@ -1439,7 +1439,7 @@ name|formatter
 operator|.
 name|printHelp
 argument_list|(
-literal|"HFile"
+literal|"hfile"
 argument_list|,
 name|options
 argument_list|,
@@ -2014,6 +2014,8 @@ init|=
 name|processFile
 argument_list|(
 name|fileName
+argument_list|,
+literal|false
 argument_list|)
 decl_stmt|;
 if|if
@@ -2072,12 +2074,16 @@ return|return
 literal|0
 return|;
 block|}
+comment|// HBASE-22561 introduces boolean checkRootDir for WebUI specificly
 specifier|public
 name|int
 name|processFile
 parameter_list|(
 name|Path
 name|file
+parameter_list|,
+name|boolean
+name|checkRootDir
 parameter_list|)
 throws|throws
 name|IOException
@@ -2086,6 +2092,7 @@ if|if
 condition|(
 name|verbose
 condition|)
+block|{
 name|out
 operator|.
 name|println
@@ -2095,6 +2102,12 @@ operator|+
 name|file
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|checkRootDir
+condition|)
+block|{
 name|Path
 name|rootPath
 init|=
@@ -2189,6 +2202,7 @@ return|return
 operator|-
 literal|2
 return|;
+block|}
 block|}
 block|}
 name|FileSystem
