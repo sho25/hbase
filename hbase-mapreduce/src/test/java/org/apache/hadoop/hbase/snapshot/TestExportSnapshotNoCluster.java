@@ -18,6 +18,28 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
+name|URI
+import|;
+end_import
+
+begin_import
 import|import
 name|org
 operator|.
@@ -42,6 +64,20 @@ operator|.
 name|fs
 operator|.
 name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|fs
+operator|.
+name|LocalFileSystem
 import|;
 end_import
 
@@ -413,12 +449,29 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Make sure testDir is on LocalFileSystem
 name|testDir
 operator|=
 name|TEST_UTIL
 operator|.
 name|getDataTestDir
 argument_list|()
+operator|.
+name|makeQualified
+argument_list|(
+name|URI
+operator|.
+name|create
+argument_list|(
+literal|"file:///"
+argument_list|)
+argument_list|,
+operator|new
+name|Path
+argument_list|(
+literal|"/"
+argument_list|)
+argument_list|)
 expr_stmt|;
 name|fs
 operator|=
@@ -430,6 +483,19 @@ name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"FileSystem '"
+operator|+
+name|fs
+operator|+
+literal|"' is not local"
+argument_list|,
+name|fs
+operator|instanceof
+name|LocalFileSystem
 argument_list|)
 expr_stmt|;
 name|setUpBaseConf
