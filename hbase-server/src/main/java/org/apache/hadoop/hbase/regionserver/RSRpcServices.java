@@ -987,6 +987,22 @@ name|hbase
 operator|.
 name|io
 operator|.
+name|ByteBuffAllocator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
 name|TimeRange
 import|;
 end_import
@@ -4249,14 +4265,6 @@ name|int
 name|BATCH_ROWS_THRESHOLD_DEFAULT
 init|=
 literal|5000
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|RESERVOIR_ENABLED_KEY
-init|=
-literal|"hbase.ipc.server.reservoir.enabled"
 decl_stmt|;
 comment|// Request counter. (Includes requests that are not serviced by regions.)
 comment|// Count only once for requests with multiple actions like multi/caching-scan/replayBatch
@@ -9270,7 +9278,9 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-name|RESERVOIR_ENABLED_KEY
+name|ByteBuffAllocator
+operator|.
+name|ALLOCATOR_POOL_ENABLED_KEY
 argument_list|,
 literal|true
 argument_list|)

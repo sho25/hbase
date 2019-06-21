@@ -271,6 +271,14 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|ALLOCATOR_POOL_ENABLED_KEY
+init|=
+literal|"hbase.server.allocator.pool.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|MAX_BUFFER_COUNT_KEY
 init|=
 literal|"hbase.server.allocator.max.buffer.count"
@@ -282,6 +290,25 @@ name|String
 name|BUFFER_SIZE_KEY
 init|=
 literal|"hbase.server.allocator.buffer.size"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MIN_ALLOCATE_SIZE_KEY
+init|=
+literal|"hbase.server.allocator.minimal.allocate.size"
+decl_stmt|;
+comment|/**    * @deprecated use {@link ByteBuffAllocator#ALLOCATOR_POOL_ENABLED_KEY} instead.    */
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEPRECATED_ALLOCATOR_POOL_ENABLED_KEY
+init|=
+literal|"hbase.ipc.server.reservoir.enabled"
 decl_stmt|;
 comment|/**    * @deprecated use {@link ByteBuffAllocator#MAX_BUFFER_COUNT_KEY} instead.    */
 annotation|@
@@ -303,9 +330,18 @@ name|DEPRECATED_BUFFER_SIZE_KEY
 init|=
 literal|"hbase.ipc.server.reservoir.initial.buffer.size"
 decl_stmt|;
-comment|/**    * The hbase.ipc.server.reservoir.initial.max and hbase.ipc.server.reservoir.initial.buffer.size    * were introduced in HBase2.0.0, while in HBase3.0.0 the two config keys will be replaced by    * {@link ByteBuffAllocator#MAX_BUFFER_COUNT_KEY} and {@link ByteBuffAllocator#BUFFER_SIZE_KEY}.    * Keep the two old config keys here for HBase2.x compatibility.    */
+comment|/**    * The hbase.ipc.server.reservoir.initial.max and hbase.ipc.server.reservoir.initial.buffer.size    * were introduced in HBase2.0.0, while in HBase3.0.0 the two config keys will be replaced by    * {@link ByteBuffAllocator#MAX_BUFFER_COUNT_KEY} and {@link ByteBuffAllocator#BUFFER_SIZE_KEY}.    * Also the hbase.ipc.server.reservoir.enabled will be replaced by    * hbase.server.allocator.pool.enabled. Keep the three old config keys here for HBase2.x    * compatibility.    */
 static|static
 block|{
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+name|DEPRECATED_ALLOCATOR_POOL_ENABLED_KEY
+argument_list|,
+name|ALLOCATOR_POOL_ENABLED_KEY
+argument_list|)
+expr_stmt|;
 name|Configuration
 operator|.
 name|addDeprecation
@@ -335,14 +371,6 @@ init|=
 literal|65
 operator|*
 literal|1024
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MIN_ALLOCATE_SIZE_KEY
-init|=
-literal|"hbase.ipc.server.reservoir.minimal.allocating.size"
 decl_stmt|;
 specifier|public
 specifier|static

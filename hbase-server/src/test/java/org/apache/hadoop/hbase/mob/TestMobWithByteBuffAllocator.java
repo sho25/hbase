@@ -205,9 +205,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
+name|io
 operator|.
-name|RSRpcServices
+name|ByteBuffAllocator
 import|;
 end_import
 
@@ -467,9 +467,9 @@ name|CONF
 operator|.
 name|setBoolean
 argument_list|(
-name|RSRpcServices
+name|ByteBuffAllocator
 operator|.
-name|RESERVOIR_ENABLED_KEY
+name|ALLOCATOR_POOL_ENABLED_KEY
 argument_list|,
 literal|true
 argument_list|)
