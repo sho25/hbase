@@ -1502,6 +1502,8 @@ specifier|final
 name|int
 name|delta
 init|=
+name|period
+operator|/
 literal|5
 decl_stmt|;
 name|ChoreService
@@ -1544,14 +1546,16 @@ operator|+
 name|delta
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|"10 periods have elapsed."
+argument_list|,
+literal|11
+argument_list|,
 name|chore
 operator|.
 name|getCountOfChoreCalls
 argument_list|()
-operator|==
-literal|11
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1561,16 +1565,20 @@ argument_list|(
 literal|10
 operator|*
 name|period
+operator|+
+name|delta
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|"20 periods have elapsed."
+argument_list|,
+literal|21
+argument_list|,
 name|chore
 operator|.
 name|getCountOfChoreCalls
 argument_list|()
-operator|==
-literal|21
 argument_list|)
 expr_stmt|;
 block|}
@@ -1635,6 +1643,8 @@ specifier|final
 name|int
 name|delta
 init|=
+name|period
+operator|/
 literal|10
 decl_stmt|;
 name|ChoreService
@@ -1678,14 +1688,16 @@ operator|+
 name|delta
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
+literal|"10 periods have elapsed."
+argument_list|,
+literal|11
+argument_list|,
 name|chore
 operator|.
 name|getCountOfChoreCalls
 argument_list|()
-operator|==
-literal|11
 argument_list|)
 expr_stmt|;
 comment|// Force five runs of the chore to occur, sleeping between triggers to ensure the
@@ -1750,21 +1762,16 @@ argument_list|(
 name|delta
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
-literal|""
-operator|+
-name|chore
-operator|.
-name|getCountOfChoreCalls
-argument_list|()
+literal|"Trigger was called 5 times after 10 periods."
+argument_list|,
+literal|16
 argument_list|,
 name|chore
 operator|.
 name|getCountOfChoreCalls
 argument_list|()
-operator|==
-literal|16
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -1781,7 +1788,7 @@ expr_stmt|;
 comment|// Be loosey-goosey. It used to be '26' but it was a big flakey relying on timing.
 name|assertTrue
 argument_list|(
-literal|""
+literal|"Expected at least 16 invocations, instead got "
 operator|+
 name|chore
 operator|.
@@ -1838,9 +1845,7 @@ try|try
 block|{
 name|assertEquals
 argument_list|(
-literal|"Should have a core pool of size: "
-operator|+
-name|initialCorePoolSize
+literal|"Setting core pool size gave unexpected results."
 argument_list|,
 name|initialCorePoolSize
 argument_list|,
@@ -3497,6 +3502,8 @@ specifier|final
 name|int
 name|delta
 init|=
+name|period
+operator|/
 literal|10
 decl_stmt|;
 try|try
