@@ -670,6 +670,8 @@ operator|new
 name|ByteArrayOutputStream
 argument_list|()
 decl_stmt|;
+try|try
+init|(
 name|DataOutputStream
 name|out
 init|=
@@ -678,7 +680,8 @@ name|DataOutputStream
 argument_list|(
 name|baos
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 for|for
 control|(
 name|Cell
@@ -741,6 +744,7 @@ operator|.
 name|flush
 argument_list|()
 expr_stmt|;
+block|}
 return|return
 name|ByteBuffer
 operator|.
