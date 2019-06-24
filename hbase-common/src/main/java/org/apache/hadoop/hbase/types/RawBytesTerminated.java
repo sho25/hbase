@@ -142,7 +142,11 @@ name|super
 argument_list|(
 operator|new
 name|RawBytes
-argument_list|()
+argument_list|(
+name|Order
+operator|.
+name|ASCENDING
+argument_list|)
 argument_list|,
 name|term
 argument_list|)
@@ -160,7 +164,11 @@ name|super
 argument_list|(
 operator|new
 name|RawBytes
-argument_list|()
+argument_list|(
+name|Order
+operator|.
+name|ASCENDING
+argument_list|)
 argument_list|,
 name|term
 argument_list|)

@@ -106,7 +106,7 @@ specifier|final
 name|Order
 name|order
 decl_stmt|;
-specifier|protected
+specifier|public
 name|OrderedBytesBase
 parameter_list|(
 name|Order

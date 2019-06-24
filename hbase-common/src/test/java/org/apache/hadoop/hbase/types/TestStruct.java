@@ -2138,9 +2138,13 @@ specifier|static
 name|RawBytes
 name|byteField3
 init|=
+operator|new
 name|RawBytes
+argument_list|(
+name|Order
 operator|.
 name|DESCENDING
+argument_list|)
 decl_stmt|;
 comment|/**      * The {@link Struct} equivalent of this type.      */
 specifier|public

@@ -98,6 +98,9 @@ name|byte
 index|[]
 argument_list|>
 block|{
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -112,6 +115,9 @@ operator|.
 name|ASCENDING
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -126,7 +132,7 @@ operator|.
 name|DESCENDING
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|public
 name|OrderedBlobVar
 parameter_list|(
 name|Order
@@ -232,7 +238,7 @@ name|order
 argument_list|)
 return|;
 block|}
-comment|/**    * Write a subset of {@code val} to {@code buff}.    */
+comment|/**    * Write a subset of {@code val} to {@code dst}.    *    * @param dst the {@link PositionedByteRange} to write to    * @param val  the value to write to {@code dst}    * @param voff the offset in {@code dst} where to write {@code val} to    * @param vlen the lenght of {@code val}    * @return the number of bytes written    */
 specifier|public
 name|int
 name|encode

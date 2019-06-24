@@ -98,6 +98,9 @@ name|byte
 index|[]
 argument_list|>
 block|{
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -112,6 +115,9 @@ operator|.
 name|ASCENDING
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -131,7 +137,10 @@ specifier|final
 name|Order
 name|order
 decl_stmt|;
-specifier|protected
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
+specifier|public
 name|RawBytes
 parameter_list|()
 block|{
@@ -144,7 +153,8 @@ operator|.
 name|ASCENDING
 expr_stmt|;
 block|}
-specifier|protected
+comment|/**    * Creates a new {@link DataType} with variable-length values.    *    * @param order the {@link Order} to use    */
+specifier|public
 name|RawBytes
 parameter_list|(
 name|Order
@@ -321,7 +331,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * Read a {@code byte[]} from the buffer {@code src}.    */
+comment|/**    * Read a {@code byte[]} from the buffer {@code src}.    *    * @param src the {@link PositionedByteRange} to read the {@code byte[]} from    * @param length the length to read from the buffer    * @return the {@code byte[]} read from the buffer    */
 specifier|public
 name|byte
 index|[]
@@ -355,7 +365,7 @@ return|return
 name|val
 return|;
 block|}
-comment|/**    * Write {@code val} into {@code dst}, respecting {@code voff} and {@code vlen}.    * @return number of bytes written.    */
+comment|/**    * Write {@code val} into {@code dst}, respecting {@code voff} and {@code vlen}.    *    * @param dst the {@link PositionedByteRange} to write to    * @param val the value to write to {@code dst}    * @param voff the offset in {@code dst} where to write {@code val} to    * @param vlen the length of {@code val}    * @return number of bytes written    */
 specifier|public
 name|int
 name|encode

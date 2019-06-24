@@ -97,6 +97,9 @@ argument_list|<
 name|Float
 argument_list|>
 block|{
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -111,6 +114,9 @@ operator|.
 name|ASCENDING
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -125,7 +131,8 @@ operator|.
 name|DESCENDING
 argument_list|)
 decl_stmt|;
-specifier|protected
+comment|/**    * Creates a new 32-bit {@code float} with a fixed-length encoding.    *    * @param order the {@link Order} to use    */
+specifier|public
 name|OrderedFloat32
 parameter_list|(
 name|Order
@@ -239,7 +246,7 @@ name|order
 argument_list|)
 return|;
 block|}
-comment|/**    * Read a {@code float} value from the buffer {@code dst}.    */
+comment|/**    * Read a {@code float} value from the buffer {@code dst}.    *    * @param dst the {@link PositionedByteRange} to read the {@code float} from    * @return the {@code float} read from the buffer    */
 specifier|public
 name|float
 name|decodeFloat
@@ -257,7 +264,7 @@ name|dst
 argument_list|)
 return|;
 block|}
-comment|/**    * Write instance {@code val} into buffer {@code buff}.    */
+comment|/**    * Write instance {@code val} into buffer {@code buff}.    *    * @param dst the {@link PositionedByteRange} to write to    * @param val the value to write to {@code dst}    * @return the number of bytes written    */
 specifier|public
 name|int
 name|encodeFloat

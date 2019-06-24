@@ -97,6 +97,9 @@ argument_list|<
 name|String
 argument_list|>
 block|{
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -111,6 +114,9 @@ operator|.
 name|ASCENDING
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated since 3.0.0 and will be removed in 4.0.0    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -125,7 +131,8 @@ operator|.
 name|DESCENDING
 argument_list|)
 decl_stmt|;
-specifier|protected
+comment|/**    * Creates a new variable-length {@link String}.    *    * @param order the {@link Order} to use    */
+specifier|public
 name|OrderedString
 parameter_list|(
 name|Order
