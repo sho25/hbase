@@ -180,6 +180,7 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|ByteBuffAllocator
 name|allocator
 decl_stmt|;

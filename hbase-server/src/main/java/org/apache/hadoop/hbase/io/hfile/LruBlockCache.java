@@ -630,11 +630,11 @@ literal|1024L
 operator|*
 literal|1024L
 decl_stmt|;
-comment|/** Concurrent map (the cache) */
+comment|/**    * Defined the cache map as {@link ConcurrentHashMap} here, because in    * {@link LruBlockCache#getBlock}, we need to guarantee the atomicity of map#computeIfPresent    * (key, func). Besides, the func method must execute exactly once only when the key is present    * and under the lock context, otherwise the reference count will be messed up. Notice that the    * {@link java.util.concurrent.ConcurrentSkipListMap} can not guarantee that.    */
 specifier|private
 specifier|transient
 specifier|final
-name|Map
+name|ConcurrentHashMap
 argument_list|<
 name|BlockCacheKey
 argument_list|,

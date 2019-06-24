@@ -806,7 +806,7 @@ operator|.
 name|hfileName
 return|;
 block|}
-comment|/**    * HeapSize implementation. NOTE : The heapsize should be altered as and when new state variable    * are added    * @return heap size of the HFileContext    */
+comment|/**    * HeapSize implementation. NOTE : The heap size should be altered when new state variable are    * added.    * @return heap size of the HFileContext    */
 annotation|@
 name|Override
 specifier|public
