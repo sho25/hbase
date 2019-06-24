@@ -1774,6 +1774,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{}
+comment|/**    * Called after the snapshot operation has been completed.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor for the snapshot    * @param tableDescriptor the TableDescriptor of the table to snapshot    */
+specifier|default
+name|void
+name|postCompletedSnapshotAction
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|MasterCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|SnapshotDescription
+name|snapshot
+parameter_list|,
+name|TableDescriptor
+name|tableDescriptor
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 comment|/**    * Called before listSnapshots request has been processed.    * @param ctx the environment to interact with the framework and master    * @param snapshot the SnapshotDescriptor of the snapshot to list    */
 specifier|default
 name|void
