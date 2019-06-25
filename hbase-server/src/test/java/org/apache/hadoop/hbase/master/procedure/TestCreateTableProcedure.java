@@ -1542,7 +1542,7 @@ name|regionDir
 init|=
 name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromTableDir
 argument_list|(
 name|tableDir
 argument_list|,

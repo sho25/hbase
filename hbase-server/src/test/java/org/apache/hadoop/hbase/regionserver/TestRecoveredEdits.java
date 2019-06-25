@@ -1062,9 +1062,9 @@ expr_stmt|;
 name|Path
 name|regionDir
 init|=
-name|region
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromRootDir
 argument_list|(
 name|hbaseRootDir
 argument_list|,

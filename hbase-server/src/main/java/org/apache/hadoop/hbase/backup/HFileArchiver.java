@@ -295,22 +295,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|HStoreFile
 import|;
 end_import
@@ -597,9 +581,9 @@ decl_stmt|;
 name|Path
 name|regionDir
 init|=
-name|HRegion
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromRootDir
 argument_list|(
 name|rootDir
 argument_list|,
@@ -615,7 +599,7 @@ name|regionDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the    * archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info RegionInfo for region to be deleted    * @throws IOException    */
+comment|/**    * Cleans up all the files for a HRegion by archiving the HFiles to the archive directory    * @param conf the configuration to use    * @param fs the file system object    * @param info RegionInfo for region to be deleted    */
 specifier|public
 specifier|static
 name|void
@@ -661,9 +645,9 @@ name|getTable
 argument_list|()
 argument_list|)
 argument_list|,
-name|HRegion
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromRootDir
 argument_list|(
 name|rootDir
 argument_list|,

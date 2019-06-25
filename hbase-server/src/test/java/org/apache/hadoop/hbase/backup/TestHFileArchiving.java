@@ -1043,9 +1043,9 @@ decl_stmt|;
 name|Path
 name|regionDir
 init|=
-name|HRegion
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromRootDir
 argument_list|(
 name|rootDir
 argument_list|,
@@ -1303,9 +1303,9 @@ decl_stmt|;
 name|Path
 name|regionDir
 init|=
-name|HRegion
+name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromRootDir
 argument_list|(
 name|rootDir
 argument_list|,
@@ -1748,7 +1748,7 @@ name|region
 lambda|->
 name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromTableDir
 argument_list|(
 name|tableDir
 argument_list|,
@@ -2006,7 +2006,7 @@ name|region
 lambda|->
 name|FSUtils
 operator|.
-name|getRegionDir
+name|getRegionDirFromTableDir
 argument_list|(
 name|tableDir
 argument_list|,
