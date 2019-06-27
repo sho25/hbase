@@ -1274,6 +1274,20 @@ name|ZKPermissionWatcher
 name|getZKPermissionWatcher
 parameter_list|()
 function_decl|;
+comment|/**    * Execute region plans with throttling    * @param plans to execute    * @return succeeded plans    */
+name|List
+argument_list|<
+name|RegionPlan
+argument_list|>
+name|executeRegionPlansWithThrottling
+parameter_list|(
+name|List
+argument_list|<
+name|RegionPlan
+argument_list|>
+name|plans
+parameter_list|)
+function_decl|;
 block|}
 end_interface
 
