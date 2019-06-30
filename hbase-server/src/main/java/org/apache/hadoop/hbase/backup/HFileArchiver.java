@@ -705,6 +705,13 @@ operator|+
 literal|"was null. Deleting files instead."
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|regionDir
+operator|!=
+literal|null
+condition|)
+block|{
 name|deleteRegionWithoutArchiving
 argument_list|(
 name|fs
@@ -712,6 +719,7 @@ argument_list|,
 name|regionDir
 argument_list|)
 expr_stmt|;
+block|}
 comment|// we should have archived, but failed to. Doesn't matter if we deleted
 comment|// the archived files correctly or not.
 return|return
