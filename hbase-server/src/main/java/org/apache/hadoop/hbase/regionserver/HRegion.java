@@ -34569,10 +34569,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+try|try
+block|{
 comment|// Refuse to open the region if we are missing local compression support
 name|checkCompressionCodecs
 argument_list|()
 expr_stmt|;
+comment|// Refuse to open the region if encryption configuration is incorrect or
+comment|// codec support is missing
 name|LOG
 operator|.
 name|debug
@@ -34588,8 +34592,6 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// Refuse to open the region if encryption configuration is incorrect or
-comment|// codec support is missing
 name|checkEncryption
 argument_list|()
 expr_stmt|;
@@ -34660,6 +34662,25 @@ argument_list|,
 name|openSeqNum
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+comment|// By coprocessor path wrong region will open failed,
+comment|// MetricsRegionWrapperImpl is already init and not close,
+comment|// add region close when open failed
+name|this
+operator|.
+name|close
+argument_list|()
+expr_stmt|;
+throw|throw
+name|t
+throw|;
 block|}
 return|return
 name|this
