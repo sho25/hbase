@@ -296,7 +296,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test the {@link MemStoreChunkPool} class  */
+comment|/**  * Test the {@link org.apache.hadoop.hbase.regionserver.ChunkCreator.MemStoreChunkPool} class  */
 end_comment
 
 begin_class

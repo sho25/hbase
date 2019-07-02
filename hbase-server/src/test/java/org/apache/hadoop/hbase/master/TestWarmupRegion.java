@@ -396,7 +396,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run tests that use the HBase clients; {@link org.apache.hadoop.hbase.client.HTable}.  * Sets up the HBase mini cluster once at start and runs through all client tests.  * Each creates a table named for the method and does its stuff against that.  */
+comment|/**  * Run tests that use the HBase clients; {@link org.apache.hadoop.hbase.client.TableBuilder}.  * Sets up the HBase mini cluster once at start and runs through all client tests.  * Each creates a table named for the method and does its stuff against that.  */
 end_comment
 
 begin_class

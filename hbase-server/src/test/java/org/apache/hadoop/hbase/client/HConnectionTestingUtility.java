@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link ConnectionImplementation} testing utility.  */
+comment|/**  * {@link Connection} testing utility.  */
 end_comment
 
 begin_class
@@ -65,7 +65,7 @@ class|class
 name|HConnectionTestingUtility
 block|{
 comment|/*    * Not part of {@link HBaseTestingUtility} because this class is not in same package as {@link    * ConnectionImplementation}. Would have to reveal ugly {@link ConnectionImplementation} innards    * to HBaseTestingUtility to give it access.    */
-comment|/**    * Get a Mocked {@link ConnectionImplementation} that goes with the passed<code>conf</code>    * configuration instance. Minimally the mock will return&lt;code>conf&lt;/conf> when    * {@link ConnectionImplementation#getConfiguration()} is invoked. Be sure to shutdown the    * connection when done by calling {@link Connection#close()} else it will stick around; this is    * probably not what you want.    * @param conf configuration    * @return ConnectionImplementation object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
+comment|/**    * Get a Mocked {@link Connection} that goes with the passed<code>conf</code>    * configuration instance. Minimally the mock will return&lt;code>conf&lt;/conf> when    * {@link Connection#getConfiguration()} is invoked. Be sure to shutdown the    * connection when done by calling {@link Connection#close()} else it will stick around; this is    * probably not what you want.    * @param conf configuration    * @return ConnectionImplementation object for<code>conf</code>    * @throws ZooKeeperConnectionException    */
 specifier|public
 specifier|static
 name|Connection

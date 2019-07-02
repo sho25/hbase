@@ -264,7 +264,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test implementation of a coprocessor endpoint exposing the  * {@link TestRpcServiceProtos.TestProtobufRpcProto} service methods. For internal use by unit tests  * only.  */
+comment|/**  * Test implementation of a coprocessor endpoint exposing the  * {@link org.apache.hadoop.hbase.ipc.protobuf.generated.TestRpcServiceProtos.TestProtobufRpcProto}  * service methods. For internal use by unit tests only.  */
 end_comment
 
 begin_class

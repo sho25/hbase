@@ -1368,7 +1368,7 @@ name|LOAD_FACTOR
 init|=
 literal|0.75f
 decl_stmt|;
-comment|/**    * Anticipated number of concurrent accessor threads, from    * {@link ConnectionImplementation#getBatchPool()}    */
+comment|/**    * Anticipated number of concurrent accessor threads    */
 specifier|private
 specifier|static
 specifier|final

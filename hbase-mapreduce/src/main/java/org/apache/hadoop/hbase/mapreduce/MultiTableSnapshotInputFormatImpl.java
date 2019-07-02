@@ -306,7 +306,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Shared implementation of mapreduce code over multiple table snapshots.  * Utilized by both mapreduce ({@link org.apache.hadoop.hbase.mapreduce  * .MultiTableSnapshotInputFormat} and mapred  * ({@link org.apache.hadoop.hbase.mapred.MultiTableSnapshotInputFormat} implementations.  */
+comment|/**  * Shared implementation of mapreduce code over multiple table snapshots.  * Utilized by both mapreduce  * {@link org.apache.hadoop.hbase.mapreduce.MultiTableSnapshotInputFormat} and mapred  * {@link org.apache.hadoop.hbase.mapred.MultiTableSnapshotInputFormat} implementations.  */
 end_comment
 
 begin_class

@@ -5003,7 +5003,12 @@ name|double
 name|cost
 parameter_list|()
 function_decl|;
-comment|/**      * Function to compute a scaled cost using {@link org.apache.commons.math3.stat.descriptive.DescriptiveStatistics}.      * It assumes that this is a zero sum set of costs.  It assumes that the worst case      * possible is all of the elements in one region server and the rest having 0.      *      * @param stats the costs      * @return a scaled set of costs.      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"checkstyle:linelength"
+argument_list|)
+comment|/**      * Function to compute a scaled cost using      * {@link org.apache.commons.math3.stat.descriptive.DescriptiveStatistics#DescriptiveStatistics()}.      * It assumes that this is a zero sum set of costs.  It assumes that the worst case      * possible is all of the elements in one region server and the rest having 0.      *      * @param stats the costs      * @return a scaled set of costs.      */
 specifier|protected
 name|double
 name|costFromArray

@@ -160,7 +160,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A RunListener to confirm that we have a {@link CategoryBasedTimeout} class rule for every test.  */
+comment|/**  * A RunListener to confirm that we have a {@link HBaseClassTestRule} class rule for every test.  */
 end_comment
 
 begin_class

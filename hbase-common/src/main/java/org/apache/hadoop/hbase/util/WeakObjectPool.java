@@ -56,7 +56,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A {@code WeakReference} based shared object pool.  * The objects are kept in weak references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by {@link ObjectFactory} on demand.  * The object creation is expected to be lightweight,  * and the objects may be excessively created and discarded.  * Thread safe.  */
+comment|/**  * A {@code WeakReference} based shared object pool.  * The objects are kept in weak references and  * associated with keys which are identified by the {@code equals} method.  * The objects are created by {@link org.apache.hadoop.hbase.util.ObjectPool.ObjectFactory} on  * demand. The object creation is expected to be lightweight, and the objects may be excessively  * created and discarded.  * Thread safe.  */
 end_comment
 
 begin_class

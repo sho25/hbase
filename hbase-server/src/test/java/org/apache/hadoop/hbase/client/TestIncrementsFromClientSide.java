@@ -428,7 +428,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Run Increment tests that use the HBase clients; {@link HTable}.  *  * Test is parameterized to run the slow and fast increment code paths. If fast, in the @before, we  * do a rolling restart of the single regionserver so that it can pick up the go fast configuration.  * Doing it this way should be faster than starting/stopping a cluster per test.  *  * Test takes a long time because spin up a cluster between each run -- ugh.  */
+comment|/**  * Run Increment tests that use the HBase clients; {@link TableBuilder}.  *  * Test is parameterized to run the slow and fast increment code paths. If fast, in the @before, we  * do a rolling restart of the single regionserver so that it can pick up the go fast configuration.  * Doing it this way should be faster than starting/stopping a cluster per test.  *  * Test takes a long time because spin up a cluster between each run -- ugh.  */
 end_comment
 
 begin_class

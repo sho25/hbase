@@ -540,7 +540,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Shuts down zk cluster created by call to {@link #startMiniZKCluster(File)} or does nothing.    * @see #startMiniZKCluster()    */
+comment|/**    * Shuts down zk cluster created by call to {@link #startMiniZKCluster()} or does nothing.    * @see #startMiniZKCluster()    */
 specifier|public
 name|void
 name|shutdownMiniZKCluster
