@@ -654,6 +654,11 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"TryFailThrowable"
+argument_list|)
 specifier|private
 name|void
 name|expectedAssert
