@@ -360,27 +360,6 @@ argument_list|>
 name|procedure
 parameter_list|)
 block|{
-comment|// On the assert, we expect WAITING_TIMEOUT but timing could make it so lock gets released by
-comment|// time we get here and in those cases the state could be back to RUNNABLE. Let it
-assert|assert
-name|procedure
-operator|.
-name|getState
-argument_list|()
-operator|==
-name|ProcedureState
-operator|.
-name|WAITING_TIMEOUT
-operator|||
-name|procedure
-operator|.
-name|getState
-argument_list|()
-operator|==
-name|ProcedureState
-operator|.
-name|RUNNABLE
-assert|;
 name|LOG
 operator|.
 name|info
