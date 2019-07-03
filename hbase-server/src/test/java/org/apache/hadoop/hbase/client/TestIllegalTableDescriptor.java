@@ -205,22 +205,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|master
-operator|.
-name|HMaster
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|testclassification
 operator|.
 name|ClientTests
@@ -256,6 +240,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|TableDescriptorChecker
 import|;
 end_import
 
@@ -385,7 +385,7 @@ specifier|private
 specifier|static
 specifier|final
 name|Logger
-name|masterLogger
+name|LOGGER
 decl_stmt|;
 specifier|protected
 specifier|final
@@ -422,7 +422,7 @@ argument_list|()
 decl_stmt|;
 static|static
 block|{
-name|masterLogger
+name|LOGGER
 operator|=
 name|mock
 argument_list|(
@@ -446,7 +446,7 @@ comment|// replacing HMaster.LOG with our mock logger for verifying logging
 name|Field
 name|field
 init|=
-name|HMaster
+name|TableDescriptorChecker
 operator|.
 name|class
 operator|.
@@ -468,7 +468,7 @@ name|set
 argument_list|(
 literal|null
 argument_list|,
-name|masterLogger
+name|LOGGER
 argument_list|)
 expr_stmt|;
 name|Configuration
@@ -483,13 +483,14 @@ name|conf
 operator|.
 name|setBoolean
 argument_list|(
-literal|"hbase.table.sanity.checks"
+name|TableDescriptorChecker
+operator|.
+name|TABLE_SANITY_CHECKS
 argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
 comment|// enable for below tests
-comment|// We need more than one region server in this test
 name|TEST_UTIL
 operator|.
 name|startMiniCluster
@@ -943,7 +944,9 @@ name|htd
 operator|.
 name|setConfiguration
 argument_list|(
-literal|"hbase.table.sanity.checks"
+name|TableDescriptorChecker
+operator|.
+name|TABLE_SANITY_CHECKS
 argument_list|,
 name|Boolean
 operator|.
@@ -960,7 +963,7 @@ argument_list|)
 expr_stmt|;
 name|verify
 argument_list|(
-name|masterLogger
+name|LOGGER
 argument_list|)
 operator|.
 name|warn

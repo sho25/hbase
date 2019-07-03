@@ -968,17 +968,6 @@ argument_list|)
 expr_stmt|;
 name|conf
 operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.table.sanity.checks"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// enable for below
-comment|// tests
-name|conf
-operator|.
 name|setInt
 argument_list|(
 literal|"hbase.regionserver.handler.count"

@@ -574,16 +574,6 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.table.sanity.checks"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-comment|// enable for below tests
 comment|// We need more than one region server in this test
 name|TEST_UTIL
 operator|.

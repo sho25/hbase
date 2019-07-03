@@ -1001,6 +1001,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|TableDescriptorChecker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -4154,6 +4170,19 @@ name|getTable
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|// sanity check the new table descriptor
+name|TableDescriptorChecker
+operator|.
+name|sanityCheck
+argument_list|(
+name|master
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|,
+name|snapshotTableDesc
+argument_list|)
+expr_stmt|;
 comment|// stop tracking "abandoned" handlers
 name|cleanupSentinels
 argument_list|()
