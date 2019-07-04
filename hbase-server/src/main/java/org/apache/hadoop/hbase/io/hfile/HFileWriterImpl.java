@@ -513,6 +513,28 @@ name|Writable
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * Common functionality needed by all versions of {@link HFile} writers.  */
 end_comment
@@ -3786,6 +3808,17 @@ name|lastCellOfPreviousBlock
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|Cell
+name|getLastCell
+parameter_list|()
+block|{
+return|return
+name|lastCell
+return|;
 block|}
 specifier|protected
 name|void

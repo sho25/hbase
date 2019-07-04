@@ -4580,9 +4580,7 @@ literal|"Key "
 operator|+
 name|prevKV
 operator|+
-literal|" followed by a "
-operator|+
-literal|"smaller key "
+literal|" followed by a smaller key "
 operator|+
 name|kv
 operator|+

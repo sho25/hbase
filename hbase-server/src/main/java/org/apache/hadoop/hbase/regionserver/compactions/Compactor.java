@@ -2621,23 +2621,14 @@ operator|>=
 name|COMPACTION_PROGRESS_LOG_INTERVAL
 condition|)
 block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Compaction progress: "
-operator|+
-name|compactionName
-operator|+
-literal|" "
-operator|+
-name|progress
-operator|+
+name|String
+name|rate
+init|=
 name|String
 operator|.
 name|format
 argument_list|(
-literal|", rate=%.2f kB/sec"
+literal|"%.2f"
 argument_list|,
 operator|(
 name|bytesWrittenProgressForLog
@@ -2655,9 +2646,19 @@ operator|/
 literal|1000.0
 operator|)
 argument_list|)
-operator|+
-literal|", throughputController is "
-operator|+
+decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Compaction progress: {} {}, rate={} KB/sec, throughputController is {}"
+argument_list|,
+name|compactionName
+argument_list|,
+name|progress
+argument_list|,
+name|rate
+argument_list|,
 name|throughputController
 argument_list|)
 expr_stmt|;
@@ -2706,6 +2707,19 @@ throw|;
 block|}
 finally|finally
 block|{
+comment|// Clone last cell in the final because writer will append last cell when committing. If
+comment|// don't clone here and once the scanner get closed, then the memory of last cell will be
+comment|// released. (HBASE-22582)
+operator|(
+operator|(
+name|ShipperListener
+operator|)
+name|writer
+operator|)
+operator|.
+name|beforeShipped
+argument_list|()
+expr_stmt|;
 name|throughputController
 operator|.
 name|finish
