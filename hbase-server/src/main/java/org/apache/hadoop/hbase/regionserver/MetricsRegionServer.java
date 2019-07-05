@@ -415,7 +415,7 @@ condition|)
 block|{
 name|tableMetrics
 operator|.
-name|updatePut
+name|updatePutBatch
 argument_list|(
 name|tn
 argument_list|,
@@ -548,7 +548,7 @@ condition|)
 block|{
 name|tableMetrics
 operator|.
-name|updateDelete
+name|updateDeleteBatch
 argument_list|(
 name|tn
 argument_list|,
