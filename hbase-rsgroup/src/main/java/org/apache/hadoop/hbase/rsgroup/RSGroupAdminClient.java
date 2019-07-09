@@ -633,7 +633,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -720,7 +720,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -1214,7 +1214,7 @@ name|result
 operator|.
 name|add
 argument_list|(
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -1318,7 +1318,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
