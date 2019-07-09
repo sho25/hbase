@@ -2354,7 +2354,7 @@ name|rsGroupInfoList
 operator|.
 name|add
 argument_list|(
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -2515,7 +2515,7 @@ name|RSGroupInfoList
 operator|.
 name|add
 argument_list|(
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toGroupInfo
 argument_list|(
@@ -2943,7 +2943,7 @@ operator|.
 name|RSGroupInfo
 name|proto
 init|=
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toProtoGroupInfo
 argument_list|(
@@ -3336,7 +3336,7 @@ operator|.
 name|RSGroupInfo
 name|proto
 init|=
-name|RSGroupProtobufUtil
+name|ProtobufUtil
 operator|.
 name|toProtoGroupInfo
 argument_list|(
