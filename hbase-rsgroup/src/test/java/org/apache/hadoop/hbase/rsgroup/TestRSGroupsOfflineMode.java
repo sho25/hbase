@@ -1035,7 +1035,7 @@ name|Sets
 operator|.
 name|newHashSet
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|RSGROUP_TABLE_NAME
 argument_list|)
@@ -1237,7 +1237,7 @@ name|groupMgr
 operator|.
 name|getRSGroupOfTable
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|RSGROUP_TABLE_NAME
 argument_list|)
@@ -1334,7 +1334,7 @@ name|failoverRS
 operator|.
 name|getRegions
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|RSGROUP_TABLE_NAME
 argument_list|)

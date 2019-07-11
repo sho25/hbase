@@ -403,7 +403,7 @@ argument_list|)
 operator|.
 name|getTable
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|RSGROUP_TABLE_NAME
 argument_list|)
@@ -764,11 +764,11 @@ name|result
 operator|.
 name|getValue
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|META_FAMILY_BYTES
 argument_list|,
-name|RSGroupInfoManager
+name|RSGroupInfoManagerImpl
 operator|.
 name|META_QUALIFIER_BYTES
 argument_list|)
