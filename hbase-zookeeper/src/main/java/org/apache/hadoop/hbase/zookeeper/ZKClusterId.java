@@ -111,10 +111,12 @@ class|class
 name|ZKClusterId
 block|{
 specifier|private
+specifier|final
 name|ZKWatcher
 name|watcher
 decl_stmt|;
 specifier|private
+specifier|final
 name|Abortable
 name|abortable
 decl_stmt|;

@@ -350,6 +350,7 @@ literal|"stat"
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|int
 name|connectionTimeout
 decl_stmt|;
@@ -365,6 +366,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|NIOServerCnxnFactory
@@ -372,6 +374,7 @@ argument_list|>
 name|standaloneServerFactoryList
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|ZooKeeperServer
@@ -379,6 +382,7 @@ argument_list|>
 name|zooKeeperServers
 decl_stmt|;
 specifier|private
+specifier|final
 name|List
 argument_list|<
 name|Integer
@@ -396,6 +400,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|private
+specifier|final
 name|Configuration
 name|configuration
 decl_stmt|;
@@ -489,7 +494,7 @@ name|clientPort
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Get the list of client ports.    * @return clientPortList the client port list    */
+comment|/**    * Get the list of client ports.    *    * @return clientPortList the client port list    */
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -625,10 +630,8 @@ expr_stmt|;
 block|}
 block|}
 comment|// Make sure that the port is unused.
-while|while
-condition|(
-literal|true
-condition|)
+comment|// break when an unused port is found
+do|do
 block|{
 for|for
 control|(
@@ -666,20 +669,17 @@ expr_stmt|;
 break|break;
 block|}
 block|}
-if|if
+block|}
+do|while
 condition|(
 name|i
-operator|==
+operator|!=
 name|clientPortList
 operator|.
 name|size
 argument_list|()
 condition|)
-block|{
-break|break;
-comment|// found a unused port, exit
-block|}
-block|}
+do|;
 return|return
 name|returnClientPort
 return|;
@@ -1696,6 +1696,8 @@ condition|)
 block|{
 try|try
 block|{
+try|try
+init|(
 name|Socket
 name|sock
 init|=
@@ -1706,8 +1708,7 @@ literal|"localhost"
 argument_list|,
 name|port
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|OutputStream
 name|outstream
@@ -1727,14 +1728,6 @@ expr_stmt|;
 name|outstream
 operator|.
 name|flush
-argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|sock
-operator|.
-name|close
 argument_list|()
 expr_stmt|;
 block|}
