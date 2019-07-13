@@ -2349,6 +2349,29 @@ condition|(
 name|appended
 condition|)
 block|{
+comment|// This is possible, when we fail to sync, we will add the unackedAppends back to
+comment|// toWriteAppends, so here we may get an entry which is already in the unackedAppends.
+if|if
+condition|(
+name|unackedAppends
+operator|.
+name|isEmpty
+argument_list|()
+operator|||
+name|unackedAppends
+operator|.
+name|peekLast
+argument_list|()
+operator|.
+name|getTxid
+argument_list|()
+operator|<
+name|entry
+operator|.
+name|getTxid
+argument_list|()
+condition|)
+block|{
 name|unackedAppends
 operator|.
 name|addLast
@@ -2356,6 +2379,7 @@ argument_list|(
 name|entry
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|writer
