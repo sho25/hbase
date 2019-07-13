@@ -635,7 +635,7 @@ name|RegionCoprocessor
 implements|,
 name|RegionObserver
 block|{
-comment|/**      * Get a pool that has only ever one thread. A second action added to the pool (running      * concurrently), will cause an exception.      * @return      */
+comment|/**      * @return a pool that has one thread only at every time. A second action added to the pool (      *         running concurrently), will cause an exception.      */
 specifier|private
 name|ExecutorService
 name|getPool

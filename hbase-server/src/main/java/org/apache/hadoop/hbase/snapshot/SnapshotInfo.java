@@ -3273,7 +3273,7 @@ return|return
 name|snapshotLists
 return|;
 block|}
-comment|/**    * Gets the store files map for snapshot    * @param conf the {@link Configuration} to use    * @param snapshot {@link SnapshotDescription} to get stats from    * @param exec the {@link ExecutorService} to use    * @param filesMap {@link Map} the map to put the mapping entries    * @param uniqueHFilesArchiveSize {@link AtomicLong} the accumulated store file size in archive    * @param uniqueHFilesSize {@link AtomicLong} the accumulated store file size shared    * @param uniqueHFilesMobSize {@link AtomicLong} the accumulated mob store file size shared    * @return the snapshot stats    */
+comment|/**    * Gets the store files map for snapshot    * @param conf the {@link Configuration} to use    * @param snapshot {@link SnapshotDescription} to get stats from    * @param exec the {@link ExecutorService} to use    * @param filesMap {@link Map} the map to put the mapping entries    * @param uniqueHFilesArchiveSize {@link AtomicLong} the accumulated store file size in archive    * @param uniqueHFilesSize {@link AtomicLong} the accumulated store file size shared    * @param uniqueHFilesMobSize {@link AtomicLong} the accumulated mob store file size shared    */
 specifier|private
 specifier|static
 name|void

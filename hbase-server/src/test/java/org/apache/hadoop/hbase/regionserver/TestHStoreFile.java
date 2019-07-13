@@ -6577,7 +6577,7 @@ return|return
 name|mock
 return|;
 block|}
-comment|/**    * Generate a list of KeyValues for testing based on given parameters    * @param timestamps    * @param numRows    * @param qualifier    * @param family    * @return    */
+comment|/**    * Generate a list of KeyValues for testing based on given parameters    * @param timestamps    * @param numRows    * @param qualifier    * @param family    * @return the rows key-value list    */
 name|List
 argument_list|<
 name|KeyValue

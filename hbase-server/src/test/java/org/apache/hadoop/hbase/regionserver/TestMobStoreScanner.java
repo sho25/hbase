@@ -978,7 +978,7 @@ return|return
 name|mobVal
 return|;
 block|}
-comment|/**    * Set the scan attribute    *    * @param reversed if true, scan will be backward order    * @param mobScanRaw if true, scan will get the mob reference    * @return this    */
+comment|/**    * Set the scan attribute    *    * @param reversed if true, scan will be backward order    * @param mobScanRaw if true, scan will get the mob reference    */
 specifier|public
 name|void
 name|setScan

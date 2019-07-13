@@ -16908,7 +16908,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Create region split keys between startkey and endKey    *    * @param startKey    * @param endKey    * @param numRegions the number of regions to be created. it has to be greater than 3.    * @return    */
+comment|/**    * Create region split keys between startkey and endKey    *    * @param startKey    * @param endKey    * @param numRegions the number of regions to be created. it has to be greater than 3.    * @return resulting split keys    */
 end_comment
 
 begin_function

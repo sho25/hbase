@@ -19556,7 +19556,7 @@ operator|.
 name|retCodeDetails
 return|;
 block|}
-comment|/**    * Called to do a piece of the batch that came in to {@link #batchMutate(Mutation[], long, long)}    * In here we also handle replay of edits on region recover.    * @return Change in size brought about by applying<code>batchOp</code>    */
+comment|/**    * Called to do a piece of the batch that came in to {@link #batchMutate(Mutation[], long, long)}    * In here we also handle replay of edits on region recover. Also gets change in size brought    * about by applying {@code batchOp}.    */
 specifier|private
 name|void
 name|doMiniBatchMutate

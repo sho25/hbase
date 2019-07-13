@@ -557,7 +557,7 @@ return|return
 name|get
 return|;
 block|}
-comment|/**    * Return the arguments passed to the generator as list of object    * @return    */
+comment|/**    * @return the arguments passed to the generator as a list of objects.    */
 specifier|public
 name|String
 index|[]

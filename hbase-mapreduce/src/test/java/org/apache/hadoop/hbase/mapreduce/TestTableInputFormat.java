@@ -1000,7 +1000,7 @@ return|return
 name|table
 return|;
 block|}
-comment|/**    * Verify that the result and key have expected values.    *    * @param r    * @param key    * @param expectedKey    * @param expectedValue    * @return    */
+comment|/**    * Verify that the result and key have expected values.    *    * @param r single row result    * @param key the row key    * @param expectedKey the expected key    * @param expectedValue the expected value    * @return true if the result contains the expected key and value, false otherwise.    */
 specifier|static
 name|boolean
 name|checkResult

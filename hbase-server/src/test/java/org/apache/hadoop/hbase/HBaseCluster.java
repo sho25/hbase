@@ -274,7 +274,7 @@ name|ServerName
 name|serverName
 parameter_list|)
 function_decl|;
-comment|/**    * Stops the given region server, by attempting a gradual stop.    * @return whether the operation finished with success    * @throws IOException if something goes wrong    */
+comment|/**    * Stops the given region server, by attempting a gradual stop.    * @throws IOException if something goes wrong    */
 specifier|public
 specifier|abstract
 name|void
@@ -286,7 +286,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified region server to join the cluster    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified region server to join the cluster    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 name|void
 name|waitForRegionServerToStart
@@ -385,7 +385,7 @@ name|hostname
 argument_list|)
 throw|;
 block|}
-comment|/**    * Wait for the specified region server to stop the thread / process.    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified region server to stop the thread / process.    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -439,7 +439,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified zookeeper node to join the cluster    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified zookeeper node to join the cluster    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -454,7 +454,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified zookeeper node to stop the thread / process.    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified zookeeper node to stop the thread / process.    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -505,7 +505,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified datanode to join the cluster    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified datanode to join the cluster    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -520,7 +520,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified datanode to stop the thread / process.    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified datanode to stop the thread / process.    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -571,7 +571,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified namenode to join the cluster    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified namenode to join the cluster    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -586,7 +586,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Wait for the specified namenode to stop    * @return whether the operation finished with success    * @throws IOException if something goes wrong or timeout occurs    */
+comment|/**    * Wait for the specified namenode to stop    * @throws IOException if something goes wrong or timeout occurs    */
 specifier|public
 specifier|abstract
 name|void
@@ -601,7 +601,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Starts a new master on the given hostname or if this is a mini/local cluster,    * starts a master locally.    * @param hostname the hostname to start the master on    * @return whether the operation finished with success    * @throws IOException if something goes wrong    */
+comment|/**    * Starts a new master on the given hostname or if this is a mini/local cluster,    * starts a master locally.    * @param hostname the hostname to start the master on    * @throws IOException if something goes wrong    */
 specifier|public
 specifier|abstract
 name|void

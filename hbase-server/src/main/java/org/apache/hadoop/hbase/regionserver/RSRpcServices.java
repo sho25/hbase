@@ -5166,7 +5166,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Starts the nonce operation for a mutation, if needed.    * @param mutation Mutation.    * @param nonceGroup Nonce group from the request.    * @returns whether to proceed this mutation.    */
+comment|/**    * Starts the nonce operation for a mutation, if needed.    * @param mutation Mutation.    * @param nonceGroup Nonce group from the request.    * @return whether to proceed this mutation.    */
 specifier|private
 name|boolean
 name|startNonceOperation

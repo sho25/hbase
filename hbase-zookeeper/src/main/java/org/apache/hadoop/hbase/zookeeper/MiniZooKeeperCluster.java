@@ -565,7 +565,7 @@ operator|=
 name|clientPort
 expr_stmt|;
 block|}
-comment|/**    * Selects a ZK client port.    *    * @param seedPort the seed port to start with; -1 means first time.    * @Returns a valid and unused client port    */
+comment|/**    * Selects a ZK client port.    *    * @param seedPort the seed port to start with; -1 means first time.    * @return a valid and unused client port    */
 specifier|private
 name|int
 name|selectClientPort

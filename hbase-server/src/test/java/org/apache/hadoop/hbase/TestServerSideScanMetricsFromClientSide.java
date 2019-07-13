@@ -745,7 +745,7 @@ name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    */
+comment|/**    * Make puts to put the input value into each combination of row, family, and qualifier    * @param rows the rows to use    * @param families the column families to use    * @param qualifiers the column qualifiers to use    * @param value the value to put    * @return the putted input values added in puts    * @throws IOException If an IO problem is encountered    */
 specifier|private
 specifier|static
 name|ArrayList
@@ -899,7 +899,7 @@ return|return
 name|puts
 return|;
 block|}
-comment|/**    * @return The approximate heap size of a cell in the test table. All cells should have    *         approximately the same heap size, so the value is cached to avoid repeating the    *         calculation    */
+comment|/**    * @return The approximate heap size of a cell in the test table. All cells should have    *         approximately the same heap size, so the value is cached to avoid repeating the    *         calculation    * @throws Exception on unexpected failure    */
 specifier|private
 name|long
 name|getCellHeapSize
@@ -1917,7 +1917,7 @@ name|expectedNumFiltered
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Run the scan to completion and check the metric against the specified value    */
+comment|/**    * Run the scan to completetion and check the metric against the specified value    * @param scan The scan instance to use to record metrics    * @param metricKey The metric key name    * @param expectedValue The expected value of metric    * @throws Exception on unexpected failure    */
 specifier|private
 name|void
 name|testMetric

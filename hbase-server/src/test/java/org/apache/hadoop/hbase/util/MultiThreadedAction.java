@@ -1722,7 +1722,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**    * Verifies the result from get or scan using the dataGenerator (that was presumably    * also used to generate said result).    * @param verifyValues verify that values in the result make sense for row/cf/column combination    * @param verifyCfAndColumnIntegrity verify that cf/column set in the result is complete. Note    *                                   that to use this multiPut should be used, or verification    *                                   has to happen after writes, otherwise there can be races.    * @return    */
+comment|/**    * Verifies the result from get or scan using the dataGenerator (that was presumably    * also used to generate said result).    * @param verifyValues verify that values in the result make sense for row/cf/column combination    * @param verifyCfAndColumnIntegrity verify that cf/column set in the result is complete. Note    *                                   that to use this multiPut should be used, or verification    *                                   has to happen after writes, otherwise there can be races.    * @return true if the values of row result makes sense for row/cf/column combination and true if    *         the cf/column set in the result is complete, false otherwise.    */
 specifier|public
 name|boolean
 name|verifyResultAgainstDataGenerator

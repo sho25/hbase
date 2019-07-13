@@ -1165,7 +1165,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to retire the current chunk if it is still    *<code>c</code>. Postcondition is that curChunk.get()    * != c    * @param c the chunk to retire    * @return true if we won the race to retire the chunk    */
+comment|/**    * Try to retire the current chunk if it is still    *<code>c</code>. Postcondition is that curChunk.get()    * != c    * @param c the chunk to retire    */
 specifier|private
 name|void
 name|tryRetireChunk

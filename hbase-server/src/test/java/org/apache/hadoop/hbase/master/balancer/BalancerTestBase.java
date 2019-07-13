@@ -3153,7 +3153,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * This assumes the RegionPlan HSI instances are the same ones in the map, so    * actually no need to even pass in the map, but I think it's clearer.    *    * @param list    * @param plans    * @return    */
+comment|/**    * This assumes the RegionPlan HSI instances are the same ones in the map, so    * actually no need to even pass in the map, but I think it's clearer.    *    * @param list    * @param plans    * @return a list of all added {@link ServerAndLoad} values.    */
 specifier|protected
 name|List
 argument_list|<

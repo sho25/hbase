@@ -937,7 +937,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Shutdown the thread cleanly, quietly. We done.      * @return      */
+comment|/**      * @return Shuts down the thread clean and quietly.      */
 name|Thread
 name|shutdown
 parameter_list|()

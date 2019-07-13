@@ -370,7 +370,7 @@ return|return
 name|valueBytes
 return|;
 block|}
-comment|/**    * Generates a random key that is guaranteed to increase as the given index i    * increases. The result consists of a prefix, which is a deterministic    * increasing function of i, and a random suffix.    *    * @param rand    *          random number generator to use    * @param i    * @return    */
+comment|/**    * Generates a random key that is guaranteed to increase as the given index i    * increases. The result consists of a prefix, which is a deterministic    * increasing function of i, and a random suffix.    *    * @param rand random number generator to use    * @param i    * @return the random key    */
 specifier|public
 specifier|static
 name|byte

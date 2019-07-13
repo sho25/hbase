@@ -2314,7 +2314,7 @@ argument_list|()
 throw|;
 block|}
 block|}
-comment|/**    * Shuffle the assignment plan by switching two favored node positions.    * @param plan The assignment plan    * @param p1 The first switch position    * @param p2 The second switch position    * @return    */
+comment|/**    * Shuffle the assignment plan by switching two favored node positions.    * @param plan The assignment plan    * @param p1 The first switch position    * @param p2 The second switch position    * @return the shuffled assignment plan    */
 specifier|private
 name|FavoredNodesPlan
 name|shuffleAssignmentPlan
