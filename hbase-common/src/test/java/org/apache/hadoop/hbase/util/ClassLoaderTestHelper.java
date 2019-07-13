@@ -269,7 +269,7 @@ name|BUFFER_SIZE
 init|=
 literal|4096
 decl_stmt|;
-comment|/**    * Jar a list of files into a jar archive.    *    * @param archiveFile the target jar archive    * @param tobejared a list of files to be jared    */
+comment|/**    * Jar a list of files into a jar archive.    *    * @param archiveFile the target jar archive    * @param tobeJared a list of files to be jared    * @return true if a jar archive is build, false otherwise    */
 specifier|private
 specifier|static
 name|boolean

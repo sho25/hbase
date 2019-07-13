@@ -848,7 +848,7 @@ name|namespace
 argument_list|)
 return|;
 block|}
-comment|/**    * Delete the namespace state.    *    * @param An instance of NamespaceTableAndRegionInfo    */
+comment|/**    * Delete the namespace state.    *    * @param namespace the name of the namespace to delete    */
 name|void
 name|deleteNamespace
 parameter_list|(

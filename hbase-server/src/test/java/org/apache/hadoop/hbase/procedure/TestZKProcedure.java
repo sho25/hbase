@@ -2137,7 +2137,7 @@ name|members
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait for the coordinator task to complete, and verify all the mocks    * @param task to wait on    * @throws Exception on unexpected failure    */
+comment|/**    * Wait for the coordinator task to complete, and verify all the mocks    * @param proc the {@link Procedure} to execute    * @param prepare the mock prepare    * @param commit the mock commit    * @param cleanup the mock cleanup    * @param finish the mock finish    * @param opHasError the operation error state    * @throws Exception on unexpected failure    */
 specifier|private
 name|void
 name|waitAndVerifyProc
@@ -2249,7 +2249,7 @@ name|caughtError
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Wait for the coordinator task to complete, and verify all the mocks    * @param task to wait on    * @throws Exception on unexpected failure    */
+comment|/**    * Wait for the coordinator task to complete, and verify all the mocks    * @param op the {@link Subprocedure} to use    * @param prepare the mock prepare    * @param commit the mock commit    * @param cleanup the mock cleanup    * @param finish the mock finish    * @param opHasError the operation error state    * @throws Exception on unexpected failure    */
 specifier|private
 name|void
 name|waitAndVerifySubproc

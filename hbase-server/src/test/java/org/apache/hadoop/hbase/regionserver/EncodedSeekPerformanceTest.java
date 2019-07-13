@@ -869,7 +869,7 @@ name|totalSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param path Path to the HFile which will be used.    * @param encoders List of encoders which will be used for tests.    * @throws IOException if there is a bug while reading from disk    */
+comment|/**    * @param path Path to the HFile which will be used.    * @param encodings the data block encoding algorithms to use    * @throws IOException if there is a bug while reading from disk    */
 specifier|public
 name|void
 name|runTests

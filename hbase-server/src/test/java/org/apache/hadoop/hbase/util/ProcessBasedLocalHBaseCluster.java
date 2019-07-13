@@ -594,7 +594,7 @@ name|fullName
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Constructor. Modifies the passed configuration.    * @param hbaseHome the top directory of the HBase source tree    */
+comment|/**    * Constructor. Modifies the passed configuration.    * @param conf the {@link Configuration} to use    * @param numDataNodes the number of data nodes    * @param numRegionServers the number of region servers    */
 specifier|public
 name|ProcessBasedLocalHBaseCluster
 parameter_list|(

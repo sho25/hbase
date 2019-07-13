@@ -1180,7 +1180,7 @@ name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Assert there is an active master and that it has the specified address.    * @param zk    * @param thisMasterAddress    * @throws KeeperException    * @throws IOException    */
+comment|/**    * Assert there is an active master and that it has the specified address.    * @param zk single Zookeeper watcher    * @param expectedAddress the expected address of the master    * @throws KeeperException unexpected Zookeeper exception    * @throws IOException if an IO problem is encountered    */
 specifier|private
 name|void
 name|assertMaster

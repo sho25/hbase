@@ -2106,7 +2106,7 @@ specifier|final
 name|String
 name|userName
 decl_stmt|;
-comment|/**      * Creates a new SaslClientCallbackHandler.      * @param userName SASL user name      * @Param password SASL password      */
+comment|/**      * Creates a new SaslClientCallbackHandler.      * @param userName SASL user name      * @param password SASL password      */
 specifier|public
 name|SaslClientCallbackHandler
 parameter_list|(

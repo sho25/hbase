@@ -447,7 +447,7 @@ specifier|final
 name|MetricsSource
 name|metrics
 decl_stmt|;
-comment|/**    * Create an entry stream over the given queue at the given start position    * @param logQueue the queue of WAL paths    * @param fs {@link FileSystem} to use to create {@link Reader} for this stream    * @param conf {@link Configuration} to use to create {@link Reader} for this stream    * @param startPosition the position in the first WAL to start reading at    * @param serverName the server name which all WALs belong to    * @param metrics replication metrics    * @throws IOException    */
+comment|/**    * Create an entry stream over the given queue at the given start position    * @param logQueue the queue of WAL paths    * @param conf the {@link Configuration} to use to create {@link Reader} for this stream    * @param startPosition the position in the first WAL to start reading at    * @param walFileLengthProvider provides the length of the WAL file    * @param serverName the server name which all WALs belong to    * @param metrics the replication metrics    * @throws IOException    */
 specifier|public
 name|WALEntryStream
 parameter_list|(

@@ -120,7 +120,7 @@ specifier|private
 name|boolean
 name|forceSync
 decl_stmt|;
-comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @param span current span, detached from caller. Don't forget to attach it when resuming after a    *          call to {@link #get(long)}.    * @return this    */
+comment|/**    * Call this method to clear old usage and get it ready for new deploy.    * @param txid the new transaction id    * @return this    */
 specifier|synchronized
 name|SyncFuture
 name|reset

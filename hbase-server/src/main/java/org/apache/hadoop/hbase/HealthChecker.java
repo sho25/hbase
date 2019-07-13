@@ -150,7 +150,7 @@ name|FAILED_WITH_EXCEPTION
 block|,
 name|FAILED
 block|}
-comment|/**    * Initialize.    *    * @param configuration    */
+comment|/**    * Initialize.    *    * @param location the location of the health script    * @param timeout the timeout to be used for the health script    */
 specifier|public
 name|void
 name|init

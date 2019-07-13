@@ -283,7 +283,7 @@ return|return
 name|exception
 return|;
 block|}
-comment|/**    * Sends an exception to all listeners.    * @param message human readable message passed to the listener    * @param e {@link ForeignException} containing the cause.  Can be null.    */
+comment|/**    * Sends an exception to all listeners.    * @param e {@link ForeignException} containing the cause.  Can be null.    */
 specifier|private
 name|void
 name|dispatch

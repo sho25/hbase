@@ -987,7 +987,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Splits a region    * @param t Region to split.    * @return List of region locations    */
+comment|/**    * Splits a region    * @param r Region to split.    * @return List of region locations    */
 specifier|private
 name|List
 argument_list|<

@@ -5498,7 +5498,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param tableDescriptor to read the properties from    * @param conf to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to compression algorithm map to configuration.    * Invoked while configuring the MR job for incremental load.    */
 end_comment
 
 begin_decl_stmt
@@ -5526,7 +5526,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Serialize column family to block size map to configuration. Invoked while    * configuring the MR job for incremental load.    *    * @param tableDescriptor    *          to read the properties from    * @param conf    *          to persist serialized values into    *    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to block size map to configuration. Invoked while    * configuring the MR job for incremental load.    */
 end_comment
 
 begin_decl_stmt
@@ -5556,7 +5556,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Serialize column family to bloom type map to configuration. Invoked while    * configuring the MR job for incremental load.    *    * @param tableDescriptor    *          to read the properties from    * @param conf    *          to persist serialized values into    *    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to bloom type map to configuration. Invoked while    * configuring the MR job for incremental load.    */
 end_comment
 
 begin_decl_stmt
@@ -5610,7 +5610,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Serialize column family to bloom param map to configuration. Invoked while    * configuring the MR job for incremental load.    *    * @param tableDescriptor    *          to read the properties from    * @param conf    *          to persist serialized values into    *    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to bloom param map to configuration. Invoked while    * configuring the MR job for incremental load.    */
 end_comment
 
 begin_decl_stmt
@@ -5670,7 +5670,7 @@ decl_stmt|;
 end_decl_stmt
 
 begin_comment
-comment|/**    * Serialize column family to data block encoding map to configuration.    * Invoked while configuring the MR job for incremental load.    *    * @param tableDescriptor    *          to read the properties from    * @param conf    *          to persist serialized values into    * @throws IOException    *           on failure to read column family descriptors    */
+comment|/**    * Serialize column family to data block encoding map to configuration.    * Invoked while configuring the MR job for incremental load.    */
 end_comment
 
 begin_decl_stmt

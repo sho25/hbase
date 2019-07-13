@@ -4852,7 +4852,7 @@ return|return
 name|newStripes
 return|;
 block|}
-comment|/**      * Remove compacted files.      * @param compactedFiles Compacted files.      */
+comment|/**      * Remove compacted files.      */
 specifier|private
 name|void
 name|removeCompactedFiles

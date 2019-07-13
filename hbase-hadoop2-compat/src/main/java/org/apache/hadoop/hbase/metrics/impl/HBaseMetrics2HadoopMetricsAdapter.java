@@ -758,7 +758,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Add Histogram value-distribution data to a Hadoop-Metrics2 record building.    *    * @param builder A Hadoop-Metrics2 record builder.    * @param name A base name for this record.    * @param desc A description for this record.    * @param snapshot The distribution of measured values.    */
+comment|/**    * Add Histogram value-distribution data to a Hadoop-Metrics2 record building.    *    * @param name A base name for this record.    * @param histogram A histogram to measure distribution of values.    * @param builder A Hadoop-Metrics2 record builder.    */
 specifier|private
 name|void
 name|addHistogram

@@ -2519,7 +2519,7 @@ name|plan
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify the meta has updated to the latest assignment plan    * @param plan    * @throws IOException    */
+comment|/**    * Verify the meta has updated to the latest assignment plan    * @param expectedPlan the region assignment plan    * @throws IOException if an IO problem is encountered    */
 specifier|private
 name|void
 name|verifyMETAUpdated
