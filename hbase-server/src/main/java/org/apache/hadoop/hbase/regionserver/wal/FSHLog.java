@@ -1806,6 +1806,14 @@ operator|!=
 literal|null
 condition|)
 block|{
+comment|// Reset rollRequested status
+name|rollRequested
+operator|.
+name|set
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|zigzagLatch
 operator|.
 name|releaseSafePoint

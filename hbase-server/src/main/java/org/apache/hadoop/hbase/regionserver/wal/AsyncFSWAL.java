@@ -3669,6 +3669,14 @@ name|nextEpoch
 operator|<<
 literal|2
 expr_stmt|;
+comment|// Reset rollRequested status
+name|rollRequested
+operator|.
+name|set
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
 name|consumeExecutor
 operator|.
 name|execute

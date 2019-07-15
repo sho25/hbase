@@ -2344,7 +2344,7 @@ condition|)
 block|{
 name|logRoller
 operator|.
-name|interrupt
+name|close
 argument_list|()
 expr_stmt|;
 block|}
