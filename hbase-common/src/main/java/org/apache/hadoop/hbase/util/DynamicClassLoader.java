@@ -228,7 +228,15 @@ name|DYNAMIC_JARS_OPTIONAL_DEFAULT
 init|=
 literal|true
 decl_stmt|;
+comment|// The user-provided value for using the DynamicClassLoader
 specifier|private
+specifier|final
+name|boolean
+name|userConfigUseDynamicJars
+decl_stmt|;
+comment|// The current state of whether to use the DynamicClassLoader
+specifier|private
+specifier|final
 name|boolean
 name|useDynamicJars
 decl_stmt|;
@@ -273,7 +281,8 @@ argument_list|(
 name|parent
 argument_list|)
 expr_stmt|;
-name|useDynamicJars
+comment|// Save off the user's original configuration value for the DynamicClassLoader
+name|userConfigUseDynamicJars
 operator|=
 name|conf
 operator|.
@@ -284,17 +293,57 @@ argument_list|,
 name|DYNAMIC_JARS_OPTIONAL_DEFAULT
 argument_list|)
 expr_stmt|;
+name|boolean
+name|dynamicJarsEnabled
+init|=
+name|userConfigUseDynamicJars
+decl_stmt|;
 if|if
 condition|(
-name|useDynamicJars
+name|dynamicJarsEnabled
 condition|)
+block|{
+try|try
 block|{
 name|initTempDir
 argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|dynamicJarsEnabled
+operator|=
+literal|true
+expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Disabling the DynamicClassLoader as it failed to initialize its temp directory."
+operator|+
+literal|" Check your configuration and filesystem permissions. Custom coprocessor code may"
+operator|+
+literal|" not be loaded as a result of this failure."
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+name|dynamicJarsEnabled
+operator|=
+literal|false
+expr_stmt|;
+block|}
+block|}
+name|useDynamicJars
+operator|=
+name|dynamicJarsEnabled
+expr_stmt|;
 block|}
 comment|// FindBugs: Making synchronized to avoid IS2_INCONSISTENT_SYNC complaints about
 comment|// remoteDirFs and jarModifiedTime being part synchronized protected.
@@ -479,35 +528,41 @@ parameter_list|)
 block|{
 if|if
 condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
+name|useDynamicJars
 condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Class "
-operator|+
+literal|"Class {} not found - using dynamical class loader"
+argument_list|,
 name|name
-operator|+
-literal|" not found - using dynamical class loader"
 argument_list|)
 expr_stmt|;
-block|}
-if|if
-condition|(
-name|useDynamicJars
-condition|)
-block|{
 return|return
 name|tryRefreshClass
 argument_list|(
 name|name
 argument_list|)
 return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|userConfigUseDynamicJars
+condition|)
+block|{
+comment|// If the user tried to enable the DCL, then warn again.
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Not checking DynamicClassLoader for missing class because it is disabled."
+operator|+
+literal|" See the log for previous errors."
+argument_list|)
+expr_stmt|;
 block|}
 throw|throw
 name|e
