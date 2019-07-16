@@ -2510,6 +2510,9 @@ argument_list|,
 name|rootdir
 argument_list|)
 decl_stmt|;
+name|String
+name|msg
+decl_stmt|;
 if|if
 condition|(
 name|version
@@ -2543,6 +2546,17 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+else|else
+block|{
+name|msg
+operator|=
+literal|"hbase.version file is missing. Is your hbase.rootdir valid? "
+operator|+
+literal|"You can restore hbase.version file by running 'HBCK2 filesystem -fix'. "
+operator|+
+literal|"See https://github.com/apache/hbase-operator-tools/tree/master/hbase-hbck2"
+expr_stmt|;
+block|}
 block|}
 elseif|else
 if|if
@@ -2558,30 +2572,30 @@ argument_list|)
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
-comment|// version is deprecated require migration
-comment|// Output on stdout so user sees it in terminal.
-name|String
+block|}
+else|else
+block|{
 name|msg
-init|=
-literal|"HBase file layout needs to be upgraded."
-operator|+
-literal|" You have version "
+operator|=
+literal|"HBase file layout needs to be upgraded. Current filesystem version is "
 operator|+
 name|version
 operator|+
-literal|" and I want version "
+literal|" but software requires version "
 operator|+
 name|HConstants
 operator|.
 name|FILE_SYSTEM_VERSION
 operator|+
-literal|". Consult http://hbase.apache.org/book.html for further information about upgrading HBase."
+literal|". Consult http://hbase.apache.org/book.html for further information about "
 operator|+
-literal|" Is your hbase.rootdir valid? If so, you may need to run "
-operator|+
-literal|"'hbase hbck -fixVersionFile'."
-decl_stmt|;
+literal|"upgrading HBase."
+expr_stmt|;
+block|}
+comment|// version is deprecated require migration
+comment|// Output on stdout so user sees it in terminal.
 if|if
 condition|(
 name|message
