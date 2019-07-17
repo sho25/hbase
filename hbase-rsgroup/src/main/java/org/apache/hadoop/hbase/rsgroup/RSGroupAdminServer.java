@@ -860,6 +860,13 @@ name|state
 operator|.
 name|getRegionLocation
 argument_list|()
+operator|!=
+literal|null
+operator|&&
+name|state
+operator|.
+name|getRegionLocation
+argument_list|()
 operator|.
 name|getAddress
 argument_list|()
