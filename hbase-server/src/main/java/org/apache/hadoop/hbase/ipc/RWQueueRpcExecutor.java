@@ -1327,31 +1327,10 @@ name|Message
 name|param
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|param
 operator|instanceof
 name|ScanRequest
-condition|)
-block|{
-comment|// The first scan request will be executed as a "short read"
-name|ScanRequest
-name|request
-init|=
-operator|(
-name|ScanRequest
-operator|)
-name|param
-decl_stmt|;
-return|return
-name|request
-operator|.
-name|hasScannerId
-argument_list|()
-return|;
-block|}
-return|return
-literal|false
 return|;
 block|}
 comment|/*    * Calculate the number of writers based on the "total count" and the read share.    * You'll get at least one writer.    */

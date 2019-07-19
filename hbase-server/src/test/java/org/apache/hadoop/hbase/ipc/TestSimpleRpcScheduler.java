@@ -2648,11 +2648,6 @@ operator|.
 name|newBuilder
 argument_list|()
 operator|.
-name|setScannerId
-argument_list|(
-literal|1
-argument_list|)
-operator|.
 name|build
 argument_list|()
 expr_stmt|;
