@@ -2908,9 +2908,6 @@ argument_list|(
 name|snapshotName
 argument_list|,
 name|tableName
-operator|.
-name|getNameAsString
-argument_list|()
 argument_list|,
 name|type
 argument_list|,
@@ -2920,6 +2917,8 @@ operator|-
 literal|1
 argument_list|,
 name|manifestVersion
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|admin

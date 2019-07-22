@@ -1862,11 +1862,13 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%-20s | %-20s | %s%n"
+literal|"%-20s | %-20s | %-20s | %s%n"
 argument_list|,
 literal|"SNAPSHOT"
 argument_list|,
 literal|"CREATION TIME"
+argument_list|,
+literal|"TTL IN SEC"
 argument_list|,
 literal|"TABLE NAME"
 argument_list|)
@@ -1888,7 +1890,7 @@ name|out
 operator|.
 name|printf
 argument_list|(
-literal|"%-20s | %20s | %s%n"
+literal|"%-20s | %20s | %20s | %s%n"
 argument_list|,
 name|desc
 operator|.
@@ -1908,6 +1910,11 @@ name|getCreationTime
 argument_list|()
 argument_list|)
 argument_list|)
+argument_list|,
+name|desc
+operator|.
+name|getTtl
+argument_list|()
 argument_list|,
 name|desc
 operator|.
@@ -2216,6 +2223,20 @@ name|getCreationTime
 argument_list|()
 argument_list|)
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|System
+operator|.
+name|out
+operator|.
+name|println
+argument_list|(
+literal|"    Ttl: "
+operator|+
+name|snapshotDesc
+operator|.
+name|getTtl
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|System

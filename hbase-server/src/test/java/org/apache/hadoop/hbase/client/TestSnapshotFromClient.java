@@ -1286,6 +1286,8 @@ argument_list|,
 name|SnapshotManifestV1
 operator|.
 name|DESCRIPTOR_VERSION
+argument_list|,
+literal|null
 argument_list|)
 argument_list|)
 expr_stmt|;

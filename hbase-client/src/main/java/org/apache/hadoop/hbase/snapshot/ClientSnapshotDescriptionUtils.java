@@ -190,16 +190,27 @@ literal|null
 return|;
 block|}
 return|return
+operator|new
+name|StringBuilder
+argument_list|(
 literal|"{ ss="
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|ssd
 operator|.
 name|getName
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|" table="
-operator|+
-operator|(
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|ssd
 operator|.
 name|hasTable
@@ -216,16 +227,41 @@ argument_list|()
 argument_list|)
 else|:
 literal|""
-operator|)
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|" type="
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|ssd
 operator|.
 name|getType
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|" ttl="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|ssd
+operator|.
+name|getTtl
+argument_list|()
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|" }"
+argument_list|)
+operator|.
+name|toString
+argument_list|()
 return|;
 block|}
 block|}

@@ -3685,6 +3685,32 @@ name|NOT_IMPLEMENTED
 init|=
 literal|"Not implemented"
 decl_stmt|;
+comment|// Default TTL - FOREVER
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_SNAPSHOT_TTL
+init|=
+literal|0
+decl_stmt|;
+comment|// User defined Default TTL config key
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEFAULT_SNAPSHOT_TTL_CONFIG_KEY
+init|=
+literal|"hbase.master.snapshot.ttl"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|SNAPSHOT_CLEANER_DISABLE
+init|=
+literal|"hbase.master.cleaner.snapshot.disable"
+decl_stmt|;
 specifier|private
 name|HConstants
 parameter_list|()
