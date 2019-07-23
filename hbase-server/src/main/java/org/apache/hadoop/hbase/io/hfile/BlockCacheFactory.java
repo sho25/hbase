@@ -300,14 +300,14 @@ name|DEFAULT_BUCKET_CACHE_WRITER_QUEUE
 init|=
 literal|64
 decl_stmt|;
-comment|/**    * The target block size used by blockcache instances. Defaults to    * {@link HConstants#DEFAULT_BLOCKSIZE}.    * TODO: this config point is completely wrong, as it's used to determine the    * target block size of BlockCache instances. Rename.    */
+comment|/**    * The target block size used by blockcache instances. Defaults to    * {@link HConstants#DEFAULT_BLOCKSIZE}.    */
 specifier|public
 specifier|static
 specifier|final
 name|String
 name|BLOCKCACHE_BLOCKSIZE_KEY
 init|=
-literal|"hbase.offheapcache.minblocksize"
+literal|"hbase.blockcache.minblocksize"
 decl_stmt|;
 specifier|private
 specifier|static
@@ -333,6 +333,29 @@ name|EXTERNAL_BLOCKCACHE_CLASS_KEY
 init|=
 literal|"hbase.blockcache.external.class"
 decl_stmt|;
+comment|/**    * @deprecated use {@link BlockCacheFactory#BLOCKCACHE_BLOCKSIZE_KEY} instead.    */
+annotation|@
+name|Deprecated
+specifier|static
+specifier|final
+name|String
+name|DEPRECATED_BLOCKCACHE_BLOCKSIZE_KEY
+init|=
+literal|"hbase.blockcache.minblocksize"
+decl_stmt|;
+comment|/**    * The config point hbase.offheapcache.minblocksize is completely wrong, which is replaced by    * {@link BlockCacheFactory#BLOCKCACHE_BLOCKSIZE_KEY}. Keep the old config key here for backward    * compatibility.    */
+static|static
+block|{
+name|Configuration
+operator|.
+name|addDeprecation
+argument_list|(
+name|DEPRECATED_BLOCKCACHE_BLOCKSIZE_KEY
+argument_list|,
+name|BLOCKCACHE_BLOCKSIZE_KEY
+argument_list|)
+expr_stmt|;
+block|}
 specifier|private
 name|BlockCacheFactory
 parameter_list|()
@@ -346,6 +369,32 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
+if|if
+condition|(
+name|conf
+operator|.
+name|get
+argument_list|(
+name|DEPRECATED_BLOCKCACHE_BLOCKSIZE_KEY
+argument_list|)
+operator|!=
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"The config key {} is deprecated now, instead please use {}. In future release "
+operator|+
+literal|"we will remove the deprecated config."
+argument_list|,
+name|DEPRECATED_BLOCKCACHE_BLOCKSIZE_KEY
+argument_list|,
+name|BLOCKCACHE_BLOCKSIZE_KEY
+argument_list|)
+expr_stmt|;
+block|}
 name|FirstLevelBlockCache
 name|l1Cache
 init|=
