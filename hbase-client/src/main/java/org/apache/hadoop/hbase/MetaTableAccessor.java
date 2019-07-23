@@ -4277,7 +4277,7 @@ comment|/**    * Returns the column family used for meta columns.    * @return H
 end_comment
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -4317,7 +4317,7 @@ comment|/**    * Returns the column qualifier for serialized region info    * @r
 end_comment
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -5368,7 +5368,7 @@ end_comment
 begin_function
 annotation|@
 name|Nullable
-specifier|private
+specifier|public
 specifier|static
 name|RegionInfo
 name|getRegionInfo

@@ -111,16 +111,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -180,20 +170,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileStatus
 import|;
 end_import
 
@@ -12431,6 +12407,8 @@ name|ResponseConverter
 operator|.
 name|buildRunCatalogScanResponse
 argument_list|(
+name|this
+operator|.
 name|master
 operator|.
 name|catalogJanitorChore

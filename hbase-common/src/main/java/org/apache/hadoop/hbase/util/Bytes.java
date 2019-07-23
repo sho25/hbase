@@ -5089,6 +5089,12 @@ argument_list|,
 literal|0
 argument_list|,
 name|left
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
+name|left
 operator|.
 name|length
 argument_list|,
@@ -5096,6 +5102,12 @@ name|right
 argument_list|,
 literal|0
 argument_list|,
+name|right
+operator|==
+literal|null
+condition|?
+literal|0
+else|:
 name|right
 operator|.
 name|length
