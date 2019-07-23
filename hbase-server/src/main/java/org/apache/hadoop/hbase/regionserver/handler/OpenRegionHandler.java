@@ -179,22 +179,6 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Region
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|RegionServerServices
 import|;
 end_import
@@ -1063,7 +1047,7 @@ literal|null
 operator|)
 return|;
 block|}
-comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after the thread finishes    * to check for exceptions running {@link RegionServerServices#postOpenDeployTasks(Region)}.    */
+comment|/**    * Thread to run region post open tasks. Call {@link #getException()} after the thread finishes    * to check for exceptions running    * {@link RegionServerServices#postOpenDeployTasks(PostOpenDeployContext)}    */
 specifier|static
 class|class
 name|PostOpenDeployTasksThread

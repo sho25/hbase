@@ -5792,7 +5792,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureCompression(Configuration, HTableDescriptor)} and    * {@link HFileOutputFormat2#createFamilyCompressionMap(Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#createFamilyCompressionMap(Configuration)}.    * Tests that the family compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Ignore
 argument_list|(
@@ -6194,7 +6194,7 @@ return|return
 name|familyToCompression
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureBloomType(HTableDescriptor, Configuration)} and    * {@link HFileOutputFormat2#createFamilyBloomTypeMap(Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#createFamilyBloomTypeMap(Configuration)}.    * Tests that the family bloom type map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Ignore
 argument_list|(
@@ -6559,7 +6559,7 @@ return|return
 name|familyToBloomType
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureBlockSize(HTableDescriptor, Configuration)} and    * {@link HFileOutputFormat2#createFamilyBlockSizeMap(Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#createFamilyBlockSizeMap(Configuration)}.    * Tests that the family block size map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Ignore
 argument_list|(
@@ -6940,7 +6940,7 @@ return|return
 name|familyToBlockSize
 return|;
 block|}
-comment|/**    * Test for {@link HFileOutputFormat2#configureDataBlockEncoding(HTableDescriptor, Configuration)}    * and {@link HFileOutputFormat2#createFamilyDataBlockEncodingMap(Configuration)}.    * Tests that the compression map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
+comment|/**    * Test for {@link HFileOutputFormat2#createFamilyDataBlockEncodingMap(Configuration)}.    * Tests that the family data block encoding map is correctly serialized into    * and deserialized from configuration    *    * @throws IOException    */
 annotation|@
 name|Ignore
 argument_list|(

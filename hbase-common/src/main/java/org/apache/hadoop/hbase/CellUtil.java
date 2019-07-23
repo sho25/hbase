@@ -4634,7 +4634,7 @@ argument_list|()
 return|;
 block|}
 comment|/********************* tags *************************************/
-comment|/**    * Util method to iterate through the tags    *    * @param tags    * @param offset    * @param length    * @return iterator for the tags    * @deprecated As of 2.0.0 and will be removed in 3.0.0    *             Instead use {@link #tagsIterator(Cell)}    */
+comment|/**    * Util method to iterate through the tags    *    * @param tags    * @param offset    * @param length    * @return iterator for the tags    * @deprecated As of 2.0.0 and will be removed in 3.0.0    *             Instead use {@link PrivateCellUtil#tagsIterator(Cell)}    */
 annotation|@
 name|Deprecated
 specifier|public
