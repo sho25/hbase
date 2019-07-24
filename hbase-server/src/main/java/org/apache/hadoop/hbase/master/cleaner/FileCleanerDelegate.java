@@ -21,15 +21,25 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|fs
 operator|.
-name|InterfaceAudience
+name|Path
 import|;
 end_import
 
@@ -77,11 +87,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|Map
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -135,6 +149,19 @@ name|void
 name|preClean
 parameter_list|()
 block|{   }
+comment|/**    * Check if a empty directory with no subdirs or subfiles can be deleted    * @param dir Path of the directory    * @return True if the directory can be deleted, otherwise false    */
+specifier|default
+name|boolean
+name|isEmptyDirDeletable
+parameter_list|(
+name|Path
+name|dir
+parameter_list|)
+block|{
+return|return
+literal|true
+return|;
+block|}
 block|}
 end_interface
 

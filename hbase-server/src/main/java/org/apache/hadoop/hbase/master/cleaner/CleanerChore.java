@@ -2056,6 +2056,78 @@ name|size
 argument_list|()
 return|;
 block|}
+comment|/**    * Check if a empty directory with no subdirs or subfiles can be deleted    * @param dir Path of the directory    * @return True if the directory can be deleted, otherwise false    */
+specifier|private
+name|boolean
+name|isEmptyDirDeletable
+parameter_list|(
+name|Path
+name|dir
+parameter_list|)
+block|{
+for|for
+control|(
+name|T
+name|cleaner
+range|:
+name|cleanersChain
+control|)
+block|{
+if|if
+condition|(
+name|cleaner
+operator|.
+name|isStopped
+argument_list|()
+operator|||
+name|this
+operator|.
+name|getStopper
+argument_list|()
+operator|.
+name|isStopped
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"A file cleaner {} is stopped, won't delete the empty directory {}"
+argument_list|,
+name|this
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|dir
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
+if|if
+condition|(
+operator|!
+name|cleaner
+operator|.
+name|isEmptyDirDeletable
+argument_list|(
+name|dir
+argument_list|)
+condition|)
+block|{
+comment|// If one of the cleaner need the empty directory, skip delete it
+return|return
+literal|false
+return|;
+block|}
+block|}
+return|return
+literal|true
+return|;
+block|}
 comment|/**    * Delete the given files    * @param filesToDelete files to delete    * @return number of deleted files    */
 specifier|protected
 name|int
@@ -2541,9 +2613,14 @@ init|=
 name|allFilesDeleted
 operator|&&
 name|allSubdirsDeleted
+operator|&&
+name|isEmptyDirDeletable
+argument_list|(
+name|dir
+argument_list|)
 decl_stmt|;
-comment|// if and only if files and subdirs under current dir are deleted successfully, and
-comment|// it is not the root dir, then task will try to delete it.
+comment|// if and only if files and subdirs under current dir are deleted successfully, and the empty
+comment|// directory can be deleted, and it is not the root dir then task will try to delete it.
 if|if
 condition|(
 name|result
