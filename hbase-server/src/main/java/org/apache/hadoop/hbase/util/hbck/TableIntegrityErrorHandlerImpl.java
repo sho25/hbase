@@ -51,9 +51,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-operator|.
-name|HbckInfo
+name|HbckRegionInfo
 import|;
 end_import
 
@@ -69,9 +67,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-operator|.
-name|TableInfo
+name|HbckTableInfo
 import|;
 end_import
 
@@ -105,14 +101,14 @@ name|TableIntegrityErrorHandlerImpl
 implements|implements
 name|TableIntegrityErrorHandler
 block|{
-name|TableInfo
+name|HbckTableInfo
 name|ti
 decl_stmt|;
 comment|/**    * {@inheritDoc}    */
 annotation|@
 name|Override
 specifier|public
-name|TableInfo
+name|HbckTableInfo
 name|getTableInfo
 parameter_list|()
 block|{
@@ -127,7 +123,7 @@ specifier|public
 name|void
 name|setTableInfo
 parameter_list|(
-name|TableInfo
+name|HbckTableInfo
 name|ti2
 parameter_list|)
 block|{
@@ -145,7 +141,7 @@ specifier|public
 name|void
 name|handleRegionStartKeyNotEmpty
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi
 parameter_list|)
 throws|throws
@@ -172,7 +168,7 @@ specifier|public
 name|void
 name|handleDegenerateRegion
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi
 parameter_list|)
 throws|throws
@@ -185,10 +181,10 @@ specifier|public
 name|void
 name|handleDuplicateStartKeys
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi1
 parameter_list|,
-name|HbckInfo
+name|HbckRegionInfo
 name|hi2
 parameter_list|)
 throws|throws
@@ -201,10 +197,10 @@ specifier|public
 name|void
 name|handleOverlapInRegionChain
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi1
 parameter_list|,
-name|HbckInfo
+name|HbckRegionInfo
 name|hi2
 parameter_list|)
 throws|throws
@@ -237,7 +233,7 @@ name|handleOverlapGroup
 parameter_list|(
 name|Collection
 argument_list|<
-name|HbckInfo
+name|HbckRegionInfo
 argument_list|>
 name|overlap
 parameter_list|)

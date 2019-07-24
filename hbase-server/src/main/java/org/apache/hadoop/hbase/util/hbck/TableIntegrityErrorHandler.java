@@ -51,9 +51,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-operator|.
-name|HbckInfo
+name|HbckRegionInfo
 import|;
 end_import
 
@@ -69,9 +67,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-operator|.
-name|TableInfo
+name|HbckTableInfo
 import|;
 end_import
 
@@ -102,7 +98,7 @@ specifier|public
 interface|interface
 name|TableIntegrityErrorHandler
 block|{
-name|TableInfo
+name|HbckTableInfo
 name|getTableInfo
 parameter_list|()
 function_decl|;
@@ -110,15 +106,15 @@ comment|/**    * Set the TableInfo used by all HRegionInfos fabricated by other 
 name|void
 name|setTableInfo
 parameter_list|(
-name|TableInfo
+name|HbckTableInfo
 name|ti
 parameter_list|)
 function_decl|;
-comment|/**    * Callback for handling case where a Table has a first region that does not    * have an empty start key.    *    * @param hi An HbckInfo of the second region in a table.  This should have    *    a non-empty startkey, and can be used to fabricate a first region that    *    has an empty start key.    */
+comment|/**    * Callback for handling case where a Table has a first region that does not    * have an empty start key.    *    * @param hi An HbckRegionInfo of the second region in a table.  This should have    *    a non-empty startkey, and can be used to fabricate a first region that    *    has an empty start key.    */
 name|void
 name|handleRegionStartKeyNotEmpty
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi
 parameter_list|)
 throws|throws
@@ -135,50 +131,50 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling a region that has the same start and end key.    *    * @param hi An HbckInfo for a degenerate key.    */
+comment|/**    * Callback for handling a region that has the same start and end key.    *    * @param hi An HbckRegionInfo for a degenerate key.    */
 name|void
 name|handleDegenerateRegion
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling two regions that have the same start key.  This is    * a specific case of a region overlap.    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
+comment|/**    * Callback for handling two regions that have the same start key.  This is    * a specific case of a region overlap.    * @param hi1 one of the overlapping HbckRegionInfo    * @param hi2 the other overlapping HbckRegionInfo    */
 name|void
 name|handleDuplicateStartKeys
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi1
 parameter_list|,
-name|HbckInfo
+name|HbckRegionInfo
 name|hi2
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling two regions that have the same regionID    * a specific case of a split    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
+comment|/**    * Callback for handling two regions that have the same regionID    * a specific case of a split    * @param hi1 one of the overlapping HbckRegionInfo    * @param hi2 the other overlapping HbckRegionInfo    */
 name|void
 name|handleSplit
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi1
 parameter_list|,
-name|HbckInfo
+name|HbckRegionInfo
 name|hi2
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Callback for handling two reigons that overlap in some arbitrary way.    * This is a specific case of region overlap, and called for each possible    * pair. If two regions have the same start key, the handleDuplicateStartKeys    * method is called.    * @param hi1 one of the overlapping HbckInfo    * @param hi2 the other overlapping HbckInfo    */
+comment|/**    * Callback for handling two reigons that overlap in some arbitrary way.    * This is a specific case of region overlap, and called for each possible    * pair. If two regions have the same start key, the handleDuplicateStartKeys    * method is called.    * @param hi1 one of the overlapping HbckRegionInfo    * @param hi2 the other overlapping HbckRegionInfo    */
 name|void
 name|handleOverlapInRegionChain
 parameter_list|(
-name|HbckInfo
+name|HbckRegionInfo
 name|hi1
 parameter_list|,
-name|HbckInfo
+name|HbckRegionInfo
 name|hi2
 parameter_list|)
 throws|throws
@@ -205,7 +201,7 @@ name|handleOverlapGroup
 parameter_list|(
 name|Collection
 argument_list|<
-name|HbckInfo
+name|HbckRegionInfo
 argument_list|>
 name|overlap
 parameter_list|)

@@ -199,25 +199,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|HBaseFsck
-operator|.
-name|ErrorReporter
+name|HbckErrorReporter
 import|;
 end_import
 
@@ -301,7 +283,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
-name|ErrorReporter
+name|HbckErrorReporter
 name|errorReporter
 decl_stmt|;
 comment|// replicator with its queueIds for removed peers
@@ -354,7 +336,7 @@ parameter_list|,
 name|ZKWatcher
 name|zkw
 parameter_list|,
-name|ErrorReporter
+name|HbckErrorReporter
 name|errorReporter
 parameter_list|)
 block|{
@@ -404,9 +386,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-name|HBaseFsck
-operator|.
-name|ErrorReporter
+name|HbckErrorReporter
 operator|.
 name|ERROR_CODE
 operator|.
@@ -696,9 +676,7 @@ name|errorReporter
 operator|.
 name|reportError
 argument_list|(
-name|HBaseFsck
-operator|.
-name|ErrorReporter
+name|HbckErrorReporter
 operator|.
 name|ERROR_CODE
 operator|.
@@ -742,9 +720,7 @@ name|errorReporter
 operator|.
 name|reportError
 argument_list|(
-name|HBaseFsck
-operator|.
-name|ErrorReporter
+name|HbckErrorReporter
 operator|.
 name|ERROR_CODE
 operator|.

@@ -173,9 +173,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|HBaseFsck
-operator|.
-name|ErrorReporter
+name|HbckErrorReporter
 operator|.
 name|ERROR_CODE
 import|;
