@@ -1923,9 +1923,11 @@ argument_list|(
 name|otherTable
 argument_list|)
 condition|)
+block|{
 name|initialCountForOtherTable
 operator|++
 expr_stmt|;
+block|}
 elseif|else
 if|if
 condition|(
@@ -1936,9 +1938,11 @@ argument_list|(
 name|STRING_TABLE_NAME
 argument_list|)
 condition|)
+block|{
 name|initialCountForPrimary
 operator|++
 expr_stmt|;
+block|}
 block|}
 name|assertTrue
 argument_list|(
@@ -2071,9 +2075,11 @@ argument_list|(
 name|STRING_TABLE_NAME
 argument_list|)
 condition|)
+block|{
 name|archivedForPrimary
 operator|++
 expr_stmt|;
+block|}
 block|}
 name|assertEquals
 argument_list|(
@@ -2477,11 +2483,13 @@ index|]
 operator|>=
 name|expected
 condition|)
+block|{
 name|finished
 operator|.
 name|countDown
 argument_list|()
 expr_stmt|;
+block|}
 return|return
 name|ret
 return|;
@@ -2616,6 +2624,7 @@ name|subFiles
 operator|!=
 literal|null
 condition|)
+block|{
 name|allFiles
 operator|.
 name|addAll
@@ -2623,6 +2632,7 @@ argument_list|(
 name|subFiles
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 name|allFiles
@@ -2714,7 +2724,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a new hfile in the passed region    * @param region region to operate on    * @param columnFamily family for which to add data    * @throws IOException    */
+comment|/**    * Create a new hfile in the passed region    * @param region region to operate on    * @param columnFamily family for which to add data    * @throws IOException if doing the put or flush fails    */
 specifier|private
 name|void
 name|createHFileInRegion
@@ -2781,7 +2791,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param cleaner    */
+comment|/**    * @param cleaner the cleaner to use    */
 specifier|private
 name|void
 name|runCleaner

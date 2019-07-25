@@ -295,7 +295,7 @@ name|stop
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Determine if archiving is enabled (but not necessarily fully propagated) for a table    * @param table name of the table to check    * @return<tt>true</tt> if it is,<tt>false</tt> otherwise    * @throws IOException if a connection to ZooKeeper cannot be established    * @throws KeeperException    */
+comment|/**    * Determine if archiving is enabled (but not necessarily fully propagated) for a table    * @param table name of the table to check    * @return<tt>true</tt> if it is,<tt>false</tt> otherwise    * @throws IOException if a connection to ZooKeeper cannot be established    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 name|boolean
 name|getArchivingEnabled

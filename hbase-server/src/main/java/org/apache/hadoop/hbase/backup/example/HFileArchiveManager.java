@@ -67,36 +67,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|zookeeper
-operator|.
-name|ZKWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|client
 operator|.
 name|Connection
@@ -147,7 +117,37 @@ name|hbase
 operator|.
 name|zookeeper
 operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
 name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -306,7 +306,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Stop retaining HFiles for the given table in the archive. HFiles will be cleaned up on the next    * pass of the {@link org.apache.hadoop.hbase.master.cleaner.HFileCleaner}, if the HFiles are retained by another    * cleaner.    * @param table name of the table for which to disable hfile retention.    * @return<tt>this</tt> for chaining.    * @throws KeeperException if if we can't reach zookeeper to update the hfile cleaner.    */
+comment|/**    * Stop retaining HFiles for the given table in the archive. HFiles will be cleaned up on the next    * pass of the {@link org.apache.hadoop.hbase.master.cleaner.HFileCleaner}, if the HFiles are    * retained by another cleaner.    * @param table name of the table for which to disable hfile retention.    * @return<tt>this</tt> for chaining.    * @throws KeeperException if if we can't reach zookeeper to update the hfile cleaner.    */
 specifier|public
 name|HFileArchiveManager
 name|disableHFileBackup
@@ -380,7 +380,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Perform a best effort enable of hfile retention, which relies on zookeeper communicating the //    * * change back to the hfile cleaner.    *<p>    * No attempt is made to make sure that backups are successfully created - it is inherently an    *<b>asynchronous operation</b>.    * @param zooKeeper watcher connection to zk cluster    * @param table table name on which to enable archiving    * @throws KeeperException    */
+comment|/**    * Perform a best effort enable of hfile retention, which relies on zookeeper communicating the    * change back to the hfile cleaner.    *<p>    * No attempt is made to make sure that backups are successfully created - it is inherently an    *<b>asynchronous operation</b>.    * @param zooKeeper watcher connection to zk cluster    * @param table table name on which to enable archiving    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|private
 name|void
 name|enable

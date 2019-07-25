@@ -35,20 +35,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -153,6 +139,20 @@ name|org
 operator|.
 name|apache
 operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|KeeperException
@@ -180,7 +180,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * {@link BaseHFileCleanerDelegate} that only cleans HFiles that don't belong to a table that is  * currently being archived.  *<p>  * This only works properly if the   * {@link org.apache.hadoop.hbase.master.cleaner.TimeToLiveHFileCleaner}  *  is also enabled (it always should be), since it may take a little time  *  for the ZK notification to propagate, in which case we may accidentally  *  delete some files.  */
+comment|/**  * {@link BaseHFileCleanerDelegate} that only cleans HFiles that don't belong to a table that is  * currently being archived.  *<p>  * This only works properly if the  * {@link org.apache.hadoop.hbase.master.cleaner.TimeToLiveHFileCleaner}  *  is also enabled (it always should be), since it may take a little time  *  for the ZK notification to propagate, in which case we may accidentally  *  delete some files.  */
 end_comment
 
 begin_class
@@ -241,9 +241,11 @@ operator|.
 name|isDirectory
 argument_list|()
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 name|Path
 name|file
 init|=
@@ -278,9 +280,11 @@ name|deleteStatus
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 comment|// otherwise, we need to check the file's table and see its being archived
 name|Path
 name|family
@@ -502,7 +506,9 @@ operator|.
 name|isStopped
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 name|super
 operator|.
 name|stop
