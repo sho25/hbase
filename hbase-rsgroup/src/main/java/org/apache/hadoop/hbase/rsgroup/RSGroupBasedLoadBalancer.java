@@ -1324,7 +1324,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Group not found for table "
 operator|+
@@ -1548,7 +1548,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Group not found for table "
 operator|+
@@ -1839,7 +1839,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Group not found for table "
 operator|+
@@ -2156,7 +2156,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Group not found for table "
 operator|+
@@ -2459,7 +2459,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Group not found for table "
 operator|+
