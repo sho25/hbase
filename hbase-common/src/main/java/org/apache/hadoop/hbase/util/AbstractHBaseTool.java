@@ -479,7 +479,7 @@ name|optionsCount
 init|=
 literal|0
 decl_stmt|;
-specifier|private
+specifier|public
 class|class
 name|OptionsOrderComparator
 implements|implements
