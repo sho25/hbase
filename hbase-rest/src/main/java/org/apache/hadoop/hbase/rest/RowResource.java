@@ -5120,7 +5120,7 @@ return|;
 block|}
 name|append
 operator|.
-name|add
+name|addColumn
 argument_list|(
 name|parts
 index|[
