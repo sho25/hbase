@@ -4332,18 +4332,17 @@ operator|new
 name|Put
 argument_list|(
 name|row
-argument_list|)
-decl_stmt|;
-name|put
+argument_list|,
+name|HConstants
 operator|.
-name|setFamilyCellMap
-argument_list|(
+name|LATEST_TIMESTAMP
+argument_list|,
 name|delete
 operator|.
 name|getFamilyCellMap
 argument_list|()
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 comment|// column to check-the-value
 name|put
 operator|.
