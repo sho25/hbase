@@ -530,26 +530,6 @@ operator|=
 name|latestVersionOnly
 expr_stmt|;
 block|}
-comment|/**    * @return operator    * @deprecated  since 2.0.0. Will be removed in 3.0.0. Use {@link #getCompareOperator()} instead.    */
-annotation|@
-name|Deprecated
-specifier|public
-name|CompareOperator
-name|getOperator
-parameter_list|()
-block|{
-return|return
-name|CompareOperator
-operator|.
-name|valueOf
-argument_list|(
-name|op
-operator|.
-name|name
-argument_list|()
-argument_list|)
-return|;
-block|}
 specifier|public
 name|CompareOperator
 name|getCompareOperator

@@ -433,7 +433,7 @@ argument_list|()
 argument_list|,
 name|tempFilter
 operator|.
-name|getOperator
+name|getCompareOperator
 argument_list|()
 argument_list|,
 name|tempFilter

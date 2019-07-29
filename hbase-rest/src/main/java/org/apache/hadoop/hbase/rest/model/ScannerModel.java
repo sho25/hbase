@@ -2267,7 +2267,7 @@ name|op
 operator|=
 name|scvf
 operator|.
-name|getOperator
+name|getCompareOperator
 argument_list|()
 operator|.
 name|toString
