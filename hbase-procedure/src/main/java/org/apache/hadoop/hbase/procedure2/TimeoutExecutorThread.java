@@ -101,28 +101,6 @@ name|LoggerFactory
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|shaded
-operator|.
-name|protobuf
-operator|.
-name|generated
-operator|.
-name|ProcedureProtos
-operator|.
-name|ProcedureState
-import|;
-end_import
-
 begin_comment
 comment|/**  * Runs task on a period such as check for stuck workers.  * @see InlineChore  */
 end_comment
