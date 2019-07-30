@@ -2120,11 +2120,11 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * There may be items for this table still up in hbase:meta in the case where the    * info:regioninfo column was empty because of some write error. Remove ALL rows from hbase:meta    * that have to do with this table. See HBASE-12980.    */
+comment|/**    * There may be items for this table still up in hbase:meta in the case where the info:regioninfo    * column was empty because of some write error. Remove ALL rows from hbase:meta that have to do    * with this table. See HBASE-12980.    */
 specifier|private
 specifier|static
 name|void
-name|cleanAnyRemainingRows
+name|cleanRegionsInMeta
 parameter_list|(
 specifier|final
 name|MasterProcedureEnv
@@ -2286,23 +2286,8 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|MetaTableAccessor
-operator|.
-name|deleteRegions
-argument_list|(
-name|env
-operator|.
-name|getMasterServices
-argument_list|()
-operator|.
-name|getConnection
-argument_list|()
-argument_list|,
-name|regions
-argument_list|)
-expr_stmt|;
 comment|// Clean any remaining rows for this table.
-name|cleanAnyRemainingRows
+name|cleanRegionsInMeta
 argument_list|(
 name|env
 argument_list|,

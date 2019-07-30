@@ -1061,7 +1061,7 @@ argument_list|)
 decl_stmt|;
 name|MetaTableAccessor
 operator|.
-name|deleteRegion
+name|deleteRegionInfo
 argument_list|(
 name|conn
 argument_list|,

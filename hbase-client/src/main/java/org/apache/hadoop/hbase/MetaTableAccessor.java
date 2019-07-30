@@ -8876,7 +8876,7 @@ begin_function
 specifier|public
 specifier|static
 name|void
-name|deleteRegion
+name|deleteRegionInfo
 parameter_list|(
 name|Connection
 name|connection
@@ -8947,7 +8947,7 @@ begin_function
 specifier|public
 specifier|static
 name|void
-name|deleteRegions
+name|deleteRegionInfos
 parameter_list|(
 name|Connection
 name|connection
@@ -8961,7 +8961,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|deleteRegions
+name|deleteRegionInfos
 argument_list|(
 name|connection
 argument_list|,
@@ -8984,7 +8984,7 @@ begin_function
 specifier|public
 specifier|static
 name|void
-name|deleteRegions
+name|deleteRegionInfos
 parameter_list|(
 name|Connection
 name|connection
@@ -9120,7 +9120,7 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
-name|deleteRegions
+name|deleteRegionInfos
 argument_list|(
 name|connection
 argument_list|,

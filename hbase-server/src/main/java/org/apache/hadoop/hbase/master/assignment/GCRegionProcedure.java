@@ -763,7 +763,7 @@ block|}
 block|}
 name|MetaTableAccessor
 operator|.
-name|deleteRegion
+name|deleteRegionInfo
 argument_list|(
 name|masterServices
 operator|.

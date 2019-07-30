@@ -2337,7 +2337,7 @@ condition|)
 block|{
 name|MetaTableAccessor
 operator|.
-name|deleteRegions
+name|deleteRegionInfos
 argument_list|(
 name|conn
 argument_list|,

@@ -1825,7 +1825,7 @@ name|IOException
 block|{
 name|MetaTableAccessor
 operator|.
-name|deleteRegions
+name|deleteRegionInfos
 argument_list|(
 name|master
 operator|.

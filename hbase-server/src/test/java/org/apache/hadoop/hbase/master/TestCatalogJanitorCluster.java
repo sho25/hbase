@@ -573,7 +573,7 @@ argument_list|)
 decl_stmt|;
 name|MetaTableAccessor
 operator|.
-name|deleteRegion
+name|deleteRegionInfo
 argument_list|(
 name|TEST_UTIL
 operator|.
