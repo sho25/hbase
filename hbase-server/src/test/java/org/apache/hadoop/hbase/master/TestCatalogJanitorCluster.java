@@ -616,7 +616,8 @@ literal|1
 argument_list|,
 name|report
 operator|.
-name|holes
+name|getHoles
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -626,7 +627,8 @@ name|assertTrue
 argument_list|(
 name|report
 operator|.
-name|holes
+name|getHoles
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -636,7 +638,8 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|regionInfo
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getTable
 argument_list|()
@@ -651,7 +654,8 @@ name|assertTrue
 argument_list|(
 name|report
 operator|.
-name|holes
+name|getHoles
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -661,7 +665,8 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|regionInfo
+name|getRegionInfo
+argument_list|()
 operator|.
 name|isLast
 argument_list|()
@@ -671,7 +676,8 @@ name|assertTrue
 argument_list|(
 name|report
 operator|.
-name|holes
+name|getHoles
+argument_list|()
 operator|.
 name|get
 argument_list|(
@@ -681,7 +687,8 @@ operator|.
 name|getSecond
 argument_list|()
 operator|.
-name|regionInfo
+name|getRegionInfo
+argument_list|()
 operator|.
 name|getTable
 argument_list|()
@@ -698,7 +705,8 @@ literal|0
 argument_list|,
 name|report
 operator|.
-name|overlaps
+name|getOverlaps
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -887,7 +895,8 @@ literal|3
 argument_list|,
 name|report
 operator|.
-name|overlaps
+name|getOverlaps
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -900,7 +909,8 @@ literal|1
 argument_list|,
 name|report
 operator|.
-name|holes
+name|getHoles
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -911,7 +921,8 @@ name|assertTrue
 argument_list|(
 name|report
 operator|.
-name|emptyRegionInfo
+name|getEmptyRegionInfo
+argument_list|()
 operator|.
 name|isEmpty
 argument_list|()
@@ -921,7 +932,8 @@ name|assertTrue
 argument_list|(
 name|report
 operator|.
-name|unknownServers
+name|getUnknownServers
+argument_list|()
 operator|.
 name|isEmpty
 argument_list|()
@@ -1037,7 +1049,8 @@ literal|1
 argument_list|,
 name|report
 operator|.
-name|unknownServers
+name|getUnknownServers
+argument_list|()
 operator|.
 name|size
 argument_list|()
@@ -1122,7 +1135,8 @@ literal|1
 argument_list|,
 name|report
 operator|.
-name|emptyRegionInfo
+name|getEmptyRegionInfo
+argument_list|()
 operator|.
 name|size
 argument_list|()
