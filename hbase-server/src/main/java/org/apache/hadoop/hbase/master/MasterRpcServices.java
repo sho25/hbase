@@ -2921,7 +2921,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|FixMetaResponse
+name|FixMetaRequest
 import|;
 end_import
 
@@ -2943,7 +2943,7 @@ name|generated
 operator|.
 name|MasterProtos
 operator|.
-name|FixMetaRequest
+name|FixMetaResponse
 import|;
 end_import
 
