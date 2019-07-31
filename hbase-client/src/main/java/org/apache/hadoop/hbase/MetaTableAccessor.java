@@ -8994,14 +8994,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|long
-name|time
-init|=
-name|EnvironmentEdgeManager
-operator|.
-name|currentTime
-argument_list|()
-decl_stmt|;
 name|Delete
 name|delete
 init|=
@@ -9021,7 +9013,9 @@ argument_list|(
 name|getCatalogFamily
 argument_list|()
 argument_list|,
-name|time
+name|HConstants
+operator|.
+name|LATEST_TIMESTAMP
 argument_list|)
 expr_stmt|;
 name|deleteFromMetaTable

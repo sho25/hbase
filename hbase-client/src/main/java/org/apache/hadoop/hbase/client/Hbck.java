@@ -410,6 +410,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Fix Meta.    */
+name|void
+name|fixMeta
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

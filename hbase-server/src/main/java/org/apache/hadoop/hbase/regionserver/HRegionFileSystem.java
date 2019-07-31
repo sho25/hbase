@@ -3711,7 +3711,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write the .regioninfo file on-disk.    */
+comment|/**    * Write the .regioninfo file on-disk.    * Overwrites if exists already.    */
 specifier|private
 specifier|static
 name|void
@@ -4222,16 +4222,9 @@ operator|+
 name|regionDir
 argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-literal|"The specified region already exists on disk: "
-operator|+
-name|regionDir
-argument_list|)
-throw|;
 block|}
+else|else
+block|{
 comment|// Create the region directory
 if|if
 condition|(
@@ -4264,6 +4257,7 @@ operator|+
 name|regionDir
 argument_list|)
 throw|;
+block|}
 block|}
 comment|// Write HRI to a file in case we need to recover hbase:meta
 name|regionFs

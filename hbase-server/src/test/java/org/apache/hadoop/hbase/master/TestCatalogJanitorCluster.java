@@ -638,9 +638,6 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
 name|getTable
 argument_list|()
 operator|.
@@ -665,9 +662,6 @@ operator|.
 name|getFirst
 argument_list|()
 operator|.
-name|getRegionInfo
-argument_list|()
-operator|.
 name|isLast
 argument_list|()
 argument_list|)
@@ -685,9 +679,6 @@ literal|0
 argument_list|)
 operator|.
 name|getSecond
-argument_list|()
-operator|.
-name|getRegionInfo
 argument_list|()
 operator|.
 name|getTable
