@@ -403,6 +403,13 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Request HBCK chore to run at master side.    *    * @return<code>true</code> if HBCK chore ran,<code>false</code> if HBCK chore already running    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|runHbckChore
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

@@ -326,7 +326,7 @@ operator|.
 name|Evolving
 specifier|public
 class|class
-name|HbckChecker
+name|HbckChore
 extends|extends
 name|ScheduledChore
 block|{
@@ -340,7 +340,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|HbckChecker
+name|HbckChore
 operator|.
 name|class
 operator|.
@@ -352,15 +352,15 @@ specifier|private
 specifier|static
 specifier|final
 name|String
-name|HBCK_CHECKER_INTERVAL
+name|HBCK_CHORE_INTERVAL
 init|=
-literal|"hbase.master.hbck.checker.interval"
+literal|"hbase.master.hbck.chore.interval"
 decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
 name|int
-name|DEFAULT_HBCK_CHECKER_INTERVAL
+name|DEFAULT_HBCK_CHORE_INTERVAL
 init|=
 literal|60
 operator|*
@@ -526,7 +526,7 @@ init|=
 literal|0
 decl_stmt|;
 specifier|public
-name|HbckChecker
+name|HbckChore
 parameter_list|(
 name|MasterServices
 name|master
@@ -534,7 +534,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"HbckChecker-"
+literal|"HbckChore-"
 argument_list|,
 name|master
 argument_list|,
@@ -545,9 +545,9 @@ argument_list|()
 operator|.
 name|getInt
 argument_list|(
-name|HBCK_CHECKER_INTERVAL
+name|HBCK_CHORE_INTERVAL
 argument_list|,
-name|DEFAULT_HBCK_CHECKER_INTERVAL
+name|DEFAULT_HBCK_CHORE_INTERVAL
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -561,6 +561,7 @@ block|}
 annotation|@
 name|Override
 specifier|protected
+specifier|synchronized
 name|void
 name|chore
 parameter_list|()
@@ -1427,7 +1428,7 @@ block|{
 return|return
 name|this
 operator|.
-name|checkingStartTimestamp
+name|checkingEndTimestamp
 return|;
 block|}
 block|}

@@ -3771,8 +3771,8 @@ init|=
 literal|null
 decl_stmt|;
 specifier|private
-name|HbckChecker
-name|hbckChecker
+name|HbckChore
+name|hbckChore
 decl_stmt|;
 name|CatalogJanitor
 name|catalogJanitorChore
@@ -6947,10 +6947,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|hbckChecker
+name|hbckChore
 operator|=
 operator|new
-name|HbckChecker
+name|HbckChore
 argument_list|(
 name|this
 argument_list|)
@@ -6960,7 +6960,7 @@ argument_list|()
 operator|.
 name|scheduleChore
 argument_list|(
-name|hbckChecker
+name|hbckChore
 argument_list|)
 expr_stmt|;
 name|this
@@ -9219,7 +9219,7 @@ name|cancelChore
 argument_list|(
 name|this
 operator|.
-name|hbckChecker
+name|hbckChore
 argument_list|)
 expr_stmt|;
 block|}
@@ -19696,14 +19696,14 @@ end_function
 
 begin_function
 specifier|public
-name|HbckChecker
-name|getHbckChecker
+name|HbckChore
+name|getHbckChore
 parameter_list|()
 block|{
 return|return
 name|this
 operator|.
-name|hbckChecker
+name|hbckChore
 return|;
 block|}
 end_function
