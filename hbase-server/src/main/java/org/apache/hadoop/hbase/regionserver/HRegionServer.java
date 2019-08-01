@@ -10790,8 +10790,7 @@ name|this
 argument_list|)
 expr_stmt|;
 comment|// Create the CompactedFileDischarger chore executorService. This chore helps to
-comment|// remove the compacted files
-comment|// that will no longer be used in reads.
+comment|// remove the compacted files that will no longer be used in reads.
 comment|// Default is 2 mins. The default value for TTLCleaner is 5 mins so we set this to
 comment|// 2 mins so that compacted files can be archived before the TTLCleaner runs
 name|int

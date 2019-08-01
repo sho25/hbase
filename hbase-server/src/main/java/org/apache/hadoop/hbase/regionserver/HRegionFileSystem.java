@@ -1531,19 +1531,12 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Reference "
-operator|+
+literal|"Reference {}"
+argument_list|,
 name|stat
 operator|.
 name|getPath
@@ -3309,7 +3302,7 @@ name|perms
 argument_list|)
 return|;
 block|}
-comment|/**    * Create the region merges directory.    * @throws IOException If merges dir already exists or we fail to create it.    * @see HRegionFileSystem#cleanupMergesDir()    */
+comment|/**    * Create the region merges directory, a temporary directory to accumulate    * merges in.    * @throws IOException If merges dir already exists or we fail to create it.    * @see HRegionFileSystem#cleanupMergesDir()    */
 specifier|public
 name|void
 name|createMergesDir
@@ -3337,11 +3330,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The "
-operator|+
+literal|"{} directory exists. Deleting it to recreate it anew"
+argument_list|,
 name|mergesdir
-operator|+
-literal|" directory exists.  Hence deleting it to recreate it"
 argument_list|)
 expr_stmt|;
 if|if
@@ -3365,7 +3356,7 @@ literal|"Failed deletion of "
 operator|+
 name|mergesdir
 operator|+
-literal|" before creating them again."
+literal|" before recreate."
 argument_list|)
 throw|;
 block|}
@@ -3382,6 +3373,7 @@ argument_list|,
 name|mergesdir
 argument_list|)
 condition|)
+block|{
 throw|throw
 operator|new
 name|IOException
@@ -3391,6 +3383,7 @@ operator|+
 name|mergesdir
 argument_list|)
 throw|;
+block|}
 block|}
 comment|/**    * Write out a merge reference under the given merges directory. Package local    * so it doesnt leak out of regionserver.    * @param mergedRegion {@link RegionInfo} of the merged region    * @param familyName Column Family Name    * @param f File to create reference.    * @param mergedDir    * @return Path to created reference.    * @throws IOException    */
 specifier|public
@@ -3530,7 +3523,7 @@ argument_list|(
 name|mergedRegionInfo
 argument_list|)
 decl_stmt|;
-comment|// Move the tmp dir in the expected location
+comment|// Move the tmp dir to the expected location
 if|if
 condition|(
 name|mergedRegionTmpDir

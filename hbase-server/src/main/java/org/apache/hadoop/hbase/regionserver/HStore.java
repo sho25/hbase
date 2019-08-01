@@ -10138,7 +10138,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    *<p>It works by processing a compaction that's been written to disk.    *    *<p>It is usually invoked at the end of a compaction, but might also be    * invoked at HStore startup, if the prior execution died midway through.    *    *<p>Moving the compacted TreeMap into place means:    *<pre>    * 1) Unload all replaced StoreFile, close and collect list to delete.    * 2) Compute new store size    *</pre>    *    * @param compactedFiles list of files that were compacted    */
+comment|/**    * Update counts.    * @param compactedFiles list of files that were compacted    */
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -10151,6 +10151,7 @@ name|HStoreFile
 argument_list|>
 name|compactedFiles
 parameter_list|)
+comment|// Rename this method! TODO.
 throws|throws
 name|IOException
 block|{

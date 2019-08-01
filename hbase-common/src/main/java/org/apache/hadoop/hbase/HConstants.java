@@ -1427,7 +1427,32 @@ argument_list|(
 literal|"splitB"
 argument_list|)
 decl_stmt|;
-comment|/** The lower-half merge region column qualifier */
+comment|/**    * Merge qualifier prefix.    * We used to only allow two regions merge; mergeA and mergeB.    * Now we allow many to merge. Each region to merge will be referenced    * in a column whose qualifier starts with this define.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MERGE_QUALIFIER_PREFIX_STR
+init|=
+literal|"merge"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|MERGE_QUALIFIER_PREFIX
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|MERGE_QUALIFIER_PREFIX_STR
+argument_list|)
+decl_stmt|;
+comment|/**    * The lower-half merge region column qualifier    * @deprecated Since 2.3.0 and 2.2.1. Not used anymore. Instead we look for    *   the {@link #MERGE_QUALIFIER_PREFIX_STR} prefix.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -1439,10 +1464,14 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"mergeA"
+name|MERGE_QUALIFIER_PREFIX_STR
+operator|+
+literal|"A"
 argument_list|)
 decl_stmt|;
-comment|/** The upper-half merge region column qualifier */
+comment|/**    * The upper-half merge region column qualifier    * @deprecated Since 2.3.0 and 2.2.1. Not used anymore. Instead we look for    *   the {@link #MERGE_QUALIFIER_PREFIX_STR} prefix.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -1454,7 +1483,9 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"mergeB"
+name|MERGE_QUALIFIER_PREFIX_STR
+operator|+
+literal|"B"
 argument_list|)
 decl_stmt|;
 comment|/** The catalog family as a string*/

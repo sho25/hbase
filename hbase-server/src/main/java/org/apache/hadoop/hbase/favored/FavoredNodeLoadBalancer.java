@@ -2684,10 +2684,8 @@ name|RegionInfo
 name|merged
 parameter_list|,
 name|RegionInfo
-name|regionA
-parameter_list|,
-name|RegionInfo
-name|regionB
+index|[]
+name|mergeParents
 parameter_list|)
 throws|throws
 name|IOException
@@ -2716,7 +2714,10 @@ name|merged
 argument_list|,
 name|getFavoredNodes
 argument_list|(
-name|regionA
+name|mergeParents
+index|[
+literal|0
+index|]
 argument_list|)
 argument_list|)
 expr_stmt|;

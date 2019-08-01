@@ -123,6 +123,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Collectors
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -467,7 +479,7 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|GCMergedRegionsProcedure
+name|GCMultipleMergedRegionsProcedure
 import|;
 end_import
 
@@ -1219,11 +1231,11 @@ block|{
 comment|// Stop cleaning if the master is in maintenance mode
 break|break;
 block|}
-name|PairOfSameType
+name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|p
+name|parents
 init|=
 name|MetaTableAccessor
 operator|.
@@ -1233,85 +1245,17 @@ name|e
 operator|.
 name|getValue
 argument_list|()
+operator|.
+name|rawCells
+argument_list|()
 argument_list|)
-decl_stmt|;
-name|RegionInfo
-name|regionA
-init|=
-name|p
-operator|.
-name|getFirst
-argument_list|()
-decl_stmt|;
-name|RegionInfo
-name|regionB
-init|=
-name|p
-operator|.
-name|getSecond
-argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|regionA
-operator|==
+name|parents
+operator|!=
 literal|null
-operator|||
-name|regionB
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Unexpected references regionA="
-operator|+
-operator|(
-name|regionA
-operator|==
-literal|null
-condition|?
-literal|"null"
-else|:
-name|regionA
-operator|.
-name|getShortNameToLog
-argument_list|()
-operator|)
-operator|+
-literal|",regionB="
-operator|+
-operator|(
-name|regionB
-operator|==
-literal|null
-condition|?
-literal|"null"
-else|:
-name|regionB
-operator|.
-name|getShortNameToLog
-argument_list|()
-operator|)
-operator|+
-literal|" in merged region "
-operator|+
-name|e
-operator|.
-name|getKey
-argument_list|()
-operator|.
-name|getShortNameToLog
-argument_list|()
-argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-if|if
-condition|(
+operator|&&
 name|cleanMergeRegion
 argument_list|(
 name|e
@@ -1319,16 +1263,13 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|,
-name|regionA
-argument_list|,
-name|regionB
+name|parents
 argument_list|)
 condition|)
 block|{
 name|gcs
 operator|++
 expr_stmt|;
-block|}
 block|}
 block|}
 comment|// Clean split parents
@@ -1345,7 +1286,6 @@ operator|.
 name|splitParents
 decl_stmt|;
 comment|// Now work on our list of found parents. See if any we can clean up.
-comment|// regions whose parents are still around
 name|HashSet
 argument_list|<
 name|String
@@ -1539,7 +1479,7 @@ operator|.
 name|lastReport
 return|;
 block|}
-comment|/**    * If merged region no longer holds reference to the merge regions, archive    * merge region on hdfs and perform deleting references in hbase:meta    * @return true if we delete references in merged region on hbase:meta and archive    *         the files on the file system    */
+comment|/**    * If merged region no longer holds reference to the merge regions, archive    * merge region on hdfs and perform deleting references in hbase:meta    * @return true if we delete references in merged region on hbase:meta and archive    *   the files on the file system    */
 specifier|private
 name|boolean
 name|cleanMergeRegion
@@ -1548,13 +1488,11 @@ specifier|final
 name|RegionInfo
 name|mergedRegion
 parameter_list|,
-specifier|final
+name|List
+argument_list|<
 name|RegionInfo
-name|regionA
-parameter_list|,
-specifier|final
-name|RegionInfo
-name|regionB
+argument_list|>
+name|parents
 parameter_list|)
 throws|throws
 name|IOException
@@ -1679,21 +1617,36 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Deleting region "
-operator|+
-name|regionA
+literal|"Deleting parents ({}) from fs; merged child {} no longer holds references"
+argument_list|,
+name|parents
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|map
+argument_list|(
+name|r
+lambda|->
+name|RegionInfo
 operator|.
 name|getShortNameToLog
-argument_list|()
-operator|+
-literal|" and "
-operator|+
-name|regionB
+argument_list|(
+name|r
+argument_list|)
+argument_list|)
 operator|.
-name|getShortNameToLog
-argument_list|()
-operator|+
-literal|" from fs because merged region no longer holds references"
+name|collect
+argument_list|(
+name|Collectors
+operator|.
+name|joining
+argument_list|(
+literal|", "
+argument_list|)
+argument_list|)
+argument_list|,
+name|mergedRegion
 argument_list|)
 expr_stmt|;
 name|ProcedureExecutor
@@ -1714,7 +1667,7 @@ operator|.
 name|submitProcedure
 argument_list|(
 operator|new
-name|GCMergedRegionsProcedure
+name|GCMultipleMergedRegionsProcedure
 argument_list|(
 name|pe
 operator|.
@@ -1723,13 +1676,20 @@ argument_list|()
 argument_list|,
 name|mergedRegion
 argument_list|,
-name|regionA
-argument_list|,
-name|regionB
+name|parents
 argument_list|)
 argument_list|)
 expr_stmt|;
-comment|// Remove from in-memory states
+for|for
+control|(
+name|RegionInfo
+name|ri
+range|:
+name|parents
+control|)
+block|{
+comment|// The above scheduled GCMultipleMergedRegionsProcedure does the below.
+comment|// Do we need this?
 name|this
 operator|.
 name|services
@@ -1742,22 +1702,7 @@ argument_list|()
 operator|.
 name|deleteRegion
 argument_list|(
-name|regionA
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionStates
-argument_list|()
-operator|.
-name|deleteRegion
-argument_list|(
-name|regionB
+name|ri
 argument_list|)
 expr_stmt|;
 name|this
@@ -1769,21 +1714,10 @@ argument_list|()
 operator|.
 name|removeRegion
 argument_list|(
-name|regionA
+name|ri
 argument_list|)
 expr_stmt|;
-name|this
-operator|.
-name|services
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|removeRegion
-argument_list|(
-name|regionB
-argument_list|)
-expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
@@ -1947,28 +1881,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Check whether it is a merged region and not clean reference
-comment|// No necessary to check MERGEB_QUALIFIER because these two qualifiers will
-comment|// be inserted/deleted together
+comment|// Check whether it is a merged region and if it is clean of references.
 if|if
 condition|(
+name|MetaTableAccessor
+operator|.
+name|hasMergeRegions
+argument_list|(
 name|rowContent
 operator|.
-name|getValue
-argument_list|(
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|,
-name|HConstants
-operator|.
-name|MERGEA_QUALIFIER
+name|rawCells
+argument_list|()
 argument_list|)
-operator|!=
-literal|null
 condition|)
 block|{
-comment|// wait cleaning merge region first
+comment|// Wait until clean of merge parent regions first
 return|return
 literal|false
 return|;
@@ -2510,7 +2437,7 @@ name|tableName
 argument_list|)
 return|;
 block|}
-comment|/**    * Checks if the specified region has merge qualifiers, if so, try to clean    * them    * @return true if the specified region doesn't have merge qualifier now    */
+comment|/**    * Checks if the specified region has merge qualifiers, if so, try to clean them.    * @return true if no info:merge* columns; i.e. the specified region doesn't have    *   any merge qualifiers.    */
 specifier|public
 name|boolean
 name|cleanMergeQualifier
@@ -2522,19 +2449,16 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Get merge regions if it is a merged region and already has merge
-comment|// qualifier
-name|Pair
+comment|// Get merge regions if it is a merged region and already has merge qualifier
+name|List
 argument_list|<
 name|RegionInfo
-argument_list|,
-name|RegionInfo
 argument_list|>
-name|mergeRegions
+name|parents
 init|=
 name|MetaTableAccessor
 operator|.
-name|getRegionsFromMergeQualifier
+name|getMergeRegions
 argument_list|(
 name|this
 operator|.
@@ -2551,25 +2475,14 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
-name|mergeRegions
+name|parents
 operator|==
 literal|null
 operator|||
-operator|(
-name|mergeRegions
+name|parents
 operator|.
-name|getFirst
+name|isEmpty
 argument_list|()
-operator|==
-literal|null
-operator|&&
-name|mergeRegions
-operator|.
-name|getSecond
-argument_list|()
-operator|==
-literal|null
-operator|)
 condition|)
 block|{
 comment|// It doesn't have merge qualifier, no need to clean
@@ -2577,56 +2490,12 @@ return|return
 literal|true
 return|;
 block|}
-comment|// It shouldn't happen, we must insert/delete these two qualifiers together
-if|if
-condition|(
-name|mergeRegions
-operator|.
-name|getFirst
-argument_list|()
-operator|==
-literal|null
-operator|||
-name|mergeRegions
-operator|.
-name|getSecond
-argument_list|()
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Merged region "
-operator|+
-name|region
-operator|.
-name|getRegionNameAsString
-argument_list|()
-operator|+
-literal|" has only one merge qualifier in META."
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 return|return
 name|cleanMergeRegion
 argument_list|(
 name|region
 argument_list|,
-name|mergeRegions
-operator|.
-name|getFirst
-argument_list|()
-argument_list|,
-name|mergeRegions
-operator|.
-name|getSecond
-argument_list|()
+name|parents
 argument_list|)
 return|;
 block|}
@@ -3287,20 +3156,15 @@ expr_stmt|;
 block|}
 if|if
 condition|(
+name|MetaTableAccessor
+operator|.
+name|hasMergeRegions
+argument_list|(
 name|r
 operator|.
-name|getValue
-argument_list|(
-name|HConstants
-operator|.
-name|CATALOG_FAMILY
-argument_list|,
-name|HConstants
-operator|.
-name|MERGEA_QUALIFIER
+name|rawCells
+argument_list|()
 argument_list|)
-operator|!=
-literal|null
 condition|)
 block|{
 name|this
@@ -4157,10 +4021,6 @@ operator|-
 literal|2
 index|]
 operator|<<=
-operator|(
-operator|(
-name|byte
-operator|)
 name|row
 index|[
 name|row
@@ -4169,7 +4029,6 @@ name|length
 operator|-
 literal|2
 index|]
-operator|)
 expr_stmt|;
 name|Put
 name|p

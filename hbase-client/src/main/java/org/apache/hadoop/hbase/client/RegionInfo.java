@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -322,9 +322,6 @@ specifier|public
 interface|interface
 name|RegionInfo
 block|{
-specifier|public
-specifier|static
-specifier|final
 name|RegionInfo
 name|UNDEFINED
 init|=
@@ -628,9 +625,11 @@ name|replicaDiff
 operator|!=
 literal|0
 condition|)
+block|{
 return|return
 name|replicaDiff
 return|;
+block|}
 if|if
 condition|(
 name|lhs
@@ -643,22 +642,24 @@ operator|.
 name|isOffline
 argument_list|()
 condition|)
+block|{
 return|return
 literal|0
 return|;
+block|}
 if|if
 condition|(
 name|lhs
 operator|.
 name|isOffline
 argument_list|()
-operator|==
-literal|true
 condition|)
+block|{
 return|return
 operator|-
 literal|1
 return|;
+block|}
 return|return
 literal|1
 return|;
@@ -738,7 +739,7 @@ name|boolean
 name|isMetaRegion
 parameter_list|()
 function_decl|;
-comment|/**    * @param rangeStartKey    * @param rangeEndKey    * @return true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie. end&lt; start)    */
+comment|/**    * @return true if the given inclusive range of rows is fully contained    * by this region. For example, if the region is foo,a,g and this is    * passed ["b","c"] or ["a","c"] it will return true, but if this is passed    * ["b","z"] it will return false.    * @throws IllegalArgumentException if the range passed is invalid (ie. end&lt; start)    */
 name|boolean
 name|containsRange
 parameter_list|(
@@ -751,7 +752,7 @@ index|[]
 name|rangeEndKey
 parameter_list|)
 function_decl|;
-comment|/**    * @param row    * @return true if the given row falls in this region.    */
+comment|/**    * @return true if the given row falls in this region.    */
 name|boolean
 name|containsRow
 parameter_list|(
@@ -1185,7 +1186,7 @@ name|buff
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the start key from the specified region name.    * @param regionName    * @return Start key.    * @throws java.io.IOException    */
+comment|/**    * Gets the start key from the specified region name.    * @return Start key.    */
 specifier|static
 name|byte
 index|[]
@@ -1265,7 +1266,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**    * @param bytes    * @return A deserialized {@link RegionInfo}    * or null if we failed deserialize or passed bytes null    */
+comment|/**    * @return A deserialized {@link RegionInfo}    * or null if we failed deserialize or passed bytes null    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1302,7 +1303,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes    * @param offset    * @param len    * @return A deserialized {@link RegionInfo} or null    *  if we failed deserialize or passed bytes null    */
+comment|/**    * @return A deserialized {@link RegionInfo} or null    *  if we failed deserialize or passed bytes null    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1360,7 +1361,7 @@ literal|null
 return|;
 block|}
 block|}
-comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @return A deserialized {@link RegionInfo}    * @throws DeserializationException    */
+comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @return A deserialized {@link RegionInfo}    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1399,7 +1400,7 @@ name|length
 argument_list|)
 return|;
 block|}
-comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @param offset starting point in the byte array    * @param len length to read on the byte array    * @return A deserialized {@link RegionInfo}    * @throws DeserializationException    */
+comment|/**    * @param bytes A pb RegionInfo serialized with a pb magic prefix.    * @param offset starting point in the byte array    * @param len length to read on the byte array    * @return A deserialized {@link RegionInfo}    */
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -1522,7 +1523,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Check whether two regions are adjacent    * @param regionA    * @param regionB    * @return true if two regions are adjacent    */
+comment|/**    * Check whether two regions are adjacent; i.e. lies just before or just    * after in a table.    * @return true if two regions are adjacent    */
 specifier|static
 name|boolean
 name|areAdjacent
@@ -1552,6 +1553,27 @@ argument_list|(
 literal|"Can't check whether adjacent for null region"
 argument_list|)
 throw|;
+block|}
+if|if
+condition|(
+operator|!
+name|regionA
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|regionB
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
 block|}
 name|RegionInfo
 name|a
@@ -1592,11 +1614,10 @@ operator|=
 name|regionA
 expr_stmt|;
 block|}
-if|if
-condition|(
+return|return
 name|Bytes
 operator|.
-name|compareTo
+name|equals
 argument_list|(
 name|a
 operator|.
@@ -1608,19 +1629,9 @@ operator|.
 name|getStartKey
 argument_list|()
 argument_list|)
-operator|==
-literal|0
-condition|)
-block|{
-return|return
-literal|true
 return|;
 block|}
-return|return
-literal|false
-return|;
-block|}
-comment|/**    * @param ri    * @return This instance serialized as protobuf w/ a magic pb prefix.    * @see #parseFrom(byte[])    */
+comment|/**    * @return This instance serialized as protobuf w/ a magic pb prefix.    * @see #parseFrom(byte[])    */
 specifier|static
 name|byte
 index|[]
@@ -1683,7 +1694,7 @@ return|return
 name|encodedRegionName
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|static
 name|byte
 index|[]
@@ -1724,7 +1735,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|static
 name|byte
 index|[]
@@ -1765,7 +1776,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param replicaId    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey, id and replicaId    */
+comment|/**    * Make a region name of passed parameters.    * @param startKey Can be null    * @param regionid Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey, id and replicaId    */
 specifier|static
 name|byte
 index|[]
@@ -1816,7 +1827,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
+comment|/**    * Make a region name of passed parameters.    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    *                  (such that it contains its encoded name?).    * @return Region name made of passed tableName, startKey and id    */
 specifier|static
 name|byte
 index|[]
@@ -1855,7 +1866,7 @@ name|newFormat
 argument_list|)
 return|;
 block|}
-comment|/**    * Make a region name of passed parameters.    * @param tableName    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param replicaId    * @param newFormat should we create the region name in the new format    * @return Region name made of passed tableName, startKey, id and replicaId    */
+comment|/**    * Make a region name of passed parameters.    * @param startKey Can be null    * @param id Region id (Usually timestamp from when region was created).    * @param newFormat should we create the region name in the new format    * @return Region name made of passed tableName, startKey, id and replicaId    */
 specifier|static
 name|byte
 index|[]
@@ -2217,7 +2228,6 @@ expr_stmt|;
 name|b
 index|[
 name|offset
-operator|++
 index|]
 operator|=
 name|ENC_SEPARATOR
@@ -2263,7 +2273,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Separate elements of a regionName.    * @param regionName    * @return Array of byte[] containing tableName, startKey and id    * @throws IOException    */
+comment|/**    * Separate elements of a regionName.    * @return Array of byte[] containing tableName, startKey and id    */
 specifier|static
 name|byte
 index|[]
@@ -2706,7 +2716,7 @@ return|return
 name|elements
 return|;
 block|}
-comment|/**    * Serializes given RegionInfo's as a byte array. Use this instead of    * {@link RegionInfo#toByteArray(RegionInfo)} when    * writing to a stream and you want to use the pb mergeDelimitedFrom (w/o the delimiter, pb reads    * to EOF which may not be what you want). {@link #parseDelimitedFrom(byte[], int, int)} can    * be used to read back the instances.    * @param infos RegionInfo objects to serialize    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    * @throws IOException    */
+comment|/**    * Serializes given RegionInfo's as a byte array. Use this instead of    * {@link RegionInfo#toByteArray(RegionInfo)} when    * writing to a stream and you want to use the pb mergeDelimitedFrom (w/o the delimiter, pb reads    * to EOF which may not be what you want). {@link #parseDelimitedFrom(byte[], int, int)} can    * be used to read back the instances.    * @param infos RegionInfo objects to serialize    * @return This instance serialized as a delimited protobuf w/ a magic pb prefix.    */
 specifier|static
 name|byte
 index|[]
@@ -2830,7 +2840,7 @@ return|return
 name|result
 return|;
 block|}
-comment|/**    * Use this instead of {@link RegionInfo#toByteArray(RegionInfo)} when writing to a stream and you want to use    * the pb mergeDelimitedFrom (w/o the delimiter, pb reads to EOF which may not be what you want).    * @param ri    * @return This instance serialized as a delimied protobuf w/ a magic pb prefix.    * @throws IOException    */
+comment|/**    * Use this instead of {@link RegionInfo#toByteArray(RegionInfo)} when writing to a stream and you want to use    * the pb mergeDelimitedFrom (w/o the delimiter, pb reads to EOF which may not be what you want).    * @return This instance serialized as a delimied protobuf w/ a magic pb prefix.    */
 specifier|static
 name|byte
 index|[]
@@ -2856,7 +2866,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Parses an RegionInfo instance from the passed in stream.    * Presumes the RegionInfo was serialized to the stream with    * {@link #toDelimitedByteArray(RegionInfo)}.    * @param in    * @return An instance of RegionInfo.    * @throws IOException    */
+comment|/**    * Parses an RegionInfo instance from the passed in stream.    * Presumes the RegionInfo was serialized to the stream with    * {@link #toDelimitedByteArray(RegionInfo)}.    * @return An instance of RegionInfo.    */
 specifier|static
 name|RegionInfo
 name|parseFrom
@@ -2972,7 +2982,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * Parses all the RegionInfo instances from the passed in stream until EOF. Presumes the    * RegionInfo's were serialized to the stream with oDelimitedByteArray()    * @param bytes serialized bytes    * @param offset the start offset into the byte[] buffer    * @param length how far we should read into the byte[] buffer    * @return All the RegionInfos that are in the byte array. Keeps reading till we hit the end.    * @throws IOException    */
+comment|/**    * Parses all the RegionInfo instances from the passed in stream until EOF. Presumes the    * RegionInfo's were serialized to the stream with oDelimitedByteArray()    * @param bytes serialized bytes    * @param offset the start offset into the byte[] buffer    * @param length how far we should read into the byte[] buffer    * @return All the RegionInfos that are in the byte array. Keeps reading till we hit the end.    */
 specifier|static
 name|List
 argument_list|<
@@ -3011,13 +3021,6 @@ literal|"Can't build an object with empty bytes array"
 argument_list|)
 throw|;
 block|}
-name|DataInputBuffer
-name|in
-init|=
-operator|new
-name|DataInputBuffer
-argument_list|()
-decl_stmt|;
 name|List
 argument_list|<
 name|RegionInfo
@@ -3030,6 +3033,14 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 try|try
+init|(
+name|DataInputBuffer
+name|in
+init|=
+operator|new
+name|DataInputBuffer
+argument_list|()
+init|)
 block|{
 name|in
 operator|.
@@ -3068,14 +3079,6 @@ name|ri
 argument_list|)
 expr_stmt|;
 block|}
-block|}
-finally|finally
-block|{
-name|in
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 block|}
 return|return
 name|ris
@@ -3121,7 +3124,7 @@ name|EMPTY_START_ROW
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if regions are adjacent, if 'after' next. Does not do tablename compare.    */
+comment|/**    * @return True if region is next, adjacent but 'after' this one.    * @see #isAdjacent(RegionInfo)    * @see #areAdjacent(RegionInfo, RegionInfo)    */
 specifier|default
 name|boolean
 name|isNext
@@ -3131,6 +3134,17 @@ name|after
 parameter_list|)
 block|{
 return|return
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|after
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+operator|&&
 name|Bytes
 operator|.
 name|equals
@@ -3142,6 +3156,35 @@ name|after
 operator|.
 name|getStartKey
 argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * @return True if region is adjacent, either just before or just after this one.    * @see #isNext(RegionInfo)    */
+specifier|default
+name|boolean
+name|isAdjacent
+parameter_list|(
+name|RegionInfo
+name|other
+parameter_list|)
+block|{
+return|return
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+operator|&&
+name|areAdjacent
+argument_list|(
+name|this
+argument_list|,
+name|other
 argument_list|)
 return|;
 block|}
@@ -3170,7 +3213,7 @@ operator|>
 literal|0
 return|;
 block|}
-comment|/**    * @return True if an overlap in region range. Does not do tablename compare.    *   Does not check if<code>other</code> has degenerate range.    * @see #isDegenerate()    */
+comment|/**    * @return True if an overlap in region range.    * @see #isDegenerate()    */
 specifier|default
 name|boolean
 name|isOverlap
@@ -3179,6 +3222,25 @@ name|RegionInfo
 name|other
 parameter_list|)
 block|{
+if|if
+condition|(
+operator|!
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|other
+operator|.
+name|getTable
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 name|int
 name|startKeyCompare
 init|=
