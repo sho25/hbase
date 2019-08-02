@@ -11139,7 +11139,7 @@ index|[]
 name|destServerName
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 block|{
 name|RegionState
 name|regionState
@@ -18194,7 +18194,7 @@ name|boolean
 name|offload
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 block|{
 name|List
 argument_list|<

@@ -3512,7 +3512,7 @@ return|;
 block|}
 catch|catch
 parameter_list|(
-name|HBaseIOException
+name|IOException
 name|hioe
 parameter_list|)
 block|{
@@ -10136,7 +10136,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|HBaseIOException
+name|IOException
 name|e
 parameter_list|)
 block|{
@@ -10217,7 +10217,7 @@ expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
-name|HBaseIOException
+name|IOException
 name|e
 parameter_list|)
 block|{

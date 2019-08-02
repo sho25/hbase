@@ -130,6 +130,14 @@ name|NAMESPACE_DESC_PROP_GROUP
 init|=
 literal|"hbase.rsgroup.name"
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|TABLE_DESC_PROP_GROUP
+init|=
+literal|"hbase.rsgroup.name"
+decl_stmt|;
 specifier|private
 specifier|final
 name|String
@@ -145,6 +153,9 @@ argument_list|>
 name|servers
 decl_stmt|;
 comment|// Keep tables sorted too.
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|private
 specifier|final
 name|SortedSet
@@ -180,6 +191,57 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+name|RSGroupInfo
+parameter_list|(
+name|String
+name|name
+parameter_list|,
+name|SortedSet
+argument_list|<
+name|Address
+argument_list|>
+name|servers
+parameter_list|)
+block|{
+name|this
+operator|.
+name|name
+operator|=
+name|name
+expr_stmt|;
+name|this
+operator|.
+name|servers
+operator|=
+name|servers
+operator|==
+literal|null
+condition|?
+operator|new
+name|TreeSet
+argument_list|<>
+argument_list|()
+else|:
+operator|new
+name|TreeSet
+argument_list|<>
+argument_list|(
+name|servers
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|tables
+operator|=
+operator|new
+name|TreeSet
+argument_list|<>
+argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information for a table will be    *             stored in the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 name|RSGroupInfo
 parameter_list|(
 name|String
@@ -368,7 +430,9 @@ name|hostPort
 argument_list|)
 return|;
 block|}
-comment|/**    * Get set of tables that are members of the group.    */
+comment|/**    * Get set of tables that are members of the group.    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|SortedSet
 argument_list|<
@@ -381,6 +445,9 @@ return|return
 name|tables
 return|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|addTable
@@ -397,6 +464,9 @@ name|table
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|void
 name|addAllTables
@@ -416,6 +486,9 @@ name|arg
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|containsTable
@@ -433,6 +506,9 @@ name|table
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated Since 3.0.0, will be removed in 4.0.0. The rsgroup information will be stored in    *             the configuration of a table so this will be removed.    */
+annotation|@
+name|Deprecated
 specifier|public
 name|boolean
 name|removeTable

@@ -57,20 +57,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|net
 operator|.
 name|Address
@@ -170,32 +156,6 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get the group membership of a table    */
-name|String
-name|getRSGroupOfTable
-parameter_list|(
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Set the group membership of a set of tables    * @param tableNames set of tables to move    * @param groupName name of group of tables to move to    */
-name|void
-name|moveTables
-parameter_list|(
-name|Set
-argument_list|<
-name|TableName
-argument_list|>
-name|tableNames
-parameter_list|,
-name|String
-name|groupName
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * List the existing {@code RSGroupInfo}s.    */
 name|List
 argument_list|<
@@ -217,31 +177,6 @@ comment|/**    * Whether the manager is able to fully return group metadata    *
 name|boolean
 name|isOnline
 parameter_list|()
-function_decl|;
-comment|/**    * Move servers and tables to a new group.    * @param servers list of servers, must be part of the same group    * @param tables set of tables to move    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    */
-name|void
-name|moveServersAndTables
-parameter_list|(
-name|Set
-argument_list|<
-name|Address
-argument_list|>
-name|servers
-parameter_list|,
-name|Set
-argument_list|<
-name|TableName
-argument_list|>
-name|tables
-parameter_list|,
-name|String
-name|srcGroup
-parameter_list|,
-name|String
-name|dstGroup
-parameter_list|)
-throws|throws
-name|IOException
 function_decl|;
 comment|/**    * Remove decommissioned servers from rsgroup    * @param servers set of servers to remove    */
 name|void

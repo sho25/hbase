@@ -25,18 +25,6 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertEquals
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertFalse
 import|;
 end_import
@@ -826,7 +814,7 @@ name|newGroup
 init|=
 literal|"my_group"
 decl_stmt|;
-name|RSGroupAdmin
+name|RSGroupAdminClient
 name|groupAdmin
 init|=
 operator|new
@@ -1226,35 +1214,6 @@ name|groupMgr
 operator|.
 name|isOnline
 argument_list|()
-argument_list|)
-expr_stmt|;
-comment|// Verify the group affiliation that's loaded from ZK instead of tables.
-name|assertEquals
-argument_list|(
-name|newGroup
-argument_list|,
-name|groupMgr
-operator|.
-name|getRSGroupOfTable
-argument_list|(
-name|RSGroupInfoManagerImpl
-operator|.
-name|RSGROUP_TABLE_NAME
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertEquals
-argument_list|(
-name|RSGroupInfo
-operator|.
-name|DEFAULT_GROUP
-argument_list|,
-name|groupMgr
-operator|.
-name|getRSGroupOfTable
-argument_list|(
-name|failoverTable
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Kill final regionserver to see the failover happens for all tables except GROUP table since

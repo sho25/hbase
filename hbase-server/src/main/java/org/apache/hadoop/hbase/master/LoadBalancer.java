@@ -37,6 +37,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|IOException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|List
@@ -92,20 +102,6 @@ operator|.
 name|hbase
 operator|.
 name|ClusterMetrics
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HBaseIOException
 import|;
 end_import
 
@@ -240,7 +236,7 @@ argument_list|(
 literal|"localhost,1,1"
 argument_list|)
 decl_stmt|;
-comment|/**    * Set the current cluster status.  This allows a LoadBalancer to map host name to a server    * @param st    */
+comment|/**    * Set the current cluster status. This allows a LoadBalancer to map host name to a server    */
 name|void
 name|setClusterMetrics
 parameter_list|(
@@ -248,7 +244,7 @@ name|ClusterMetrics
 name|st
 parameter_list|)
 function_decl|;
-comment|/**    * Pass RegionStates and allow balancer to set the current cluster load.    * @param ClusterLoad    */
+comment|/**    * Pass RegionStates and allow balancer to set the current cluster load.    */
 name|void
 name|setClusterLoad
 parameter_list|(
@@ -269,7 +265,7 @@ argument_list|>
 name|ClusterLoad
 parameter_list|)
 function_decl|;
-comment|/**    * Set the master service.    * @param masterServices    */
+comment|/**    * Set the master service.    */
 name|void
 name|setMasterServices
 parameter_list|(
@@ -277,7 +273,7 @@ name|MasterServices
 name|masterServices
 parameter_list|)
 function_decl|;
-comment|/**    * Perform the major balance operation    * @param tableName    * @param clusterState    * @return List of plans    */
+comment|/**    * Perform the major balance operation    * @return List of plans    */
 name|List
 argument_list|<
 name|RegionPlan
@@ -299,9 +295,9 @@ argument_list|>
 name|clusterState
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Perform the major balance operation    * @param clusterState    * @return List of plans    */
+comment|/**    * Perform the major balance operation    * @return List of plans    */
 name|List
 argument_list|<
 name|RegionPlan
@@ -320,9 +316,9 @@ argument_list|>
 name|clusterState
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Perform a Round Robin assignment of regions.    * @param regions    * @param servers    * @return Map of servername to regioninfos    */
+comment|/**    * Perform a Round Robin assignment of regions.    * @return Map of servername to regioninfos    */
 name|Map
 argument_list|<
 name|ServerName
@@ -347,9 +343,9 @@ argument_list|>
 name|servers
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Assign regions to the previously hosting region server    * @param regions    * @param servers    * @return List of plans    */
+comment|/**    * Assign regions to the previously hosting region server    * @return List of plans    */
 annotation|@
 name|Nullable
 name|Map
@@ -378,9 +374,9 @@ argument_list|>
 name|servers
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Get a random region server from the list    * @param regionInfo Region for which this selection is being done.    * @param servers    * @return Servername    */
+comment|/**    * Get a random region server from the list    * @param regionInfo Region for which this selection is being done.    */
 name|ServerName
 name|randomAssignment
 parameter_list|(
@@ -394,16 +390,16 @@ argument_list|>
 name|servers
 parameter_list|)
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Initialize the load balancer. Must be called after setters.    * @throws HBaseIOException    */
+comment|/**    * Initialize the load balancer. Must be called after setters.    */
 name|void
 name|initialize
 parameter_list|()
 throws|throws
-name|HBaseIOException
+name|IOException
 function_decl|;
-comment|/**    * Marks the region as online at balancer.    * @param regionInfo    * @param sn    */
+comment|/**    * Marks the region as online at balancer.    */
 name|void
 name|regionOnline
 parameter_list|(
@@ -414,7 +410,7 @@ name|ServerName
 name|sn
 parameter_list|)
 function_decl|;
-comment|/**    * Marks the region as offline at balancer.    * @param regionInfo    */
+comment|/**    * Marks the region as offline at balancer.    */
 name|void
 name|regionOffline
 parameter_list|(
@@ -422,7 +418,7 @@ name|RegionInfo
 name|regionInfo
 parameter_list|)
 function_decl|;
-comment|/*    * Notification that config has changed    * @param conf    */
+comment|/**    * Notification that config has changed    */
 annotation|@
 name|Override
 name|void
