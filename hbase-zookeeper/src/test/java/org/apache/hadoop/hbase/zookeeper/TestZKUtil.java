@@ -1021,16 +1021,12 @@ expr_stmt|;
 comment|// Save the previous ACL
 name|Stat
 name|s
-init|=
-literal|null
 decl_stmt|;
 name|List
 argument_list|<
 name|ACL
 argument_list|>
 name|oldACL
-init|=
-literal|null
 decl_stmt|;
 while|while
 condition|(

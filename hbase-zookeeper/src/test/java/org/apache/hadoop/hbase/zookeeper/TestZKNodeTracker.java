@@ -508,14 +508,9 @@ name|t
 init|=
 operator|new
 name|Thread
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
+argument_list|(
 parameter_list|()
+lambda|->
 block|{
 try|try
 block|{
@@ -542,7 +537,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
+argument_list|)
 decl_stmt|;
 name|t
 operator|.
@@ -989,10 +984,6 @@ operator|=
 operator|new
 name|WaitToGetDataThread
 argument_list|(
-name|zk
-argument_list|,
-name|node
-argument_list|,
 name|threadTracker
 argument_list|)
 expr_stmt|;
@@ -1306,7 +1297,6 @@ decl_stmt|;
 name|boolean
 name|hasData
 decl_stmt|;
-specifier|public
 name|WaitToGetDataThread
 parameter_list|(
 name|ZKWatcher
@@ -1345,15 +1335,8 @@ operator|=
 literal|false
 expr_stmt|;
 block|}
-specifier|public
 name|WaitToGetDataThread
 parameter_list|(
-name|ZKWatcher
-name|zk
-parameter_list|,
-name|String
-name|node
-parameter_list|,
 name|TestTracker
 name|tracker
 parameter_list|)
@@ -1423,7 +1406,6 @@ name|TestTracker
 extends|extends
 name|ZKNodeTracker
 block|{
-specifier|public
 name|TestTracker
 parameter_list|(
 name|ZKWatcher
@@ -1485,7 +1467,6 @@ specifier|private
 name|String
 name|node
 decl_stmt|;
-specifier|public
 name|TestingZKListener
 parameter_list|(
 name|ZKWatcher
@@ -1645,7 +1626,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-specifier|public
 name|void
 name|waitForDeletion
 parameter_list|()
@@ -1658,7 +1638,6 @@ name|acquire
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|waitForCreation
 parameter_list|()
@@ -1671,7 +1650,6 @@ name|acquire
 argument_list|()
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|waitForDataChange
 parameter_list|()

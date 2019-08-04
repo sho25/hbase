@@ -481,7 +481,6 @@ specifier|private
 name|int
 name|index
 decl_stmt|;
-specifier|public
 name|MockLeader
 parameter_list|(
 name|ZKWatcher
@@ -627,7 +626,6 @@ block|{}
 block|}
 block|}
 block|}
-specifier|public
 name|void
 name|abdicate
 parameter_list|()
@@ -1132,16 +1130,12 @@ specifier|private
 name|MockLeader
 name|getCurrentLeader
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|MockLeader
 name|currentLeader
 init|=
 literal|null
 decl_stmt|;
-name|outer
-label|:
 comment|// Wait up to 10 secs for initial leader
 for|for
 control|(
@@ -1227,9 +1221,7 @@ operator|!=
 literal|null
 condition|)
 block|{
-break|break
-name|outer
-break|;
+break|break;
 block|}
 name|Threads
 operator|.
@@ -1270,9 +1262,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
-name|ZKWatcher
-name|zk
-init|=
+return|return
 operator|new
 name|ZKWatcher
 argument_list|(
@@ -1282,9 +1272,6 @@ name|name
 argument_list|,
 name|abort
 argument_list|)
-decl_stmt|;
-return|return
-name|zk
 return|;
 block|}
 block|}

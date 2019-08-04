@@ -125,20 +125,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|ZooKeeperConnectionException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|security
 operator|.
 name|Superusers
@@ -345,8 +331,6 @@ name|void
 name|testUnsecure
 parameter_list|()
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 block|{
 name|Configuration
@@ -441,8 +425,6 @@ name|void
 name|testSecuritySingleSuperuser
 parameter_list|()
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 block|{
 name|Configuration
@@ -562,8 +544,6 @@ name|void
 name|testCreateACL
 parameter_list|()
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 block|{
 name|Configuration
@@ -761,8 +741,6 @@ name|void
 name|testCreateACLWithSameUser
 parameter_list|()
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 block|{
 name|Configuration
@@ -957,8 +935,6 @@ name|void
 name|testInterruptedDuringAction
 parameter_list|()
 throws|throws
-name|ZooKeeperConnectionException
-throws|,
 name|IOException
 throws|,
 name|KeeperException

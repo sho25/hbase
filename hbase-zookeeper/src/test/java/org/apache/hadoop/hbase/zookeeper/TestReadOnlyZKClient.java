@@ -601,11 +601,6 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|int
-name|PORT
-decl_stmt|;
-specifier|private
-specifier|static
 name|String
 name|PATH
 init|=
@@ -639,8 +634,10 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|PORT
-operator|=
+specifier|final
+name|int
+name|port
+init|=
 name|UTIL
 operator|.
 name|startMiniZKCluster
@@ -648,7 +645,7 @@ argument_list|()
 operator|.
 name|getClientPort
 argument_list|()
-expr_stmt|;
+decl_stmt|;
 name|ZooKeeper
 name|zk
 init|=
@@ -658,7 +655,7 @@ name|getConnectedZooKeeper
 argument_list|(
 literal|"localhost:"
 operator|+
-name|PORT
+name|port
 argument_list|,
 literal|10000
 argument_list|)
@@ -766,7 +763,7 @@ name|ZOOKEEPER_QUORUM
 argument_list|,
 literal|"localhost:"
 operator|+
-name|PORT
+name|port
 argument_list|)
 expr_stmt|;
 name|conf
@@ -872,8 +869,6 @@ specifier|public
 name|boolean
 name|evaluate
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 return|return
 name|RO_ZK
@@ -889,8 +884,6 @@ specifier|public
 name|String
 name|explainFailure
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 return|return
 literal|"Connection to zookeeper is still alive"

@@ -249,28 +249,13 @@ name|serialVersionUID
 init|=
 literal|1L
 decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|status
-decl_stmt|;
-specifier|public
 name|ExitException
-parameter_list|(
-name|int
-name|status
-parameter_list|)
+parameter_list|()
 block|{
 name|super
 argument_list|(
 literal|"There is no escape!"
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|status
-operator|=
-name|status
 expr_stmt|;
 block|}
 block|}
@@ -328,9 +313,7 @@ expr_stmt|;
 throw|throw
 operator|new
 name|ExitException
-argument_list|(
-name|status
-argument_list|)
+argument_list|()
 throw|;
 block|}
 block|}
@@ -638,9 +621,9 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-name|ensemble
-argument_list|,
 literal|"example1.com:5678,example2.com:9012,example3.com:3456"
+argument_list|,
+name|ensemble
 argument_list|)
 expr_stmt|;
 comment|// some servers without its own port, which will be assigned the default client port
@@ -746,8 +729,6 @@ operator|+
 literal|"[1001:db8:1::242:ac11:8:89:67]:5678"
 argument_list|)
 expr_stmt|;
-name|ensemble
-operator|=
 name|parser
 operator|.
 name|parse

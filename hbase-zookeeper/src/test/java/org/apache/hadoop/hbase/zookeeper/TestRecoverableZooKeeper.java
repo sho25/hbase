@@ -344,6 +344,7 @@ operator|new
 name|HBaseZKTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|private
 name|Abortable
 name|abortable
 init|=
@@ -363,7 +364,7 @@ parameter_list|,
 name|Throwable
 name|e
 parameter_list|)
-block|{      }
+block|{     }
 annotation|@
 name|Override
 specifier|public
@@ -623,6 +624,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+specifier|static
 class|class
 name|ZookeeperStub
 extends|extends
@@ -632,7 +634,6 @@ specifier|private
 name|int
 name|throwExceptionInNumOperations
 decl_stmt|;
-specifier|public
 name|ZookeeperStub
 parameter_list|(
 name|String
@@ -657,7 +658,6 @@ name|watcher
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|void
 name|setThrowExceptionInNumOperations
 parameter_list|(

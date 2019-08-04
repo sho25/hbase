@@ -37,7 +37,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertFalse
+name|assertNotEquals
 import|;
 end_import
 
@@ -350,7 +350,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test ZooKeeper multi-update functionality  */
+comment|/**  * Test ZooKeeper multi-update functionality.  */
 end_comment
 
 begin_class
@@ -734,7 +734,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -744,7 +744,7 @@ name|zkw
 argument_list|,
 name|path
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -1278,7 +1278,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1288,12 +1288,12 @@ name|zkw
 argument_list|,
 name|path3
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1303,7 +1303,7 @@ name|zkw
 argument_list|,
 name|path4
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -1743,7 +1743,7 @@ name|caughtNoNode
 argument_list|)
 expr_stmt|;
 comment|// assert that none of the operations succeeded
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1753,12 +1753,12 @@ name|zkw
 argument_list|,
 name|pathA
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1768,12 +1768,12 @@ name|zkw
 argument_list|,
 name|pathB
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -1783,7 +1783,7 @@ name|zkw
 argument_list|,
 name|pathC
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2065,7 +2065,7 @@ name|caughtNodeExists
 argument_list|)
 expr_stmt|;
 comment|// check that no modifications were made
-name|assertFalse
+name|assertNotEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2075,12 +2075,12 @@ name|zkw
 argument_list|,
 name|pathX
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2090,12 +2090,12 @@ name|zkw
 argument_list|,
 name|pathY
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2105,12 +2105,12 @@ name|zkw
 argument_list|,
 name|pathZ
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2120,12 +2120,12 @@ name|zkw
 argument_list|,
 name|pathW
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2135,7 +2135,7 @@ name|zkw
 argument_list|,
 name|pathV
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2227,7 +2227,7 @@ name|caughtNoNode
 argument_list|)
 expr_stmt|;
 comment|// check that no modifications were made
-name|assertFalse
+name|assertNotEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2237,12 +2237,12 @@ name|zkw
 argument_list|,
 name|pathX
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2252,12 +2252,12 @@ name|zkw
 argument_list|,
 name|pathY
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2267,12 +2267,12 @@ name|zkw
 argument_list|,
 name|pathZ
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2282,12 +2282,12 @@ name|zkw
 argument_list|,
 name|pathW
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2297,7 +2297,7 @@ name|zkw
 argument_list|,
 name|pathV
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2587,7 +2587,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2597,12 +2597,12 @@ name|zkw
 argument_list|,
 name|path2
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2612,12 +2612,12 @@ name|zkw
 argument_list|,
 name|path3
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertNotEquals
 argument_list|(
 name|ZKUtil
 operator|.
@@ -2627,7 +2627,7 @@ name|zkw
 argument_list|,
 name|path4
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2699,12 +2699,12 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Failed to delete child znodes!"
 argument_list|,
 literal|0
-operator|==
+argument_list|,
 name|children
 operator|.
 name|size
@@ -2741,7 +2741,7 @@ argument_list|,
 name|parentZNode
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Parent znode should be deleted."
 argument_list|,
@@ -2753,7 +2753,7 @@ name|zkw
 argument_list|,
 name|parentZNode
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2813,7 +2813,7 @@ argument_list|,
 name|parentZNode3
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Parent znode 1 should be deleted."
 argument_list|,
@@ -2825,12 +2825,12 @@ name|zkw
 argument_list|,
 name|parentZNode1
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Parent znode 2 should be deleted."
 argument_list|,
@@ -2842,12 +2842,12 @@ name|zkw
 argument_list|,
 name|parentZNode2
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Parent znode 3 should be deleted."
 argument_list|,
@@ -2859,7 +2859,7 @@ name|zkw
 argument_list|,
 name|parentZNode3
 argument_list|)
-operator|==
+argument_list|,
 operator|-
 literal|1
 argument_list|)
@@ -2954,12 +2954,12 @@ argument_list|,
 literal|false
 argument_list|)
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Failed to delete child znodes of parent znode 1!"
 argument_list|,
 literal|0
-operator|==
+argument_list|,
 name|children
 operator|.
 name|size
@@ -2997,12 +2997,12 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Failed to delete child znodes of parent znode 1!"
 argument_list|,
 literal|0
-operator|==
+argument_list|,
 name|children
 operator|.
 name|size
@@ -3040,12 +3040,12 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Failed to delete child znodes of parent znode 1!"
 argument_list|,
 literal|0
-operator|==
+argument_list|,
 name|children
 operator|.
 name|size
@@ -3410,23 +3410,23 @@ name|Arrays
 operator|.
 name|asList
 argument_list|(
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|tenByteOp
 argument_list|)
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|tenByteOp
 argument_list|)
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|tenByteOp
 argument_list|)
@@ -3467,9 +3467,9 @@ argument_list|,
 name|tenByteOp
 argument_list|)
 argument_list|,
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|tenByteOp
 argument_list|)
@@ -3497,9 +3497,9 @@ expr_stmt|;
 comment|// Plenty of space for one partition
 name|assertEquals
 argument_list|(
-name|Arrays
+name|Collections
 operator|.
-name|asList
+name|singletonList
 argument_list|(
 name|Arrays
 operator|.

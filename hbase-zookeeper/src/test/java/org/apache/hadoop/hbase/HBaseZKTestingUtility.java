@@ -168,7 +168,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return Where the cluster will write data on the local subsystem. Creates it if it does not    *         exist already. A subdir of {@link #getBaseTestDir()}    * @see #getTestFileSystem()    */
+comment|/**    * @return Where the cluster will write data on the local subsystem. Creates it if it does not    *         exist already. A subdir of {@code HBaseCommonTestingUtility#getBaseTestDir()}    */
 name|Path
 name|getClusterTestDir
 parameter_list|()
@@ -415,19 +415,16 @@ comment|// Ignore extra client ports
 name|int
 name|clientPortListSize
 init|=
-operator|(
+name|Math
+operator|.
+name|min
+argument_list|(
 name|clientPortList
 operator|.
 name|length
-operator|<=
+argument_list|,
 name|zooKeeperServerNum
-operator|)
-condition|?
-name|clientPortList
-operator|.
-name|length
-else|:
-name|zooKeeperServerNum
+argument_list|)
 decl_stmt|;
 for|for
 control|(
@@ -660,9 +657,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|ZKWatcher
-name|zkw
-init|=
+return|return
 operator|new
 name|ZKWatcher
 argument_list|(
@@ -724,9 +719,6 @@ return|;
 block|}
 block|}
 argument_list|)
-decl_stmt|;
-return|return
-name|zkw
 return|;
 block|}
 comment|/**    * @return True if we removed the test dirs    */
@@ -765,8 +757,6 @@ literal|null
 expr_stmt|;
 return|return
 name|ret
-operator|&
-literal|true
 return|;
 block|}
 return|return
