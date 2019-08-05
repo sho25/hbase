@@ -290,7 +290,7 @@ import|;
 end_import
 
 begin_comment
-comment|/** Tests the HColumnDescriptor with appropriate arguments */
+comment|/**  * Tests the HColumnDescriptor with appropriate arguments.  *  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0 together with  *            {@link HColumnDescriptor}.  */
 end_comment
 
 begin_class

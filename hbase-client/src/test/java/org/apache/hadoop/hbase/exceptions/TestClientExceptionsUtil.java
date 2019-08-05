@@ -25,7 +25,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
 import|;
 end_import
 
@@ -185,8 +185,6 @@ specifier|public
 name|void
 name|testFindException
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|IOException
 name|ioe

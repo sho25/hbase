@@ -286,7 +286,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test setting values in the descriptor  */
+comment|/**  * Test setting values in the descriptor.  */
 end_comment
 
 begin_class
@@ -519,7 +519,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test cps in the table description    * @throws Exception    */
+comment|/**    * Test cps in the table description.    *    * @throws Exception if setting a coprocessor fails    */
 annotation|@
 name|Test
 specifier|public
@@ -601,7 +601,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test cps in the table description    * @throws Exception    */
+comment|/**    * Test cps in the table description.    *    * @throws Exception if setting a coprocessor fails    */
 annotation|@
 name|Test
 specifier|public
@@ -959,15 +959,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that we add and remove strings from settings properly.    * @throws Exception    */
+comment|/**    * Test that we add and remove strings from settings properly.    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testRemoveString
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|byte
 index|[]
@@ -1067,8 +1065,8 @@ argument_list|)
 expr_stmt|;
 block|}
 name|String
-name|legalTableNames
 index|[]
+name|legalTableNames
 init|=
 block|{
 literal|"foo"
@@ -1107,8 +1105,8 @@ literal|"ns:my_table_01-02"
 block|}
 decl_stmt|;
 name|String
-name|illegalTableNames
 index|[]
+name|illegalTableNames
 init|=
 block|{
 literal|".dot_start_illegal"

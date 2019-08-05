@@ -931,7 +931,7 @@ name|SIZE
 init|=
 literal|"--size="
 decl_stmt|;
-comment|/**    * Prints usage and then exits w/ passed<code>errCode</code>    * @param errCode    */
+comment|/**    * Prints usage and then exits w/ passed<code>errCode</code>    * @param errorCode the error code to use to exit the application    */
 specifier|private
 specifier|static
 name|void
@@ -939,7 +939,7 @@ name|usage
 parameter_list|(
 specifier|final
 name|int
-name|errCode
+name|errorCode
 parameter_list|)
 block|{
 name|System
@@ -991,7 +991,7 @@ name|System
 operator|.
 name|exit
 argument_list|(
-name|errCode
+name|errorCode
 argument_list|)
 expr_stmt|;
 block|}
@@ -1248,7 +1248,7 @@ name|sized
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * For running a few tests of methods herein.    * @param args    * @throws IOException    */
+comment|/**    * For running a few tests of methods herein.    *    * @param args the arguments to use for the timer test    * @throws IOException if creating the build fails    */
 specifier|public
 specifier|static
 name|void

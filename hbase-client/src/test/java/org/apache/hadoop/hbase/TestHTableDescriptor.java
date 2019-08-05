@@ -268,7 +268,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test setting values in the descriptor  */
+comment|/**  * Test setting values in the descriptor  *  * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0 together with  *             {@link HTableDescriptor}.  */
 end_comment
 
 begin_class
@@ -626,7 +626,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test cps in the table description    * @throws Exception    */
+comment|/**    * Test cps in the table description.    *    * @throws Exception if adding a coprocessor fails    */
 annotation|@
 name|Test
 specifier|public
@@ -696,7 +696,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test cps in the table description    * @throws Exception    */
+comment|/**    * Test cps in the table description.    *    * @throws Exception if adding a coprocessor fails    */
 annotation|@
 name|Test
 specifier|public
@@ -908,15 +908,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test that we add and remove strings from settings properly.    * @throws Exception    */
+comment|/**    * Test that we add and remove strings from settings properly.    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testAddGetRemoveString
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|HTableDescriptor
 name|desc
@@ -1037,8 +1035,8 @@ argument_list|)
 expr_stmt|;
 block|}
 name|String
-name|legalTableNames
 index|[]
+name|legalTableNames
 init|=
 block|{
 literal|"foo"
@@ -1090,8 +1088,8 @@ block|}
 decl_stmt|;
 comment|// Avoiding "zookeeper" in here as it's tough to encode in regex
 name|String
-name|illegalTableNames
 index|[]
+name|illegalTableNames
 init|=
 block|{
 literal|".dot_start_illegal"

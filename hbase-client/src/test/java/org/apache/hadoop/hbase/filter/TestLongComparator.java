@@ -150,8 +150,8 @@ argument_list|)
 decl_stmt|;
 specifier|private
 name|long
-name|values
 index|[]
+name|values
 init|=
 block|{
 name|Long

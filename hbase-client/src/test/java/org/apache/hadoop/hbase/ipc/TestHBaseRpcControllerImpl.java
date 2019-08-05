@@ -395,7 +395,7 @@ name|index
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param index    * @return A faked out 'Cell' that does nothing but return index as its value    */
+comment|/**    * @param index the index of the cell to use as its value    * @return A faked out 'Cell' that does nothing but return index as its value    */
 specifier|static
 name|CellScannable
 name|createCell
@@ -462,7 +462,6 @@ index|[]
 name|getRowArray
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|null
 return|;
@@ -474,7 +473,6 @@ name|int
 name|getRowOffset
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -486,7 +484,6 @@ name|short
 name|getRowLength
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -499,7 +496,6 @@ index|[]
 name|getFamilyArray
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|null
 return|;
@@ -511,7 +507,6 @@ name|int
 name|getFamilyOffset
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -523,7 +518,6 @@ name|byte
 name|getFamilyLength
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -536,7 +530,6 @@ index|[]
 name|getQualifierArray
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|null
 return|;
@@ -548,7 +541,6 @@ name|int
 name|getQualifierOffset
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -560,7 +552,6 @@ name|int
 name|getQualifierLength
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -572,7 +563,6 @@ name|long
 name|getTimestamp
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -584,7 +574,6 @@ name|byte
 name|getTypeByte
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -596,7 +585,6 @@ name|long
 name|getSequenceId
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -662,7 +650,6 @@ name|int
 name|getTagsOffset
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -674,7 +661,6 @@ name|int
 name|getTagsLength
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|0
 return|;
@@ -687,7 +673,6 @@ index|[]
 name|getTagsArray
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|null
 return|;
@@ -699,7 +684,6 @@ name|Type
 name|getType
 parameter_list|()
 block|{
-comment|// unused
 return|return
 literal|null
 return|;
@@ -726,9 +710,11 @@ condition|(
 operator|!
 name|hasCell
 condition|)
+block|{
 return|return
 name|hasCell
 return|;
+block|}
 name|hasCell
 operator|=
 literal|false

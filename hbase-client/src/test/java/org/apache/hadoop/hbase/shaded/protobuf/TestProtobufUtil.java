@@ -806,7 +806,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test basic Get conversions.    *    * @throws IOException    */
+comment|/**    * Test basic Get conversions.    *    * @throws IOException if the conversion to a {@link Get} fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1030,7 +1030,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test Delete Mutate conversions.    *    * @throws IOException    */
+comment|/**    * Test Delete Mutate conversions.    *    * @throws IOException if the conversion to a {@link Delete} or a    *                     {@link org.apache.hadoop.hbase.client.Mutation} fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1309,7 +1309,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test Put Mutate conversions.    *    * @throws IOException    */
+comment|/**    * Test Put Mutate conversions.    *    * @throws IOException if the conversion to a {@link Put} or a    *                     {@link org.apache.hadoop.hbase.client.Mutation} fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1604,7 +1604,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test basic Scan conversions.    *    * @throws IOException    */
+comment|/**    * Test basic Scan conversions.    *    * @throws IOException if the conversion to a {@link org.apache.hadoop.hbase.client.Scan} fails    */
 annotation|@
 name|Test
 specifier|public
@@ -1863,8 +1863,6 @@ specifier|public
 name|void
 name|testToCell
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|KeyValue
 name|kv1
@@ -2160,7 +2158,7 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test Increment Mutate conversions.    *    * @throws IOException    */
+comment|/**    * Test Increment Mutate conversions.    *    * @throws IOException if converting to an {@link Increment} or    *                     {@link org.apache.hadoop.hbase.client.Mutation} fails    */
 annotation|@
 name|Test
 specifier|public
@@ -2436,7 +2434,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test Append Mutate conversions.    *    * @throws IOException    */
+comment|/**    * Test Append Mutate conversions.    *    * @throws IOException if converting to an {@link Append} fails    */
 annotation|@
 name|Test
 specifier|public

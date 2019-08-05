@@ -99,9 +99,14 @@ end_comment
 
 begin_class
 specifier|public
+specifier|final
 class|class
 name|BuilderStyleTest
 block|{
+specifier|private
+name|BuilderStyleTest
+parameter_list|()
+block|{}
 comment|/*    * If a base class Foo declares a method setFoo() returning Foo, then the subclass should    * re-declare the methods overriding the return class with the subclass:    *    * class Foo {    *   Foo setFoo() {    *     ..    *     return this;    *   }    * }    *    * class Bar {    *   Bar setFoo() {    *     return (Bar) super.setFoo();    *   }    * }    *    */
 annotation|@
 name|SuppressWarnings
@@ -385,7 +390,9 @@ if|if
 condition|(
 name|found
 condition|)
+block|{
 break|break;
+block|}
 block|}
 name|String
 name|errorMsg

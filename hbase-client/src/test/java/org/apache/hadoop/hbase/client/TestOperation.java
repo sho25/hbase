@@ -2197,7 +2197,7 @@ name|length
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test the client Operations' JSON encoding to ensure that produced JSON is    * parseable and that the details are present and not corrupted.    * @throws IOException    */
+comment|/**    * Test the client Operations' JSON encoding to ensure that produced JSON is    * parseable and that the details are present and not corrupted.    *    * @throws IOException if the JSON conversion fails    */
 annotation|@
 name|Test
 specifier|public
