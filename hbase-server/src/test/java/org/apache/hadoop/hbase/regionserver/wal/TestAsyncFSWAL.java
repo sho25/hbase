@@ -974,6 +974,7 @@ argument_list|)
 block|{
 annotation|@
 name|Override
+specifier|protected
 name|void
 name|atHeadOfRingBufferEventHandlerAppend
 parameter_list|()

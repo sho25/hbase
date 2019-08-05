@@ -4033,6 +4033,14 @@ expr_stmt|;
 comment|// Return to keep processing events coming off the ringbuffer
 return|return;
 block|}
+finally|finally
+block|{
+name|entry
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
