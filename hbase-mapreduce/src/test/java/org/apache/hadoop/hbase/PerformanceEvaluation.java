@@ -16105,6 +16105,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
+continue|continue;
 block|}
 specifier|final
 name|String
