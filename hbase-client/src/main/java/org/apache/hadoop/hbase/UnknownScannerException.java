@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown if a region server is passed an unknown scanner id.  * Usually means the client has take too long between checkins and so the  * scanner lease on the serverside has expired OR the serverside is closing  * down and has cancelled all leases.  */
+comment|/**  * Thrown if a region server is passed an unknown scanner ID.  * This usually means that the client has taken too long between checkins and so the  * scanner lease on the server-side has expired OR the server-side is closing  * down and has cancelled all leases.  */
 end_comment
 
 begin_class
@@ -52,7 +52,6 @@ name|serialVersionUID
 init|=
 literal|993179627856392526L
 decl_stmt|;
-comment|/** constructor */
 specifier|public
 name|UnknownScannerException
 parameter_list|()
@@ -61,35 +60,36 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param s message    */
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|UnknownScannerException
 parameter_list|(
 name|String
-name|s
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|message
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param message the message for this exception    * @param exception the exception to grab data from    */
 specifier|public
 name|UnknownScannerException
 parameter_list|(
 name|String
-name|s
+name|message
 parameter_list|,
 name|Exception
-name|e
+name|exception
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|message
 argument_list|,
-name|e
+name|exception
 argument_list|)
 expr_stmt|;
 block|}

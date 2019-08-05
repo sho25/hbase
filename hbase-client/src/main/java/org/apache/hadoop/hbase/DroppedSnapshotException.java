@@ -63,27 +63,26 @@ init|=
 operator|-
 literal|5463156580831677374L
 decl_stmt|;
-comment|/**    * @param msg    */
-specifier|public
-name|DroppedSnapshotException
-parameter_list|(
-name|String
-name|msg
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
-block|}
-comment|/**    * default constructor    */
 specifier|public
 name|DroppedSnapshotException
 parameter_list|()
 block|{
 name|super
 argument_list|()
+expr_stmt|;
+block|}
+comment|/**    * @param message the message for this exception    */
+specifier|public
+name|DroppedSnapshotException
+parameter_list|(
+name|String
+name|message
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|)
 expr_stmt|;
 block|}
 block|}

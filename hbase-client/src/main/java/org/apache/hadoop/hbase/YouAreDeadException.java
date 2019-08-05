@@ -77,6 +77,7 @@ name|YouAreDeadException
 extends|extends
 name|IOException
 block|{
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|YouAreDeadException
 parameter_list|(

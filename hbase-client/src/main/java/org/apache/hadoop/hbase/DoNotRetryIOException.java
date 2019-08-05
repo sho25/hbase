@@ -53,7 +53,6 @@ name|serialVersionUID
 init|=
 literal|1197446454511704139L
 decl_stmt|;
-comment|/**    * default constructor    */
 specifier|public
 name|DoNotRetryIOException
 parameter_list|()
@@ -62,7 +61,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param message    */
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|DoNotRetryIOException
 parameter_list|(
@@ -76,7 +75,7 @@ name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param message    * @param cause    */
+comment|/**    * @param message the message for this exception    * @param throwable the {@link Throwable} to use for this exception    */
 specifier|public
 name|DoNotRetryIOException
 parameter_list|(
@@ -84,27 +83,28 @@ name|String
 name|message
 parameter_list|,
 name|Throwable
-name|cause
+name|throwable
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|message
 argument_list|,
-name|cause
+name|throwable
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param throwable the {@link Throwable} to use for this exception    */
 specifier|public
 name|DoNotRetryIOException
 parameter_list|(
 name|Throwable
-name|cause
+name|throwable
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|cause
+name|throwable
 argument_list|)
 expr_stmt|;
 block|}

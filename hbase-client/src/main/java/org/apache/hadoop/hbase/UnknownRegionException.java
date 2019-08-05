@@ -21,11 +21,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|DoNotRetryRegionException
 import|;
 end_import
 
@@ -35,13 +37,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|client
-operator|.
-name|DoNotRetryRegionException
+name|InterfaceAudience
 import|;
 end_import
 
@@ -68,6 +68,7 @@ name|serialVersionUID
 init|=
 literal|1968858760475205392L
 decl_stmt|;
+comment|/**    * @param regionName the name of the region which is unknown    */
 specifier|public
 name|UnknownRegionException
 parameter_list|(

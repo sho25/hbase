@@ -21,20 +21,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -45,8 +31,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/** Thrown when a table can not be located */
+comment|/**  * Thrown when a table cannot be located.  */
 end_comment
 
 begin_class
@@ -68,7 +68,6 @@ name|serialVersionUID
 init|=
 literal|993179627856392526L
 decl_stmt|;
-comment|/** default constructor */
 specifier|public
 name|TableNotFoundException
 parameter_list|()
@@ -77,20 +76,21 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/** @param s message */
+comment|/**    * @param tableName the name of the table which was not found    */
 specifier|public
 name|TableNotFoundException
 parameter_list|(
 name|String
-name|s
+name|tableName
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param tableName the name of the table which was not found    */
 specifier|public
 name|TableNotFoundException
 parameter_list|(
@@ -110,6 +110,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param tableName the name of the table which was not found    */
 specifier|public
 name|TableNotFoundException
 parameter_list|(

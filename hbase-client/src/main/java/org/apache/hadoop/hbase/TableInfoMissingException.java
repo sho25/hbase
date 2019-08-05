@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *   * Failed to find .tableinfo file under table dir  *  */
+comment|/**  * Failed to find {@code .tableinfo} file under the table directory.  */
 end_comment
 
 begin_class
@@ -49,6 +49,7 @@ name|TableInfoMissingException
 extends|extends
 name|HBaseIOException
 block|{
+comment|/**    * Failed to find {@code .tableinfo} file under the table directory.    */
 specifier|public
 name|TableInfoMissingException
 parameter_list|()
@@ -57,6 +58,7 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|TableInfoMissingException
 parameter_list|(
@@ -70,6 +72,7 @@ name|message
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param message the message for this exception    * @param throwable the {@link Throwable} to use for this exception    */
 specifier|public
 name|TableInfoMissingException
 parameter_list|(
@@ -77,27 +80,28 @@ name|String
 name|message
 parameter_list|,
 name|Throwable
-name|t
+name|throwable
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|message
 argument_list|,
-name|t
+name|throwable
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param throwable the {@link Throwable} to use for this exception    */
 specifier|public
 name|TableInfoMissingException
 parameter_list|(
 name|Throwable
-name|t
+name|throwable
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|t
+name|throwable
 argument_list|)
 expr_stmt|;
 block|}

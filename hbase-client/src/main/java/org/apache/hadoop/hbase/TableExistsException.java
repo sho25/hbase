@@ -30,7 +30,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown when a table exists but should not  */
+comment|/**  * Thrown when a table exists but should not.  */
 end_comment
 
 begin_class
@@ -58,7 +58,6 @@ operator|)
 operator|-
 literal|1L
 decl_stmt|;
-comment|/** default constructor */
 specifier|public
 name|TableExistsException
 parameter_list|()
@@ -67,30 +66,31 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    *    * @param s message    */
+comment|/**    * @param tableName the name of the table that should not exist    */
 specifier|public
 name|TableExistsException
 parameter_list|(
 name|String
-name|s
+name|tableName
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @param tableName the name of the table that should not exist    */
 specifier|public
 name|TableExistsException
 parameter_list|(
 name|TableName
-name|t
+name|tableName
 parameter_list|)
 block|{
 name|this
 argument_list|(
-name|t
+name|tableName
 operator|.
 name|getNameAsString
 argument_list|()

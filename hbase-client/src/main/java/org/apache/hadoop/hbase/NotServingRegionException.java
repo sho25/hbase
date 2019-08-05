@@ -31,20 +31,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -55,8 +41,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Thrown by a region server if it is sent a request for a region it is not  * serving.  */
+comment|/**  * Thrown by a region server if it is sent a request for a region it is not serving.  */
 end_comment
 
 begin_class
@@ -84,7 +84,6 @@ operator|)
 operator|-
 literal|1L
 decl_stmt|;
-comment|/** default constructor */
 specifier|public
 name|NotServingRegionException
 parameter_list|()
@@ -93,28 +92,28 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param s message    */
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|NotServingRegionException
 parameter_list|(
 name|String
-name|s
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param s message    */
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|NotServingRegionException
 parameter_list|(
 specifier|final
 name|byte
 index|[]
-name|s
+name|message
 parameter_list|)
 block|{
 name|super
@@ -123,7 +122,7 @@ name|Bytes
 operator|.
 name|toString
 argument_list|(
-name|s
+name|message
 argument_list|)
 argument_list|)
 expr_stmt|;

@@ -21,20 +21,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -45,8 +31,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Thrown if a table should be offline but is not  */
+comment|/**  * Thrown if a table should be offline but is not.  */
 end_comment
 
 begin_class
@@ -74,7 +74,6 @@ operator|)
 operator|-
 literal|1L
 decl_stmt|;
-comment|/** default constructor */
 specifier|public
 name|TableNotDisabledException
 parameter_list|()
@@ -83,21 +82,21 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param s message    */
+comment|/**    * @param tableName the name of the table that is not disabled    */
 specifier|public
 name|TableNotDisabledException
 parameter_list|(
 name|String
-name|s
+name|tableName
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|tableName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tableName Name of table that is not disabled    */
+comment|/**    * @param tableName the name of the table that is not disabled    */
 specifier|public
 name|TableNotDisabledException
 parameter_list|(
@@ -117,7 +116,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tableName Name of table that is not disabled    */
+comment|/**    * @param tableName the name of the table that is not disabled    */
 specifier|public
 name|TableNotDisabledException
 parameter_list|(

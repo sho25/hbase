@@ -40,7 +40,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Thrown if the client can't connect to zookeeper  */
+comment|/**  * Thrown if the client can't connect to ZooKeeper.  */
 end_comment
 
 begin_class
@@ -68,7 +68,6 @@ operator|)
 operator|-
 literal|1L
 decl_stmt|;
-comment|/** default constructor */
 specifier|public
 name|ZooKeeperConnectionException
 parameter_list|()
@@ -77,21 +76,21 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Constructor    * @param s message    */
+comment|/**    * @param message the message for this exception    */
 specifier|public
 name|ZooKeeperConnectionException
 parameter_list|(
 name|String
-name|s
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor taking another exception.    * @param e Exception to grab data from.    */
+comment|/**    * Constructor taking another exception.    *    * @param message the message for this exception    * @param exception the exception to grab data from    */
 specifier|public
 name|ZooKeeperConnectionException
 parameter_list|(
@@ -99,14 +98,14 @@ name|String
 name|message
 parameter_list|,
 name|Exception
-name|e
+name|exception
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|message
 argument_list|,
-name|e
+name|exception
 argument_list|)
 expr_stmt|;
 block|}
