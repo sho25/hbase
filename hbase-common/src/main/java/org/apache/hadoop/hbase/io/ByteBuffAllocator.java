@@ -321,7 +321,7 @@ name|MIN_ALLOCATE_SIZE_KEY
 init|=
 literal|"hbase.server.allocator.minimal.allocate.size"
 decl_stmt|;
-comment|/**    * @deprecated use {@link ByteBuffAllocator#ALLOCATOR_POOL_ENABLED_KEY} instead.    */
+comment|/**    * @deprecated since 2.3.0 and will be removed in 4.0.0. Use    *   {@link ByteBuffAllocator#ALLOCATOR_POOL_ENABLED_KEY} instead.    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -332,7 +332,7 @@ name|DEPRECATED_ALLOCATOR_POOL_ENABLED_KEY
 init|=
 literal|"hbase.ipc.server.reservoir.enabled"
 decl_stmt|;
-comment|/**    * @deprecated use {@link ByteBuffAllocator#MAX_BUFFER_COUNT_KEY} instead.    */
+comment|/**    * @deprecated since 2.3.0 and will be removed in 4.0.0. Use    *   {@link ByteBuffAllocator#MAX_BUFFER_COUNT_KEY} instead.    */
 annotation|@
 name|Deprecated
 specifier|static
@@ -342,7 +342,7 @@ name|DEPRECATED_MAX_BUFFER_COUNT_KEY
 init|=
 literal|"hbase.ipc.server.reservoir.initial.max"
 decl_stmt|;
-comment|/**    * @deprecated use {@link ByteBuffAllocator#BUFFER_SIZE_KEY} instead.    */
+comment|/**    * @deprecated since 2.3.0 and will be removed in 4.0.0. Use    *   {@link ByteBuffAllocator#BUFFER_SIZE_KEY} instead.    */
 annotation|@
 name|Deprecated
 specifier|static
