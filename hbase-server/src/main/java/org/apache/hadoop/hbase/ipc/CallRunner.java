@@ -571,8 +571,6 @@ operator|.
 name|isPresent
 argument_list|()
 condition|?
-literal|"NULL principal"
-else|:
 name|remoteUser
 operator|.
 name|get
@@ -580,6 +578,8 @@ argument_list|()
 operator|.
 name|getName
 argument_list|()
+else|:
+literal|"NULL principal"
 operator|)
 argument_list|)
 expr_stmt|;
