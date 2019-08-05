@@ -363,39 +363,6 @@ operator|=
 name|length
 expr_stmt|;
 block|}
-comment|/**    * @return the number of valid bytes in the buffer    * @deprecated since 0.98.5. Use {@link #getLength()} instead    * @see #getLength()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-11561">HBASE-11561</a>    */
-annotation|@
-name|Deprecated
-specifier|public
-name|int
-name|getSize
-parameter_list|()
-block|{
-if|if
-condition|(
-name|this
-operator|.
-name|bytes
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|IllegalStateException
-argument_list|(
-literal|"Uninitialiized. Null constructor "
-operator|+
-literal|"called w/o accompaying readFields invocation"
-argument_list|)
-throw|;
-block|}
-return|return
-name|this
-operator|.
-name|length
-return|;
-block|}
 comment|/**    * @return the number of valid bytes in the buffer    */
 specifier|public
 name|int
