@@ -1323,11 +1323,22 @@ name|log
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Added log file {} to queue of source {}."
+literal|"{} Added log file {} to queue of source {}."
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|logPrefix
 argument_list|,
@@ -1339,6 +1350,7 @@ name|getQueueId
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|this
 operator|.
 name|metrics
@@ -1368,16 +1380,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"WAL group "
+literal|"{} WAL group {} queue size: {} exceeds value of "
 operator|+
+literal|"replication.source.log.queue.warn: {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|logPrefix
-operator|+
-literal|" queue size: "
-operator|+
+argument_list|,
 name|queueSize
-operator|+
-literal|" exceeds value of replication.source.log.queue.warn: "
-operator|+
+argument_list|,
 name|logQueueWarnThreshold
 argument_list|)
 expr_stmt|;
@@ -1510,21 +1523,17 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"HFiles will not be replicated belonging to the table "
-operator|+
+literal|"HFiles will not be replicated belonging to the table {} family {} to peer id {}"
+argument_list|,
 name|tableName
-operator|+
-literal|" family "
-operator|+
+argument_list|,
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|family
 argument_list|)
-operator|+
-literal|" to peer id "
-operator|+
+argument_list|,
 name|peerId
 argument_list|)
 expr_stmt|;
@@ -1915,27 +1924,51 @@ operator|!=
 literal|null
 condition|)
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|debug
-argument_list|(
-literal|"Someone has beat us to start a worker thread for wal group {}"
-argument_list|,
-name|walGroupId
-argument_list|)
-expr_stmt|;
-block|}
-else|else
+name|isDebugEnabled
+argument_list|()
+condition|)
 block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting up worker for wal group {}"
+literal|"{} Someone has beat us to start a worker thread for wal group {}"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|walGroupId
 argument_list|)
 expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"{} Starting up worker for wal group {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
+name|walGroupId
+argument_list|)
+expr_stmt|;
+block|}
 name|ReplicationSourceWALReader
 name|walReader
 init|=
@@ -2152,7 +2185,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No replication ongoing, waiting for new log"
+literal|"{} No replication ongoing, waiting for new log"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2408,15 +2444,13 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Unexpected exception in "
-operator|+
+literal|"Unexpected exception in {} currentPath={}"
+argument_list|,
 name|t
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" currentPath="
-operator|+
+argument_list|,
 name|getCurrentPath
 argument_list|()
 argument_list|,
@@ -2516,11 +2550,12 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"To sleep "
-operator|+
+literal|"{} To sleep {}ms for throttling control"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|sleepTicks
-operator|+
-literal|"ms for throttling control"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2640,14 +2675,15 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} {}, sleeping {} times {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|msg
-operator|+
-literal|", sleeping "
-operator|+
+argument_list|,
 name|sleepForRetries
-operator|+
-literal|" times "
-operator|+
+argument_list|,
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
@@ -2670,13 +2706,25 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Interrupted while sleeping between retries"
+literal|"{} Interrupted while sleeping between retries"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 name|Thread
 operator|.
 name|currentThread
@@ -2731,7 +2779,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"error creating ReplicationEndpoint, retry"
+literal|"{} error creating ReplicationEndpoint, retry"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -2777,7 +2828,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Error starting ReplicationEndpoint, retry"
+literal|"{} Error starting ReplicationEndpoint, retry"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|e
 argument_list|)
@@ -2847,12 +2901,23 @@ operator|==
 literal|null
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Could not connect to Peer ZK. Sleeping for "
-operator|+
+literal|"{} Could not connect to Peer ZK. Sleeping for {} millis"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 operator|(
 name|this
 operator|.
@@ -2860,10 +2925,9 @@ name|sleepForRetries
 operator|*
 name|sleepMultiplier
 operator|)
-operator|+
-literal|" millis."
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|sleepForRetries
@@ -2944,7 +3008,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Source: {}, is now replicating from cluster: {}; to peer cluster: {};"
+literal|"{} Source: {}, is now replicating from cluster: {}; to peer cluster: {};"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|this
 operator|.
@@ -3129,14 +3196,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Closing source "
-operator|+
+literal|"{} Closing source {} because: {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|this
 operator|.
 name|queueId
-operator|+
-literal|" because: "
-operator|+
+argument_list|,
 name|reason
 argument_list|)
 expr_stmt|;
@@ -3147,14 +3215,15 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Closing source "
-operator|+
+literal|"{} Closing source {} because an error occurred: {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|this
 operator|.
 name|queueId
-operator|+
-literal|" because an error occurred: "
-operator|+
+argument_list|,
 name|reason
 argument_list|,
 name|cause
@@ -3291,14 +3360,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Interrupted while waiting "
-operator|+
+literal|"{} Interrupted while waiting {} to stop"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|worker
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" to stop"
 argument_list|)
 expr_stmt|;
 name|Thread
@@ -3396,14 +3466,15 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"ReplicationSourceWorker "
-operator|+
+literal|"{} ReplicationSourceWorker {} terminated"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|worker
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|" terminated"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3444,8 +3515,13 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Got exception while waiting for endpoint to shutdown for replication source :"
+literal|"{} Got exception while waiting for endpoint to shutdown "
 operator|+
+literal|"for replication source : {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|this
 operator|.
 name|queueId
@@ -3947,6 +4023,25 @@ argument_list|,
 name|worker
 argument_list|)
 expr_stmt|;
+block|}
+specifier|private
+name|String
+name|logPeerId
+parameter_list|()
+block|{
+return|return
+literal|"[Source for peer "
+operator|+
+name|this
+operator|.
+name|getPeer
+argument_list|()
+operator|.
+name|getId
+argument_list|()
+operator|+
+literal|"]:"
+return|;
 block|}
 block|}
 end_class

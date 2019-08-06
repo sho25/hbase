@@ -1281,14 +1281,15 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} {}, sleeping {} times {}"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|msg
-operator|+
-literal|", sleeping "
-operator|+
+argument_list|,
 name|sleepForRetries
-operator|+
-literal|" times "
-operator|+
+argument_list|,
 name|sleepMultiplier
 argument_list|)
 expr_stmt|;
@@ -1311,13 +1312,25 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Interrupted while sleeping between retries"
+literal|"{} Interrupted while sleeping between retries"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 return|return
 name|sleepMultiplier
@@ -1909,7 +1922,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to create connection for peer cluster"
+literal|"{} Failed to create connection for peer cluster"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|ioe
 argument_list|)
@@ -2000,11 +2016,22 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Submitting {} entries of total size {}"
+literal|"{} Submitting {} entries of total size {}"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|entries
 operator|.
@@ -2017,6 +2044,7 @@ name|getSize
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// RuntimeExceptions encountered here bubble up and are handled in ReplicationSource
 name|pool
 operator|.
@@ -2263,9 +2291,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No replication sinks found, returning without replicating. The source should "
+literal|"{} No replication sinks found, returning without replicating. "
 operator|+
-literal|"retry with the same set of edits."
+literal|"The source should retry with the same set of edits."
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -2384,7 +2415,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't replicate because of an error on the remote cluster: "
+literal|"{} Can't replicate because of an error on the remote cluster: "
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|ioe
 argument_list|)
@@ -2458,13 +2492,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Missing table detected at sink, local table also does not exist, "
+literal|"{} Missing table detected at sink, local table also does not "
 operator|+
-literal|"filtering edits for '"
-operator|+
+literal|"exist, filtering edits for '{}'"
+argument_list|,
+name|logPeerId
+argument_list|()
+argument_list|,
 name|table
-operator|+
-literal|"'"
 argument_list|)
 expr_stmt|;
 name|batches
@@ -2489,7 +2524,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Exception checking for local table: "
+literal|"{} Exception checking for local table: "
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|iox
 argument_list|)
@@ -2505,7 +2543,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Peer encountered RemoteException, rechecking all sinks: "
+literal|"{} Peer encountered RemoteException, rechecking all sinks: "
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|ioe
 argument_list|)
@@ -2559,7 +2600,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Peer is unavailable, rechecking all sinks: "
+literal|"{} Peer is unavailable, rechecking all sinks: "
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|ioe
 argument_list|)
@@ -2576,7 +2620,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Can't replicate because of a local or network error: "
+literal|"{} Can't replicate because of a local or network error: "
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|ioe
 argument_list|)
@@ -2665,7 +2712,10 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to close the connection"
+literal|"{} Failed to close the connection"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2802,7 +2852,10 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Replicating batch {} of {} entries with total size {} bytes to {}"
+literal|"{} Replicating batch {} of {} entries with total size {} bytes to {}"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|entriesHashCode
 argument_list|,
@@ -2861,15 +2914,27 @@ argument_list|,
 name|hfileArchiveDir
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Completed replicating batch {}"
+literal|"{} Completed replicating batch {}"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|entriesHashCode
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -2877,17 +2942,29 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Failed replicating batch {}"
+literal|"{} Failed replicating batch {}"
+argument_list|,
+name|logPeerId
+argument_list|()
 argument_list|,
 name|entriesHashCode
 argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
 throw|throw
 name|e
 throw|;
@@ -3082,6 +3159,24 @@ name|entries
 argument_list|,
 name|batchIndex
 argument_list|)
+return|;
+block|}
+specifier|private
+name|String
+name|logPeerId
+parameter_list|()
+block|{
+return|return
+literal|"[Source for peer "
+operator|+
+name|this
+operator|.
+name|ctx
+operator|.
+name|getPeerId
+argument_list|()
+operator|+
+literal|"]:"
 return|;
 block|}
 block|}
