@@ -641,19 +641,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hbase
+name|yetus
 operator|.
-name|thirdparty
+name|audience
 operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
+name|InterfaceAudience
 import|;
 end_import
 
@@ -677,6 +669,28 @@ name|LoggerFactory
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
 begin_comment
 comment|/**  * A janitor for the catalog tables. Scans the<code>hbase:meta</code> catalog  * table on a period. Makes a lastReport on state of hbase:meta. Looks for unused  * regions to garbage collect. Scan of hbase:meta runs if we are NOT in maintenance  * mode, if we are NOT shutting down, AND if the assignmentmanager is loaded.  * Playing it safe, we will garbage collect no-longer needed region references  * only if there are no regions-in-transition (RIT).  */
 end_comment
@@ -695,14 +709,6 @@ end_comment
 
 begin_class
 annotation|@
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
 name|InterfaceAudience
 operator|.
 name|Private
