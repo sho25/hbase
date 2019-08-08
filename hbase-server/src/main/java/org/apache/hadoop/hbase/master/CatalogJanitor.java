@@ -3683,6 +3683,20 @@ condition|)
 block|{
 continue|continue;
 block|}
+comment|// skip the offline regions which belong to disabled table.
+if|if
+condition|(
+name|isTableDisabled
+argument_list|(
+name|location
+operator|.
+name|getRegion
+argument_list|()
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 name|ServerManager
 operator|.
 name|ServerLiveState
