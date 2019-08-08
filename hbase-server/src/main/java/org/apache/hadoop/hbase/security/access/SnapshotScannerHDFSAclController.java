@@ -835,7 +835,7 @@ name|getBoolean
 argument_list|(
 name|SnapshotScannerHDFSAclHelper
 operator|.
-name|USER_SCAN_SNAPSHOT_ENABLE
+name|ACL_SYNC_TO_HDFS_ENABLE
 argument_list|,
 literal|false
 argument_list|)
@@ -939,7 +939,7 @@ literal|"because the config "
 operator|+
 name|SnapshotScannerHDFSAclHelper
 operator|.
-name|USER_SCAN_SNAPSHOT_ENABLE
+name|ACL_SYNC_TO_HDFS_ENABLE
 operator|+
 literal|" is false."
 argument_list|)
@@ -1403,7 +1403,15 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-comment|// Since the table directories is recreated, so add HDFS acls again
+comment|// 1. create tmp table directories
+name|hdfsAclHelper
+operator|.
+name|createTableDirectories
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// 2. Since the table directories is recreated, so add HDFS acls again
 name|Set
 argument_list|<
 name|String
@@ -1501,7 +1509,17 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
-comment|// 1. Delete table owner permission is synced to HDFS in acl table
+comment|// 1. Remove table archive directory default ACLs
+name|hdfsAclHelper
+operator|.
+name|removeTableDefaultAcl
+argument_list|(
+name|tableName
+argument_list|,
+name|users
+argument_list|)
+expr_stmt|;
+comment|// 2. Delete table owner permission is synced to HDFS in acl table
 name|SnapshotScannerHDFSAclStorage
 operator|.
 name|deleteTableHdfsAcl
@@ -1511,7 +1529,7 @@ argument_list|,
 name|tableName
 argument_list|)
 expr_stmt|;
-comment|// 2. Remove namespace access acls
+comment|// 3. Remove namespace access acls
 name|Set
 argument_list|<
 name|String
@@ -1611,7 +1629,7 @@ operator|&&
 operator|!
 name|hdfsAclHelper
 operator|.
-name|isTableUserScanSnapshotEnabled
+name|isAclSyncToHdfsEnabled
 argument_list|(
 name|oldDescriptor
 argument_list|)
@@ -1713,7 +1731,7 @@ operator|&&
 operator|!
 name|hdfsAclHelper
 operator|.
-name|isTableUserScanSnapshotEnabled
+name|isAclSyncToHdfsEnabled
 argument_list|(
 name|currentDescriptor
 argument_list|)
@@ -1871,7 +1889,63 @@ name|namespace
 argument_list|)
 condition|)
 block|{
-comment|// 1. Record namespace user acl is not synced to HDFS
+try|try
+init|(
+name|Table
+name|aclTable
+init|=
+name|ctx
+operator|.
+name|getEnvironment
+argument_list|()
+operator|.
+name|getConnection
+argument_list|()
+operator|.
+name|getTable
+argument_list|(
+name|PermissionStorage
+operator|.
+name|ACL_TABLE_NAME
+argument_list|)
+init|)
+block|{
+comment|// 1. Delete namespace archive dir default ACLs
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|users
+init|=
+name|SnapshotScannerHDFSAclStorage
+operator|.
+name|getEntryUsers
+argument_list|(
+name|aclTable
+argument_list|,
+name|PermissionStorage
+operator|.
+name|toNamespaceEntry
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|namespace
+argument_list|)
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|hdfsAclHelper
+operator|.
+name|removeNamespaceDefaultAcl
+argument_list|(
+name|namespace
+argument_list|,
+name|users
+argument_list|)
+expr_stmt|;
+comment|// 2. Record namespace user acl is not synced to HDFS
 name|SnapshotScannerHDFSAclStorage
 operator|.
 name|deleteNamespaceHdfsAcl
@@ -1887,8 +1961,8 @@ argument_list|,
 name|namespace
 argument_list|)
 expr_stmt|;
-comment|// 2. Delete tmp namespace directory
-comment|/**        * Delete namespace tmp directory because it's created by this coprocessor when namespace is        * created to make namespace default acl can be inherited by tables. The namespace data        * directory is deleted by DeleteNamespaceProcedure, the namespace archive directory is        * deleted by HFileCleaner.        */
+comment|// 3. Delete tmp namespace directory
+comment|/**          * Delete namespace tmp directory because it's created by this coprocessor when namespace is          * created to make namespace default acl can be inherited by tables. The namespace data          * directory is deleted by DeleteNamespaceProcedure, the namespace archive directory is          * deleted by HFileCleaner.          */
 name|hdfsAclHelper
 operator|.
 name|deleteEmptyDir
@@ -1901,6 +1975,7 @@ name|namespace
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 annotation|@
@@ -2333,7 +2408,15 @@ name|tableName
 argument_list|)
 condition|)
 block|{
-comment|// 1. Add HDFS acl
+comment|// 1. create table dirs
+name|hdfsAclHelper
+operator|.
+name|createTableDirectories
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+comment|// 2. Add HDFS acl
 name|hdfsAclHelper
 operator|.
 name|grantAcl
@@ -3456,7 +3539,7 @@ argument_list|)
 operator|&&
 name|hdfsAclHelper
 operator|.
-name|isTableUserScanSnapshotEnabled
+name|isAclSyncToHdfsEnabled
 argument_list|(
 name|masterServices
 operator|.
@@ -3503,7 +3586,7 @@ argument_list|)
 operator|&&
 name|hdfsAclHelper
 operator|.
-name|isTableUserScanSnapshotEnabled
+name|isAclSyncToHdfsEnabled
 argument_list|(
 name|tableDescriptor
 argument_list|)
