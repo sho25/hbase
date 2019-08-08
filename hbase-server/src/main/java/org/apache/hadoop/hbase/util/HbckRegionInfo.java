@@ -1588,9 +1588,6 @@ name|HdfsEntry
 parameter_list|(
 name|Path
 name|regionDir
-parameter_list|,
-name|long
-name|regionDirModTime
 parameter_list|)
 block|{
 name|this
@@ -1598,12 +1595,6 @@ operator|.
 name|regionDir
 operator|=
 name|regionDir
-expr_stmt|;
-name|this
-operator|.
-name|regionDirModTime
-operator|=
-name|regionDirModTime
 expr_stmt|;
 block|}
 block|}
