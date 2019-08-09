@@ -2559,6 +2559,26 @@ return|return
 name|delTracker
 return|;
 block|}
+comment|/**    * Called just before the WAL Entry is appended to the WAL. Implementing this hook allows    * coprocessors to add extended attributes to the WALKey that then get persisted to the    * WAL, and are available to replication endpoints to use in processing WAL Entries.    * @param ctx the environment provided by the region server    * @param key the WALKey associated with a particular append to a WAL    */
+specifier|default
+name|void
+name|preWALAppend
+parameter_list|(
+name|ObserverContext
+argument_list|<
+name|RegionCoprocessorEnvironment
+argument_list|>
+name|ctx
+parameter_list|,
+name|WALKey
+name|key
+parameter_list|,
+name|WALEdit
+name|edit
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 block|}
 end_interface
 

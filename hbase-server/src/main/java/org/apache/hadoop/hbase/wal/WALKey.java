@@ -166,7 +166,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Key for WAL Entry.  * Read-only. No Setters. For limited audience such as Coprocessors.  */
+comment|/**  * Key for WAL Entry.  */
 end_comment
 
 begin_interface
@@ -272,6 +272,18 @@ comment|/**    * Return a positive long if current WALKeyImpl is created from a 
 name|long
 name|getOrigLogSeqNum
 parameter_list|()
+function_decl|;
+comment|/**    * Add a named String value to this WALKey to be persisted into the WAL    * @param attributeKey Name of the attribute    * @param attributeValue Value of the attribute    */
+name|void
+name|addExtendedAttribute
+parameter_list|(
+name|String
+name|attributeKey
+parameter_list|,
+name|byte
+index|[]
+name|attributeValue
+parameter_list|)
 function_decl|;
 comment|/**      * Return a named String value injected into the WALKey during processing, such as by a      * coprocessor      * @param attributeKey The key of a key / value pair      */
 specifier|default

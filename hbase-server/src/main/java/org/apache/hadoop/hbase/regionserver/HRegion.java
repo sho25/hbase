@@ -38033,6 +38033,35 @@ name|origLogSeqNum
 argument_list|)
 expr_stmt|;
 block|}
+comment|//don't call the coproc hook for writes to the WAL caused by
+comment|//system lifecycle events like flushes or compactions
+if|if
+condition|(
+name|this
+operator|.
+name|coprocessorHost
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|walEdit
+operator|.
+name|isMetaEdit
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|coprocessorHost
+operator|.
+name|preWALAppend
+argument_list|(
+name|walKey
+argument_list|,
+name|walEdit
+argument_list|)
+expr_stmt|;
+block|}
 name|WriteEntry
 name|writeEntry
 init|=
