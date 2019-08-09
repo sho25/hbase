@@ -379,6 +379,19 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|disabledTableRegions
+init|=
+operator|new
+name|HashSet
+argument_list|<>
+argument_list|()
+decl_stmt|;
 comment|/**    * The regions only opened on RegionServers, but no region info in meta.    */
 specifier|private
 specifier|final
@@ -398,14 +411,16 @@ decl_stmt|;
 comment|/**    * The regions have directory on FileSystem, but no region info in meta.    */
 specifier|private
 specifier|final
-name|Set
+name|Map
 argument_list|<
 name|String
+argument_list|,
+name|Path
 argument_list|>
 name|orphanRegionsOnFS
 init|=
 operator|new
-name|HashSet
+name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
@@ -451,14 +466,16 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|final
-name|Set
+name|Map
 argument_list|<
 name|String
+argument_list|,
+name|Path
 argument_list|>
 name|orphanRegionsOnFSSnapshot
 init|=
 operator|new
-name|HashSet
+name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
@@ -620,6 +637,11 @@ operator|=
 literal|true
 expr_stmt|;
 name|regionInfoMap
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|disabledTableRegions
 operator|.
 name|clear
 argument_list|()
@@ -811,11 +833,29 @@ operator|.
 name|clear
 argument_list|()
 expr_stmt|;
+name|orphanRegionsOnFS
+operator|.
+name|entrySet
+argument_list|()
+operator|.
+name|forEach
+argument_list|(
+name|e
+lambda|->
 name|orphanRegionsOnFSSnapshot
 operator|.
-name|addAll
+name|put
 argument_list|(
-name|orphanRegionsOnFS
+name|e
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|e
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|inconsistentRegionsSnapshot
@@ -906,8 +946,6 @@ operator|.
 name|getRegion
 argument_list|()
 decl_stmt|;
-comment|// Because the inconsistent regions are not absolutely right, only skip the offline regions
-comment|// which belong to disabled table.
 if|if
 condition|(
 name|master
@@ -930,7 +968,16 @@ name|DISABLED
 argument_list|)
 condition|)
 block|{
-continue|continue;
+name|disabledTableRegions
+operator|.
+name|add
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 name|HbckRegionInfo
 operator|.
@@ -1196,6 +1243,20 @@ operator|==
 literal|0
 condition|)
 block|{
+comment|// Because the inconsistent regions are not absolutely right, only skip the offline regions
+comment|// which belong to disabled table.
+if|if
+condition|(
+name|disabledTableRegions
+operator|.
+name|contains
+argument_list|(
+name|encodedRegionName
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
 comment|// Master thought this region opened, but no regionserver reported it.
 name|inconsistentRegions
 operator|.
@@ -1402,9 +1463,11 @@ condition|)
 block|{
 name|orphanRegionsOnFS
 operator|.
-name|add
+name|put
 argument_list|(
 name|encodedRegionName
+argument_list|,
+name|regionDir
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -1510,9 +1573,11 @@ block|}
 block|}
 comment|/**    * @return the regions have directory on FileSystem, but no region info in meta.    */
 specifier|public
-name|Set
+name|Map
 argument_list|<
 name|String
+argument_list|,
+name|Path
 argument_list|>
 name|getOrphanRegionsOnFS
 parameter_list|()

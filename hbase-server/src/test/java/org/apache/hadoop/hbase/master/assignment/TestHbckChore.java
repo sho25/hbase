@@ -1441,7 +1441,7 @@ operator|.
 name|getOrphanRegionsOnFS
 argument_list|()
 operator|.
-name|contains
+name|containsKey
 argument_list|(
 name|regionInfo
 operator|.
