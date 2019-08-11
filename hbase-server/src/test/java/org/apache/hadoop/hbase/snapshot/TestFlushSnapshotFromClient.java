@@ -1641,7 +1641,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Helper method for testing async snapshot operations. Just waits for the given snapshot to    * complete on the server by repeatedly checking the master.    * @param master the master running the snapshot    * @param snapshot the snapshot to check    * @param sleep amount to sleep between checks to see if the snapshot is done    */
+comment|/**    * Helper method for testing async snapshot operations. Just waits for the given snapshot to    * complete on the server by repeatedly checking the master.    * @param master the master running the snapshot    * @param snapshot the snapshot to check    * @param timeoutNanos the timeout in nano between checks to see if the snapshot is done    */
 specifier|private
 specifier|static
 name|void

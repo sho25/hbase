@@ -3129,7 +3129,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * @param table the table to load into    * @param pool the ExecutorService    * @param queue the queue for LoadQueueItem    * @param startEndKeys start and end keys    * @return A map that groups LQI by likely bulk load region targets and Set of missing hfiles.    */
+comment|/**    * @param conn the HBase cluster connection    * @param tableName the table name of the table to load into    * @param pool the ExecutorService    * @param queue the queue for LoadQueueItem    * @param startEndKeys start and end keys    * @return A map that groups LQI by likely bulk load region targets and Set of missing hfiles.    */
 specifier|private
 name|Pair
 argument_list|<

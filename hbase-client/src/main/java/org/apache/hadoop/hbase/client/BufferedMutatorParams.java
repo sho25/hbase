@@ -245,7 +245,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * @deprecated Since 2.3.0, will be removed in 4.0.0. Use {@link #operationTimeout()}    */
+comment|/**    * @deprecated Since 2.3.0, will be removed in 4.0.0. Use {@link #operationTimeout(int)}    */
 annotation|@
 name|Deprecated
 specifier|public

@@ -7483,7 +7483,7 @@ specifier|static
 class|class
 name|RAMCache
 block|{
-comment|/**      * Defined the map as {@link ConcurrentHashMap} explicitly here, because in      * {@link RAMCache#get(BlockCacheKey)} and      * {@link RAMCache#putIfAbsent(BlockCacheKey, RAMQueueEntry)} , we need to guarantee the      * atomicity of map#computeIfPresent(key, func) and map#putIfAbsent(key, func). Besides, the      * func method can execute exactly once only when the key is present(or absent) and under the      * lock context. Otherwise, the reference count of block will be messed up. Notice that the      * {@link java.util.concurrent.ConcurrentSkipListMap} can not guarantee that.      */
+comment|/**      * Defined the map as {@link ConcurrentHashMap} explicitly here, because in      * {@link RAMCache#get(BlockCacheKey)} and      * {@link RAMCache#putIfAbsent(BlockCacheKey, BucketCache.RAMQueueEntry)} , we need to      * guarantee the atomicity of map#computeIfPresent(key, func) and map#putIfAbsent(key, func).      * Besides, the func method can execute exactly once only when the key is present(or absent)      * and under the lock context. Otherwise, the reference count of block will be messed up.      * Notice that the {@link java.util.concurrent.ConcurrentSkipListMap} can not guarantee that.      */
 specifier|final
 name|ConcurrentHashMap
 argument_list|<

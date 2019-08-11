@@ -425,7 +425,7 @@ name|State
 operator|.
 name|OFFLINE
 decl_stmt|;
-comment|/**    * Updated whenever a call to {@link #setRegionLocation(ServerName)} or    * {@link #setState(State, State...)}.    */
+comment|/**    * Updated whenever a call to {@link #setRegionLocation(ServerName)} or    * {@link #setState(RegionState.State, RegionState.State...)}.    */
 specifier|private
 specifier|volatile
 name|long

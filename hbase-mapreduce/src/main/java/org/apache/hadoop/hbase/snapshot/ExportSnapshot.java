@@ -2057,7 +2057,12 @@ name|path
 argument_list|)
 return|;
 block|}
-comment|/**      * Used by TestExportSnapshot to test for retries when failures happen.      * Failure is injected in {@link #copyFile(Context, SnapshotFileInfo, Path)}.      */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"checkstyle:linelength"
+argument_list|)
+comment|/**      * Used by TestExportSnapshot to test for retries when failures happen.      * Failure is injected in {@link #copyFile(Mapper.Context, org.apache.hadoop.hbase.shaded.protobuf.generated.SnapshotProtos.SnapshotFileInfo, Path)}.      */
 specifier|private
 name|void
 name|injectTestFailure
