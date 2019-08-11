@@ -297,32 +297,6 @@ specifier|private
 name|Connection
 name|conn
 decl_stmt|;
-comment|/**      * Instantiate a TableRecordWriter with the HBase HClient for writing.      *      * @deprecated since 2.0.0 and will be removed in 3.0.0. Please use      *   {@code #TableRecordWriter(JobConf)} instead. This version does not clean up connections and      *   will leak connections (removed in 2.0).      * @see<a href="https://issues.apache.org/jira/browse/HBASE-16774">HBASE-16774</a>      */
-annotation|@
-name|Deprecated
-specifier|public
-name|TableRecordWriter
-parameter_list|(
-specifier|final
-name|BufferedMutator
-name|mutator
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-name|this
-operator|.
-name|m_mutator
-operator|=
-name|mutator
-expr_stmt|;
-name|this
-operator|.
-name|conn
-operator|=
-literal|null
-expr_stmt|;
-block|}
 comment|/**      * Instantiate a TableRecordWriter with a BufferedMutator for batch writing.      */
 specifier|public
 name|TableRecordWriter
