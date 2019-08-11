@@ -5736,7 +5736,7 @@ argument_list|(
 literal|0
 argument_list|)
 operator|.
-name|getHTableDescriptor
+name|getTableDescriptor
 argument_list|()
 argument_list|,
 name|regionLocator
