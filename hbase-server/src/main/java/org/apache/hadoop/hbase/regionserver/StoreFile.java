@@ -214,15 +214,6 @@ name|long
 name|getMaxSequenceId
 parameter_list|()
 function_decl|;
-comment|/**    * Get the modification time of this store file. Usually will access the file system so throws    * IOException.    * @deprecated Since 2.0.0. Will be removed in 3.0.0.    * @see #getModificationTimestamp()    */
-annotation|@
-name|Deprecated
-name|long
-name|getModificationTimeStamp
-parameter_list|()
-throws|throws
-name|IOException
-function_decl|;
 comment|/**    * Get the modification time of this store file. Usually will access the file system so throws    * IOException.    */
 name|long
 name|getModificationTimestamp
