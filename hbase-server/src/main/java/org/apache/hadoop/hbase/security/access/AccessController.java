@@ -6937,7 +6937,7 @@ name|equals
 argument_list|(
 name|snapshot
 operator|.
-name|getTable
+name|getTableNameAsString
 argument_list|()
 argument_list|)
 condition|)
