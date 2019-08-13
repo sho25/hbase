@@ -8060,6 +8060,13 @@ argument_list|)
 decl_stmt|;
 name|status
 operator|.
+name|enableStatusJournal
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+name|status
+operator|.
 name|setStatus
 argument_list|(
 literal|"Waiting for close lock"
@@ -8084,6 +8091,27 @@ block|}
 block|}
 finally|finally
 block|{
+if|if
+condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Region close journal:\n"
+operator|+
+name|status
+operator|.
+name|prettyPrintJournal
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|status
 operator|.
 name|cleanup
