@@ -8140,7 +8140,7 @@ comment|/**    * Construct PUT for given state    * @param state new state    */
 end_comment
 
 begin_function
-specifier|private
+specifier|public
 specifier|static
 name|Put
 name|makePutFromTableState
