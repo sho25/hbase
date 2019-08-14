@@ -1113,7 +1113,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Private
+name|Public
 specifier|public
 specifier|final
 class|class
