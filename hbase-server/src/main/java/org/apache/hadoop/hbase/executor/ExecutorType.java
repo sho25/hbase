@@ -80,6 +80,11 @@ argument_list|(
 literal|7
 argument_list|)
 block|,
+name|MASTER_SNAPSHOT_OPERATIONS
+argument_list|(
+literal|8
+argument_list|)
+block|,
 comment|// RegionServer executor services
 name|RS_OPEN_REGION
 argument_list|(
