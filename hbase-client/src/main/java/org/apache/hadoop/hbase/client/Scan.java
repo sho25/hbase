@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -1796,6 +1786,8 @@ name|this
 operator|.
 name|setStopRow
 argument_list|(
+name|ClientUtil
+operator|.
 name|calculateTheClosestNextRowKeyForPrefix
 argument_list|(
 name|rowPrefix
@@ -1805,101 +1797,6 @@ expr_stmt|;
 block|}
 return|return
 name|this
-return|;
-block|}
-comment|/**    *<p>When scanning for a prefix the scan should stop immediately after the the last row that    * has the specified prefix. This method calculates the closest next rowKey immediately following    * the given rowKeyPrefix.</p>    *<p><b>IMPORTANT: This converts a rowKey<u>Prefix</u> into a rowKey</b>.</p>    *<p>If the prefix is an 'ASCII' string put into a byte[] then this is easy because you can    * simply increment the last byte of the array.    * But if your application uses real binary rowids you may run into the scenario that your    * prefix is something like:</p>    *&nbsp;&nbsp;&nbsp;<b>{ 0x12, 0x23, 0xFF, 0xFF }</b><br/>    * Then this stopRow needs to be fed into the actual scan<br/>    *&nbsp;&nbsp;&nbsp;<b>{ 0x12, 0x24 }</b> (Notice that it is shorter now)<br/>    * This method calculates the correct stop row value for this usecase.    *    * @param rowKeyPrefix the rowKey<u>Prefix</u>.    * @return the closest next rowKey immediately following the given rowKeyPrefix.    */
-specifier|private
-name|byte
-index|[]
-name|calculateTheClosestNextRowKeyForPrefix
-parameter_list|(
-name|byte
-index|[]
-name|rowKeyPrefix
-parameter_list|)
-block|{
-comment|// Essentially we are treating it like an 'unsigned very very long' and doing +1 manually.
-comment|// Search for the place where the trailing 0xFFs start
-name|int
-name|offset
-init|=
-name|rowKeyPrefix
-operator|.
-name|length
-decl_stmt|;
-while|while
-condition|(
-name|offset
-operator|>
-literal|0
-condition|)
-block|{
-if|if
-condition|(
-name|rowKeyPrefix
-index|[
-name|offset
-operator|-
-literal|1
-index|]
-operator|!=
-operator|(
-name|byte
-operator|)
-literal|0xFF
-condition|)
-block|{
-break|break;
-block|}
-name|offset
-operator|--
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|offset
-operator|==
-literal|0
-condition|)
-block|{
-comment|// We got an 0xFFFF... (only FFs) stopRow value which is
-comment|// the last possible prefix before the end of the table.
-comment|// So set it to stop at the 'end of the table'
-return|return
-name|HConstants
-operator|.
-name|EMPTY_END_ROW
-return|;
-block|}
-comment|// Copy the right length of the original
-name|byte
-index|[]
-name|newStopRow
-init|=
-name|Arrays
-operator|.
-name|copyOfRange
-argument_list|(
-name|rowKeyPrefix
-argument_list|,
-literal|0
-argument_list|,
-name|offset
-argument_list|)
-decl_stmt|;
-comment|// And increment the last one
-name|newStopRow
-index|[
-name|newStopRow
-operator|.
-name|length
-operator|-
-literal|1
-index|]
-operator|++
-expr_stmt|;
-return|return
-name|newStopRow
 return|;
 block|}
 comment|/**    * Get all available versions.    * @return this    * @deprecated since 2.0.0 and will be removed in 3.0.0. It is easy to misunderstand with column    *   family's max versions, so use {@link #readAllVersions()} instead.    * @see #readAllVersions()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17125">HBASE-17125</a>    */
