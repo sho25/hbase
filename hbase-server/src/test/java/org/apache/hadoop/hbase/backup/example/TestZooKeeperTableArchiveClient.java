@@ -375,7 +375,7 @@ name|master
 operator|.
 name|cleaner
 operator|.
-name|CleanerChore
+name|DirScanPool
 import|;
 end_import
 
@@ -847,6 +847,11 @@ specifier|static
 name|RegionServerServices
 name|rss
 decl_stmt|;
+specifier|private
+specifier|static
+name|DirScanPool
+name|POOL
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -991,6 +996,17 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|POOL
+operator|=
+operator|new
+name|DirScanPool
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|private
 specifier|static
@@ -1095,8 +1111,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-try|try
-block|{
 name|CONNECTION
 operator|.
 name|close
@@ -1107,23 +1121,11 @@ operator|.
 name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|LOG
+name|POOL
 operator|.
-name|warn
-argument_list|(
-literal|"problem shutting down cluster"
-argument_list|,
-name|e
-argument_list|)
+name|shutdownNow
+argument_list|()
 expr_stmt|;
-block|}
 block|}
 comment|/**    * Test turning on/off archiving    */
 annotation|@
@@ -1287,13 +1289,6 @@ operator|new
 name|StoppableImplementation
 argument_list|()
 decl_stmt|;
-name|CleanerChore
-operator|.
-name|initChorePool
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|HFileCleaner
 name|cleaner
 init|=
@@ -1625,13 +1620,6 @@ argument_list|(
 literal|"TEST_SERVER_NAME"
 argument_list|)
 decl_stmt|;
-name|CleanerChore
-operator|.
-name|initChorePool
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|HFileCleaner
 name|cleaner
 init|=
@@ -2242,6 +2230,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archiveDir
+argument_list|,
+name|POOL
 argument_list|)
 return|;
 block|}

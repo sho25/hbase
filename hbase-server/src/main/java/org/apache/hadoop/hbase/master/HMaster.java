@@ -1293,7 +1293,7 @@ name|master
 operator|.
 name|cleaner
 operator|.
-name|CleanerChore
+name|DirScanPool
 import|;
 end_import
 
@@ -3780,6 +3780,10 @@ name|hbckChore
 decl_stmt|;
 name|CatalogJanitor
 name|catalogJanitorChore
+decl_stmt|;
+specifier|private
+name|DirScanPool
+name|cleanerPool
 decl_stmt|;
 specifier|private
 name|LogCleaner
@@ -7084,6 +7088,15 @@ name|registerObserver
 argument_list|(
 name|this
 operator|.
+name|cleanerPool
+argument_list|)
+expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
 name|hfileCleaner
 argument_list|)
 expr_stmt|;
@@ -8404,10 +8417,11 @@ expr_stmt|;
 name|startProcedureExecutor
 argument_list|()
 expr_stmt|;
-comment|// Initial cleaner chore
-name|CleanerChore
-operator|.
-name|initChorePool
+comment|// Create cleaner thread pool
+name|cleanerPool
+operator|=
+operator|new
+name|DirScanPool
 argument_list|(
 name|conf
 argument_list|)
@@ -8451,6 +8465,8 @@ argument_list|()
 operator|.
 name|getOldLogDir
 argument_list|()
+argument_list|,
+name|cleanerPool
 argument_list|)
 expr_stmt|;
 name|getChoreService
@@ -8514,6 +8530,8 @@ name|getFileSystem
 argument_list|()
 argument_list|,
 name|archiveDir
+argument_list|,
+name|cleanerPool
 argument_list|,
 name|params
 argument_list|)
@@ -8709,11 +8727,23 @@ operator|.
 name|stopServiceThreads
 argument_list|()
 expr_stmt|;
-name|CleanerChore
+if|if
+condition|(
+name|cleanerPool
+operator|!=
+literal|null
+condition|)
+block|{
+name|cleanerPool
 operator|.
-name|shutDownChorePool
+name|shutdownNow
 argument_list|()
 expr_stmt|;
+name|cleanerPool
+operator|=
+literal|null
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|debug

@@ -813,6 +813,11 @@ specifier|static
 name|Configuration
 name|conf
 decl_stmt|;
+specifier|private
+specifier|static
+name|DirScanPool
+name|POOL
+decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -835,9 +840,10 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|CleanerChore
-operator|.
-name|initChorePool
+name|POOL
+operator|=
+operator|new
+name|DirScanPool
 argument_list|(
 name|TEST_UTIL
 operator|.
@@ -864,6 +870,11 @@ expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|shutdownMiniDFSCluster
+argument_list|()
+expr_stmt|;
+name|POOL
+operator|.
+name|shutdownNow
 argument_list|()
 expr_stmt|;
 block|}
@@ -1359,6 +1370,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|OLD_WALS_DIR
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 name|cleaner
@@ -1976,6 +1989,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|OLD_WALS_DIR
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 name|assertEquals

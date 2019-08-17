@@ -195,6 +195,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|conf
+operator|.
+name|ConfigurationObserver
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|procedure
@@ -314,6 +330,8 @@ name|CleanerChore
 argument_list|<
 name|BaseLogCleanerDelegate
 argument_list|>
+implements|implements
+name|ConfigurationObserver
 block|{
 specifier|private
 specifier|static
@@ -384,7 +402,7 @@ specifier|private
 name|long
 name|cleanerThreadTimeoutMsec
 decl_stmt|;
-comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param conf configuration to use    * @param fs handle to the FS    * @param oldLogDir the path to the archived logs    */
+comment|/**    * @param period the period of time to sleep between each run    * @param stopper the stopper    * @param conf configuration to use    * @param fs handle to the FS    * @param oldLogDir the path to the archived logs    * @param pool the thread pool used to scan directories    */
 specifier|public
 name|LogCleaner
 parameter_list|(
@@ -404,6 +422,9 @@ name|fs
 parameter_list|,
 name|Path
 name|oldLogDir
+parameter_list|,
+name|DirScanPool
+name|pool
 parameter_list|)
 block|{
 name|super
@@ -421,6 +442,8 @@ argument_list|,
 name|oldLogDir
 argument_list|,
 name|HBASE_MASTER_LOGCLEANER_PLUGINS
+argument_list|,
+name|pool
 argument_list|)
 expr_stmt|;
 name|this
@@ -509,13 +532,6 @@ name|Configuration
 name|conf
 parameter_list|)
 block|{
-name|super
-operator|.
-name|onConfigurationChange
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|int
 name|newSize
 init|=

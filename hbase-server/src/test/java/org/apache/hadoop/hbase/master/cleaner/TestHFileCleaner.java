@@ -509,6 +509,11 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+name|DirScanPool
+name|POOL
+decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -527,9 +532,10 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|CleanerChore
-operator|.
-name|initChorePool
+name|POOL
+operator|=
+operator|new
+name|DirScanPool
 argument_list|(
 name|UTIL
 operator|.
@@ -551,6 +557,11 @@ block|{
 name|UTIL
 operator|.
 name|shutdownMiniDFSCluster
+argument_list|()
+expr_stmt|;
+name|POOL
+operator|.
+name|shutdownNow
 argument_list|()
 expr_stmt|;
 block|}
@@ -850,6 +861,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archivedHfileDir
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// Create 2 invalid files, 1 "recent" file, 1 very new file and 30 old files
@@ -1240,6 +1253,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archivedHfileDir
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// make all the directories for archiving files
@@ -1678,6 +1693,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archivedHfileDir
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// clean up archive directory
@@ -1846,6 +1863,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archivedHfileDir
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// clean up archive directory
@@ -2099,6 +2118,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|archivedHfileDir
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 name|Assert

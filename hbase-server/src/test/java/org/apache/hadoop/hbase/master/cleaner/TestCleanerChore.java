@@ -447,6 +447,11 @@ operator|new
 name|HBaseTestingUtility
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|static
+name|DirScanPool
+name|POOL
+decl_stmt|;
 annotation|@
 name|BeforeClass
 specifier|public
@@ -455,9 +460,10 @@ name|void
 name|setup
 parameter_list|()
 block|{
-name|CleanerChore
-operator|.
-name|initChorePool
+name|POOL
+operator|=
+operator|new
+name|DirScanPool
 argument_list|(
 name|UTIL
 operator|.
@@ -482,9 +488,9 @@ operator|.
 name|cleanupTestDir
 argument_list|()
 expr_stmt|;
-name|CleanerChore
+name|POOL
 operator|.
-name|shutDownChorePool
+name|shutdownNow
 argument_list|()
 expr_stmt|;
 block|}
@@ -564,6 +570,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// create the directory layout in the directory to clean
@@ -821,6 +829,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// trouble talking to the filesystem
@@ -990,6 +1000,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// create the directory layout in the directory to clean
@@ -1241,6 +1253,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// spy on the delegate to ensure that we don't check for directories
@@ -1462,6 +1476,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// also create a file in the top level directory
@@ -1605,6 +1621,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// spy on the delegate to ensure that we don't check for directories
@@ -1956,6 +1974,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// spy on the delegate to ensure that we don't check for directories
@@ -2274,6 +2294,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// Enable cleaner
@@ -2468,6 +2490,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 comment|// Disable cleaner
@@ -2712,6 +2736,8 @@ argument_list|,
 name|testDir
 argument_list|,
 name|confKey
+argument_list|,
+name|POOL
 argument_list|)
 decl_stmt|;
 name|chore
@@ -2841,7 +2867,7 @@ name|changedPoolSize
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|chore
+name|POOL
 operator|.
 name|onConfigurationChange
 argument_list|(
@@ -2874,35 +2900,12 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|Stoppable
-name|stop
-init|=
-operator|new
-name|StoppableImplementation
-argument_list|()
-decl_stmt|;
 name|Configuration
 name|conf
 init|=
 name|UTIL
 operator|.
 name|getConfiguration
-argument_list|()
-decl_stmt|;
-name|Path
-name|testDir
-init|=
-name|UTIL
-operator|.
-name|getDataTestDir
-argument_list|()
-decl_stmt|;
-name|FileSystem
-name|fs
-init|=
-name|UTIL
-operator|.
-name|getTestFileSystem
 argument_list|()
 decl_stmt|;
 name|String
@@ -2935,25 +2938,6 @@ argument_list|,
 literal|"2"
 argument_list|)
 expr_stmt|;
-name|AllValidPaths
-name|chore
-init|=
-operator|new
-name|AllValidPaths
-argument_list|(
-literal|"test-file-cleaner"
-argument_list|,
-name|stop
-argument_list|,
-name|conf
-argument_list|,
-name|fs
-argument_list|,
-name|testDir
-argument_list|,
-name|confKey
-argument_list|)
-decl_stmt|;
 name|int
 name|numProcs
 init|=
@@ -2970,7 +2954,7 @@ name|assertEquals
 argument_list|(
 name|numProcs
 argument_list|,
-name|chore
+name|CleanerChore
 operator|.
 name|calculatePoolSize
 argument_list|(
@@ -2988,7 +2972,7 @@ name|assertEquals
 argument_list|(
 name|numProcs
 argument_list|,
-name|chore
+name|CleanerChore
 operator|.
 name|calculatePoolSize
 argument_list|(
@@ -3008,7 +2992,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|chore
+name|CleanerChore
 operator|.
 name|calculatePoolSize
 argument_list|(
@@ -3164,6 +3148,9 @@ name|oldFileDir
 parameter_list|,
 name|String
 name|confkey
+parameter_list|,
+name|DirScanPool
+name|pool
 parameter_list|)
 block|{
 name|super
@@ -3183,6 +3170,8 @@ argument_list|,
 name|oldFileDir
 argument_list|,
 name|confkey
+argument_list|,
+name|pool
 argument_list|)
 expr_stmt|;
 block|}
