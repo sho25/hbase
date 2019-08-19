@@ -145,6 +145,28 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|annotations
+operator|.
+name|VisibleForTesting
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -336,7 +358,10 @@ operator|.
 name|makeMap
 argument_list|()
 decl_stmt|;
-comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in this    * constructor.    *    * @param rpcs    * @param pool Used for executing procedures.    */
+comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in this    * constructor.    *    * @param pool Used for executing procedures.    */
+annotation|@
+name|VisibleForTesting
+comment|// Only used in tests. SimpleMasterProcedureManager is a test class.
 specifier|public
 name|ProcedureCoordinator
 parameter_list|(
@@ -359,7 +384,7 @@ name|WAKE_MILLIS_DEFAULT
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in    * this constructor.    *    * @param rpcs    * @param pool Used for executing procedures.    * @param timeoutMillis    */
+comment|/**    * Create and start a ProcedureCoordinator.    *    * The rpc object registers the ProcedureCoordinator and starts any threads in    * this constructor.    *    * @param pool Used for executing procedures.    */
 specifier|public
 name|ProcedureCoordinator
 parameter_list|(

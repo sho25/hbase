@@ -495,6 +495,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -981,7 +991,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test simple flush snapshotting a table that is online    * @throws Exception    */
+comment|/**    * Test simple flush snapshotting a table that is online    */
 annotation|@
 name|Test
 specifier|public
@@ -1139,7 +1149,7 @@ name|TEST_FAM
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test snapshotting a table that is online without flushing    * @throws Exception    */
+comment|/**    * Test snapshotting a table that is online without flushing    */
 annotation|@
 name|Test
 specifier|public
@@ -1328,7 +1338,7 @@ name|admin
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test simple flush snapshotting a table that is online    * @throws Exception    */
+comment|/**    * Test simple flush snapshotting a table that is online    */
 annotation|@
 name|Test
 specifier|public
@@ -2584,7 +2594,16 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Demonstrate that we reject snapshot requests if there is a snapshot already running on the    * same table currently running and that concurrent snapshots on different tables can both    * succeed concurretly.    */
+comment|/**    * Demonstrate that we reject snapshot requests if there is a snapshot already running on the    * same table currently running and that concurrent snapshots on different tables can both    * succeed concurrently.    */
+annotation|@
+name|Ignore
+comment|// Turning this test off. It is written flakey (See original submission in HBASE-7536
+comment|// for admission). While the test ensures we run one snapshot at a time as the above comment
+comment|// describes, the second part of the comment where we are supposed to allow snapshots against
+comment|// different tables run concurrently is where there is issue. There is only one
+comment|// handler thread on the regionserver-side which means that on a second submission, the
+comment|// second request gets rejected with RejectedExecutionException. The test used to sort-of
+comment|// pass with 20 attempts but as often-as-not, fails.
 annotation|@
 name|Test
 specifier|public
@@ -2612,7 +2631,7 @@ decl_stmt|;
 name|int
 name|ssNum
 init|=
-literal|20
+literal|2
 decl_stmt|;
 comment|// make sure we don't fail on listing snapshots
 name|SnapshotTestingUtils
