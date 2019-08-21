@@ -173,7 +173,7 @@ literal|"shell.test.exclude"
 argument_list|,
 literal|"replication_admin_test.rb,rsgroup_shell_test.rb,"
 operator|+
-literal|"admin_test.rb,table_test.rb,quotas_test.rb"
+literal|"admin_test.rb,table_test.rb,quotas_test.rb,admin2_test.rb"
 argument_list|)
 expr_stmt|;
 comment|// Start all ruby tests
