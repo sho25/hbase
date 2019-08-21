@@ -23,11 +23,13 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|client
+operator|.
+name|SnapshotDescription
 import|;
 end_import
 
@@ -37,13 +39,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|client
-operator|.
-name|SnapshotDescription
+name|InterfaceAudience
 import|;
 end_import
 
@@ -67,60 +67,60 @@ name|SnapshotCreationException
 extends|extends
 name|HBaseSnapshotException
 block|{
-comment|/**    * Used internally by the RPC engine to pass the exception back to the client.    * @param msg error message to pass back    */
+comment|/**    * Used internally by the RPC engine to pass the exception back to the client.    *    * @param message error message to pass back    */
 specifier|public
 name|SnapshotCreationException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Failure to create the specified snapshot    * @param msg reason why the snapshot couldn't be completed    * @param desc description of the snapshot attempted    */
+comment|/**    * Failure to create the specified snapshot.    *    * @param message reason why the snapshot couldn't be completed    * @param snapshotDescription description of the snapshot attempted    */
 specifier|public
 name|SnapshotCreationException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|,
 name|SnapshotDescription
-name|desc
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|,
-name|desc
+name|snapshotDescription
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Failure to create the specified snapshot due to an external cause    * @param msg reason why the snapshot couldn't be completed    * @param cause root cause of the failure    * @param desc description of the snapshot attempted    */
+comment|/**    * Failure to create the specified snapshot due to an external cause.    *    * @param message reason why the snapshot couldn't be completed    * @param cause the root cause of the failure    * @param snapshotDescription description of the snapshot attempted    */
 specifier|public
 name|SnapshotCreationException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|,
 name|Throwable
 name|cause
 parameter_list|,
 name|SnapshotDescription
-name|desc
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|,
 name|cause
 argument_list|,
-name|desc
+name|snapshotDescription
 argument_list|)
 expr_stmt|;
 block|}

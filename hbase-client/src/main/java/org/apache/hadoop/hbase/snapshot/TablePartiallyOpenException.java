@@ -47,20 +47,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -71,8 +57,22 @@ name|Bytes
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Thrown if a table should be online/offline but is partially open  */
+comment|/**  * Thrown if a table should be online/offline, but is partially open.  */
 end_comment
 
 begin_class
@@ -94,6 +94,7 @@ name|serialVersionUID
 init|=
 literal|3571982660065058361L
 decl_stmt|;
+comment|/**    * Constructs an {@code TablePartiallyOpenException} with {@code null} as its error detail    * message.    */
 specifier|public
 name|TablePartiallyOpenException
 parameter_list|()
@@ -102,21 +103,21 @@ name|super
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * @param s message    */
+comment|/**    * @param message the message describing the exception    */
 specifier|public
 name|TablePartiallyOpenException
 parameter_list|(
 name|String
-name|s
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|s
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param tableName Name of table that is partial open    */
+comment|/**    * @param tableName the name of the table that is partially open    */
 specifier|public
 name|TablePartiallyOpenException
 parameter_list|(
@@ -133,7 +134,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**     * @param tableName Name of table that is partial open     */
+comment|/**    * @param tableName the name of the table that is partially open    */
 specifier|public
 name|TablePartiallyOpenException
 parameter_list|(

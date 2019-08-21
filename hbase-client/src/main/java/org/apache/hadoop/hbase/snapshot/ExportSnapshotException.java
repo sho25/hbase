@@ -51,21 +51,21 @@ name|ExportSnapshotException
 extends|extends
 name|HBaseSnapshotException
 block|{
-comment|/**    * @param msg message describing the exception    */
+comment|/**    * @param message message describing the exception    */
 specifier|public
 name|ExportSnapshotException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param message message describing the exception    * @param e cause    */
+comment|/**    * @param message message describing the exception    * @param e the actual cause of the exception    */
 specifier|public
 name|ExportSnapshotException
 parameter_list|(

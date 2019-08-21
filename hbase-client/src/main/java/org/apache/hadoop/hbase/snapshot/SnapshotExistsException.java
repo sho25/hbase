@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -47,8 +33,22 @@ name|SnapshotDescription
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Thrown when a snapshot exists but should not  */
+comment|/**  * Thrown when a snapshot exists, but should not.  */
 end_comment
 
 begin_class
@@ -67,35 +67,36 @@ name|SnapshotExistsException
 extends|extends
 name|HBaseSnapshotException
 block|{
+comment|/**    * Failure due to the snapshot already existing.    *    * @param message the full description of the failure    */
 specifier|public
 name|SnapshotExistsException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Failure due to the snapshot already existing    * @param msg full description of the failure    * @param desc snapshot that was attempted    */
+comment|/**    * Failure due to the snapshot already existing.    *    * @param message the full description of the failure    * @param snapshotDescription snapshot that was attempted    */
 specifier|public
 name|SnapshotExistsException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|,
 name|SnapshotDescription
-name|desc
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|,
-name|desc
+name|snapshotDescription
 argument_list|)
 expr_stmt|;
 block|}

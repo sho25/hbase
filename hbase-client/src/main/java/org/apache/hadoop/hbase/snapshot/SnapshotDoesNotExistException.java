@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -47,8 +33,22 @@ name|SnapshotDescription
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Thrown when the server is looking for a snapshot but can't find the snapshot on the filesystem  */
+comment|/**  * Thrown when the server is looking for a snapshot, but can't find the snapshot on the filesystem.  */
 end_comment
 
 begin_class
@@ -67,40 +67,40 @@ name|SnapshotDoesNotExistException
 extends|extends
 name|HBaseSnapshotException
 block|{
-comment|/**    * @param msg full description of the failure    */
+comment|/**    * @param message the full description of the failure    */
 specifier|public
 name|SnapshotDoesNotExistException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param desc expected snapshot to find    */
+comment|/**    * @param snapshotDescription expected snapshot to find    */
 specifier|public
 name|SnapshotDoesNotExistException
 parameter_list|(
 name|SnapshotDescription
-name|desc
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
 literal|"Snapshot '"
 operator|+
-name|desc
+name|snapshotDescription
 operator|.
 name|getName
 argument_list|()
 operator|+
 literal|"' doesn't exist on the filesystem"
 argument_list|,
-name|desc
+name|snapshotDescription
 argument_list|)
 expr_stmt|;
 block|}

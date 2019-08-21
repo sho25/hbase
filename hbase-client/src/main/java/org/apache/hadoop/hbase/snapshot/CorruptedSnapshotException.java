@@ -23,20 +23,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -47,8 +33,22 @@ name|SnapshotDescription
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Exception thrown when the found snapshot info from the filesystem is not valid  */
+comment|/**  * Exception thrown when the found snapshot info from the filesystem is not valid.  */
 end_comment
 
 begin_class
@@ -67,7 +67,7 @@ name|CorruptedSnapshotException
 extends|extends
 name|HBaseSnapshotException
 block|{
-comment|/**    * @param message message describing the exception    * @param e cause    */
+comment|/**    * Snapshot was corrupt for some reason.    *    * @param message message describing the exception    * @param e the actual cause of the exception    */
 specifier|public
 name|CorruptedSnapshotException
 parameter_list|(
@@ -86,7 +86,7 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Snapshot was corrupt for some reason    * @param message full description of the failure    * @param snapshot snapshot that was expected    */
+comment|/**    * Snapshot was corrupt for some reason.    *    * @param message full description of the failure    * @param snapshotDescription snapshot that was expected    */
 specifier|public
 name|CorruptedSnapshotException
 parameter_list|(
@@ -94,18 +94,18 @@ name|String
 name|message
 parameter_list|,
 name|SnapshotDescription
-name|snapshot
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|message
 argument_list|,
-name|snapshot
+name|snapshotDescription
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param message message describing the exception    */
+comment|/**    * Snapshot was corrupt for some reason.    *    * @param message message describing the exception    */
 specifier|public
 name|CorruptedSnapshotException
 parameter_list|(

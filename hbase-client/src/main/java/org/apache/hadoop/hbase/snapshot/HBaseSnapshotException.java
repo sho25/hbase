@@ -37,20 +37,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -61,8 +47,22 @@ name|SnapshotDescription
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * General exception base class for when a snapshot fails  */
+comment|/**  * General exception base class for when a snapshot fails.  */
 end_comment
 
 begin_class
@@ -85,72 +85,44 @@ specifier|private
 name|SnapshotDescription
 name|description
 decl_stmt|;
-comment|/**    * Some exception happened for a snapshot and don't even know the snapshot that it was about    * @param msg Full description of the failure    */
+comment|/**    * Some exception happened for a snapshot and don't even know the snapshot that it was about.    *    * @param message the full description of the failure    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Exception for the given snapshot that has no previous root cause    * @param msg reason why the snapshot failed    * @param desc description of the snapshot that is being failed    */
+comment|/**    * Exception for the given snapshot that has no previous root cause.    *    * @param message the reason why the snapshot failed    * @param snapshotDescription the description of the snapshot that is failing    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
 name|String
-name|msg
+name|message
 parameter_list|,
 name|SnapshotDescription
-name|desc
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|msg
+name|message
 argument_list|)
 expr_stmt|;
 name|this
 operator|.
 name|description
 operator|=
-name|desc
+name|snapshotDescription
 expr_stmt|;
 block|}
-comment|/**    * Exception for the given snapshot due to another exception    * @param msg reason why the snapshot failed    * @param cause root cause of the failure    * @param desc description of the snapshot that is being failed    */
-specifier|public
-name|HBaseSnapshotException
-parameter_list|(
-name|String
-name|msg
-parameter_list|,
-name|Throwable
-name|cause
-parameter_list|,
-name|SnapshotDescription
-name|desc
-parameter_list|)
-block|{
-name|super
-argument_list|(
-name|msg
-argument_list|,
-name|cause
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|description
-operator|=
-name|desc
-expr_stmt|;
-block|}
-comment|/**    * Exception when the description of the snapshot cannot be determined, due to some root other    * root cause    * @param message description of what caused the failure    * @param e root cause    */
+comment|/**    * Exception for the given snapshot due to another exception.    *    * @param message the reason why the snapshot failed    * @param cause the root cause of the failure    * @param snapshotDescription the description of the snapshot that is being failed    */
 specifier|public
 name|HBaseSnapshotException
 parameter_list|(
@@ -158,17 +130,46 @@ name|String
 name|message
 parameter_list|,
 name|Throwable
-name|e
+name|cause
+parameter_list|,
+name|SnapshotDescription
+name|snapshotDescription
 parameter_list|)
 block|{
 name|super
 argument_list|(
 name|message
 argument_list|,
-name|e
+name|cause
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|description
+operator|=
+name|snapshotDescription
+expr_stmt|;
+block|}
+comment|/**    * Exception when the description of the snapshot cannot be determined, due to some root other    * root cause.    *    * @param message description of what caused the failure    * @param cause the root cause    */
+specifier|public
+name|HBaseSnapshotException
+parameter_list|(
+name|String
+name|message
+parameter_list|,
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+name|cause
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return the description of the snapshot that is being failed    */
 specifier|public
 name|SnapshotDescription
 name|getSnapshotDescription
