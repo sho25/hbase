@@ -2948,6 +2948,17 @@ block|{
 break|break;
 block|}
 block|}
+if|if
+condition|(
+operator|!
+name|this
+operator|.
+name|isSourceActive
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
 comment|// In rare case, zookeeper setting may be messed up. That leads to the incorrect
 comment|// peerClusterId value, which is the same as the source clusterId
 if|if
