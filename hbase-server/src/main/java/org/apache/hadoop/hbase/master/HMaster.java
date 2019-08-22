@@ -8386,13 +8386,13 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-name|HConstants
+name|SnapshotManager
 operator|.
-name|MASTER_SNAPSHOT_OPERATIONS_THREADS
+name|SNAPSHOT_POOL_THREADS_KEY
 argument_list|,
-name|HConstants
+name|SnapshotManager
 operator|.
-name|MASTER_SNAPSHOT_OPERATIONS_THREADS_DEFAULT
+name|SNAPSHOT_POOL_THREADS_DEFAULT
 argument_list|)
 argument_list|)
 expr_stmt|;

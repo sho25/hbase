@@ -406,8 +406,6 @@ argument_list|>
 name|regions
 parameter_list|)
 throws|throws
-name|HBaseSnapshotException
-throws|,
 name|IOException
 block|{
 name|Set

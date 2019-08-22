@@ -1358,7 +1358,7 @@ init|=
 literal|"online-snapshot"
 decl_stmt|;
 comment|/** Conf key for # of threads used by the SnapshotManager thread pool */
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -1367,7 +1367,7 @@ init|=
 literal|"hbase.snapshot.master.threads"
 decl_stmt|;
 comment|/** number of current operations running on the master */
-specifier|private
+specifier|public
 specifier|static
 specifier|final
 name|int
