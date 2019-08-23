@@ -1875,44 +1875,6 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Method for setting the mutation's familyMap    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link Mutation#Mutation(byte[], long, NavigableMap)} instead    */
-end_comment
-
-begin_function
-annotation|@
-name|Deprecated
-specifier|public
-name|Mutation
-name|setFamilyCellMap
-parameter_list|(
-name|NavigableMap
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|Cell
-argument_list|>
-argument_list|>
-name|map
-parameter_list|)
-block|{
-comment|// TODO: Shut this down or move it up to be a Constructor.  Get new object rather than change
-comment|// this internal data member.
-name|this
-operator|.
-name|familyMap
-operator|=
-name|map
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-end_function
-
-begin_comment
 comment|/**    * Method to check if the familyMap is empty    * @return true if empty, false otherwise    */
 end_comment
 
@@ -1985,27 +1947,6 @@ operator|.
 name|getRow
 argument_list|()
 argument_list|)
-return|;
-block|}
-end_function
-
-begin_comment
-comment|/**    * Method for retrieving the timestamp    * @return timestamp    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0.    *             Use {@link #getTimestamp()} instead    */
-end_comment
-
-begin_function
-annotation|@
-name|Deprecated
-specifier|public
-name|long
-name|getTimeStamp
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|getTimestamp
-argument_list|()
 return|;
 block|}
 end_function

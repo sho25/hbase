@@ -1601,7 +1601,7 @@ name|SEQNUM_QUALIFIER
 argument_list|,
 name|put
 operator|.
-name|getTimeStamp
+name|getTimestamp
 argument_list|()
 operator|-
 name|barriers
