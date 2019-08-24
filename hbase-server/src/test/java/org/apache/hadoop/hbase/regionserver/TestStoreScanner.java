@@ -3762,10 +3762,7 @@ name|scanSpec
 argument_list|,
 name|scanInfo
 argument_list|,
-name|getCols
-argument_list|(
-literal|"a"
-argument_list|)
+literal|null
 argument_list|,
 name|scanners
 argument_list|)
