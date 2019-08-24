@@ -1264,7 +1264,9 @@ operator|.
 name|getAndIncrement
 argument_list|()
 decl_stmt|;
-return|return
+name|Thread
+name|t
+init|=
 operator|new
 name|Thread
 argument_list|(
@@ -1272,6 +1274,16 @@ name|r
 argument_list|,
 name|name
 argument_list|)
+decl_stmt|;
+name|t
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
+return|return
+name|t
 return|;
 block|}
 block|}

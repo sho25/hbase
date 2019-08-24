@@ -771,7 +771,7 @@ name|boundedCachedThreadPool
 return|;
 block|}
 comment|/**    * Returns a {@link java.util.concurrent.ThreadFactory} that names each created thread uniquely,    * with a common prefix.    * @param prefix The prefix of every created Thread's name    * @return a {@link java.util.concurrent.ThreadFactory} that names threads    */
-specifier|public
+specifier|private
 specifier|static
 name|ThreadFactory
 name|getNamedThreadFactory

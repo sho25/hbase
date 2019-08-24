@@ -2967,7 +2967,7 @@ name|SECONDS
 argument_list|,
 name|Threads
 operator|.
-name|getNamedThreadFactory
+name|newDaemonThreadFactory
 argument_list|(
 name|name
 argument_list|)

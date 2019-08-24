@@ -1143,7 +1143,7 @@ argument_list|()
 argument_list|,
 name|Threads
 operator|.
-name|getNamedThreadFactory
+name|newDaemonThreadFactory
 argument_list|(
 name|hostingThreadName
 operator|+

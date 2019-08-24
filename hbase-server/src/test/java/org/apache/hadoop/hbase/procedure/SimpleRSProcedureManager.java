@@ -730,7 +730,7 @@ literal|"rs("
 operator|+
 name|name
 operator|+
-literal|")-procedure-pool"
+literal|")-procedure-pool-"
 argument_list|)
 argument_list|)
 expr_stmt|;

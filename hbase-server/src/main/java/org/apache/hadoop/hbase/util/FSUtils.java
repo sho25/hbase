@@ -7700,6 +7700,13 @@ name|statusList
 operator|.
 name|length
 argument_list|)
+argument_list|,
+name|Threads
+operator|.
+name|newDaemonThreadFactory
+argument_list|(
+literal|"FSRegionQuery"
+argument_list|)
 argument_list|)
 decl_stmt|;
 try|try

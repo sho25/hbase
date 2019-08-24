@@ -612,7 +612,7 @@ name|numThreads
 argument_list|,
 name|Threads
 operator|.
-name|getNamedThreadFactory
+name|newDaemonThreadFactory
 argument_list|(
 literal|"hfile-validator"
 argument_list|)

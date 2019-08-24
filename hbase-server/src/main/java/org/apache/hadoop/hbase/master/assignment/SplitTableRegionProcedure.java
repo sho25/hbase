@@ -3732,7 +3732,7 @@ name|maxThreads
 argument_list|,
 name|Threads
 operator|.
-name|getNamedThreadFactory
+name|newDaemonThreadFactory
 argument_list|(
 literal|"StoreFileSplitter-%1$d"
 argument_list|)
