@@ -676,6 +676,10 @@ specifier|protected
 specifier|static
 name|HBaseTestingUtility
 name|TEST_UTIL
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -760,12 +764,6 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-name|TEST_UTIL
-operator|=
-operator|new
-name|HBaseTestingUtility
-argument_list|()
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getConfiguration

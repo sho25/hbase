@@ -486,7 +486,6 @@ specifier|private
 name|MasterServices
 name|master
 decl_stmt|;
-specifier|private
 specifier|final
 name|RSGroupInfoManager
 name|rsGroupInfoManager
