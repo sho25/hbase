@@ -16496,6 +16496,13 @@ operator|.
 name|getMasterQuotaManager
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|quotaManager
+operator|!=
+literal|null
+condition|)
+block|{
 specifier|final
 name|long
 name|now
@@ -16536,6 +16543,17 @@ name|getRegionSize
 argument_list|()
 argument_list|,
 name|now
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Received region space usage report but HMaster is not ready to process it, skipping"
 argument_list|)
 expr_stmt|;
 block|}
@@ -16763,6 +16781,16 @@ operator|.
 name|build
 argument_list|()
 return|;
+block|}
+else|else
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Received space quota region size report but HMaster is not ready to process it, skipping"
+argument_list|)
+expr_stmt|;
 block|}
 return|return
 name|builder
