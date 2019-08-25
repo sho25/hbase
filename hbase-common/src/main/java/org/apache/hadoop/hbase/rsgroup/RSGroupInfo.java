@@ -33,16 +33,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Set
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|SortedSet
 import|;
 end_import
@@ -401,7 +391,7 @@ return|;
 block|}
 comment|/**    * Get list of servers.    */
 specifier|public
-name|Set
+name|SortedSet
 argument_list|<
 name|Address
 argument_list|>
