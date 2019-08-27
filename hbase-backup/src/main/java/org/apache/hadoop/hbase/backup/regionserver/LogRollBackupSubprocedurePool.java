@@ -171,7 +171,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DaemonThreadFactory
+name|errorhandling
+operator|.
+name|ForeignException
 import|;
 end_import
 
@@ -185,9 +187,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|errorhandling
+name|util
 operator|.
-name|ForeignException
+name|Threads
 import|;
 end_import
 
@@ -378,14 +380,15 @@ name|LinkedBlockingQueue
 argument_list|<>
 argument_list|()
 argument_list|,
-operator|new
-name|DaemonThreadFactory
+name|Threads
+operator|.
+name|newDaemonThreadFactory
 argument_list|(
 literal|"rs("
 operator|+
 name|name
 operator|+
-literal|")-backup-pool"
+literal|")-backup"
 argument_list|)
 argument_list|)
 expr_stmt|;

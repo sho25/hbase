@@ -123,7 +123,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DaemonThreadFactory
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -336,8 +338,9 @@ argument_list|(
 name|maxQueueLength
 argument_list|)
 argument_list|,
-operator|new
-name|DaemonThreadFactory
+name|Threads
+operator|.
+name|newDaemonThreadFactory
 argument_list|(
 literal|"FifoRpcScheduler.handler"
 argument_list|)

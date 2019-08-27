@@ -111,7 +111,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|DaemonThreadFactory
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -343,8 +345,9 @@ argument_list|(
 name|maxQueueLength
 argument_list|)
 argument_list|,
-operator|new
-name|DaemonThreadFactory
+name|Threads
+operator|.
+name|newDaemonThreadFactory
 argument_list|(
 literal|"MasterFifoRpcScheduler.call.handler"
 argument_list|)
@@ -382,8 +385,9 @@ argument_list|(
 name|rsRsreportMaxQueueLength
 argument_list|)
 argument_list|,
-operator|new
-name|DaemonThreadFactory
+name|Threads
+operator|.
+name|newDaemonThreadFactory
 argument_list|(
 literal|"MasterFifoRpcScheduler.RSReport.handler"
 argument_list|)
