@@ -300,7 +300,7 @@ operator|.
 name|class
 condition|)
 block|{
-comment|// All tests have a 10minute timeout.
+comment|// All tests have a 13 minutes timeout.
 return|return
 name|TimeUnit
 operator|.
