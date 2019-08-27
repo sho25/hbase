@@ -778,7 +778,7 @@ operator|.
 name|getMiniHBaseCluster
 argument_list|()
 operator|.
-name|getClusterStatus
+name|getClusterMetrics
 argument_list|()
 operator|.
 name|getAverageLoad
