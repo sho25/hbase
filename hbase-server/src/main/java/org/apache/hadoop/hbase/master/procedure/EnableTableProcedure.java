@@ -436,12 +436,6 @@ specifier|private
 name|TableName
 name|tableName
 decl_stmt|;
-specifier|private
-name|Boolean
-name|traceEnabled
-init|=
-literal|null
-decl_stmt|;
 specifier|public
 name|EnableTableProcedure
 parameter_list|()
@@ -512,24 +506,17 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
-if|if
-condition|(
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} execute state={}"
+argument_list|,
 name|this
-operator|+
-literal|" execute state="
-operator|+
+argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-block|}
 try|try
 block|{
 switch|switch
@@ -1786,31 +1773,6 @@ argument_list|,
 name|state
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * The procedure could be restarted from a different machine. If the variable is null, we need to    * retrieve it.    * @return traceEnabled    */
-specifier|private
-name|Boolean
-name|isTraceEnabled
-parameter_list|()
-block|{
-if|if
-condition|(
-name|traceEnabled
-operator|==
-literal|null
-condition|)
-block|{
-name|traceEnabled
-operator|=
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-expr_stmt|;
-block|}
-return|return
-name|traceEnabled
-return|;
 block|}
 comment|/**    * Coprocessor Action.    * @param env MasterProcedureEnv    * @param state the procedure state    * @throws IOException    * @throws InterruptedException    */
 specifier|private
