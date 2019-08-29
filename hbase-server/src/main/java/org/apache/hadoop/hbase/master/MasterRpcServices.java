@@ -8839,35 +8839,6 @@ operator|.
 name|getRegionStates
 argument_list|()
 decl_stmt|;
-if|if
-condition|(
-name|request
-operator|.
-name|getRegionCount
-argument_list|()
-operator|!=
-literal|2
-condition|)
-block|{
-throw|throw
-operator|new
-name|ServiceException
-argument_list|(
-operator|new
-name|DoNotRetryIOException
-argument_list|(
-literal|"Only support merging 2 regions but "
-operator|+
-name|request
-operator|.
-name|getRegionCount
-argument_list|()
-operator|+
-literal|" region passed"
-argument_list|)
-argument_list|)
-throw|;
-block|}
 name|RegionInfo
 index|[]
 name|regionsToMerge
