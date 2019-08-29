@@ -95,6 +95,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MetaTableAccessor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ScheduledChore
 import|;
 end_import
@@ -336,6 +350,12 @@ specifier|final
 name|Connection
 name|conn
 decl_stmt|;
+specifier|private
+name|boolean
+name|quotaTablePresent
+init|=
+literal|false
+decl_stmt|;
 specifier|public
 name|SpaceQuotaRefresherChore
 parameter_list|(
@@ -416,6 +436,31 @@ parameter_list|()
 block|{
 try|try
 block|{
+comment|// check whether quotaTable is present or not.
+if|if
+condition|(
+operator|!
+name|quotaTablePresent
+operator|&&
+operator|!
+name|checkQuotaTableExists
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Quota table not found, skipping quota manager cache refresh."
+argument_list|)
+expr_stmt|;
+return|return;
+block|}
+comment|// since quotaTable is present so setting the flag as true.
+name|quotaTablePresent
+operator|=
+literal|true
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -800,6 +845,27 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
+block|}
+comment|/**    * Checks if hbase:quota exists in hbase:meta    *    * @return true if hbase:quota table is in meta, else returns false.    * @throws IOException throws IOException    */
+name|boolean
+name|checkQuotaTableExists
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|MetaTableAccessor
+operator|.
+name|tableExists
+argument_list|(
+name|getConnection
+argument_list|()
+argument_list|,
+name|QuotaUtil
+operator|.
+name|QUOTA_TABLE_NAME
+argument_list|)
+return|;
 block|}
 comment|/**    * Checks if the given<code>snapshot</code> is in violation, allowing the snapshot to be null.    * If the snapshot is null, this is interpreted as no snapshot which implies not in violation.    *    * @param snapshot The snapshot to operate on.    * @return true if the snapshot is in violation, false otherwise.    */
 name|boolean
