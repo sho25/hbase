@@ -5904,6 +5904,25 @@ block|}
 end_class
 
 begin_comment
+comment|/**    * Called every so-often by storefile map builder getTableStoreFilePathMap to    * report progress.    */
+end_comment
+
+begin_interface
+interface|interface
+name|ProgressReporter
+block|{
+comment|/**      * @param status File or directory we are about to process.      */
+name|void
+name|progress
+parameter_list|(
+name|FileStatus
+name|status
+parameter_list|)
+function_decl|;
+block|}
+end_interface
+
+begin_comment
 comment|/**    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param map map to add values.  If null, this method will create and populate one to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
 end_comment
 
@@ -5957,6 +5976,9 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+operator|(
+name|ProgressReporter
+operator|)
 literal|null
 argument_list|)
 return|;
@@ -5964,7 +5986,101 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.  Note that because this method can be called    * on a 'live' HBase system that we will skip files that no longer exist by the time    * we traverse them and similarly the user of the result needs to consider that some    * entries in this map may not exist by the time this call completes.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param resultMap map to add values.  If null, this method will create and populate one to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param errors ErrorReporter instance or null    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
+comment|/**    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.  Note that because this method can be called    * on a 'live' HBase system that we will skip files that no longer exist by the time    * we traverse them and similarly the user of the result needs to consider that some    * entries in this map may not exist by the time this call completes.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param resultMap map to add values.  If null, this method will create and populate one to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @deprecated Since 2.3.0. For removal in hbase4. Use ProgressReporter override instead.    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Path
+argument_list|>
+name|getTableStoreFilePathMap
+parameter_list|(
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Path
+argument_list|>
+name|resultMap
+parameter_list|,
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|hbaseRootDir
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|,
+specifier|final
+name|PathFilter
+name|sfFilter
+parameter_list|,
+name|ExecutorService
+name|executor
+parameter_list|,
+specifier|final
+name|HbckErrorReporter
+name|progressReporter
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+return|return
+name|getTableStoreFilePathMap
+argument_list|(
+name|resultMap
+argument_list|,
+name|fs
+argument_list|,
+name|hbaseRootDir
+argument_list|,
+name|tableName
+argument_list|,
+name|sfFilter
+argument_list|,
+name|executor
+argument_list|,
+operator|new
+name|ProgressReporter
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|progress
+parameter_list|(
+name|FileStatus
+name|status
+parameter_list|)
+block|{
+comment|// status is not used in this implementation.
+name|progressReporter
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/*    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.  Note that because this method can be called    * on a 'live' HBase system that we will skip files that no longer exist by the time    * we traverse them and similarly the user of the result needs to consider that some    * entries in this map may not exist by the time this call completes.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param resultMap map to add values.  If null, this method will create and populate one    *   to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -6005,8 +6121,8 @@ name|ExecutorService
 name|executor
 parameter_list|,
 specifier|final
-name|HbckErrorReporter
-name|errors
+name|ProgressReporter
+name|progressReporter
 parameter_list|)
 throws|throws
 name|IOException
@@ -6142,13 +6258,15 @@ if|if
 condition|(
 literal|null
 operator|!=
-name|errors
+name|progressReporter
 condition|)
 block|{
-name|errors
+name|progressReporter
 operator|.
 name|progress
-argument_list|()
+argument_list|(
+name|regionDir
+argument_list|)
 expr_stmt|;
 block|}
 specifier|final
@@ -6271,13 +6389,15 @@ if|if
 condition|(
 literal|null
 operator|!=
-name|errors
+name|progressReporter
 condition|)
 block|{
-name|errors
+name|progressReporter
 operator|.
 name|progress
-argument_list|()
+argument_list|(
+name|familyDir
+argument_list|)
 expr_stmt|;
 block|}
 name|Path
@@ -6330,13 +6450,15 @@ if|if
 condition|(
 literal|null
 operator|!=
-name|errors
+name|progressReporter
 condition|)
 block|{
-name|errors
+name|progressReporter
 operator|.
 name|progress
-argument_list|()
+argument_list|(
+name|sfStatus
+argument_list|)
 expr_stmt|;
 block|}
 name|Path
@@ -6666,7 +6788,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
+comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -6704,6 +6826,9 @@ literal|null
 argument_list|,
 literal|null
 argument_list|,
+operator|(
+name|ProgressReporter
+operator|)
 literal|null
 argument_list|)
 return|;
@@ -6711,7 +6836,84 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param errors ErrorReporter instance or null    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
+comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @deprecated Since 2.3.0. Will be removed in hbase4. Used {@link    *   #getTableStoreFilePathMap(FileSystem, Path, PathFilter, ExecutorService, ProgressReporter)}    */
+end_comment
+
+begin_function
+annotation|@
+name|Deprecated
+specifier|public
+specifier|static
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|Path
+argument_list|>
+name|getTableStoreFilePathMap
+parameter_list|(
+specifier|final
+name|FileSystem
+name|fs
+parameter_list|,
+specifier|final
+name|Path
+name|hbaseRootDir
+parameter_list|,
+name|PathFilter
+name|sfFilter
+parameter_list|,
+name|ExecutorService
+name|executor
+parameter_list|,
+name|HbckErrorReporter
+name|progressReporter
+parameter_list|)
+throws|throws
+name|IOException
+throws|,
+name|InterruptedException
+block|{
+return|return
+name|getTableStoreFilePathMap
+argument_list|(
+name|fs
+argument_list|,
+name|hbaseRootDir
+argument_list|,
+name|sfFilter
+argument_list|,
+name|executor
+argument_list|,
+operator|new
+name|ProgressReporter
+argument_list|()
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|progress
+parameter_list|(
+name|FileStatus
+name|status
+parameter_list|)
+block|{
+comment|// status is not used in this implementation.
+name|progressReporter
+operator|.
+name|progress
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+argument_list|)
+return|;
+block|}
+end_function
+
+begin_comment
+comment|/**    * Runs through the HBase rootdir and creates a reverse lookup map for    * table StoreFile names to the full Path.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
 end_comment
 
 begin_function
@@ -6739,8 +6941,8 @@ parameter_list|,
 name|ExecutorService
 name|executor
 parameter_list|,
-name|HbckErrorReporter
-name|errors
+name|ProgressReporter
+name|progressReporter
 parameter_list|)
 throws|throws
 name|IOException
@@ -6803,7 +7005,7 @@ name|sfFilter
 argument_list|,
 name|executor
 argument_list|,
-name|errors
+name|progressReporter
 argument_list|)
 expr_stmt|;
 block|}
