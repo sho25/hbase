@@ -614,7 +614,7 @@ name|ZKWatcher
 name|zkw
 parameter_list|)
 block|{
-comment|// an unique name in case the first run fails
+comment|// a unique name in case the first run fails
 name|hostname
 operator|=
 name|System

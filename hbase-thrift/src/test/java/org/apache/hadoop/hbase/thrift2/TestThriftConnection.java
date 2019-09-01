@@ -1400,7 +1400,7 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
-comment|// Start a HTTP thrift server
+comment|// Start an HTTP thrift server
 name|thriftHttpServer
 operator|=
 name|startThriftServer

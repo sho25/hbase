@@ -2871,7 +2871,7 @@ name|doAsEnabled
 argument_list|)
 return|;
 block|}
-comment|/**    * Setup a HTTP Server using Jetty to serve calls from THttpClient    *    * @throws IOException IOException    */
+comment|/**    * Setup an HTTP Server using Jetty to serve calls from THttpClient    *    * @throws IOException IOException    */
 specifier|protected
 name|void
 name|setupHTTPServer

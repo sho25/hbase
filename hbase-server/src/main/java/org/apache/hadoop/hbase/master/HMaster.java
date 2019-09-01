@@ -4053,7 +4053,7 @@ literal|"' as an address local to this node and '"
 operator|+
 name|MASTER_HOSTNAME_KEY
 operator|+
-literal|"' is not set; client will get a HTTP 400 response. If "
+literal|"' is not set; client will get an HTTP 400 response. If "
 operator|+
 literal|"your HBase deployment relies on client accessible names that the region server process "
 operator|+

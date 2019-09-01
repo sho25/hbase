@@ -346,7 +346,7 @@ name|getMethodName
 argument_list|()
 return|;
 block|}
-comment|/**    * Generates a process-wide unique sequence number.    * @return an unique sequence number    */
+comment|/**    * Generates a process-wide unique sequence number.    * @return a unique sequence number    */
 specifier|public
 specifier|static
 name|int

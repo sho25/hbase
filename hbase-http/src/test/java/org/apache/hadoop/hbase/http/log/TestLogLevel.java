@@ -817,7 +817,7 @@ operator|=
 name|setupMiniKdc
 argument_list|()
 expr_stmt|;
-comment|// Create two principles: a client and a HTTP principal
+comment|// Create two principles: a client and an HTTP principal
 name|kdc
 operator|.
 name|createPrincipal
@@ -2196,7 +2196,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"A HTTPS Client should not have succeeded in connecting to a "
+literal|"An HTTPS Client should not have succeeded in connecting to a "
 operator|+
 literal|"HTTP server"
 argument_list|)
@@ -2263,7 +2263,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"A HTTPS Client should not have succeeded in connecting to a "
+literal|"An HTTPS Client should not have succeeded in connecting to a "
 operator|+
 literal|"HTTP server"
 argument_list|)
@@ -2330,7 +2330,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"A HTTP Client should not have succeeded in connecting to a "
+literal|"An HTTP Client should not have succeeded in connecting to a "
 operator|+
 literal|"HTTPS server"
 argument_list|)
@@ -2397,7 +2397,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-literal|"A HTTP Client should not have succeeded in connecting to a "
+literal|"An HTTP Client should not have succeeded in connecting to a "
 operator|+
 literal|"HTTPS server"
 argument_list|)

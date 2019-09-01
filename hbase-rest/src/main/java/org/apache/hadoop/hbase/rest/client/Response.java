@@ -98,7 +98,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The HTTP result code, response headers, and body of a HTTP response.  */
+comment|/**  * The HTTP result code, response headers, and body of an HTTP response.  */
 end_comment
 
 begin_class

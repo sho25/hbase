@@ -125,7 +125,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|/**    * Register the given {@link Cacheable} -- usually an hfileblock instance, these implement    * the Cacheable Interface -- deserializer and generate an unique identifier id for it and return    * this as our result.    * @return the identifier of given cacheable deserializer    * @see #getDeserializer(int)    */
+comment|/**    * Register the given {@link Cacheable} -- usually an hfileblock instance, these implement    * the Cacheable Interface -- deserializer and generate a unique identifier id for it and return    * this as our result.    * @return the identifier of given cacheable deserializer    * @see #getDeserializer(int)    */
 specifier|public
 specifier|static
 name|int

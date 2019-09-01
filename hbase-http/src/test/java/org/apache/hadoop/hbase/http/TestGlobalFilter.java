@@ -486,7 +486,7 @@ operator|new
 name|Configuration
 argument_list|()
 decl_stmt|;
-comment|//start a http server with CountingFilter
+comment|//start an http server with CountingFilter
 name|conf
 operator|.
 name|set

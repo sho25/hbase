@@ -3008,7 +3008,7 @@ return|return
 name|status
 return|;
 block|}
-comment|/**    * Return the 'path' component of a Path. In Hadoop, Path is an URI. This method returns the    * 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>, this method returns    *<code>/hbase_trunk/TestTable/compaction.dir</code>. This method is useful if you want to print    * out a Path without qualifying Filesystem instance.    * @param p file system Path whose 'path' component we are to return.    * @return Path portion of the Filesystem    */
+comment|/**    * Return the 'path' component of a Path. In Hadoop, Path is a URI. This method returns the    * 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>, this method returns    *<code>/hbase_trunk/TestTable/compaction.dir</code>. This method is useful if you want to print    * out a Path without qualifying Filesystem instance.    * @param p file system Path whose 'path' component we are to return.    * @return Path portion of the Filesystem    */
 specifier|public
 specifier|static
 name|String

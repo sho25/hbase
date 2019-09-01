@@ -267,7 +267,7 @@ name|CALLBACK_PARAM
 init|=
 literal|"callback"
 decl_stmt|;
-comment|/**    * If query string includes 'description', then we will emit bean and attribute descriptions to    * output IFF they are not null and IFF the description is not the same as the attribute name:    * i.e. specify an URL like so: /jmx?description=true    */
+comment|/**    * If query string includes 'description', then we will emit bean and attribute descriptions to    * output IFF they are not null and IFF the description is not the same as the attribute name:    * i.e. specify a URL like so: /jmx?description=true    */
 specifier|private
 specifier|static
 specifier|final
