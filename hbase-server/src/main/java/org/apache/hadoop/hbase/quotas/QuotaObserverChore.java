@@ -211,6 +211,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|RegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Scan
 import|;
 end_import
@@ -3389,6 +3405,14 @@ return|return
 literal|0
 return|;
 block|}
+comment|// Filter the region replicas if any and return the original number of regions for a table.
+name|RegionReplicaUtil
+operator|.
+name|removeNonDefaultRegions
+argument_list|(
+name|regions
+argument_list|)
+expr_stmt|;
 return|return
 name|regions
 operator|.
