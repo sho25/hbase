@@ -464,6 +464,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// Update counter metrics based on current scan before reinitializing it
+if|if
+condition|(
+name|currentScan
+operator|!=
+literal|null
+condition|)
+block|{
+name|updateCounters
+argument_list|()
+expr_stmt|;
+block|}
 name|currentScan
 operator|=
 operator|new
@@ -948,6 +960,9 @@ operator|instanceof
 name|DoNotRetryIOException
 condition|)
 block|{
+name|updateCounters
+argument_list|()
+expr_stmt|;
 throw|throw
 name|e
 throw|;
@@ -1129,6 +1144,9 @@ name|IOException
 name|ioe
 parameter_list|)
 block|{
+name|updateCounters
+argument_list|()
+expr_stmt|;
 if|if
 condition|(
 name|logScannerActivity
