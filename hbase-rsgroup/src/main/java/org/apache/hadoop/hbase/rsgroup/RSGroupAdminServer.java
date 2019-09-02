@@ -1012,38 +1012,6 @@ argument_list|(
 name|tmpSrcGrp
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|srcGrp
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|targetGroupName
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|ConstraintException
-argument_list|(
-literal|"Target RSGroup "
-operator|+
-name|targetGroupName
-operator|+
-literal|" is same as source "
-operator|+
-name|srcGrp
-operator|.
-name|getName
-argument_list|()
-operator|+
-literal|" RSGroup."
-argument_list|)
-throw|;
-block|}
 comment|// Only move online servers
 name|checkOnlineServersOnly
 argument_list|(
@@ -1907,35 +1875,6 @@ literal|" does not exist."
 argument_list|)
 throw|;
 block|}
-if|if
-condition|(
-name|srcGrp
-operator|.
-name|getName
-argument_list|()
-operator|.
-name|equals
-argument_list|(
-name|targetGroupName
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|ConstraintException
-argument_list|(
-literal|"Target RSGroup "
-operator|+
-name|targetGroupName
-operator|+
-literal|" is same as source "
-operator|+
-name|srcGrp
-operator|+
-literal|" RSGroup."
-argument_list|)
-throw|;
-block|}
 comment|// Only move online servers (when moving from 'default') or servers from other
 comment|// groups. This prevents bogus servers from entering groups
 if|if
@@ -2243,71 +2182,6 @@ literal|"Target RSGroup must have at least one server."
 argument_list|)
 throw|;
 block|}
-block|}
-for|for
-control|(
-name|TableName
-name|table
-range|:
-name|tables
-control|)
-block|{
-name|String
-name|srcGroup
-init|=
-name|rsGroupInfoManager
-operator|.
-name|getRSGroupOfTable
-argument_list|(
-name|table
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|srcGroup
-operator|!=
-literal|null
-operator|&&
-name|srcGroup
-operator|.
-name|equals
-argument_list|(
-name|targetGroup
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|ConstraintException
-argument_list|(
-literal|"Source RSGroup "
-operator|+
-name|srcGroup
-operator|+
-literal|" is same as target "
-operator|+
-name|targetGroup
-operator|+
-literal|" RSGroup for table "
-operator|+
-name|table
-argument_list|)
-throw|;
-block|}
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Moving table {} to RSGroup {}"
-argument_list|,
-name|table
-operator|.
-name|getNameAsString
-argument_list|()
-argument_list|,
-name|targetGroup
-argument_list|)
-expr_stmt|;
 block|}
 name|rsGroupInfoManager
 operator|.
