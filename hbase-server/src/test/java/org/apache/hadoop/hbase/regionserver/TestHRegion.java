@@ -3689,25 +3689,6 @@ operator|+
 name|testName
 argument_list|)
 decl_stmt|;
-name|ChunkCreator
-operator|.
-name|initialize
-argument_list|(
-name|MemStoreLABImpl
-operator|.
-name|CHUNK_SIZE_DEFAULT
-argument_list|,
-literal|false
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|FSHLog
 name|hLog
 init|=
@@ -9539,7 +9520,7 @@ argument_list|)
 expr_stmt|;
 comment|// 3. Test case where ABORT_FLUSH will throw exception.
 comment|// Even if ABORT_FLUSH throws exception, we should not fail with IOE, but continue with
-comment|// DroppedSnapshotException. Below COMMMIT_FLUSH will cause flush to abort
+comment|// DroppedSnapshotException. Below COMMIT_FLUSH will cause flush to abort
 name|wal
 operator|.
 name|flushActions
@@ -17405,25 +17386,6 @@ argument_list|()
 expr_stmt|;
 comment|// This chunk creation is done throughout the code base. Do we want to move it into core?
 comment|// It is missing from this test. W/o it we NPE.
-name|ChunkCreator
-operator|.
-name|initialize
-argument_list|(
-name|MemStoreLABImpl
-operator|.
-name|CHUNK_SIZE_DEFAULT
-argument_list|,
-literal|false
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|region
 operator|=
 name|initHRegion
@@ -34153,25 +34115,6 @@ operator|+
 literal|".log"
 argument_list|)
 decl_stmt|;
-name|ChunkCreator
-operator|.
-name|initialize
-argument_list|(
-name|MemStoreLABImpl
-operator|.
-name|CHUNK_SIZE_DEFAULT
-argument_list|,
-literal|false
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|0
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
 name|HRegionInfo
 name|hri
 init|=
@@ -34254,6 +34197,25 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|ChunkCreator
+operator|.
+name|initialize
+argument_list|(
+name|MemStoreLABImpl
+operator|.
+name|CHUNK_SIZE_DEFAULT
+argument_list|,
+literal|false
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|0
+argument_list|,
+literal|null
+argument_list|)
+expr_stmt|;
 return|return
 name|TEST_UTIL
 operator|.
