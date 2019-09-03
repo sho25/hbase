@@ -3265,7 +3265,11 @@ literal|0
 condition|)
 block|{
 return|return
-literal|true
+operator|!
+name|this
+operator|.
+name|isSplitParent
+argument_list|()
 return|;
 block|}
 if|if
@@ -3282,7 +3286,11 @@ argument_list|()
 condition|)
 block|{
 return|return
-literal|true
+operator|!
+name|this
+operator|.
+name|isSplitParent
+argument_list|()
 return|;
 block|}
 return|return
