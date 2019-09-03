@@ -525,6 +525,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|rsgroup
+operator|.
+name|RSGroupInfoManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|access
@@ -1287,6 +1303,11 @@ name|RegionPlan
 argument_list|>
 name|plans
 parameter_list|)
+function_decl|;
+comment|/**    * @return the {@link RSGroupInfoManager}    */
+name|RSGroupInfoManager
+name|getRSRSGroupInfoManager
+parameter_list|()
 function_decl|;
 block|}
 end_interface
