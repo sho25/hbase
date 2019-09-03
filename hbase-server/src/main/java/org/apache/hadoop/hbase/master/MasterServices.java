@@ -525,6 +525,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|rsgroup
+operator|.
+name|RSGroupInfoManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|access
@@ -1291,6 +1307,11 @@ function_decl|;
 comment|/**    * Run the ReplicationBarrierChore.    */
 name|void
 name|runReplicationBarrierCleaner
+parameter_list|()
+function_decl|;
+comment|/**    * @return the {@link RSGroupInfoManager}    */
+name|RSGroupInfoManager
+name|getRSRSGroupInfoManager
 parameter_list|()
 function_decl|;
 block|}
