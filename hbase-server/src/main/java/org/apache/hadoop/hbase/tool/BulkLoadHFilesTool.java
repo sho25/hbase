@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -1240,6 +1240,15 @@ name|NAME
 init|=
 literal|"completebulkload"
 decl_stmt|;
+comment|/**    * Whether to run validation on hfiles before loading.    */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|VALIDATE_HFILES
+init|=
+literal|"hbase.loadincremental.validate.hfile"
+decl_stmt|;
 comment|// We use a '.' prefix which is ignored when walking directory trees
 comment|// above. It is invalid family name.
 specifier|static
@@ -1563,7 +1572,7 @@ name|familyNames
 init|=
 name|Arrays
 operator|.
-name|asList
+name|stream
 argument_list|(
 name|tableDesc
 operator|.
@@ -1571,17 +1580,11 @@ name|getColumnFamilies
 argument_list|()
 argument_list|)
 operator|.
-name|stream
-argument_list|()
-operator|.
 name|map
 argument_list|(
-name|f
-lambda|->
-name|f
-operator|.
+name|ColumnFamilyDescriptor
+operator|::
 name|getNameAsString
-argument_list|()
 argument_list|)
 operator|.
 name|collect
@@ -1785,7 +1788,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Iterate over the bulkDir hfiles. Skip reference, HFileLink, files starting with "_". Check and    * skip non-valid hfiles by default, or skip this validation by setting    * 'hbase.loadincremental.validate.hfile' to false.    */
+comment|/**    * Iterate over the bulkDir hfiles. Skip reference, HFileLink, files starting with "_". Check and    * skip non-valid hfiles by default, or skip this validation by setting {@link #VALIDATE_HFILES}    * to false.    */
 specifier|private
 specifier|static
 parameter_list|<
@@ -2174,8 +2177,6 @@ specifier|final
 name|FileStatus
 name|hfile
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|long
 name|length
@@ -3314,49 +3315,8 @@ argument_list|>
 argument_list|>
 name|call
 init|=
-operator|new
-name|Callable
-argument_list|<
-name|Pair
-argument_list|<
-name|List
-argument_list|<
-name|LoadQueueItem
-argument_list|>
-argument_list|,
-name|String
-argument_list|>
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|Pair
-argument_list|<
-name|List
-argument_list|<
-name|LoadQueueItem
-argument_list|>
-argument_list|,
-name|String
-argument_list|>
-name|call
 parameter_list|()
-throws|throws
-name|Exception
-block|{
-name|Pair
-argument_list|<
-name|List
-argument_list|<
-name|LoadQueueItem
-argument_list|>
-argument_list|,
-name|String
-argument_list|>
-name|splits
-init|=
+lambda|->
 name|groupOrSplit
 argument_list|(
 name|conn
@@ -3369,12 +3329,6 @@ name|item
 argument_list|,
 name|startEndKeys
 argument_list|)
-decl_stmt|;
-return|return
-name|splits
-return|;
-block|}
-block|}
 decl_stmt|;
 name|splittingFutures
 operator|.
@@ -3595,10 +3549,6 @@ name|item
 parameter_list|,
 name|TableDescriptor
 name|tableDesc
-parameter_list|,
-name|byte
-index|[]
-name|startKey
 parameter_list|,
 name|byte
 index|[]
@@ -4226,7 +4176,7 @@ name|indexForCallable
 init|=
 name|idx
 decl_stmt|;
-comment|/**      * we can consider there is a region hole in following conditions. 1) if idx< 0,then first      * region info is lost. 2) if the endkey of a region is not equal to the startkey of the next      * region. 3) if the endkey of the last region is not empty.      */
+comment|/*      * we can consider there is a region hole in following conditions. 1) if idx< 0,then first      * region info is lost. 2) if the endkey of a region is not equal to the startkey of the next      * region. 3) if the endkey of the last region is not empty.      */
 if|if
 condition|(
 name|indexForCallable
@@ -4443,11 +4393,6 @@ argument_list|(
 name|tableName
 argument_list|)
 argument_list|)
-argument_list|,
-name|startEndKey
-operator|.
-name|getFirst
-argument_list|()
 argument_list|,
 name|startEndKey
 operator|.
@@ -5317,19 +5262,12 @@ name|value
 init|=
 name|map
 operator|.
-name|containsKey
+name|getOrDefault
 argument_list|(
 name|first
-argument_list|)
-condition|?
-name|map
-operator|.
-name|get
-argument_list|(
-name|first
-argument_list|)
-else|:
+argument_list|,
 literal|0
+argument_list|)
 decl_stmt|;
 name|map
 operator|.
@@ -5738,25 +5676,6 @@ comment|// NOTE: The next iteration's split / group could happen in parallel to
 comment|// atomic bulkloads assuming that there are splits and no merges, and
 comment|// that we can atomically pull out the groups we want to retry.
 block|}
-if|if
-condition|(
-operator|!
-name|queue
-operator|.
-name|isEmpty
-argument_list|()
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"Bulk load aborted with some files not yet loaded."
-operator|+
-literal|"Please check log for more details."
-argument_list|)
-throw|;
-block|}
 return|return
 name|item2RegionMap
 return|;
@@ -5896,7 +5815,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given pre-existing table. This method is    * not threadsafe.    * @param map map of family to List of hfiles    * @param tableName table to load the hfiles    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given map of families to hfiles into the given pre-existing table.    * This method is not threadsafe.    * @param map map of family to List of hfiles    * @param tableName table to load the hfiles    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    */
 specifier|private
 name|Map
 argument_list|<
@@ -5931,41 +5850,15 @@ name|boolean
 name|copyFile
 parameter_list|)
 throws|throws
-name|TableNotFoundException
-throws|,
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|FutureUtils
-operator|.
-name|get
+name|tableExists
 argument_list|(
 name|conn
-operator|.
-name|getAdmin
-argument_list|()
-operator|.
-name|isTableAvailable
-argument_list|(
+argument_list|,
 name|tableName
 argument_list|)
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-literal|"Table "
-operator|+
-name|tableName
-operator|+
-literal|" is not currently available."
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 comment|// LQI queue does not need to be threadsafe -- all operations on this queue
 comment|// happen in this thread
 name|Deque
@@ -6056,7 +5949,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Perform a bulk load of the given directory into the given pre-existing table. This method is    * not threadsafe.    * @param tableName table to load the hfiles    * @param hfofDir the directory that was provided as the output path of a job using    *          HFileOutputFormat    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    * @throws TableNotFoundException if table does not yet exist    */
+comment|/**    * Perform a bulk load of the given directory into the given pre-existing table. This method is    * not threadsafe.    * @param tableName table to load the hfiles    * @param hfofDir the directory that was provided as the output path of a job using    *          HFileOutputFormat    * @param silence true to ignore unmatched column families    * @param copyFile always copy hfiles if true    */
 specifier|private
 name|Map
 argument_list|<
@@ -6082,41 +5975,15 @@ name|boolean
 name|copyFile
 parameter_list|)
 throws|throws
-name|TableNotFoundException
-throws|,
 name|IOException
 block|{
-if|if
-condition|(
-operator|!
-name|FutureUtils
-operator|.
-name|get
+name|tableExists
 argument_list|(
 name|conn
-operator|.
-name|getAdmin
-argument_list|()
-operator|.
-name|isTableAvailable
-argument_list|(
+argument_list|,
 name|tableName
 argument_list|)
-argument_list|)
-condition|)
-block|{
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-literal|"Table "
-operator|+
-name|tableName
-operator|+
-literal|" is not currently available."
-argument_list|)
-throw|;
-block|}
+expr_stmt|;
 comment|/*      * Checking hfile format is a time-consuming operation, we should have an option to skip this      * step when bulkloading millions of HFiles. See HBASE-13985.      */
 name|boolean
 name|validateHFile
@@ -6126,7 +5993,7 @@ argument_list|()
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.loadincremental.validate.hfile"
+name|VALIDATE_HFILES
 argument_list|,
 literal|true
 argument_list|)
@@ -6291,8 +6158,6 @@ argument_list|>
 name|family2Files
 parameter_list|)
 throws|throws
-name|TableNotFoundException
-throws|,
 name|IOException
 block|{
 try|try
@@ -6316,50 +6181,6 @@ argument_list|()
 argument_list|)
 init|)
 block|{
-if|if
-condition|(
-operator|!
-name|FutureUtils
-operator|.
-name|get
-argument_list|(
-name|conn
-operator|.
-name|getAdmin
-argument_list|()
-operator|.
-name|tableExists
-argument_list|(
-name|tableName
-argument_list|)
-argument_list|)
-condition|)
-block|{
-name|String
-name|errorMsg
-init|=
-name|format
-argument_list|(
-literal|"Table '%s' does not exist."
-argument_list|,
-name|tableName
-argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|errorMsg
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-name|errorMsg
-argument_list|)
-throw|;
-block|}
 return|return
 name|doBulkLoad
 argument_list|(
@@ -6396,8 +6217,6 @@ name|Path
 name|dir
 parameter_list|)
 throws|throws
-name|TableNotFoundException
-throws|,
 name|IOException
 block|{
 try|try
@@ -6463,30 +6282,11 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|String
-name|errorMsg
-init|=
-name|format
+name|throwAndLogTableNotFoundException
 argument_list|(
-literal|"Table '%s' does not exist."
-argument_list|,
 name|tableName
 argument_list|)
-decl_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|errorMsg
-argument_list|)
 expr_stmt|;
-throw|throw
-operator|new
-name|TableNotFoundException
-argument_list|(
-name|errorMsg
-argument_list|)
-throw|;
 block|}
 block|}
 return|return
@@ -6506,6 +6306,81 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+block|}
+comment|/**    * @throws TableNotFoundException if table does not exist.    */
+specifier|private
+name|void
+name|tableExists
+parameter_list|(
+name|AsyncClusterConnection
+name|conn
+parameter_list|,
+name|TableName
+name|tableName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+if|if
+condition|(
+operator|!
+name|FutureUtils
+operator|.
+name|get
+argument_list|(
+name|conn
+operator|.
+name|getAdmin
+argument_list|()
+operator|.
+name|tableExists
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+condition|)
+block|{
+name|throwAndLogTableNotFoundException
+argument_list|(
+name|tableName
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|private
+name|void
+name|throwAndLogTableNotFoundException
+parameter_list|(
+name|TableName
+name|tn
+parameter_list|)
+throws|throws
+name|TableNotFoundException
+block|{
+name|String
+name|errorMsg
+init|=
+name|format
+argument_list|(
+literal|"Table '%s' does not exist."
+argument_list|,
+name|tn
+argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|error
+argument_list|(
+name|errorMsg
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|TableNotFoundException
+argument_list|(
+name|errorMsg
+argument_list|)
+throw|;
 block|}
 specifier|public
 name|void
@@ -6533,35 +6408,41 @@ name|err
 operator|.
 name|println
 argument_list|(
-literal|"usage: "
+literal|"Usage: "
 operator|+
-literal|"bin/hbase completebulkload<-Dargs> "
+literal|"bin/hbase completebulkload [OPTIONS] "
 operator|+
-literal|"</path/to/hfileoutputformat-output><tablename>\n"
+literal|"</PATH/TO/HFILEOUTPUTFORMAT-OUTPUT><TABLENAME>\n"
 operator|+
-literal|"\t-D"
+literal|"Loads directory of hfiles -- a region dir or product of HFileOutputFormat -- "
+operator|+
+literal|"into an hbase table.\n"
+operator|+
+literal|"OPTIONS (for other -D options, see source code):\n"
+operator|+
+literal|" -D"
 operator|+
 name|CREATE_TABLE_CONF_KEY
 operator|+
-literal|"=no can be used to avoid creation "
+literal|"=no whether to create table; when 'no', target "
 operator|+
-literal|"of a table by this tool.\n"
+literal|"table must exist.\n"
 operator|+
-literal|"\t Note: if you set this to 'no', then target table must already exist.\n"
-operator|+
-literal|"\t-D"
+literal|" -D"
 operator|+
 name|IGNORE_UNMATCHED_CF_CONF_KEY
 operator|+
-literal|"=yes can be used to ignore "
+literal|"=yes to ignore unmatched column families.\n"
 operator|+
-literal|"unmatched column families.\n"
+literal|" -loadTable for when directory of files to load has a depth of 3; target table must "
 operator|+
-literal|"\t-loadTable switch implies your baseDirectory to store file has a "
+literal|"exist;\n"
 operator|+
-literal|"depth of 3, table must exist\n"
+literal|" must be last of the options on command line.\n"
 operator|+
-literal|"\t and -loadTable switch is the last option on the command line.\n\n"
+literal|"See http://hbase.apache.org/book.html#arch.bulk.load.complete.strays for "
+operator|+
+literal|"documentation.\n"
 argument_list|)
 expr_stmt|;
 block|}
