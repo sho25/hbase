@@ -184,6 +184,11 @@ name|Path
 name|getPath
 parameter_list|()
 function_decl|;
+comment|/**    * @return Encoded Path if this StoreFile was made with a Stream.    */
+name|Path
+name|getEncodedPath
+parameter_list|()
+function_decl|;
 comment|/**    * @return Returns the qualified path of this StoreFile    */
 name|Path
 name|getQualifiedPath
