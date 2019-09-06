@@ -1178,7 +1178,7 @@ operator|.
 name|getEncodedName
 argument_list|()
 operator|+
-literal|" is no OPEN; state="
+literal|" is not OPEN; state="
 operator|+
 name|s
 argument_list|)
