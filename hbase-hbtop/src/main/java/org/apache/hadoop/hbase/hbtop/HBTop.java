@@ -507,7 +507,7 @@ name|initialRefreshDelay
 operator|=
 name|delay
 operator|*
-literal|1000
+literal|1000L
 expr_stmt|;
 block|}
 block|}

@@ -368,6 +368,9 @@ expr_stmt|;
 return|return
 name|this
 return|;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 if|if
 condition|(
@@ -414,6 +417,9 @@ argument_list|(
 literal|false
 argument_list|)
 return|;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 return|return
 name|this

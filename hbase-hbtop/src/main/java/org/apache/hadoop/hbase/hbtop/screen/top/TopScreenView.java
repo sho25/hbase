@@ -551,6 +551,9 @@ case|:
 return|return
 literal|null
 return|;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 if|if
 condition|(
@@ -780,6 +783,8 @@ return|return
 name|this
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|TerminalSize
 name|getTerminalSize
@@ -802,6 +807,8 @@ return|return
 name|terminalSize
 return|;
 block|}
+annotation|@
+name|Override
 specifier|public
 name|TerminalSize
 name|doResizeIfNecessary

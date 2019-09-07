@@ -395,6 +395,9 @@ expr_stmt|;
 return|return
 name|this
 return|;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 if|if
 condition|(
@@ -460,6 +463,9 @@ operator|.
 name|transitionToNextScreen
 argument_list|()
 return|;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 return|return
 name|this

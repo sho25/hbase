@@ -427,7 +427,7 @@ parameter_list|()
 block|{
 name|executorService
 operator|.
-name|submit
+name|execute
 argument_list|(
 name|this
 operator|::
@@ -436,7 +436,7 @@ argument_list|)
 expr_stmt|;
 name|executorService
 operator|.
-name|submit
+name|execute
 argument_list|(
 name|this
 operator|::
@@ -871,6 +871,9 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 continue|continue;
+default|default:
+comment|// Do nothing
+break|break;
 block|}
 if|if
 condition|(
@@ -1282,13 +1285,17 @@ name|block
 operator|!=
 literal|null
 operator|&&
+operator|!
 name|block
-operator|!=
+operator|.
+name|equals
+argument_list|(
 name|Character
 operator|.
 name|UnicodeBlock
 operator|.
 name|SPECIALS
+argument_list|)
 return|;
 block|}
 specifier|private
