@@ -2778,6 +2778,11 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+name|connection
+operator|.
+name|cleanupConnection
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 block|}
