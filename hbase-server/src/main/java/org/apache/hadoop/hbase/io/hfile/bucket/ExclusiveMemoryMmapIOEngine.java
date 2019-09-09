@@ -33,16 +33,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|nio
-operator|.
-name|ByteBuffer
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -139,11 +129,9 @@ block|{
 name|ByteBuff
 name|dst
 init|=
-name|ByteBuff
+name|be
 operator|.
-name|wrap
-argument_list|(
-name|ByteBuffer
+name|allocator
 operator|.
 name|allocate
 argument_list|(
@@ -151,7 +139,6 @@ name|be
 operator|.
 name|getLength
 argument_list|()
-argument_list|)
 argument_list|)
 decl_stmt|;
 name|bufferArray
@@ -187,9 +174,6 @@ operator|.
 name|wrapAsCacheable
 argument_list|(
 name|dst
-operator|.
-name|nioByteBuffers
-argument_list|()
 argument_list|)
 return|;
 block|}

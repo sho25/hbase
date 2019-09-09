@@ -2785,12 +2785,22 @@ argument_list|(
 name|bucketEntry
 argument_list|)
 decl_stmt|;
-comment|// RPC start to reference, so retain here.
+if|if
+condition|(
+name|ioEngine
+operator|.
+name|usesSharedMemory
+argument_list|()
+condition|)
+block|{
+comment|// If IOEngine use shared memory, cachedBlock and BucketEntry will share the
+comment|// same RefCnt, do retain here, in order to count the number of RPC references
 name|cachedBlock
 operator|.
 name|retain
 argument_list|()
 expr_stmt|;
+block|}
 comment|// Update the cache statistics.
 if|if
 condition|(
