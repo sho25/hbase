@@ -2884,6 +2884,13 @@ operator|.
 name|get
 argument_list|()
 decl_stmt|;
+if|if
+condition|(
+name|item2RegionMap
+operator|!=
+literal|null
+condition|)
+block|{
 for|for
 control|(
 name|LoadQueueItem
@@ -2899,6 +2906,7 @@ argument_list|(
 name|lqi
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|// LQIs that are requeued to be regrouped.
 name|queue
