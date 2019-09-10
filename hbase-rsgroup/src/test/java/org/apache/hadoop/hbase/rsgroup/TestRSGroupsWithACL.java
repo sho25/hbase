@@ -416,7 +416,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Performs authorization checks for rsgroup operations, according to different levels of authorized  * users.  */
+comment|/**  * Performs authorization checks for rsgroup operations, according to different  * levels of authorized users.  */
 end_comment
 
 begin_class
@@ -1434,9 +1434,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"getRSGroupInfo"
@@ -1469,9 +1466,6 @@ parameter_list|()
 lambda|->
 block|{
 name|rsGroupAdminEndpoint
-operator|.
-name|getGroupAdminService
-argument_list|()
 operator|.
 name|checkPermission
 argument_list|(
@@ -1506,9 +1500,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"moveServers"
@@ -1541,9 +1532,6 @@ parameter_list|()
 lambda|->
 block|{
 name|rsGroupAdminEndpoint
-operator|.
-name|getGroupAdminService
-argument_list|()
 operator|.
 name|checkPermission
 argument_list|(
@@ -1578,9 +1566,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"addRSGroup"
@@ -1613,9 +1598,6 @@ parameter_list|()
 lambda|->
 block|{
 name|rsGroupAdminEndpoint
-operator|.
-name|getGroupAdminService
-argument_list|()
 operator|.
 name|checkPermission
 argument_list|(
@@ -1650,9 +1632,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"balanceRSGroup"
@@ -1685,9 +1664,6 @@ parameter_list|()
 lambda|->
 block|{
 name|rsGroupAdminEndpoint
-operator|.
-name|getGroupAdminService
-argument_list|()
 operator|.
 name|checkPermission
 argument_list|(
@@ -1722,9 +1698,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"getRSGroupInfoOfServer"
@@ -1758,9 +1731,6 @@ lambda|->
 block|{
 name|rsGroupAdminEndpoint
 operator|.
-name|getGroupAdminService
-argument_list|()
-operator|.
 name|checkPermission
 argument_list|(
 literal|"moveServersAndTables"
@@ -1793,9 +1763,6 @@ parameter_list|()
 lambda|->
 block|{
 name|rsGroupAdminEndpoint
-operator|.
-name|getGroupAdminService
-argument_list|()
 operator|.
 name|checkPermission
 argument_list|(
