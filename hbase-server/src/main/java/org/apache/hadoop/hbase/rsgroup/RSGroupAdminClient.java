@@ -527,28 +527,6 @@ name|google
 operator|.
 name|common
 operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
 name|collect
 operator|.
 name|Sets
@@ -609,13 +587,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// for writing UTs
-annotation|@
-name|VisibleForTesting
-specifier|protected
-name|RSGroupAdminClient
-parameter_list|()
-block|{   }
 annotation|@
 name|Override
 specifier|public
@@ -693,6 +664,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|RSGroupInfo
 name|getRSGroupInfoOfTable
@@ -898,6 +871,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|moveTables
@@ -1374,6 +1349,8 @@ argument_list|)
 throw|;
 block|}
 block|}
+annotation|@
+name|Override
 specifier|public
 name|void
 name|moveServersAndTables

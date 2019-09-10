@@ -689,7 +689,7 @@ name|cluster
 decl_stmt|;
 specifier|protected
 specifier|static
-name|RSGroupAdminClient
+name|RSGroupAdmin
 name|rsGroupAdmin
 decl_stmt|;
 specifier|protected
@@ -1568,7 +1568,7 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|RSGroupAdminClient
+name|RSGroupAdmin
 name|groupAdmin
 init|=
 operator|new

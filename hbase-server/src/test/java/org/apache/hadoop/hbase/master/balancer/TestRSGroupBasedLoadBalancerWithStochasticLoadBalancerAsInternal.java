@@ -71,16 +71,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|HashMap
@@ -190,6 +180,20 @@ operator|.
 name|hbase
 operator|.
 name|HBaseConfiguration
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HBaseIOException
 import|;
 end_import
 
@@ -718,7 +722,7 @@ name|void
 name|testBalanceCluster
 parameter_list|()
 throws|throws
-name|IOException
+name|HBaseIOException
 block|{
 comment|// mock cluster State
 name|Map

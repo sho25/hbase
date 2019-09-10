@@ -73,16 +73,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Optional
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|Set
 import|;
 end_import
@@ -482,14 +472,6 @@ annotation|@
 name|Deprecated
 name|String
 name|getOwnerString
-parameter_list|()
-function_decl|;
-comment|/**    * Get the region server group this table belongs to. The regions of this table will be placed    * only on the region servers within this group. If not present, will be placed on    * {@link org.apache.hadoop.hbase.rsgroup.RSGroupInfo#DEFAULT_GROUP}.    */
-name|Optional
-argument_list|<
-name|String
-argument_list|>
-name|getRegionServerGroup
 parameter_list|()
 function_decl|;
 comment|/**    * Getter for accessing the metadata associated with the key.    *    * @param key The key.    * @return A clone value. Null if no mapping for the key    */

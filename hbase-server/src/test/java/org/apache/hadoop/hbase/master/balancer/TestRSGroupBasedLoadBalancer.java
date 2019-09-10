@@ -682,7 +682,7 @@ name|balancedCluster
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests the bulk assignment used during cluster startup.    *<p/>    * Round-robin. Should yield a balanced cluster so same invariant as the load balancer holds, all    * servers holding either floor(avg) or ceiling(avg).    */
+comment|/**    * Tests the bulk assignment used during cluster startup.    *    * Round-robin. Should yield a balanced cluster so same invariant as the    * load balancer holds, all servers holding either floor(avg) or    * ceiling(avg).    */
 annotation|@
 name|Test
 specifier|public
@@ -723,8 +723,8 @@ argument_list|,
 name|servers
 argument_list|)
 decl_stmt|;
-comment|// test empty region/servers scenario
-comment|// this should not throw an NPE
+comment|//test empty region/servers scenario
+comment|//this should not throw an NPE
 name|loadBalancer
 operator|.
 name|roundRobinAssignment
@@ -737,7 +737,7 @@ name|emptyList
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// test regular scenario
+comment|//test regular scenario
 name|assertTrue
 argument_list|(
 name|assignments
@@ -797,21 +797,12 @@ decl_stmt|;
 name|String
 name|groupName
 init|=
-name|tableDescs
-operator|.
-name|get
-argument_list|(
-name|tableName
-argument_list|)
-operator|.
-name|getRegionServerGroup
+name|getMockedGroupInfoManager
 argument_list|()
 operator|.
-name|orElse
+name|getRSGroupOfTable
 argument_list|(
-name|RSGroupInfo
-operator|.
-name|DEFAULT_GROUP
+name|tableName
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -1158,7 +1149,7 @@ block|{
 name|String
 name|group
 init|=
-name|tableDescs
+name|tableMap
 operator|.
 name|get
 argument_list|(
@@ -1166,16 +1157,6 @@ name|region
 operator|.
 name|getTable
 argument_list|()
-argument_list|)
-operator|.
-name|getRegionServerGroup
-argument_list|()
-operator|.
-name|orElse
-argument_list|(
-name|RSGroupInfo
-operator|.
-name|DEFAULT_GROUP
 argument_list|)
 decl_stmt|;
 if|if
