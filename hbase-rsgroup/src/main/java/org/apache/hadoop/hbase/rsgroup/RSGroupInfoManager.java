@@ -57,6 +57,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|NamespaceDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|TableName
 import|;
 end_import
@@ -83,6 +97,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -92,7 +122,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Interface used to manage RSGroupInfo storage. An implementation has the option to support offline  * mode. See {@code RSGroupBasedLoadBalancer}.  */
+comment|/**  * Interface used to manage RSGroupInfo storage. An implementation  * has the option to support offline mode.  * See {@link RSGroupBasedLoadBalancer}  */
 end_comment
 
 begin_interface
@@ -104,6 +134,68 @@ specifier|public
 interface|interface
 name|RSGroupInfoManager
 block|{
+name|String
+name|REASSIGN_WAIT_INTERVAL_KEY
+init|=
+literal|"hbase.rsgroup.reassign.wait"
+decl_stmt|;
+name|long
+name|DEFAULT_REASSIGN_WAIT_INTERVAL
+init|=
+literal|30
+operator|*
+literal|1000L
+decl_stmt|;
+comment|//Assigned before user tables
+name|TableName
+name|RSGROUP_TABLE_NAME
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+name|NamespaceDescriptor
+operator|.
+name|SYSTEM_NAMESPACE_NAME_STR
+argument_list|,
+literal|"rsgroup"
+argument_list|)
+decl_stmt|;
+name|String
+name|rsGroupZNode
+init|=
+literal|"rsgroup"
+decl_stmt|;
+name|byte
+index|[]
+name|META_FAMILY_BYTES
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"m"
+argument_list|)
+decl_stmt|;
+name|byte
+index|[]
+name|META_QUALIFIER_BYTES
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"i"
+argument_list|)
+decl_stmt|;
+name|byte
+index|[]
+name|ROW_KEY
+init|=
+block|{
+literal|0
+block|}
+decl_stmt|;
 name|void
 name|start
 parameter_list|()
@@ -180,7 +272,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Set the group membership of a set of tables    * @param tableNames set of tables to move    * @param groupName name of group of tables to move to    */
+comment|/**    * Set the group membership of a set of tables    *    * @param tableNames set of tables to move    * @param groupName name of group of tables to move to    */
 name|void
 name|moveTables
 parameter_list|(
@@ -213,7 +305,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Whether the manager is able to fully return group metadata    * @return whether the manager is in online mode    */
+comment|/**    * Whether the manager is able to fully return group metadata    *    * @return whether the manager is in online mode    */
 name|boolean
 name|isOnline
 parameter_list|()

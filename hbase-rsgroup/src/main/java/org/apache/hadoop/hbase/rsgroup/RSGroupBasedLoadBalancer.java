@@ -732,10 +732,7 @@ name|ConstraintException
 argument_list|(
 name|RSGroupInfoManager
 operator|.
-name|class
-operator|.
-name|getSimpleName
-argument_list|()
+name|RSGROUP_TABLE_NAME
 operator|+
 literal|" is not online, unable to perform balance"
 argument_list|)
