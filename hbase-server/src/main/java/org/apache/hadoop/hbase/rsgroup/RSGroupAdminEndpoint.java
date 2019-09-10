@@ -514,10 +514,12 @@ argument_list|()
 expr_stmt|;
 name|groupInfoManager
 operator|=
-name|master
+name|RSGroupInfoManagerImpl
 operator|.
-name|getRSRSGroupInfoManager
-argument_list|()
+name|getInstance
+argument_list|(
+name|master
+argument_list|)
 expr_stmt|;
 name|groupAdminServer
 operator|=
