@@ -57,20 +57,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableName
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|net
 operator|.
 name|Address
@@ -180,6 +166,13 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Refresh/reload the group information from the persistent store    */
+name|void
+name|refresh
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * Whether the manager is able to fully return group metadata    * @return whether the manager is in online mode    */
 name|boolean
 name|isOnline
@@ -194,18 +187,6 @@ argument_list|<
 name|Address
 argument_list|>
 name|servers
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-comment|/**    * Get {@code RSGroupInfo} for the given table.    * @deprecated Since 3.0.0, will be removed in 4.0.0. Only for compatibility, where we upgrade    *             from a version that stores table names for a rs group in the {@code RSGroupInfo}.    */
-annotation|@
-name|Deprecated
-name|RSGroupInfo
-name|getRSGroupForTable
-parameter_list|(
-name|TableName
-name|tableName
 parameter_list|)
 throws|throws
 name|IOException

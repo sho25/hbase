@@ -1364,8 +1364,6 @@ argument_list|(
 name|master
 argument_list|,
 name|groupAdminServer
-operator|.
-name|rsGroupInfoManager
 argument_list|,
 name|tableName
 argument_list|)
