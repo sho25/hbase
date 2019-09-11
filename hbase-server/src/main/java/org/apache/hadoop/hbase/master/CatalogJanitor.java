@@ -3351,6 +3351,19 @@ return|return
 literal|null
 return|;
 block|}
+comment|// Skip split parent region
+if|if
+condition|(
+name|ri
+operator|.
+name|isSplitParent
+argument_list|()
+condition|)
+block|{
+return|return
+name|ri
+return|;
+block|}
 comment|// If table is disabled, skip integrity check.
 if|if
 condition|(

@@ -392,6 +392,19 @@ name|HashSet
 argument_list|<>
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|Set
+argument_list|<
+name|String
+argument_list|>
+name|splitParentRegions
+init|=
+operator|new
+name|HashSet
+argument_list|<>
+argument_list|()
+decl_stmt|;
 comment|/**    * The regions only opened on RegionServers, but no region info in meta.    */
 specifier|private
 specifier|final
@@ -642,6 +655,11 @@ name|clear
 argument_list|()
 expr_stmt|;
 name|disabledTableRegions
+operator|.
+name|clear
+argument_list|()
+expr_stmt|;
+name|splitParentRegions
 operator|.
 name|clear
 argument_list|()
@@ -979,6 +997,25 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|isSplitParent
+argument_list|()
+condition|)
+block|{
+name|splitParentRegions
+operator|.
+name|add
+argument_list|(
+name|regionInfo
+operator|.
+name|getEncodedName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 name|HbckRegionInfo
 operator|.
 name|MetaEntry
@@ -1243,11 +1280,23 @@ operator|==
 literal|0
 condition|)
 block|{
-comment|// Because the inconsistent regions are not absolutely right, only skip the offline regions
-comment|// which belong to disabled table.
+comment|// skip the offline region which belong to disabled table.
 if|if
 condition|(
 name|disabledTableRegions
+operator|.
+name|contains
+argument_list|(
+name|encodedRegionName
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
+comment|// skip the split parent regions
+if|if
+condition|(
+name|splitParentRegions
 operator|.
 name|contains
 argument_list|(

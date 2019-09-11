@@ -3276,11 +3276,7 @@ literal|0
 condition|)
 block|{
 return|return
-operator|!
-name|this
-operator|.
-name|isSplitParent
-argument_list|()
+literal|true
 return|;
 block|}
 if|if
@@ -3297,11 +3293,7 @@ argument_list|()
 condition|)
 block|{
 return|return
-operator|!
-name|this
-operator|.
-name|isSplitParent
-argument_list|()
+literal|true
 return|;
 block|}
 return|return
