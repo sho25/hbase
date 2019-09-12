@@ -3547,11 +3547,11 @@ name|MetaFixer
 operator|.
 name|getRegionInfoWithLargestEndKey
 argument_list|(
-name|ri
-argument_list|,
 name|this
 operator|.
 name|highestEndKeyRegionInfo
+argument_list|,
+name|ri
 argument_list|)
 expr_stmt|;
 return|return
