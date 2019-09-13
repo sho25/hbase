@@ -4076,6 +4076,11 @@ literal|"StoreScanner already has the close lock. There is no need to updateRead
 argument_list|)
 expr_stmt|;
 comment|// no lock acquired.
+name|clearAndClose
+argument_list|(
+name|memStoreScanners
+argument_list|)
+expr_stmt|;
 return|return;
 block|}
 comment|// lock acquired
@@ -4095,6 +4100,11 @@ operator|.
 name|debug
 argument_list|(
 literal|"StoreScanner already closing. There is no need to updateReaders"
+argument_list|)
+expr_stmt|;
+name|clearAndClose
+argument_list|(
+name|memStoreScanners
 argument_list|)
 expr_stmt|;
 return|return;

@@ -1089,6 +1089,21 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|VisibleForTesting
+name|int
+name|getOpenScannerCount
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|openScannerCount
+operator|.
+name|get
+argument_list|()
+return|;
+block|}
 comment|/**    * Called when opening a scanner on the data of this MemStoreLAB    */
 annotation|@
 name|Override
