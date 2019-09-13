@@ -3144,6 +3144,28 @@ name|permissions
 argument_list|)
 return|;
 block|}
+comment|/**    * Turn on or off the auto snapshot cleanup based on TTL.    *<p/>    * Notice that, the method itself is always non-blocking, which means it will always return    * immediately. The {@code sync} parameter only effects when will we complete the returned    * {@link CompletableFuture}.    *    * @param on Set to<code>true</code> to enable,<code>false</code> to disable.    * @param sync If<code>true</code>, it waits until current snapshot cleanup is completed,    *   if outstanding.    * @return Previous auto snapshot cleanup value wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|snapshotCleanupSwitch
+parameter_list|(
+name|boolean
+name|on
+parameter_list|,
+name|boolean
+name|sync
+parameter_list|)
+function_decl|;
+comment|/**    * Query the current state of the auto snapshot cleanup based on TTL.    *    * @return true if the auto snapshot cleanup is enabled, false otherwise.    *   The return value will be wrapped by a {@link CompletableFuture}.    */
+name|CompletableFuture
+argument_list|<
+name|Boolean
+argument_list|>
+name|isSnapshotCleanupEnabled
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

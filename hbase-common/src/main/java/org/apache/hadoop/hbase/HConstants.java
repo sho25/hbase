@@ -3734,14 +3734,6 @@ name|DEFAULT_SNAPSHOT_TTL_CONFIG_KEY
 init|=
 literal|"hbase.master.snapshot.ttl"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|SNAPSHOT_CLEANER_DISABLE
-init|=
-literal|"hbase.master.cleaner.snapshot.disable"
-decl_stmt|;
 comment|/**    * Configurations for master executor services.    */
 specifier|public
 specifier|static

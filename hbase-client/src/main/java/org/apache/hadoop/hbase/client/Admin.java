@@ -4019,6 +4019,28 @@ name|permissions
 argument_list|)
 return|;
 block|}
+comment|/**    * Turn on or off the auto snapshot cleanup based on TTL.    *    * @param on Set to<code>true</code> to enable,<code>false</code> to disable.    * @param synchronous If<code>true</code>, it waits until current snapshot cleanup is completed,    *   if outstanding.    * @return Previous auto snapshot cleanup value    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|snapshotCleanupSwitch
+parameter_list|(
+specifier|final
+name|boolean
+name|on
+parameter_list|,
+specifier|final
+name|boolean
+name|synchronous
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Query the current state of the auto snapshot cleanup based on TTL.    *    * @return<code>true</code> if the auto snapshot cleanup is enabled,    *<code>false</code> otherwise.    * @throws IOException if a remote or network exception occurs    */
+name|boolean
+name|isSnapshotCleanupEnabled
+parameter_list|()
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

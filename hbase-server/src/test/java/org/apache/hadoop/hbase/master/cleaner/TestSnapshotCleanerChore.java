@@ -632,15 +632,6 @@ init|=
 name|getSnapshotCleanerConf
 argument_list|()
 decl_stmt|;
-name|conf
-operator|.
-name|setStrings
-argument_list|(
-literal|"hbase.master.cleaner.snapshot.disable"
-argument_list|,
-literal|"false"
-argument_list|)
-expr_stmt|;
 name|SnapshotCleanerChore
 name|snapshotCleanerChore
 init|=
