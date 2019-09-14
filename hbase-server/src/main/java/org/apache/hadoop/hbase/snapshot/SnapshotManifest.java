@@ -1090,6 +1090,15 @@ throws|throws
 name|IOException
 block|{
 comment|// 1. dump region meta info into the snapshot directory
+specifier|final
+name|String
+name|snapshotName
+init|=
+name|desc
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -1098,7 +1107,9 @@ literal|"Storing mob region '"
 operator|+
 name|regionInfo
 operator|+
-literal|"' region-info for snapshot."
+literal|"' region-info for snapshot="
+operator|+
+name|snapshotName
 argument_list|)
 expr_stmt|;
 name|Object
@@ -1316,6 +1327,15 @@ throws|throws
 name|IOException
 block|{
 comment|// 1. dump region meta info into the snapshot directory
+specifier|final
+name|String
+name|snapshotName
+init|=
+name|desc
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
@@ -1324,7 +1344,9 @@ literal|"Storing '"
 operator|+
 name|region
 operator|+
-literal|"' region-info for snapshot."
+literal|"' region-info for snapshot="
+operator|+
+name|snapshotName
 argument_list|)
 expr_stmt|;
 name|Object
@@ -1485,6 +1507,10 @@ name|storeFile
 operator|.
 name|getPath
 argument_list|()
+operator|+
+literal|" for snapshot="
+operator|+
+name|snapshotName
 argument_list|)
 expr_stmt|;
 name|visitor

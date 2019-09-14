@@ -2630,6 +2630,15 @@ operator|.
 name|getNameAsString
 argument_list|()
 decl_stmt|;
+specifier|final
+name|String
+name|snapshotName
+init|=
+name|snapshotDesc
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 comment|// Restore families present in the table
 for|for
 control|(
@@ -2780,9 +2789,13 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Removing hfile="
+literal|"Removing HFile="
 operator|+
 name|hfileName
+operator|+
+literal|" not present in snapshot="
+operator|+
+name|snapshotName
 operator|+
 literal|" from region="
 operator|+
@@ -2829,12 +2842,16 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding HFileLink "
+literal|"Restoring missing HFileLink "
 operator|+
 name|storeFile
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|" of snapshot="
+operator|+
+name|snapshotName
 operator|+
 literal|" to region="
 operator|+
@@ -2876,6 +2893,10 @@ name|toString
 argument_list|(
 name|family
 argument_list|)
+operator|+
+literal|" in snapshot="
+operator|+
+name|snapshotName
 operator|+
 literal|" from region="
 operator|+
@@ -2991,12 +3012,16 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Adding HFileLink "
+literal|"Adding HFileLink (Not present in the table) "
 operator|+
 name|storeFile
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|" of snapshot "
+operator|+
+name|snapshotName
 operator|+
 literal|" to table="
 operator|+
@@ -3177,6 +3202,15 @@ name|size
 argument_list|()
 argument_list|)
 decl_stmt|;
+specifier|final
+name|String
+name|snapshotName
+init|=
+name|snapshotDesc
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 comment|// clone region info (change embedded tableName with the new one)
 name|RegionInfo
 index|[]
@@ -3279,6 +3313,10 @@ operator|+
 literal|" as "
 operator|+
 name|clonedRegionName
+operator|+
+literal|" in snapshot "
+operator|+
+name|snapshotName
 argument_list|)
 expr_stmt|;
 comment|// Add mapping between cloned region name and snapshot region info
@@ -3454,6 +3492,15 @@ operator|.
 name|getNameAsString
 argument_list|()
 decl_stmt|;
+specifier|final
+name|String
+name|snapshotName
+init|=
+name|snapshotDesc
+operator|.
+name|getName
+argument_list|()
+decl_stmt|;
 for|for
 control|(
 name|SnapshotRegionManifest
@@ -3507,6 +3554,12 @@ name|storeFile
 operator|.
 name|getName
 argument_list|()
+operator|+
+literal|" from cloned region "
+operator|+
+literal|"in snapshot "
+operator|+
+name|snapshotName
 operator|+
 literal|" to table="
 operator|+
