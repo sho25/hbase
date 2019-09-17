@@ -2283,9 +2283,7 @@ name|e
 throw|;
 comment|// Don't mark the file corrupted if interrupted, or not skipErrors
 block|}
-name|CorruptedLogFileException
-name|t
-init|=
+throw|throw
 operator|new
 name|CorruptedLogFileException
 argument_list|(
@@ -2294,17 +2292,9 @@ operator|+
 name|path
 operator|+
 literal|" ignoring"
-argument_list|)
-decl_stmt|;
-name|t
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-throw|throw
-name|t
 throw|;
 block|}
 return|return
@@ -2426,9 +2416,7 @@ throw|throw
 name|e
 throw|;
 block|}
-name|CorruptedLogFileException
-name|t
-init|=
+throw|throw
 operator|new
 name|CorruptedLogFileException
 argument_list|(
@@ -2439,17 +2427,9 @@ operator|+
 name|path
 operator|+
 literal|". Marking as corrupted"
-argument_list|)
-decl_stmt|;
-name|t
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-throw|throw
-name|t
 throw|;
 block|}
 block|}
@@ -2966,6 +2946,24 @@ block|{
 name|super
 argument_list|(
 name|s
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**      * CorruptedLogFileException with cause      *      * @param message the message for this exception      * @param cause the cause for this exception      */
+name|CorruptedLogFileException
+parameter_list|(
+name|String
+name|message
+parameter_list|,
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+name|cause
 argument_list|)
 expr_stmt|;
 block|}

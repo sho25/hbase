@@ -979,9 +979,6 @@ name|ConnectionClosingException
 condition|)
 block|{
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|ConnectionClosingException
 argument_list|(
@@ -992,10 +989,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;
@@ -1086,9 +1080,6 @@ block|{
 comment|// just ignore, will just new a DoNotRetryIOException instead below
 block|}
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|DoNotRetryIOException
 argument_list|(
@@ -1099,10 +1090,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;
@@ -1116,9 +1104,6 @@ name|ConnectionClosedException
 condition|)
 block|{
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|ConnectionClosedException
 argument_list|(
@@ -1129,10 +1114,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;
@@ -1146,9 +1128,6 @@ name|CallTimeoutException
 condition|)
 block|{
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|CallTimeoutException
 argument_list|(
@@ -1159,10 +1138,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;
@@ -1194,9 +1170,6 @@ condition|)
 block|{
 comment|// TimeoutException is not an IOException, let's convert it to TimeoutIOException.
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|TimeoutIOException
 argument_list|(
@@ -1207,10 +1180,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;
@@ -1287,9 +1257,6 @@ comment|// just ignore, will just new an IOException instead below
 block|}
 block|}
 return|return
-operator|(
-name|IOException
-operator|)
 operator|new
 name|HBaseIOException
 argument_list|(
@@ -1300,10 +1267,7 @@ operator|+
 literal|" failed on local exception: "
 operator|+
 name|error
-argument_list|)
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|error
 argument_list|)
 return|;

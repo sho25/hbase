@@ -1822,24 +1822,14 @@ name|e
 argument_list|)
 expr_stmt|;
 block|}
-name|IOException
-name|io
-init|=
+throw|throw
 operator|new
 name|IOException
 argument_list|(
 literal|"File system is not available"
-argument_list|)
-decl_stmt|;
-name|io
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|exception
 argument_list|)
-expr_stmt|;
-throw|throw
-name|io
 throw|;
 block|}
 comment|/**    * We use reflection because {@link DistributedFileSystem#setSafeMode(    * HdfsConstants.SafeModeAction action, boolean isChecked)} is not in hadoop 1.1    *    * @param dfs    * @return whether we're in safe mode    * @throws IOException    */

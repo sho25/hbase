@@ -79,6 +79,27 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * CallTimeoutException with cause    *    * @param message the message for this exception    * @param cause the cause for this exception    */
+specifier|public
+name|CallTimeoutException
+parameter_list|(
+specifier|final
+name|String
+name|message
+parameter_list|,
+specifier|final
+name|Throwable
+name|cause
+parameter_list|)
+block|{
+name|super
+argument_list|(
+name|message
+argument_list|,
+name|cause
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 

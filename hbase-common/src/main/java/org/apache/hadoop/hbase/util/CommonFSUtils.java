@@ -1340,9 +1340,7 @@ name|URISyntaxException
 name|e
 parameter_list|)
 block|{
-name|IOException
-name|io
-init|=
+throw|throw
 operator|new
 name|IOException
 argument_list|(
@@ -1355,17 +1353,9 @@ operator|.
 name|HBASE_DIR
 operator|+
 literal|" configuration"
-argument_list|)
-decl_stmt|;
-name|io
-operator|.
-name|initCause
-argument_list|(
+argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-throw|throw
-name|io
 throw|;
 block|}
 block|}
