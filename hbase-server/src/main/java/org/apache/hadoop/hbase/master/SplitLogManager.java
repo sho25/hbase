@@ -487,6 +487,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|EnvironmentEdgeManager
@@ -1615,9 +1633,18 @@ name|msg
 init|=
 literal|"Finished splitting (more than or equal to) "
 operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|totalSize
+argument_list|)
+operator|+
+literal|" ("
+operator|+
 name|totalSize
 operator|+
-literal|" bytes in "
+literal|" bytes) in "
 operator|+
 operator|(
 operator|(

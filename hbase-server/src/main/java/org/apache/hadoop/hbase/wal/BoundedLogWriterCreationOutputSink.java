@@ -43,16 +43,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Arrays
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|HashMap
 import|;
 end_import
@@ -400,7 +390,7 @@ name|info
 argument_list|(
 literal|"Submitting writeThenClose of {}"
 argument_list|,
-name|Arrays
+name|Bytes
 operator|.
 name|toString
 argument_list|(

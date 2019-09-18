@@ -363,6 +363,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|procedure2
+operator|.
+name|util
+operator|.
+name|StringUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|regionserver
 operator|.
 name|LastSequenceId
@@ -432,6 +450,22 @@ operator|.
 name|util
 operator|.
 name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|EnvironmentEdgeManager
 import|;
 end_import
 
@@ -1415,6 +1449,14 @@ name|fileBeingSplit
 operator|=
 name|logfile
 expr_stmt|;
+name|long
+name|startTS
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+decl_stmt|;
 try|try
 block|{
 name|long
@@ -1429,9 +1471,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Splitting WAL={}, length={}"
+literal|"Splitting WAL={}, size={} ({} bytes)"
 argument_list|,
 name|logPath
+argument_list|,
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|logLength
+argument_list|)
 argument_list|,
 name|logLength
 argument_list|)
@@ -1495,6 +1544,27 @@ return|return
 literal|true
 return|;
 block|}
+name|long
+name|openCost
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+operator|-
+name|startTS
+decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Open WAL={} cost {} ms"
+argument_list|,
+name|logPath
+argument_list|,
+name|openCost
+argument_list|)
+expr_stmt|;
 name|int
 name|numOpenedFilesBeforeReporting
 init|=
@@ -1537,6 +1607,13 @@ init|=
 operator|-
 literal|1L
 decl_stmt|;
+name|startTS
+operator|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+expr_stmt|;
 while|while
 condition|(
 operator|(
@@ -2052,6 +2129,17 @@ block|}
 block|}
 finally|finally
 block|{
+name|long
+name|processCost
+init|=
+name|EnvironmentEdgeManager
+operator|.
+name|currentTime
+argument_list|()
+operator|-
+name|startTS
+decl_stmt|;
+comment|// See if length got updated post lease recovery
 name|String
 name|msg
 init|=
@@ -2066,13 +2154,29 @@ operator|.
 name|getNumberOfRecoveredRegions
 argument_list|()
 operator|+
-literal|" regions; edits skipped="
+literal|" regions cost "
+operator|+
+name|processCost
+operator|+
+literal|" ms; edits skipped="
 operator|+
 name|editsSkipped
 operator|+
-literal|"; log file="
+literal|"; WAL="
 operator|+
 name|logPath
+operator|+
+literal|", size="
+operator|+
+name|StringUtils
+operator|.
+name|humanSize
+argument_list|(
+name|logfile
+operator|.
+name|getLen
+argument_list|()
+argument_list|)
 operator|+
 literal|", length="
 operator|+
@@ -2081,7 +2185,6 @@ operator|.
 name|getLen
 argument_list|()
 operator|+
-comment|// See if length got updated post lease recovery
 literal|", corrupted="
 operator|+
 name|isCorrupted
