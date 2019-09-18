@@ -2246,6 +2246,37 @@ argument_list|,
 name|port
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|server
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Could not find server '{}:{}' in the set of region servers. giving up."
+argument_list|,
+name|hostname
+argument_list|,
+name|port
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"List of region servers: {}"
+argument_list|,
+name|regionServers
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 comment|// Remove RS present in the exclude file
 name|stripExcludes
 argument_list|(
