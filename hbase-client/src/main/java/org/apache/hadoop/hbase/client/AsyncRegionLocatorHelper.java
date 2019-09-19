@@ -54,24 +54,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|exceptions
-operator|.
-name|ClientExceptionsUtil
-operator|.
-name|isRegionServerOverloadedException
-import|;
-end_import
-
-begin_import
 import|import
 name|java
 operator|.
@@ -417,11 +399,6 @@ literal|null
 operator|||
 operator|!
 name|isMetaClearingException
-argument_list|(
-name|cause
-argument_list|)
-operator|||
-name|isRegionServerOverloadedException
 argument_list|(
 name|cause
 argument_list|)
