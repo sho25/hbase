@@ -3799,6 +3799,20 @@ expr_stmt|;
 comment|// This should never happen but if it does, will mess up below.
 continue|continue;
 block|}
+comment|// Skip split parent region
+if|if
+condition|(
+name|location
+operator|.
+name|getRegion
+argument_list|()
+operator|.
+name|isSplitParent
+argument_list|()
+condition|)
+block|{
+continue|continue;
+block|}
 comment|// skip the offline regions which belong to disabled table.
 if|if
 condition|(

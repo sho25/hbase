@@ -1280,6 +1280,15 @@ operator|==
 literal|0
 condition|)
 block|{
+if|if
+condition|(
+name|locationInMeta
+operator|==
+literal|null
+condition|)
+block|{
+continue|continue;
+block|}
 comment|// skip the offline region which belong to disabled table.
 if|if
 condition|(
