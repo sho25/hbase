@@ -2049,15 +2049,6 @@ argument_list|)
 decl_stmt|;
 name|Mockito
 operator|.
-name|mock
-argument_list|(
-name|ProcedureCoordinator
-operator|.
-name|class
-argument_list|)
-expr_stmt|;
-name|Mockito
-operator|.
 name|doAnswer
 argument_list|(
 operator|new
