@@ -1444,7 +1444,7 @@ operator|.
 name|getKey
 argument_list|()
 operator|.
-name|toString
+name|getNameWithNamespaceInclAsString
 argument_list|()
 argument_list|,
 name|entry
@@ -1563,7 +1563,7 @@ operator|.
 name|getTableName
 argument_list|()
 operator|.
-name|getNameAsString
+name|getNameWithNamespaceInclAsString
 argument_list|()
 argument_list|,
 name|htd
