@@ -730,7 +730,7 @@ name|response
 operator|.
 name|setToken
 argument_list|(
-name|TokenUtil
+name|ClientTokenUtil
 operator|.
 name|toToken
 argument_list|(

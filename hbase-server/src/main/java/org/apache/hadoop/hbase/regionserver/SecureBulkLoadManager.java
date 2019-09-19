@@ -379,7 +379,7 @@ name|security
 operator|.
 name|token
 operator|.
-name|FsDelegationToken
+name|ClientTokenUtil
 import|;
 end_import
 
@@ -397,7 +397,7 @@ name|security
 operator|.
 name|token
 operator|.
-name|TokenUtil
+name|FsDelegationToken
 import|;
 end_import
 
@@ -1461,7 +1461,7 @@ name|AuthenticationTokenIdentifier
 argument_list|>
 name|tok
 init|=
-name|TokenUtil
+name|ClientTokenUtil
 operator|.
 name|obtainToken
 argument_list|(

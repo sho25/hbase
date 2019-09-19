@@ -656,7 +656,7 @@ name|TokenIdentifier
 argument_list|>
 name|token
 init|=
-name|TokenUtil
+name|ClientTokenUtil
 operator|.
 name|obtainToken
 argument_list|(
