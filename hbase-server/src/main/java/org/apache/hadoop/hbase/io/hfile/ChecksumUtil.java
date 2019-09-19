@@ -814,54 +814,35 @@ operator|.
 name|ON_DISK_DATA_SIZE_WITH_HEADER_INDEX
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
 name|LOG
 operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
+name|trace
 argument_list|(
-literal|"dataLength="
+literal|"dataLength={}, sizeWithHeader={}, checksumType={}, file={}, "
 operator|+
+literal|"offset={}, headerSize={}, bytesPerChecksum={}"
+argument_list|,
 name|buf
 operator|.
 name|capacity
 argument_list|()
-operator|+
-literal|", sizeWithHeader="
-operator|+
+argument_list|,
 name|onDiskDataSizeWithHeader
-operator|+
-literal|", checksumType="
-operator|+
+argument_list|,
 name|ctype
 operator|.
 name|getName
 argument_list|()
-operator|+
-literal|", file="
-operator|+
+argument_list|,
 name|pathName
-operator|+
-literal|", offset="
-operator|+
+argument_list|,
 name|offset
-operator|+
-literal|", headerSize="
-operator|+
+argument_list|,
 name|hdrSize
-operator|+
-literal|", bytesPerChecksum="
-operator|+
+argument_list|,
 name|bytesPerChecksum
 argument_list|)
 expr_stmt|;
-block|}
 name|ByteBuff
 name|data
 init|=
