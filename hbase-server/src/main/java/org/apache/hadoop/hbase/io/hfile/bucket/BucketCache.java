@@ -5727,6 +5727,16 @@ argument_list|,
 name|realCacheSize
 argument_list|)
 expr_stmt|;
+name|blockNumber
+operator|.
+name|add
+argument_list|(
+name|backingMap
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 comment|/**    * Create an input stream that deletes the file after reading it. Use in try-with-resources to    * avoid this pattern where an exception thrown from a finally block may mask earlier exceptions:    *<pre>    *   File f = ...    *   try (FileInputStream fis = new FileInputStream(f)) {    *     // use the input stream    *   } finally {    *     if (!f.delete()) throw new IOException("failed to delete");    *   }    *</pre>    * @param file the file to read and delete    * @return a FileInputStream for the given file    * @throws IOException if there is a problem creating the stream    */
