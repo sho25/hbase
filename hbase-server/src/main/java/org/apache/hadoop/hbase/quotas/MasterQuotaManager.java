@@ -4151,6 +4151,36 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Removes each region size entry where the RegionInfo references the provided TableName.    *    * @param tableName tableName.    */
+specifier|public
+name|void
+name|removeRegionSizesForTable
+parameter_list|(
+name|TableName
+name|tableName
+parameter_list|)
+block|{
+name|regionSizes
+operator|.
+name|keySet
+argument_list|()
+operator|.
+name|removeIf
+argument_list|(
+name|regionInfo
+lambda|->
+name|regionInfo
+operator|.
+name|getTable
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|tableName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
