@@ -1038,7 +1038,7 @@ argument_list|()
 argument_list|,
 name|mergedRegion
 operator|.
-name|getEncodedNameAsBytes
+name|getRegionName
 argument_list|()
 argument_list|)
 decl_stmt|;
