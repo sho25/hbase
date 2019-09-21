@@ -691,6 +691,13 @@ specifier|private
 name|int
 name|copiesPerThread
 decl_stmt|;
+specifier|private
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|sourceClusterIds
+decl_stmt|;
 specifier|public
 name|HFileReplicator
 parameter_list|(
@@ -728,6 +735,12 @@ name|conf
 parameter_list|,
 name|AsyncClusterConnection
 name|connection
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|sourceClusterIds
 parameter_list|)
 throws|throws
 name|IOException
@@ -767,6 +780,12 @@ operator|.
 name|connection
 operator|=
 name|connection
+expr_stmt|;
+name|this
+operator|.
+name|sourceClusterIds
+operator|=
+name|sourceClusterIds
 expr_stmt|;
 name|userProvider
 operator|=
@@ -1087,6 +1106,14 @@ name|stagingDir
 operator|.
 name|toString
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|//updating list of cluster ids where this bulkload event has already been processed
+name|loader
+operator|.
+name|setClusterIds
+argument_list|(
+name|sourceClusterIds
 argument_list|)
 expr_stmt|;
 for|for

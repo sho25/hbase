@@ -29328,6 +29328,8 @@ argument_list|,
 name|bulkLoadListener
 argument_list|,
 literal|false
+argument_list|,
+literal|null
 argument_list|)
 return|;
 block|}
@@ -29382,7 +29384,7 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param assignSeqId    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param copyFile always copy hfiles if true    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
+comment|/**    * Attempts to atomically load a group of hfiles.  This is critical for loading    * rows with multiple column families atomically.    *    * @param familyPaths List of Pair&lt;byte[] column family, String hfilePath&gt;    * @param assignSeqId    * @param bulkLoadListener Internal hooks enabling massaging/preparation of a    * file about to be bulk loaded    * @param copyFile always copy hfiles if true    * @param  clusterIds ids from clusters that had already handled the given bulkload event.    * @return Map from family to List of store file paths if successful, null if failed recoverably    * @throws IOException if failed unrecoverably.    */
 specifier|public
 name|Map
 argument_list|<
@@ -29416,6 +29418,12 @@ name|bulkLoadListener
 parameter_list|,
 name|boolean
 name|copyFile
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|clusterIds
 parameter_list|)
 throws|throws
 name|IOException
@@ -30554,6 +30562,8 @@ argument_list|,
 name|storeFilesSizes
 argument_list|,
 name|seqId
+argument_list|,
+name|clusterIds
 argument_list|)
 decl_stmt|;
 name|WALUtil

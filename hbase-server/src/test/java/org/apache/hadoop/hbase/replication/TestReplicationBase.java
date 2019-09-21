@@ -1186,7 +1186,7 @@ name|puts
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
+specifier|protected
 specifier|static
 name|void
 name|setupConfig
