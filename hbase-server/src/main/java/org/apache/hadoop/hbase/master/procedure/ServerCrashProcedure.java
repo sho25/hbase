@@ -2462,6 +2462,7 @@ condition|)
 block|{
 continue|continue;
 block|}
+comment|// force to assign to a new candidate server, see HBASE-23035 for more details.
 name|TransitRegionStateProcedure
 name|proc
 init|=
@@ -2472,6 +2473,8 @@ argument_list|(
 name|env
 argument_list|,
 name|region
+argument_list|,
+literal|true
 argument_list|,
 literal|null
 argument_list|)

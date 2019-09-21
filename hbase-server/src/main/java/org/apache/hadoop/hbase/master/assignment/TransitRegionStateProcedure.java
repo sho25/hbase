@@ -1966,6 +1966,14 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+comment|// force to assign to a new candidate server
+comment|// TODO: the forceNewPlan flag not be persistent so if master crash then the flag will be lost.
+comment|// But assign to old server is not big deal because it not effect correctness.
+comment|// See HBASE-23035 for more details.
+name|forceNewPlan
+operator|=
+literal|true
+expr_stmt|;
 if|if
 condition|(
 name|remoteProc
@@ -2599,6 +2607,39 @@ name|targetServer
 parameter_list|)
 block|{
 return|return
+name|assign
+argument_list|(
+name|env
+argument_list|,
+name|region
+argument_list|,
+literal|false
+argument_list|,
+name|targetServer
+argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|TransitRegionStateProcedure
+name|assign
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|,
+name|RegionInfo
+name|region
+parameter_list|,
+name|boolean
+name|forceNewPlan
+parameter_list|,
+annotation|@
+name|Nullable
+name|ServerName
+name|targetServer
+parameter_list|)
+block|{
+return|return
 name|setOwner
 argument_list|(
 name|env
@@ -2612,7 +2653,7 @@ name|region
 argument_list|,
 name|targetServer
 argument_list|,
-literal|false
+name|forceNewPlan
 argument_list|,
 name|TransitionType
 operator|.
