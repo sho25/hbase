@@ -2765,6 +2765,21 @@ operator|.
 name|getAll
 argument_list|()
 decl_stmt|;
+comment|// Remove hbase:meta from list. It shows up now since we  made it dynamic. The schema
+comment|// is written into the fs by the FSTableDescriptors constructor now where before it
+comment|// didn't.
+name|tables
+operator|.
+name|remove
+argument_list|(
+name|TableName
+operator|.
+name|META_TABLE_NAME
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertEquals
 argument_list|(
 literal|4
@@ -3038,7 +3053,17 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// add a new entry for hbase:meta
+comment|// add a new entry for random table name.
+name|TableName
+name|random
+init|=
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"random"
+argument_list|)
+decl_stmt|;
 name|TableDescriptor
 name|htd
 init|=
@@ -3046,9 +3071,7 @@ name|TableDescriptorBuilder
 operator|.
 name|newBuilder
 argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
+name|random
 argument_list|)
 operator|.
 name|build
@@ -3061,8 +3084,8 @@ argument_list|(
 name|htd
 argument_list|)
 expr_stmt|;
-comment|// hbase:meta will only increase the cachehit by 1
-name|assertTrue
+comment|// random will only increase the cachehit by 1
+name|assertEquals
 argument_list|(
 name|nonchtds
 operator|.
@@ -3071,7 +3094,7 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
-operator|==
+argument_list|,
 name|chtds
 operator|.
 name|getAll
@@ -3079,6 +3102,8 @@ argument_list|()
 operator|.
 name|size
 argument_list|()
+operator|+
+literal|1
 argument_list|)
 expr_stmt|;
 for|for

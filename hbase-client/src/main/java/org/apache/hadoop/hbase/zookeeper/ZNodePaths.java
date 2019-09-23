@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -121,6 +121,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Collection
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Optional
 import|;
 end_import
@@ -225,9 +235,9 @@ name|ZNODE_PATH_SEPARATOR
 init|=
 literal|'/'
 decl_stmt|;
-specifier|public
-specifier|final
+specifier|private
 specifier|static
+specifier|final
 name|String
 name|META_ZNODE_PREFIX
 init|=
@@ -247,14 +257,14 @@ specifier|final
 name|String
 name|baseZNode
 decl_stmt|;
-comment|// the prefix of meta znode, does not include baseZNode.
-specifier|public
+comment|/**    * The prefix of meta znode. Does not include baseZNode.    * Its a 'prefix' because meta replica id integer can be tagged on the end (if    * no number present, it is 'default' replica).    */
+specifier|private
 specifier|final
 name|String
 name|metaZNodePrefix
 decl_stmt|;
-comment|// znodes containing the locations of the servers hosting the meta replicas
-specifier|public
+comment|/**    * znodes containing the locations of the servers hosting the meta replicas    */
+specifier|private
 specifier|final
 name|ImmutableMap
 argument_list|<
@@ -997,7 +1007,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Is the znode of any meta replica    * @param node    * @return true or false    */
+comment|/**    * @return true if the znode is a meta region replica    */
 specifier|public
 name|boolean
 name|isAnyMetaReplicaZNode
@@ -1006,25 +1016,36 @@ name|String
 name|node
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
+name|this
+operator|.
 name|metaReplicaZNodes
 operator|.
 name|containsValue
 argument_list|(
 name|node
 argument_list|)
-condition|)
+return|;
+block|}
+comment|/**    * @return Meta Replica ZNodes    */
+specifier|public
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+name|getMetaReplicaZNodes
+parameter_list|()
 block|{
 return|return
-literal|true
+name|this
+operator|.
+name|metaReplicaZNodes
+operator|.
+name|values
+argument_list|()
 return|;
 block|}
-return|return
-literal|false
-return|;
-block|}
-comment|/**    * Get the znode string corresponding to a replicaId    * @param replicaId    * @return znode    */
+comment|/**    * @return the znode string corresponding to a replicaId    */
 specifier|public
 name|String
 name|getZNodeForReplica
@@ -1066,7 +1087,7 @@ name|replicaId
 argument_list|)
 return|;
 block|}
-comment|/**    * Parse the meta replicaId from the passed znode    * @param znode the name of the znode, does not include baseZNode    * @return replicaId    */
+comment|/**    * Parse the meta replicaId from the passed znode name.    * @param znode the name of the znode, does not include baseZNode    * @return replicaId    */
 specifier|public
 name|int
 name|getMetaReplicaIdFromZnode
@@ -1075,23 +1096,18 @@ name|String
 name|znode
 parameter_list|)
 block|{
-if|if
-condition|(
+return|return
 name|znode
 operator|.
 name|equals
 argument_list|(
 name|metaZNodePrefix
 argument_list|)
-condition|)
-block|{
-return|return
+condition|?
 name|RegionInfo
 operator|.
 name|DEFAULT_REPLICA_ID
-return|;
-block|}
-return|return
+else|:
 name|Integer
 operator|.
 name|parseInt
@@ -1110,26 +1126,27 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Is it the default meta replica's znode    * @param znode the name of the znode, does not include baseZNode    * @return true or false    */
+comment|/**    * @return True if meta znode.    */
 specifier|public
 name|boolean
-name|isDefaultMetaReplicaZnode
+name|isMetaZNodePrefix
 parameter_list|(
 name|String
 name|znode
 parameter_list|)
 block|{
 return|return
-name|metaReplicaZNodes
-operator|.
-name|get
-argument_list|(
-name|DEFAULT_REPLICA_ID
-argument_list|)
-operator|.
-name|equals
-argument_list|(
 name|znode
+operator|!=
+literal|null
+operator|&&
+name|znode
+operator|.
+name|startsWith
+argument_list|(
+name|this
+operator|.
+name|metaZNodePrefix
 argument_list|)
 return|;
 block|}

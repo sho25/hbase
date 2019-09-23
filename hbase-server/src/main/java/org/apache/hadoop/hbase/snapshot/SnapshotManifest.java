@@ -2493,16 +2493,6 @@ operator|.
 name|DESCRIPTOR_VERSION
 condition|)
 block|{
-name|Path
-name|rootDir
-init|=
-name|FSUtils
-operator|.
-name|getRootDir
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|LOG
 operator|.
 name|info
@@ -2511,18 +2501,12 @@ literal|"Using old Snapshot Format"
 argument_list|)
 expr_stmt|;
 comment|// write a copy of descriptor to the snapshot directory
-operator|new
 name|FSTableDescriptors
-argument_list|(
-name|conf
-argument_list|,
-name|workingDirFs
-argument_list|,
-name|rootDir
-argument_list|)
 operator|.
 name|createTableDescriptorForTableDirectory
 argument_list|(
+name|workingDirFs
+argument_list|,
 name|workingDir
 argument_list|,
 name|htd
