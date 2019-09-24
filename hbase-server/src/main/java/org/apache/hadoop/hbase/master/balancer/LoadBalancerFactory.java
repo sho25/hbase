@@ -25,20 +25,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|conf
@@ -85,9 +71,25 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|ReflectionUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -104,7 +106,7 @@ specifier|public
 class|class
 name|LoadBalancerFactory
 block|{
-comment|/**    * The default {@link LoadBalancer} class.     *    * @return The Class for the default {@link LoadBalancer}.    */
+comment|/**    * The default {@link LoadBalancer} class.    * @return The Class for the default {@link LoadBalancer}.    */
 specifier|public
 specifier|static
 name|Class
@@ -122,7 +124,7 @@ operator|.
 name|class
 return|;
 block|}
-comment|/**    * Create a loadbalancer from the given conf.    * @param conf    * @return A {@link LoadBalancer}    */
+comment|/**    * Create a loadbalancer from the given conf.    * @return A {@link LoadBalancer}    */
 specifier|public
 specifier|static
 name|LoadBalancer
@@ -157,15 +159,25 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-return|return
+name|LoadBalancer
+name|balancer
+init|=
 name|ReflectionUtils
 operator|.
 name|newInstance
 argument_list|(
 name|balancerKlass
-argument_list|,
+argument_list|)
+decl_stmt|;
+name|balancer
+operator|.
+name|setConf
+argument_list|(
 name|conf
 argument_list|)
+expr_stmt|;
+return|return
+name|balancer
 return|;
 block|}
 block|}

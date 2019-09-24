@@ -31,6 +31,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -67,9 +77,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|constraint
+name|procedure2
 operator|.
-name|ConstraintException
+name|ProcedureStateSerializer
 import|;
 end_import
 
@@ -83,9 +93,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|procedure2
+name|rsgroup
 operator|.
-name|ProcedureStateSerializer
+name|RSGroupInfo
 import|;
 end_import
 
@@ -754,7 +764,7 @@ name|getName
 argument_list|()
 return|;
 block|}
-comment|/**    * Action before any real action of adding namespace.    * @param env MasterProcedureEnv    * @throws IOException    */
+comment|/**    * Action before any real action of adding namespace.    */
 specifier|private
 name|boolean
 name|prepareModify
@@ -768,6 +778,7 @@ name|IOException
 block|{
 if|if
 condition|(
+operator|!
 name|getTableNamespaceManager
 argument_list|(
 name|env
@@ -780,8 +791,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-operator|==
-literal|false
 condition|)
 block|{
 name|setFailure
@@ -802,8 +811,6 @@ return|return
 literal|false
 return|;
 block|}
-try|try
-block|{
 name|getTableNamespaceManager
 argument_list|(
 name|env
@@ -814,24 +821,6 @@ argument_list|(
 name|newNsDescriptor
 argument_list|)
 expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ConstraintException
-name|e
-parameter_list|)
-block|{
-name|setFailure
-argument_list|(
-literal|"master-modify-namespace"
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
 comment|// This is used for rollback
 name|oldNsDescriptor
 operator|=
@@ -848,6 +837,41 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|Objects
+operator|.
+name|equals
+argument_list|(
+name|oldNsDescriptor
+operator|.
+name|getConfigurationValue
+argument_list|(
+name|RSGroupInfo
+operator|.
+name|NAMESPACE_DESC_PROP_GROUP
+argument_list|)
+argument_list|,
+name|newNsDescriptor
+operator|.
+name|getConfigurationValue
+argument_list|(
+name|RSGroupInfo
+operator|.
+name|NAMESPACE_DESC_PROP_GROUP
+argument_list|)
+argument_list|)
+condition|)
+block|{
+name|checkNamespaceRSGroup
+argument_list|(
+name|env
+argument_list|,
+name|newNsDescriptor
+argument_list|)
+expr_stmt|;
+block|}
 return|return
 literal|true
 return|;

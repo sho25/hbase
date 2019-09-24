@@ -835,6 +835,13 @@ argument_list|(
 name|nsDescriptor
 argument_list|)
 expr_stmt|;
+name|checkNamespaceRSGroup
+argument_list|(
+name|env
+argument_list|,
+name|nsDescriptor
+argument_list|)
+expr_stmt|;
 return|return
 literal|true
 return|;

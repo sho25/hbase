@@ -261,6 +261,14 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|NUM_REGIONS
+init|=
+literal|4
+decl_stmt|;
 annotation|@
 name|Override
 specifier|protected
@@ -369,7 +377,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
+name|NUM_REGIONS
 argument_list|,
 name|allRegions
 operator|.
@@ -436,7 +444,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|3
+name|NUM_REGIONS
 argument_list|,
 name|allRegions
 operator|.

@@ -2885,7 +2885,7 @@ try|try
 block|{
 name|tds
 operator|.
-name|add
+name|update
 argument_list|(
 name|newTd
 argument_list|)

@@ -236,6 +236,14 @@ argument_list|(
 literal|"localhost,1,1"
 argument_list|)
 decl_stmt|;
+comment|/**    * Config for pluggable load balancers.    * @deprecated since 3.0.0, will be removed in 4.0.0. In the new implementation, as the base load    *             balancer will always be the rs group based one, you should just use    *             {@link org.apache.hadoop.hbase.HConstants#HBASE_MASTER_LOADBALANCER_CLASS} to    *             config the per group load balancer.    */
+annotation|@
+name|Deprecated
+name|String
+name|HBASE_RSGROUP_LOADBALANCER_CLASS
+init|=
+literal|"hbase.rsgroup.grouploadbalancer.class"
+decl_stmt|;
 comment|/**    * Set the current cluster status. This allows a LoadBalancer to map host name to a server    */
 name|void
 name|setClusterMetrics

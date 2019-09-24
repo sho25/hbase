@@ -3348,7 +3348,7 @@ expr_stmt|;
 block|}
 name|assertEquals
 argument_list|(
-literal|1
+literal|2
 operator|+
 name|existingRegions
 argument_list|,
@@ -3409,7 +3409,7 @@ name|assertEquals
 argument_list|(
 name|numRegions
 operator|+
-literal|1
+literal|2
 operator|+
 name|existingRegions
 argument_list|,

@@ -1927,7 +1927,7 @@ annotation|@
 name|Override
 specifier|public
 name|RSGroupInfoManager
-name|getRSRSGroupInfoManager
+name|getRSGroupInfoManager
 parameter_list|()
 block|{
 return|return

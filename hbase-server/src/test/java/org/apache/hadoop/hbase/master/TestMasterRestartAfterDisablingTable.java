@@ -642,7 +642,7 @@ literal|"The number of regions for the table tableRestart should be 0 and only"
 operator|+
 literal|"the catalog table should be present."
 argument_list|,
-literal|1
+literal|2
 argument_list|,
 name|regions
 operator|.
@@ -828,7 +828,7 @@ literal|"The assigned regions were not onlined after master"
 operator|+
 literal|" switch except for the catalog table."
 argument_list|,
-literal|5
+literal|6
 argument_list|,
 name|regions
 operator|.

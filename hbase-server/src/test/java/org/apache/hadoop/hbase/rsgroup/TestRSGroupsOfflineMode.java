@@ -1194,17 +1194,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getMasterCoprocessorHost
-argument_list|()
-operator|.
-name|findCoprocessor
-argument_list|(
-name|RSGroupAdminEndpoint
-operator|.
-name|class
-argument_list|)
-operator|.
-name|getGroupInfoManager
+name|getRSGroupInfoManager
 argument_list|()
 decl_stmt|;
 comment|// Make sure balancer is in offline mode, since this is what we're testing.

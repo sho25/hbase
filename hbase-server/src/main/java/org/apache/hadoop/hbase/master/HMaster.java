@@ -1021,22 +1021,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|favored
-operator|.
-name|FavoredNodesPromoter
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|http
 operator|.
 name|InfoServer
@@ -1230,24 +1214,6 @@ operator|.
 name|balancer
 operator|.
 name|BalancerChore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|balancer
-operator|.
-name|BaseLoadBalancer
 import|;
 end_import
 
@@ -2671,6 +2637,22 @@ name|hbase
 operator|.
 name|rsgroup
 operator|.
+name|RSGroupBasedLoadBalancer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|rsgroup
+operator|.
 name|RSGroupInfoManager
 import|;
 end_import
@@ -3827,7 +3809,7 @@ name|this
 argument_list|)
 decl_stmt|;
 specifier|private
-name|LoadBalancer
+name|RSGroupBasedLoadBalancer
 name|balancer
 decl_stmt|;
 specifier|private
@@ -4008,11 +3990,6 @@ decl_stmt|;
 specifier|private
 name|long
 name|mergePlanCount
-decl_stmt|;
-comment|/* Handle favored nodes information */
-specifier|private
-name|FavoredNodesManager
-name|favoredNodesManager
 decl_stmt|;
 comment|/** jetty server for master to redirect requests to regionserver infoServer */
 specifier|private
@@ -5455,9 +5432,15 @@ name|this
 operator|.
 name|balancer
 operator|=
-name|LoadBalancerFactory
+operator|new
+name|RSGroupBasedLoadBalancer
+argument_list|()
+expr_stmt|;
+name|this
 operator|.
-name|getLoadBalancer
+name|balancer
+operator|.
+name|setConf
 argument_list|(
 name|conf
 argument_list|)
@@ -6659,24 +6642,6 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|this
-operator|.
-name|balancer
-operator|instanceof
-name|FavoredNodesPromoter
-condition|)
-block|{
-name|favoredNodesManager
-operator|=
-operator|new
-name|FavoredNodesManager
-argument_list|(
-name|this
-argument_list|)
-expr_stmt|;
-block|}
 comment|// initialize load balancer
 name|this
 operator|.
@@ -6828,7 +6793,8 @@ expr_stmt|;
 comment|// Initialize after meta is up as below scans meta
 if|if
 condition|(
-name|favoredNodesManager
+name|getFavoredNodesManager
+argument_list|()
 operator|!=
 literal|null
 operator|&&
@@ -6851,7 +6817,8 @@ operator|.
 name|initialize
 argument_list|()
 expr_stmt|;
-name|favoredNodesManager
+name|getFavoredNodesManager
+argument_list|()
 operator|.
 name|initialize
 argument_list|(
@@ -11433,7 +11400,7 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
-comment|// TODO: What is this? I don't get it.
+comment|// TODO: deal with table on master for rs group.
 if|if
 condition|(
 name|dest
@@ -11441,23 +11408,6 @@ operator|.
 name|equals
 argument_list|(
 name|serverName
-argument_list|)
-operator|&&
-name|balancer
-operator|instanceof
-name|BaseLoadBalancer
-operator|&&
-operator|!
-operator|(
-operator|(
-name|BaseLoadBalancer
-operator|)
-name|balancer
-operator|)
-operator|.
-name|shouldBeOnMaster
-argument_list|(
-name|hri
 argument_list|)
 condition|)
 block|{
@@ -17668,7 +17618,7 @@ name|switchType
 argument_list|)
 return|;
 block|}
-comment|/**    * Fetch the configured {@link LoadBalancer} class name. If none is set, a default is returned.    *    * @return The name of the {@link LoadBalancer} in use.    */
+comment|/**    * Fetch the configured {@link LoadBalancer} class name. If none is set, a default is returned.    *<p/>    * Notice that, the base load balancer will always be {@link RSGroupBasedLoadBalancer} now, so    * this method will return the balancer used inside each rs group.    * @return The name of the {@link LoadBalancer} in use.    */
 specifier|public
 name|String
 name|getLoadBalancerClassName
@@ -17715,7 +17665,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|LoadBalancer
+name|RSGroupBasedLoadBalancer
 name|getLoadBalancer
 parameter_list|()
 block|{
@@ -17731,7 +17681,10 @@ name|getFavoredNodesManager
 parameter_list|()
 block|{
 return|return
-name|favoredNodesManager
+name|balancer
+operator|.
+name|getFavoredNodesManager
+argument_list|()
 return|;
 block|}
 specifier|private
@@ -19497,7 +19450,7 @@ annotation|@
 name|Override
 specifier|public
 name|RSGroupInfoManager
-name|getRSRSGroupInfoManager
+name|getRSGroupInfoManager
 parameter_list|()
 block|{
 return|return

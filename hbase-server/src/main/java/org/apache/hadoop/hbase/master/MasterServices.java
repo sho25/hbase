@@ -1311,7 +1311,7 @@ parameter_list|()
 function_decl|;
 comment|/**    * @return the {@link RSGroupInfoManager}    */
 name|RSGroupInfoManager
-name|getRSRSGroupInfoManager
+name|getRSGroupInfoManager
 parameter_list|()
 function_decl|;
 block|}

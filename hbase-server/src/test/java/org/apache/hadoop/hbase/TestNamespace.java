@@ -846,6 +846,13 @@ argument_list|(
 name|TableName
 operator|.
 name|META_TABLE_NAME
+argument_list|,
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"hbase:rsgroup"
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|List

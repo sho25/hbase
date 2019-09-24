@@ -732,6 +732,18 @@ operator|.
 name|ACL_TABLE_NAME
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|waitTableAvailable
+argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
+literal|"hbase:rsgroup"
+argument_list|)
+argument_list|)
+expr_stmt|;
 name|ZKW
 operator|=
 operator|new
@@ -1667,7 +1679,7 @@ name|assertEquals
 argument_list|(
 literal|"Full permission map should have entries for both test tables"
 argument_list|,
-literal|2
+literal|3
 argument_list|,
 name|allPerms
 operator|.

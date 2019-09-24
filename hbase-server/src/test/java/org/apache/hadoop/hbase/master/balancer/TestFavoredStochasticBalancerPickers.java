@@ -1528,6 +1528,9 @@ argument_list|()
 operator|.
 name|getLoadBalancer
 argument_list|()
+operator|.
+name|getInternalBalancer
+argument_list|()
 decl_stmt|;
 name|cluster
 operator|.
