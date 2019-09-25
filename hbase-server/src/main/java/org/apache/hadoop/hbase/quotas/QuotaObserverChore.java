@@ -2360,6 +2360,8 @@ operator|.
 name|pruneEntriesOlderThan
 argument_list|(
 name|pruneTime
+argument_list|,
+name|this
 argument_list|)
 decl_stmt|;
 if|if

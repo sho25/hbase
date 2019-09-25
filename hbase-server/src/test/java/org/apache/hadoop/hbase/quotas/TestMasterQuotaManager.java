@@ -474,6 +474,16 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|QuotaObserverChore
+name|chore
+init|=
+name|mock
+argument_list|(
+name|QuotaObserverChore
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|// Prune nothing
 name|assertEquals
 argument_list|(
@@ -484,6 +494,8 @@ operator|.
 name|pruneEntriesOlderThan
 argument_list|(
 literal|0
+argument_list|,
+name|chore
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -509,6 +521,8 @@ operator|.
 name|pruneEntriesOlderThan
 argument_list|(
 literal|10
+argument_list|,
+name|chore
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -535,6 +549,8 @@ operator|.
 name|pruneEntriesOlderThan
 argument_list|(
 literal|15
+argument_list|,
+name|chore
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -561,6 +577,8 @@ operator|.
 name|pruneEntriesOlderThan
 argument_list|(
 literal|30
+argument_list|,
+name|chore
 argument_list|)
 argument_list|)
 expr_stmt|;
