@@ -1875,6 +1875,9 @@ argument_list|()
 argument_list|,
 name|anyBoolean
 argument_list|()
+argument_list|,
+name|anyList
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
