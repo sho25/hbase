@@ -7857,13 +7857,6 @@ operator|.
 name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|mobCompactionPeriod
-operator|>
-literal|0
-condition|)
-block|{
 name|this
 operator|.
 name|mobCompactChore
@@ -7884,21 +7877,6 @@ argument_list|(
 name|mobCompactChore
 argument_list|)
 expr_stmt|;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"The period is "
-operator|+
-name|mobCompactionPeriod
-operator|+
-literal|" seconds, MobCompactionChore is disabled"
-argument_list|)
-expr_stmt|;
-block|}
 name|this
 operator|.
 name|mobCompactThread
