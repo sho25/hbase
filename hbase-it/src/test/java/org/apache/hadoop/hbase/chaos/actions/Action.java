@@ -231,6 +231,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|MiniHBaseCluster
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|ServerMetrics
 import|;
 end_import
@@ -1020,8 +1034,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing master "
-operator|+
+literal|"Killing master {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1065,8 +1079,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting master "
-operator|+
+literal|"Starting master {}"
+argument_list|,
 name|server
 operator|.
 name|getHostname
@@ -1110,6 +1124,204 @@ expr_stmt|;
 block|}
 specifier|protected
 name|void
+name|stopRs
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stopping regionserver {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|.
+name|stopRegionServer
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|.
+name|waitForRegionServerToStop
+argument_list|(
+name|server
+argument_list|,
+name|killRsTimeout
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stoppiong regionserver {}. Reported num of rs:{}"
+argument_list|,
+name|server
+argument_list|,
+name|cluster
+operator|.
+name|getClusterMetrics
+argument_list|()
+operator|.
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|protected
+name|void
+name|suspendRs
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Suspending regionserver {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|.
+name|suspendRegionServer
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|cluster
+operator|instanceof
+name|MiniHBaseCluster
+operator|)
+condition|)
+block|{
+name|cluster
+operator|.
+name|waitForRegionServerToStop
+argument_list|(
+name|server
+argument_list|,
+name|killRsTimeout
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Suspending regionserver {}. Reported num of rs:{}"
+argument_list|,
+name|server
+argument_list|,
+name|cluster
+operator|.
+name|getClusterMetrics
+argument_list|()
+operator|.
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|protected
+name|void
+name|resumeRs
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Resuming regionserver {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+name|cluster
+operator|.
+name|resumeRegionServer
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|cluster
+operator|instanceof
+name|MiniHBaseCluster
+operator|)
+condition|)
+block|{
+name|cluster
+operator|.
+name|waitForRegionServerToStart
+argument_list|(
+name|server
+operator|.
+name|getHostname
+argument_list|()
+argument_list|,
+name|server
+operator|.
+name|getPort
+argument_list|()
+argument_list|,
+name|startRsTimeout
+argument_list|)
+expr_stmt|;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Resuming regionserver {}. Reported num of rs:{}"
+argument_list|,
+name|server
+argument_list|,
+name|cluster
+operator|.
+name|getClusterMetrics
+argument_list|()
+operator|.
+name|getLiveServerMetrics
+argument_list|()
+operator|.
+name|size
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+specifier|protected
+name|void
 name|killRs
 parameter_list|(
 name|ServerName
@@ -1122,8 +1334,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing regionserver "
-operator|+
+literal|"Killing regionserver {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1147,12 +1359,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed regionserver "
-operator|+
+literal|"Killed regionserver {}. Reported num of rs:{}"
+argument_list|,
 name|server
-operator|+
-literal|". Reported num of rs:"
-operator|+
+argument_list|,
 name|cluster
 operator|.
 name|getClusterMetrics
@@ -1180,8 +1390,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting regionserver "
-operator|+
+literal|"Starting regionserver {}"
+argument_list|,
 name|server
 operator|.
 name|getAddress
@@ -1224,15 +1434,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started regionserver "
-operator|+
+literal|"Started regionserver {}. Reported num of rs:{}"
+argument_list|,
 name|server
 operator|.
 name|getAddress
 argument_list|()
-operator|+
-literal|". Reported num of rs:"
-operator|+
+argument_list|,
 name|cluster
 operator|.
 name|getClusterMetrics
@@ -1260,8 +1468,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing zookeeper node "
-operator|+
+literal|"Killing zookeeper node {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1285,12 +1493,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed zookeeper node "
-operator|+
+literal|"Killed zookeeper node {}. Reported num of rs:{}"
+argument_list|,
 name|server
-operator|+
-literal|". Reported num of rs:"
-operator|+
+argument_list|,
 name|cluster
 operator|.
 name|getClusterMetrics
@@ -1318,8 +1524,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting zookeeper node "
-operator|+
+literal|"Starting zookeeper node {}"
+argument_list|,
 name|server
 operator|.
 name|getHostname
@@ -1354,8 +1560,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started zookeeper node "
-operator|+
+literal|"Started zookeeper node {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1374,8 +1580,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing datanode "
-operator|+
+literal|"Killing datanode {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1399,12 +1605,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed datanode "
-operator|+
+literal|"Killed datanode {}. Reported num of rs:{}"
+argument_list|,
 name|server
-operator|+
-literal|". Reported num of rs:"
-operator|+
+argument_list|,
 name|cluster
 operator|.
 name|getClusterMetrics
@@ -1432,8 +1636,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting datanode "
-operator|+
+literal|"Starting datanode {}"
+argument_list|,
 name|server
 operator|.
 name|getHostname
@@ -1460,8 +1664,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started datanode "
-operator|+
+literal|"Started datanode {}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1480,8 +1684,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killing namenode :-"
-operator|+
+literal|"Killing namenode :-{}"
+argument_list|,
 name|server
 operator|.
 name|getHostname
@@ -1508,12 +1712,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Killed namenode:"
-operator|+
+literal|"Killed namenode:{}. Reported num of rs:{}"
+argument_list|,
 name|server
-operator|+
-literal|". Reported num of rs:"
-operator|+
+argument_list|,
 name|cluster
 operator|.
 name|getClusterMetrics
@@ -1541,8 +1743,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting Namenode :-"
-operator|+
+literal|"Starting Namenode :-{}"
+argument_list|,
 name|server
 operator|.
 name|getHostname
@@ -1569,8 +1771,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started namenode:"
-operator|+
+literal|"Started namenode:{}"
+argument_list|,
 name|server
 argument_list|)
 expr_stmt|;
@@ -1692,12 +1894,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing "
-operator|+
+literal|"Removing {} regions from {}"
+argument_list|,
 name|victimRegionCount
-operator|+
-literal|" regions from "
-operator|+
+argument_list|,
 name|sn
 argument_list|)
 expr_stmt|;
@@ -1764,28 +1964,22 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Moving "
-operator|+
+literal|"Moving {} regions from {} servers to {} different servers"
+argument_list|,
 name|victimRegions
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" regions from "
-operator|+
+argument_list|,
 name|fromServers
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" servers to "
-operator|+
+argument_list|,
 name|toServers
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" different servers"
 argument_list|)
 expr_stmt|;
 name|Admin
@@ -1915,6 +2109,61 @@ operator|.
 name|error
 argument_list|(
 literal|"Balancer didn't succeed"
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|protected
+name|void
+name|setBalancer
+parameter_list|(
+name|boolean
+name|onOrOff
+parameter_list|,
+name|boolean
+name|synchronous
+parameter_list|)
+throws|throws
+name|Exception
+block|{
+name|Admin
+name|admin
+init|=
+name|this
+operator|.
+name|context
+operator|.
+name|getHBaseIntegrationTestingUtility
+argument_list|()
+operator|.
+name|getAdmin
+argument_list|()
+decl_stmt|;
+try|try
+block|{
+name|admin
+operator|.
+name|balancerSwitch
+argument_list|(
+name|onOrOff
+argument_list|,
+name|synchronous
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Got exception while switching balance "
+argument_list|,
+name|e
 argument_list|)
 expr_stmt|;
 block|}

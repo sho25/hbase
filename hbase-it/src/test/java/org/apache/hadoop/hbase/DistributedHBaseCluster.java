@@ -478,8 +478,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting RS on: "
-operator|+
+literal|"Starting RS on: {}"
+argument_list|,
 name|hostname
 argument_list|)
 expr_stmt|;
@@ -513,8 +513,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting RS: "
-operator|+
+literal|"Aborting RS: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -583,8 +583,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping RS: "
-operator|+
+literal|"Stopping RS: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -642,6 +642,94 @@ annotation|@
 name|Override
 specifier|public
 name|void
+name|suspendRegionServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Suspend RS: {}"
+argument_list|,
+name|serverName
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|clusterManager
+operator|.
+name|suspend
+argument_list|(
+name|ServiceType
+operator|.
+name|HBASE_REGIONSERVER
+argument_list|,
+name|serverName
+operator|.
+name|getHostname
+argument_list|()
+argument_list|,
+name|serverName
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|resumeRegionServer
+parameter_list|(
+name|ServerName
+name|serverName
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Resume RS: {}"
+argument_list|,
+name|serverName
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|clusterManager
+operator|.
+name|resume
+argument_list|(
+name|ServiceType
+operator|.
+name|HBASE_REGIONSERVER
+argument_list|,
+name|serverName
+operator|.
+name|getHostname
+argument_list|()
+argument_list|,
+name|serverName
+operator|.
+name|getPort
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
 name|startZkNode
 parameter_list|(
 name|String
@@ -657,8 +745,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting ZooKeeper node on: "
-operator|+
+literal|"Starting ZooKeeper node on: {}"
+argument_list|,
 name|hostname
 argument_list|)
 expr_stmt|;
@@ -692,8 +780,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting ZooKeeper node on: "
-operator|+
+literal|"Aborting ZooKeeper node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -736,8 +824,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping ZooKeeper node: "
-operator|+
+literal|"Stopping ZooKeeper node: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -834,8 +922,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting data node on: "
-operator|+
+literal|"Starting data node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -878,8 +966,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting data node on: "
-operator|+
+literal|"Aborting data node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -922,8 +1010,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping data node on: "
-operator|+
+literal|"Stopping data node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1020,8 +1108,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting name node on: "
-operator|+
+literal|"Starting name node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1064,8 +1152,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting name node on: "
-operator|+
+literal|"Aborting name node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1108,8 +1196,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping name node on: "
-operator|+
+literal|"Stopping name node on: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1210,12 +1298,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting for service: "
-operator|+
+literal|"Waiting for service: {} to stop: {}"
+argument_list|,
 name|service
-operator|+
-literal|" to stop: "
-operator|+
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1305,12 +1391,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Waiting for service: "
-operator|+
+literal|"Waiting for service: {} to start: "
+argument_list|,
 name|service
-operator|+
-literal|" to start: "
-operator|+
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1398,12 +1482,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting Master on: "
-operator|+
+literal|"Starting Master on: {}:{}"
+argument_list|,
 name|hostname
-operator|+
-literal|":"
-operator|+
+argument_list|,
 name|port
 argument_list|)
 expr_stmt|;
@@ -1437,8 +1519,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Aborting Master: "
-operator|+
+literal|"Aborting Master: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1481,8 +1563,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Stopping Master: "
-operator|+
+literal|"Stopping Master: {}"
+argument_list|,
 name|serverName
 operator|.
 name|getServerName
@@ -1705,8 +1787,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cannot find region server holding region "
-operator|+
+literal|"Cannot find region server holding region {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary
@@ -1898,15 +1980,13 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - Initial active master : "
-operator|+
+literal|"Restoring cluster - Initial active master : {} has changed to : {}"
+argument_list|,
 name|initMaster
 operator|.
 name|getAddress
 argument_list|()
-operator|+
-literal|" has changed to : "
-operator|+
+argument_list|,
 name|current
 operator|.
 name|getMasterName
@@ -1947,8 +2027,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - starting initial active master at:"
-operator|+
+literal|"Restoring cluster - starting initial active master at:{}"
+argument_list|,
 name|initMaster
 operator|.
 name|getAddress
@@ -2001,8 +2081,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - stopping backup master: "
-operator|+
+literal|"Restoring cluster - stopping backup master: {}"
+argument_list|,
 name|currentBackup
 argument_list|)
 expr_stmt|;
@@ -2017,8 +2097,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - stopping active master: "
-operator|+
+literal|"Restoring cluster - stopping active master: {}"
+argument_list|,
 name|current
 operator|.
 name|getMasterName
@@ -2096,8 +2176,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - starting initial backup master: "
-operator|+
+literal|"Restoring cluster - starting initial backup master: {}"
+argument_list|,
 name|backup
 operator|.
 name|getAddress
@@ -2263,8 +2343,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - starting initial backup master: "
-operator|+
+literal|"Restoring cluster - starting initial backup master: {}"
+argument_list|,
 name|sn
 operator|.
 name|getAddress
@@ -2337,8 +2417,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - stopping backup master: "
-operator|+
+literal|"Restoring cluster - stopping backup master: {}"
+argument_list|,
 name|sn
 operator|.
 name|getAddress
@@ -2381,14 +2461,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Restoring cluster - restoring region servers reported "
-operator|+
+literal|"Restoring cluster - restoring region servers reported {} errors:"
+argument_list|,
 name|deferred
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" errors:"
 argument_list|)
 expr_stmt|;
 for|for
@@ -2690,8 +2768,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - starting initial region server: "
-operator|+
+literal|"Restoring cluster - starting initial region server: {}"
+argument_list|,
 name|sn
 operator|.
 name|getAddress
@@ -2774,8 +2852,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Restoring cluster - stopping initial region server: "
-operator|+
+literal|"Restoring cluster - stopping initial region server: {}"
+argument_list|,
 name|sn
 operator|.
 name|getAddress
@@ -2817,14 +2895,12 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Restoring cluster - restoring region servers reported "
-operator|+
+literal|"Restoring cluster - restoring region servers reported {} errors:"
+argument_list|,
 name|deferred
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" errors:"
 argument_list|)
 expr_stmt|;
 for|for

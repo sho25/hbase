@@ -146,6 +146,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Killing master: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|killMaster
 argument_list|(
 name|server
@@ -156,7 +165,85 @@ argument_list|(
 name|sleepTime
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting master: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|startMaster
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Stop and then restart the region server instead of killing it.    * @param server hostname to restart the regionserver on    * @param sleepTime number of milliseconds between stop and restart    * @throws IOException if something goes wrong    */
+name|void
+name|gracefulRestartRs
+parameter_list|(
+name|ServerName
+name|server
+parameter_list|,
+name|long
+name|sleepTime
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|sleepTime
+operator|=
+name|Math
+operator|.
+name|max
+argument_list|(
+name|sleepTime
+argument_list|,
+literal|1000
+argument_list|)
+expr_stmt|;
+comment|// Don't try the stop if we're stopping already
+if|if
+condition|(
+name|context
+operator|.
+name|isStopping
+argument_list|()
+condition|)
+block|{
+return|return;
+block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stopping region server: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+name|stopRs
+argument_list|(
+name|server
+argument_list|)
+expr_stmt|;
+name|sleep
+argument_list|(
+name|sleepTime
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting region server: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
+name|startRs
 argument_list|(
 name|server
 argument_list|)
@@ -196,6 +283,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Killing region server: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|killRs
 argument_list|(
 name|server
@@ -204,6 +300,15 @@ expr_stmt|;
 name|sleep
 argument_list|(
 name|sleepTime
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting region server: {}"
+argument_list|,
+name|server
 argument_list|)
 expr_stmt|;
 name|startRs
@@ -246,6 +351,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Killing zookeeper node: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|killZKNode
 argument_list|(
 name|server
@@ -254,6 +368,15 @@ expr_stmt|;
 name|sleep
 argument_list|(
 name|sleepTime
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting zookeeper node: {}"
+argument_list|,
+name|server
 argument_list|)
 expr_stmt|;
 name|startZKNode
@@ -296,6 +419,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Killing data node: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|killDataNode
 argument_list|(
 name|server
@@ -304,6 +436,15 @@ expr_stmt|;
 name|sleep
 argument_list|(
 name|sleepTime
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting data node: {}"
+argument_list|,
+name|server
 argument_list|)
 expr_stmt|;
 name|startDataNode
@@ -346,6 +487,15 @@ condition|)
 block|{
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Killing name node: {}"
+argument_list|,
+name|server
+argument_list|)
+expr_stmt|;
 name|killNameNode
 argument_list|(
 name|server
@@ -354,6 +504,15 @@ expr_stmt|;
 name|sleep
 argument_list|(
 name|sleepTime
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Starting name node: {}"
+argument_list|,
+name|server
 argument_list|)
 expr_stmt|;
 name|startNameNode
