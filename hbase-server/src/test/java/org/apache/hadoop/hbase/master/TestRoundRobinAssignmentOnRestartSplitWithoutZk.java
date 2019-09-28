@@ -103,9 +103,9 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestRetainAssignmentOnRestartSplitWithoutZk
+name|TestRoundRobinAssignmentOnRestartSplitWithoutZk
 extends|extends
-name|TestRetainAssignmentOnRestart
+name|TestRoundRobinAssignmentOnRestart
 block|{
 annotation|@
 name|ClassRule
@@ -119,7 +119,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestRetainAssignmentOnRestartSplitWithoutZk
+name|TestRoundRobinAssignmentOnRestartSplitWithoutZk
 operator|.
 name|class
 argument_list|)

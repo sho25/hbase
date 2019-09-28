@@ -789,9 +789,6 @@ parameter_list|)
 throws|throws
 name|ProcedureSuspendedException
 block|{
-comment|// Here the assumption is that, the region must be in CLOSED state, so the region location
-comment|// will be null. And if we fail to open the region and retry here, the forceNewPlan will be
-comment|// true, and also we will set the region location to null.
 name|boolean
 name|retain
 init|=
@@ -799,9 +796,19 @@ literal|false
 decl_stmt|;
 if|if
 condition|(
-operator|!
 name|forceNewPlan
 condition|)
+block|{
+comment|// set the region location to null if forceNewPlan is true
+name|regionNode
+operator|.
+name|setRegionLocation
+argument_list|(
+literal|null
+argument_list|)
+expr_stmt|;
+block|}
+else|else
 block|{
 if|if
 condition|(
@@ -1967,6 +1974,7 @@ throws|throws
 name|IOException
 block|{
 comment|// force to assign to a new candidate server
+comment|// AssignmentManager#regionClosedAbnormally will set region location to null
 comment|// TODO: the forceNewPlan flag not be persistent so if master crash then the flag will be lost.
 comment|// But assign to old server is not big deal because it not effect correctness.
 comment|// See HBASE-23035 for more details.

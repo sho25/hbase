@@ -569,7 +569,7 @@ argument_list|()
 operator|.
 name|setInt
 argument_list|(
-literal|">hbase.master.wait.on.regionservers.mintostart"
+literal|"hbase.master.wait.on.regionservers.mintostart"
 argument_list|,
 literal|3
 argument_list|)
