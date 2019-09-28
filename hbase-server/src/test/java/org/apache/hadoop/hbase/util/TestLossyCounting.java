@@ -160,6 +160,8 @@ argument_list|(
 literal|0.01
 argument_list|,
 literal|"testBucketSize"
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -179,6 +181,8 @@ operator|new
 name|LossyCounting
 argument_list|(
 literal|"testBucketSize2"
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -208,6 +212,8 @@ argument_list|(
 literal|0.01
 argument_list|,
 literal|"testAddByOne"
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for
@@ -234,7 +240,7 @@ name|i
 decl_stmt|;
 name|lossyCounting
 operator|.
-name|addByOne
+name|add
 argument_list|(
 name|key
 argument_list|)
@@ -302,6 +308,8 @@ argument_list|(
 literal|0.01
 argument_list|,
 literal|"testSweep1"
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for
@@ -328,7 +336,7 @@ name|i
 decl_stmt|;
 name|lossyCounting
 operator|.
-name|addByOne
+name|add
 argument_list|(
 name|key
 argument_list|)
@@ -344,9 +352,15 @@ name|getCurrentTerm
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|//if total rows added are proportional to bucket size
 name|assertEquals
 argument_list|(
-literal|0L
+name|lossyCounting
+operator|.
+name|getBucketSize
+argument_list|()
+operator|-
+literal|1
 argument_list|,
 name|lossyCounting
 operator|.
@@ -371,6 +385,8 @@ argument_list|(
 literal|0.1
 argument_list|,
 literal|"testSweep2"
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for
@@ -397,7 +413,7 @@ name|i
 decl_stmt|;
 name|lossyCounting
 operator|.
-name|addByOne
+name|add
 argument_list|(
 name|key
 argument_list|)
@@ -435,7 +451,7 @@ literal|"1"
 decl_stmt|;
 name|lossyCounting
 operator|.
-name|addByOne
+name|add
 argument_list|(
 name|key
 argument_list|)
