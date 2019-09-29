@@ -571,6 +571,12 @@ name|bulkToken
 parameter_list|,
 name|boolean
 name|copyFiles
+parameter_list|,
+name|List
+argument_list|<
+name|String
+argument_list|>
+name|clusterIds
 parameter_list|)
 block|{
 return|return
