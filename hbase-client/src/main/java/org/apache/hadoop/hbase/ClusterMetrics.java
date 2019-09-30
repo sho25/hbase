@@ -77,6 +77,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|RegionStatesCount
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|master
 operator|.
 name|RegionState
@@ -443,6 +459,16 @@ operator|)
 name|serverSize
 return|;
 block|}
+comment|/**    * Provide region states count for given table.    * e.g howmany regions of give table are opened/closed/rit etc    *    * @return map of table to region states count    */
+name|Map
+argument_list|<
+name|TableName
+argument_list|,
+name|RegionStatesCount
+argument_list|>
+name|getTableRegionStatesCount
+parameter_list|()
+function_decl|;
 comment|/**    * Kinds of ClusterMetrics    */
 enum|enum
 name|Option
@@ -479,7 +505,10 @@ name|MASTER_INFO_PORT
 block|,
 comment|/**      * metrics about live region servers name      */
 name|SERVERS_NAME
-block|}
+block|,
+comment|/**      * metrics about table to no of regions status count      */
+name|TABLE_TO_REGIONS_COUNT
+block|,   }
 block|}
 end_interface
 
