@@ -3738,6 +3738,13 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
+name|this
+operator|.
+name|blockWriter
+operator|.
+name|beforeShipped
+argument_list|()
+expr_stmt|;
 comment|// Add clone methods for every cell
 if|if
 condition|(
