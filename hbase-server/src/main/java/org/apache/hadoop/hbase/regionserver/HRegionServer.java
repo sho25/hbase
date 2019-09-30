@@ -5242,12 +5242,12 @@ name|canUpdateTableDescriptor
 argument_list|()
 argument_list|,
 literal|false
-argument_list|,
-name|getMetaTableObserver
-argument_list|()
 argument_list|)
 return|;
 block|}
+comment|/**    * @deprecated Since 2.3.0. Not needed anymore. Was used by Master to pass in replication    *   setting on hbase:meta construction. To be removed in hbase4.    */
+annotation|@
+name|Deprecated
 specifier|protected
 name|Function
 argument_list|<

@@ -279,18 +279,6 @@ name|assertTrue
 import|;
 end_import
 
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
-import|;
-end_import
-
 begin_comment
 comment|/**  * Class to test asynchronous table admin operations  * @see TestAsyncTableAdminApi This test and it used to be joined it was taking longer than our  * ten minute timeout so they were split.  */
 end_comment
@@ -339,51 +327,6 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-annotation|@
-name|Test
-specifier|public
-name|void
-name|testDisableCatalogTable
-parameter_list|()
-throws|throws
-name|Exception
-block|{
-try|try
-block|{
-name|this
-operator|.
-name|admin
-operator|.
-name|disableTable
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-operator|.
-name|join
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"Expected to throw ConstraintException"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{     }
-comment|// Before the fix for HBASE-6146, the below table creation was failing as the hbase:meta table
-comment|// actually getting disabled by the disableTable() call.
-name|createTableWithDefaultConf
-argument_list|(
-name|tableName
-argument_list|)
-expr_stmt|;
-block|}
 annotation|@
 name|Test
 specifier|public

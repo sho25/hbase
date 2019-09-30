@@ -37,18 +37,6 @@ begin_import
 import|import static
 name|org
 operator|.
-name|hamcrest
-operator|.
-name|CoreMatchers
-operator|.
-name|instanceOf
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
 name|junit
 operator|.
 name|Assert
@@ -77,31 +65,7 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|assertThat
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
 name|assertTrue
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|fail
 import|;
 end_import
 
@@ -180,20 +144,6 @@ operator|.
 name|hbase
 operator|.
 name|AsyncMetaTableAccessor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|DoNotRetryIOException
 import|;
 end_import
 
@@ -1555,54 +1505,6 @@ argument_list|(
 name|ok
 argument_list|)
 expr_stmt|;
-comment|// meta table can not be disabled.
-try|try
-block|{
-name|admin
-operator|.
-name|disableTable
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-operator|.
-name|get
-argument_list|()
-expr_stmt|;
-name|fail
-argument_list|(
-literal|"meta table can not be disabled"
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|ExecutionException
-name|e
-parameter_list|)
-block|{
-name|Throwable
-name|cause
-init|=
-name|e
-operator|.
-name|getCause
-argument_list|()
-decl_stmt|;
-name|assertThat
-argument_list|(
-name|cause
-argument_list|,
-name|instanceOf
-argument_list|(
-name|DoNotRetryIOException
-operator|.
-name|class
-argument_list|)
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 annotation|@
 name|Test
