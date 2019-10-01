@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -51,13 +51,15 @@ end_import
 
 begin_import
 import|import
-name|java
+name|org
 operator|.
-name|util
+name|apache
 operator|.
-name|concurrent
+name|hadoop
 operator|.
-name|ExecutionException
+name|hbase
+operator|.
+name|Cell
 import|;
 end_import
 
@@ -72,20 +74,6 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HRegionLocation
 import|;
 end_import
 
@@ -157,7 +145,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AsyncClusterConnection
+name|Connection
 import|;
 end_import
 
@@ -173,23 +161,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|AsyncConnection
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
-name|AsyncTable
+name|Get
 import|;
 end_import
 
@@ -222,6 +194,38 @@ operator|.
 name|client
 operator|.
 name|RegionReplicaUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Result
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|Table
 import|;
 end_import
 
@@ -436,7 +440,7 @@ specifier|public
 name|EnableTableProcedure
 parameter_list|()
 block|{   }
-comment|/**    * Constructor    *    * @param env       MasterProcedureEnv    * @param tableName the table to operate on    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
@@ -457,7 +461,7 @@ literal|null
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Constructor    *    * @param env       MasterProcedureEnv    * @param tableName the table to operate on    */
+comment|/**    * Constructor    * @param env MasterProcedureEnv    * @param tableName the table to operate on    */
 specifier|public
 name|EnableTableProcedure
 parameter_list|(
@@ -593,9 +597,7 @@ break|break;
 case|case
 name|ENABLE_TABLE_MARK_REGIONS_ONLINE
 case|:
-comment|// Get the region replica count. If changed since disable, need to do
-comment|// more work assigning.
-name|AsyncClusterConnection
+name|Connection
 name|connection
 init|=
 name|env
@@ -603,11 +605,13 @@ operator|.
 name|getMasterServices
 argument_list|()
 operator|.
-name|getAsyncClusterConnection
+name|getConnection
 argument_list|()
 decl_stmt|;
+comment|// we will need to get the tableDescriptor here to see if there is a change in the replica
+comment|// count
 name|TableDescriptor
-name|tableDescriptor
+name|hTableDescriptor
 init|=
 name|env
 operator|.
@@ -622,15 +626,17 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+comment|// Get the replica count
 name|int
-name|configuredReplicaCount
+name|regionReplicaCount
 init|=
-name|tableDescriptor
+name|hTableDescriptor
 operator|.
 name|getRegionReplication
 argument_list|()
 decl_stmt|;
-comment|// Get regions for the table from memory; get both online and offline regions ('true').
+comment|// Get the regions for the table from memory; get both online and offline regions
+comment|// ('true').
 name|List
 argument_list|<
 name|RegionInfo
@@ -652,41 +658,74 @@ argument_list|,
 literal|true
 argument_list|)
 decl_stmt|;
-comment|// How many replicas do we currently have? Check regions returned from
-comment|// in-memory state.
 name|int
 name|currentMaxReplica
 init|=
-name|getMaxReplicaId
-argument_list|(
-name|regionsOfTable
-argument_list|)
+literal|0
 decl_stmt|;
-comment|// Read the META table to know the number of replicas the table currently has.
-comment|// If there was a table modification on region replica count then need to
-comment|// adjust replica counts here.
+comment|// Check if the regions in memory have replica regions as marked in META table
+for|for
+control|(
+name|RegionInfo
+name|regionInfo
+range|:
+name|regionsOfTable
+control|)
+block|{
+if|if
+condition|(
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
+operator|>
+name|currentMaxReplica
+condition|)
+block|{
+comment|// Iterating through all the list to identify the highest replicaID region.
+comment|// We can stop after checking with the first set of regions??
+name|currentMaxReplica
+operator|=
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+comment|// read the META table to know the actual number of replicas for the table - if there
+comment|// was a table modification on region replica then this will reflect the new entries also
 name|int
 name|replicasFound
 init|=
-name|getReplicaCount
+name|getNumberOfReplicasFromMeta
 argument_list|(
 name|connection
 argument_list|,
-name|this
-operator|.
-name|tableName
+name|regionReplicaCount
+argument_list|,
+name|regionsOfTable
 argument_list|)
 decl_stmt|;
+assert|assert
+name|regionReplicaCount
+operator|-
+literal|1
+operator|==
+name|replicasFound
+assert|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"replicasFound={} (configuredReplicaCount={} for {}"
-argument_list|,
 name|replicasFound
-argument_list|,
-name|configuredReplicaCount
-argument_list|,
+operator|+
+literal|" META entries added for the given regionReplicaCount "
+operator|+
+name|regionReplicaCount
+operator|+
+literal|" for the table "
+operator|+
 name|tableName
 operator|.
 name|getNameAsString
@@ -698,7 +737,7 @@ condition|(
 name|currentMaxReplica
 operator|==
 operator|(
-name|configuredReplicaCount
+name|regionReplicaCount
 operator|-
 literal|1
 operator|)
@@ -716,11 +755,15 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"No change in number of region replicas (configuredReplicaCount={});"
+literal|"There is no change to the number of region replicas."
 operator|+
-literal|" assigning."
-argument_list|,
-name|configuredReplicaCount
+literal|" Assigning the available regions."
+operator|+
+literal|" Current and previous"
+operator|+
+literal|"replica count is "
+operator|+
+name|regionReplicaCount
 argument_list|)
 expr_stmt|;
 block|}
@@ -731,13 +774,13 @@ condition|(
 name|currentMaxReplica
 operator|>
 operator|(
-name|configuredReplicaCount
+name|regionReplicaCount
 operator|-
 literal|1
 operator|)
 condition|)
 block|{
-comment|// We have additional regions as the replica count has been decreased. Delete
+comment|// we have additional regions as the replica count has been decreased. Delete
 comment|// those regions because already the table is in the unassigned state
 name|LOG
 operator|.
@@ -753,7 +796,7 @@ operator|)
 operator|+
 literal|"  is more than the region replica count "
 operator|+
-name|configuredReplicaCount
+name|regionReplicaCount
 argument_list|)
 expr_stmt|;
 name|List
@@ -764,7 +807,9 @@ name|copyOfRegions
 init|=
 operator|new
 name|ArrayList
-argument_list|<>
+argument_list|<
+name|RegionInfo
+argument_list|>
 argument_list|(
 name|regionsOfTable
 argument_list|)
@@ -785,7 +830,7 @@ name|getReplicaId
 argument_list|()
 operator|>
 operator|(
-name|configuredReplicaCount
+name|regionReplicaCount
 operator|-
 literal|1
 operator|)
@@ -810,14 +855,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Removed replica={} of {}"
-argument_list|,
+literal|"The regioninfo being removed is "
+operator|+
+name|regionInfo
+operator|+
+literal|" "
+operator|+
 name|regionInfo
 operator|.
-name|getRegionId
+name|getReplicaId
 argument_list|()
-argument_list|,
-name|regionInfo
 argument_list|)
 expr_stmt|;
 name|regionsOfTable
@@ -837,17 +884,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Number of replicas has increased. Assigning new region replicas."
+literal|"The number of replicas has been changed(increased)."
 operator|+
-literal|"The previous replica count was {}. The current replica count is {}."
-argument_list|,
+literal|" Lets assign the new region replicas. The previous replica count was "
+operator|+
 operator|(
 name|currentMaxReplica
 operator|+
 literal|1
 operator|)
-argument_list|,
-name|configuredReplicaCount
+operator|+
+literal|". The current replica count is "
+operator|+
+name|regionReplicaCount
 argument_list|)
 expr_stmt|;
 name|regionsOfTable
@@ -856,7 +905,7 @@ name|RegionReplicaUtil
 operator|.
 name|addReplicas
 argument_list|(
-name|tableDescriptor
+name|hTableDescriptor
 argument_list|,
 name|regionsOfTable
 argument_list|,
@@ -864,7 +913,7 @@ name|currentMaxReplica
 operator|+
 literal|1
 argument_list|,
-name|configuredReplicaCount
+name|regionReplicaCount
 argument_list|)
 expr_stmt|;
 block|}
@@ -939,8 +988,6 @@ block|}
 catch|catch
 parameter_list|(
 name|IOException
-decl||
-name|ExecutionException
 name|e
 parameter_list|)
 block|{
@@ -956,10 +1003,7 @@ name|setFailure
 argument_list|(
 literal|"master-enable-table"
 argument_list|,
-name|getCause
-argument_list|(
 name|e
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -969,16 +1013,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Retryable error enabling {}, state={}"
-argument_list|,
+literal|"Retriable error trying to enable table="
+operator|+
 name|tableName
-argument_list|,
+operator|+
+literal|" (in state="
+operator|+
 name|state
+operator|+
+literal|")"
 argument_list|,
-name|getCause
-argument_list|(
 name|e
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
@@ -989,89 +1034,168 @@ operator|.
 name|HAS_MORE_STATE
 return|;
 block|}
-comment|/**    * @return If ExecutionException, pull out the cause.    */
-specifier|private
-name|Throwable
-name|getCause
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-return|return
-name|e
-operator|instanceof
-name|ExecutionException
-condition|?
-operator|(
-operator|(
-name|ExecutionException
-operator|)
-name|e
-operator|)
-operator|.
-name|getCause
-argument_list|()
-else|:
-name|e
-return|;
-block|}
-comment|/**    * @return If hbase;meta table, it goes to the registry implementation which is what we want.    */
 specifier|private
 name|int
-name|getReplicaCount
+name|getNumberOfReplicasFromMeta
 parameter_list|(
-name|AsyncConnection
+name|Connection
 name|connection
 parameter_list|,
-name|TableName
-name|tableName
-parameter_list|)
-throws|throws
-name|ExecutionException
-throws|,
-name|InterruptedException
-block|{
-name|AsyncTable
-name|t
-init|=
-name|connection
-operator|.
-name|getTable
-argument_list|(
-name|TableName
-operator|.
-name|META_TABLE_NAME
-argument_list|)
-decl_stmt|;
+name|int
+name|regionReplicaCount
+parameter_list|,
 name|List
 argument_list|<
-name|HRegionLocation
+name|RegionInfo
 argument_list|>
-name|rls
+name|regionsOfTable
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|Result
+name|r
 init|=
-name|t
+name|getRegionFromMeta
+argument_list|(
+name|connection
+argument_list|,
+name|regionsOfTable
+argument_list|)
+decl_stmt|;
+name|int
+name|replicasFound
+init|=
+literal|0
+decl_stmt|;
+for|for
+control|(
+name|int
+name|i
+init|=
+literal|1
+init|;
+name|i
+operator|<
+name|regionReplicaCount
+condition|;
+name|i
+operator|++
+control|)
+block|{
+comment|// Since we have already added the entries to the META we will be getting only that here
+name|List
+argument_list|<
+name|Cell
+argument_list|>
+name|columnCells
+init|=
+name|r
 operator|.
-name|getRegionLocator
-argument_list|()
-operator|.
-name|getRegionLocations
+name|getColumnCells
 argument_list|(
 name|HConstants
 operator|.
-name|EMPTY_START_ROW
+name|CATALOG_FAMILY
 argument_list|,
-literal|true
+name|MetaTableAccessor
+operator|.
+name|getServerColumn
+argument_list|(
+name|i
 argument_list|)
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+operator|!
+name|columnCells
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+name|replicasFound
+operator|++
+expr_stmt|;
+block|}
+block|}
+return|return
+name|replicasFound
+return|;
+block|}
+specifier|private
+name|Result
+name|getRegionFromMeta
+parameter_list|(
+name|Connection
+name|connection
+parameter_list|,
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|regionsOfTable
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+name|byte
+index|[]
+name|metaKeyForRegion
+init|=
+name|MetaTableAccessor
+operator|.
+name|getMetaKeyForRegion
+argument_list|(
+name|regionsOfTable
 operator|.
 name|get
-argument_list|()
+argument_list|(
+literal|0
+argument_list|)
+argument_list|)
+decl_stmt|;
+name|Get
+name|get
+init|=
+operator|new
+name|Get
+argument_list|(
+name|metaKeyForRegion
+argument_list|)
+decl_stmt|;
+name|get
+operator|.
+name|addFamily
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|)
+expr_stmt|;
+name|Table
+name|metaTable
+init|=
+name|MetaTableAccessor
+operator|.
+name|getMetaHTable
+argument_list|(
+name|connection
+argument_list|)
+decl_stmt|;
+name|Result
+name|r
+init|=
+name|metaTable
+operator|.
+name|get
+argument_list|(
+name|get
+argument_list|)
 decl_stmt|;
 return|return
-name|rls
-operator|.
-name|size
-argument_list|()
+name|r
 return|;
 block|}
 annotation|@
@@ -1733,57 +1857,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-block|}
-comment|/**    * @return Maximum region replica id found in passed list of regions.    */
-specifier|private
-specifier|static
-name|int
-name|getMaxReplicaId
-parameter_list|(
-name|List
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|regions
-parameter_list|)
-block|{
-name|int
-name|max
-init|=
-literal|0
-decl_stmt|;
-for|for
-control|(
-name|RegionInfo
-name|regionInfo
-range|:
-name|regions
-control|)
-block|{
-if|if
-condition|(
-name|regionInfo
-operator|.
-name|getReplicaId
-argument_list|()
-operator|>
-name|max
-condition|)
-block|{
-comment|// Iterating through all the list to identify the highest replicaID region.
-comment|// We can stop after checking with the first set of regions??
-name|max
-operator|=
-name|regionInfo
-operator|.
-name|getReplicaId
-argument_list|()
-expr_stmt|;
-block|}
-block|}
-return|return
-name|max
-return|;
 block|}
 block|}
 end_class

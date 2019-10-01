@@ -614,17 +614,26 @@ parameter_list|)
 throws|throws
 name|InterruptedException
 block|{
+if|if
+condition|(
 name|LOG
 operator|.
-name|info
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|trace
 argument_list|(
-literal|"{} execute state={}"
-argument_list|,
 name|this
-argument_list|,
+operator|+
+literal|" execute state="
+operator|+
 name|state
 argument_list|)
 expr_stmt|;
+block|}
 try|try
 block|{
 switch|switch

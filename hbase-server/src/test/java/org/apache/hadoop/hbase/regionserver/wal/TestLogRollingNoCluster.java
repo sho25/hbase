@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -295,22 +295,6 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|FSTableDescriptors
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
 name|FSUtils
 import|;
 end_import
@@ -588,7 +572,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Spin up a bunch of threads and have them all append to a WAL.  Roll the    * WAL frequently to try and trigger NPE.    */
+comment|/**    * Spin up a bunch of threads and have them all append to a WAL.  Roll the    * WAL frequently to try and trigger NPE.    * @throws IOException    * @throws InterruptedException    */
 annotation|@
 name|Test
 specifier|public
@@ -1071,15 +1055,13 @@ decl_stmt|;
 name|TableDescriptor
 name|htd
 init|=
-name|FSTableDescriptors
-operator|.
-name|createMetaTableDescriptor
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConfiguration
+name|getMetaTableDescriptorBuilder
 argument_list|()
-argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 name|NavigableMap
 argument_list|<
