@@ -1903,22 +1903,37 @@ name|isTraceEnabled
 argument_list|()
 condition|)
 block|{
+specifier|final
+name|String
+name|loadBalanceTarget
+init|=
+name|isByTable
+condition|?
+name|String
+operator|.
+name|format
+argument_list|(
+literal|"table (%s)"
+argument_list|,
+name|tableName
+argument_list|)
+else|:
+literal|"cluster"
+decl_stmt|;
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Skipping load balancing because balanced cluster; "
+literal|"Skipping load balancing because the {} is balanced. Total cost: {}, "
 operator|+
-literal|"total cost is "
-operator|+
+literal|"Sum multiplier: {}, Minimum cost needed for balance: {}"
+argument_list|,
+name|loadBalanceTarget
+argument_list|,
 name|total
-operator|+
-literal|", sum multiplier is "
-operator|+
+argument_list|,
 name|sumMultiplier
-operator|+
-literal|" min cost which need balance is "
-operator|+
+argument_list|,
 name|minCostNeedBalance
 argument_list|)
 expr_stmt|;
