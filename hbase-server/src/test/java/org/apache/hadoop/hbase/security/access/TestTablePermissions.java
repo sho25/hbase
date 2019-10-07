@@ -740,7 +740,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-literal|"hbase:rsgroup"
+literal|"hbase:acl"
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1679,7 +1679,7 @@ name|assertEquals
 argument_list|(
 literal|"Full permission map should have entries for both test tables"
 argument_list|,
-literal|3
+literal|2
 argument_list|,
 name|allPerms
 operator|.

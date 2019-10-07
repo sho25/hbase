@@ -267,7 +267,7 @@ specifier|final
 name|int
 name|NUM_REGIONS
 init|=
-literal|4
+literal|3
 decl_stmt|;
 annotation|@
 name|Override
