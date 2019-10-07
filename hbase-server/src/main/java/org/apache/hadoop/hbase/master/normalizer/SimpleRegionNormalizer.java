@@ -707,7 +707,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Unable to determine whether split is enabled"
+literal|"Unable to determine whether merge is enabled"
 argument_list|,
 name|e
 argument_list|)
