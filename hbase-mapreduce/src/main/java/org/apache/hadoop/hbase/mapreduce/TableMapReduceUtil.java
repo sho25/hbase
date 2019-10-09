@@ -3146,6 +3146,25 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|gson
+operator|.
+name|GsonBuilder
+operator|.
+name|class
+argument_list|,
+comment|// hbase-shaded-gson
+name|org
+operator|.
+name|apache
+operator|.
 name|zookeeper
 operator|.
 name|ZooKeeper
