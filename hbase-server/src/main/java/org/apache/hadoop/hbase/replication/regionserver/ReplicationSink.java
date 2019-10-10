@@ -1349,6 +1349,14 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|bld
+operator|.
+name|getReplicate
+argument_list|()
+condition|)
+block|{
+if|if
+condition|(
 name|bulkLoadsPerClusters
 operator|==
 literal|null
@@ -1430,6 +1438,7 @@ argument_list|,
 name|bld
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{

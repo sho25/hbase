@@ -4614,6 +4614,8 @@ argument_list|,
 literal|false
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -4663,6 +4665,9 @@ argument_list|<
 name|String
 argument_list|>
 name|clusterIds
+parameter_list|,
+name|boolean
+name|replicate
 parameter_list|)
 block|{
 name|RegionSpecifier
@@ -4932,6 +4937,13 @@ name|clusterIds
 argument_list|)
 expr_stmt|;
 block|}
+name|request
+operator|.
+name|setReplicate
+argument_list|(
+name|replicate
+argument_list|)
+expr_stmt|;
 return|return
 name|request
 operator|.
