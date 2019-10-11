@@ -275,8 +275,8 @@ name|Private
 specifier|public
 class|class
 name|FileIOEngine
-implements|implements
-name|IOEngine
+extends|extends
+name|PersistentIOEngine
 block|{
 specifier|private
 specifier|static
@@ -300,12 +300,6 @@ name|String
 name|FILE_DELIMITER
 init|=
 literal|","
-decl_stmt|;
-specifier|private
-specifier|final
-name|String
-index|[]
-name|filePaths
 decl_stmt|;
 specifier|private
 specifier|final
@@ -367,6 +361,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|super
+argument_list|(
+name|filePaths
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|sizePerFile
@@ -388,12 +387,6 @@ operator|*
 name|filePaths
 operator|.
 name|length
-expr_stmt|;
-name|this
-operator|.
-name|filePaths
-operator|=
-name|filePaths
 expr_stmt|;
 name|this
 operator|.
@@ -585,6 +578,27 @@ name|msg
 argument_list|)
 expr_stmt|;
 block|}
+name|File
+name|file
+init|=
+operator|new
+name|File
+argument_list|(
+name|filePath
+argument_list|)
+decl_stmt|;
+comment|// setLength() method will change file's last modified time. So if don't do
+comment|// this check, wrong time will be used when calculating checksum.
+if|if
+condition|(
+name|file
+operator|.
+name|length
+argument_list|()
+operator|!=
+name|sizePerFile
+condition|)
+block|{
 name|rafs
 index|[
 name|i
@@ -595,6 +609,7 @@ argument_list|(
 name|sizePerFile
 argument_list|)
 expr_stmt|;
+block|}
 name|fileChannels
 index|[
 name|i

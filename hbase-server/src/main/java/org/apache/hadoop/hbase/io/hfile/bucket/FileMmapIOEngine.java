@@ -27,6 +27,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|File
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -204,8 +214,8 @@ specifier|public
 specifier|abstract
 class|class
 name|FileMmapIOEngine
-implements|implements
-name|IOEngine
+extends|extends
+name|PersistentIOEngine
 block|{
 specifier|static
 specifier|final
@@ -257,6 +267,11 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|super
+argument_list|(
+name|filePath
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|path
@@ -297,6 +312,27 @@ operator|.
 name|DEFAULT_BUFFER_SIZE
 argument_list|)
 expr_stmt|;
+name|File
+name|file
+init|=
+operator|new
+name|File
+argument_list|(
+name|filePath
+argument_list|)
+decl_stmt|;
+comment|// setLength() method will change file's last modified time. So if don't do
+comment|// this check, wrong time will be used when calculating checksum.
+if|if
+condition|(
+name|file
+operator|.
+name|length
+argument_list|()
+operator|!=
+name|fileSize
+condition|)
+block|{
 name|raf
 operator|.
 name|setLength
@@ -304,6 +340,7 @@ argument_list|(
 name|fileSize
 argument_list|)
 expr_stmt|;
+block|}
 name|fileChannel
 operator|=
 name|raf
