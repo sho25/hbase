@@ -3090,6 +3090,22 @@ name|DEFAULT_HEALTH_FAILURE_THRESHOLD
 init|=
 literal|3
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|EXECUTOR_STATUS_COLLECT_ENABLED
+init|=
+literal|"hbase.executors.status.collect.enabled"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_EXECUTOR_STATUS_COLLECT_ENABLED
+init|=
+literal|true
+decl_stmt|;
 comment|/**    * Setting to activate, or not, the publication of the status by the master. Default    *  notification is by a multicast message.    */
 specifier|public
 specifier|static
