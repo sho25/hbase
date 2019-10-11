@@ -73,16 +73,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|OptionalInt
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|concurrent
 operator|.
 name|CountDownLatch
@@ -1908,7 +1898,7 @@ parameter_list|(
 name|ScanInfo
 name|scanInfo
 parameter_list|,
-name|OptionalInt
+name|int
 name|maxVersions
 parameter_list|,
 name|ScanType
@@ -1931,9 +1921,8 @@ argument_list|(
 literal|null
 argument_list|,
 name|maxVersions
-operator|.
-name|isPresent
-argument_list|()
+operator|>
+literal|0
 condition|?
 operator|new
 name|Scan
@@ -1942,9 +1931,6 @@ operator|.
 name|readVersions
 argument_list|(
 name|maxVersions
-operator|.
-name|getAsInt
-argument_list|()
 argument_list|)
 else|:
 name|SCAN_FOR_COMPACTION

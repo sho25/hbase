@@ -3476,10 +3476,7 @@ literal|null
 decl_stmt|;
 specifier|private
 specifier|volatile
-name|Optional
-argument_list|<
 name|ConfigurationManager
-argument_list|>
 name|configurationManager
 decl_stmt|;
 comment|// Used for testing.
@@ -5079,10 +5076,7 @@ expr_stmt|;
 block|}
 name|configurationManager
 operator|=
-name|Optional
-operator|.
-name|empty
-argument_list|()
+literal|null
 expr_stmt|;
 comment|// disable stats tracking system tables, but check the config for everything else
 name|this
@@ -41740,12 +41734,7 @@ parameter_list|)
 block|{
 name|configurationManager
 operator|=
-name|Optional
-operator|.
-name|of
-argument_list|(
 name|manager
-argument_list|)
 expr_stmt|;
 name|stores
 operator|.
@@ -41779,9 +41768,6 @@ operator|.
 name|forEach
 argument_list|(
 name|configurationManager
-operator|.
-name|get
-argument_list|()
 operator|::
 name|deregisterObserver
 argument_list|)
