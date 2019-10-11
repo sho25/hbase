@@ -584,9 +584,6 @@ range|:
 name|kvs
 control|)
 block|{
-comment|// If we know that this KV is going to be included always, then let us
-comment|// set its memstoreTS to 0. This will help us save space when writing to
-comment|// disk.
 name|sink
 operator|.
 name|append
