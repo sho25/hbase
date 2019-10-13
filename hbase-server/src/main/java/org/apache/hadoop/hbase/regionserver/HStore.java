@@ -11241,33 +11241,50 @@ lambda|->
 name|f
 operator|!=
 literal|null
-operator|&&
-name|f
-operator|.
-name|getReader
-argument_list|()
-operator|!=
-literal|null
 argument_list|)
 operator|.
 name|mapToLong
 argument_list|(
 name|f
 lambda|->
+block|{
+name|StoreFileReader
+name|reader
+operator|=
 name|f
 operator|.
 name|getReader
 argument_list|()
+argument_list|;       if
+operator|(
+name|reader
+operator|==
+literal|null
+operator|)
+block|{
+return|return
+literal|0
+return|;
+block|}
+else|else
+block|{
+return|return
+name|reader
 operator|.
 name|getTotalUncompressedBytes
 argument_list|()
-argument_list|)
+return|;
+block|}
+block|}
+block|)
 operator|.
 name|sum
 argument_list|()
-return|;
-block|}
-specifier|private
+expr_stmt|;
+end_class
+
+begin_function
+unit|}    private
 name|long
 name|getStorefilesSize
 parameter_list|(
@@ -11315,20 +11332,47 @@ name|mapToLong
 argument_list|(
 name|f
 lambda|->
+block|{
+name|StoreFileReader
+name|reader
+operator|=
 name|f
 operator|.
 name|getReader
 argument_list|()
+argument_list|;           if
+operator|(
+name|reader
+operator|==
+literal|null
+operator|)
+block|{
+return|return
+literal|0
+return|;
+block|}
+else|else
+block|{
+return|return
+name|reader
 operator|.
 name|length
 argument_list|()
-argument_list|)
+return|;
+block|}
+block|}
+end_function
+
+begin_expr_stmt
+unit|)
 operator|.
 name|sum
 argument_list|()
-return|;
-block|}
-specifier|private
+expr_stmt|;
+end_expr_stmt
+
+begin_function
+unit|}    private
 name|long
 name|getStoreFileFieldSize
 parameter_list|(
@@ -11353,30 +11397,25 @@ operator|.
 name|stream
 argument_list|()
 operator|.
+name|map
+argument_list|(
+name|HStoreFile
+operator|::
+name|getReader
+argument_list|)
+operator|.
 name|filter
 argument_list|(
-name|sf
+name|reader
 lambda|->
 block|{
 if|if
 condition|(
-name|sf
-operator|.
-name|getReader
-argument_list|()
+name|reader
 operator|==
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"StoreFile {} has a null Reader"
-argument_list|,
-name|sf
-argument_list|)
-expr_stmt|;
 return|return
 literal|false
 return|;
@@ -11390,13 +11429,6 @@ block|}
 block|}
 argument_list|)
 operator|.
-name|map
-argument_list|(
-name|HStoreFile
-operator|::
-name|getReader
-argument_list|)
-operator|.
 name|mapToLong
 argument_list|(
 name|f
@@ -11406,6 +11438,9 @@ name|sum
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11422,6 +11457,9 @@ name|indexSize
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11438,6 +11476,9 @@ name|getUncompressedDataIndexSize
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11454,6 +11495,9 @@ name|getTotalBloomSize
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11470,6 +11514,9 @@ name|size
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11509,6 +11556,9 @@ return|return
 name|priority
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|boolean
 name|throttleCompaction
@@ -11529,6 +11579,9 @@ name|compactionSize
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|HRegion
 name|getHRegion
@@ -11540,6 +11593,9 @@ operator|.
 name|region
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|RegionCoprocessorHost
 name|getCoprocessorHost
@@ -11554,6 +11610,9 @@ name|getCoprocessorHost
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11570,6 +11629,9 @@ name|getRegionInfo
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11586,6 +11648,9 @@ name|areWritesEnabled
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11602,7 +11667,13 @@ name|getSmallestReadPoint
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @throws IOException    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|upsert
@@ -11662,6 +11733,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 specifier|public
 name|StoreFlushContext
 name|createFlushContext
@@ -11683,6 +11757,9 @@ name|tracker
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_class
 specifier|private
 specifier|final
 class|class
@@ -12424,6 +12501,9 @@ expr_stmt|;
 block|}
 block|}
 block|}
+end_class
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12465,7 +12545,13 @@ name|filesCompactingClone
 argument_list|)
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Used for tests.    * @return cache configuration for this Store.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -12479,6 +12565,9 @@ operator|.
 name|cacheConf
 return|;
 block|}
+end_function
+
+begin_decl_stmt
 specifier|public
 specifier|static
 specifier|final
@@ -12526,6 +12615,9 @@ name|SIZEOF_BOOLEAN
 operator|)
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|public
 specifier|static
 specifier|final
@@ -12563,6 +12655,9 @@ operator|.
 name|FIXED_OVERHEAD
 argument_list|)
 decl_stmt|;
+end_decl_stmt
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12589,6 +12684,9 @@ name|getHeapSize
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12600,6 +12698,9 @@ return|return
 name|comparator
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|ScanInfo
 name|getScanInfo
@@ -12609,7 +12710,13 @@ return|return
 name|scanInfo
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Set scan info, used by test    * @param scanInfo new scan info to use for test    */
+end_comment
+
+begin_function
 name|void
 name|setScanInfo
 parameter_list|(
@@ -12624,6 +12731,9 @@ operator|=
 name|scanInfo
 expr_stmt|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12640,6 +12750,9 @@ operator|.
 name|blockingFileCount
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12654,6 +12767,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12668,6 +12784,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12682,6 +12801,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12696,6 +12818,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12710,6 +12835,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12724,6 +12852,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12738,7 +12869,13 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Returns the StoreEngine that is backing this concrete implementation of Store.    * @return Returns the {@link StoreEngine} object used internally inside this HStore object.    */
+end_comment
+
+begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -12761,6 +12898,9 @@ operator|.
 name|storeEngine
 return|;
 block|}
+end_function
+
+begin_function
 specifier|protected
 name|OffPeakHours
 name|getOffPeakHours
@@ -12772,7 +12912,13 @@ operator|.
 name|offPeakHours
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * {@inheritDoc}    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12827,7 +12973,13 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * {@inheritDoc}    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12840,7 +12992,13 @@ parameter_list|)
 block|{
 comment|// No children to register
 block|}
+end_function
+
+begin_comment
 comment|/**    * {@inheritDoc}    */
+end_comment
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12853,6 +13011,9 @@ parameter_list|)
 block|{
 comment|// No children to deregister
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12870,6 +13031,9 @@ name|getCompactionPressure
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12889,7 +13053,13 @@ operator|.
 name|DEFAULT_REPLICA_ID
 return|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Sets the store up for a region level snapshot operation.    * @see #postSnapshotOperation()    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|preSnapshotOperation
@@ -12901,7 +13071,13 @@ name|lock
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Perform tasks needed after the completion of snapshot operation.    * @see #preSnapshotOperation()    */
+end_comment
+
+begin_function
 specifier|public
 name|void
 name|postSnapshotOperation
@@ -12913,7 +13089,13 @@ name|unlock
 argument_list|()
 expr_stmt|;
 block|}
+end_function
+
+begin_comment
 comment|/**    * Closes and archives the compacted files under this store    */
+end_comment
+
+begin_function
 specifier|public
 specifier|synchronized
 name|void
@@ -13034,7 +13216,13 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Archives and removes the compacted files    * @param compactedfiles The compacted files in this store that are not active in reads    */
+end_comment
+
+begin_function
 specifier|private
 name|void
 name|removeCompactedfiles
@@ -13449,7 +13637,13 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_comment
 comment|/**    * Computes the length of a store file without succumbing to any errors along the way. If an    * error is encountered, the implementation returns {@code 0} instead of the actual size.    *    * @param file The file to compute the size of.    * @return The size in bytes of the provided {@code file}.    */
+end_comment
+
+begin_function
 name|long
 name|getStoreFileSize
 parameter_list|(
@@ -13544,6 +13738,9 @@ return|return
 name|length
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|Long
 name|preFlushSeqIDEstimation
@@ -13556,6 +13753,9 @@ name|preFlushSeqIDEstimation
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13572,6 +13772,9 @@ name|isSloppy
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|private
 name|void
 name|clearCompactedfiles
@@ -13630,6 +13833,9 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 name|void
 name|reportArchivedFilesForQuota
 parameter_list|(
@@ -13824,6 +14030,9 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+end_function
+
+begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13838,6 +14047,9 @@ name|get
 argument_list|()
 return|;
 block|}
+end_function
+
+begin_function
 specifier|public
 name|int
 name|getStoreRefCount
@@ -13887,8 +14099,8 @@ name|sum
 argument_list|()
 return|;
 block|}
-block|}
-end_class
+end_function
 
+unit|}
 end_unit
 
