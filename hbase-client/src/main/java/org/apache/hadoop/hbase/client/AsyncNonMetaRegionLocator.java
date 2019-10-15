@@ -3584,6 +3584,15 @@ argument_list|(
 name|startKey
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|oldLocs
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 name|HRegionLocation
 name|oldLoc
 init|=
