@@ -1203,6 +1203,8 @@ name|getPath
 argument_list|()
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|in
 operator|=
 operator|new
@@ -1217,6 +1219,37 @@ argument_list|,
 name|readahead
 argument_list|)
 expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// Intercept the exception so can insert more info about the Reference; otherwise
+comment|// exception just complains about some random file -- operator doesn't realize it
+comment|// other end of a Reference
+name|FileNotFoundException
+name|newFnfe
+init|=
+operator|new
+name|FileNotFoundException
+argument_list|(
+name|toString
+argument_list|()
+argument_list|)
+decl_stmt|;
+name|newFnfe
+operator|.
+name|initCause
+argument_list|(
+name|fnfe
+argument_list|)
+expr_stmt|;
+throw|throw
+name|newFnfe
+throw|;
+block|}
 name|status
 operator|=
 name|fs

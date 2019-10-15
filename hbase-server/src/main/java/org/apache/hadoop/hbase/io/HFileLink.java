@@ -334,7 +334,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * A non-capture group, for HFileLink, so that this can be embedded.    * The HFileLink describe a link to an hfile in a different table/region    * and the name is in the form: table=region-hfile.    *<p>    * Table name is ([\p{IsAlphabetic}\p{Digit}][\p{IsAlphabetic}\p{Digit}.-]*), so '=' is an invalid    * character for the table name.    * Region name is ([a-f0-9]+), so '-' is an invalid character for the region name.    * HFile is ([0-9a-f]+(?:_SeqId_[0-9]+_)?) covering the plain hfiles (uuid)    * and the bulk loaded (_SeqId_[0-9]+_) hfiles.    */
+comment|/**    * A non-capture group, for HFileLink, so that this can be embedded.    * The HFileLink describe a link to an hfile in a different table/region    * and the name is in the form: table=region-hfile.    *<p>    * Table name is ([\p{IsAlphabetic}\p{Digit}][\p{IsAlphabetic}\p{Digit}.-]*), so '=' is an invalid    * character for the table name.    * Region name is ([a-f0-9]+), so '-' is an invalid character for the region name.    * HFile is ([0-9a-f]+(?:_SeqId_[0-9]+_)?) covering the plain hfiles (uuid)    * and the bulk loaded (_SeqId_[0-9]+_) hfiles.    *    *<p>Here is an example name: /hbase/test/0123/cf/testtb=4567-abcd where 'testtb' is table name    * and '4567' is region name and 'abcd' is filename.    */
 specifier|public
 specifier|static
 specifier|final

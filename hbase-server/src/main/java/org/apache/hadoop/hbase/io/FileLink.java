@@ -1650,7 +1650,7 @@ argument_list|(
 name|getClass
 argument_list|()
 operator|.
-name|getName
+name|getSimpleName
 argument_list|()
 argument_list|)
 decl_stmt|;
@@ -1823,9 +1823,8 @@ throw|throw
 operator|new
 name|FileNotFoundException
 argument_list|(
-literal|"Unable to open link: "
-operator|+
-name|this
+name|toString
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -1901,7 +1900,7 @@ throw|throw
 name|exception
 throw|;
 block|}
-comment|/**    * Handle exceptions which are threw when access locations of file link    * @param fileLink the file link    * @param newException the exception caught by access the current location    * @param previousException the previous exception caught by access the other locations    * @return return AccessControlException if access one of the locations caught, otherwise return    *         FileNotFoundException. The AccessControlException is threw if user scan snapshot    *         feature is enabled, see    *         {@link org.apache.hadoop.hbase.security.access.SnapshotScannerHDFSAclController}.    * @throws IOException if the exception is neither AccessControlException nor    *           FileNotFoundException    */
+comment|/**    * Handle exceptions which are thrown when access locations of file link    * @param fileLink the file link    * @param newException the exception caught by access the current location    * @param previousException the previous exception caught by access the other locations    * @return return AccessControlException if access one of the locations caught, otherwise return    *         FileNotFoundException. The AccessControlException is threw if user scan snapshot    *         feature is enabled, see    *         {@link org.apache.hadoop.hbase.security.access.SnapshotScannerHDFSAclController}.    * @throws IOException if the exception is neither AccessControlException nor    *           FileNotFoundException    */
 specifier|private
 specifier|static
 name|IOException
@@ -1967,9 +1966,10 @@ operator|=
 operator|new
 name|FileNotFoundException
 argument_list|(
-literal|"Unable to open link: "
-operator|+
 name|fileLink
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
