@@ -191,6 +191,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|List
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Map
 import|;
 end_import
@@ -1175,6 +1185,42 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+literal|"canary should expect to scan at least 1 region"
+argument_list|,
+name|sink
+operator|.
+name|getTotalExpectedRegions
+argument_list|()
+operator|>
+literal|0
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"there should be no read failures"
+argument_list|,
+name|sink
+operator|.
+name|getReadFailureCount
+argument_list|()
+operator|==
+literal|0
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
+literal|"there should be no write failures"
+argument_list|,
+name|sink
+operator|.
+name|getWriteFailureCount
+argument_list|()
+operator|==
+literal|0
+argument_list|)
+expr_stmt|;
+name|assertTrue
+argument_list|(
 literal|"verify read success count> 0"
 argument_list|,
 name|sink
@@ -1267,25 +1313,36 @@ name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
-literal|"canary should expect to scan at least 1 region"
+literal|"canary region success count should equal total expected regions"
+argument_list|,
+name|sink
+operator|.
+name|getReadSuccessCount
+argument_list|()
+operator|+
+name|sink
+operator|.
+name|getWriteSuccessCount
+argument_list|()
 argument_list|,
 name|sink
 operator|.
 name|getTotalExpectedRegions
 argument_list|()
-operator|>
-literal|0
 argument_list|)
 expr_stmt|;
 name|Map
 argument_list|<
 name|String
 argument_list|,
+name|List
+argument_list|<
 name|CanaryTool
 operator|.
 name|RegionTaskResult
+argument_list|>
 argument_list|>
 name|regionMap
 init|=
@@ -1315,25 +1372,21 @@ name|keySet
 argument_list|()
 control|)
 block|{
+for|for
+control|(
 name|CanaryTool
 operator|.
 name|RegionTaskResult
 name|res
-init|=
+range|:
 name|regionMap
 operator|.
 name|get
 argument_list|(
 name|regionName
 argument_list|)
-decl_stmt|;
-name|assertNotNull
-argument_list|(
-literal|"verify each expected region has a RegionTaskResult object in the map"
-argument_list|,
-name|res
-argument_list|)
-expr_stmt|;
+control|)
+block|{
 name|assertNotNull
 argument_list|(
 literal|"verify getRegionNameAsString()"
@@ -1388,6 +1441,26 @@ argument_list|,
 name|res
 operator|.
 name|getServerNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+literal|"verify getColumnFamily()"
+argument_list|,
+name|res
+operator|.
+name|getColumnFamily
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+literal|"verify getColumnFamilyNameAsString()"
+argument_list|,
+name|res
+operator|.
+name|getColumnFamilyNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -1463,6 +1536,7 @@ operator|-
 literal|1
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
