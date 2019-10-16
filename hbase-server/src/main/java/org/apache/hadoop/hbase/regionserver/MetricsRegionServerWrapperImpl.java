@@ -3485,7 +3485,7 @@ block|{
 name|long
 name|currentRequestCount
 init|=
-name|getTotalRequestCount
+name|getTotalRowActionRequestCount
 argument_list|()
 decl_stmt|;
 name|requestsPerSecond
