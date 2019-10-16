@@ -407,6 +407,13 @@ block|{
 name|this
 operator|.
 name|call
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
+name|this
+operator|.
+name|call
 operator|=
 literal|null
 expr_stmt|;
