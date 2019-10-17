@@ -1414,6 +1414,11 @@ argument_list|(
 name|blockEncoder
 argument_list|,
 name|hFileContext
+argument_list|,
+name|cacheConf
+operator|.
+name|getByteBuffAllocator
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// Data block index writer
@@ -2873,6 +2878,8 @@ argument_list|(
 name|cacheConf
 argument_list|)
 decl_stmt|;
+try|try
+block|{
 name|cache
 operator|.
 name|cacheBlock
@@ -2895,6 +2902,16 @@ argument_list|,
 name|cacheFormatBlock
 argument_list|)
 expr_stmt|;
+block|}
+finally|finally
+block|{
+comment|// refCnt will auto increase when block add to Cache, see RAMCache#putIfAbsent
+name|cacheFormatBlock
+operator|.
+name|release
+argument_list|()
+expr_stmt|;
+block|}
 block|}
 argument_list|)
 expr_stmt|;
