@@ -15953,6 +15953,8 @@ argument_list|,
 name|bulkloadSeqId
 argument_list|,
 literal|null
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}
@@ -15997,6 +15999,9 @@ argument_list|<
 name|String
 argument_list|>
 name|clusterIds
+parameter_list|,
+name|boolean
+name|replicate
 parameter_list|)
 block|{
 name|BulkLoadDescriptor
@@ -16027,6 +16032,11 @@ operator|.
 name|setBulkloadSeqNum
 argument_list|(
 name|bulkloadSeqId
+argument_list|)
+operator|.
+name|setReplicate
+argument_list|(
+name|replicate
 argument_list|)
 decl_stmt|;
 if|if
