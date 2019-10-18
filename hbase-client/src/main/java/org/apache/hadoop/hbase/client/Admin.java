@@ -2084,14 +2084,11 @@ name|of
 argument_list|(
 name|Option
 operator|.
-name|LIVE_SERVERS
+name|SERVERS_NAME
 argument_list|)
 argument_list|)
 operator|.
-name|getLiveServerMetrics
-argument_list|()
-operator|.
-name|keySet
+name|getServersName
 argument_list|()
 return|;
 block|}
