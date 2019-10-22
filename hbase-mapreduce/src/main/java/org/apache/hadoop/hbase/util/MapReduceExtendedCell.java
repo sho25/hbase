@@ -821,7 +821,7 @@ name|ByteBuffer
 operator|.
 name|wrap
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|cloneTags
 argument_list|(

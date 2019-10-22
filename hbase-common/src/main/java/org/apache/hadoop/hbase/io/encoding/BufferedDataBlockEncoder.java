@@ -3017,7 +3017,7 @@ name|getTagsArray
 parameter_list|()
 block|{
 return|return
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|cloneTags
 argument_list|(

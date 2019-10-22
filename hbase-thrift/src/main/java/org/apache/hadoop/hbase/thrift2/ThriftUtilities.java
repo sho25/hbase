@@ -8628,7 +8628,7 @@ name|columnValue
 operator|.
 name|setTags
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|cloneTags
 argument_list|(
@@ -9089,7 +9089,7 @@ name|columnValue
 operator|.
 name|setTags
 argument_list|(
-name|CellUtil
+name|PrivateCellUtil
 operator|.
 name|cloneTags
 argument_list|(
