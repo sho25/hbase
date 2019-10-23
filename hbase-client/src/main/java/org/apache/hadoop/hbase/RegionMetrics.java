@@ -214,6 +214,11 @@ name|int
 name|getStoreRefCount
 parameter_list|()
 function_decl|;
+comment|/**    * @return the max reference count for any store file among all stores files    *   of this region    */
+name|int
+name|getMaxStoreFileRefCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -3750,6 +3750,25 @@ name|DEFAULT_SNAPSHOT_TTL_CONFIG_KEY
 init|=
 literal|"hbase.master.snapshot.ttl"
 decl_stmt|;
+comment|// Regions Recovery based on high storeFileRefCount threshold value
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|STORE_FILE_REF_COUNT_THRESHOLD
+init|=
+literal|"hbase.regions.recovery.store.file.ref.count"
+decl_stmt|;
+comment|// default -1 indicates there is no threshold on high storeRefCount
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_STORE_FILE_REF_COUNT_THRESHOLD
+init|=
+operator|-
+literal|1
+decl_stmt|;
 comment|/**    * Configurations for master executor services.    */
 specifier|public
 specifier|static

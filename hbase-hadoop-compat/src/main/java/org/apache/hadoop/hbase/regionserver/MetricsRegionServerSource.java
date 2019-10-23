@@ -386,6 +386,11 @@ init|=
 literal|"Store reference count"
 decl_stmt|;
 name|String
+name|MAX_STORE_FILE_REF_COUNT
+init|=
+literal|"maxStoreFileRefCount"
+decl_stmt|;
+name|String
 name|MEMSTORE_SIZE
 init|=
 literal|"memStoreSize"

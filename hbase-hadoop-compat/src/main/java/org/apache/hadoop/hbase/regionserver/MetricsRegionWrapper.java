@@ -179,6 +179,11 @@ name|long
 name|getStoreRefCount
 parameter_list|()
 function_decl|;
+comment|/**    * @return the max number of references active on any store file among    *   all store files that belong to this region    */
+name|long
+name|getMaxStoreFileRefCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 
