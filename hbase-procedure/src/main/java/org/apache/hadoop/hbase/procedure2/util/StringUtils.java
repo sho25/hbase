@@ -86,7 +86,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%dmsec"
+literal|"%d msec"
 argument_list|,
 name|timeDiff
 argument_list|)
@@ -173,7 +173,7 @@ name|buf
 operator|.
 name|append
 argument_list|(
-literal|"hrs, "
+literal|" hrs, "
 argument_list|)
 expr_stmt|;
 block|}
@@ -195,7 +195,7 @@ name|buf
 operator|.
 name|append
 argument_list|(
-literal|"mins, "
+literal|" mins, "
 argument_list|)
 expr_stmt|;
 block|}
@@ -221,7 +221,7 @@ name|buf
 operator|.
 name|append
 argument_list|(
-literal|"sec"
+literal|" sec"
 argument_list|)
 expr_stmt|;
 block|}
@@ -235,7 +235,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.4fsec"
+literal|"%.4f sec"
 argument_list|,
 name|seconds
 argument_list|)
@@ -274,7 +274,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.1fT"
+literal|"%.1f T"
 argument_list|,
 name|size
 operator|/
@@ -302,7 +302,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.1fG"
+literal|"%.1f G"
 argument_list|,
 name|size
 operator|/
@@ -330,7 +330,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.1fM"
+literal|"%.1f M"
 argument_list|,
 name|size
 operator|/
@@ -358,7 +358,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"%.1fK"
+literal|"%.1f K"
 argument_list|,
 name|size
 operator|/
