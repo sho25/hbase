@@ -92,6 +92,19 @@ name|MetricsRegionWrapper
 name|wrapper
 parameter_list|)
 function_decl|;
+comment|/**    * Create a MetricsUserSource from a user    * @return A metrics user source    */
+name|MetricsUserSource
+name|createUser
+parameter_list|(
+name|String
+name|shortUserName
+parameter_list|)
+function_decl|;
+comment|/**    * Return the singleton instance for MetricsUserAggregateSource    * @return A metrics user aggregate source    */
+name|MetricsUserAggregateSource
+name|getUserAggregate
+parameter_list|()
+function_decl|;
 comment|/**    * Create a MetricsTableSource from a MetricsTableWrapper.    *    * @param table The table name    * @param wrapper The wrapped table aggregate    * @return A metrics table source    */
 name|MetricsTableSource
 name|createTable
