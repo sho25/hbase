@@ -5829,7 +5829,6 @@ name|RegionCountSkewCostFunction
 extends|extends
 name|CostFunction
 block|{
-specifier|private
 specifier|static
 specifier|final
 name|String
@@ -5837,7 +5836,6 @@ name|REGION_COUNT_SKEW_COST_KEY
 init|=
 literal|"hbase.master.balancer.stochastic.regionCountCost"
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|float
