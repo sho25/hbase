@@ -6628,7 +6628,9 @@ name|checkNotNull
 argument_list|(
 name|pattern
 argument_list|,
-literal|"pattern is null. If you don't specify a pattern, use listTables(boolean) instead"
+literal|"pattern is null. If you don't specify a pattern, "
+operator|+
+literal|"use listTableDescriptors(boolean) instead"
 argument_list|)
 expr_stmt|;
 return|return
@@ -6672,7 +6674,7 @@ name|tableNames
 argument_list|,
 literal|"tableNames is null. If you don't specify tableNames, "
 operator|+
-literal|"use listTables(boolean) instead"
+literal|"use listTableDescriptors(boolean) instead"
 argument_list|)
 expr_stmt|;
 if|if

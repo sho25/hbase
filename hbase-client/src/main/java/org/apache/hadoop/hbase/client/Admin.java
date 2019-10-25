@@ -729,6 +729,19 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * List all userspace tables and whether or not include system tables.    *    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|TableDescriptor
+argument_list|>
+name|listTableDescriptors
+parameter_list|(
+name|boolean
+name|includeSysTables
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 comment|/**    * List all the userspace tables that match the given pattern.    *    * @param pattern The compiled regular expression to match against    * @return a list of TableDescriptors    * @throws IOException if a remote or network exception occurs    * @see #listTableDescriptors()    */
 specifier|default
 name|List
