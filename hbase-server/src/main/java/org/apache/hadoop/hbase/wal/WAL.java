@@ -248,7 +248,7 @@ name|WALActionsListener
 name|listener
 parameter_list|)
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p/>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
 name|byte
 index|[]
 index|[]
@@ -259,7 +259,7 @@ name|FailedLogCloseException
 throws|,
 name|IOException
 function_decl|;
-comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
+comment|/**    * Roll the log writer. That is, start writing log messages to a new file.    *    *<p/>    * The implementation is synchronized in order to make sure there's one rollWriter    * running at any given time.    *    * @param force    *          If true, force creation of a new writer even if no entries have    *          been written to the current writer    * @return If lots of logs, flush the returned regions so next time through we    *         can clean logs. Returns null if nothing to flush. Names are actual    *         region names as returned by {@link RegionInfo#getEncodedName()}    */
 name|byte
 index|[]
 index|[]
@@ -289,9 +289,25 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of edits to the WAL. The WAL is not flushed/sync'd after this transaction    * completes BUT on return this edit must have its region edit/sequence id assigned    * else it messes up our unification of mvcc and sequenceid.  On return<code>key</code> will    * have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    * sequence id that is after all currently appended edits.    * @param inMemstore Always true except for case where we are writing a compaction completion    * record into the WAL; in this case the entry is just so we can finish an unfinished compaction    * -- it is not an edit for memstore.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    * in it.    */
+comment|/**    * Append a set of data edits to the WAL. 'Data' here means that the content in the edits will    * also be added to memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendMarker(RegionInfo, WALKeyImpl, WALEdit, boolean)    */
 name|long
-name|append
+name|appendData
+parameter_list|(
+name|RegionInfo
+name|info
+parameter_list|,
+name|WALKeyImpl
+name|key
+parameter_list|,
+name|WALEdit
+name|edits
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Append a marker edit to the WAL. A marker could be a FlushDescriptor, a compaction marker, or    * region event marker. The difference here is that, a marker will not be added to memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @param closeRegion Whether this is a region close marker, i.e, the last wal edit for this    *          region on this region server. The WAL implementation should remove all the related    *          stuff, for example, the sequence id accounting.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendData(RegionInfo, WALKeyImpl, WALEdit)    */
+name|long
+name|appendMarker
 parameter_list|(
 name|RegionInfo
 name|info
@@ -303,12 +319,12 @@ name|WALEdit
 name|edits
 parameter_list|,
 name|boolean
-name|inMemstore
+name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * updates the seuence number of a specific store.    * depending on the flag: replaces current seq number if the given seq id is bigger,    * or even if it is lower than existing one    * @param encodedRegionName    * @param familyName    * @param sequenceid    * @param onlyIfGreater    */
+comment|/**    * updates the seuence number of a specific store.    * depending on the flag: replaces current seq number if the given seq id is bigger,    * or even if it is lower than existing one    */
 name|void
 name|updateStore
 parameter_list|(
@@ -327,14 +343,14 @@ name|boolean
 name|onlyIfGreater
 parameter_list|)
 function_decl|;
-comment|/**    * Sync what we have in the WAL.    * @throws IOException    */
+comment|/**    * Sync what we have in the WAL.    */
 name|void
 name|sync
 parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Sync the WAL if the txId was not already sync'd.    * @param txid Transaction id to sync to.    * @throws IOException    */
+comment|/**    * Sync the WAL if the txId was not already sync'd.    * @param txid Transaction id to sync to.    */
 name|void
 name|sync
 parameter_list|(

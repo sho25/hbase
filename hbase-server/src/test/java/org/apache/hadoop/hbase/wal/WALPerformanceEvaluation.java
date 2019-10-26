@@ -1464,15 +1464,13 @@ argument_list|)
 decl_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
 name|logkey
 argument_list|,
 name|walEdit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 if|if

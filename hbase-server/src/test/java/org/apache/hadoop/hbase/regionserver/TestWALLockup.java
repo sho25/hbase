@@ -1543,7 +1543,7 @@ expr_stmt|;
 comment|// This append provokes a WAL roll request
 name|dodgyWAL
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|region
 operator|.
@@ -1553,8 +1553,6 @@ argument_list|,
 name|key
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|boolean

@@ -161,18 +161,6 @@ name|org
 operator|.
 name|mockito
 operator|.
-name|ArgumentMatchers
-operator|.
-name|anyBoolean
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
 name|Mockito
 operator|.
 name|mock
@@ -7002,7 +6990,7 @@ literal|0
 argument_list|)
 argument_list|)
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|any
 argument_list|(
@@ -7024,9 +7012,6 @@ name|WALEdit
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// test for replay prepare flush
@@ -7129,7 +7114,7 @@ literal|0
 argument_list|)
 argument_list|)
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|any
 argument_list|(
@@ -7151,9 +7136,6 @@ name|WALEdit
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|secondaryRegion
@@ -7171,7 +7153,7 @@ literal|0
 argument_list|)
 argument_list|)
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|any
 argument_list|(
@@ -7193,9 +7175,6 @@ name|WALEdit
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}

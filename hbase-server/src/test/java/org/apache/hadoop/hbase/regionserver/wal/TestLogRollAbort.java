@@ -1453,7 +1453,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -1478,8 +1478,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|kvs
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

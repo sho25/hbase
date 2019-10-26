@@ -2745,15 +2745,13 @@ argument_list|)
 decl_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
 name|walKey
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|wal

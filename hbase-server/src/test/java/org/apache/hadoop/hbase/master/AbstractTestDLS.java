@@ -4118,7 +4118,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|curRegionInfo
 argument_list|,
@@ -4141,8 +4141,6 @@ name|mvcc
 argument_list|)
 argument_list|,
 name|e
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 if|if

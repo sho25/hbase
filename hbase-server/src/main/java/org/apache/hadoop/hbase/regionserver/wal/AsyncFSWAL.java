@@ -2318,7 +2318,7 @@ try|try
 block|{
 name|appended
 operator|=
-name|append
+name|appendEntry
 argument_list|(
 name|writer
 argument_list|,
@@ -3091,7 +3091,7 @@ return|;
 block|}
 annotation|@
 name|Override
-specifier|public
+specifier|protected
 name|long
 name|append
 parameter_list|(
@@ -3106,6 +3106,9 @@ name|edits
 parameter_list|,
 name|boolean
 name|inMemstore
+parameter_list|,
+name|boolean
+name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -3142,6 +3145,8 @@ argument_list|,
 name|edits
 argument_list|,
 name|inMemstore
+argument_list|,
+name|closeRegion
 argument_list|,
 name|waitingConsumePayloads
 argument_list|)

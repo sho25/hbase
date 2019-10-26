@@ -1017,7 +1017,7 @@ name|when
 argument_list|(
 name|log
 operator|.
-name|append
+name|appendMarker
 argument_list|(
 name|any
 argument_list|()
@@ -1183,7 +1183,7 @@ name|when
 argument_list|(
 name|log
 operator|.
-name|append
+name|appendMarker
 argument_list|(
 name|any
 argument_list|()
@@ -1314,7 +1314,7 @@ name|when
 argument_list|(
 name|log
 operator|.
-name|append
+name|appendMarker
 argument_list|(
 name|any
 argument_list|()
@@ -1449,7 +1449,7 @@ name|when
 argument_list|(
 name|log
 operator|.
-name|append
+name|appendMarker
 argument_list|(
 name|any
 argument_list|()

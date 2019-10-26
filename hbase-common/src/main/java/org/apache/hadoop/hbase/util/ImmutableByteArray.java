@@ -150,13 +150,13 @@ return|;
 block|}
 specifier|public
 name|String
-name|toStringUtf8
+name|toString
 parameter_list|()
 block|{
 return|return
 name|Bytes
 operator|.
-name|toString
+name|toStringBinary
 argument_list|(
 name|b
 argument_list|)

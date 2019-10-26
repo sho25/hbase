@@ -1861,7 +1861,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -1888,8 +1888,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -2208,7 +2206,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -2235,8 +2233,6 @@ argument_list|,
 operator|new
 name|WALEdit
 argument_list|()
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -2494,7 +2490,7 @@ expr_stmt|;
 block|}
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -2516,8 +2512,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// sync to fs.
@@ -3265,7 +3259,7 @@ name|txid
 operator|=
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -3288,8 +3282,6 @@ name|mvcc
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

@@ -1698,7 +1698,7 @@ argument_list|)
 decl_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|infos
 index|[
@@ -1708,8 +1708,6 @@ argument_list|,
 name|walKey
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|walKey
@@ -2174,7 +2172,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -2199,8 +2197,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|kvs
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2331,7 +2327,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -2356,8 +2352,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|kvs
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -2527,7 +2521,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -2552,8 +2546,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|kvs
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -3047,7 +3039,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -3072,8 +3064,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|kvs
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -3834,7 +3824,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -3862,8 +3852,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|cols
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -4344,7 +4332,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -4372,8 +4360,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|cols
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -4815,7 +4801,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -4840,8 +4826,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|cols
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}
@@ -4921,7 +4905,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -4946,8 +4930,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|cols
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log

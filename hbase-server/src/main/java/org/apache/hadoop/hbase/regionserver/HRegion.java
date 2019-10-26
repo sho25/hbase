@@ -38267,7 +38267,7 @@ name|this
 operator|.
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|this
 operator|.
@@ -38277,8 +38277,6 @@ argument_list|,
 name|walKey
 argument_list|,
 name|walEdit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 comment|// Call sync on our edit.

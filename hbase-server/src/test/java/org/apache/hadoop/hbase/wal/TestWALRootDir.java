@@ -696,7 +696,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -713,8 +713,6 @@ literal|0
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -801,7 +799,7 @@ name|txid
 operator|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|regionInfo
 argument_list|,
@@ -818,8 +816,6 @@ literal|1
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log

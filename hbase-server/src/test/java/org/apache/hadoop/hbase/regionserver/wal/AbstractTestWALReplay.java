@@ -5608,7 +5608,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -5630,8 +5630,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Delete the c family to verify deletes make it over.
@@ -5678,7 +5676,7 @@ argument_list|)
 expr_stmt|;
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -5700,8 +5698,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 comment|// Sync.
@@ -8045,6 +8041,8 @@ name|hri
 argument_list|,
 literal|true
 argument_list|,
+literal|false
+argument_list|,
 literal|null
 argument_list|)
 decl_stmt|;
@@ -8132,7 +8130,7 @@ control|)
 block|{
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -8157,8 +8155,6 @@ name|ee
 argument_list|,
 name|j
 argument_list|)
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 block|}

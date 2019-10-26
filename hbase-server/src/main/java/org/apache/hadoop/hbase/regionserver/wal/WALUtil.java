@@ -397,7 +397,7 @@ parameter_list|()
 block|{
 comment|// Shut down construction of this class.
 block|}
-comment|/**    * Write the marker that a compaction has succeeded and is about to be committed.    * This provides info to the HMaster to allow it to recover the compaction if this regionserver    * dies in the middle. It also prevents the compaction from finishing if this regionserver has    * already lost its lease on the log.    *    *<p>This write is for internal use only. Not for external client consumption.    * @param mvcc Used by WAL to get sequence Id for the waledit.    */
+comment|/**    * Write the marker that a compaction has succeeded and is about to be committed. This provides    * info to the HMaster to allow it to recover the compaction if this regionserver dies in the    * middle. It also prevents the compaction from finishing if this regionserver has already lost    * its lease on the log.    *<p/>    * This write is for internal use only. Not for external client consumption.    * @param mvcc Used by WAL to get sequence Id for the waledit.    */
 specifier|public
 specifier|static
 name|WALKeyImpl
@@ -448,6 +448,8 @@ argument_list|,
 name|c
 argument_list|)
 argument_list|,
+literal|false
+argument_list|,
 name|mvcc
 argument_list|,
 literal|null
@@ -480,7 +482,7 @@ return|return
 name|walKey
 return|;
 block|}
-comment|/**    * Write a flush marker indicating a start / abort or a complete of a region flush    *    *<p>This write is for internal use only. Not for external client consumption.    */
+comment|/**    * Write a flush marker indicating a start / abort or a complete of a region flush    *<p/>    * This write is for internal use only. Not for external client consumption.    */
 specifier|public
 specifier|static
 name|WALKeyImpl
@@ -517,7 +519,7 @@ block|{
 name|WALKeyImpl
 name|walKey
 init|=
-name|doFullAppendTransaction
+name|doFullMarkerAppendTransaction
 argument_list|(
 name|wal
 argument_list|,
@@ -533,6 +535,8 @@ name|hri
 argument_list|,
 name|f
 argument_list|)
+argument_list|,
+literal|false
 argument_list|,
 name|mvcc
 argument_list|,
@@ -568,7 +572,7 @@ return|return
 name|walKey
 return|;
 block|}
-comment|/**    * Write a region open marker indicating that the region is opened.    * This write is for internal use only. Not for external client consumption.    */
+comment|/**    * Write a region open marker indicating that the region is opened. This write is for internal use    * only. Not for external client consumption.    */
 specifier|public
 specifier|static
 name|WALKeyImpl
@@ -619,6 +623,17 @@ name|hri
 argument_list|,
 name|r
 argument_list|)
+argument_list|,
+name|r
+operator|.
+name|getEventType
+argument_list|()
+operator|==
+name|RegionEventDescriptor
+operator|.
+name|EventType
+operator|.
+name|REGION_CLOSE
 argument_list|,
 name|mvcc
 argument_list|,
@@ -709,6 +724,8 @@ argument_list|,
 name|desc
 argument_list|)
 argument_list|,
+literal|false
+argument_list|,
 name|mvcc
 argument_list|,
 literal|null
@@ -768,6 +785,9 @@ specifier|final
 name|WALEdit
 name|edit
 parameter_list|,
+name|boolean
+name|closeRegion
+parameter_list|,
 specifier|final
 name|MultiVersionConcurrencyControl
 name|mvcc
@@ -787,7 +807,7 @@ name|IOException
 block|{
 comment|// If sync == true in below, then timeout is not used; safe to pass UNSPECIFIED_TIMEOUT
 return|return
-name|doFullAppendTransaction
+name|doFullMarkerAppendTransaction
 argument_list|(
 name|wal
 argument_list|,
@@ -797,6 +817,8 @@ name|hri
 argument_list|,
 name|edit
 argument_list|,
+name|closeRegion
+argument_list|,
 name|mvcc
 argument_list|,
 name|extendedAttributes
@@ -805,11 +827,11 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * A 'full' WAL transaction involves starting an mvcc transaction followed by an append,    * an optional sync, and then a call to complete the mvcc transaction. This method does it all.    * Good for case of adding a single edit or marker to the WAL.    *    *<p>This write is for internal use only. Not for external client consumption.    * @return WALKeyImpl that was added to the WAL.    */
-specifier|public
+comment|/**    * A 'full' WAL transaction involves starting an mvcc transaction followed by an append, an    * optional sync, and then a call to complete the mvcc transaction. This method does it all. Good    * for case of adding a single edit or marker to the WAL.    *<p/>    * This write is for internal use only. Not for external client consumption.    * @return WALKeyImpl that was added to the WAL.    */
+specifier|private
 specifier|static
 name|WALKeyImpl
-name|doFullAppendTransaction
+name|doFullMarkerAppendTransaction
 parameter_list|(
 specifier|final
 name|WAL
@@ -832,6 +854,9 @@ parameter_list|,
 specifier|final
 name|WALEdit
 name|edit
+parameter_list|,
+name|boolean
+name|closeRegion
 parameter_list|,
 specifier|final
 name|MultiVersionConcurrencyControl
@@ -896,7 +921,7 @@ name|trx
 operator|=
 name|wal
 operator|.
-name|append
+name|appendMarker
 argument_list|(
 name|hri
 argument_list|,
@@ -904,7 +929,7 @@ name|walKey
 argument_list|,
 name|edit
 argument_list|,
-literal|false
+name|closeRegion
 argument_list|)
 expr_stmt|;
 if|if

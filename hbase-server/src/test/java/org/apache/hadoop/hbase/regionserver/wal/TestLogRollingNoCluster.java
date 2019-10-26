@@ -1109,7 +1109,7 @@ name|txid
 init|=
 name|wal
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|hri
 argument_list|,
@@ -1133,8 +1133,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|Threads

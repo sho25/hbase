@@ -1005,7 +1005,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1017,8 +1017,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|edit
@@ -1055,7 +1053,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1069,8 +1067,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log
@@ -1156,7 +1152,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1170,8 +1166,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|edit
@@ -1208,7 +1202,7 @@ argument_list|)
 expr_stmt|;
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1222,8 +1216,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log
@@ -1509,7 +1501,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1524,8 +1516,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -1593,7 +1583,7 @@ name|txid
 operator|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1608,8 +1598,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log
@@ -1942,7 +1930,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -1957,8 +1945,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -2013,7 +1999,7 @@ name|txid
 operator|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -2028,8 +2014,6 @@ name|scopes
 argument_list|)
 argument_list|,
 name|edit
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|log

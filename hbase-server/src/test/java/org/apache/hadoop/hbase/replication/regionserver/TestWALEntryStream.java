@@ -3659,7 +3659,7 @@ name|txid
 init|=
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -3687,8 +3687,6 @@ name|getWALEdit
 argument_list|(
 name|key
 argument_list|)
-argument_list|,
-literal|true
 argument_list|)
 decl_stmt|;
 name|log
@@ -3798,7 +3796,7 @@ block|{
 return|return
 name|log
 operator|.
-name|append
+name|appendData
 argument_list|(
 name|info
 argument_list|,
@@ -3826,8 +3824,6 @@ name|getWALEdits
 argument_list|(
 name|count
 argument_list|)
-argument_list|,
-literal|true
 argument_list|)
 return|;
 block|}
