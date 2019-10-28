@@ -2322,26 +2322,27 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The compaction type is "
+literal|"The compaction type is {}, the request has {} del files, {} selected files, and {} "
 operator|+
+literal|"irrelevant files table '{}' and column '{}'"
+argument_list|,
 name|request
 operator|.
 name|getCompactionType
 argument_list|()
-operator|+
-literal|", the request has "
-operator|+
+argument_list|,
 name|totalDelFiles
-operator|+
-literal|" del files, "
-operator|+
+argument_list|,
 name|selectedFileCount
-operator|+
-literal|" selected files, and "
-operator|+
+argument_list|,
 name|irrelevantFileCount
-operator|+
-literal|" irrelevant files"
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -2494,11 +2495,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"After merging, there are "
-operator|+
+literal|"After merging, there are {} del files. table='{}' column='{}'"
+argument_list|,
 name|totalDelFileCount
-operator|+
-literal|" del files"
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// compact the mob files by partitions.
@@ -2513,14 +2519,19 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"After compaction, there are "
-operator|+
+literal|"After compaction, there are {} mob files. table='{}' column='{}'"
+argument_list|,
 name|paths
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" mob files"
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2572,7 +2583,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"After a mob compaction with all files selected, archiving the del files "
+literal|"After a mob compaction with all files selected, archiving the del files for "
+operator|+
+literal|"table='{}' and column='{}'"
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 for|for
@@ -2637,11 +2657,25 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to archive the del files "
+literal|"Failed to archive the del files {} for partition {} table='{}' and "
 operator|+
+literal|"column='{}'"
+argument_list|,
 name|delPartition
 operator|.
 name|getStoreFiles
+argument_list|()
+argument_list|,
+name|delPartition
+operator|.
+name|getId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|,
 name|e
@@ -3105,7 +3139,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No partitions of mob files"
+literal|"No partitions of mob files in table='{}' and column='{}'"
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
@@ -3238,11 +3279,18 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Compacting mob files for partition "
-operator|+
+literal|"Compacting mob files for partition {} for table='{}' and column='{}'"
+argument_list|,
 name|partition
 operator|.
 name|getPartitionId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -3327,11 +3375,18 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Failed to compact the partition "
-operator|+
+literal|"Failed to compact the partition {} for table='{}' and column='{}'"
+argument_list|,
 name|result
 operator|.
 name|getKey
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|,
 name|e
@@ -3366,6 +3421,19 @@ argument_list|(
 literal|"Failed to compact the partitions "
 operator|+
 name|failedPartitions
+operator|+
+literal|" for table='"
+operator|+
+name|tableName
+operator|+
+literal|"' column='"
+operator|+
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
+operator|+
+literal|"'"
 argument_list|)
 throw|;
 block|}
@@ -3706,18 +3774,30 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Compaction is finished. The number of mob files is changed from "
+literal|"Compaction is finished. The number of mob files is changed from {} to {} for "
 operator|+
+literal|"partition={} for table='{}' and column='{}'"
+argument_list|,
 name|files
 operator|.
 name|size
 argument_list|()
-operator|+
-literal|" to "
-operator|+
+argument_list|,
 name|newFiles
 operator|.
 name|size
+argument_list|()
+argument_list|,
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -4192,6 +4272,25 @@ operator|=
 literal|true
 expr_stmt|;
 comment|// bulkload the ref file
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"start MOB ref bulkload for partition {} table='{}' column='{}'"
+argument_list|,
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|bulkloadRefFile
 argument_list|(
 name|table
@@ -4210,6 +4309,25 @@ expr_stmt|;
 name|cleanupCommittedMobFile
 operator|=
 literal|false
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"end MOB ref bulkload for partition {} table='{}' column='{}'"
+argument_list|,
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
 expr_stmt|;
 name|newFiles
 operator|.
@@ -4321,8 +4439,51 @@ condition|(
 name|cleanupCommittedMobFile
 condition|)
 block|{
-name|deletePath
+name|LOG
+operator|.
+name|error
 argument_list|(
+literal|"failed MOB ref bulkload for partition {} table='{}' column='{}'"
+argument_list|,
+name|partition
+operator|.
+name|getPartitionId
+argument_list|()
+argument_list|,
+name|tableName
+argument_list|,
+name|column
+operator|.
+name|getNameAsString
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|MobUtils
+operator|.
+name|removeMobFiles
+argument_list|(
+name|conf
+argument_list|,
+name|fs
+argument_list|,
+name|tableName
+argument_list|,
+name|mobTableDir
+argument_list|,
+name|column
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+name|Collections
+operator|.
+name|singletonList
+argument_list|(
+operator|new
+name|HStoreFile
+argument_list|(
+name|fs
+argument_list|,
 operator|new
 name|Path
 argument_list|(
@@ -4332,6 +4493,18 @@ name|filePath
 operator|.
 name|getName
 argument_list|()
+argument_list|)
+argument_list|,
+name|conf
+argument_list|,
+name|compactionCacheConfig
+argument_list|,
+name|BloomType
+operator|.
+name|NONE
+argument_list|,
+literal|true
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -5223,6 +5396,15 @@ name|Path
 name|path
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Cleanup, delete path '{}'"
+argument_list|,
+name|path
+argument_list|)
+expr_stmt|;
 try|try
 block|{
 if|if
