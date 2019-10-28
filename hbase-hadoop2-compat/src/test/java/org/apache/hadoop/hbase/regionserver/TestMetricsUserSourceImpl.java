@@ -183,6 +183,11 @@ name|class
 argument_list|)
 decl_stmt|;
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"SelfComparison"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void
