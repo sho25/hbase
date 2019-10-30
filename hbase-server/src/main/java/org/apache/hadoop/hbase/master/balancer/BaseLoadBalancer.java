@@ -860,6 +860,11 @@ decl_stmt|;
 comment|//serverIndex -> region list
 name|int
 index|[]
+name|serverIndexToRegionsOffset
+decl_stmt|;
+comment|//serverIndex -> offset of region list
+name|int
+index|[]
 index|[]
 name|regionsPerHost
 decl_stmt|;
@@ -1643,6 +1648,14 @@ name|numServers
 index|]
 index|[]
 expr_stmt|;
+name|serverIndexToRegionsOffset
+operator|=
+operator|new
+name|int
+index|[
+name|numServers
+index|]
+expr_stmt|;
 name|regionsPerHost
 operator|=
 operator|new
@@ -2000,7 +2013,10 @@ argument_list|)
 decl_stmt|;
 name|regionPerServerIndex
 operator|=
-literal|0
+name|serverIndexToRegionsOffset
+index|[
+name|serverIndex
+index|]
 expr_stmt|;
 name|int
 name|hostIndex
@@ -2091,6 +2107,13 @@ name|regionIndex
 operator|++
 expr_stmt|;
 block|}
+name|serverIndexToRegionsOffset
+index|[
+name|serverIndex
+index|]
+operator|=
+name|regionPerServerIndex
+expr_stmt|;
 block|}
 for|for
 control|(
