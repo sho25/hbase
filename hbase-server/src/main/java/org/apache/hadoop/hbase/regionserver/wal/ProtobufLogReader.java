@@ -2294,7 +2294,7 @@ else|else
 block|{
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
 literal|"Reached the end of file at position {}"
 argument_list|,
