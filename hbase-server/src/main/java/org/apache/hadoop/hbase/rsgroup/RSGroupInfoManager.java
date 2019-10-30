@@ -120,6 +120,7 @@ specifier|public
 interface|interface
 name|RSGroupInfoManager
 block|{
+specifier|public
 specifier|static
 specifier|final
 name|String
