@@ -279,9 +279,6 @@ name|edits
 parameter_list|,
 name|boolean
 name|inMemstore
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -317,8 +314,6 @@ argument_list|,
 name|edits
 argument_list|,
 name|inMemstore
-argument_list|,
-name|closeRegion
 argument_list|)
 return|;
 block|}

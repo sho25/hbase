@@ -2481,8 +2481,6 @@ operator|new
 name|LogRoller
 argument_list|(
 name|mockServices
-argument_list|,
-name|mockServices
 argument_list|)
 decl_stmt|;
 name|Threads

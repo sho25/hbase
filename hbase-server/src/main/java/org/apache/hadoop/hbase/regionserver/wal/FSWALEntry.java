@@ -284,7 +284,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A WAL Entry for {@link AbstractFSWAL} implementation.  Immutable.  * A subclass of {@link Entry} that carries extra info across the ring buffer such as  * region sequence id (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See #stampRegionSequenceId().  */
+comment|/**  * A WAL Entry for {@link AbstractFSWAL} implementation.  Immutable.  * A subclass of {@link Entry} that carries extra info across the ring buffer such as  * region sequenceid (we want to use this later, just before we write the WAL to ensure region  * edits maintain order).  The extra info added here is not 'serialized' as part of the WALEdit  * hence marked 'transient' to underline this fact.  It also adds mechanism so we can wait on  * the assign of the region sequence id.  See #stampRegionSequenceId().  */
 end_comment
 
 begin_class
@@ -305,12 +305,14 @@ specifier|transient
 name|long
 name|txid
 decl_stmt|;
+comment|/**    * If false, means this is a meta edit written by the hbase system itself. It was not in    * memstore. HBase uses these edit types to note in the log operational transitions such    * as compactions, flushes, or region open/closes.    */
 specifier|private
 specifier|final
 specifier|transient
 name|boolean
 name|inMemstore
 decl_stmt|;
+comment|/**    * Set if this is a meta edit and it is of close region type.    */
 specifier|private
 specifier|final
 specifier|transient
@@ -342,6 +344,7 @@ name|?
 argument_list|>
 name|rpcCall
 decl_stmt|;
+comment|/**    * @param inMemstore If true, then this is a data edit, one that came from client. If false, it    *   is a meta edit made by the hbase system itself and is for the WAL only.    */
 name|FSWALEntry
 parameter_list|(
 specifier|final
@@ -363,9 +366,6 @@ parameter_list|,
 specifier|final
 name|boolean
 name|inMemstore
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|,
 name|ServerCall
 argument_list|<
@@ -391,7 +391,13 @@ name|this
 operator|.
 name|closeRegion
 operator|=
-name|closeRegion
+operator|!
+name|inMemstore
+operator|&&
+name|edit
+operator|.
+name|isRegionCloseMarker
+argument_list|()
 expr_stmt|;
 name|this
 operator|.
@@ -450,10 +456,6 @@ name|familyNames
 operator|=
 name|Collections
 operator|.
-expr|<
-name|byte
-index|[]
-operator|>
 name|emptySet
 argument_list|()
 expr_stmt|;
@@ -541,15 +543,11 @@ block|{
 if|if
 condition|(
 operator|!
-name|CellUtil
-operator|.
-name|matchingFamily
-argument_list|(
-name|cell
-argument_list|,
 name|WALEdit
 operator|.
-name|METAFAMILY
+name|isMetaEditFamily
+argument_list|(
+name|cell
 argument_list|)
 condition|)
 block|{

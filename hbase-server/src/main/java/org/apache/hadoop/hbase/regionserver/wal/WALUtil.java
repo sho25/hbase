@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -448,8 +448,6 @@ argument_list|,
 name|c
 argument_list|)
 argument_list|,
-literal|false
-argument_list|,
 name|mvcc
 argument_list|,
 literal|null
@@ -536,8 +534,6 @@ argument_list|,
 name|f
 argument_list|)
 argument_list|,
-literal|false
-argument_list|,
 name|mvcc
 argument_list|,
 literal|null
@@ -593,11 +589,9 @@ parameter_list|,
 name|RegionInfo
 name|hri
 parameter_list|,
-specifier|final
 name|RegionEventDescriptor
 name|r
 parameter_list|,
-specifier|final
 name|MultiVersionConcurrencyControl
 name|mvcc
 parameter_list|)
@@ -623,17 +617,6 @@ name|hri
 argument_list|,
 name|r
 argument_list|)
-argument_list|,
-name|r
-operator|.
-name|getEventType
-argument_list|()
-operator|==
-name|RegionEventDescriptor
-operator|.
-name|EventType
-operator|.
-name|REGION_CLOSE
 argument_list|,
 name|mvcc
 argument_list|,
@@ -724,8 +707,6 @@ argument_list|,
 name|desc
 argument_list|)
 argument_list|,
-literal|false
-argument_list|,
 name|mvcc
 argument_list|,
 literal|null
@@ -785,9 +766,6 @@ specifier|final
 name|WALEdit
 name|edit
 parameter_list|,
-name|boolean
-name|closeRegion
-parameter_list|,
 specifier|final
 name|MultiVersionConcurrencyControl
 name|mvcc
@@ -816,8 +794,6 @@ argument_list|,
 name|hri
 argument_list|,
 name|edit
-argument_list|,
-name|closeRegion
 argument_list|,
 name|mvcc
 argument_list|,
@@ -854,9 +830,6 @@ parameter_list|,
 specifier|final
 name|WALEdit
 name|edit
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|,
 specifier|final
 name|MultiVersionConcurrencyControl
@@ -928,8 +901,6 @@ argument_list|,
 name|walKey
 argument_list|,
 name|edit
-argument_list|,
-name|closeRegion
 argument_list|)
 expr_stmt|;
 if|if

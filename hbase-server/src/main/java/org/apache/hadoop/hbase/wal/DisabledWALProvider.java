@@ -840,8 +840,6 @@ argument_list|,
 name|edits
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 return|;
 block|}
@@ -859,9 +857,6 @@ name|key
 parameter_list|,
 name|WALEdit
 name|edits
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -876,8 +871,6 @@ argument_list|,
 name|edits
 argument_list|,
 literal|false
-argument_list|,
-name|closeRegion
 argument_list|)
 return|;
 block|}
@@ -896,9 +889,6 @@ name|edits
 parameter_list|,
 name|boolean
 name|inMemstore
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException

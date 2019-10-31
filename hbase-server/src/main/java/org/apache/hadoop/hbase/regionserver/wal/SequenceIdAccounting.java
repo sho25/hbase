@@ -246,7 +246,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *<p>  * Accounting of sequence ids per region and then by column family. So we can our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance can  * keep abreast of the state of sequence id persistence. Also call update per append.  *</p>  *<p>  * For the implementation, we assume that all the {@code encodedRegionName} passed in is gotten by  * {@link org.apache.hadoop.hbase.client.RegionInfo#getEncodedNameAsBytes()}. So it is safe to use  * it as a hash key. And for family name, we use {@link ImmutableByteArray} as key. This is because  * hash based map is much faster than RBTree or CSLM and here we are on the critical write path. See  * HBASE-16278 for more details.  *</p>  */
+comment|/**  * Accounting of sequence ids per region and then by column family. So we can keep our accounting  * current, call startCacheFlush and then finishedCacheFlush or abortCacheFlush so this instance can  * keep abreast of the state of sequence id persistence. Also call update per append.  *<p>  * For the implementation, we assume that all the {@code encodedRegionName} passed in are gotten by  * {@link org.apache.hadoop.hbase.client.RegionInfo#getEncodedNameAsBytes()}. So it is safe to use  * it as a hash key. And for family name, we use {@link ImmutableByteArray} as key. This is because  * hash based map is much faster than RBTree or CSLM and here we are on the critical write path. See  * HBASE-16278 for more details.  *</p>  */
 end_comment
 
 begin_class
@@ -342,7 +342,7 @@ name|HashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|/**    * Returns the lowest unflushed sequence id for the region.    * @param encodedRegionName    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionName</code>. Will    * return {@link HConstants#NO_SEQNUM} when none.    */
+comment|/**    * Returns the lowest unflushed sequence id for the region.    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionName</code>. Will    * return {@link HConstants#NO_SEQNUM} when none.    */
 name|long
 name|getLowestSequenceId
 parameter_list|(
@@ -431,7 +431,7 @@ argument_list|)
 return|;
 block|}
 block|}
-comment|/**    * @param encodedRegionName    * @param familyName    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionname</code> and    *<code>familyName</code>. Returned sequenceid may be for an edit currently being    *         flushed.    */
+comment|/**    * @return Lowest outstanding unflushed sequenceid for<code>encodedRegionname</code> and    *<code>familyName</code>. Returned sequenceid may be for an edit currently being    *         flushed.    */
 name|long
 name|getLowestSequenceId
 parameter_list|(

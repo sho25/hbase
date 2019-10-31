@@ -1087,7 +1087,7 @@ name|getCells
 argument_list|()
 control|)
 block|{
-comment|// filtering WAL meta entries
+comment|// Filtering WAL meta marker entries.
 if|if
 condition|(
 name|WALEdit

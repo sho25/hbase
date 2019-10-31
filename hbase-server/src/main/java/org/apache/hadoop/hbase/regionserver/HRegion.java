@@ -9091,7 +9091,7 @@ literal|"Writing region close event to WAL"
 argument_list|)
 expr_stmt|;
 comment|// Always write close marker to wal even for read only table. This is not a big problem as we
-comment|// do not write any data into the region.
+comment|// do not write any data into the region; it is just a meta edit in the WAL file.
 if|if
 condition|(
 operator|!
@@ -13105,6 +13105,16 @@ operator|.
 name|info
 argument_list|(
 literal|"Flushing "
+operator|+
+name|this
+operator|.
+name|getRegionInfo
+argument_list|()
+operator|.
+name|getEncodedName
+argument_list|()
+operator|+
+literal|" "
 operator|+
 name|storesToFlush
 operator|.
@@ -23524,15 +23534,11 @@ comment|// Check this edit is for me. Also, guard against writing the special
 comment|// METACOLUMN info such as HBASE::CACHEFLUSH entries
 if|if
 condition|(
-name|CellUtil
-operator|.
-name|matchingFamily
-argument_list|(
-name|cell
-argument_list|,
 name|WALEdit
 operator|.
-name|METAFAMILY
+name|isMetaEditFamily
+argument_list|(
+name|cell
 argument_list|)
 condition|)
 block|{

@@ -85,18 +85,6 @@ name|mockito
 operator|.
 name|ArgumentMatchers
 operator|.
-name|anyBoolean
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|ArgumentMatchers
-operator|.
 name|anyLong
 import|;
 end_import
@@ -1043,9 +1031,6 @@ argument_list|,
 name|storeFileNames
 argument_list|)
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -1200,9 +1185,6 @@ operator|.
 name|BULK_LOAD
 argument_list|)
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -1331,9 +1313,6 @@ operator|.
 name|BULK_LOAD
 argument_list|)
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -1466,9 +1445,6 @@ operator|.
 name|BULK_LOAD
 argument_list|)
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.

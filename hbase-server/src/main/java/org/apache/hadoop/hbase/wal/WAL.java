@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -269,8 +269,6 @@ name|boolean
 name|force
 parameter_list|)
 throws|throws
-name|FailedLogCloseException
-throws|,
 name|IOException
 function_decl|;
 comment|/**    * Stop accepting new writes. If we have unsynced writes still in buffer, sync them.    * Extant edits are left in place in backing storage to be replayed later.    */
@@ -289,7 +287,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a set of data edits to the WAL. 'Data' here means that the content in the edits will    * also be added to memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendMarker(RegionInfo, WALKeyImpl, WALEdit, boolean)    */
+comment|/**    * Append a set of data edits to the WAL. 'Data' here means that the content in the edits will    * also have transitioned through the memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendMarker(RegionInfo, WALKeyImpl, WALEdit)    */
 name|long
 name|appendData
 parameter_list|(
@@ -305,7 +303,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Append a marker edit to the WAL. A marker could be a FlushDescriptor, a compaction marker, or    * region event marker. The difference here is that, a marker will not be added to memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @param closeRegion Whether this is a region close marker, i.e, the last wal edit for this    *          region on this region server. The WAL implementation should remove all the related    *          stuff, for example, the sequence id accounting.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendData(RegionInfo, WALKeyImpl, WALEdit)    */
+comment|/**    * Append an operational 'meta' event marker edit to the WAL. A marker meta edit could    * be a FlushDescriptor, a compaction marker, or a region event marker; e.g. region open    * or region close. The difference between a 'marker' append and a 'data' append as in    * {@link #appendData(RegionInfo, WALKeyImpl, WALEdit)}is that a marker will not have    * transitioned through the memstore.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    * @see #appendData(RegionInfo, WALKeyImpl, WALEdit)    */
 name|long
 name|appendMarker
 parameter_list|(
@@ -317,9 +315,6 @@ name|key
 parameter_list|,
 name|WALEdit
 name|edits
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException

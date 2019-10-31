@@ -1433,7 +1433,7 @@ specifier|final
 class|class
 name|WalProps
 block|{
-comment|/**      * Map the encoded region name to the highest sequence id. Contain all the regions it has      * entries of      */
+comment|/**      * Map the encoded region name to the highest sequence id.      *<p/>Contains all the regions it has an entry for.      */
 specifier|public
 specifier|final
 name|Map
@@ -3054,7 +3054,7 @@ operator|+
 literal|1
 return|;
 block|}
-comment|/**    * If the number of un-archived WAL files is greater than maximum allowed, check the first    * (oldest) WAL file, and returns those regions which should be flushed so that it can be    * archived.    * @return regions (encodedRegionNames) to flush in order to archive oldest WAL file.    */
+comment|/**    * If the number of un-archived WAL files ('live' WALs) is greater than maximum allowed,    * check the first (oldest) WAL, and return those regions which should be flushed so that    * it can be let-go/'archived'.    * @return regions (encodedRegionNames) to flush in order to archive oldest WAL file.    */
 name|byte
 index|[]
 index|[]
@@ -4642,7 +4642,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * updates the sequence number of a specific store. depending on the flag: replaces current seq    * number if the given seq id is bigger, or even if it is lower than existing one    * @param encodedRegionName    * @param familyName    * @param sequenceid    * @param onlyIfGreater    */
+comment|/**    * updates the sequence number of a specific store. depending on the flag: replaces current seq    * number if the given seq id is bigger, or even if it is lower than existing one    */
 annotation|@
 name|Override
 specifier|public
@@ -5317,9 +5317,6 @@ parameter_list|,
 name|boolean
 name|inMemstore
 parameter_list|,
-name|boolean
-name|closeRegion
-parameter_list|,
 name|RingBuffer
 argument_list|<
 name|RingBufferTruck
@@ -5469,8 +5466,6 @@ argument_list|,
 name|hri
 argument_list|,
 name|inMemstore
-argument_list|,
-name|closeRegion
 argument_list|,
 name|rpcCall
 argument_list|)
@@ -5643,8 +5638,6 @@ argument_list|,
 name|edits
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 return|;
 block|}
@@ -5662,9 +5655,6 @@ name|key
 parameter_list|,
 name|WALEdit
 name|edits
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException
@@ -5679,12 +5669,10 @@ argument_list|,
 name|edits
 argument_list|,
 literal|false
-argument_list|,
-name|closeRegion
 argument_list|)
 return|;
 block|}
-comment|/**    * Append a set of edits to the WAL.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    *<p/>    * NOTE: This append, at a time that is usually after this call returns, starts an mvcc    * transaction by calling 'begin' wherein which we assign this update a sequenceid. At assignment    * time, we stamp all the passed in Cells inside WALEdit with their sequenceId. You must    * 'complete' the transaction this mvcc transaction by calling    * MultiVersionConcurrencyControl#complete(...) or a variant otherwise mvcc will get stuck. Do it    * in the finally of a try/finally block within which this append lives and any subsequent    * operations like sync or update of memstore, etc. Get the WriteEntry to pass mvcc out of the    * passed in WALKey<code>walKey</code> parameter. Be warned that the WriteEntry is not    * immediately available on return from this method. It WILL be available subsequent to a sync of    * this append; otherwise, you will just have to wait on the WriteEntry to get filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @param inMemstore Always true except for case where we are writing a region event marker, for    *          example, a compaction completion record into the WAL; in this case the entry is just    *          so we can finish an unfinished compaction -- it is not an edit for memstore.    * @param closeRegion Whether this is a region close marker, i.e, the last wal edit for this    *          region on this region server. The WAL implementation should remove all the related    *          stuff, for example, the sequence id accounting.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    */
+comment|/**    * Append a set of edits to the WAL.    *<p/>    * The WAL is not flushed/sync'd after this transaction completes BUT on return this edit must    * have its region edit/sequence id assigned else it messes up our unification of mvcc and    * sequenceid. On return<code>key</code> will have the region edit/sequence id filled in.    *<p/>    * NOTE: This append, at a time that is usually after this call returns, starts an mvcc    * transaction by calling 'begin' wherein which we assign this update a sequenceid. At assignment    * time, we stamp all the passed in Cells inside WALEdit with their sequenceId. You must    * 'complete' the transaction this mvcc transaction by calling    * MultiVersionConcurrencyControl#complete(...) or a variant otherwise mvcc will get stuck. Do it    * in the finally of a try/finally block within which this append lives and any subsequent    * operations like sync or update of memstore, etc. Get the WriteEntry to pass mvcc out of the    * passed in WALKey<code>walKey</code> parameter. Be warned that the WriteEntry is not    * immediately available on return from this method. It WILL be available subsequent to a sync of    * this append; otherwise, you will just have to wait on the WriteEntry to get filled in.    * @param info the regioninfo associated with append    * @param key Modified by this call; we add to it this edits region edit/sequence id.    * @param edits Edits to append. MAY CONTAIN NO EDITS for case where we want to get an edit    *          sequence id that is after all currently appended edits.    * @param inMemstore Always true except for case where we are writing a region event meta    *          marker edit, for example, a compaction completion record into the WAL or noting a    *          Region Open event. In these cases the entry is just so we can finish an unfinished    *          compaction after a crash when the new Server reads the WAL on recovery, etc. These    *          transition event 'Markers' do not go via the memstore. When memstore is false,    *          we presume a Marker event edit.    * @return Returns a 'transaction id' and<code>key</code> will have the region edit/sequence id    *         in it.    */
 specifier|protected
 specifier|abstract
 name|long
@@ -5701,9 +5689,6 @@ name|edits
 parameter_list|,
 name|boolean
 name|inMemstore
-parameter_list|,
-name|boolean
-name|closeRegion
 parameter_list|)
 throws|throws
 name|IOException

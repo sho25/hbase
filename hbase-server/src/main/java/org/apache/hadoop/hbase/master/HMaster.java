@@ -18755,13 +18755,13 @@ expr_stmt|;
 block|}
 name|LOG
 operator|.
-name|info
+name|debug
 argument_list|(
+literal|"{} list replication peers, regex={}"
+argument_list|,
 name|getClientIdAuditPrefix
 argument_list|()
-operator|+
-literal|" list replication peers, regex="
-operator|+
+argument_list|,
 name|regex
 argument_list|)
 expr_stmt|;

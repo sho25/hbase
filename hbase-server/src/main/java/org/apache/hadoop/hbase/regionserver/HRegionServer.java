@@ -10907,8 +10907,6 @@ operator|new
 name|LogRoller
 argument_list|(
 name|this
-argument_list|,
-name|this
 argument_list|)
 expr_stmt|;
 name|this

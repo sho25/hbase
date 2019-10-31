@@ -185,18 +185,6 @@ name|mockito
 operator|.
 name|ArgumentMatchers
 operator|.
-name|anyBoolean
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|mockito
-operator|.
-name|ArgumentMatchers
-operator|.
 name|anyLong
 import|;
 end_import
@@ -41489,9 +41477,6 @@ name|editCaptor
 operator|.
 name|capture
 argument_list|()
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 expr_stmt|;
 name|WALEdit
@@ -42167,9 +42152,6 @@ name|WALEdit
 operator|.
 name|class
 argument_list|)
-argument_list|,
-name|anyBoolean
-argument_list|()
 argument_list|)
 argument_list|)
 operator|.
@@ -42492,9 +42474,6 @@ argument_list|,
 name|editCaptor
 operator|.
 name|capture
-argument_list|()
-argument_list|,
-name|anyBoolean
 argument_list|()
 argument_list|)
 expr_stmt|;

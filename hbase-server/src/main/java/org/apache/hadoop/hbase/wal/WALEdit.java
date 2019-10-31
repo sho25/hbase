@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -366,7 +366,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Used in HBase's transaction log (WAL) to represent a collection of edits (Cell/KeyValue objects)  * that came in as a single transaction. All the edits for a given transaction are written out as a  * single record, in PB format, followed (optionally) by Cells written via the WALCellEncoder.  *<p>This class is LimitedPrivate for CPs to read-only. The {@link #add} methods are  * classified as private methods, not for use by CPs.</p>  *<p>WALEdit will accumulate a Set of all column family names referenced by the Cells  * {@link #add(Cell)}'d. This is an optimization. Usually when loading a WALEdit, we have the  * column family name to-hand.. just shove it into the WALEdit if available. Doing this, we can  * save on a parse of each Cell to figure column family down the line when we go to add the  * WALEdit to the WAL file. See the hand-off in FSWALEntry Constructor.  */
+comment|/**  * Used in HBase's transaction log (WAL) to represent a collection of edits (Cell/KeyValue objects)  * that came in as a single transaction. All the edits for a given transaction are written out as a  * single record, in PB format, followed (optionally) by Cells written via the WALCellEncoder.  *<p>This class is LimitedPrivate for CPs to read-only. The {@link #add} methods are  * classified as private methods, not for use by CPs.</p>  *  *<p>A particular WALEdit 'type' is the 'meta' type used to mark key operational  * events in the WAL such as compaction, flush, or region open. These meta types do not traverse  * hbase memstores. They are edits made by the hbase system rather than edit data submitted by  * clients. They only show in the WAL. These 'Meta' types have not been formally specified  * (or made into an explicit class type). They evolved organically. HBASE-8457 suggests codifying  * a WALEdit 'type' by adding a type field to WALEdit that gets serialized into the WAL. TODO.  * Would have to work on the consumption-side. Reading WALs on replay we seem to consume  * a Cell-at-a-time rather than by WALEdit. We are already in the below going out of our  * way to figure particular types --  e.g. if a compaction, replay, or close meta Marker -- during  * normal processing so would make sense to do this. Current system is an awkward marking of Cell  * columnfamily as {@link #METAFAMILY} and then setting qualifier based off meta edit type. For  * replay-time where we read Cell-at-a-time, there are utility methods below for figuring  * meta type. See also  * {@link #createBulkLoadEvent(RegionInfo, WALProtos.BulkLoadDescriptor)}, etc., for where we  * create meta WALEdit instances.</p>  *  *<p>WALEdit will accumulate a Set of all column family names referenced by the Cells  * {@link #add(Cell)}'d. This is an optimization. Usually when loading a WALEdit, we have the  * column family name to-hand.. just shove it into the WALEdit if available. Doing this, we can  * save on a parse of each Cell to figure column family down the line when we go to add the  * WALEdit to the WAL file. See the hand-off in FSWALEntry Constructor.  * @see WALKey  */
 end_comment
 
 begin_comment
@@ -395,7 +395,9 @@ name|WALEdit
 implements|implements
 name|HeapSize
 block|{
-comment|// TODO: Get rid of this; see HBASE-8457
+comment|// Below defines are for writing WALEdit 'meta' Cells..
+comment|// TODO: Get rid of this system of special 'meta' Cells. See HBASE-8457. It suggests
+comment|// adding a type to WALEdit itself for use denoting meta Edits and their types.
 specifier|public
 specifier|static
 specifier|final
@@ -410,8 +412,9 @@ argument_list|(
 literal|"METAFAMILY"
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated Since 2.3.0. Not used.    */
 annotation|@
-name|VisibleForTesting
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -426,6 +429,9 @@ argument_list|(
 literal|"METAROW"
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated Since 2.3.0. Make it protected, internal-use only. Use    *   {@link #isCompactionMarker(Cell)}    */
+annotation|@
+name|Deprecated
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -442,6 +448,9 @@ argument_list|(
 literal|"HBASE::COMPACTION"
 argument_list|)
 decl_stmt|;
+comment|/**    * @deprecated Since 2.3.0. Make it protected, internal-use only.    */
+annotation|@
+name|Deprecated
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -458,8 +467,42 @@ argument_list|(
 literal|"HBASE::FLUSH"
 argument_list|)
 decl_stmt|;
+comment|/**    * Qualifier for region event meta 'Marker' WALEdits start with the    * {@link #REGION_EVENT_PREFIX} prefix ('HBASE::REGION_EVENT::'). After the prefix,    * we note the type of the event which we get from the RegionEventDescriptor protobuf    * instance type (A RegionEventDescriptor protobuf instance is written as the meta Marker    * Cell value). Adding a type suffix means we do not have to deserialize the protobuf to    * figure out what type of event this is.. .just read the qualifier suffix. For example,    * a close region event descriptor will have a qualifier of HBASE::REGION_EVENT::REGION_CLOSE.    * See WAL.proto and the EventType in RegionEventDescriptor protos for all possible    * event types.    */
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|REGION_EVENT_STR
+init|=
+literal|"HBASE::REGION_EVENT"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|REGION_EVENT_PREFIX_STR
+init|=
+name|REGION_EVENT_STR
+operator|+
+literal|"::"
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|REGION_EVENT_PREFIX
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|REGION_EVENT_PREFIX_STR
+argument_list|)
+decl_stmt|;
+comment|/**    * @deprecated Since 2.3.0. Remove. Not for external use. Not used.    */
 annotation|@
-name|VisibleForTesting
+name|Deprecated
 specifier|public
 specifier|static
 specifier|final
@@ -471,7 +514,24 @@ name|Bytes
 operator|.
 name|toBytes
 argument_list|(
-literal|"HBASE::REGION_EVENT"
+name|REGION_EVENT_STR
+argument_list|)
+decl_stmt|;
+comment|/**    * We use this define figuring if we are carrying a close event.    */
+specifier|private
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|REGION_EVENT_CLOSE
+init|=
+name|createRegionEventDescriptorQualifier
+argument_list|(
+name|RegionEventDescriptor
+operator|.
+name|EventType
+operator|.
+name|REGION_CLOSE
 argument_list|)
 decl_stmt|;
 annotation|@
@@ -492,6 +552,7 @@ argument_list|)
 decl_stmt|;
 specifier|private
 specifier|final
+specifier|transient
 name|boolean
 name|replay
 decl_stmt|;
@@ -501,10 +562,8 @@ argument_list|<
 name|Cell
 argument_list|>
 name|cells
-init|=
-literal|null
 decl_stmt|;
-comment|/**    * All the Cell families in<code>cells</code>. Updated by {@link #add(Cell)} and    * {@link #add(Map)}. This Set is passed to the FSWALEntry so it does not have    * to recalculate the Set of families in a transaction; makes for a bunch of CPU savings.    * An optimization that saves on CPU-expensive Cell-parsing.    */
+comment|/**    * All the Cell families in<code>cells</code>. Updated by {@link #add(Cell)} and    * {@link #add(Map)}. This Set is passed to the FSWALEntry so it does not have    * to recalculate the Set of families in a transaction; makes for a bunch of CPU savings.    */
 specifier|private
 name|Set
 argument_list|<
@@ -521,6 +580,8 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
+literal|1
+argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
@@ -532,14 +593,14 @@ specifier|public
 name|WALEdit
 parameter_list|(
 name|boolean
-name|isReplay
+name|replay
 parameter_list|)
 block|{
 name|this
 argument_list|(
 literal|1
 argument_list|,
-name|isReplay
+name|replay
 argument_list|)
 expr_stmt|;
 block|}
@@ -612,10 +673,7 @@ name|families
 operator|=
 operator|new
 name|TreeSet
-argument_list|<
-name|byte
-index|[]
-argument_list|>
+argument_list|<>
 argument_list|(
 name|Bytes
 operator|.
@@ -645,7 +703,9 @@ operator|.
 name|families
 return|;
 block|}
-comment|/**    * @return True is<code>f</code> is {@link #METAFAMILY}    */
+comment|/**    * @return True is<code>f</code> is {@link #METAFAMILY}    * @deprecated Since 2.3.0. Do not expose. Make protected.    */
+annotation|@
+name|Deprecated
 specifier|public
 specifier|static
 name|boolean
@@ -668,6 +728,7 @@ name|f
 argument_list|)
 return|;
 block|}
+comment|/**    * Replaying WALs can read Cell-at-a-time so need this method in those cases.    */
 specifier|public
 specifier|static
 name|boolean
@@ -688,35 +749,36 @@ name|METAFAMILY
 argument_list|)
 return|;
 block|}
+comment|/**    * @return True if this is a meta edit; has one edit only and its columnfamily    *   is {@link #METAFAMILY}.    */
 specifier|public
 name|boolean
 name|isMetaEdit
 parameter_list|()
 block|{
-for|for
-control|(
-name|Cell
-name|cell
-range|:
-name|cells
-control|)
-block|{
-if|if
-condition|(
-operator|!
-name|isMetaEditFamily
+return|return
+name|this
+operator|.
+name|families
+operator|!=
+literal|null
+operator|&&
+name|this
+operator|.
+name|families
+operator|.
+name|size
+argument_list|()
+operator|==
+literal|1
+operator|&&
+name|this
+operator|.
+name|families
+operator|.
+name|contains
 argument_list|(
-name|cell
+name|METAFAMILY
 argument_list|)
-condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-block|}
-return|return
-literal|true
 return|;
 block|}
 comment|/**    * @return True when current WALEdit is created by log replay. Replication skips WALEdits from    *         replay.    */
@@ -899,8 +961,6 @@ name|advance
 argument_list|()
 condition|)
 block|{
-name|cells
-operator|.
 name|add
 argument_list|(
 name|cellDecoder
@@ -1002,12 +1062,18 @@ operator|.
 name|append
 argument_list|(
 literal|"[#edits: "
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 name|cells
 operator|.
 name|size
 argument_list|()
-operator|+
+argument_list|)
+operator|.
+name|append
+argument_list|(
 literal|" =<"
 argument_list|)
 expr_stmt|;
@@ -1110,8 +1176,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|CellUtil
 operator|.
 name|matchingColumn
@@ -1122,9 +1187,7 @@ name|METAFAMILY
 argument_list|,
 name|FLUSH
 argument_list|)
-condition|)
-block|{
-return|return
+condition|?
 name|FlushDescriptor
 operator|.
 name|parseFrom
@@ -1136,12 +1199,11 @@ argument_list|(
 name|cell
 argument_list|)
 argument_list|)
-return|;
-block|}
-return|return
+else|:
 literal|null
 return|;
 block|}
+comment|/**    * @return A meta Marker WALEdit that has a single Cell whose value is the passed in    *<code>regionEventDesc</code> serialized and whose row is this region,    *   columnfamily is {@link #METAFAMILY} and qualifier is    *   {@link #REGION_EVENT_PREFIX} + {@link RegionEventDescriptor#getEventType()};    *   for example HBASE::REGION_EVENT::REGION_CLOSE.    */
 specifier|public
 specifier|static
 name|WALEdit
@@ -1154,20 +1216,50 @@ name|RegionEventDescriptor
 name|regionEventDesc
 parameter_list|)
 block|{
-name|KeyValue
-name|kv
-init|=
-operator|new
-name|KeyValue
+return|return
+name|createRegionEventWALEdit
 argument_list|(
 name|getRowForRegion
 argument_list|(
 name|hri
 argument_list|)
 argument_list|,
+name|regionEventDesc
+argument_list|)
+return|;
+block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|WALEdit
+name|createRegionEventWALEdit
+parameter_list|(
+name|byte
+index|[]
+name|rowForRegion
+parameter_list|,
+name|RegionEventDescriptor
+name|regionEventDesc
+parameter_list|)
+block|{
+name|KeyValue
+name|kv
+init|=
+operator|new
+name|KeyValue
+argument_list|(
+name|rowForRegion
+argument_list|,
 name|METAFAMILY
 argument_list|,
-name|REGION_EVENT
+name|createRegionEventDescriptorQualifier
+argument_list|(
+name|regionEventDesc
+operator|.
+name|getEventType
+argument_list|()
+argument_list|)
 argument_list|,
 name|EnvironmentEdgeManager
 operator|.
@@ -1193,6 +1285,69 @@ name|METAFAMILY
 argument_list|)
 return|;
 block|}
+comment|/**    * @return Cell qualifier for the passed in RegionEventDescriptor Type; e.g. we'll    *   return something like a byte array with HBASE::REGION_EVENT::REGION_OPEN in it.    */
+annotation|@
+name|VisibleForTesting
+specifier|public
+specifier|static
+name|byte
+index|[]
+name|createRegionEventDescriptorQualifier
+parameter_list|(
+name|RegionEventDescriptor
+operator|.
+name|EventType
+name|t
+parameter_list|)
+block|{
+return|return
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|REGION_EVENT_PREFIX_STR
+operator|+
+name|t
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+return|;
+block|}
+comment|/**    * Public so can be accessed from regionserver.wal package.    * @return True if this is a Marker Edit and it is a RegionClose type.    */
+specifier|public
+name|boolean
+name|isRegionCloseMarker
+parameter_list|()
+block|{
+return|return
+name|isMetaEdit
+argument_list|()
+operator|&&
+name|PrivateCellUtil
+operator|.
+name|matchingQualifier
+argument_list|(
+name|this
+operator|.
+name|cells
+operator|.
+name|get
+argument_list|(
+literal|0
+argument_list|)
+argument_list|,
+name|REGION_EVENT_CLOSE
+argument_list|,
+literal|0
+argument_list|,
+name|REGION_EVENT_CLOSE
+operator|.
+name|length
+argument_list|)
+return|;
+block|}
+comment|/**    * @return Returns a RegionEventDescriptor made by deserializing the content of the    *   passed in<code>cell</code>, IFF the<code>cell</code> is a RegionEventDescriptor    *   type WALEdit.    */
 specifier|public
 specifier|static
 name|RegionEventDescriptor
@@ -1204,21 +1359,18 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|CellUtil
 operator|.
-name|matchingColumn
+name|matchingColumnFamilyAndQualifierPrefix
 argument_list|(
 name|cell
 argument_list|,
 name|METAFAMILY
 argument_list|,
-name|REGION_EVENT
+name|REGION_EVENT_PREFIX
 argument_list|)
-condition|)
-block|{
-return|return
+condition|?
 name|RegionEventDescriptor
 operator|.
 name|parseFrom
@@ -1230,13 +1382,11 @@ argument_list|(
 name|cell
 argument_list|)
 argument_list|)
-return|;
-block|}
-return|return
+else|:
 literal|null
 return|;
 block|}
-comment|/**    * Create a compaction WALEdit    * @param c    * @return A WALEdit that has<code>c</code> serialized as its value    */
+comment|/**    * @return A Marker WALEdit that has<code>c</code> serialized as its value    */
 specifier|public
 specifier|static
 name|WALEdit
@@ -1352,15 +1502,12 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|isCompactionMarker
 argument_list|(
 name|kv
 argument_list|)
-condition|)
-block|{
-return|return
+condition|?
 name|CompactionDescriptor
 operator|.
 name|parseFrom
@@ -1372,9 +1519,7 @@ argument_list|(
 name|kv
 argument_list|)
 argument_list|)
-return|;
-block|}
-return|return
+else|:
 literal|null
 return|;
 block|}
@@ -1469,8 +1614,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
+return|return
 name|CellUtil
 operator|.
 name|matchingColumn
@@ -1481,9 +1625,7 @@ name|METAFAMILY
 argument_list|,
 name|BULK_LOAD
 argument_list|)
-condition|)
-block|{
-return|return
+condition|?
 name|WALProtos
 operator|.
 name|BulkLoadDescriptor
@@ -1497,13 +1639,11 @@ argument_list|(
 name|cell
 argument_list|)
 argument_list|)
-return|;
-block|}
-return|return
+else|:
 literal|null
 return|;
 block|}
-comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * This does not write to the WAL itself.    * Note that as an optimization, we will stamp the Set of column families into the WALEdit    * to save on our having to calculate it subsequently way down in the actual WAL writing.    *    * @param familyMap map of family->edits    */
+comment|/**    * Append the given map of family->edits to a WALEdit data structure.    * This does not write to the WAL itself.    * Note that as an optimization, we will stamp the Set of column families into the WALEdit    * to save on our having to calculate column families subsequently down in the actual WAL    * writing.    *    * @param familyMap map of family->edits    */
 specifier|public
 name|void
 name|add

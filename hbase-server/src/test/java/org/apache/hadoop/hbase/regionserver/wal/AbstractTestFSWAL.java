@@ -3272,8 +3272,6 @@ argument_list|,
 name|edits
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|region
@@ -3659,8 +3657,6 @@ argument_list|,
 name|cols
 argument_list|,
 literal|true
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 name|fail
