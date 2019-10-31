@@ -372,6 +372,20 @@ name|Exception
 name|cause
 parameter_list|)
 function_decl|;
+comment|/**    * End the replication    * @param reason why it's terminating    * @param cause the error that's causing it    * @param clearMetrics removes all metrics about this Source    */
+name|void
+name|terminate
+parameter_list|(
+name|String
+name|reason
+parameter_list|,
+name|Exception
+name|cause
+parameter_list|,
+name|boolean
+name|clearMetrics
+parameter_list|)
+function_decl|;
 comment|/**    * Get the current log that's replicated    * @return the current log    */
 name|Path
 name|getCurrentPath
