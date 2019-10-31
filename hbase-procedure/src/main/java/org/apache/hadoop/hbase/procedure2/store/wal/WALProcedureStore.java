@@ -2088,19 +2088,14 @@ expr_stmt|;
 continue|continue;
 block|}
 comment|// Create new state-log
-name|long
-name|newFlushLogId
-init|=
-name|flushLogId
-operator|+
-literal|1
-decl_stmt|;
 if|if
 condition|(
 operator|!
 name|rollWriter
 argument_list|(
-name|newFlushLogId
+name|flushLogId
+operator|+
+literal|1
 argument_list|)
 condition|)
 block|{
@@ -2111,7 +2106,7 @@ name|debug
 argument_list|(
 literal|"Someone else has already created log {}. Retrying."
 argument_list|,
-name|newFlushLogId
+name|flushLogId
 argument_list|)
 expr_stmt|;
 continue|continue;
@@ -5018,19 +5013,14 @@ literal|false
 return|;
 block|}
 comment|// Create new state-log
-name|long
-name|newFlushLogId
-init|=
-name|flushLogId
-operator|+
-literal|1
-decl_stmt|;
 if|if
 condition|(
 operator|!
 name|rollWriter
 argument_list|(
-name|newFlushLogId
+name|flushLogId
+operator|+
+literal|1
 argument_list|)
 condition|)
 block|{
@@ -5040,7 +5030,7 @@ name|warn
 argument_list|(
 literal|"someone else has already created log {}"
 argument_list|,
-name|newFlushLogId
+name|flushLogId
 argument_list|)
 expr_stmt|;
 return|return
@@ -5334,13 +5324,10 @@ argument_list|,
 name|ioe
 argument_list|)
 expr_stmt|;
-comment|// Close and delete the incomplete file
-name|closeAndDeleteIncompleteFile
-argument_list|(
 name|newStream
-argument_list|,
-name|newLogFile
-argument_list|)
+operator|.
+name|close
+argument_list|()
 expr_stmt|;
 return|return
 literal|false
@@ -5616,105 +5603,6 @@ name|stream
 operator|=
 literal|null
 expr_stmt|;
-block|}
-specifier|private
-name|void
-name|closeAndDeleteIncompleteFile
-parameter_list|(
-name|FSDataOutputStream
-name|newStream
-parameter_list|,
-name|Path
-name|newLogFile
-parameter_list|)
-block|{
-comment|// Close the FS
-try|try
-block|{
-name|newStream
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Exception occured while closing the file {}"
-argument_list|,
-name|newLogFile
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-comment|// Delete the incomplete file
-try|try
-block|{
-if|if
-condition|(
-operator|!
-name|fs
-operator|.
-name|delete
-argument_list|(
-name|newLogFile
-argument_list|,
-literal|false
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed to delete the log file {}, increasing the log id by 1 for the next roll attempt"
-argument_list|,
-name|newLogFile
-argument_list|)
-expr_stmt|;
-name|flushLogId
-operator|++
-expr_stmt|;
-block|}
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Exception occured while deleting the file {}"
-argument_list|,
-name|newLogFile
-argument_list|,
-name|e
-argument_list|)
-expr_stmt|;
-name|flushLogId
-operator|++
-expr_stmt|;
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Increased the log id to {}"
-argument_list|,
-name|flushLogId
-argument_list|)
-expr_stmt|;
-block|}
 block|}
 comment|// ==========================================================================
 comment|//  Log Files cleaner helpers
