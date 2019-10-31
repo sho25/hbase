@@ -3477,17 +3477,6 @@ expr_stmt|;
 block|}
 if|if
 condition|(
-name|clearMetrics
-condition|)
-block|{
-name|metrics
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
-block|}
-if|if
-condition|(
 name|join
 condition|)
 block|{
