@@ -2963,12 +2963,6 @@ operator|.
 name|updateReadFailures
 argument_list|(
 name|region
-operator|==
-literal|null
-condition|?
-literal|"NULL"
-else|:
-name|region
 operator|.
 name|getRegionNameAsString
 argument_list|()
