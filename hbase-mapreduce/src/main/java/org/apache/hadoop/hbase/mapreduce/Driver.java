@@ -59,6 +59,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|mob
+operator|.
+name|mapreduce
+operator|.
+name|MobRefReporter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|snapshot
 operator|.
 name|ExportSnapshot
@@ -320,6 +338,23 @@ argument_list|,
 literal|"Export"
 operator|+
 literal|" the specific snapshot to a given FileSystem."
+argument_list|)
+expr_stmt|;
+name|pgd
+operator|.
+name|addClass
+argument_list|(
+name|MobRefReporter
+operator|.
+name|NAME
+argument_list|,
+name|MobRefReporter
+operator|.
+name|class
+argument_list|,
+literal|"Check the mob cells in a particular "
+operator|+
+literal|"table and cf and confirm that the files they point to are correct."
 argument_list|)
 expr_stmt|;
 name|ProgramDriver

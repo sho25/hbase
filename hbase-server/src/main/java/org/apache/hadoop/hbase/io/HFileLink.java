@@ -1986,6 +1986,7 @@ name|linkName
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|Pair
 argument_list|<
