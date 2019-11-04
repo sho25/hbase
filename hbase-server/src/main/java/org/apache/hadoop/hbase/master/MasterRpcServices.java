@@ -41,6 +41,16 @@ name|java
 operator|.
 name|io
 operator|.
+name|FileNotFoundException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|io
+operator|.
 name|IOException
 import|;
 end_import
@@ -20079,6 +20089,8 @@ name|splitDir
 else|:
 name|logDir
 decl_stmt|;
+try|try
+block|{
 return|return
 name|master
 operator|.
@@ -20096,6 +20108,31 @@ name|length
 operator|>
 literal|0
 return|;
+block|}
+catch|catch
+parameter_list|(
+name|FileNotFoundException
+name|fnfe
+parameter_list|)
+block|{
+comment|// If no files, then we don't contain metas; was failing schedule of
+comment|// SCP because this was FNFE'ing when no server dirs ('Unknown Server').
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"No dir for WALs for {}; continuing"
+argument_list|,
+name|serverName
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
+return|return
+literal|false
+return|;
+block|}
 block|}
 specifier|private
 name|boolean

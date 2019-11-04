@@ -626,6 +626,23 @@ name|procId
 operator|+
 literal|" in the node"
 assert|;
+if|if
+condition|(
+name|node
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|NullPointerException
+argument_list|(
+literal|"pid="
+operator|+
+name|procId
+argument_list|)
+throw|;
+block|}
 name|node
 operator|.
 name|insertOrUpdate
