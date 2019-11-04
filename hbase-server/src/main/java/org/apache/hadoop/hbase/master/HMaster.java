@@ -3935,6 +3935,12 @@ name|regionsRecoveryChore
 init|=
 literal|null
 decl_stmt|;
+specifier|private
+name|RegionsRecoveryConfigManager
+name|regionsRecoveryConfigManager
+init|=
+literal|null
+decl_stmt|;
 comment|// it is assigned after 'initialized' guard set to true, so should be volatile
 specifier|private
 specifier|volatile
@@ -7188,6 +7194,15 @@ operator|.
 name|logCleaner
 argument_list|)
 expr_stmt|;
+name|configurationManager
+operator|.
+name|registerObserver
+argument_list|(
+name|this
+operator|.
+name|regionsRecoveryConfigManager
+argument_list|)
+expr_stmt|;
 comment|// Set master as 'initialized'.
 name|setInitialized
 argument_list|(
@@ -8668,6 +8683,16 @@ name|STORE_FILE_REF_COUNT_THRESHOLD
 argument_list|)
 expr_stmt|;
 block|}
+name|this
+operator|.
+name|regionsRecoveryConfigManager
+operator|=
+operator|new
+name|RegionsRecoveryConfigManager
+argument_list|(
+name|this
+argument_list|)
+expr_stmt|;
 name|replicationBarrierCleaner
 operator|=
 operator|new

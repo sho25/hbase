@@ -3769,6 +3769,25 @@ init|=
 operator|-
 literal|1
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGIONS_RECOVERY_INTERVAL
+init|=
+literal|"hbase.master.regions.recovery.check.interval"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_REGIONS_RECOVERY_INTERVAL
+init|=
+literal|1200
+operator|*
+literal|1000
+decl_stmt|;
+comment|// Default 20 min
 comment|/**    * Configurations for master executor services.    */
 specifier|public
 specifier|static
