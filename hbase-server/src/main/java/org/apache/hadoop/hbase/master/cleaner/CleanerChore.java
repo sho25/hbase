@@ -883,7 +883,7 @@ condition|)
 block|{
 name|LOG
 operator|.
-name|debug
+name|info
 argument_list|(
 literal|"Initialize cleaner={}"
 argument_list|,
