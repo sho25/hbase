@@ -367,7 +367,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|AfterClass
+name|After
 import|;
 end_import
 
@@ -377,7 +377,7 @@ name|org
 operator|.
 name|junit
 operator|.
-name|BeforeClass
+name|Before
 import|;
 end_import
 
@@ -415,11 +415,42 @@ name|Category
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runner
+operator|.
+name|RunWith
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runners
+operator|.
+name|Parameterized
+import|;
+end_import
+
 begin_comment
 comment|/**  * Testcase for HBASE-22819  */
 end_comment
 
 begin_class
+annotation|@
+name|RunWith
+argument_list|(
+name|Parameterized
+operator|.
+name|class
+argument_list|)
 annotation|@
 name|Category
 argument_list|(
@@ -480,9 +511,8 @@ literal|"family"
 argument_list|)
 decl_stmt|;
 annotation|@
-name|BeforeClass
+name|Before
 specifier|public
-specifier|static
 name|void
 name|setUp
 parameter_list|()
@@ -546,9 +576,8 @@ expr_stmt|;
 block|}
 block|}
 annotation|@
-name|AfterClass
+name|After
 specifier|public
-specifier|static
 name|void
 name|tearDown
 parameter_list|()
@@ -627,12 +656,12 @@ if|if
 condition|(
 name|element
 operator|.
-name|getClassName
+name|getMethodName
 argument_list|()
 operator|.
-name|contains
+name|equals
 argument_list|(
-literal|"RSGroupInfoManagerImpl"
+literal|"migrate"
 argument_list|)
 condition|)
 block|{
@@ -677,13 +706,19 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+name|setAdmin
+argument_list|()
+expr_stmt|;
 name|String
 name|groupName
 init|=
+name|getNameWithoutIndex
+argument_list|(
 name|name
 operator|.
 name|getMethodName
 argument_list|()
+argument_list|)
 decl_stmt|;
 name|addGroup
 argument_list|(
@@ -708,7 +743,7 @@ name|rsGroupInfo
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -855,17 +890,6 @@ operator|.
 name|invalidateConnection
 argument_list|()
 expr_stmt|;
-name|RS_GROUP_ADMIN_CLIENT
-operator|=
-operator|new
-name|RSGroupAdminClient
-argument_list|(
-name|TEST_UTIL
-operator|.
-name|getConnection
-argument_list|()
-argument_list|)
-expr_stmt|;
 comment|// wait until we can get the rs group info for a table
 name|TEST_UTIL
 operator|.
@@ -880,7 +904,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfoOfTable
+name|getRSGroup
 argument_list|(
 name|TableName
 operator|.
@@ -930,7 +954,7 @@ name|info
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfoOfTable
+name|getRSGroup
 argument_list|(
 name|TableName
 operator|.
@@ -1218,7 +1242,7 @@ name|info
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfoOfTable
+name|getRSGroup
 argument_list|(
 name|TableName
 operator|.

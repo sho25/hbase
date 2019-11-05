@@ -19282,6 +19282,10 @@ argument_list|()
 decl_stmt|;
 if|if
 condition|(
+name|plugins
+operator|==
+literal|null
+operator|||
 operator|!
 name|plugins
 operator|.

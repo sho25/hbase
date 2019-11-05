@@ -178,6 +178,7 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+specifier|public
 specifier|final
 class|class
 name|RSGroupUtil
@@ -202,6 +203,7 @@ name|RSGroupUtil
 parameter_list|()
 block|{   }
 comment|/**    * Will try to get the rsgroup from {@link TableDescriptor} first, and then try to get the rsgroup    * from the {@link NamespaceDescriptor}. If still not present, return empty.    */
+specifier|public
 specifier|static
 name|Optional
 argument_list|<
@@ -436,6 +438,7 @@ name|SuppressWarnings
 argument_list|(
 literal|"deprecation"
 argument_list|)
+specifier|public
 specifier|static
 name|RSGroupInfo
 name|fillTables

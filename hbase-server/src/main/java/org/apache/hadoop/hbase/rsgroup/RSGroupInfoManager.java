@@ -152,11 +152,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Move servers to a new group.    * @param servers list of servers, must be part of the same group    * @param srcGroup groupName being moved from    * @param dstGroup groupName being moved to    * @return Set of servers moved (May be a subset of {@code servers}).    */
-name|Set
-argument_list|<
-name|Address
-argument_list|>
+comment|/**    * Move servers to a new group.    */
+name|void
 name|moveServers
 parameter_list|(
 name|Set
@@ -166,10 +163,7 @@ argument_list|>
 name|servers
 parameter_list|,
 name|String
-name|srcGroup
-parameter_list|,
-name|String
-name|dstGroup
+name|targetGroupName
 parameter_list|)
 throws|throws
 name|IOException
@@ -222,9 +216,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Get {@code RSGroupInfo} for the given table.    * @deprecated Since 3.0.0, will be removed in 4.0.0. Only for compatibility, where we upgrade    *             from a version that stores table names for a rs group in the {@code RSGroupInfo}.    */
-annotation|@
-name|Deprecated
+comment|/**    * Get {@code RSGroupInfo} for the given table.    */
 name|RSGroupInfo
 name|getRSGroupForTable
 parameter_list|(
@@ -282,6 +274,32 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|/**    * Balance a region server group.    */
+name|boolean
+name|balanceRSGroup
+parameter_list|(
+name|String
+name|groupName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Set group for tables.    */
+name|void
+name|setRSGroup
+parameter_list|(
+name|Set
+argument_list|<
+name|TableName
+argument_list|>
+name|tables
+parameter_list|,
+name|String
+name|groupName
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

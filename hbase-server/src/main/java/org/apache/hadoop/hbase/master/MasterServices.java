@@ -573,6 +573,22 @@ name|org
 operator|.
 name|apache
 operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|LoadBalancerTracker
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
 name|yetus
 operator|.
 name|audience
@@ -1312,6 +1328,11 @@ function_decl|;
 comment|/**    * @return the {@link RSGroupInfoManager}    */
 name|RSGroupInfoManager
 name|getRSGroupInfoManager
+parameter_list|()
+function_decl|;
+comment|/**    * Queries the state of the {@link LoadBalancerTracker}. If the balancer is not initialized,    * false is returned.    *    * @return The state of the load balancer, or false if the load balancer isn't defined.    */
+name|boolean
+name|isBalancerOn
 parameter_list|()
 function_decl|;
 block|}

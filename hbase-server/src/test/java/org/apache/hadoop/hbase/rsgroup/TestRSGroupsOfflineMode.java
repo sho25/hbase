@@ -436,6 +436,8 @@ argument_list|)
 specifier|public
 class|class
 name|TestRSGroupsOfflineMode
+extends|extends
+name|TestRSGroupsBase
 block|{
 annotation|@
 name|ClassRule
@@ -741,10 +743,13 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
+name|getNameWithoutIndex
+argument_list|(
 name|name
 operator|.
 name|getMethodName
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|TEST_UTIL
@@ -1017,7 +1022,7 @@ expr_stmt|;
 comment|// Move table to group and wait.
 name|groupAdmin
 operator|.
-name|moveTables
+name|setRSGroup
 argument_list|(
 name|Sets
 operator|.

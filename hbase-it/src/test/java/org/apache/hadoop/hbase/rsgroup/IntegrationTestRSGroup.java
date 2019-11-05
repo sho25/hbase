@@ -427,7 +427,7 @@ comment|//is after starting a server
 return|return
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -487,7 +487,7 @@ comment|//is after starting a server
 return|return
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.

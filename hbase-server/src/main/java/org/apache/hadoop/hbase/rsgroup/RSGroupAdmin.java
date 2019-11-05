@@ -57,6 +57,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|client
+operator|.
+name|Admin
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|net
 operator|.
 name|Address
@@ -78,10 +94,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Group user API interface used between client and server.  */
+comment|/**  * Group user API interface used between client and server.  *  * @deprecated Keep it here only for tests, using {@link Admin} instead.  */
 end_comment
 
 begin_interface
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

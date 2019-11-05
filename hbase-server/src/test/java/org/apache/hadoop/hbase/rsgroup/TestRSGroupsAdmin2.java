@@ -27,24 +27,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|rsgroup
-operator|.
-name|RSGroupAdminServer
-operator|.
-name|DEFAULT_MAX_RETRY_VALUE
-import|;
-end_import
-
-begin_import
-import|import static
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|util
 operator|.
 name|Threads
@@ -497,6 +479,30 @@ begin_import
 import|import
 name|org
 operator|.
+name|junit
+operator|.
+name|runner
+operator|.
+name|RunWith
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runners
+operator|.
+name|Parameterized
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -558,6 +564,13 @@ import|;
 end_import
 
 begin_class
+annotation|@
+name|RunWith
+argument_list|(
+name|Parameterized
+operator|.
+name|class
+argument_list|)
 annotation|@
 name|Category
 argument_list|(
@@ -912,7 +925,7 @@ decl_stmt|;
 comment|// move target server to group
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1167,7 +1180,7 @@ name|dInfo
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -1235,7 +1248,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|appInfo
 operator|.
@@ -1259,7 +1272,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|adminInfo
 operator|.
@@ -1326,7 +1339,7 @@ name|barGroup
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"bar"
 argument_list|)
@@ -1336,7 +1349,7 @@ name|fooGroup
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -1372,7 +1385,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1455,7 +1468,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|barGroup
 operator|.
@@ -1472,7 +1485,7 @@ name|barGroup
 operator|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"bar"
 argument_list|)
@@ -1481,7 +1494,7 @@ name|fooGroup
 operator|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -1528,7 +1541,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|fooGroup
 operator|.
@@ -1570,7 +1583,7 @@ argument_list|()
 operator|==
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -1591,7 +1604,7 @@ name|fooGroup
 operator|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -1640,7 +1653,7 @@ literal|null
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|barGroup
 operator|.
@@ -1679,7 +1692,7 @@ literal|null
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|fooGroup
 operator|.
@@ -1752,7 +1765,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|removeServers
+name|removeRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1946,7 +1959,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|removeServers
+name|removeRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -2118,7 +2131,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|removeServers
+name|removeRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -2139,7 +2152,7 @@ name|newGroupServers
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|newGroup
 operator|.
@@ -2360,7 +2373,7 @@ operator|&&
 operator|!
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"master"
 argument_list|)
@@ -2398,7 +2411,7 @@ name|oldDefaultGroupServerSize
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2416,7 +2429,7 @@ name|oldDefaultGroupTableSize
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2434,7 +2447,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServersAndTables
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -2448,6 +2461,16 @@ literal|"foo:9999"
 argument_list|)
 argument_list|)
 argument_list|,
+name|newGroup
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|rsGroupAdmin
+operator|.
+name|setRSGroup
+argument_list|(
 name|Sets
 operator|.
 name|newHashSet
@@ -2513,7 +2536,7 @@ block|}
 comment|// test move when src = dst
 name|rsGroupAdmin
 operator|.
-name|moveServersAndTables
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -2525,6 +2548,15 @@ name|getAddress
 argument_list|()
 argument_list|)
 argument_list|,
+name|RSGroupInfo
+operator|.
+name|DEFAULT_GROUP
+argument_list|)
+expr_stmt|;
+name|rsGroupAdmin
+operator|.
+name|setRSGroup
+argument_list|(
 name|Sets
 operator|.
 name|newHashSet
@@ -2546,7 +2578,7 @@ name|oldDefaultGroupServerSize
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2568,7 +2600,7 @@ name|oldDefaultGroupTableSize
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2591,7 +2623,7 @@ literal|1
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|newGroup
 operator|.
@@ -2614,7 +2646,7 @@ literal|0
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|newGroup
 operator|.
@@ -2802,7 +2834,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServersAndTables
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -2814,6 +2846,16 @@ name|getAddress
 argument_list|()
 argument_list|)
 argument_list|,
+name|newGroup
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|rsGroupAdmin
+operator|.
+name|setRSGroup
+argument_list|(
 name|Sets
 operator|.
 name|newHashSet
@@ -2839,7 +2881,7 @@ argument_list|()
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfoOfTable
+name|getRSGroup
 argument_list|(
 name|tableName
 argument_list|)
@@ -2857,7 +2899,7 @@ name|defaultServers
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2889,7 +2931,7 @@ name|newGroupServers
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|newGroup
 operator|.
@@ -2922,7 +2964,7 @@ name|defaultTables
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -2951,7 +2993,7 @@ name|newGroupTables
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|newGroup
 operator|.
@@ -2974,20 +3016,20 @@ argument_list|)
 expr_stmt|;
 comment|// verify that all region still assgin on targetServer
 comment|// TODO: uncomment after we reimplement moveServersAndTables, now the implementation is
-comment|// moveServers first and then moveTables, so the region will be moved to other region servers.
+comment|// moveToRSGroup first and then moveTables, so the region will be moved to other region servers.
 comment|// Assert.assertEquals(5, getTableServerRegionMap().get(tableName).get(targetServer).size());
 name|assertTrue
 argument_list|(
 name|observer
 operator|.
-name|preMoveServersAndTables
+name|preMoveServersCalled
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
 name|observer
 operator|.
-name|postMoveServersAndTables
+name|postMoveServersCalled
 argument_list|)
 expr_stmt|;
 block|}
@@ -3013,7 +3055,7 @@ name|fooGroup
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -3036,7 +3078,7 @@ name|defaultGroup
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -3048,7 +3090,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|defaultGroup
 operator|.
@@ -3063,7 +3105,7 @@ argument_list|)
 expr_stmt|;
 name|fail
 argument_list|(
-name|RSGroupAdminServer
+name|RSGroupInfoManagerImpl
 operator|.
 name|KEEP_ONE_SERVER_IN_DEFAULT_ERROR_MESSAGE
 argument_list|)
@@ -3084,7 +3126,7 @@ argument_list|()
 operator|.
 name|contains
 argument_list|(
-name|RSGroupAdminServer
+name|RSGroupInfoManagerImpl
 operator|.
 name|KEEP_ONE_SERVER_IN_DEFAULT_ERROR_MESSAGE
 argument_list|)
@@ -3137,7 +3179,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -3157,7 +3199,7 @@ name|fooGroup
 operator|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -3178,7 +3220,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|fooGroup
 operator|.
@@ -3220,7 +3262,7 @@ argument_list|()
 operator|==
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -3241,7 +3283,7 @@ name|fooGroup
 operator|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 literal|"foo"
 argument_list|)
@@ -3290,7 +3332,7 @@ literal|null
 argument_list|,
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|fooGroup
 operator|.
@@ -3333,7 +3375,7 @@ name|newGroup
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -3431,7 +3473,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -3612,6 +3654,8 @@ argument_list|()
 operator|-
 name|current
 operator|<=
+name|RSGroupInfoManagerImpl
+operator|.
 name|DEFAULT_MAX_RETRY_VALUE
 operator|*
 literal|1000
@@ -4176,7 +4220,7 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
-comment|// This UT calls moveServers() twice to test the idempotency of it.
+comment|// This UT calls moveToRSGroup() twice to test the idempotency of it.
 comment|// The first time, movement fails because a region is made in SPLITTING state
 comment|// which will not be moved.
 comment|// The second time, the region state is OPEN and check if all
@@ -4245,7 +4289,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -4371,7 +4415,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -4567,7 +4611,7 @@ try|try
 block|{
 name|rsGroupAdmin
 operator|.
-name|moveServersAndTables
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -4579,6 +4623,16 @@ name|getAddress
 argument_list|()
 argument_list|)
 argument_list|,
+name|newGroup
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|rsGroupAdmin
+operator|.
+name|setRSGroup
+argument_list|(
 name|Sets
 operator|.
 name|newHashSet
@@ -4701,7 +4755,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServersAndTables
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -4713,6 +4767,16 @@ name|getAddress
 argument_list|()
 argument_list|)
 argument_list|,
+name|newGroup
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+name|rsGroupAdmin
+operator|.
+name|setRSGroup
+argument_list|(
 name|Sets
 operator|.
 name|newHashSet

@@ -343,7 +343,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|LargeTests
+name|MediumTests
 import|;
 end_import
 
@@ -473,6 +473,30 @@ begin_import
 import|import
 name|org
 operator|.
+name|junit
+operator|.
+name|runner
+operator|.
+name|RunWith
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
+name|runners
+operator|.
+name|Parameterized
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -513,10 +537,17 @@ end_import
 
 begin_class
 annotation|@
+name|RunWith
+argument_list|(
+name|Parameterized
+operator|.
+name|class
+argument_list|)
+annotation|@
 name|Category
 argument_list|(
 block|{
-name|LargeTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -644,10 +675,13 @@ name|tablePrefix
 operator|+
 literal|"_ns"
 argument_list|,
+name|getNameWithoutIndex
+argument_list|(
 name|name
 operator|.
 name|getMethodName
 argument_list|()
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|admin
@@ -914,7 +948,7 @@ name|add
 argument_list|(
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|RSGroupInfo
 operator|.
@@ -933,7 +967,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|newServers
 argument_list|,
@@ -1131,7 +1165,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveTables
+name|setRSGroup
 argument_list|(
 name|toAddTables
 argument_list|,
@@ -1142,7 +1176,7 @@ name|assertTrue
 argument_list|(
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -1174,7 +1208,7 @@ name|servers
 init|=
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -1419,7 +1453,7 @@ name|addr
 range|:
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -1638,7 +1672,7 @@ argument_list|)
 decl_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveServers
+name|moveToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1714,7 +1748,7 @@ argument_list|)
 expr_stmt|;
 name|rsGroupAdmin
 operator|.
-name|moveTables
+name|setRSGroup
 argument_list|(
 name|toAddTables
 argument_list|,
@@ -1725,7 +1759,7 @@ name|assertTrue
 argument_list|(
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
@@ -1739,6 +1773,15 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|waitTableAvailable
+argument_list|(
+name|tableName
+argument_list|,
+literal|30000
 argument_list|)
 expr_stmt|;
 comment|// restart the regionserver in meta_group, and lower its version
@@ -1765,7 +1808,7 @@ name|addr
 range|:
 name|rsGroupAdmin
 operator|.
-name|getRSGroupInfo
+name|getRSGroup
 argument_list|(
 name|groupName
 argument_list|)
