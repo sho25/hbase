@@ -487,8 +487,6 @@ condition|(
 name|i
 operator|>=
 name|numPartitions
-operator|-
-literal|1
 condition|)
 block|{
 comment|// cover if we have less reduces then regions.
