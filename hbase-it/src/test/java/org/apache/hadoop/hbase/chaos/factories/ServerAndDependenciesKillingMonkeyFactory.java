@@ -484,11 +484,11 @@ name|getProperty
 argument_list|(
 name|MonkeyConstants
 operator|.
-name|ROLLING_BATCH_RESTART_RS_SLEEP_TIME
+name|ROLLING_BATCH_SUSPEND_RS_SLEEP_TIME
 argument_list|,
 name|MonkeyConstants
 operator|.
-name|DEFAULT_ROLLING_BATCH_RESTART_RS_SLEEP_TIME
+name|DEFAULT_ROLLING_BATCH_SUSPEND_RS_SLEEP_TIME
 operator|+
 literal|""
 argument_list|)
@@ -508,11 +508,11 @@ name|getProperty
 argument_list|(
 name|MonkeyConstants
 operator|.
-name|ROLLING_BATCH_RESTART_RS_RATIO
+name|ROLLING_BATCH_SUSPEND_RS_RATIO
 argument_list|,
 name|MonkeyConstants
 operator|.
-name|DEFAULT_ROLLING_BATCH_RESTART_RS_RATIO
+name|DEFAULT_ROLLING_BATCH_SUSPEND_RS_RATIO
 operator|+
 literal|""
 argument_list|)
