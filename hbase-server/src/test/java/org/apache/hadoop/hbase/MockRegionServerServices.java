@@ -429,7 +429,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|Leases
+name|LeaseManager
 import|;
 end_import
 
@@ -1320,8 +1320,8 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Leases
-name|getLeases
+name|LeaseManager
+name|getLeaseManager
 parameter_list|()
 block|{
 return|return

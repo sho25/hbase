@@ -4291,13 +4291,11 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"hbase.rootdir="
-operator|+
-name|getRootDir
+literal|"hbase.rootdir={}, hbase.cluster.distributed={}"
+argument_list|,
+name|getDataRootDir
 argument_list|()
-operator|+
-literal|", hbase.cluster.distributed="
-operator|+
+argument_list|,
 name|this
 operator|.
 name|conf
@@ -18201,7 +18199,8 @@ name|requestMobCompaction
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|getFileSystem
+argument_list|()
 argument_list|,
 name|tableName
 argument_list|,

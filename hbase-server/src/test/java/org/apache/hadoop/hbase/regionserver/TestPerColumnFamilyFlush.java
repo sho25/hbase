@@ -3225,7 +3225,8 @@ operator|.
 name|getSecond
 argument_list|()
 operator|.
-name|walRoller
+name|getWalRoller
+argument_list|()
 operator|.
 name|requestRollAll
 argument_list|()

@@ -613,7 +613,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|HRegionServer
+name|MultiVersionConcurrencyControl
 import|;
 end_import
 
@@ -629,7 +629,7 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
-name|MultiVersionConcurrencyControl
+name|RegionServerServices
 import|;
 end_import
 
@@ -1935,7 +1935,7 @@ argument_list|()
 operator|.
 name|map
 argument_list|(
-name|HRegionServer
+name|RegionServerServices
 operator|::
 name|getReplicationSourceService
 argument_list|)
@@ -3863,7 +3863,7 @@ argument_list|)
 operator|.
 name|map
 argument_list|(
-name|HRegionServer
+name|RegionServerServices
 operator|::
 name|getReplicationSourceService
 argument_list|)

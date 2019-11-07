@@ -204,8 +204,7 @@ name|getChoreService
 parameter_list|()
 function_decl|;
 comment|/**    * @return Return the FileSystem object used (can return null!).    */
-comment|// TODO: On Master, return Master's. On RegionServer, return RegionServers. The FileSystems
-comment|// may differ. TODO.
+comment|// TODO: Distinguish between "dataFs" and "walFs".
 specifier|default
 name|FileSystem
 name|getFileSystem

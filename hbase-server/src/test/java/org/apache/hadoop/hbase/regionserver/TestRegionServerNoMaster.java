@@ -928,7 +928,8 @@ argument_list|)
 operator|&&
 name|hrs
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 operator|.
 name|containsKey
 argument_list|(

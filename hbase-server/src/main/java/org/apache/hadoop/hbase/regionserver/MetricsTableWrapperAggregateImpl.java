@@ -278,7 +278,8 @@ name|period
 operator|=
 name|regionServer
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 operator|.
 name|getLong
 argument_list|(

@@ -235,16 +235,6 @@ name|java
 operator|.
 name|util
 operator|.
-name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
 name|List
 import|;
 end_import
@@ -1310,22 +1300,6 @@ operator|.
 name|ipc
 operator|.
 name|RpcClient
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ipc
-operator|.
-name|RpcControllerFactory
 import|;
 end_import
 
@@ -2551,16 +2525,6 @@ end_import
 
 begin_import
 import|import
-name|sun
-operator|.
-name|misc
-operator|.
-name|SignalHandler
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -3478,15 +3442,6 @@ name|LastSequenceId
 implements|,
 name|ConfigurationObserver
 block|{
-comment|// Time to pause if master says 'please hold'. Make configurable if needed.
-specifier|private
-specifier|static
-specifier|final
-name|int
-name|INIT_PAUSE_TIME_MS
-init|=
-literal|1000
-decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -3529,10 +3484,8 @@ name|TEST_SKIP_REPORTING_TRANSITION
 init|=
 literal|false
 decl_stmt|;
-comment|//RegionName vs current action in progress
-comment|//true - if open region action in progress
-comment|//false - if close region action in progress
-specifier|protected
+comment|/**    * A map from RegionName to current action in progress. Boolean value indicates:    * true - if open region action in progress    * false - if close region action in progress    */
+specifier|private
 specifier|final
 name|ConcurrentMap
 argument_list|<
@@ -3596,12 +3549,11 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-comment|// Cache flushing
-specifier|protected
+specifier|private
 name|MemStoreFlusher
 name|cacheFlusher
 decl_stmt|;
-specifier|protected
+specifier|private
 name|HeapMemoryManager
 name|hMemManager
 decl_stmt|;
@@ -3616,11 +3568,11 @@ name|TableDescriptors
 name|tableDescriptors
 decl_stmt|;
 comment|// Replication services. If no replication, this handler will be null.
-specifier|protected
+specifier|private
 name|ReplicationSourceService
 name|replicationSourceHandler
 decl_stmt|;
-specifier|protected
+specifier|private
 name|ReplicationSinkService
 name|replicationSinkHandler
 decl_stmt|;
@@ -3630,7 +3582,7 @@ name|CompactSplit
 name|compactSplitThread
 decl_stmt|;
 comment|/**    * Map of regions currently being served by this region server. Key is the    * encoded region name.  All access should be synchronized.    */
-specifier|protected
+specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -3645,8 +3597,18 @@ name|ConcurrentHashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
+comment|/**    * Lock for gating access to {@link #onlineRegions}.    * TODO: If this map is gated by a lock, does it need to be a ConcurrentHashMap?    */
+specifier|private
+specifier|final
+name|ReentrantReadWriteLock
+name|onlineRegionsLock
+init|=
+operator|new
+name|ReentrantReadWriteLock
+argument_list|()
+decl_stmt|;
 comment|/**    * Map of encoded region names to the DataNode locations they should be hosted on    * We store the value as InetSocketAddress since this is used only in HDFS    * API (create() that takes favored nodes as hints for placing file blocks).    * We could have used ServerName here as the value class, but we'd need to    * convert it to InetSocketAddress at some point before the HDFS API call, and    * it seems a bit weird to store ServerName since ServerName refers to RegionServers    * and here we really mean DataNode locations.    */
-specifier|protected
+specifier|private
 specifier|final
 name|Map
 argument_list|<
@@ -3662,27 +3624,25 @@ name|ConcurrentHashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-comment|// Leases
-specifier|protected
-name|Leases
-name|leases
+specifier|private
+name|LeaseManager
+name|leaseManager
 decl_stmt|;
 comment|// Instance of the hbase executor executorService.
 specifier|protected
 name|ExecutorService
 name|executorService
 decl_stmt|;
-comment|// If false, the file system has become unavailable
-specifier|protected
+specifier|private
 specifier|volatile
 name|boolean
-name|fsOk
+name|dataFsOk
 decl_stmt|;
-specifier|protected
+specifier|private
 name|HFileSystem
-name|fs
+name|dataFs
 decl_stmt|;
-specifier|protected
+specifier|private
 name|HFileSystem
 name|walFs
 decl_stmt|;
@@ -3703,7 +3663,6 @@ specifier|volatile
 name|boolean
 name|abortRequested
 decl_stmt|;
-specifier|public
 specifier|static
 specifier|final
 name|String
@@ -3721,26 +3680,12 @@ init|=
 literal|1200000
 decl_stmt|;
 comment|// Will run this task when abort timeout
-specifier|public
 specifier|static
 specifier|final
 name|String
 name|ABORT_TIMEOUT_TASK
 init|=
 literal|"hbase.regionserver.abort.timeout.task"
-decl_stmt|;
-name|ConcurrentMap
-argument_list|<
-name|String
-argument_list|,
-name|Integer
-argument_list|>
-name|rowlocks
-init|=
-operator|new
-name|ConcurrentHashMap
-argument_list|<>
-argument_list|()
 decl_stmt|;
 comment|// A state before we go into stopped state.  At this stage we're closing user
 comment|// space regions.
@@ -3750,6 +3695,7 @@ name|stopping
 init|=
 literal|false
 decl_stmt|;
+specifier|private
 specifier|volatile
 name|boolean
 name|killed
@@ -3770,31 +3716,17 @@ name|conf
 decl_stmt|;
 specifier|private
 name|Path
-name|rootDir
+name|dataRootDir
 decl_stmt|;
 specifier|private
 name|Path
 name|walRootDir
 decl_stmt|;
-specifier|protected
-specifier|final
-name|ReentrantReadWriteLock
-name|lock
-init|=
-operator|new
-name|ReentrantReadWriteLock
-argument_list|()
-decl_stmt|;
-specifier|final
-name|int
-name|numRetries
-decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|int
 name|threadWakeFrequency
 decl_stmt|;
-specifier|protected
 specifier|final
 name|int
 name|msgInterval
@@ -3825,11 +3757,6 @@ specifier|final
 name|int
 name|flushCheckFrequency
 decl_stmt|;
-specifier|protected
-specifier|final
-name|int
-name|numRegionsToReport
-decl_stmt|;
 comment|// Stub to do region server status calls against the master.
 specifier|private
 specifier|volatile
@@ -3846,12 +3773,9 @@ name|BlockingInterface
 name|lockStub
 decl_stmt|;
 comment|// RPC client. Used to make the stub above that does region server status checking.
+specifier|private
 name|RpcClient
 name|rpcClient
-decl_stmt|;
-specifier|private
-name|RpcControllerFactory
-name|rpcControllerFactory
 decl_stmt|;
 specifier|private
 name|UncaughtExceptionHandler
@@ -3877,11 +3801,9 @@ name|REGIONSERVER
 init|=
 literal|"regionserver"
 decl_stmt|;
+specifier|private
 name|MetricsRegionServer
 name|metricsRegionServer
-decl_stmt|;
-name|MetricsTable
-name|metricsTable
 decl_stmt|;
 specifier|private
 name|SpanReceiverHost
@@ -3892,22 +3814,22 @@ specifier|private
 name|ChoreService
 name|choreService
 decl_stmt|;
-comment|/*    * Check for compactions requests.    */
+comment|/**    * Check for compactions requests.    */
+specifier|private
 name|ScheduledChore
 name|compactionChecker
 decl_stmt|;
-comment|/*    * Check for flushes    */
+comment|/**    * Check for flushes    */
+specifier|private
 name|ScheduledChore
 name|periodicFlusher
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|volatile
 name|WALFactory
 name|walFactory
 decl_stmt|;
-comment|// WAL roller. log is protected rather than private to avoid
-comment|// eclipse warning when accessed by inner classes
-specifier|protected
+specifier|private
 name|LogRoller
 name|walRoller
 decl_stmt|;
@@ -3955,11 +3877,6 @@ specifier|protected
 specifier|final
 name|Sleeper
 name|sleeper
-decl_stmt|;
-specifier|private
-specifier|final
-name|int
-name|operationTimeout
 decl_stmt|;
 specifier|private
 specifier|final
@@ -4016,12 +3933,12 @@ operator|.
 name|newHashMap
 argument_list|()
 decl_stmt|;
-comment|/**    * The server name the Master sees us as.  Its made from the hostname the    * master passes us, port, and server startcode. Gets set after registration    * against  Master.    */
+comment|/**    * The server name the Master sees us as.  Its made from the hostname the    * master passes us, port, and server startcode. Gets set after registration    * against Master.    */
 specifier|protected
 name|ServerName
 name|serverName
 decl_stmt|;
-comment|/*    * hostname specified by hostname config    */
+comment|/**    * hostname specified by hostname config    */
 specifier|protected
 name|String
 name|useThisHostnameInstead
@@ -4062,8 +3979,16 @@ name|MASTER_HOSTNAME_KEY
 init|=
 literal|"hbase.master.hostname"
 decl_stmt|;
-comment|// HBASE-18226: This config and hbase.regionserver.hostname are mutually exclusive.
-comment|// Exception will be thrown if both are used.
+comment|/**    * HBASE-18226: This config and hbase.regionserver.hostname are mutually exclusive.    * Exception will be thrown if both are used.    */
+annotation|@
+name|InterfaceAudience
+operator|.
+name|LimitedPrivate
+argument_list|(
+name|HBaseInterfaceAudience
+operator|.
+name|CONFIG
+argument_list|)
 specifier|final
 specifier|static
 name|String
@@ -4122,7 +4047,7 @@ specifier|final
 name|RSRpcServices
 name|rpcServices
 decl_stmt|;
-specifier|protected
+specifier|private
 name|CoordinatedStateManager
 name|csm
 decl_stmt|;
@@ -4142,11 +4067,11 @@ specifier|volatile
 name|ThroughputController
 name|flushThroughputController
 decl_stmt|;
-specifier|protected
+specifier|private
 name|SecureBulkLoadManager
 name|secureBulkLoadManager
 decl_stmt|;
-specifier|protected
+specifier|private
 name|FileSystemUtilizationChore
 name|fsUtilizationChore
 decl_stmt|;
@@ -4155,12 +4080,13 @@ specifier|final
 name|NettyEventLoopGroupConfig
 name|eventLoopGroupConfig
 decl_stmt|;
-comment|/**    * True if this RegionServer is coming up in a cluster where there is no Master;    * means it needs to just come up and make do without a Master to talk to: e.g. in test or    * HRegionServer is doing other than its usual duties: e.g. as an hollowed-out host whose only    * purpose is as a Replication-stream sink; see HBASE-18846 for more.    */
+comment|/**    * True if this RegionServer is coming up in a cluster where there is no Master;    * means it needs to just come up and make do without a Master to talk to: e.g. in test or    * HRegionServer is doing other than its usual duties: e.g. as an hollowed-out host whose only    * purpose is as a Replication-stream sink; see HBASE-18846 for more.    * TODO: can this replace {@link #TEST_SKIP_REPORTING_TRANSITION} ?    */
 specifier|private
 specifier|final
 name|boolean
 name|masterless
 decl_stmt|;
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -4169,7 +4095,7 @@ init|=
 literal|"hbase.masterless"
 decl_stmt|;
 comment|/**regionserver codec list **/
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|String
@@ -4182,12 +4108,11 @@ specifier|private
 name|Timer
 name|abortMonitor
 decl_stmt|;
-comment|/**    * Starts a HRegionServer at the default location    */
-comment|// Don't start any services or managers in here in the Constructor.
-comment|// Defer till after we register with the Master as much as possible. See #startServices.
+comment|/**    * Starts a HRegionServer at the default location.    *<p/>    * Don't start any services or managers in here in the Constructor.    * Defer till after we register with the Master as much as possible. See {@link #startServices}.    */
 specifier|public
 name|HRegionServer
 parameter_list|(
+specifier|final
 name|Configuration
 name|conf
 parameter_list|)
@@ -4226,7 +4151,7 @@ name|conf
 expr_stmt|;
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 operator|=
 literal|true
 expr_stmt|;
@@ -4314,25 +4239,6 @@ literal|false
 argument_list|)
 expr_stmt|;
 comment|// Config'ed params
-name|this
-operator|.
-name|numRetries
-operator|=
-name|this
-operator|.
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_CLIENT_RETRIES_NUMBER
-argument_list|)
-expr_stmt|;
 name|this
 operator|.
 name|threadWakeFrequency
@@ -4441,36 +4347,6 @@ literal|null
 expr_stmt|;
 name|this
 operator|.
-name|numRegionsToReport
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-literal|"hbase.regionserver.numregionstoreport"
-argument_list|,
-literal|10
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|operationTimeout
-operator|=
-name|conf
-operator|.
-name|getInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_OPERATION_TIMEOUT
-argument_list|,
-name|HConstants
-operator|.
-name|DEFAULT_HBASE_CLIENT_OPERATION_TIMEOUT
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|shortOperationTimeout
 operator|=
 name|conf
@@ -4553,17 +4429,6 @@ argument_list|,
 name|this
 operator|.
 name|startcode
-argument_list|)
-expr_stmt|;
-name|rpcControllerFactory
-operator|=
-name|RpcControllerFactory
-operator|.
-name|instantiate
-argument_list|(
-name|this
-operator|.
-name|conf
 argument_list|)
 expr_stmt|;
 comment|// login the zookeeper client principal (if using security)
@@ -4653,23 +4518,12 @@ expr_stmt|;
 block|}
 name|uncaughtExceptionHandler
 operator|=
-operator|new
-name|UncaughtExceptionHandler
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|uncaughtException
 parameter_list|(
-name|Thread
 name|t
 parameter_list|,
-name|Throwable
 name|e
 parameter_list|)
-block|{
+lambda|->
 name|abort
 argument_list|(
 literal|"Uncaught exception in executorService thread "
@@ -4681,9 +4535,6 @@ argument_list|()
 argument_list|,
 name|e
 argument_list|)
-expr_stmt|;
-block|}
-block|}
 expr_stmt|;
 name|initializeFileSystem
 argument_list|()
@@ -5032,19 +4883,8 @@ argument_list|(
 literal|"HUP"
 argument_list|)
 argument_list|,
-operator|new
-name|SignalHandler
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|handle
-parameter_list|(
-name|Signal
 name|signal
-parameter_list|)
+lambda|->
 block|{
 name|conf
 operator|.
@@ -5058,7 +4898,6 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 argument_list|)
 expr_stmt|;
@@ -5214,7 +5053,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|fs
+name|dataFs
 operator|=
 operator|new
 name|HFileSystem
@@ -5228,7 +5067,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|rootDir
+name|dataRootDir
 operator|=
 name|FSUtils
 operator|.
@@ -5247,7 +5086,7 @@ name|getFsTableDescriptors
 argument_list|()
 expr_stmt|;
 block|}
-specifier|protected
+specifier|private
 name|TableDescriptors
 name|getFsTableDescriptors
 parameter_list|()
@@ -5264,11 +5103,11 @@ name|conf
 argument_list|,
 name|this
 operator|.
-name|fs
+name|dataFs
 argument_list|,
 name|this
 operator|.
-name|rootDir
+name|dataRootDir
 argument_list|,
 operator|!
 name|canUpdateTableDescriptor
@@ -5948,7 +5787,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Utilty method to wait indefinitely on a znode availability while checking    * if the region server is shut down    * @param tracker znode tracker to use    * @throws IOException any IO exception, plus if the RS is stopped    * @throws InterruptedException    */
+comment|/**    * Utilty method to wait indefinitely on a znode availability while checking    * if the region server is shut down    * @param tracker znode tracker to use    * @throws IOException any IO exception, plus if the RS is stopped    * @throws InterruptedException if the waiting thread is interrupted    */
 specifier|private
 name|void
 name|blockAndCheckIfStopped
@@ -6071,7 +5910,7 @@ name|install
 argument_list|(
 name|conf
 argument_list|,
-name|fs
+name|dataFs
 argument_list|,
 name|this
 argument_list|,
@@ -6300,7 +6139,9 @@ condition|)
 block|{
 if|if
 condition|(
-name|isOnlineRegionsEmpty
+name|onlineRegions
+operator|.
+name|isEmpty
 argument_list|()
 condition|)
 block|{
@@ -6340,13 +6181,7 @@ name|abortRequested
 argument_list|)
 expr_stmt|;
 block|}
-elseif|else
-if|if
-condition|(
-name|this
-operator|.
-name|stopping
-condition|)
+else|else
 block|{
 name|boolean
 name|allUserRegionsOffline
@@ -6510,14 +6345,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|.
 name|closeAfterLeasesExpire
 argument_list|()
@@ -6670,9 +6505,6 @@ operator|.
 name|interruptIfNecessary
 argument_list|()
 expr_stmt|;
-name|sendShutdownInterrupt
-argument_list|()
-expr_stmt|;
 comment|// Stop the snapshot and other procedure handlers, forcefully killing all running tasks
 if|if
 condition|(
@@ -6714,7 +6546,7 @@ if|if
 condition|(
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 condition|)
 block|{
 name|closeUserRegions
@@ -6812,7 +6644,7 @@ name|abortRequested
 operator|||
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 condition|)
 block|{
 if|if
@@ -6854,7 +6686,7 @@ name|killed
 operator|&&
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 condition|)
 block|{
 name|waitOnAllRegionsToClose
@@ -6907,12 +6739,12 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-comment|//fsOk flag may be changed when closing regions throws exception.
+comment|// flag may be changed when closing regions throws exception.
 if|if
 condition|(
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 condition|)
 block|{
 name|shutdownWAL
@@ -6976,14 +6808,14 @@ if|if
 condition|(
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|!=
 literal|null
 condition|)
 block|{
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|.
 name|close
 argument_list|()
@@ -7046,7 +6878,9 @@ operator|.
 name|NoNodeException
 name|nn
 parameter_list|)
-block|{     }
+block|{
+comment|// pass
+block|}
 catch|catch
 parameter_list|(
 name|KeeperException
@@ -7546,6 +7380,7 @@ literal|true
 return|;
 block|}
 comment|/**    * Builds the region size report and sends it to the master. Upon successful sending of the    * report, the region sizes that were sent are marked as sent.    *    * @param rss The stub to send to the Master    * @param regionSizeStore The store containing region sizes    */
+specifier|private
 name|void
 name|buildReportAndSend
 parameter_list|(
@@ -7708,6 +7543,7 @@ name|build
 argument_list|()
 return|;
 block|}
+specifier|private
 name|ClusterStatusProtos
 operator|.
 name|ServerLoad
@@ -7959,24 +7795,13 @@ operator|.
 name|getCoprocessors
 argument_list|()
 decl_stmt|;
-name|Iterator
-argument_list|<
+for|for
+control|(
 name|String
-argument_list|>
-name|iterator
-init|=
+name|regionCoprocessor
+range|:
 name|regionCoprocessors
-operator|.
-name|iterator
-argument_list|()
-decl_stmt|;
-while|while
-condition|(
-name|iterator
-operator|.
-name|hasNext
-argument_list|()
-condition|)
+control|)
 block|{
 name|serverLoad
 operator|.
@@ -7986,10 +7811,7 @@ name|coprocessorBuilder
 operator|.
 name|setName
 argument_list|(
-name|iterator
-operator|.
-name|next
-argument_list|()
+name|regionCoprocessor
 argument_list|)
 operator|.
 name|build
@@ -8167,6 +7989,7 @@ name|build
 argument_list|()
 return|;
 block|}
+specifier|private
 name|String
 name|getOnlineRegionsAsPrintableString
 parameter_list|()
@@ -8271,7 +8094,9 @@ block|{
 while|while
 condition|(
 operator|!
-name|isOnlineRegionsEmpty
+name|onlineRegions
+operator|.
+name|isEmpty
 argument_list|()
 condition|)
 block|{
@@ -8449,7 +8274,9 @@ block|{
 if|if
 condition|(
 operator|!
-name|isOnlineRegionsEmpty
+name|onlineRegions
+operator|.
+name|isEmpty
 argument_list|()
 condition|)
 block|{
@@ -8499,6 +8326,7 @@ block|}
 block|}
 block|}
 specifier|private
+specifier|static
 name|boolean
 name|sleep
 parameter_list|(
@@ -8628,7 +8456,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*    * Run init. Sets up wal and starts up all server threads.    *    * @param c Extra configuration.    */
+comment|/**    * Run init. Sets up wal and starts up all server threads.    *    * @param c Extra configuration.    */
 specifier|protected
 name|void
 name|handleReportForDutyResponse
@@ -8950,10 +8778,10 @@ name|setupWALAndReplication
 argument_list|()
 expr_stmt|;
 comment|// Init in here rather than in constructor after thread name has been set
-name|this
-operator|.
+specifier|final
+name|MetricsTable
 name|metricsTable
-operator|=
+init|=
 operator|new
 name|MetricsTable
 argument_list|(
@@ -8963,7 +8791,7 @@ argument_list|(
 name|this
 argument_list|)
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|this
 operator|.
 name|metricsRegionServer
@@ -9294,8 +9122,6 @@ name|createMyEphemeralNode
 parameter_list|()
 throws|throws
 name|KeeperException
-throws|,
-name|IOException
 block|{
 name|RegionServerInfo
 operator|.
@@ -9397,7 +9223,7 @@ return|return
 name|regionServerAccounting
 return|;
 block|}
-comment|/*    * @param r Region to get RegionLoad for.    * @param regionLoadBldr the RegionLoad.Builder, can be null    * @param regionSpecifier the RegionSpecifier.Builder, can be null    * @return RegionLoad instance.    *    * @throws IOException    */
+comment|/**    * @param r Region to get RegionLoad for.    * @param regionLoadBldr the RegionLoad.Builder, can be null    * @param regionSpecifier the RegionSpecifier.Builder, can be null    * @return RegionLoad instance.    */
 name|RegionLoad
 name|createRegionLoad
 parameter_list|(
@@ -9888,7 +9714,6 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * @param encodedRegionName    * @return An instance of RegionLoad.    */
 specifier|public
 name|RegionLoad
 name|createRegionLoad
@@ -9927,7 +9752,7 @@ else|:
 literal|null
 return|;
 block|}
-comment|/*    * Inner class that runs on a long period checking if regions need compaction.    */
+comment|/**    * Inner class that runs on a long period checking if regions need compaction.    */
 specifier|private
 specifier|static
 class|class
@@ -10267,16 +10092,19 @@ operator|)
 expr_stmt|;
 block|}
 block|}
+specifier|private
 specifier|static
 class|class
 name|PeriodicMemStoreFlusher
 extends|extends
 name|ScheduledChore
 block|{
+specifier|private
 specifier|final
 name|HRegionServer
 name|server
 decl_stmt|;
+specifier|private
 specifier|final
 specifier|static
 name|int
@@ -10287,6 +10115,7 @@ operator|*
 literal|60
 decl_stmt|;
 comment|// 5 min in seconds
+specifier|private
 specifier|final
 specifier|static
 name|int
@@ -10295,11 +10124,11 @@ init|=
 literal|0
 decl_stmt|;
 comment|// millisec
+specifier|private
 specifier|final
-name|int
-name|rangeOfDelay
+name|long
+name|rangeOfDelayMs
 decl_stmt|;
-specifier|public
 name|PeriodicMemStoreFlusher
 parameter_list|(
 name|int
@@ -10325,15 +10154,14 @@ name|server
 operator|=
 name|server
 expr_stmt|;
-name|this
-operator|.
-name|rangeOfDelay
-operator|=
-name|this
-operator|.
+specifier|final
+name|long
+name|configuredRangeOfDelay
+init|=
 name|server
 operator|.
-name|conf
+name|getConfiguration
+argument_list|()
 operator|.
 name|getInt
 argument_list|(
@@ -10341,8 +10169,19 @@ literal|"hbase.regionserver.periodicmemstoreflusher.rangeofdelayseconds"
 argument_list|,
 name|RANGE_OF_DELAY
 argument_list|)
-operator|*
-literal|1000
+decl_stmt|;
+name|this
+operator|.
+name|rangeOfDelayMs
+operator|=
+name|TimeUnit
+operator|.
+name|SECONDS
+operator|.
+name|toMillis
+argument_list|(
+name|configuredRangeOfDelay
+argument_list|)
 expr_stmt|;
 block|}
 annotation|@
@@ -10410,16 +10249,13 @@ block|{
 name|long
 name|randomDelay
 init|=
-operator|(
-name|long
-operator|)
 name|RandomUtils
 operator|.
-name|nextInt
+name|nextLong
 argument_list|(
 literal|0
 argument_list|,
-name|rangeOfDelay
+name|rangeOfDelayMs
 argument_list|)
 operator|+
 name|MIN_DELAY_TIME
@@ -10661,7 +10497,7 @@ operator|=
 name|factory
 expr_stmt|;
 block|}
-comment|/**    * Start up replication source and sink handlers.    * @throws IOException    */
+comment|/**    * Start up replication source and sink handlers.    */
 specifier|private
 name|void
 name|startReplicationService
@@ -10732,17 +10568,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-specifier|public
-name|MetricsRegionServer
-name|getRegionServerMetrics
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|metricsRegionServer
-return|;
-block|}
 comment|/**    * @return Master address tracker instance.    */
 specifier|public
 name|MasterAddressTracker
@@ -10755,7 +10580,7 @@ operator|.
 name|masterAddressTracker
 return|;
 block|}
-comment|/*    * Start maintenance Threads, Server, Worker and lease checker threads.    * Start all threads we need to run. This is called after we've successfully    * registered with the Master.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
+comment|/**    * Start maintenance Threads, Server, Worker and lease checker threads.    * Start all threads we need to run. This is called after we've successfully    * registered with the Master.    * Install an UncaughtExceptionHandler that calls abort of RegionServer if we    * get an unhandled exception. We cannot set the handler on all threads.    * Server's internal Listener thread is off limits. For Server, if an OOME, it    * waits a while then retries. Meantime, a flush or a compaction that tries to    * run should trigger same critical condition and the shutdown will run. On    * its way out, this server will shut down Server. Leases are sort of    * inbetween. It has an internal thread that while it inherits from Chore, it    * keeps its own internal stop mechanism so needs to be stopped by this    * hosting server. Worker logs the exception and exits.    */
 specifier|private
 name|void
 name|startServices
@@ -10891,8 +10716,7 @@ argument_list|()
 argument_list|,
 name|this
 operator|.
-name|getRegionServerMetrics
-argument_list|()
+name|metricsRegionServer
 operator|.
 name|getMetricsSource
 argument_list|()
@@ -11448,7 +11272,7 @@ name|setDaemonThreadRunning
 argument_list|(
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|.
 name|getThread
 argument_list|()
@@ -11588,8 +11412,6 @@ specifier|private
 name|void
 name|initializeThreads
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 comment|// Cache flushing thread.
 name|this
@@ -11649,10 +11471,10 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|=
 operator|new
-name|Leases
+name|LeaseManager
 argument_list|(
 name|this
 operator|.
@@ -11837,9 +11659,9 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Puts up the webui.    * @return Returns final port -- maybe different from what we started with.    * @throws IOException    */
+comment|/**    * Puts up the webui.    */
 specifier|private
-name|int
+name|void
 name|putUpWebUI
 parameter_list|()
 throws|throws
@@ -11920,9 +11742,9 @@ name|port
 operator|<
 literal|0
 condition|)
-return|return
-name|port
-return|;
+block|{
+return|return;
+block|}
 if|if
 condition|(
 operator|!
@@ -12131,9 +11953,6 @@ argument_list|,
 name|port
 argument_list|)
 expr_stmt|;
-return|return
-name|port
-return|;
 block|}
 comment|/*    * Verify that server is healthy    */
 specifier|private
@@ -12144,7 +11963,7 @@ block|{
 if|if
 condition|(
 operator|!
-name|fsOk
+name|dataFsOk
 condition|)
 block|{
 comment|// File system problem
@@ -12159,13 +11978,13 @@ init|=
 operator|(
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|==
 literal|null
 operator|||
 name|this
 operator|.
-name|leases
+name|leaseManager
 operator|.
 name|isAlive
 argument_list|()
@@ -12256,8 +12075,6 @@ name|WAL
 argument_list|>
 name|getWALs
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 return|return
 name|walFactory
@@ -12318,6 +12135,14 @@ parameter_list|()
 block|{
 return|return
 name|walRoller
+return|;
+block|}
+name|WALFactory
+name|getWalFactory
+parameter_list|()
+block|{
+return|return
+name|walFactory
 return|;
 block|}
 annotation|@
@@ -12737,17 +12562,17 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-annotation|@
-name|Override
-specifier|public
+comment|/**    * Helper method for use in tests. Skip the region transition report when there's no master    * around to receive it.    */
+specifier|private
 name|boolean
-name|reportRegionStateTransition
+name|skipReportingTransition
 parameter_list|(
 specifier|final
 name|RegionStateTransitionContext
 name|context
 parameter_list|)
 block|{
+specifier|final
 name|TransitionCode
 name|code
 init|=
@@ -12756,6 +12581,7 @@ operator|.
 name|getCode
 argument_list|()
 decl_stmt|;
+specifier|final
 name|long
 name|openSeqNum
 init|=
@@ -12772,6 +12598,7 @@ operator|.
 name|getMasterSystemTime
 argument_list|()
 decl_stmt|;
+specifier|final
 name|RegionInfo
 index|[]
 name|hris
@@ -12781,22 +12608,6 @@ operator|.
 name|getHris
 argument_list|()
 decl_stmt|;
-name|long
-index|[]
-name|procIds
-init|=
-name|context
-operator|.
-name|getProcIds
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
-name|TEST_SKIP_REPORTING_TRANSITION
-condition|)
-block|{
-comment|// This is for testing only in case there is no master
-comment|// to handle the region transition report at all.
 if|if
 condition|(
 name|code
@@ -12928,6 +12739,53 @@ return|return
 literal|true
 return|;
 block|}
+specifier|private
+name|ReportRegionStateTransitionRequest
+name|createReportRegionStateTransitionRequest
+parameter_list|(
+specifier|final
+name|RegionStateTransitionContext
+name|context
+parameter_list|)
+block|{
+specifier|final
+name|TransitionCode
+name|code
+init|=
+name|context
+operator|.
+name|getCode
+argument_list|()
+decl_stmt|;
+specifier|final
+name|long
+name|openSeqNum
+init|=
+name|context
+operator|.
+name|getOpenSeqNum
+argument_list|()
+decl_stmt|;
+specifier|final
+name|RegionInfo
+index|[]
+name|hris
+init|=
+name|context
+operator|.
+name|getHris
+argument_list|()
+decl_stmt|;
+specifier|final
+name|long
+index|[]
+name|procIds
+init|=
+name|context
+operator|.
+name|getProcIds
+argument_list|()
+decl_stmt|;
 name|ReportRegionStateTransitionRequest
 operator|.
 name|Builder
@@ -13025,13 +12883,51 @@ name|procId
 argument_list|)
 expr_stmt|;
 block|}
-name|ReportRegionStateTransitionRequest
-name|request
-init|=
+return|return
 name|builder
 operator|.
 name|build
 argument_list|()
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|boolean
+name|reportRegionStateTransition
+parameter_list|(
+specifier|final
+name|RegionStateTransitionContext
+name|context
+parameter_list|)
+block|{
+if|if
+condition|(
+name|TEST_SKIP_REPORTING_TRANSITION
+condition|)
+block|{
+return|return
+name|skipReportingTransition
+argument_list|(
+name|context
+argument_list|)
+return|;
+block|}
+specifier|final
+name|ReportRegionStateTransitionRequest
+name|request
+init|=
+name|createReportRegionStateTransitionRequest
+argument_list|(
+name|context
+argument_list|)
+decl_stmt|;
+comment|// Time to pause if master says 'please hold'. Make configurable if needed.
+specifier|final
+name|long
+name|initPauseTime
+init|=
+literal|1000
 decl_stmt|;
 name|int
 name|tries
@@ -13040,8 +12936,6 @@ literal|0
 decl_stmt|;
 name|long
 name|pauseTime
-init|=
-name|INIT_PAUSE_TIME_MS
 decl_stmt|;
 comment|// Keep looping till we get an error. We want to send reports even though server is going down.
 comment|// Only go down if clusterConnection is null. It is set to null almost as last thing as the
@@ -13194,7 +13088,7 @@ name|ConnectionUtils
 operator|.
 name|getPauseTime
 argument_list|(
-name|INIT_PAUSE_TIME_MS
+name|initPauseTime
 argument_list|,
 name|tries
 argument_list|)
@@ -13204,7 +13098,7 @@ else|else
 block|{
 name|pauseTime
 operator|=
-name|INIT_PAUSE_TIME_MS
+name|initPauseTime
 expr_stmt|;
 comment|// Reset.
 block|}
@@ -13275,6 +13169,7 @@ literal|false
 return|;
 block|}
 comment|/**    * Trigger a flush in the primary region replica if this region is a secondary replica. Does not    * block this thread. See RegionReplicaFlushHandler for details.    */
+specifier|private
 name|void
 name|triggerFlushInPrimaryRegion
 parameter_list|(
@@ -13689,12 +13584,6 @@ literal|"Simulated kill"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Called on stop/abort before closing the cluster connection and meta locator.    */
-specifier|protected
-name|void
-name|sendShutdownInterrupt
-parameter_list|()
-block|{   }
 comment|// Limits the time spent in the shutdown process.
 specifier|private
 name|void
@@ -14071,9 +13960,7 @@ name|replicationSinkHandler
 return|;
 block|}
 comment|/**    * Get the current master from ZooKeeper and open the RPC connection to it.    * To get a fresh connection, the current rssStub must be null.    * Method will block until a master is available. You can break from this    * block by requesting the server stop.    *    * @return master + port, or null if server has been stopped    */
-annotation|@
-name|VisibleForTesting
-specifier|protected
+specifier|private
 specifier|synchronized
 name|ServerName
 name|createRegionServerStatusStub
@@ -14891,28 +14778,8 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|/**    * Closes all regions.  Called on our way out.    * Assumes that its not possible for new regions to be added to onlineRegions    * while this method runs.    */
-specifier|protected
-name|void
-name|closeAllRegions
-parameter_list|(
-specifier|final
-name|boolean
-name|abort
-parameter_list|)
-block|{
-name|closeUserRegions
-argument_list|(
-name|abort
-argument_list|)
-expr_stmt|;
-name|closeMetaTableRegions
-argument_list|(
-name|abort
-argument_list|)
-expr_stmt|;
-block|}
 comment|/**    * Close meta region if we carry it    * @param abort Whether we're running an abort.    */
+specifier|private
 name|void
 name|closeMetaTableRegions
 parameter_list|(
@@ -14928,7 +14795,7 @@ literal|null
 decl_stmt|;
 name|this
 operator|.
-name|lock
+name|onlineRegionsLock
 operator|.
 name|writeLock
 argument_list|()
@@ -14996,7 +14863,7 @@ finally|finally
 block|{
 name|this
 operator|.
-name|lock
+name|onlineRegionsLock
 operator|.
 name|writeLock
 argument_list|()
@@ -15023,6 +14890,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * Schedule closes on all user regions.    * Should be safe calling multiple times because it wont' close regions    * that are already closed or that are closing.    * @param abort Whether we're running an abort.    */
+specifier|private
 name|void
 name|closeUserRegions
 parameter_list|(
@@ -15033,7 +14901,7 @@ parameter_list|)
 block|{
 name|this
 operator|.
-name|lock
+name|onlineRegionsLock
 operator|.
 name|writeLock
 argument_list|()
@@ -15106,7 +14974,7 @@ finally|finally
 block|{
 name|this
 operator|.
-name|lock
+name|onlineRegionsLock
 operator|.
 name|writeLock
 argument_list|()
@@ -15153,7 +15021,6 @@ operator|.
 name|stopping
 return|;
 block|}
-comment|/**    *    * @return the configuration    */
 annotation|@
 name|Override
 specifier|public
@@ -15165,18 +15032,20 @@ return|return
 name|conf
 return|;
 block|}
-comment|/** @return the write lock for the server */
-name|ReentrantReadWriteLock
-operator|.
-name|WriteLock
-name|getWriteLock
+specifier|protected
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|HRegion
+argument_list|>
+name|getOnlineRegions
 parameter_list|()
 block|{
 return|return
-name|lock
+name|this
 operator|.
-name|writeLock
-argument_list|()
+name|onlineRegions
 return|;
 block|}
 specifier|public
@@ -15190,19 +15059,6 @@ operator|.
 name|onlineRegions
 operator|.
 name|size
-argument_list|()
-return|;
-block|}
-name|boolean
-name|isOnlineRegionsEmpty
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|onlineRegions
-operator|.
-name|isEmpty
 argument_list|()
 return|;
 block|}
@@ -15360,39 +15216,10 @@ operator|new
 name|TreeMap
 argument_list|<>
 argument_list|(
-operator|new
 name|Comparator
-argument_list|<
-name|Long
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|int
-name|compare
-parameter_list|(
-name|Long
-name|a
-parameter_list|,
-name|Long
-name|b
-parameter_list|)
-block|{
-return|return
-operator|-
-literal|1
-operator|*
-name|a
 operator|.
-name|compareTo
-argument_list|(
-name|b
-argument_list|)
-return|;
-block|}
-block|}
+name|reverseOrder
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Copy over all regions. Regions are sorted by size with biggest first.
@@ -15455,39 +15282,10 @@ operator|new
 name|TreeMap
 argument_list|<>
 argument_list|(
-operator|new
 name|Comparator
-argument_list|<
-name|Long
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|int
-name|compare
-parameter_list|(
-name|Long
-name|a
-parameter_list|,
-name|Long
-name|b
-parameter_list|)
-block|{
-return|return
-operator|-
-literal|1
-operator|*
-name|a
 operator|.
-name|compareTo
-argument_list|(
-name|b
-argument_list|)
-return|;
-block|}
-block|}
+name|reverseOrder
+argument_list|()
 argument_list|)
 decl_stmt|;
 comment|// Copy over all regions. Regions are sorted by size with biggest first.
@@ -15563,25 +15361,24 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|Leases
-name|getLeases
+name|LeaseManager
+name|getLeaseManager
 parameter_list|()
 block|{
 return|return
-name|leases
+name|leaseManager
 return|;
 block|}
 comment|/**    * @return Return the rootDir.    */
 specifier|protected
 name|Path
-name|getRootDir
+name|getDataRootDir
 parameter_list|()
 block|{
 return|return
-name|rootDir
+name|dataRootDir
 return|;
 block|}
-comment|/**    * @return Return the fs.    */
 annotation|@
 name|Override
 specifier|public
@@ -15590,7 +15387,18 @@ name|getFileSystem
 parameter_list|()
 block|{
 return|return
-name|fs
+name|dataFs
+return|;
+block|}
+comment|/**    * @return {@code true} when the data file system is available, {@code false} otherwise.    */
+name|boolean
+name|isDataFileSystemOk
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|dataFsOk
 return|;
 block|}
 comment|/**    * @return Return the walRootDir.    */
@@ -15626,16 +15434,6 @@ argument_list|()
 operator|.
 name|toString
 argument_list|()
-return|;
-block|}
-comment|/**    * Interval at which threads should run    *    * @return the interval    */
-specifier|public
-name|int
-name|getThreadWakeFrequency
-parameter_list|()
-block|{
-return|return
-name|threadWakeFrequency
 return|;
 block|}
 annotation|@
@@ -15941,6 +15739,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|Class
 argument_list|<
 name|?
@@ -15948,8 +15747,6 @@ extends|extends
 name|T
 argument_list|>
 name|clazz
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -16130,12 +15927,12 @@ return|return
 name|walGroupsReplicationStatus
 return|;
 block|}
-comment|/**    * Utility for constructing an instance of the passed HRegionServer class.    *    * @param regionServerClass    * @param conf2    * @return HRegionServer instance.    */
-specifier|public
+comment|/**    * Utility for constructing an instance of the passed HRegionServer class.    */
 specifier|static
 name|HRegionServer
 name|constructRegionServer
 parameter_list|(
+specifier|final
 name|Class
 argument_list|<
 name|?
@@ -16146,7 +15943,7 @@ name|regionServerClass
 parameter_list|,
 specifier|final
 name|Configuration
-name|conf2
+name|conf
 parameter_list|)
 block|{
 try|try
@@ -16173,7 +15970,7 @@ name|c
 operator|.
 name|newInstance
 argument_list|(
-name|conf2
+name|conf
 argument_list|)
 return|;
 block|}
@@ -16211,8 +16008,6 @@ name|String
 index|[]
 name|args
 parameter_list|)
-throws|throws
-name|Exception
 block|{
 name|LOG
 operator|.
@@ -16287,7 +16082,7 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory onlineRegions.  It does not go to<code>hbase:meta</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will not be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName    * @return Online regions from<code>tableName</code>    */
+comment|/**    * Gets the online regions of the specified table.    * This method looks at the in-memory onlineRegions.  It does not go to<code>hbase:meta</code>.    * Only returns<em>online</em> regions.  If a region on this table has been    * closed during a disable, etc., it will not be included in the returned list.    * So, the returned list may not necessarily be ALL regions in this table, its    * all the ONLINE regions in the table.    * @param tableName table to limit the scope of the query    * @return Online regions from<code>tableName</code>    */
 annotation|@
 name|Override
 specifier|public
@@ -16382,11 +16177,6 @@ argument_list|<
 name|HRegion
 argument_list|>
 name|allRegions
-init|=
-operator|new
-name|ArrayList
-argument_list|<>
-argument_list|()
 decl_stmt|;
 synchronized|synchronized
 init|(
@@ -16397,8 +16187,10 @@ init|)
 block|{
 comment|// Return a clone copy of the onlineRegions
 name|allRegions
-operator|.
-name|addAll
+operator|=
+operator|new
+name|ArrayList
+argument_list|<>
 argument_list|(
 name|onlineRegions
 operator|.
@@ -16470,7 +16262,6 @@ return|return
 name|tables
 return|;
 block|}
-comment|// used by org/apache/hbase/tmpl/regionserver/RSStatusTmpl.jamon (HBASE-4070).
 specifier|public
 name|String
 index|[]
@@ -16630,10 +16421,7 @@ argument_list|(
 operator|new
 name|String
 index|[
-name|coprocessors
-operator|.
-name|size
-argument_list|()
+literal|0
 index|]
 argument_list|)
 return|;
@@ -17061,170 +16849,7 @@ return|return
 literal|true
 return|;
 block|}
-comment|/**    * Close and offline the region for split or merge    *    * @param regionEncodedName the name of the region(s) to close    * @return true if closed the region successfully.    * @throws IOException   */
-specifier|protected
-name|boolean
-name|closeAndOfflineRegionForSplitOrMerge
-parameter_list|(
-specifier|final
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|regionEncodedName
-parameter_list|)
-throws|throws
-name|IOException
-block|{
-for|for
-control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
-name|regionEncodedName
-operator|.
-name|size
-argument_list|()
-condition|;
-operator|++
-name|i
-control|)
-block|{
-name|HRegion
-name|regionToClose
-init|=
-name|this
-operator|.
-name|getRegion
-argument_list|(
-name|regionEncodedName
-operator|.
-name|get
-argument_list|(
-name|i
-argument_list|)
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|regionToClose
-operator|!=
-literal|null
-condition|)
-block|{
-name|Map
-argument_list|<
-name|byte
-index|[]
-argument_list|,
-name|List
-argument_list|<
-name|HStoreFile
-argument_list|>
-argument_list|>
-name|hstoreFiles
-init|=
-literal|null
-decl_stmt|;
-name|Exception
-name|exceptionToThrow
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|hstoreFiles
-operator|=
-name|regionToClose
-operator|.
-name|close
-argument_list|(
-literal|false
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
-name|Exception
-name|e
-parameter_list|)
-block|{
-name|exceptionToThrow
-operator|=
-name|e
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|exceptionToThrow
-operator|==
-literal|null
-operator|&&
-name|hstoreFiles
-operator|==
-literal|null
-condition|)
-block|{
-comment|// The region was closed by someone else
-name|exceptionToThrow
-operator|=
-operator|new
-name|IOException
-argument_list|(
-literal|"Failed to close region: already closed by another thread"
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|exceptionToThrow
-operator|!=
-literal|null
-condition|)
-block|{
-if|if
-condition|(
-name|exceptionToThrow
-operator|instanceof
-name|IOException
-condition|)
-block|{
-throw|throw
-operator|(
-name|IOException
-operator|)
-name|exceptionToThrow
-throw|;
-block|}
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|exceptionToThrow
-argument_list|)
-throw|;
-block|}
-comment|// Offline the region
-name|this
-operator|.
-name|removeRegion
-argument_list|(
-name|regionToClose
-argument_list|,
-literal|null
-argument_list|)
-expr_stmt|;
-block|}
-block|}
-return|return
-literal|true
-return|;
-block|}
-comment|/**    * @param regionName    * @return HRegion for the passed binary<code>regionName</code> or null if    *         named region is not member of the online regions.    */
+comment|/**    * @return HRegion for the passed binary<code>regionName</code> or null if    *         named region is not member of the online regions.    */
 specifier|public
 name|HRegion
 name|getOnlineRegion
@@ -17249,27 +16874,6 @@ return|return
 name|this
 operator|.
 name|onlineRegions
-operator|.
-name|get
-argument_list|(
-name|encodedRegionName
-argument_list|)
-return|;
-block|}
-specifier|public
-name|InetSocketAddress
-index|[]
-name|getRegionBlockLocations
-parameter_list|(
-specifier|final
-name|String
-name|encodedRegionName
-parameter_list|)
-block|{
-return|return
-name|this
-operator|.
-name|regionFavoredNodesMap
 operator|.
 name|get
 argument_list|(
@@ -17413,7 +17017,7 @@ operator|!=
 literal|null
 return|;
 block|}
-comment|/**    * Protected Utility method for safely obtaining an HRegion handle.    *    * @param regionName    *          Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    * @throws NotServingRegionException    */
+comment|/**    * Protected Utility method for safely obtaining an HRegion handle.    *    * @param regionName Name of online {@link HRegion} to return    * @return {@link HRegion} for<code>regionName</code>    */
 specifier|protected
 name|HRegion
 name|getRegion
@@ -17464,7 +17068,7 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
-specifier|protected
+specifier|private
 name|HRegion
 name|getRegionByEncodedName
 parameter_list|(
@@ -17568,9 +17172,6 @@ operator|!=
 literal|null
 operator|&&
 name|isOpening
-operator|.
-name|booleanValue
-argument_list|()
 condition|)
 block|{
 throw|throw
@@ -17609,7 +17210,7 @@ return|return
 name|region
 return|;
 block|}
-comment|/*    * Cleanup after Throwable caught invoking method. Converts<code>t</code> to    * IOE if it isn't already.    *    * @param t Throwable    *    * @param msg Message to log in error. Can be null.    *    * @return Throwable converted to an IOE; methods can only let out IOEs.    */
+comment|/**    * Cleanup after Throwable caught invoking method. Converts<code>t</code> to    * IOE if it isn't already.    *    * @param t Throwable    * @param msg Message to log in error. Can be null.    * @return Throwable converted to an IOE; methods can only let out IOEs.    */
 specifier|private
 name|Throwable
 name|cleanup
@@ -17714,8 +17315,8 @@ return|return
 name|t
 return|;
 block|}
-comment|/*    * @param t    *    * @param msg Message to put in new IOE if passed<code>t</code> is not an IOE    *    * @return Make<code>t</code> an IOE if it isn't already.    */
-specifier|protected
+comment|/**    * @param msg Message to put in new IOE if passed<code>t</code> is not an IOE    * @return Make<code>t</code> an IOE if it isn't already.    */
+specifier|private
 name|IOException
 name|convertThrowableToIOE
 parameter_list|(
@@ -17767,7 +17368,6 @@ operator|)
 return|;
 block|}
 comment|/**    * Checks to see if the file system is still accessible. If not, sets    * abortRequested and stopRequested    *    * @return false if file system is not available    */
-specifier|public
 name|boolean
 name|checkFileSystem
 parameter_list|()
@@ -17776,11 +17376,11 @@ if|if
 condition|(
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 operator|&&
 name|this
 operator|.
-name|fs
+name|dataFs
 operator|!=
 literal|null
 condition|)
@@ -17793,7 +17393,7 @@ name|checkFileSystemAvailable
 argument_list|(
 name|this
 operator|.
-name|fs
+name|dataFs
 argument_list|)
 expr_stmt|;
 block|}
@@ -17812,7 +17412,7 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 operator|=
 literal|false
 expr_stmt|;
@@ -17821,7 +17421,7 @@ block|}
 return|return
 name|this
 operator|.
-name|fsOk
+name|dataFsOk
 return|;
 block|}
 annotation|@
@@ -17930,7 +17530,7 @@ name|addr
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Return the favored nodes for a region given its encoded name. Look at the    * comment around {@link #regionFavoredNodesMap} on why it is InetSocketAddress[]    * @param encodedRegionName    * @return array of favored locations    */
+comment|/**    * Return the favored nodes for a region given its encoded name. Look at the    * comment around {@link #regionFavoredNodesMap} on why it is InetSocketAddress[]    *    * @return array of favored locations    */
 annotation|@
 name|Override
 specifier|public
@@ -17982,9 +17582,8 @@ decl_stmt|;
 specifier|private
 specifier|final
 name|long
-name|ts
+name|moveTime
 decl_stmt|;
-specifier|public
 name|MovedRegionInfo
 parameter_list|(
 name|ServerName
@@ -18006,7 +17605,9 @@ name|seqNum
 operator|=
 name|closeSeqNum
 expr_stmt|;
-name|ts
+name|this
+operator|.
+name|moveTime
 operator|=
 name|EnvironmentEdgeManager
 operator|.
@@ -18032,19 +17633,17 @@ return|return
 name|seqNum
 return|;
 block|}
-specifier|public
 name|long
 name|getMoveTime
 parameter_list|()
 block|{
 return|return
-name|ts
+name|moveTime
 return|;
 block|}
 block|}
-comment|// This map will contains all the regions that we closed for a move.
-comment|// We add the time it was moved as we don't want to keep too old information
-specifier|protected
+comment|/**    * This map will contains all the regions that we closed for a move.    * We add the time it was moved as we don't want to keep too old information    */
+specifier|private
 name|Map
 argument_list|<
 name|String
@@ -18060,8 +17659,7 @@ argument_list|(
 literal|3000
 argument_list|)
 decl_stmt|;
-comment|// We need a timeout. If not there is a risk of giving a wrong information: this would double
-comment|//  the number of network calls instead of reducing them.
+comment|/**    * We need a timeout. If not there is a risk of giving a wrong information: this would double    * the number of network calls instead of reducing them.    */
 specifier|private
 specifier|static
 specifier|final
@@ -18076,7 +17674,7 @@ operator|*
 literal|1000
 operator|)
 decl_stmt|;
-specifier|protected
+specifier|private
 name|void
 name|addToMovedRegions
 parameter_list|(
@@ -18250,50 +17848,15 @@ argument_list|()
 operator|-
 name|TIMEOUT_REGION_MOVED
 decl_stmt|;
-name|Iterator
-argument_list|<
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|MovedRegionInfo
-argument_list|>
-argument_list|>
-name|it
-init|=
 name|movedRegions
 operator|.
 name|entrySet
 argument_list|()
 operator|.
-name|iterator
-argument_list|()
-decl_stmt|;
-while|while
-condition|(
-name|it
-operator|.
-name|hasNext
-argument_list|()
-condition|)
-block|{
-name|Map
-operator|.
-name|Entry
-argument_list|<
-name|String
-argument_list|,
-name|MovedRegionInfo
-argument_list|>
+name|removeIf
+argument_list|(
 name|e
-init|=
-name|it
-operator|.
-name|next
-argument_list|()
-decl_stmt|;
-if|if
-condition|(
+lambda|->
 name|e
 operator|.
 name|getValue
@@ -18303,15 +17866,8 @@ name|getMoveTime
 argument_list|()
 operator|<
 name|cutOff
-condition|)
-block|{
-name|it
-operator|.
-name|remove
-argument_list|()
+argument_list|)
 expr_stmt|;
-block|}
-block|}
 block|}
 comment|/*    * Use this to allow tests to override and schedule more frequently.    */
 specifier|protected
@@ -18559,7 +18115,6 @@ operator|.
 name|compactSplitThread
 return|;
 block|}
-specifier|public
 name|CoprocessorServiceResponse
 name|execRegionServerService
 parameter_list|(
@@ -18762,40 +18317,8 @@ name|serviceController
 argument_list|,
 name|request
 argument_list|,
-operator|new
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|RpcCallback
-argument_list|<
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
-parameter_list|(
-name|com
-operator|.
-name|google
-operator|.
-name|protobuf
-operator|.
-name|Message
 name|message
-parameter_list|)
+lambda|->
 block|{
 if|if
 condition|(
@@ -18811,7 +18334,6 @@ argument_list|(
 name|message
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 argument_list|)
@@ -18941,7 +18463,8 @@ argument_list|()
 return|;
 block|}
 comment|/**    * @return : Returns the ConfigurationManager object for testing purposes.    */
-specifier|protected
+annotation|@
+name|VisibleForTesting
 name|ConfigurationManager
 name|getConfigurationManager
 parameter_list|()
@@ -18965,7 +18488,6 @@ name|tableDescriptors
 return|;
 block|}
 comment|/**    * Reload the configuration from disk.    */
-specifier|public
 name|void
 name|updateConfiguration
 parameter_list|()
@@ -18991,7 +18513,6 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-specifier|public
 name|CacheEvictionStats
 name|clearRegionBlockCache
 parameter_list|(
@@ -19127,6 +18648,14 @@ parameter_list|()
 block|{
 return|return
 name|hMemManager
+return|;
+block|}
+name|MemStoreFlusher
+name|getMemStoreFlusher
+parameter_list|()
+block|{
+return|return
+name|cacheFlusher
 return|;
 block|}
 comment|/**    * For testing    * @return whether all wal roll request finished for this regionserver    */
@@ -19289,22 +18818,26 @@ specifier|public
 name|EntityLock
 name|regionLock
 parameter_list|(
+specifier|final
 name|List
 argument_list|<
 name|RegionInfo
 argument_list|>
-name|regionInfos
+name|regionInfo
 parameter_list|,
+specifier|final
 name|String
 name|description
 parameter_list|,
+specifier|final
 name|Abortable
 name|abort
 parameter_list|)
-throws|throws
-name|IOException
 block|{
-return|return
+specifier|final
+name|LockServiceClient
+name|client
+init|=
 operator|new
 name|LockServiceClient
 argument_list|(
@@ -19317,10 +18850,13 @@ operator|.
 name|getNonceGenerator
 argument_list|()
 argument_list|)
+decl_stmt|;
+return|return
+name|client
 operator|.
 name|regionLock
 argument_list|(
-name|regionInfos
+name|regionInfo
 argument_list|,
 name|description
 argument_list|,
@@ -19579,7 +19115,6 @@ name|user
 argument_list|)
 return|;
 block|}
-specifier|public
 name|void
 name|executeProcedure
 parameter_list|(
@@ -19640,9 +19175,8 @@ name|RegionServerStatusService
 operator|.
 name|BlockingInterface
 name|rss
-init|=
-name|rssStub
 decl_stmt|;
+comment|// TODO: juggling class state with an instance variable, outside of a synchronized block :'(
 for|for
 control|(
 init|;

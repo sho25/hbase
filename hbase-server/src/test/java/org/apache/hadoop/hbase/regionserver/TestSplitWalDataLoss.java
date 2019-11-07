@@ -979,7 +979,8 @@ name|entry
 range|:
 name|rs
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 operator|.
 name|entrySet
 argument_list|()
@@ -1018,7 +1019,8 @@ block|}
 block|}
 name|rs
 operator|.
-name|onlineRegions
+name|getOnlineRegions
+argument_list|()
 operator|.
 name|put
 argument_list|(
@@ -1109,7 +1111,8 @@ argument_list|)
 expr_stmt|;
 name|rs
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|.
 name|requestFlush
 argument_list|(

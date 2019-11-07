@@ -1069,7 +1069,7 @@ literal|null
 operator|&&
 name|rs
 operator|.
-name|getRegionServerMetrics
+name|getMetrics
 argument_list|()
 operator|==
 literal|null
@@ -1096,7 +1096,7 @@ name|metricsRegionServer
 operator|=
 name|rs
 operator|.
-name|getRegionServerMetrics
+name|getMetrics
 argument_list|()
 expr_stmt|;
 name|serverSource

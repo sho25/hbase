@@ -936,12 +936,9 @@ argument_list|()
 operator|.
 name|map
 argument_list|(
-name|t
-lambda|->
-name|t
-operator|.
+name|RegionServerThread
+operator|::
 name|getRegionServer
-argument_list|()
 argument_list|)
 operator|.
 name|allMatch

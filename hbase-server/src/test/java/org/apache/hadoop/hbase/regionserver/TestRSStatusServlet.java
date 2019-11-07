@@ -925,7 +925,7 @@ argument_list|(
 name|rs
 argument_list|)
 operator|.
-name|getRegionServerMetrics
+name|getMetrics
 argument_list|()
 expr_stmt|;
 name|MetricsHBaseServer

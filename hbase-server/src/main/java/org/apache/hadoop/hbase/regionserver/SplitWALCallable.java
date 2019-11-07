@@ -427,7 +427,8 @@ name|rs
 argument_list|,
 name|rs
 operator|.
-name|walFactory
+name|getWalFactory
+argument_list|()
 argument_list|)
 decl_stmt|;
 if|if

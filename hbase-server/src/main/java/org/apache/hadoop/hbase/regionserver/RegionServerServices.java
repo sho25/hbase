@@ -800,8 +800,8 @@ name|getRegionsInTransitionInRS
 parameter_list|()
 function_decl|;
 comment|/**    * @return The RegionServer's "Leases" service    */
-name|Leases
-name|getLeases
+name|LeaseManager
+name|getLeaseManager
 parameter_list|()
 function_decl|;
 comment|/**    * @return hbase executor service    */

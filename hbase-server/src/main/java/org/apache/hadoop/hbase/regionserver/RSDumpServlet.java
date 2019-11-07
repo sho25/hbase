@@ -785,7 +785,8 @@ if|if
 condition|(
 name|hrs
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|!=
 literal|null
 condition|)
@@ -799,7 +800,8 @@ literal|"\nFlush Queue summary: "
 operator|+
 name|hrs
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|.
 name|toString
 argument_list|()
@@ -811,7 +813,8 @@ name|println
 argument_list|(
 name|hrs
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|.
 name|dumpQueue
 argument_list|()

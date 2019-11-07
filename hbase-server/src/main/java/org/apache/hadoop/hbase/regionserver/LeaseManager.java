@@ -186,7 +186,7 @@ operator|.
 name|Private
 specifier|public
 class|class
-name|Leases
+name|LeaseManager
 extends|extends
 name|HasThread
 block|{
@@ -200,7 +200,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|Leases
+name|LeaseManager
 operator|.
 name|class
 operator|.
@@ -208,7 +208,7 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|int
@@ -231,21 +231,21 @@ name|ConcurrentHashMap
 argument_list|<>
 argument_list|()
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|final
 name|int
 name|leaseCheckFrequency
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|volatile
 name|boolean
 name|stopRequested
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * Creates a lease monitor    *    * @param leaseCheckFrequency - how often the lease should be checked    *          (milliseconds)    */
+comment|/**    * Creates a lease manager.    *    * @param leaseCheckFrequency - how often the lease should be checked (milliseconds)    */
 specifier|public
-name|Leases
+name|LeaseManager
 parameter_list|(
 specifier|final
 name|int
@@ -254,7 +254,7 @@ parameter_list|)
 block|{
 name|super
 argument_list|(
-literal|"RegionServerLeases"
+literal|"RegionServer.LeaseManager"
 argument_list|)
 expr_stmt|;
 comment|// thread name
@@ -270,7 +270,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @see Thread#run()    */
 annotation|@
 name|Override
 specifier|public
@@ -365,13 +364,7 @@ block|}
 catch|catch
 parameter_list|(
 name|InterruptedException
-name|e
-parameter_list|)
-block|{
-continue|continue;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|ConcurrentModificationException
 name|e
 parameter_list|)
@@ -590,7 +583,7 @@ literal|"Closed leases"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Create a lease and insert it to the map of leases.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @return The lease created.    * @throws LeaseStillHeldException    */
+comment|/**    * Create a lease and insert it to the map of leases.    *    * @param leaseName name of the lease    * @param leaseTimeoutPeriod length of the lease in milliseconds    * @param listener listener that will process lease expirations    * @return The lease created.    */
 specifier|public
 name|Lease
 name|createLease
@@ -630,7 +623,7 @@ return|return
 name|lease
 return|;
 block|}
-comment|/**    * Inserts lease.  Resets expiration before insertion.    * @param lease    * @throws LeaseStillHeldException    */
+comment|/**    * Inserts lease.  Resets expiration before insertion.    */
 specifier|public
 name|void
 name|addLease
@@ -693,7 +686,7 @@ name|lease
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Renew a lease    *    * @param leaseName name of lease    * @throws LeaseException    */
+comment|/**    * Renew a lease    *    * @param leaseName name of the lease    */
 specifier|public
 name|void
 name|renewLease
@@ -749,7 +742,7 @@ name|resetExpirationTime
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Client explicitly cancels a lease.    * @param leaseName name of lease    * @throws org.apache.hadoop.hbase.regionserver.LeaseException    */
+comment|/**    * Client explicitly cancels a lease.    *    * @param leaseName name of lease    */
 specifier|public
 name|void
 name|cancelLease
@@ -767,7 +760,7 @@ name|leaseName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove named lease.    * Lease is removed from the map of leases.    * Lease can be reinserted using {@link #addLease(Lease)}    *    * @param leaseName name of lease    * @throws org.apache.hadoop.hbase.regionserver.LeaseException    * @return Removed lease    */
+comment|/**    * Remove named lease. Lease is removed from the map of leases.    *    * @param leaseName name of lease    * @return Removed lease    */
 name|Lease
 name|removeLease
 parameter_list|(
@@ -829,7 +822,6 @@ specifier|final
 name|String
 name|leaseName
 decl_stmt|;
-comment|/**      * @param name      */
 specifier|public
 name|LeaseStillHeldException
 parameter_list|(

@@ -924,7 +924,8 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|secureBulkLoadManager
+name|getSecureBulkLoadManager
+argument_list|()
 operator|.
 name|setFsCreatedListener
 argument_list|(
@@ -968,7 +969,7 @@ operator|.
 name|getRegionServer
 argument_list|()
 operator|.
-name|getRootDir
+name|getDataRootDir
 argument_list|()
 decl_stmt|;
 name|Path

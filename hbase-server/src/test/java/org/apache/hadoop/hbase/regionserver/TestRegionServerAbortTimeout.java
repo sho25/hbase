@@ -728,7 +728,7 @@ operator|.
 name|stream
 argument_list|()
 operator|.
-name|filter
+name|anyMatch
 argument_list|(
 name|p
 lambda|->
@@ -741,11 +741,6 @@ operator|.
 name|isFinished
 argument_list|()
 argument_list|)
-operator|.
-name|count
-argument_list|()
-operator|>
-literal|0
 argument_list|)
 expr_stmt|;
 name|UTIL

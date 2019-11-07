@@ -3289,7 +3289,8 @@ condition|)
 block|{
 name|server
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|.
 name|setFlushType
 argument_list|(
@@ -3567,7 +3568,8 @@ condition|)
 block|{
 name|server
 operator|.
-name|cacheFlusher
+name|getMemStoreFlusher
+argument_list|()
 operator|.
 name|setFlushType
 argument_list|(

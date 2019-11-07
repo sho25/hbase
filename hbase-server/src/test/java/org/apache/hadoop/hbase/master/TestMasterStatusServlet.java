@@ -975,7 +975,7 @@ argument_list|(
 name|master
 argument_list|)
 operator|.
-name|getRegionServerMetrics
+name|getMetrics
 argument_list|()
 expr_stmt|;
 comment|// Mock admin

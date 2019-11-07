@@ -1027,7 +1027,8 @@ decl_stmt|;
 comment|// Roll WAL
 name|rsServedTable
 operator|.
-name|walRoller
+name|getWalRoller
+argument_list|()
 operator|.
 name|requestRollAll
 argument_list|()
