@@ -860,11 +860,6 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
-name|reader
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 name|HFileScanner
 name|scanner
 init|=

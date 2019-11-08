@@ -45,20 +45,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|hadoop
 operator|.
 name|hbase
@@ -185,13 +171,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|hfile
-operator|.
-name|HFile
-operator|.
-name|FileInfo
+name|Bytes
 import|;
 end_import
 
@@ -201,13 +183,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|util
-operator|.
-name|Bytes
+name|InterfaceAudience
 import|;
 end_import
 
@@ -259,7 +239,7 @@ specifier|static
 name|HFileDataBlockEncoder
 name|createFromFileInfo
 parameter_list|(
-name|FileInfo
+name|HFileInfo
 name|fileInfo
 parameter_list|)
 throws|throws

@@ -516,6 +516,8 @@ argument_list|,
 name|fs
 argument_list|,
 name|path
+argument_list|,
+literal|true
 argument_list|)
 return|;
 block|}

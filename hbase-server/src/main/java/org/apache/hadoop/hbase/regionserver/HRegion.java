@@ -10181,7 +10181,7 @@ name|val
 init|=
 name|reader
 operator|.
-name|loadFileInfo
+name|getHFileInfo
 argument_list|()
 operator|.
 name|get

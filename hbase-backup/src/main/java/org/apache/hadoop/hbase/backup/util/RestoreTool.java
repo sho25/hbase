@@ -2504,11 +2504,6 @@ name|last
 decl_stmt|;
 try|try
 block|{
-name|reader
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 name|first
 operator|=
 name|reader

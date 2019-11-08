@@ -2936,7 +2936,10 @@ argument_list|()
 argument_list|,
 name|reader
 operator|.
-name|getCompressionAlgorithm
+name|getTrailer
+argument_list|()
+operator|.
+name|getCompressionCodec
 argument_list|()
 argument_list|)
 expr_stmt|;

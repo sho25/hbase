@@ -691,11 +691,6 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|reader
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 comment|// warm cache
 name|HFileScanner
 name|scanner

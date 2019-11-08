@@ -3112,7 +3112,7 @@ name|finfo
 init|=
 name|rd
 operator|.
-name|loadFileInfo
+name|getHFileInfo
 argument_list|()
 decl_stmt|;
 name|byte
@@ -8007,7 +8007,7 @@ name|fileInfo
 init|=
 name|reader
 operator|.
-name|loadFileInfo
+name|getHFileInfo
 argument_list|()
 decl_stmt|;
 name|byte
@@ -10794,7 +10794,10 @@ name|assertEquals
 argument_list|(
 name|reader
 operator|.
-name|getCompressionAlgorithm
+name|getTrailer
+argument_list|()
+operator|.
+name|getCompressionCodec
 argument_list|()
 operator|.
 name|getName

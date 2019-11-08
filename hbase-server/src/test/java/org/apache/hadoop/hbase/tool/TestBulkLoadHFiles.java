@@ -4459,11 +4459,6 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
-name|reader
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 name|HFileScanner
 name|scanner
 init|=

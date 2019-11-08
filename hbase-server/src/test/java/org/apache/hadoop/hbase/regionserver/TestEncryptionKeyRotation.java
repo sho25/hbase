@@ -1801,11 +1801,6 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-name|reader
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 name|Encryption
 operator|.
 name|Context

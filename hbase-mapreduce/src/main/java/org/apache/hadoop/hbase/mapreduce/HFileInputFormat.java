@@ -530,13 +530,6 @@ comment|// The file info must be loaded before the scanner can be used.
 comment|// This seems like a bug in HBase, but it's easily worked around.
 name|this
 operator|.
-name|in
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
-name|this
-operator|.
 name|scanner
 operator|=
 name|in

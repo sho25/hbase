@@ -271,9 +271,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFile
-operator|.
-name|FileInfo
+name|HFileInfo
 import|;
 end_import
 
@@ -1244,7 +1242,7 @@ name|fileInfo
 operator|.
 name|get
 argument_list|(
-name|FileInfo
+name|HFileInfo
 operator|.
 name|MAX_TAGS_LEN
 argument_list|)

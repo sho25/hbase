@@ -1629,6 +1629,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -1684,6 +1686,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -2162,6 +2166,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -2212,6 +2218,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -2589,6 +2597,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -3058,6 +3068,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -3108,6 +3120,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock
@@ -3447,6 +3461,8 @@ argument_list|,
 name|DataBlockEncoding
 operator|.
 name|NONE
+argument_list|,
+name|reader
 argument_list|)
 operator|.
 name|getHFileBlock

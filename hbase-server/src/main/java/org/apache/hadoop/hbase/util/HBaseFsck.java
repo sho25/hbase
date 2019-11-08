@@ -5637,11 +5637,6 @@ name|getConf
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|hf
-operator|.
-name|loadFileInfo
-argument_list|()
-expr_stmt|;
 name|Optional
 argument_list|<
 name|Cell
