@@ -81,6 +81,26 @@ name|PolicyBasedChaosMonkey
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Restarts a ratio of the running regionservers at the same time  */
 end_comment
@@ -96,6 +116,21 @@ name|float
 name|ratio
 decl_stmt|;
 comment|//ratio of regionservers to restart
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|BatchRestartRsAction
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 specifier|public
 name|BatchRestartRsAction
 parameter_list|(

@@ -189,6 +189,26 @@ name|ActiveNodeInfo
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Action that tries to restart the active namenode.  */
 end_comment
@@ -200,6 +220,21 @@ name|RestartActiveNameNodeAction
 extends|extends
 name|RestartActionBaseAction
 block|{
+specifier|private
+specifier|static
+specifier|final
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|RestartActiveNameNodeAction
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|// Value taken from org.apache.hadoop.ha.ActiveStandbyElector.java, variable :- LOCK_FILENAME
 specifier|private
 specifier|static

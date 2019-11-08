@@ -500,7 +500,7 @@ name|START_NAMENODE_TIMEOUT_KEY
 init|=
 literal|"hbase.chaosmonkey.action.startnamenodetimeout"
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Logger
@@ -2180,7 +2180,7 @@ name|getConf
 argument_list|()
 return|;
 block|}
-comment|/**    * Apply a transform to all columns in a given table. If there are no columns in a table or if the context is stopping does nothing.    * @param tableName the table to modify    * @param transform the modification to perform. Callers will have the column name as a string and a column family builder available to them    */
+comment|/**    * Apply a transform to all columns in a given table. If there are no columns in a table    * or if the context is stopping does nothing.    * @param tableName the table to modify    * @param transform the modification to perform. Callers will have the    *                  column name as a string and a column family builder available to them    */
 specifier|protected
 name|void
 name|modifyAllTableColumns
@@ -2326,7 +2326,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Apply a transform to all columns in a given table. If there are no columns in a table or if the context is stopping does nothing.    * @param tableName the table to modify    * @param transform the modification to perform on each column family descriptor builder    */
+comment|/**    * Apply a transform to all columns in a given table.    * If there are no columns in a table or if the context is stopping does nothing.    * @param tableName the table to modify    * @param transform the modification to perform on each column family descriptor builder    */
 specifier|protected
 name|void
 name|modifyAllTableColumns

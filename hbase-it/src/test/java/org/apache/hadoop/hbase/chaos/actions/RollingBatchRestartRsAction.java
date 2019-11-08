@@ -136,7 +136,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Restarts a ratio of the regionservers in a rolling fashion. At each step, either kills a  * server, or starts one, sleeping randomly (0-sleepTime) in between steps. The parameter maxDeadServers  * limits the maximum number of servers that can be down at the same time during rolling restarts.  */
+comment|/**  * Restarts a ratio of the regionservers in a rolling fashion. At each step, either kills a  * server, or starts one, sleeping randomly (0-sleepTime) in between steps.  * The parameter maxDeadServers limits the maximum number of servers that  * can be down at the same time during rolling restarts.  */
 end_comment
 
 begin_class
