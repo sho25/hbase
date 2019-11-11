@@ -99,6 +99,9 @@ parameter_list|()
 block|{
 name|this
 argument_list|(
+operator|(
+name|long
+operator|)
 name|Integer
 operator|.
 name|MAX_VALUE
