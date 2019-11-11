@@ -2935,6 +2935,16 @@ name|withBlockSize
 argument_list|(
 name|blockSize
 argument_list|)
+operator|.
+name|withColumnFamily
+argument_list|(
+name|family
+argument_list|)
+operator|.
+name|withTableName
+argument_list|(
+name|tableName
+argument_list|)
 decl_stmt|;
 if|if
 condition|(

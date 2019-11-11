@@ -6460,7 +6460,11 @@ literal|"size: "
 operator|+
 name|hfileBlockExpectedSize
 operator|+
-literal|";"
+literal|" HFileContext class expected size: "
+operator|+
+name|hfileMetaSize
+operator|+
+literal|"; "
 argument_list|,
 name|expected
 argument_list|,

@@ -736,6 +736,11 @@ argument_list|(
 name|encoding
 argument_list|)
 operator|.
+name|withColumnFamily
+argument_list|(
+name|family
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;
