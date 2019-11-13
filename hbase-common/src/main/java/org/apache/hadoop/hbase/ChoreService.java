@@ -440,23 +440,24 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The period is {} seconds, {} is disabled"
+literal|"Chore {} is disabled because its period is not positive."
 argument_list|,
 name|chore
-operator|.
-name|getPeriod
-argument_list|()
-argument_list|,
-name|chore
-operator|.
-name|getName
-argument_list|()
 argument_list|)
 expr_stmt|;
 return|return
 literal|false
 return|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Chore {} is enabled."
+argument_list|,
+name|chore
+argument_list|)
+expr_stmt|;
 name|chore
 operator|.
 name|setChoreServicer
