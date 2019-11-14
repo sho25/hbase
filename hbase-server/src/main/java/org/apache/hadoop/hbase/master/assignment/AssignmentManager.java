@@ -7502,7 +7502,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|// we hold the write lock here for fencing on reportRegionStateTransition. Once we set the
+comment|// We hold the write lock here for fencing on reportRegionStateTransition. Once we set the
 comment|// server state to CRASHED, we will no longer accept the reportRegionStateTransition call from
 comment|// this server. This is used to simplify the implementation for TRSP and SCP, where we can make
 comment|// sure that, the region list fetched by SCP will not be changed any more.

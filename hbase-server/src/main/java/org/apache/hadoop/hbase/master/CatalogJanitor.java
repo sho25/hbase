@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -719,6 +719,10 @@ begin_comment
 comment|// problem does not mess up 'results'.
 end_comment
 
+begin_comment
+comment|// TODO: Do more by way of 'repair'; see note on unknownServers below.
+end_comment
+
 begin_class
 annotation|@
 name|InterfaceAudience
@@ -1133,22 +1137,19 @@ return|return
 name|gcs
 return|;
 block|}
-name|Report
-name|report
-init|=
-name|scanForReport
-argument_list|()
-decl_stmt|;
 name|this
 operator|.
 name|lastReport
 operator|=
-name|report
+name|scanForReport
+argument_list|()
 expr_stmt|;
 if|if
 condition|(
 operator|!
-name|report
+name|this
+operator|.
+name|lastReport
 operator|.
 name|isEmpty
 argument_list|()
@@ -1158,7 +1159,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-name|report
+name|this
+operator|.
+name|lastReport
 operator|.
 name|toString
 argument_list|()
@@ -1196,7 +1199,9 @@ name|Result
 argument_list|>
 name|mergedRegions
 init|=
-name|report
+name|this
+operator|.
+name|lastReport
 operator|.
 name|mergedRegions
 decl_stmt|;
@@ -1281,7 +1286,9 @@ name|Result
 argument_list|>
 name|splitParents
 init|=
-name|report
+name|this
+operator|.
+name|lastReport
 operator|.
 name|splitParents
 decl_stmt|;
@@ -2594,6 +2601,7 @@ name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
+comment|/**      * TODO: If CatalogJanitor finds an 'Unknown Server', it should 'fix' it by queuing      * a {@link org.apache.hadoop.hbase.master.procedure.HBCKServerCrashProcedure} for      * found server for it to clean up meta.      */
 specifier|private
 specifier|final
 name|List
@@ -3793,7 +3801,9 @@ condition|)
 block|{
 return|return;
 block|}
-comment|// Check referenced servers are known/online.
+comment|// Check referenced servers are known/online. Here we are looking
+comment|// at both the default replica -- the main replica -- and then replica
+comment|// locations too.
 for|for
 control|(
 name|HRegionLocation
@@ -3853,13 +3863,18 @@ expr_stmt|;
 comment|// This should never happen but if it does, will mess up below.
 continue|continue;
 block|}
-comment|// Skip split parent region
-if|if
-condition|(
+name|RegionInfo
+name|ri
+init|=
 name|location
 operator|.
 name|getRegion
 argument_list|()
+decl_stmt|;
+comment|// Skip split parent region
+if|if
+condition|(
+name|ri
 operator|.
 name|isSplitParent
 argument_list|()
@@ -3872,13 +3887,39 @@ if|if
 condition|(
 name|isTableDisabled
 argument_list|(
-name|location
-operator|.
-name|getRegion
-argument_list|()
+name|ri
 argument_list|)
 condition|)
 block|{
+continue|continue;
+block|}
+name|RegionState
+name|rs
+init|=
+name|this
+operator|.
+name|services
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|getRegionState
+argument_list|(
+name|ri
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|rs
+operator|.
+name|isClosedOrAbnormallyClosed
+argument_list|()
+condition|)
+block|{
+comment|// If closed against an 'Unknown Server', that is should be fine.
 continue|continue;
 block|}
 name|ServerManager
@@ -3918,10 +3959,7 @@ operator|new
 name|Pair
 argument_list|<>
 argument_list|(
-name|location
-operator|.
-name|getRegion
-argument_list|()
+name|ri
 argument_list|,
 name|sn
 argument_list|)

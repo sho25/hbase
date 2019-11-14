@@ -377,6 +377,13 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|static
+specifier|final
+name|int
+name|RS_COUNT
+init|=
+literal|3
+decl_stmt|;
 specifier|protected
 name|HBaseTestingUtility
 name|util
@@ -417,7 +424,7 @@ name|HConstants
 operator|.
 name|HBASE_CLIENT_RETRIES_NUMBER
 argument_list|,
-literal|3
+name|RS_COUNT
 argument_list|)
 expr_stmt|;
 name|conf

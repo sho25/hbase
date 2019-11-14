@@ -279,7 +279,7 @@ name|ServerName
 argument_list|>
 argument_list|()
 decl_stmt|;
-comment|/**    * A dead server that comes back alive has a different start code. The new start code should be    *  greater than the old one, but we don't take this into account in this method.    *    * @param newServerName Servername as either<code>host:port</code> or    *<code>host,port,startcode</code>.    * @return true if this server was dead before and coming back alive again    */
+comment|/**    * Handles restart of a server. The new server instance has a different start code.    * The new start code should be greater than the old one. We don't check that here.    *    * @param newServerName Servername as either<code>host:port</code> or    *<code>host,port,startcode</code>.    * @return true if this server was dead before and coming back alive again    */
 specifier|public
 specifier|synchronized
 name|boolean
@@ -358,12 +358,12 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removed "
-operator|+
+literal|"Removed {}, processing={}, numProcessing={}"
+argument_list|,
 name|sn
-operator|+
-literal|" ; numProcessing="
-operator|+
+argument_list|,
+name|removed
+argument_list|,
 name|processingServers
 operator|.
 name|size
@@ -474,7 +474,7 @@ return|return
 name|clone
 return|;
 block|}
-comment|/**    * Adds the server to the dead server list if it's not there already.    * @param sn the server name    */
+comment|/**    * Adds the server to the dead server list if it's not there already.    */
 specifier|public
 specifier|synchronized
 name|void

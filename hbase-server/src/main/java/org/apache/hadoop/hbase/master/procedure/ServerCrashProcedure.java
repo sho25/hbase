@@ -682,8 +682,9 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// HBASE-14802
-comment|// If we have not yet notified that we are processing a dead server, we should do now.
+comment|// HBASE-14802 If we have not yet notified that we are processing a dead server, do so now.
+comment|// This adds server to the DeadServer processing list but not to the DeadServers list.
+comment|// Server gets removed from processing list below on procedure successful finish.
 if|if
 condition|(
 operator|!
@@ -935,14 +936,9 @@ name|this
 operator|.
 name|regionsOnCrashedServer
 operator|=
-name|services
-operator|.
-name|getAssignmentManager
-argument_list|()
-operator|.
-name|getRegionsOnServer
+name|getRegionsOnCrashedServer
 argument_list|(
-name|serverName
+name|env
 argument_list|)
 expr_stmt|;
 comment|// Where to go next? Depends on whether we should split logs at all or
@@ -968,6 +964,37 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isTraceEnabled
+argument_list|()
+condition|)
+block|{
+name|this
+operator|.
+name|regionsOnCrashedServer
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|forEach
+argument_list|(
+name|ri
+lambda|->
+name|LOG
+operator|.
+name|trace
+argument_list|(
+name|ri
+operator|.
+name|getShortNameToLog
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 if|if
 condition|(
@@ -1273,6 +1300,32 @@ return|return
 name|Flow
 operator|.
 name|HAS_MORE_STATE
+return|;
+block|}
+comment|/**    * @return List of Regions on crashed server.    */
+name|List
+argument_list|<
+name|RegionInfo
+argument_list|>
+name|getRegionsOnCrashedServer
+parameter_list|(
+name|MasterProcedureEnv
+name|env
+parameter_list|)
+block|{
+return|return
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionsOnServer
+argument_list|(
+name|serverName
+argument_list|)
 return|;
 block|}
 specifier|private
