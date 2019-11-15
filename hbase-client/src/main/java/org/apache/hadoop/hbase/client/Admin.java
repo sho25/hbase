@@ -4185,7 +4185,7 @@ name|IOException
 function_decl|;
 comment|/**    * Remove decommissioned servers from group    *  1. Sometimes we may find the server aborted due to some hardware failure and we must offline    *     the server for repairing. Or we need to move some servers to join other clusters.    *     So we need to remove these servers from the group.    *  2. Dead/recovering/live servers will be disallowed.    * @param servers set of servers to remove    * @throws IOException if a remote or network exception occurs    */
 name|void
-name|removeRSGroup
+name|removeServersFromRSGroup
 parameter_list|(
 name|Set
 argument_list|<
@@ -4198,7 +4198,7 @@ name|IOException
 function_decl|;
 comment|/**    * Move given set of servers to the specified target RegionServer group    * @param servers set of servers to move    * @param targetGroup the group to move servers to    * @throws IOException if a remote or network exception occurs    */
 name|void
-name|moveToRSGroup
+name|moveServersToRSGroup
 parameter_list|(
 name|Set
 argument_list|<

@@ -3305,7 +3305,7 @@ name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|removeRSGroup
+name|removeServersFromRSGroup
 parameter_list|(
 name|Set
 argument_list|<
@@ -3319,7 +3319,7 @@ name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|moveToRSGroup
+name|moveServersToRSGroup
 parameter_list|(
 name|Set
 argument_list|<

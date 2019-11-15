@@ -4679,7 +4679,7 @@ name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|moveToRSGroup
+name|moveServersToRSGroup
 parameter_list|(
 name|Set
 argument_list|<
@@ -4696,7 +4696,7 @@ name|wrap
 argument_list|(
 name|rawAdmin
 operator|.
-name|moveToRSGroup
+name|moveServersToRSGroup
 argument_list|(
 name|servers
 argument_list|,
@@ -4835,7 +4835,7 @@ name|CompletableFuture
 argument_list|<
 name|Void
 argument_list|>
-name|removeRSGroup
+name|removeServersFromRSGroup
 parameter_list|(
 name|Set
 argument_list|<
@@ -4849,7 +4849,7 @@ name|wrap
 argument_list|(
 name|rawAdmin
 operator|.
-name|removeRSGroup
+name|removeServersFromRSGroup
 argument_list|(
 name|servers
 argument_list|)

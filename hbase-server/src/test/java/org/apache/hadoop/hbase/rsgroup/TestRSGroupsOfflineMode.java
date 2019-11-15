@@ -25,6 +25,18 @@ name|junit
 operator|.
 name|Assert
 operator|.
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
 name|assertFalse
 import|;
 end_import
@@ -68,20 +80,6 @@ operator|.
 name|hbase
 operator|.
 name|HBaseTestingUtility
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
 import|;
 end_import
 
@@ -183,22 +181,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|coprocessor
-operator|.
-name|CoprocessorHost
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|master
 operator|.
 name|HMaster
@@ -263,6 +245,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|RSGroupTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -276,16 +274,6 @@ operator|.
 name|junit
 operator|.
 name|AfterClass
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
 import|;
 end_import
 
@@ -398,40 +386,22 @@ import|;
 end_import
 
 begin_comment
-comment|// This tests that GroupBasedBalancer will use data in zk to do balancing during master startup.
-end_comment
-
-begin_comment
-comment|// This does not test retain assignment.
-end_comment
-
-begin_comment
-comment|// The tests brings up 3 RS, creates a new RS group 'my_group', moves 1 RS to 'my_group', assigns
-end_comment
-
-begin_comment
-comment|// 'hbase:rsgroup' to 'my_group', and kill the only server in that group so that 'hbase:rsgroup'
-end_comment
-
-begin_comment
-comment|// table isn't available. It then kills the active master and waits for backup master to come
-end_comment
-
-begin_comment
-comment|// online. In new master, RSGroupInfoManagerImpl gets the data from zk and waits for the expected
-end_comment
-
-begin_comment
-comment|// assignment with a timeout.
+comment|/**  * This tests that GroupBasedBalancer will use data in zk to do balancing during master startup.  * This does not test retain assignment.  *<p/>  * The tests brings up 3 RS, creates a new RS group 'my_group', moves 1 RS to 'my_group', assigns  * 'hbase:rsgroup' to 'my_group', and kill the only server in that group so that 'hbase:rsgroup'  * table isn't available. It then kills the active master and waits for backup master to come  * online. In new master, RSGroupInfoManagerImpl gets the data from zk and waits for the expected  * assignment with a timeout.  */
 end_comment
 
 begin_class
 annotation|@
 name|Category
 argument_list|(
+block|{
+name|RSGroupTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
+block|}
 argument_list|)
 specifier|public
 class|class
@@ -532,37 +502,13 @@ operator|.
 name|getConfiguration
 argument_list|()
 operator|.
-name|set
+name|setBoolean
 argument_list|(
-name|HConstants
+name|RSGroupInfoManager
 operator|.
-name|HBASE_MASTER_LOADBALANCER_CLASS
+name|RS_GROUP_ENABLED
 argument_list|,
-name|RSGroupBasedLoadBalancer
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-operator|.
-name|set
-argument_list|(
-name|CoprocessorHost
-operator|.
-name|MASTER_COPROCESSOR_CONF_KEY
-argument_list|,
-name|RSGroupAdminEndpoint
-operator|.
-name|class
-operator|.
-name|getName
-argument_list|()
+literal|true
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -819,19 +765,15 @@ name|newGroup
 init|=
 literal|"my_group"
 decl_stmt|;
-name|RSGroupAdminClient
-name|groupAdmin
+name|Admin
+name|admin
 init|=
-operator|new
-name|RSGroupAdminClient
-argument_list|(
 name|TEST_UTIL
 operator|.
-name|getConnection
+name|getAdmin
 argument_list|()
-argument_list|)
 decl_stmt|;
-name|groupAdmin
+name|admin
 operator|.
 name|addRSGroup
 argument_list|(
@@ -950,9 +892,9 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|// Move server to group and make sure all tables are assigned.
-name|groupAdmin
+name|admin
 operator|.
-name|moveServers
+name|moveServersToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1020,7 +962,7 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// Move table to group and wait.
-name|groupAdmin
+name|admin
 operator|.
 name|setRSGroup
 argument_list|(
@@ -1278,8 +1220,6 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-name|Assert
-operator|.
 name|assertEquals
 argument_list|(
 literal|0

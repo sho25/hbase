@@ -357,6 +357,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|RSGroupTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -451,6 +467,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -466,30 +492,6 @@ operator|.
 name|categories
 operator|.
 name|Category
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|runner
-operator|.
-name|RunWith
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|runners
-operator|.
-name|Parameterized
 import|;
 end_import
 
@@ -537,16 +539,13 @@ end_import
 
 begin_class
 annotation|@
-name|RunWith
-argument_list|(
-name|Parameterized
-operator|.
-name|class
-argument_list|)
-annotation|@
 name|Category
 argument_list|(
 block|{
+name|RSGroupTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
@@ -575,7 +574,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|protected
+specifier|private
 specifier|static
 specifier|final
 name|Logger
@@ -671,7 +670,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_ns"
 argument_list|,
@@ -684,7 +683,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createNamespace
 argument_list|(
@@ -738,7 +737,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -809,7 +808,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -824,7 +823,7 @@ try|try
 block|{
 comment|// stopping may cause an exception
 comment|// due to the connection loss
-name|admin
+name|ADMIN
 operator|.
 name|stopRegionServer
 argument_list|(
@@ -871,7 +870,7 @@ name|Exception
 block|{
 return|return
 operator|!
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -916,7 +915,7 @@ name|Exception
 block|{
 return|return
 operator|!
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -946,7 +945,7 @@ name|newServers
 operator|.
 name|add
 argument_list|(
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -965,9 +964,9 @@ name|next
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
-name|moveToRSGroup
+name|moveServersToRSGroup
 argument_list|(
 name|newServers
 argument_list|,
@@ -979,14 +978,14 @@ argument_list|)
 expr_stmt|;
 comment|// Make sure all the table's regions get reassigned
 comment|// disabling the table guarantees no conflicting assign/unassign (ie SSH) happens
-name|admin
+name|ADMIN
 operator|.
 name|disableTable
 argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|enableTable
 argument_list|(
@@ -1019,7 +1018,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1052,7 +1051,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -1067,7 +1066,7 @@ name|assertEquals
 argument_list|(
 name|tableName
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -1163,7 +1162,7 @@ argument_list|(
 name|tableName
 argument_list|)
 expr_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|setRSGroup
 argument_list|(
@@ -1174,9 +1173,9 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|rsGroupAdmin
+name|RS_GROUP_ADMIN_CLIENT
 operator|.
-name|getRSGroup
+name|getRSGroupInfo
 argument_list|(
 name|groupName
 argument_list|)
@@ -1206,7 +1205,7 @@ name|Address
 argument_list|>
 name|servers
 init|=
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -1240,7 +1239,7 @@ control|(
 name|RegionInfo
 name|tr
 range|:
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -1260,7 +1259,7 @@ name|servers
 operator|.
 name|contains
 argument_list|(
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -1337,7 +1336,7 @@ name|ServerName
 argument_list|>
 name|entry
 range|:
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -1451,7 +1450,7 @@ control|(
 name|Address
 name|addr
 range|:
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -1657,7 +1656,7 @@ expr_stmt|;
 name|ServerName
 name|newServer
 init|=
-name|master
+name|MASTER
 operator|.
 name|getServerManager
 argument_list|()
@@ -1670,9 +1669,9 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
-name|moveToRSGroup
+name|moveServersToRSGroup
 argument_list|(
 name|Sets
 operator|.
@@ -1698,6 +1697,10 @@ literal|30000
 argument_list|)
 expr_stmt|;
 block|}
+comment|// TODO: can not change meta group for now as we can not change the table descriptor of meta
+comment|// table, this has to be done before we merge back to master.
+annotation|@
+name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1746,7 +1749,7 @@ operator|.
 name|META_TABLE_NAME
 argument_list|)
 expr_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|setRSGroup
 argument_list|(
@@ -1757,9 +1760,9 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|rsGroupAdmin
+name|RS_GROUP_ADMIN_CLIENT
 operator|.
-name|getRSGroup
+name|getRSGroupInfo
 argument_list|(
 name|groupName
 argument_list|)
@@ -1806,7 +1809,7 @@ control|(
 name|Address
 name|addr
 range|:
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -1839,7 +1842,7 @@ argument_list|)
 expr_stmt|;
 name|originVersion
 operator|=
-name|master
+name|MASTER
 operator|.
 name|getRegionServerVersion
 argument_list|(
@@ -1980,7 +1983,7 @@ name|compareVersion
 argument_list|(
 name|originVersion
 argument_list|,
-name|master
+name|MASTER
 operator|.
 name|getRegionServerVersion
 argument_list|(

@@ -259,6 +259,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|RSGroupTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -353,30 +369,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|junit
-operator|.
-name|runner
-operator|.
-name|RunWith
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|runners
-operator|.
-name|Parameterized
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -417,16 +409,13 @@ end_import
 
 begin_class
 annotation|@
-name|RunWith
-argument_list|(
-name|Parameterized
-operator|.
-name|class
-argument_list|)
-annotation|@
 name|Category
 argument_list|(
 block|{
+name|RSGroupTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
@@ -536,7 +525,7 @@ block|{
 name|RSGroupInfo
 name|defaultInfo
 init|=
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -562,7 +551,7 @@ comment|// Assignment of meta and rsgroup regions.
 name|int
 name|count
 init|=
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -582,7 +571,7 @@ name|info
 argument_list|(
 literal|"regions assignments are"
 operator|+
-name|master
+name|MASTER
 operator|.
 name|getAssignmentManager
 argument_list|()
@@ -769,7 +758,7 @@ expr_stmt|;
 name|String
 name|nsName
 init|=
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_foo"
 decl_stmt|;
@@ -783,7 +772,7 @@ name|valueOf
 argument_list|(
 name|nsName
 argument_list|,
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_testCreateAndAssign"
 argument_list|)
@@ -798,7 +787,7 @@ argument_list|,
 literal|1
 argument_list|)
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createNamespace
 argument_list|(
@@ -846,7 +835,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -920,7 +909,7 @@ name|assertEquals
 argument_list|(
 literal|1
 argument_list|,
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -951,11 +940,11 @@ expr_stmt|;
 name|String
 name|tableName
 init|=
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_testCreateAndAssign"
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|modifyNamespace
 argument_list|(
@@ -1008,7 +997,7 @@ operator|.
 name|build
 argument_list|()
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -1115,7 +1104,7 @@ name|FAMILY
 argument_list|)
 expr_stmt|;
 comment|// create snapshot
-name|admin
+name|ADMIN
 operator|.
 name|snapshot
 argument_list|(
@@ -1125,7 +1114,7 @@ name|tableName
 argument_list|)
 expr_stmt|;
 comment|// clone
-name|admin
+name|ADMIN
 operator|.
 name|cloneSnapshot
 argument_list|(
@@ -1134,7 +1123,7 @@ argument_list|,
 name|clonedTableName
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|deleteSnapshot
 argument_list|(
@@ -1185,7 +1174,7 @@ decl_stmt|;
 comment|// get the existing dead servers
 name|NUM_DEAD_SERVERS
 operator|=
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1218,7 +1207,7 @@ try|try
 block|{
 comment|// stopping may cause an exception
 comment|// due to the connection loss
-name|admin
+name|ADMIN
 operator|.
 name|stopRegionServer
 argument_list|(
@@ -1267,7 +1256,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1281,7 +1270,7 @@ operator|==
 name|NUM_DEAD_SERVERS
 operator|&&
 operator|!
-name|master
+name|MASTER
 operator|.
 name|getServerManager
 argument_list|()
@@ -1295,7 +1284,7 @@ argument_list|)
 expr_stmt|;
 name|assertFalse
 argument_list|(
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1311,7 +1300,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1348,7 +1337,7 @@ name|ServerName
 argument_list|>
 name|notClearedServers
 init|=
-name|admin
+name|ADMIN
 operator|.
 name|clearDeadServers
 argument_list|(
@@ -1377,7 +1366,7 @@ name|Address
 argument_list|>
 name|newGroupServers
 init|=
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -1436,7 +1425,7 @@ expr_stmt|;
 comment|// get the existing dead servers
 name|NUM_DEAD_SERVERS
 operator|=
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1486,7 +1475,7 @@ try|try
 block|{
 comment|// stopping may cause an exception
 comment|// due to the connection loss
-name|admin
+name|ADMIN
 operator|.
 name|stopRegionServer
 argument_list|(
@@ -1534,7 +1523,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|cluster
+name|CLUSTER
 operator|.
 name|getClusterMetrics
 argument_list|()
@@ -1557,7 +1546,7 @@ name|Address
 argument_list|>
 name|ServersInDeadServerGroup
 init|=
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -1633,7 +1622,7 @@ throws|throws
 name|Exception
 block|{
 return|return
-name|admin
+name|ADMIN
 operator|.
 name|isTableAvailable
 argument_list|(

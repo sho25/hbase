@@ -249,6 +249,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|testclassification
+operator|.
+name|RSGroupTests
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Bytes
@@ -333,30 +349,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|junit
-operator|.
-name|runner
-operator|.
-name|RunWith
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
-name|runners
-operator|.
-name|Parameterized
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|slf4j
 operator|.
 name|Logger
@@ -375,16 +367,13 @@ end_import
 
 begin_class
 annotation|@
-name|RunWith
-argument_list|(
-name|Parameterized
-operator|.
-name|class
-argument_list|)
-annotation|@
 name|Category
 argument_list|(
 block|{
+name|RSGroupTests
+operator|.
+name|class
+block|,
 name|MediumTests
 operator|.
 name|class
@@ -527,7 +516,7 @@ name|TableName
 operator|.
 name|valueOf
 argument_list|(
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_ns"
 argument_list|,
@@ -540,7 +529,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createNamespace
 argument_list|(
@@ -613,7 +602,7 @@ argument_list|(
 literal|"zzzzz"
 argument_list|)
 decl_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|createTable
 argument_list|(
@@ -730,7 +719,7 @@ control|(
 name|RegionInfo
 name|region
 range|:
-name|admin
+name|ADMIN
 operator|.
 name|getRegions
 argument_list|(
@@ -757,7 +746,7 @@ argument_list|()
 argument_list|)
 condition|)
 block|{
-name|admin
+name|ADMIN
 operator|.
 name|move
 argument_list|(
@@ -862,7 +851,7 @@ block|}
 argument_list|)
 expr_stmt|;
 comment|// balance the other group and make sure it doesn't affect the new group
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -871,7 +860,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|balanceRSGroup
 argument_list|(
@@ -902,7 +891,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// disable balance, balancer will not be run and return false
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -913,7 +902,7 @@ argument_list|)
 expr_stmt|;
 name|assertFalse
 argument_list|(
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|balanceRSGroup
 argument_list|(
@@ -943,7 +932,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// enable balance
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -952,7 +941,7 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|balanceRSGroup
 argument_list|(
@@ -1025,7 +1014,7 @@ block|}
 block|}
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -1047,7 +1036,7 @@ block|{
 name|String
 name|namespace
 init|=
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_"
 operator|+
@@ -1087,7 +1076,7 @@ name|valueOf
 argument_list|(
 name|namespace
 argument_list|,
-name|tablePrefix
+name|TABLE_PREFIX
 operator|+
 literal|"_"
 operator|+
@@ -1170,7 +1159,7 @@ name|build
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -1181,7 +1170,7 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|balanceRSGroup
 argument_list|(
@@ -1192,7 +1181,7 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -1203,14 +1192,14 @@ argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|observer
+name|OBSERVER
 operator|.
 name|preBalanceRSGroupCalled
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
-name|observer
+name|OBSERVER
 operator|.
 name|postBalanceRSGroupCalled
 argument_list|)
@@ -1262,7 +1251,7 @@ literal|1
 argument_list|)
 decl_stmt|;
 return|return
-name|admin
+name|ADMIN
 operator|.
 name|getConnection
 argument_list|()

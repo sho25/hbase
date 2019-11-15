@@ -5410,7 +5410,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|moveToRSGroup
+name|moveServersToRSGroup
 parameter_list|(
 name|Set
 argument_list|<
@@ -5524,7 +5524,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|removeRSGroup
+name|removeServersFromRSGroup
 parameter_list|(
 name|Set
 argument_list|<

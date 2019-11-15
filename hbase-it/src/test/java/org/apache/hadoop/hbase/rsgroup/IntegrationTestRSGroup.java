@@ -274,38 +274,29 @@ argument_list|(
 name|NUM_SLAVES_BASE
 argument_list|)
 expr_stmt|;
-comment|//set shared configs
-name|admin
+comment|// set shared configs
+name|ADMIN
 operator|=
 name|TEST_UTIL
 operator|.
 name|getAdmin
 argument_list|()
 expr_stmt|;
-name|cluster
+name|CLUSTER
 operator|=
 name|TEST_UTIL
 operator|.
 name|getHBaseClusterInterface
 argument_list|()
 expr_stmt|;
-name|rsGroupAdmin
+name|RS_GROUP_ADMIN_CLIENT
 operator|=
-operator|new
-name|VerifyingRSGroupAdminClient
-argument_list|(
 operator|new
 name|RSGroupAdminClient
 argument_list|(
 name|TEST_UTIL
 operator|.
 name|getConnection
-argument_list|()
-argument_list|)
-argument_list|,
-name|TEST_UTIL
-operator|.
-name|getConfiguration
 argument_list|()
 argument_list|)
 expr_stmt|;
@@ -320,8 +311,8 @@ name|initialized
 operator|=
 literal|true
 expr_stmt|;
-comment|//cluster may not be clean
-comment|//cleanup when initializing
+comment|// cluster may not be clean
+comment|// cleanup when initializing
 name|afterMethod
 argument_list|()
 expr_stmt|;
@@ -353,7 +344,7 @@ expr_stmt|;
 name|deleteGroups
 argument_list|()
 expr_stmt|;
-name|admin
+name|ADMIN
 operator|.
 name|balancerSwitch
 argument_list|(
@@ -416,7 +407,7 @@ name|info
 argument_list|(
 literal|"Waiting for cleanup to finish "
 operator|+
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|listRSGroups
 argument_list|()
@@ -425,7 +416,7 @@ expr_stmt|;
 comment|//Might be greater since moving servers back to default
 comment|//is after starting a server
 return|return
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
@@ -476,7 +467,7 @@ name|info
 argument_list|(
 literal|"Waiting for regionservers to be registered "
 operator|+
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|listRSGroups
 argument_list|()
@@ -485,7 +476,7 @@ expr_stmt|;
 comment|//Might be greater since moving servers back to default
 comment|//is after starting a server
 return|return
-name|rsGroupAdmin
+name|ADMIN
 operator|.
 name|getRSGroup
 argument_list|(
