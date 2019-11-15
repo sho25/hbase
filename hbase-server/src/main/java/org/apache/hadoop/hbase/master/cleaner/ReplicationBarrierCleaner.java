@@ -650,7 +650,30 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-comment|// no serial replication, only keep the newest barrier
+comment|// no serial replication
+comment|// check if the region has already been removed, i.e, no catalog family
+if|if
+condition|(
+name|metaTable
+operator|.
+name|exists
+argument_list|(
+operator|new
+name|Get
+argument_list|(
+name|regionName
+argument_list|)
+operator|.
+name|addFamily
+argument_list|(
+name|HConstants
+operator|.
+name|CATALOG_FAMILY
+argument_list|)
+argument_list|)
+condition|)
+block|{
+comment|// exists, then only keep the newest barrier
 name|Cell
 name|cell
 init|=
@@ -692,9 +715,6 @@ literal|1
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|cleanedRows
-operator|++
-expr_stmt|;
 name|deletedBarriers
 operator|+=
 name|barriers
@@ -702,6 +722,38 @@ operator|.
 name|length
 operator|-
 literal|1
+expr_stmt|;
+block|}
+else|else
+block|{
+comment|// not exists, delete all the barriers
+name|metaTable
+operator|.
+name|delete
+argument_list|(
+operator|new
+name|Delete
+argument_list|(
+name|regionName
+argument_list|)
+operator|.
+name|addFamily
+argument_list|(
+name|HConstants
+operator|.
+name|REPLICATION_BARRIER_FAMILY
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|deletedBarriers
+operator|+=
+name|barriers
+operator|.
+name|length
+expr_stmt|;
+block|}
+name|cleanedRows
+operator|++
 expr_stmt|;
 continue|continue;
 block|}
