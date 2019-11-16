@@ -39,7 +39,7 @@ begin_interface
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
 interface|interface
 name|TimeMeasurable

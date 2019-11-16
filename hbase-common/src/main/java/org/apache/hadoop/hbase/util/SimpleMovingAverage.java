@@ -39,7 +39,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
 class|class
 name|SimpleMovingAverage
@@ -60,8 +60,16 @@ literal|0
 decl_stmt|;
 specifier|public
 name|SimpleMovingAverage
-parameter_list|()
+parameter_list|(
+name|String
+name|label
+parameter_list|)
 block|{
+name|super
+argument_list|(
+name|label
+argument_list|)
+expr_stmt|;
 name|this
 operator|.
 name|averageTime

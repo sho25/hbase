@@ -59,7 +59,7 @@ begin_class
 annotation|@
 name|InterfaceAudience
 operator|.
-name|Public
+name|Private
 specifier|public
 specifier|abstract
 class|class
@@ -83,6 +83,25 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|protected
+specifier|final
+name|String
+name|label
+decl_stmt|;
+specifier|protected
+name|MovingAverage
+parameter_list|(
+name|String
+name|label
+parameter_list|)
+block|{
+name|this
+operator|.
+name|label
+operator|=
+name|label
+expr_stmt|;
+block|}
 comment|/**    * Mark start time of an execution.    * @return time in ns.    */
 specifier|protected
 name|long
@@ -134,9 +153,11 @@ argument_list|()
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Start to measure at: {} ns."
+literal|"{} - start to measure at: {} ns."
+argument_list|,
+name|label
 argument_list|,
 name|startTime
 argument_list|)
@@ -161,9 +182,11 @@ argument_list|)
 decl_stmt|;
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
-literal|"Elapse: {} ns."
+literal|"{} - elapse: {} ns."
+argument_list|,
+name|label
 argument_list|,
 name|elapsed
 argument_list|)
