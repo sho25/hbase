@@ -4,7 +4,7 @@ comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * o
 end_comment
 
 begin_comment
-comment|/** Provides HBase<a href="http://wiki.apache.org/hadoop/HadoopMapReduce">MapReduce</a> Input/OutputFormats, a table indexing MapReduce job, and utility methods.<p>See<a href="http://hbase.apache.org/book.html#mapreduce">HBase and MapReduce</a> in the HBase Reference Guide for mapreduce over hbase documentation. */
+comment|/** Provides HBase<a href="https://cwiki.apache.org/confluence/display/HADOOP2/HadoopMapReduce">MapReduce</a> Input/OutputFormats, a table indexing MapReduce job, and utility methods.<p>See<a href="http://hbase.apache.org/book.html#mapreduce">HBase and MapReduce</a> in the HBase Reference Guide for mapreduce over hbase documentation. */
 end_comment
 
 begin_package

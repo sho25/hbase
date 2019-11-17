@@ -3780,7 +3780,7 @@ name|DEFAULT_COMPRESSION
 argument_list|)
 return|;
 block|}
-comment|/**      * Compression types supported in hbase. LZO is not bundled as part of the      * hbase distribution. See      *<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO      * Compression</a>      * for how to enable it.      *      * @param type Compression type setting.      * @return this (for chained invocation)      */
+comment|/**      * Compression types supported in hbase. LZO is not bundled as part of the      * hbase distribution. See      * See<a href="http://hbase.apache.org/book.html#lzo.compression">LZO Compression</a>      * for how to enable it.      *      * @param type Compression type setting.      * @return this (for chained invocation)      */
 specifier|public
 name|ModifyableColumnFamilyDescriptor
 name|setCompressionType
@@ -3941,7 +3941,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**      * Compression types supported in hbase. LZO is not bundled as part of the      * hbase distribution. See      *<a href="http://wiki.apache.org/hadoop/UsingLzoCompression">LZO      * Compression</a>      * for how to enable it.      *      * @param type Compression type setting.      * @return this (for chained invocation)      */
+comment|/**      * Compression types supported in hbase. LZO is not bundled as part of the      * hbase distribution. See      * See<a href="http://hbase.apache.org/book.html#lzo.compression">LZO Compression</a>      * for how to enable it.      *      * @param type Compression type setting.      * @return this (for chained invocation)      */
 specifier|public
 name|ModifyableColumnFamilyDescriptor
 name|setCompactionCompressionType
