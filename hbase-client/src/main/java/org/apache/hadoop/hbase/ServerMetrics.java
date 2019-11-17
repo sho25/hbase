@@ -207,6 +207,17 @@ argument_list|>
 name|getRegionMetrics
 parameter_list|()
 function_decl|;
+comment|/**    * @return metrics per user    */
+name|Map
+argument_list|<
+name|byte
+index|[]
+argument_list|,
+name|UserMetrics
+argument_list|>
+name|getUserMetrics
+parameter_list|()
+function_decl|;
 comment|/**    * Return the RegionServer-level and Region-level coprocessors    * @return string set of loaded RegionServer-level and Region-level coprocessors    */
 name|Set
 argument_list|<

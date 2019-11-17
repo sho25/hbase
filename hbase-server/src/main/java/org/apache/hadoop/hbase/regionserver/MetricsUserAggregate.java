@@ -40,6 +40,11 @@ specifier|public
 interface|interface
 name|MetricsUserAggregate
 block|{
+comment|/**    * @return return a singleton instance of MetricsUserAggregateSource or null in case of NoOp    */
+name|MetricsUserAggregateSource
+name|getSource
+parameter_list|()
+function_decl|;
 name|void
 name|updatePut
 parameter_list|(
@@ -88,6 +93,14 @@ parameter_list|(
 name|long
 name|t
 parameter_list|)
+function_decl|;
+name|void
+name|updateFilteredReadRequests
+parameter_list|()
+function_decl|;
+name|void
+name|updateReadRequestCount
+parameter_list|()
 function_decl|;
 block|}
 end_interface

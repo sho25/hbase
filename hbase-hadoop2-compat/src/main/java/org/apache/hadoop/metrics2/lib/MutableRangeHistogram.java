@@ -406,6 +406,20 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+annotation|@
+name|Override
+specifier|public
+name|long
+name|getCount
+parameter_list|()
+block|{
+return|return
+name|histogram
+operator|.
+name|getCount
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 

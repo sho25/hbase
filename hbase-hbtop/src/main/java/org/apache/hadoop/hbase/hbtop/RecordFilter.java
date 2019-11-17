@@ -709,6 +709,15 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+name|Field
+name|getField
+parameter_list|()
+block|{
+return|return
+name|field
+return|;
+block|}
+specifier|public
 name|boolean
 name|execute
 parameter_list|(

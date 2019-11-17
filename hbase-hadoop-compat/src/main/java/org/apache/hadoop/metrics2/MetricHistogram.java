@@ -111,6 +111,11 @@ name|long
 name|value
 parameter_list|)
 function_decl|;
+comment|/**    * Return the total number of values added to the histogram.    * @return the total number of values.    */
+name|long
+name|getCount
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

@@ -450,16 +450,6 @@ block|}
 annotation|@
 name|VisibleForTesting
 specifier|public
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|regionserver
-operator|.
 name|MetricsUserAggregate
 name|getMetricsUserAggregate
 parameter_list|()

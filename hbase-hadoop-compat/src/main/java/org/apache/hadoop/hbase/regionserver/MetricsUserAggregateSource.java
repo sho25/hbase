@@ -19,6 +19,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Map
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -124,6 +134,15 @@ parameter_list|(
 name|MetricsUserSource
 name|toRemove
 parameter_list|)
+function_decl|;
+name|Map
+argument_list|<
+name|String
+argument_list|,
+name|MetricsUserSource
+argument_list|>
+name|getUserSources
+parameter_list|()
 function_decl|;
 block|}
 end_interface

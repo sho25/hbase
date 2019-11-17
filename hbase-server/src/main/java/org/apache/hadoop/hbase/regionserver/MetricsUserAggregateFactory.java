@@ -114,6 +114,17 @@ block|{
 annotation|@
 name|Override
 specifier|public
+name|MetricsUserAggregateSource
+name|getSource
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|void
 name|updatePut
 parameter_list|(
@@ -180,6 +191,20 @@ parameter_list|(
 name|long
 name|t
 parameter_list|)
+block|{          }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|updateFilteredReadRequests
+parameter_list|()
+block|{          }
+annotation|@
+name|Override
+specifier|public
+name|void
+name|updateReadRequestCount
+parameter_list|()
 block|{          }
 block|}
 return|;

@@ -99,6 +99,8 @@ name|TestUtils
 operator|.
 name|createDummyClusterMetrics
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 name|assertRecords
@@ -147,6 +149,8 @@ name|TestUtils
 operator|.
 name|createDummyClusterMetrics
 argument_list|()
+argument_list|,
+literal|null
 argument_list|)
 decl_stmt|;
 for|for
