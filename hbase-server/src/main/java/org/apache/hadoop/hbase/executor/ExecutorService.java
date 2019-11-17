@@ -422,7 +422,7 @@ decl_stmt|;
 comment|// hold the all the executors created in a map addressable by their names
 specifier|private
 specifier|final
-name|ConcurrentHashMap
+name|ConcurrentMap
 argument_list|<
 name|String
 argument_list|,
@@ -505,16 +505,27 @@ name|int
 name|maxThreads
 parameter_list|)
 block|{
-if|if
-condition|(
+name|Executor
+name|hbes
+init|=
 name|this
 operator|.
 name|executorMap
 operator|.
-name|get
+name|compute
 argument_list|(
 name|name
-argument_list|)
+argument_list|,
+parameter_list|(
+name|key
+parameter_list|,
+name|value
+parameter_list|)
+lambda|->
+block|{
+if|if
+condition|(
+name|value
 operator|!=
 literal|null
 condition|)
@@ -525,70 +536,39 @@ name|RuntimeException
 argument_list|(
 literal|"An executor service with the name "
 operator|+
-name|name
+name|key
 operator|+
 literal|" is already running!"
 argument_list|)
 throw|;
 block|}
-name|Executor
-name|hbes
-init|=
+return|return
 operator|new
 name|Executor
 argument_list|(
-name|name
+name|key
 argument_list|,
 name|maxThreads
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|this
-operator|.
-name|executorMap
-operator|.
-name|putIfAbsent
-argument_list|(
-name|name
-argument_list|,
-name|hbes
-argument_list|)
-operator|!=
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-literal|"An executor service with the name "
-operator|+
-name|name
-operator|+
-literal|" is already running (2)!"
-argument_list|)
-throw|;
+return|;
 block|}
+argument_list|)
+decl_stmt|;
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Starting executor service name="
-operator|+
+literal|"Starting executor service name={}, corePoolSize={}, maxPoolSize={}"
+argument_list|,
 name|name
-operator|+
-literal|", corePoolSize="
-operator|+
+argument_list|,
 name|hbes
 operator|.
 name|threadPoolExecutor
 operator|.
 name|getCorePoolSize
 argument_list|()
-operator|+
-literal|", maxPoolSize="
-operator|+
+argument_list|,
 name|hbes
 operator|.
 name|threadPoolExecutor
@@ -800,13 +780,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Executor service "
-operator|+
-name|toString
-argument_list|()
-operator|+
-literal|" already running on "
-operator|+
+literal|"Executor service {} already running on {}"
+argument_list|,
+name|this
+argument_list|,
 name|this
 operator|.
 name|servername
