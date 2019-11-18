@@ -1317,7 +1317,7 @@ literal|" after "
 operator|+
 name|duration
 operator|+
-literal|" seconds.\n\ncommand:\n"
+literal|" seconds.\n\nCommand:\n"
 operator|+
 name|Joiner
 operator|.

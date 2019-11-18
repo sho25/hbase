@@ -521,7 +521,7 @@ name|RegionInfoBuilder
 operator|.
 name|FIRST_META_REGIONINFO
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
 name|List
@@ -714,7 +714,7 @@ name|regionName
 init|=
 name|hri
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
 name|rsDispatcher
@@ -1154,7 +1154,7 @@ name|regionName
 init|=
 name|hri
 operator|.
-name|getEncodedName
+name|getRegionNameAsString
 argument_list|()
 decl_stmt|;
 name|rsDispatcher

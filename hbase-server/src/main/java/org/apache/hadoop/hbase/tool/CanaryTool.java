@@ -1768,7 +1768,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Read from {} on {} failed"
+literal|"Read from {} on serverName={} failed"
 argument_list|,
 name|region
 operator|.
@@ -1805,7 +1805,7 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"Read from {} on {} {} failed"
+literal|"Read from {} on serverName={}, columnFamily={} failed"
 argument_list|,
 name|region
 operator|.
