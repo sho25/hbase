@@ -646,7 +646,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Start the HBase Thrift HTTP server on a random port through the command-line  * interface and talk to it from client side with SPNEGO security enabled.  */
+comment|/**  * Start the HBase Thrift HTTP server on a random port through the command-line  * interface and talk to it from client side with SPNEGO security enabled.  *  * Supplemental test to TestThriftSpnegoHttpServer which falls back to the original  * Kerberos principal and keytab configuration properties, not the separate  * SPNEGO-specific properties.  */
 end_comment
 
 begin_class
@@ -665,7 +665,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestThriftSpnegoHttpServer
+name|TestThriftSpnegoHttpFallbackServer
 extends|extends
 name|TestThriftHttpServer
 block|{
@@ -681,7 +681,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestThriftSpnegoHttpServer
+name|TestThriftSpnegoHttpFallbackServer
 operator|.
 name|class
 argument_list|)
@@ -696,7 +696,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestThriftSpnegoHttpServer
+name|TestThriftSpnegoHttpFallbackServer
 operator|.
 name|class
 argument_list|)
@@ -710,11 +710,6 @@ specifier|private
 specifier|static
 name|File
 name|serverKeytab
-decl_stmt|;
-specifier|private
-specifier|static
-name|File
-name|spnegoServerKeytab
 decl_stmt|;
 specifier|private
 specifier|static
@@ -924,7 +919,7 @@ name|setSecuredConfiguration
 argument_list|(
 name|conf
 argument_list|,
-name|serverPrincipal
+name|spnegoServerPrincipal
 argument_list|,
 name|spnegoServerPrincipal
 argument_list|)
@@ -933,7 +928,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hadoop.proxyuser.hbase.hosts"
+literal|"hadoop.proxyuser.HTTP.hosts"
 argument_list|,
 literal|"*"
 argument_list|)
@@ -942,7 +937,7 @@ name|conf
 operator|.
 name|set
 argument_list|(
-literal|"hadoop.proxyuser.hbase.groups"
+literal|"hadoop.proxyuser.HTTP.groups"
 argument_list|,
 literal|"*"
 argument_list|)
@@ -953,23 +948,9 @@ name|set
 argument_list|(
 name|Constants
 operator|.
-name|THRIFT_SPNEGO_PRINCIPAL_KEY
+name|THRIFT_KERBEROS_PRINCIPAL_KEY
 argument_list|,
 name|spnegoServerPrincipal
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|set
-argument_list|(
-name|Constants
-operator|.
-name|THRIFT_SPNEGO_KEYTAB_FILE_KEY
-argument_list|,
-name|spnegoServerKeytab
-operator|.
-name|getAbsolutePath
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -1090,7 +1071,6 @@ operator|+
 literal|".keytab"
 argument_list|)
 expr_stmt|;
-comment|// Setup separate SPNEGO keytab
 name|spnegoServerPrincipal
 operator|=
 literal|"HTTP/"
@@ -1109,34 +1089,7 @@ operator|.
 name|getKdcRealm
 argument_list|()
 expr_stmt|;
-name|spnegoServerKeytab
-operator|=
-operator|new
-name|File
-argument_list|(
-name|keytabDir
-argument_list|,
-name|spnegoServerPrincipal
-operator|.
-name|replace
-argument_list|(
-literal|'/'
-argument_list|,
-literal|'_'
-argument_list|)
-operator|+
-literal|".keytab"
-argument_list|)
-expr_stmt|;
-name|kdc
-operator|.
-name|createAndExportPrincipals
-argument_list|(
-name|spnegoServerKeytab
-argument_list|,
-name|spnegoServerPrincipal
-argument_list|)
-expr_stmt|;
+comment|// Add SPNEGO principal to server keytab
 name|kdc
 operator|.
 name|createAndExportPrincipals
@@ -1144,6 +1097,8 @@ argument_list|(
 name|serverKeytab
 argument_list|,
 name|serverPrincipal
+argument_list|,
+name|spnegoServerPrincipal
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
