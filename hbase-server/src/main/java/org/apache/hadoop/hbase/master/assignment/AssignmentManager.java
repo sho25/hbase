@@ -605,6 +605,24 @@ name|master
 operator|.
 name|procedure
 operator|.
+name|HBCKServerCrashProcedure
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|master
+operator|.
+name|procedure
+operator|.
 name|MasterProcedureEnv
 import|;
 end_import
@@ -7440,6 +7458,7 @@ return|return
 literal|0
 return|;
 block|}
+comment|/**    * Usually run by the Master in reaction to server crash during normal processing.    * Can also be invoked via external RPC to effect repair; in the latter case,    * the 'force' flag is set so we push through the SCP though context may indicate    * already-running-SCP (An old SCP may have exited abnormally, or damaged cluster    * may still have references in hbase:meta to 'Unknown Servers' -- servers that    * are not online or in dead servers list, etc.)    * @param force Set if the request came in externally over RPC (via hbck2). Force means    *              run the SCP even if it seems as though there might be an outstanding    *              SCP running.    * @return pid of scheduled SCP or {@link Procedure#NO_PROC_ID} if none scheduled.    */
 specifier|public
 name|long
 name|submitServerCrash
@@ -7449,14 +7468,12 @@ name|serverName
 parameter_list|,
 name|boolean
 name|shouldSplitWal
+parameter_list|,
+name|boolean
+name|force
 parameter_list|)
 block|{
-name|boolean
-name|carryingMeta
-decl_stmt|;
-name|long
-name|pid
-decl_stmt|;
+comment|// May be an 'Unknown Server' so handle case where serverNode is null.
 name|ServerStateNode
 name|serverNode
 init|=
@@ -7467,27 +7484,6 @@ argument_list|(
 name|serverName
 argument_list|)
 decl_stmt|;
-if|if
-condition|(
-name|serverNode
-operator|==
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|info
-argument_list|(
-literal|"Skip to add SCP for {} since this server should be OFFLINE already"
-argument_list|,
-name|serverName
-argument_list|)
-expr_stmt|;
-return|return
-operator|-
-literal|1
-return|;
-block|}
 comment|// Remove the in-memory rsReports result
 synchronized|synchronized
 init|(
@@ -7506,6 +7502,13 @@ comment|// We hold the write lock here for fencing on reportRegionStateTransitio
 comment|// server state to CRASHED, we will no longer accept the reportRegionStateTransition call from
 comment|// this server. This is used to simplify the implementation for TRSP and SCP, where we can make
 comment|// sure that, the region list fetched by SCP will not be changed any more.
+if|if
+condition|(
+name|serverNode
+operator|!=
+literal|null
+condition|)
+block|{
 name|serverNode
 operator|.
 name|writeLock
@@ -7514,6 +7517,13 @@ operator|.
 name|lock
 argument_list|()
 expr_stmt|;
+block|}
+name|boolean
+name|carryingMeta
+decl_stmt|;
+name|long
+name|pid
+decl_stmt|;
 try|try
 block|{
 name|ProcedureExecutor
@@ -7539,6 +7549,13 @@ expr_stmt|;
 if|if
 condition|(
 operator|!
+name|force
+operator|&&
+name|serverNode
+operator|!=
+literal|null
+operator|&&
+operator|!
 name|serverNode
 operator|.
 name|isInState
@@ -7553,22 +7570,52 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Skip to add SCP for {} with meta= {}, "
-operator|+
-literal|"since there should be a SCP is processing or already done for this server node"
+literal|"Skip adding SCP for {} (meta={}) -- running?"
 argument_list|,
-name|serverName
+name|serverNode
 argument_list|,
 name|carryingMeta
 argument_list|)
 expr_stmt|;
 return|return
-operator|-
-literal|1
+name|Procedure
+operator|.
+name|NO_PROC_ID
 return|;
 block|}
 else|else
 block|{
+name|MasterProcedureEnv
+name|mpe
+init|=
+name|procExec
+operator|.
+name|getEnvironment
+argument_list|()
+decl_stmt|;
+comment|// If serverNode == null, then 'Unknown Server'. Schedule HBCKSCP instead.
+comment|// HBCKSCP scours Master in-memory state AND hbase;meta for references to
+comment|// serverName just-in-case. An SCP that is scheduled when the server is
+comment|// 'Unknown' probably originated externally with HBCK2 fix-it tool.
+name|ServerState
+name|oldState
+init|=
+literal|null
+decl_stmt|;
+if|if
+condition|(
+name|serverNode
+operator|!=
+literal|null
+condition|)
+block|{
+name|oldState
+operator|=
+name|serverNode
+operator|.
+name|getState
+argument_list|()
+expr_stmt|;
 name|serverNode
 operator|.
 name|setState
@@ -7578,6 +7625,12 @@ operator|.
 name|CRASHED
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|force
+condition|)
+block|{
 name|pid
 operator|=
 name|procExec
@@ -7585,12 +7638,9 @@ operator|.
 name|submitProcedure
 argument_list|(
 operator|new
-name|ServerCrashProcedure
+name|HBCKServerCrashProcedure
 argument_list|(
-name|procExec
-operator|.
-name|getEnvironment
-argument_list|()
+name|mpe
 argument_list|,
 name|serverName
 argument_list|,
@@ -7600,22 +7650,69 @@ name|carryingMeta
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|pid
+operator|=
+name|procExec
+operator|.
+name|submitProcedure
+argument_list|(
+operator|new
+name|ServerCrashProcedure
+argument_list|(
+name|mpe
+argument_list|,
+name|serverName
+argument_list|,
+name|shouldSplitWal
+argument_list|,
+name|carryingMeta
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Added {} to dead servers which carryingMeta={}, submitted ServerCrashProcedure pid={}"
+literal|"Scheduled SCP pid={} for {} (carryingMeta={}){}."
+argument_list|,
+name|pid
 argument_list|,
 name|serverName
 argument_list|,
 name|carryingMeta
 argument_list|,
-name|pid
+name|serverNode
+operator|==
+literal|null
+condition|?
+literal|""
+else|:
+literal|" "
+operator|+
+name|serverNode
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", oldState="
+operator|+
+name|oldState
 argument_list|)
 expr_stmt|;
 block|}
 block|}
 finally|finally
+block|{
+if|if
+condition|(
+name|serverNode
+operator|!=
+literal|null
+condition|)
 block|{
 name|serverNode
 operator|.
@@ -7625,6 +7722,7 @@ operator|.
 name|unlock
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 return|return
 name|pid

@@ -322,6 +322,13 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"No regions found in hbase:meta"
+argument_list|)
+expr_stmt|;
 return|return
 name|ris
 return|;
@@ -352,6 +359,14 @@ argument_list|<>
 argument_list|(
 name|ris
 argument_list|)
+decl_stmt|;
+name|int
+name|before
+init|=
+name|aggregate
+operator|.
+name|size
+argument_list|()
 decl_stmt|;
 name|ps
 operator|.
@@ -394,6 +409,23 @@ operator|.
 name|getFirst
 argument_list|()
 argument_list|)
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Found {} mentions of {} in hbase:meta"
+argument_list|,
+name|aggregate
+operator|.
+name|size
+argument_list|()
+operator|-
+name|before
+argument_list|,
+name|getServerName
+argument_list|()
 argument_list|)
 expr_stmt|;
 return|return

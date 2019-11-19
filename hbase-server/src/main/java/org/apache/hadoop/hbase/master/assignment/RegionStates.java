@@ -3524,6 +3524,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
+comment|/**    * @return Pertinent ServerStateNode or NULL if none found.    */
 annotation|@
 name|VisibleForTesting
 specifier|public

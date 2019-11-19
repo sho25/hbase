@@ -842,6 +842,10 @@ name|expireServer
 argument_list|(
 name|SERVER_FOR_TEST
 argument_list|)
+operator|==
+name|Procedure
+operator|.
+name|NO_PROC_ID
 argument_list|)
 expr_stmt|;
 comment|// Wait the SCP to finish
@@ -888,6 +892,10 @@ name|expireServer
 argument_list|(
 name|SERVER_FOR_TEST
 argument_list|)
+operator|==
+name|Procedure
+operator|.
+name|NO_PROC_ID
 argument_list|)
 expr_stmt|;
 name|serverNode

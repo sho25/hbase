@@ -2391,6 +2391,8 @@ name|serverName
 argument_list|,
 literal|false
 comment|/* No WALs here */
+argument_list|,
+literal|false
 argument_list|)
 expr_stmt|;
 comment|// add a new server to avoid killing all the region servers which may hang the UTs
