@@ -173,6 +173,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -1281,7 +1291,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Callers should call close on the returned {@link Table} instance.    * @param connection connection we're using to access Meta    * @return An {@link Table} for<code>hbase:meta</code>    */
+comment|/**    * Callers should call close on the returned {@link Table} instance.    * @param connection connection we're using to access Meta    * @return An {@link Table} for<code>hbase:meta</code>    * @throws NullPointerException if {@code connection} is {@code null}    */
 end_comment
 
 begin_function
@@ -1298,22 +1308,15 @@ throws|throws
 name|IOException
 block|{
 comment|// We used to pass whole CatalogTracker in here, now we just pass in Connection
-if|if
-condition|(
-name|connection
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"No connection"
+name|connection
+argument_list|,
+literal|"Connection cannot be null"
 argument_list|)
-throw|;
-block|}
-elseif|else
+expr_stmt|;
 if|if
 condition|(
 name|connection

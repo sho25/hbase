@@ -307,6 +307,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Optional
 import|;
 end_import
@@ -34510,7 +34520,7 @@ name|reporter
 argument_list|)
 return|;
 block|}
-comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    */
+comment|/**    * Open a Region.    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param rootDir Root directory for HBase instance    * @param info Info for region to be opened.    * @param htd the table descriptor    * @param wal WAL for region to use. This method will call    * WAL#setSequenceNumber(long) passing the result of the call to    * HRegion#getMinSequenceId() to ensure the wal id is properly kept    * up.  HRegionStore does this every time it opens a new region.    * @param rsServices An interface we can request flushes against.    * @param reporter An interface we can report progress against.    * @return new HRegion    * @throws NullPointerException if {@code info} is {@code null}    */
 specifier|public
 specifier|static
 name|HRegion
@@ -34555,19 +34565,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|info
-operator|==
-literal|null
-condition|)
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"Passed region info is null"
+name|info
+argument_list|,
+literal|"RegionInfo cannot be null"
 argument_list|)
-throw|;
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -34864,7 +34870,7 @@ return|return
 name|this
 return|;
 block|}
-comment|/**    * Open a Region on a read-only file-system (like hdfs snapshots)    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param info Info for region to be opened.    * @param htd the table descriptor    * @return new HRegion    */
+comment|/**    * Open a Region on a read-only file-system (like hdfs snapshots)    * @param conf The Configuration object to use.    * @param fs Filesystem to use    * @param info Info for region to be opened.    * @param htd the table descriptor    * @return new HRegion    * @throws NullPointerException if {@code info} is {@code null}    */
 specifier|public
 specifier|static
 name|HRegion
@@ -34892,21 +34898,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|info
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"Passed region info is null"
+name|info
+argument_list|,
+literal|"RegionInfo cannot be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 if|if
 condition|(
 name|LOG
@@ -35025,19 +35025,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|info
-operator|==
-literal|null
-condition|)
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"Passed region info is null"
+name|info
+argument_list|,
+literal|"RegionInfo cannot be null"
 argument_list|)
-throw|;
+expr_stmt|;
 if|if
 condition|(
 name|LOG

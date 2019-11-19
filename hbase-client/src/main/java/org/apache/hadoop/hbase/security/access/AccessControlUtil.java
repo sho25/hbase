@@ -61,6 +61,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -356,7 +366,7 @@ specifier|private
 name|AccessControlUtil
 parameter_list|()
 block|{}
-comment|/**    * Create a request to grant user table permissions.    *    * @param username the short user name who to grant permissions    * @param tableName optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be granted    * @return A {@link AccessControlProtos} GrantRequest    */
+comment|/**    * Create a request to grant user table permissions.    *    * @param username the short user name who to grant permissions    * @param tableName optional table name the permissions apply    * @param family optional column family    * @param qualifier optional qualifier    * @param actions the permissions to be granted    * @return A {@link AccessControlProtos} GrantRequest    * @throws NullPointerException if {@code tableName} is {@code null}    */
 specifier|public
 specifier|static
 name|AccessControlProtos
@@ -438,21 +448,15 @@ name|a
 argument_list|)
 expr_stmt|;
 block|}
-if|if
-condition|(
-name|tableName
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
+name|tableName
+argument_list|,
 literal|"TableName cannot be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 name|permissionBuilder
 operator|.
 name|setTableName

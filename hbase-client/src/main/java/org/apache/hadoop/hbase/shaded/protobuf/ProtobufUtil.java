@@ -209,6 +209,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Optional
 import|;
 end_import
@@ -12665,7 +12675,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Unwraps an exception from a protobuf service into the underlying (expected) IOException.    * This method will<strong>always</strong> throw an exception.    * @param se the {@code ServiceException} instance to convert into an {@code IOException}    */
+comment|/**    * Unwraps an exception from a protobuf service into the underlying (expected) IOException. This    * method will<strong>always</strong> throw an exception.    * @param se the {@code ServiceException} instance to convert into an {@code IOException}    * @throws NullPointerException if {@code se} is {@code null}    */
 specifier|public
 specifier|static
 name|void
@@ -12677,21 +12687,15 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|se
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"Null service exception passed!"
+name|se
+argument_list|,
+literal|"Service exception cannot be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 name|Throwable
 name|cause
 init|=

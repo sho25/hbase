@@ -39,6 +39,16 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -160,6 +170,7 @@ name|filter
 init|=
 literal|null
 decl_stmt|;
+comment|/**    * Constructor.    * @param filter filter to wrap    * @throws NullPointerException if {@code filter} is {@code null}    */
 specifier|public
 name|FilterWrapper
 parameter_list|(
@@ -167,27 +178,18 @@ name|Filter
 name|filter
 parameter_list|)
 block|{
-if|if
-condition|(
-literal|null
-operator|==
-name|filter
-condition|)
-block|{
-comment|// ensure the filter instance is not null
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Cannot create FilterWrapper with null Filter"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|filter
 operator|=
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
 name|filter
+argument_list|,
+literal|"Cannot create FilterWrapper with null Filter"
+argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return The filter serialized using pb    */

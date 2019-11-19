@@ -117,6 +117,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
@@ -4602,7 +4612,7 @@ block|}
 end_class
 
 begin_comment
-comment|/**    * If our FileSystem version includes the StreamCapabilities class, check if    * the given stream has a particular capability.    * @param stream capabilities are per-stream instance, so check this one specifically. must not be    *        null    * @param capability what to look for, per Hadoop Common's FileSystem docs    * @return true if there are no StreamCapabilities. false if there are, but this stream doesn't    *         implement it. return result of asking the stream otherwise.    */
+comment|/**    * If our FileSystem version includes the StreamCapabilities class, check if the given stream has    * a particular capability.    * @param stream capabilities are per-stream instance, so check this one specifically. must not be    *          null    * @param capability what to look for, per Hadoop Common's FileSystem docs    * @return true if there are no StreamCapabilities. false if there are, but this stream doesn't    *         implement it. return result of asking the stream otherwise.    * @throws NullPointerException if {@code stream} is {@code null}    */
 end_comment
 
 begin_function
@@ -4619,21 +4629,15 @@ name|capability
 parameter_list|)
 block|{
 comment|// be consistent whether or not StreamCapabilities is present
-if|if
-condition|(
-name|stream
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"stream parameter must not be null."
+name|stream
+argument_list|,
+literal|"stream cannot be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
 comment|// If o.a.h.fs.StreamCapabilities doesn't exist, assume everyone does everything
 comment|// otherwise old versions of Hadoop will break.
 name|boolean

@@ -47,6 +47,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
@@ -210,7 +220,7 @@ name|DEFAULT_CONCURRENCY_LEVEL
 init|=
 literal|16
 decl_stmt|;
-comment|/**    * Creates a new pool with the default initial capacity (16)    * and the default concurrency level (16).    *    * @param objectFactory the factory to supply new objects on demand    *    * @throws NullPointerException if {@code objectFactory} is null    */
+comment|/**    * Creates a new pool with the default initial capacity (16)    * and the default concurrency level (16).    *    * @param objectFactory the factory to supply new objects on demand    *    * @throws NullPointerException if {@code objectFactory} is {@code null}    */
 specifier|public
 name|ObjectPool
 parameter_list|(
@@ -233,7 +243,7 @@ name|DEFAULT_CONCURRENCY_LEVEL
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new pool with the given initial capacity    * and the default concurrency level (16).    *    * @param objectFactory the factory to supply new objects on demand    * @param initialCapacity the initial capacity to keep objects in the pool    *    * @throws NullPointerException if {@code objectFactory} is null    * @throws IllegalArgumentException if {@code initialCapacity} is negative    */
+comment|/**    * Creates a new pool with the given initial capacity    * and the default concurrency level (16).    *    * @param objectFactory the factory to supply new objects on demand    * @param initialCapacity the initial capacity to keep objects in the pool    *    * @throws NullPointerException if {@code objectFactory} is {@code null}    * @throws IllegalArgumentException if {@code initialCapacity} is negative    */
 specifier|public
 name|ObjectPool
 parameter_list|(
@@ -259,7 +269,7 @@ name|DEFAULT_CONCURRENCY_LEVEL
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Creates a new pool with the given initial capacity    * and the given concurrency level.    *    * @param objectFactory the factory to supply new objects on demand    * @param initialCapacity the initial capacity to keep objects in the pool    * @param concurrencyLevel the estimated count of concurrently accessing threads    *    * @throws NullPointerException if {@code objectFactory} is null    * @throws IllegalArgumentException if {@code initialCapacity} is negative or    *    {@code concurrencyLevel} is non-positive    */
+comment|/**    * Creates a new pool with the given initial capacity    * and the given concurrency level.    *    * @param objectFactory the factory to supply new objects on demand    * @param initialCapacity the initial capacity to keep objects in the pool    * @param concurrencyLevel the estimated count of concurrently accessing threads    *    * @throws NullPointerException if {@code objectFactory} is {@code null}    * @throws IllegalArgumentException if {@code initialCapacity} is negative or    *    {@code concurrencyLevel} is non-positive    */
 specifier|public
 name|ObjectPool
 parameter_list|(
@@ -278,26 +288,18 @@ name|int
 name|concurrencyLevel
 parameter_list|)
 block|{
-if|if
-condition|(
-name|objectFactory
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
-argument_list|(
-literal|"Given object factory instance is NULL"
-argument_list|)
-throw|;
-block|}
 name|this
 operator|.
 name|objectFactory
 operator|=
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
 name|objectFactory
+argument_list|,
+literal|"Object factory cannot be null"
+argument_list|)
 expr_stmt|;
 name|this
 operator|.
@@ -428,7 +430,7 @@ argument_list|>
 name|ref
 parameter_list|)
 function_decl|;
-comment|/**    * Returns a shared object associated with the given {@code key},    * which is identified by the {@code equals} method.    * @throws NullPointerException if {@code key} is null    */
+comment|/**    * Returns a shared object associated with the given {@code key},    * which is identified by the {@code equals} method.    * @throws NullPointerException if {@code key} is {@code null}    */
 specifier|public
 name|V
 name|get
@@ -447,7 +449,12 @@ name|referenceCache
 operator|.
 name|get
 argument_list|(
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
 name|key
+argument_list|)
 argument_list|)
 decl_stmt|;
 if|if

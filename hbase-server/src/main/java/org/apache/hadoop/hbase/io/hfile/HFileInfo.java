@@ -135,6 +135,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Objects
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|Set
 import|;
 end_import
@@ -720,7 +730,7 @@ name|conf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Append the given key/value pair to the file info, optionally checking the    * key prefix.    *    * @param k key to add    * @param v value to add    * @param checkPrefix whether to check that the provided key does not start    *          with the reserved prefix    * @return this file info object    * @throws IOException if the key or value is invalid    */
+comment|/**    * Append the given key/value pair to the file info, optionally checking the    * key prefix.    *    * @param k key to add    * @param v value to add    * @param checkPrefix whether to check that the provided key does not start    *          with the reserved prefix    * @return this file info object    * @throws IOException if the key or value is invalid    * @throws NullPointerException if {@code key} or {@code value} is {@code null}    */
 specifier|public
 name|HFileInfo
 name|append
@@ -742,25 +752,24 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-if|if
-condition|(
-name|k
-operator|==
-literal|null
-operator|||
-name|v
-operator|==
-literal|null
-condition|)
-block|{
-throw|throw
-operator|new
-name|NullPointerException
+name|Objects
+operator|.
+name|requireNonNull
 argument_list|(
-literal|"Key nor value may be null"
+name|k
+argument_list|,
+literal|"key cannot be null"
 argument_list|)
-throw|;
-block|}
+expr_stmt|;
+name|Objects
+operator|.
+name|requireNonNull
+argument_list|(
+name|v
+argument_list|,
+literal|"value cannot be null"
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|checkPrefix
