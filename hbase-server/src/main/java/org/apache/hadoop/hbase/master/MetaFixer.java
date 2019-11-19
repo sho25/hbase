@@ -155,22 +155,6 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|Put
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|client
-operator|.
 name|RegionInfo
 import|;
 end_import
@@ -565,24 +549,11 @@ argument_list|)
 expr_stmt|;
 comment|// If an error here, then we'll have a region in the filesystem but not
 comment|// in hbase:meta (if the below fails). Should be able to rerun the fix.
-comment|// The second call to createRegionDir will just go through. Idempotent.
-name|Put
-name|put
-init|=
+comment|// Add to hbase:meta and then update in-memory state so it knows of new
+comment|// Region; addRegionToMeta adds region and adds a state column set to CLOSED.
 name|MetaTableAccessor
 operator|.
-name|makePutFromRegionInfo
-argument_list|(
-name|ri
-argument_list|,
-name|HConstants
-operator|.
-name|LATEST_TIMESTAMP
-argument_list|)
-decl_stmt|;
-name|MetaTableAccessor
-operator|.
-name|putsToMetaTable
+name|addRegionToMeta
 argument_list|(
 name|this
 operator|.
@@ -591,19 +562,35 @@ operator|.
 name|getConnection
 argument_list|()
 argument_list|,
-name|Collections
-operator|.
-name|singletonList
-argument_list|(
-name|put
+name|ri
 argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|masterServices
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|updateRegionState
+argument_list|(
+name|ri
+argument_list|,
+name|RegionState
+operator|.
+name|State
+operator|.
+name|CLOSED
 argument_list|)
 expr_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Fixed hole by adding {}; region is NOT assigned (assign to online)."
+literal|"Fixed hole by adding {} in CLOSED state; region NOT assigned (assign to ONLINE)."
 argument_list|,
 name|ri
 argument_list|)
