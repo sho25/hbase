@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -33,89 +33,21 @@ name|java
 operator|.
 name|util
 operator|.
+name|Optional
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|concurrent
 operator|.
 name|atomic
 operator|.
 name|AtomicBoolean
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|MasterAddressTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKUtil
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZKWatcher
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|zookeeper
-operator|.
-name|ZNodePaths
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
 import|;
 end_import
 
@@ -203,11 +135,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|shaded
+name|zookeeper
 operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
+name|MasterAddressTracker
 import|;
 end_import
 
@@ -224,6 +154,68 @@ operator|.
 name|zookeeper
 operator|.
 name|ZKListener
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKUtil
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZKWatcher
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|zookeeper
+operator|.
+name|ZNodePaths
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -256,6 +248,24 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|shaded
+operator|.
+name|protobuf
+operator|.
+name|ProtobufUtil
 import|;
 end_import
 
@@ -309,6 +319,7 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
+comment|// This server's information.
 specifier|private
 specifier|final
 name|ServerName
@@ -323,7 +334,15 @@ specifier|final
 name|Server
 name|master
 decl_stmt|;
-comment|/**    * @param watcher    * @param sn ServerName    * @param master In an instance of a Master.    */
+comment|// Active master's server name. Invalidated anytime active master changes (based on ZK
+comment|// notifications) and lazily fetched on-demand.
+comment|// ServerName is immutable, so we don't need heavy synchronization around it.
+specifier|private
+specifier|volatile
+name|ServerName
+name|activeMasterServerName
+decl_stmt|;
+comment|/**    * @param watcher ZK watcher    * @param sn ServerName    * @param master In an instance of a Master.    */
 name|ActiveMasterManager
 parameter_list|(
 name|ZKWatcher
@@ -479,6 +498,96 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
+comment|/**    * Fetches the active master's ServerName from zookeeper.    */
+specifier|private
+name|void
+name|fetchAndSetActiveMasterServerName
+parameter_list|()
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Attempting to fetch active master sn from zk"
+argument_list|)
+expr_stmt|;
+try|try
+block|{
+name|activeMasterServerName
+operator|=
+name|MasterAddressTracker
+operator|.
+name|getMasterAddress
+argument_list|(
+name|watcher
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|IOException
+decl||
+name|KeeperException
+name|e
+parameter_list|)
+block|{
+comment|// Log and ignore for now and re-fetch later if needed.
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Error fetching active master information"
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+specifier|public
+name|Optional
+argument_list|<
+name|ServerName
+argument_list|>
+name|getActiveMasterServerName
+parameter_list|()
+block|{
+if|if
+condition|(
+operator|!
+name|clusterHasActiveMaster
+operator|.
+name|get
+argument_list|()
+condition|)
+block|{
+return|return
+name|Optional
+operator|.
+name|empty
+argument_list|()
+return|;
+block|}
+if|if
+condition|(
+name|activeMasterServerName
+operator|==
+literal|null
+condition|)
+block|{
+name|fetchAndSetActiveMasterServerName
+argument_list|()
+expr_stmt|;
+block|}
+comment|// It could still be null, but return whatever we have.
+return|return
+name|Optional
+operator|.
+name|ofNullable
+argument_list|(
+name|activeMasterServerName
+argument_list|)
+return|;
+block|}
 comment|/**    * Handle a change in the master node.  Doesn't matter whether this was called    * from a nodeCreated or nodeDeleted event because there are no guarantees    * that the current state of the master node matches the event at the time of    * our next ZK request.    *    *<p>Uses the watchAndCheckExists method which watches the master address node    * regardless of whether it exists or not.  If it does exist (there is an    * active master), it returns true.  Otherwise it returns false.    *    *<p>A watcher is set which guarantees that this method will get called again if    * there is another change in the master node.    */
 specifier|private
 name|void
@@ -550,6 +659,12 @@ name|notifyAll
 argument_list|()
 expr_stmt|;
 block|}
+comment|// Reset the active master sn. Will be re-fetched later if needed.
+comment|// We don't want to make a synchronous RPC under a monitor.
+name|activeMasterServerName
+operator|=
+literal|null
+expr_stmt|;
 block|}
 block|}
 catch|catch
@@ -569,7 +684,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @param checkInterval the interval to check if the master is stopped    * @param startupStatus the monitor status to track the progress    * @return True if no issue becoming active master else false if another    * master was running or if some other problem (zookeeper, stop flag has been    * set on this Master)    */
+comment|/**    * Block until becoming the active master.    *    * Method blocks until there is not another active master and our attempt    * to become the new active master is successful.    *    * This also makes sure that we are watching the master znode so will be    * notified if another master dies.    * @param checkInterval the interval to check if the master is stopped    * @param startupStatus the monitor status to track the progress    * @return True if no issue becoming active master else false if another    *   master was running or if some other problem (zookeeper, stop flag has been    *   set on this Master)    */
 name|boolean
 name|blockUntilBecomingActiveMaster
 parameter_list|(
@@ -730,6 +845,10 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|activeMasterServerName
+operator|=
+name|sn
+expr_stmt|;
 name|LOG
 operator|.
 name|info
@@ -745,6 +864,12 @@ return|return
 literal|true
 return|;
 block|}
+comment|// Invalidate the active master name so that subsequent requests do not get any stale
+comment|// master information. Will be re-fetched if needed.
+name|activeMasterServerName
+operator|=
+literal|null
+expr_stmt|;
 comment|// There is another active master running elsewhere or this is a restart
 comment|// and the master ephemeral node has not expired yet.
 name|this
@@ -876,7 +1001,8 @@ name|masterAddressZNode
 argument_list|)
 expr_stmt|;
 comment|// We may have failed to delete the znode at the previous step, but
-comment|//  we delete the file anyway: a second attempt to delete the znode is likely to fail again.
+comment|//  we delete the file anyway: a second attempt to delete the znode is likely to fail
+comment|//  again.
 name|ZNodeClearer
 operator|.
 name|deleteMyEphemeralNodeOnDisk
