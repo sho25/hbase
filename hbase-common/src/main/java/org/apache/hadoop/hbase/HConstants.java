@@ -544,6 +544,25 @@ name|MASTER_INFO_PORT
 init|=
 literal|"hbase.master.info.port"
 decl_stmt|;
+comment|/** Configuration key for the list of master host:ports **/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_ADDRS_KEY
+init|=
+literal|"hbase.master.addrs"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_ADDRS_DEFAULT
+init|=
+literal|"localhost:"
+operator|+
+name|DEFAULT_MASTER_PORT
+decl_stmt|;
 comment|/** Parameter name for the master type being backup (waits for primary to go inactive). */
 specifier|public
 specifier|static
