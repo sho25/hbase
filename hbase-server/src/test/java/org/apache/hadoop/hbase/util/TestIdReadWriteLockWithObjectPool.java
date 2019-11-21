@@ -241,7 +241,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|IdReadWriteLock
+name|IdReadWriteLockWithObjectPool
 operator|.
 name|ReferenceType
 import|;
@@ -349,7 +349,7 @@ argument_list|)
 comment|// Medium as it creates 100 threads; seems better to run it isolated
 specifier|public
 class|class
-name|TestIdReadWriteLock
+name|TestIdReadWriteLockWithObjectPool
 block|{
 annotation|@
 name|ClassRule
@@ -363,7 +363,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestIdReadWriteLock
+name|TestIdReadWriteLockWithObjectPool
 operator|.
 name|class
 argument_list|)
@@ -378,7 +378,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestIdReadWriteLock
+name|TestIdReadWriteLockWithObjectPool
 operator|.
 name|class
 argument_list|)
@@ -412,7 +412,7 @@ name|Parameterized
 operator|.
 name|Parameter
 specifier|public
-name|IdReadWriteLock
+name|IdReadWriteLockWithObjectPool
 argument_list|<
 name|Long
 argument_list|>
@@ -444,7 +444,7 @@ index|[]
 block|{
 block|{
 operator|new
-name|IdReadWriteLock
+name|IdReadWriteLockWithObjectPool
 argument_list|<
 name|Long
 argument_list|>
@@ -457,7 +457,7 @@ block|}
 block|,
 block|{
 operator|new
-name|IdReadWriteLock
+name|IdReadWriteLockWithObjectPool
 argument_list|<
 name|Long
 argument_list|>
