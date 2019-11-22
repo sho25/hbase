@@ -9103,6 +9103,9 @@ name|Type
 operator|.
 name|Put
 argument_list|)
+comment|// Serialize the Default Replica HRI otherwise scan of hbase:meta
+comment|// shows an info:regioninfo value with encoded name and region
+comment|// name that differs from that of the hbase;meta row.
 operator|.
 name|setValue
 argument_list|(
@@ -9110,7 +9113,12 @@ name|RegionInfo
 operator|.
 name|toByteArray
 argument_list|(
+name|RegionReplicaUtil
+operator|.
+name|getRegionInfoForDefaultReplica
+argument_list|(
 name|hri
+argument_list|)
 argument_list|)
 argument_list|)
 operator|.
