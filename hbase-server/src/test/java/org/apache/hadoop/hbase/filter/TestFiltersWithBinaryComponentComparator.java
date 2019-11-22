@@ -55,6 +55,16 @@ name|java
 operator|.
 name|util
 operator|.
+name|Arrays
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
 name|List
 import|;
 end_import
@@ -1248,22 +1258,34 @@ literal|"abc"
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isInfoEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"added row:"
-operator|+
+literal|"added row: {} with value 'abc'"
+argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|Hex
 operator|.
 name|encodeHex
 argument_list|(
 name|key
 argument_list|)
-operator|+
-literal|"with value 'abc'"
+argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -1283,22 +1305,34 @@ literal|"xyz"
 argument_list|)
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|LOG
+operator|.
+name|isInfoEnabled
+argument_list|()
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"added row:"
-operator|+
+literal|"added row: {} with value 'xyz'"
+argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
 name|Hex
 operator|.
 name|encodeHex
 argument_list|(
 name|key
 argument_list|)
-operator|+
-literal|"with value 'xyz'"
+argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
