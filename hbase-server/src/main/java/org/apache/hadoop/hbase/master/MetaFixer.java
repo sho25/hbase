@@ -445,6 +445,15 @@ argument_list|(
 name|report
 argument_list|)
 expr_stmt|;
+comment|// Run the ReplicationBarrierCleaner here; it may clear out rep_barrier rows which
+comment|// can help cleaning up damaged hbase:meta.
+name|this
+operator|.
+name|masterServices
+operator|.
+name|runReplicationBarrierCleaner
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * If hole, it papers it over by adding a region in the filesystem and to hbase:meta.    * Does not assign.    */
 name|void

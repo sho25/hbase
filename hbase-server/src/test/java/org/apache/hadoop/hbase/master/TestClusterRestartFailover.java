@@ -819,7 +819,7 @@ name|isPresent
 argument_list|()
 argument_list|)
 expr_stmt|;
-name|assertFalse
+name|assertTrue
 argument_list|(
 literal|"Submit the SCP for the same serverName "
 operator|+

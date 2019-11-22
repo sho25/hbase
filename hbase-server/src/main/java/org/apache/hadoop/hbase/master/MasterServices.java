@@ -1288,6 +1288,11 @@ argument_list|>
 name|plans
 parameter_list|)
 function_decl|;
+comment|/**    * Run the ReplicationBarrierChore.    */
+name|void
+name|runReplicationBarrierCleaner
+parameter_list|()
+function_decl|;
 block|}
 end_interface
 

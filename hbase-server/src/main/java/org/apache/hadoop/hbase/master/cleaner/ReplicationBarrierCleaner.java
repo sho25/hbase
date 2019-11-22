@@ -470,7 +470,10 @@ expr_stmt|;
 block|}
 annotation|@
 name|Override
-specifier|protected
+comment|// Public so can be run out of MasterRpcServices. Synchronized so only one
+comment|// running instance at a time.
+specifier|public
+specifier|synchronized
 name|void
 name|chore
 parameter_list|()
@@ -1074,9 +1077,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Cleanup replication barriers: totalRows {}, "
+literal|"TotalRows={}, cleanedRows={}, deletedRows={}, deletedBarriers={}, "
 operator|+
-literal|"cleanedRows {}, deletedRows {}, deletedBarriers {}, deletedLastPushedSeqIds {}"
+literal|"deletedLastPushedSeqIds={}"
 argument_list|,
 name|totalRows
 argument_list|,

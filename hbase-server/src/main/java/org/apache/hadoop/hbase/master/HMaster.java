@@ -20202,6 +20202,37 @@ return|;
 block|}
 end_function
 
+begin_function
+annotation|@
+name|Override
+specifier|public
+name|void
+name|runReplicationBarrierCleaner
+parameter_list|()
+block|{
+name|ReplicationBarrierCleaner
+name|rbc
+init|=
+name|this
+operator|.
+name|replicationBarrierCleaner
+decl_stmt|;
+if|if
+condition|(
+name|rbc
+operator|!=
+literal|null
+condition|)
+block|{
+name|rbc
+operator|.
+name|chore
+argument_list|()
+expr_stmt|;
+block|}
+block|}
+end_function
+
 unit|}
 end_unit
 
