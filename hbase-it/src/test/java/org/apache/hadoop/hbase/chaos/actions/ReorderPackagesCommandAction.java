@@ -276,7 +276,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"tc qdisc %s dev %s root netem delay %sms reorder %s%% 50%"
+literal|"tc qdisc %s dev %s root netem delay %sms reorder %s%% 50%%"
 argument_list|,
 name|operation
 argument_list|,
