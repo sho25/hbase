@@ -538,6 +538,22 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+catch|catch
+parameter_list|(
+name|Throwable
+name|t
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|AssertionError
+argument_list|(
+literal|"Caught unexpected Throwable"
+argument_list|,
+name|t
+argument_list|)
+throw|;
+block|}
 block|}
 block|}
 end_class

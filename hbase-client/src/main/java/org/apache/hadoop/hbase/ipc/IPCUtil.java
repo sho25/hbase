@@ -1288,11 +1288,10 @@ argument_list|(
 operator|new
 name|CallCancelledException
 argument_list|(
-literal|"Call id="
-operator|+
 name|call
 operator|.
-name|id
+name|toShortString
+argument_list|()
 operator|+
 literal|", waitTime="
 operator|+

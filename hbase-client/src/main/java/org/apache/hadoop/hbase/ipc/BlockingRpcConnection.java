@@ -1120,11 +1120,12 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Can't add the call "
+literal|"Can't add "
 operator|+
 name|call
 operator|.
-name|id
+name|toShortString
+argument_list|()
 operator|+
 literal|" to the write queue. callsToWrite.size()="
 operator|+
@@ -1183,11 +1184,10 @@ argument_list|(
 operator|new
 name|CallCancelledException
 argument_list|(
-literal|"Call id="
-operator|+
 name|call
 operator|.
-name|id
+name|toShortString
+argument_list|()
 operator|+
 literal|", waitTime="
 operator|+
@@ -1297,28 +1297,18 @@ parameter_list|)
 block|{
 comment|// exception here means the call has not been added to the pendingCalls yet, so we need
 comment|// to fail it by our own.
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"call write error for call #"
-operator|+
+literal|"call write error for {}"
+argument_list|,
 name|call
 operator|.
-name|id
-argument_list|,
-name|e
+name|toShortString
+argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|call
 operator|.
 name|setException
@@ -3423,13 +3413,12 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Error while writing call, call_id:"
-operator|+
+literal|"Error while writing {}"
+argument_list|,
 name|call
 operator|.
-name|id
-argument_list|,
-name|t
+name|toShortString
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
