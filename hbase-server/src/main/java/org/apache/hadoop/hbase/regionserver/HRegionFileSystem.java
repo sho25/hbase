@@ -618,12 +618,10 @@ name|RegionInfo
 name|regionInfo
 decl_stmt|;
 comment|//regionInfo for interacting with FS (getting encodedName, etc)
-specifier|private
 specifier|final
 name|RegionInfo
 name|regionInfoForFs
 decl_stmt|;
-specifier|private
 specifier|final
 name|Configuration
 name|conf
@@ -633,7 +631,6 @@ specifier|final
 name|Path
 name|tableDir
 decl_stmt|;
-specifier|private
 specifier|final
 name|FileSystem
 name|fs

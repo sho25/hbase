@@ -9962,7 +9962,7 @@ name|fs
 return|;
 block|}
 comment|/** @return the WAL {@link HRegionFileSystem} used by this region */
-name|HRegionFileSystem
+name|HRegionWALFileSystem
 name|getRegionWALFileSystem
 parameter_list|()
 throws|throws
@@ -9970,7 +9970,7 @@ name|IOException
 block|{
 return|return
 operator|new
-name|HRegionFileSystem
+name|HRegionWALFileSystem
 argument_list|(
 name|conf
 argument_list|,
@@ -22561,7 +22561,7 @@ block|}
 name|getRegionWALFileSystem
 argument_list|()
 operator|.
-name|removeStoreFiles
+name|archiveRecoveredEdits
 argument_list|(
 name|fakeFamilyName
 argument_list|,
