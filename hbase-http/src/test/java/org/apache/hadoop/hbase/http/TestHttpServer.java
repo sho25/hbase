@@ -1130,7 +1130,7 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"echo"
 argument_list|,
@@ -1143,7 +1143,7 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"echomap"
 argument_list|,
@@ -1156,7 +1156,7 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"htmlcontent"
 argument_list|,
@@ -1169,7 +1169,7 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"longheader"
 argument_list|,
@@ -3197,7 +3197,7 @@ name|eq
 argument_list|(
 name|HttpServletResponse
 operator|.
-name|SC_UNAUTHORIZED
+name|SC_FORBIDDEN
 argument_list|)
 argument_list|,
 name|Mockito
@@ -3819,7 +3819,7 @@ argument_list|)
 expr_stmt|;
 name|myServer
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"echo"
 argument_list|,

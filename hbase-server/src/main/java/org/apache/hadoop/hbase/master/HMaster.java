@@ -5237,7 +5237,7 @@ parameter_list|()
 block|{
 name|infoServer
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"master-status"
 argument_list|,

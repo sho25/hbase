@@ -874,7 +874,7 @@ argument_list|)
 expr_stmt|;
 name|server
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"echo"
 argument_list|,
@@ -1726,7 +1726,7 @@ argument_list|)
 decl_stmt|;
 name|customServer
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"echo"
 argument_list|,

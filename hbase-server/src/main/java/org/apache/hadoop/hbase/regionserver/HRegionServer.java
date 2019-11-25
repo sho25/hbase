@@ -5245,7 +5245,7 @@ parameter_list|()
 block|{
 name|infoServer
 operator|.
-name|addServlet
+name|addUnprivilegedServlet
 argument_list|(
 literal|"rs-status"
 argument_list|,
@@ -12032,7 +12032,7 @@ argument_list|)
 expr_stmt|;
 name|infoServer
 operator|.
-name|addServlet
+name|addPrivilegedServlet
 argument_list|(
 literal|"dump"
 argument_list|,
