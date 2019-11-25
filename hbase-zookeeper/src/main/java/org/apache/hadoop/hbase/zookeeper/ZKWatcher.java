@@ -832,17 +832,6 @@ name|this
 argument_list|,
 name|znodePaths
 operator|.
-name|tableLockZNode
-argument_list|)
-expr_stmt|;
-name|ZKUtil
-operator|.
-name|createAndFailSilent
-argument_list|(
-name|this
-argument_list|,
-name|znodePaths
-operator|.
 name|masterMaintZNode
 argument_list|)
 expr_stmt|;

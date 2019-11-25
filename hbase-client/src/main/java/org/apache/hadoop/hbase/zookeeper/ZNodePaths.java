@@ -335,12 +335,6 @@ specifier|final
 name|String
 name|switchZNode
 decl_stmt|;
-comment|// znode containing the lock for the tables
-specifier|public
-specifier|final
-name|String
-name|tableLockZNode
-decl_stmt|;
 comment|// znode containing namespace descriptors
 specifier|public
 specifier|final
@@ -669,22 +663,6 @@ literal|"switch"
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|tableLockZNode
-operator|=
-name|joinZNode
-argument_list|(
-name|baseZNode
-argument_list|,
-name|conf
-operator|.
-name|get
-argument_list|(
-literal|"zookeeper.znode.tableLock"
-argument_list|,
-literal|"table-lock"
-argument_list|)
-argument_list|)
-expr_stmt|;
 name|namespaceZNode
 operator|=
 name|joinZNode
@@ -938,16 +916,6 @@ operator|.
 name|append
 argument_list|(
 name|switchZNode
-argument_list|)
-operator|.
-name|append
-argument_list|(
-literal|", tableLockZNode="
-argument_list|)
-operator|.
-name|append
-argument_list|(
-name|tableLockZNode
 argument_list|)
 operator|.
 name|append
