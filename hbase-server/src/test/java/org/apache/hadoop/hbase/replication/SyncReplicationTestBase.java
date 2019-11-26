@@ -2106,6 +2106,10 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SOURCE_SHIPEDITS_TIMEOUT_DFAULT
 argument_list|)
 expr_stmt|;
 block|}
@@ -2134,6 +2138,10 @@ argument_list|,
 literal|null
 argument_list|,
 literal|null
+argument_list|,
+name|HConstants
+operator|.
+name|REPLICATION_SOURCE_SHIPEDITS_TIMEOUT_DFAULT
 argument_list|)
 expr_stmt|;
 name|fail

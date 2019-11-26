@@ -1261,6 +1261,9 @@ name|entries
 parameter_list|,
 name|int
 name|ordinal
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 return|return

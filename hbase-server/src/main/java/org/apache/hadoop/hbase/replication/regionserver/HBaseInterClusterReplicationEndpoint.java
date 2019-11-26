@@ -2085,6 +2085,11 @@ argument_list|(
 name|entries
 argument_list|,
 name|i
+argument_list|,
+name|replicateContext
+operator|.
+name|getTimeout
+argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -2831,6 +2836,9 @@ name|entries
 parameter_list|,
 name|int
 name|batchIndex
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -2942,6 +2950,8 @@ argument_list|,
 name|baseNamespaceDir
 argument_list|,
 name|hfileArchiveDir
+argument_list|,
+name|timeout
 argument_list|)
 expr_stmt|;
 if|if
@@ -3048,6 +3058,9 @@ name|entries
 parameter_list|,
 name|int
 name|batchIndex
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -3107,6 +3120,8 @@ name|batch
 argument_list|,
 name|index
 operator|++
+argument_list|,
+name|timeout
 argument_list|)
 expr_stmt|;
 name|batch
@@ -3143,6 +3158,8 @@ argument_list|(
 name|batch
 argument_list|,
 name|index
+argument_list|,
+name|timeout
 argument_list|)
 expr_stmt|;
 block|}
@@ -3167,6 +3184,9 @@ name|entries
 parameter_list|,
 name|int
 name|batchIndex
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 return|return
@@ -3179,6 +3199,8 @@ argument_list|(
 name|entries
 argument_list|,
 name|batchIndex
+argument_list|,
+name|timeout
 argument_list|)
 else|:
 parameter_list|()
@@ -3188,6 +3210,8 @@ argument_list|(
 name|entries
 argument_list|,
 name|batchIndex
+argument_list|,
+name|timeout
 argument_list|)
 return|;
 block|}

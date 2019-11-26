@@ -1592,6 +1592,9 @@ name|request
 parameter_list|,
 name|CellScanner
 name|cellScanner
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 return|return
@@ -1605,6 +1608,14 @@ parameter_list|,
 name|done
 parameter_list|)
 lambda|->
+block|{
+name|controller
+operator|.
+name|setCallTimeout
+argument_list|(
+name|timeout
+argument_list|)
+expr_stmt|;
 name|stub
 operator|.
 name|replicateWALEntry
@@ -1615,6 +1626,8 @@ name|request
 argument_list|,
 name|done
 argument_list|)
+expr_stmt|;
+block|}
 argument_list|,
 name|cellScanner
 argument_list|)

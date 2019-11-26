@@ -357,6 +357,9 @@ name|sourceBaseNamespaceDir
 parameter_list|,
 name|Path
 name|sourceHFileArchiveDir
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 throws|throws
 name|IOException
@@ -399,6 +402,8 @@ name|p
 operator|.
 name|getSecond
 argument_list|()
+argument_list|,
+name|timeout
 argument_list|)
 argument_list|)
 expr_stmt|;

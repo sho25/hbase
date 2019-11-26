@@ -2434,6 +2434,23 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
+comment|/** Configuration key for ReplicationSource shipeEdits timeout */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REPLICATION_SOURCE_SHIPEDITS_TIMEOUT
+init|=
+literal|"replication.source.shipedits.timeout"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|REPLICATION_SOURCE_SHIPEDITS_TIMEOUT_DFAULT
+init|=
+literal|60000
+decl_stmt|;
 comment|/**    * Directory where the source cluster file system client configuration are placed which is used by    * sink cluster to copy HFiles from source cluster file system    */
 specifier|public
 specifier|static

@@ -1255,6 +1255,9 @@ name|entries
 parameter_list|,
 name|int
 name|ordinal
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 return|return
@@ -1269,6 +1272,8 @@ argument_list|(
 name|entries
 argument_list|,
 name|ordinal
+argument_list|,
+name|timeout
 argument_list|)
 decl_stmt|;
 name|entriesCount
@@ -1346,6 +1351,9 @@ name|entries
 parameter_list|,
 name|int
 name|ordinal
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 return|return
@@ -1372,6 +1380,8 @@ argument_list|(
 name|entries
 argument_list|,
 name|ordinal
+argument_list|,
+name|timeout
 argument_list|)
 decl_stmt|;
 name|entriesCount

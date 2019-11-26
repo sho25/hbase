@@ -2978,6 +2978,9 @@ name|entries
 parameter_list|,
 name|int
 name|ordinal
+parameter_list|,
+name|int
+name|timeout
 parameter_list|)
 block|{
 comment|// Fail only once, we don't want to slow down the test.
