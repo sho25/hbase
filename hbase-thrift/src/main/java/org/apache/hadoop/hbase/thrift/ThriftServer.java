@@ -2884,6 +2884,9 @@ name|metrics
 operator|.
 name|getThriftServerType
 argument_list|()
+operator|.
+name|name
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|infoServer
