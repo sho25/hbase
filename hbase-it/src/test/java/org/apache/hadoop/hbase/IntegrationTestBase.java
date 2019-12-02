@@ -406,10 +406,7 @@ name|loadMonkeyProperties
 argument_list|(
 name|monkeyProps
 argument_list|,
-name|HBaseConfiguration
-operator|.
-name|create
-argument_list|()
+name|conf
 argument_list|)
 expr_stmt|;
 if|if
@@ -777,6 +774,18 @@ name|getDefaultMonkeyFactory
 argument_list|()
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Using chaos monkey factory: {}"
+argument_list|,
+name|fact
+operator|.
+name|getClass
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|monkey
 operator|=
 name|fact

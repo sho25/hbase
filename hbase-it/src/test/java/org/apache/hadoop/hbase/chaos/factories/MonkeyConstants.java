@@ -214,7 +214,7 @@ name|NETWORK_ISSUE_INTERFACE
 init|=
 literal|"network.issue.interface"
 decl_stmt|;
-comment|//should be big enough to create the file
+comment|//should be higher than the usual timeout because the target machine might respond slowly
 name|String
 name|FILL_DISK_COMMAND_TIMEOUT
 init|=
@@ -480,17 +480,10 @@ decl_stmt|;
 name|long
 name|DEFAULT_FILL_DISK_COMMAND_TIMEOUT
 init|=
-literal|5
-operator|*
 literal|60
 operator|*
 literal|1000
-operator|+
-literal|30
-operator|*
-literal|1000
 decl_stmt|;
-comment|//duration + timeout
 name|String
 name|DEFAULT_FILL_DISK_PATH
 init|=
