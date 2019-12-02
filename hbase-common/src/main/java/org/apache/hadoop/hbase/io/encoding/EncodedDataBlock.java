@@ -1008,11 +1008,19 @@ operator|.
 name|close
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|compressingStream
+operator|!=
+literal|null
+condition|)
+block|{
 name|compressingStream
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 comment|/**    * Estimate size after second stage of compression (e.g. LZO).    * @param comprAlgo compression algorithm to be used for compression    * @param compressor compressor corresponding to the given compression    *          algorithm    * @return Size after second stage of compression.    */
