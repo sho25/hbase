@@ -2865,7 +2865,13 @@ name|WALSplitUtil
 operator|.
 name|getRegionSplitEditsPath
 argument_list|(
-name|entry
+name|TableName
+operator|.
+name|META_TABLE_NAME
+argument_list|,
+name|encoded
+argument_list|,
+literal|1
 argument_list|,
 name|FILENAME_BEING_SPLIT
 argument_list|,
