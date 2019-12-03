@@ -1722,11 +1722,20 @@ name|TableName
 name|table
 parameter_list|)
 block|{
+name|String
+name|namespace
+init|=
+name|table
+operator|.
+name|getNamespaceAsString
+argument_list|()
+decl_stmt|;
 if|if
 condition|(
 name|replicateAllUserTables
 condition|)
 block|{
+comment|// replicate all user tables, but filter by exclude namespaces and table-cfs config
 if|if
 condition|(
 name|excludeNamespaces
@@ -1737,10 +1746,7 @@ name|excludeNamespaces
 operator|.
 name|contains
 argument_list|(
-name|table
-operator|.
-name|getNamespaceAsString
-argument_list|()
+name|namespace
 argument_list|)
 condition|)
 block|{
@@ -1748,12 +1754,14 @@ return|return
 literal|false
 return|;
 block|}
+comment|// trap here, must check existence first since HashMap allows null value.
 if|if
 condition|(
 name|excludeTableCFsMap
-operator|!=
+operator|==
 literal|null
-operator|&&
+operator|||
+operator|!
 name|excludeTableCFsMap
 operator|.
 name|containsKey
@@ -1763,15 +1771,56 @@ argument_list|)
 condition|)
 block|{
 return|return
-literal|false
+literal|true
 return|;
 block|}
+name|Collection
+argument_list|<
+name|String
+argument_list|>
+name|cfs
+init|=
+name|excludeTableCFsMap
+operator|.
+name|get
+argument_list|(
+name|table
+argument_list|)
+decl_stmt|;
+comment|// if cfs is null or empty then we can make sure that we do not need to replicate this table,
+comment|// otherwise, we may still need to replicate the table but filter out some families.
 return|return
-literal|true
+name|cfs
+operator|!=
+literal|null
+operator|&&
+operator|!
+name|cfs
+operator|.
+name|isEmpty
+argument_list|()
 return|;
 block|}
 else|else
 block|{
+comment|// Not replicate all user tables, so filter by namespaces and table-cfs config
+if|if
+condition|(
+name|namespaces
+operator|==
+literal|null
+operator|&&
+name|tableCFsMap
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
+comment|// First filter by namespaces config
+comment|// If table's namespace in peer config, all the tables data are applicable for replication
 if|if
 condition|(
 name|namespaces
@@ -1782,10 +1831,7 @@ name|namespaces
 operator|.
 name|contains
 argument_list|(
-name|table
-operator|.
-name|getNamespaceAsString
-argument_list|()
+name|namespace
 argument_list|)
 condition|)
 block|{
@@ -1793,8 +1839,7 @@ return|return
 literal|true
 return|;
 block|}
-if|if
-condition|(
+return|return
 name|tableCFsMap
 operator|!=
 literal|null
@@ -1805,14 +1850,6 @@ name|containsKey
 argument_list|(
 name|table
 argument_list|)
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-return|return
-literal|false
 return|;
 block|}
 block|}
