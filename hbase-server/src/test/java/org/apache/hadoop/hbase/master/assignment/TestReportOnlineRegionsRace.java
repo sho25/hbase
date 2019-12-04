@@ -411,18 +411,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|apache
-operator|.
-name|zookeeper
-operator|.
-name|KeeperException
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|junit
 operator|.
 name|AfterClass
@@ -740,8 +728,6 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|KeeperException
 block|{
 name|super
 argument_list|(

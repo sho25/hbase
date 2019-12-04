@@ -759,8 +759,6 @@ name|conf
 parameter_list|)
 throws|throws
 name|IOException
-throws|,
-name|KeeperException
 block|{
 name|super
 argument_list|(

@@ -235,7 +235,15 @@ name|ZNODE_PATH_SEPARATOR
 init|=
 literal|'/'
 decl_stmt|;
-specifier|private
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|META_ZNODE_PREFIX_CONF_KEY
+init|=
+literal|"zookeeper.znode.metaserver"
+decl_stmt|;
+specifier|public
 specifier|static
 specifier|final
 name|String
@@ -425,7 +433,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-literal|"zookeeper.znode.metaserver"
+name|META_ZNODE_PREFIX_CONF_KEY
 argument_list|,
 name|META_ZNODE_PREFIX
 argument_list|)
@@ -1087,7 +1095,40 @@ name|replicaId
 argument_list|)
 return|;
 block|}
-comment|/**    * Parse the meta replicaId from the passed znode name.    * @param znode the name of the znode, does not include baseZNode    * @return replicaId    */
+comment|/**    * Parses the meta replicaId from the passed path.    * @param path the name of the full path which includes baseZNode.    * @return replicaId    */
+specifier|public
+name|int
+name|getMetaReplicaIdFromPath
+parameter_list|(
+name|String
+name|path
+parameter_list|)
+block|{
+comment|// Extract the znode from path. The prefix is of the following format.
+comment|// baseZNode + PATH_SEPARATOR.
+name|int
+name|prefixLen
+init|=
+name|baseZNode
+operator|.
+name|length
+argument_list|()
+operator|+
+literal|1
+decl_stmt|;
+return|return
+name|getMetaReplicaIdFromZnode
+argument_list|(
+name|path
+operator|.
+name|substring
+argument_list|(
+name|prefixLen
+argument_list|)
+argument_list|)
+return|;
+block|}
+comment|/**    * Parse the meta replicaId from the passed znode    * @param znode the name of the znode, does not include baseZNode    * @return replicaId    */
 specifier|public
 name|int
 name|getMetaReplicaIdFromZnode
