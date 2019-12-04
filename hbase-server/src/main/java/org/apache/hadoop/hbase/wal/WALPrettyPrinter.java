@@ -229,6 +229,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Tag
 import|;
 end_import
@@ -536,6 +550,15 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// Output template for pretty printing.
+specifier|private
+specifier|static
+specifier|final
+name|String
+name|outputTmpl
+init|=
+literal|"Sequence=%s, table=%s, region=%s, at write timestamp=%s"
+decl_stmt|;
 specifier|private
 name|boolean
 name|outputValues
@@ -548,6 +571,10 @@ comment|// The following enable filtering by sequence, region, and row, respecti
 specifier|private
 name|long
 name|sequence
+decl_stmt|;
+specifier|private
+name|String
+name|table
 decl_stmt|;
 specifier|private
 name|String
@@ -609,6 +636,10 @@ operator|=
 operator|-
 literal|1
 expr_stmt|;
+name|table
+operator|=
+literal|null
+expr_stmt|;
 name|region
 operator|=
 literal|null
@@ -632,7 +663,7 @@ operator|.
 name|out
 expr_stmt|;
 block|}
-comment|/**    * Fully specified constructor.    *    * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this    *          PrettyPrinter's output.    */
+comment|/**    * Fully specified constructor.    *    * @param outputValues    *          when true, enables output of values along with other log    *          information    * @param outputJSON    *          when true, enables output in JSON format rather than a    *          "pretty string"    * @param sequence    *          when nonnegative, serves as a filter; only log entries with this    *          sequence id will be printed    * @param table    *          when non null, serves as a filter. only entries corresponding to this    *          table will be printed.    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    * @param row    *          when not null, serves as a filter; only log entries from this row    *          will be printed    * @param persistentOutput    *          keeps a single list running for multiple files. if enabled, the    *          endPersistentOutput() method must be used!    * @param out    *          Specifies an alternative to stdout for the destination of this    *          PrettyPrinter's output.    */
 specifier|public
 name|WALPrettyPrinter
 parameter_list|(
@@ -644,6 +675,9 @@ name|outputJSON
 parameter_list|,
 name|long
 name|sequence
+parameter_list|,
+name|String
+name|table
 parameter_list|,
 name|String
 name|region
@@ -675,6 +709,12 @@ operator|.
 name|sequence
 operator|=
 name|sequence
+expr_stmt|;
+name|this
+operator|.
+name|table
+operator|=
+name|table
 expr_stmt|;
 name|this
 operator|.
@@ -776,6 +816,22 @@ operator|=
 name|sequence
 expr_stmt|;
 block|}
+comment|/**    * Sets the table filter. Only log entries for this table are printed.    * @param table table name to set.    */
+specifier|public
+name|void
+name|setTableFilter
+parameter_list|(
+name|String
+name|table
+parameter_list|)
+block|{
+name|this
+operator|.
+name|table
+operator|=
+name|table
+expr_stmt|;
+block|}
 comment|/**    * sets the region by which output will be filtered    *    * @param region    *          when not null, serves as a filter; only log entries from this    *          region will be printed    */
 specifier|public
 name|void
@@ -834,7 +890,9 @@ if|if
 condition|(
 name|persistentOutput
 condition|)
+block|{
 return|return;
+block|}
 name|persistentOutput
 operator|=
 literal|true
@@ -847,6 +905,7 @@ if|if
 condition|(
 name|outputJSON
 condition|)
+block|{
 name|out
 operator|.
 name|print
@@ -854,6 +913,7 @@ argument_list|(
 literal|"["
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * ends output of a single, persistent list. at present, only relevant in the    * case of JSON output.    */
 specifier|public
@@ -866,7 +926,9 @@ condition|(
 operator|!
 name|persistentOutput
 condition|)
+block|{
 return|return;
+block|}
 name|persistentOutput
 operator|=
 literal|false
@@ -875,6 +937,7 @@ if|if
 condition|(
 name|outputJSON
 condition|)
+block|{
 name|out
 operator|.
 name|print
@@ -882,6 +945,7 @@ argument_list|(
 literal|"]"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 comment|/**    * reads a log file and outputs its contents, one transaction at a time, as    * specified by the currently configured options    *    * @param conf    *          the HBase configuration relevant to this log file    * @param p    *          the path of the log file to be read    * @throws IOException    *           may be unable to access the configured filesystem or requested    *           file.    */
 specifier|public
@@ -1197,6 +1261,36 @@ decl_stmt|;
 comment|// check output filters
 if|if
 condition|(
+name|table
+operator|!=
+literal|null
+operator|&&
+operator|!
+operator|(
+operator|(
+name|TableName
+operator|)
+name|txn
+operator|.
+name|get
+argument_list|(
+literal|"table"
+argument_list|)
+operator|)
+operator|.
+name|toString
+argument_list|()
+operator|.
+name|equals
+argument_list|(
+name|table
+argument_list|)
+condition|)
+block|{
+continue|continue;
+block|}
+if|if
+condition|(
 name|sequence
 operator|>=
 literal|0
@@ -1215,7 +1309,9 @@ operator|)
 operator|!=
 name|sequence
 condition|)
+block|{
 continue|continue;
+block|}
 if|if
 condition|(
 name|region
@@ -1223,24 +1319,21 @@ operator|!=
 literal|null
 operator|&&
 operator|!
-operator|(
-operator|(
-name|String
-operator|)
 name|txn
 operator|.
 name|get
 argument_list|(
 literal|"region"
 argument_list|)
-operator|)
 operator|.
 name|equals
 argument_list|(
 name|region
 argument_list|)
 condition|)
+block|{
 continue|continue;
+block|}
 comment|// initialize list into which we will store atomic actions
 name|List
 argument_list|<
@@ -1287,6 +1380,7 @@ if|if
 condition|(
 name|outputValues
 condition|)
+block|{
 name|op
 operator|.
 name|put
@@ -1306,6 +1400,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 comment|// check row output filter
 if|if
 condition|(
@@ -1359,7 +1454,9 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 continue|continue;
+block|}
 name|txn
 operator|.
 name|put
@@ -1379,11 +1476,14 @@ if|if
 condition|(
 name|firstTxn
 condition|)
+block|{
 name|firstTxn
 operator|=
 literal|false
 expr_stmt|;
+block|}
 else|else
+block|{
 name|out
 operator|.
 name|print
@@ -1391,6 +1491,7 @@ argument_list|(
 literal|","
 argument_list|)
 expr_stmt|;
+block|}
 comment|// encode and print JSON
 name|out
 operator|.
@@ -1412,32 +1513,38 @@ name|out
 operator|.
 name|println
 argument_list|(
-literal|"Sequence="
-operator|+
+name|String
+operator|.
+name|format
+argument_list|(
+name|outputTmpl
+argument_list|,
 name|txn
 operator|.
 name|get
 argument_list|(
 literal|"sequence"
 argument_list|)
-operator|+
-literal|" "
-operator|+
-literal|", region="
-operator|+
+argument_list|,
+name|txn
+operator|.
+name|get
+argument_list|(
+literal|"table"
+argument_list|)
+argument_list|,
 name|txn
 operator|.
 name|get
 argument_list|(
 literal|"region"
 argument_list|)
-operator|+
-literal|" at write timestamp="
-operator|+
+argument_list|,
 operator|new
 name|Date
 argument_list|(
 name|writeTime
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -1532,6 +1639,7 @@ if|if
 condition|(
 name|outputValues
 condition|)
+block|{
 name|out
 operator|.
 name|println
@@ -1546,6 +1654,7 @@ literal|"value"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 name|out
 operator|.
 name|println
@@ -1921,6 +2030,19 @@ name|options
 operator|.
 name|addOption
 argument_list|(
+literal|"t"
+argument_list|,
+literal|"table"
+argument_list|,
+literal|true
+argument_list|,
+literal|"Table name to filter by."
+argument_list|)
+expr_stmt|;
+name|options
+operator|.
+name|addOption
+argument_list|(
 literal|"r"
 argument_list|,
 literal|"region"
@@ -2064,11 +2186,13 @@ argument_list|(
 literal|"p"
 argument_list|)
 condition|)
+block|{
 name|printer
 operator|.
 name|enableValues
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cmd
@@ -2078,11 +2202,36 @@ argument_list|(
 literal|"j"
 argument_list|)
 condition|)
+block|{
 name|printer
 operator|.
 name|enableJSON
 argument_list|()
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|cmd
+operator|.
+name|hasOption
+argument_list|(
+literal|"t"
+argument_list|)
+condition|)
+block|{
+name|printer
+operator|.
+name|setTableFilter
+argument_list|(
+name|cmd
+operator|.
+name|getOptionValue
+argument_list|(
+literal|"t"
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 if|if
 condition|(
 name|cmd
@@ -2092,6 +2241,7 @@ argument_list|(
 literal|"r"
 argument_list|)
 condition|)
+block|{
 name|printer
 operator|.
 name|setRegionFilter
@@ -2104,6 +2254,7 @@ literal|"r"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cmd
@@ -2113,6 +2264,7 @@ argument_list|(
 literal|"s"
 argument_list|)
 condition|)
+block|{
 name|printer
 operator|.
 name|setSequenceFilter
@@ -2130,6 +2282,7 @@ argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cmd
@@ -2139,6 +2292,7 @@ argument_list|(
 literal|"w"
 argument_list|)
 condition|)
+block|{
 name|printer
 operator|.
 name|setRowFilter
@@ -2151,6 +2305,7 @@ literal|"w"
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|cmd
