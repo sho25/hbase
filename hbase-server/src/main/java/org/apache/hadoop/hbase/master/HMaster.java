@@ -10623,7 +10623,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed balance plan: {}, just skip it"
+literal|"Failed balance plan {}, skipping..."
 argument_list|,
 name|plan
 argument_list|,

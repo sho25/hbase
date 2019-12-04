@@ -1689,6 +1689,10 @@ begin_comment
 comment|/** Returns an HRI parsed from this regionName. Not all the fields of the HRI    * is stored in the name, so the returned object should only be used for the fields    * in the regionName.    */
 end_comment
 
+begin_comment
+comment|// This should be moved to RegionInfo? TODO.
+end_comment
+
 begin_function
 specifier|public
 specifier|static
@@ -6136,9 +6140,9 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|Put
-name|put
-init|=
+return|return
+name|addRegionInfo
+argument_list|(
 operator|new
 name|Put
 argument_list|(
@@ -6149,16 +6153,9 @@ argument_list|()
 argument_list|,
 name|ts
 argument_list|)
-decl_stmt|;
-name|addRegionInfo
-argument_list|(
-name|put
 argument_list|,
 name|regionInfo
 argument_list|)
-expr_stmt|;
-return|return
-name|put
 return|;
 block|}
 end_function

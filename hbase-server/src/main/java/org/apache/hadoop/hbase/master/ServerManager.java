@@ -3367,7 +3367,7 @@ name|sn
 argument_list|)
 return|;
 block|}
-comment|/**    * Contacts a region server and waits up to timeout ms to close the region. This bypasses the    * active hmaster.    */
+comment|/**    * Contacts a region server and waits up to timeout ms    * to close the region.  This bypasses the active hmaster.    * Pass -1 as timeout if you do not want to wait on result.    */
 specifier|public
 specifier|static
 name|void
@@ -3445,6 +3445,15 @@ argument_list|,
 name|e
 argument_list|)
 expr_stmt|;
+block|}
+if|if
+condition|(
+name|timeout
+operator|<
+literal|0
+condition|)
+block|{
+return|return;
 block|}
 name|long
 name|expiration

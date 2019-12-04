@@ -619,6 +619,7 @@ specifier|public
 name|RegionStates
 parameter_list|()
 block|{ }
+comment|/**    * Called on stop of AssignmentManager.    */
 specifier|public
 name|void
 name|clear
@@ -3651,6 +3652,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+comment|/**    * Called by SCP at end of successful processing.    */
 specifier|public
 name|void
 name|removeServer
@@ -3668,7 +3670,7 @@ name|serverName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @return Pertinent ServerStateNode or NULL if none found.    */
+comment|/**    * @return Pertinent ServerStateNode or NULL if none found (Do not make modifications).    */
 annotation|@
 name|VisibleForTesting
 specifier|public

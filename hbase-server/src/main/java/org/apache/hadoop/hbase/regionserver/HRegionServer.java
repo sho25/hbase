@@ -16695,7 +16695,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the znode status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online    */
+comment|/**    * Close asynchronously a region, can be called from the master or internally by the regionserver    * when stopping. If called from the master, the region will update the status.    *    *<p>    * If an opening was in progress, this method will cancel it, but will not start a new close. The    * coprocessors are not called in this case. A NotServingRegionException exception is thrown.    *</p>     *<p>    *   If a close was in progress, this new request will be ignored, and an exception thrown.    *</p>    *    * @param encodedName Region to close    * @param abort True if we are aborting    * @return True if closed a region.    * @throws NotServingRegionException if the region is not online    */
 specifier|protected
 name|boolean
 name|closeRegion
@@ -16777,6 +16777,7 @@ literal|false
 return|;
 block|}
 block|}
+comment|// previous can come back 'null' if not in map.
 specifier|final
 name|Boolean
 name|previous
@@ -16910,6 +16911,24 @@ literal|" was opening but not yet served. Opening is cancelled."
 argument_list|)
 throw|;
 block|}
+block|}
+elseif|else
+if|if
+condition|(
+name|previous
+operator|==
+literal|null
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Received CLOSE for {}"
+argument_list|,
+name|encodedName
+argument_list|)
+expr_stmt|;
 block|}
 elseif|else
 if|if

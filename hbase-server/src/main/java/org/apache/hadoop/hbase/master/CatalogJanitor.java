@@ -3914,6 +3914,10 @@ decl_stmt|;
 if|if
 condition|(
 name|rs
+operator|==
+literal|null
+operator|||
+name|rs
 operator|.
 name|isClosedOrAbnormallyClosed
 argument_list|()

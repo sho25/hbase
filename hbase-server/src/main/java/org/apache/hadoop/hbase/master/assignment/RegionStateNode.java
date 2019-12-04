@@ -1106,7 +1106,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"rit=%s, location=%s"
+literal|"state=%s, location=%s"
 argument_list|,
 name|getState
 argument_list|()

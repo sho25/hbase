@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -240,6 +240,20 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|MetaTableAccessor
 import|;
 end_import
 
@@ -3221,12 +3235,14 @@ throw|throw
 operator|new
 name|UnknownRegionException
 argument_list|(
-literal|"No RegionState found for "
+literal|"No RegionStateNode found for "
 operator|+
 name|regionInfo
 operator|.
 name|getEncodedName
 argument_list|()
+operator|+
+literal|"(Closed/Deleted?)"
 argument_list|)
 throw|;
 block|}
@@ -4881,7 +4897,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"Server %s was trying to transition region %s to %s. but the region was removed."
+literal|"Server %s was trying to transition region %s to %s. but Region is not known."
 argument_list|,
 name|serverName
 argument_list|,
@@ -4993,7 +5009,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"No matching procedure found for {} transition to {}"
+literal|"No matching procedure found for {} transition on {} to {}"
+argument_list|,
+name|serverName
 argument_list|,
 name|regionNode
 argument_list|,
@@ -5592,7 +5610,79 @@ name|regionNames
 argument_list|)
 expr_stmt|;
 block|}
-comment|// just check and output possible inconsistency, without actually doing anything
+comment|/**    * Close<code>regionName</code> on<code>sn</code> silently and immediately without    * using a Procedure or going via hbase:meta. For case where a RegionServer's hosting    * of a Region is not aligned w/ the Master's accounting of Region state. This is for    * cleaning up an error in accounting.    */
+specifier|private
+name|void
+name|closeRegionSilently
+parameter_list|(
+name|ServerName
+name|sn
+parameter_list|,
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+block|{
+try|try
+block|{
+name|RegionInfo
+name|ri
+init|=
+name|MetaTableAccessor
+operator|.
+name|parseRegionInfoFromRegionName
+argument_list|(
+name|regionName
+argument_list|)
+decl_stmt|;
+comment|// Pass -1 for timeout. Means do not wait.
+name|ServerManager
+operator|.
+name|closeRegionSilentlyAndWait
+argument_list|(
+name|this
+operator|.
+name|master
+operator|.
+name|getClusterConnection
+argument_list|()
+argument_list|,
+name|sn
+argument_list|,
+name|ri
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+expr_stmt|;
+block|}
+catch|catch
+parameter_list|(
+name|Exception
+name|e
+parameter_list|)
+block|{
+name|LOG
+operator|.
+name|error
+argument_list|(
+literal|"Failed trying to close {} on {}"
+argument_list|,
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
+argument_list|,
+name|sn
+argument_list|,
+name|e
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+comment|/**    * Check that what the RegionServer reports aligns with the Master's image.    * If disagreement, we will tell the RegionServer to expediently close    * a Region we do not think it should have.    */
 specifier|private
 name|void
 name|checkOnlineRegionsReport
@@ -5651,24 +5741,45 @@ operator|==
 literal|null
 condition|)
 block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"No region state node for {}, it should already be on {}"
-argument_list|,
+name|String
+name|regionNameAsStr
+init|=
 name|Bytes
 operator|.
 name|toStringBinary
 argument_list|(
 name|regionName
 argument_list|)
+decl_stmt|;
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"No RegionStateNode for {} but reported as up on {}; closing..."
+argument_list|,
+name|regionNameAsStr
 argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
+name|closeRegionSilently
+argument_list|(
+name|serverNode
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|regionName
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
+specifier|final
+name|long
+name|lag
+init|=
+literal|1000
+decl_stmt|;
 name|regionNode
 operator|.
 name|lock
@@ -5723,18 +5834,32 @@ argument_list|)
 operator|&&
 name|diff
 operator|>
-literal|1000
+name|lag
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"{} reported OPEN on server={} but state has otherwise"
+literal|"Reporting {} server does not match {} (time since last "
+operator|+
+literal|"update={}ms); closing..."
+argument_list|,
+name|serverName
 argument_list|,
 name|regionNode
 argument_list|,
-name|serverName
+name|diff
+argument_list|)
+expr_stmt|;
+name|closeRegionSilently
+argument_list|(
+name|serverNode
+operator|.
+name|getServerName
+argument_list|()
+argument_list|,
+name|regionName
 argument_list|)
 expr_stmt|;
 block|}
@@ -5764,18 +5889,18 @@ if|if
 condition|(
 name|diff
 operator|>
-literal|1000
+name|lag
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"{} reported an unexpected OPEN on {}; time since last update={}ms"
-argument_list|,
-name|regionNode
+literal|"Reporting {} state does not match {} (time since last update={}ms)"
 argument_list|,
 name|serverName
+argument_list|,
+name|regionNode
 argument_list|,
 name|diff
 argument_list|)
