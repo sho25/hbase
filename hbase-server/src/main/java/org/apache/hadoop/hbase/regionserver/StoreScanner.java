@@ -1289,15 +1289,19 @@ argument_list|(
 name|this
 argument_list|)
 expr_stmt|;
-try|try
-block|{
-comment|// Pass columns to try to filter out unnecessary StoreFiles.
 name|List
 argument_list|<
 name|KeyValueScanner
 argument_list|>
 name|scanners
 init|=
+literal|null
+decl_stmt|;
+try|try
+block|{
+comment|// Pass columns to try to filter out unnecessary StoreFiles.
+name|scanners
+operator|=
 name|selectScannersFrom
 argument_list|(
 name|store
@@ -1339,7 +1343,7 @@ operator|.
 name|readPt
 argument_list|)
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 comment|// Seek all scanners to the start of the Row (or if the exact matching row
 comment|// key does not exist, then to the start of the next matching Row).
 comment|// Always check bloom filter to optimize the top row seek for delete
@@ -1400,6 +1404,11 @@ name|IOException
 name|e
 parameter_list|)
 block|{
+name|clearAndClose
+argument_list|(
+name|scanners
+argument_list|)
+expr_stmt|;
 comment|// remove us from the HStore#changedReaderObservers here or we'll have no chance to
 comment|// and might cause memory leak
 name|store
@@ -3967,6 +3976,15 @@ argument_list|>
 name|scanners
 parameter_list|)
 block|{
+if|if
+condition|(
+name|scanners
+operator|==
+literal|null
+condition|)
+block|{
+return|return;
+block|}
 for|for
 control|(
 name|KeyValueScanner
