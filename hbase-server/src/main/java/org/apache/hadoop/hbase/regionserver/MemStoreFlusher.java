@@ -1402,7 +1402,7 @@ operator|.
 name|toString
 argument_list|()
 operator|+
-literal|"Total Memstore Heap size="
+literal|", Total Memstore Heap size="
 operator|+
 name|TraditionalBinaryPrefix
 operator|.
@@ -1421,7 +1421,7 @@ argument_list|,
 literal|1
 argument_list|)
 operator|+
-literal|"Total Memstore Off-Heap size="
+literal|", Total Memstore Off-Heap size="
 operator|+
 name|TraditionalBinaryPrefix
 operator|.
