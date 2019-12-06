@@ -89,16 +89,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|InputStream
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|InterruptedIOException
 import|;
 end_import
@@ -184,16 +174,6 @@ operator|.
 name|util
 operator|.
 name|Iterator
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|LinkedList
 import|;
 end_import
 
@@ -342,6 +322,20 @@ operator|.
 name|regex
 operator|.
 name|Pattern
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|commons
+operator|.
+name|lang3
+operator|.
+name|ArrayUtils
 import|;
 end_import
 
@@ -1155,21 +1149,6 @@ name|Path
 name|pathTail
 parameter_list|)
 block|{
-if|if
-condition|(
-name|pathToSearch
-operator|.
-name|depth
-argument_list|()
-operator|!=
-name|pathTail
-operator|.
-name|depth
-argument_list|()
-condition|)
-return|return
-literal|false
-return|;
 name|Path
 name|tailPath
 init|=
@@ -1191,6 +1170,23 @@ name|result
 init|=
 literal|false
 decl_stmt|;
+if|if
+condition|(
+name|pathToSearch
+operator|.
+name|depth
+argument_list|()
+operator|!=
+name|pathTail
+operator|.
+name|depth
+argument_list|()
+condition|)
+block|{
+return|return
+literal|false
+return|;
+block|}
 do|do
 block|{
 name|tailName
@@ -1208,10 +1204,8 @@ literal|null
 operator|||
 name|tailName
 operator|.
-name|length
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
 block|{
 name|result
@@ -1235,12 +1229,12 @@ literal|null
 operator|||
 name|toSearchName
 operator|.
-name|length
+name|isEmpty
 argument_list|()
-operator|<=
-literal|0
 condition|)
+block|{
 break|break;
+block|}
 comment|// Move up a parent on each path for next go around.  Path doesn't let us go off the end.
 name|tailPath
 operator|=
@@ -1624,13 +1618,6 @@ argument_list|(
 literal|"DFS Client does not support most favored nodes create; using default create"
 argument_list|)
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
@@ -1644,37 +1631,9 @@ block|}
 catch|catch
 parameter_list|(
 name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Ignoring (most likely Reflection related exception) "
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|SecurityException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Ignoring (most likely Reflection related exception) "
-operator|+
-name|e
-argument_list|)
-expr_stmt|;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|IllegalAccessException
 name|e
 parameter_list|)
@@ -2031,7 +1990,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise.    * @throws IOException e    * @throws org.apache.hadoop.hbase.exceptions.DeserializationException    */
+comment|/**    * Verifies current version of file system    *    * @param fs filesystem object    * @param rootdir root hbase directory    * @return null if no version file exists, version string otherwise    * @throws IOException if the version file fails to open    * @throws DeserializationException if the version data cannot be translated into a version    */
 end_comment
 
 begin_function
@@ -2051,6 +2010,7 @@ name|IOException
 throws|,
 name|DeserializationException
 block|{
+specifier|final
 name|Path
 name|versionFile
 init|=
@@ -2096,19 +2056,20 @@ return|;
 block|}
 if|if
 condition|(
-name|status
-operator|==
-literal|null
-operator|||
-name|status
+name|ArrayUtils
 operator|.
-name|length
+name|getLength
+argument_list|(
+name|status
+argument_list|)
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|String
 name|version
 init|=
@@ -2181,39 +2142,27 @@ block|}
 else|else
 block|{
 comment|// Presume it pre-pb format.
-name|InputStream
-name|is
-init|=
-operator|new
-name|ByteArrayInputStream
-argument_list|(
-name|content
-argument_list|)
-decl_stmt|;
+try|try
+init|(
 name|DataInputStream
 name|dis
 init|=
 operator|new
 name|DataInputStream
 argument_list|(
-name|is
+operator|new
+name|ByteArrayInputStream
+argument_list|(
+name|content
 argument_list|)
-decl_stmt|;
-try|try
+argument_list|)
+init|)
 block|{
 name|version
 operator|=
 name|dis
 operator|.
 name|readUTF
-argument_list|()
-expr_stmt|;
-block|}
-finally|finally
-block|{
-name|dis
-operator|.
-name|close
 argument_list|()
 expr_stmt|;
 block|}
@@ -2248,7 +2197,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Parse the content of the ${HBASE_ROOTDIR}/hbase.version file.    * @param bytes The byte content of the hbase.version file.    * @return The version found in the file as a String.    * @throws DeserializationException    */
+comment|/**    * Parse the content of the ${HBASE_ROOTDIR}/hbase.version file.    * @param bytes The byte content of the hbase.version file    * @return The version found in the file as a String    * @throws DeserializationException if the version data cannot be translated into a version    */
 end_comment
 
 begin_function
@@ -2389,7 +2338,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    *    * @throws IOException e    * @throws DeserializationException    */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @throws IOException if the version file cannot be opened    * @throws DeserializationException if the contents of the version file cannot be parsed    */
 end_comment
 
 begin_function
@@ -2431,7 +2380,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException e    * @throws DeserializationException    */
+comment|/**    * Verifies current version of file system    *    * @param fs file system    * @param rootdir root directory of HBase installation    * @param message if true, issues a message on System.out    * @param wait wait interval    * @param retries number of times to retry    *    * @throws IOException if the version file cannot be opened    * @throws DeserializationException if the contents of the version file cannot be parsed    */
 end_comment
 
 begin_function
@@ -2944,7 +2893,7 @@ parameter_list|,
 name|Path
 name|rootdir
 parameter_list|,
-name|int
+name|long
 name|wait
 parameter_list|)
 throws|throws
@@ -2989,32 +2938,20 @@ if|if
 condition|(
 name|wait
 operator|>
-literal|0
+literal|0L
 condition|)
 block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Unable to check cluster ID file in "
-operator|+
+literal|"Unable to check cluster ID file in {}, retrying in {}ms"
+argument_list|,
 name|rootdir
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|", retrying in "
-operator|+
+argument_list|,
 name|wait
-operator|+
-literal|"msec: "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+argument_list|,
 name|ioe
-argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -3033,6 +2970,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|(
 name|InterruptedIOException
@@ -3175,14 +3120,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cluster ID file "
-operator|+
+literal|"Cluster ID file {} is empty"
+argument_list|,
 name|idPath
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" was empty"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3283,14 +3223,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cluster ID file "
-operator|+
+literal|"Cluster ID file {} is empty"
+argument_list|,
 name|idPath
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|" was empty"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3324,12 +3259,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Cluster ID file does not exist at "
-operator|+
+literal|"Cluster ID file does not exist at {}"
+argument_list|,
 name|idPath
-operator|.
-name|toString
-argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -3787,6 +3719,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|(
 name|InterruptedIOException
@@ -3999,7 +3939,7 @@ comment|// TODO move this method OUT of FSUtils. No dependencies to HMaster
 end_comment
 
 begin_comment
-comment|/**    * Returns the total overall fragmentation percentage. Includes hbase:meta and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Returns the total overall fragmentation percentage. Includes hbase:meta and    * -ROOT- as well.    *    * @param master  The master defining the HBase root and file system    * @return A map for each table and its percentage (never null)    * @throws IOException When scanning the directory fails    */
 end_comment
 
 begin_function
@@ -4030,31 +3970,25 @@ argument_list|)
 decl_stmt|;
 return|return
 name|map
-operator|!=
-literal|null
-operator|&&
-name|map
 operator|.
-name|size
+name|isEmpty
 argument_list|()
-operator|>
-literal|0
 condition|?
+operator|-
+literal|1
+else|:
 name|map
 operator|.
 name|get
 argument_list|(
 literal|"-TOTAL-"
 argument_list|)
-else|:
-operator|-
-literal|1
 return|;
 block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage.    *    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param master  The master defining the HBase root and file system.    * @return A map for each table and its percentage (never null).    *    * @throws IOException When scanning the directory fails.    */
 end_comment
 
 begin_function
@@ -4112,7 +4046,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @return A map for each table and its percentage.    * @throws IOException When scanning the directory fails.    */
+comment|/**    * Runs through the HBase rootdir and checks how many stores for each table    * have more than one file in them. Checks -ROOT- and hbase:meta too. The total    * percentage across all tables is stored under the special key "-TOTAL-".    *    * @param fs  The file system to use    * @param hbaseRootDir  The root directory to scan    * @return A map for each table and its percentage (never null)    * @throws IOException When scanning the directory fails    */
 end_comment
 
 begin_function
@@ -4522,11 +4456,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"unable to verify if path="
-operator|+
+literal|"Unable to verify if path={} is a regular file"
+argument_list|,
 name|p
-operator|+
-literal|" is a regular file"
 argument_list|,
 name|e
 argument_list|)
@@ -4666,14 +4598,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"An error occurred while verifying if ["
+literal|"An error occurred while verifying if [{}] is a valid directory."
 operator|+
+literal|" Returning 'not valid' and continuing."
+argument_list|,
 name|p
-operator|.
-name|toString
-argument_list|()
-operator|+
-literal|"] is a valid directory. Returning 'not valid' and continuing."
 argument_list|,
 name|e
 argument_list|)
@@ -4813,8 +4742,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"INVALID NAME "
-operator|+
+literal|"Invalid table name: {}"
+argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
@@ -4918,7 +4847,7 @@ argument_list|>
 name|tableDirs
 init|=
 operator|new
-name|LinkedList
+name|ArrayList
 argument_list|<>
 argument_list|()
 decl_stmt|;
@@ -5159,11 +5088,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping file "
-operator|+
+literal|"Skipping file {} due to IOException"
+argument_list|,
 name|p
-operator|+
-literal|" due to IOException"
 argument_list|,
 name|ioe
 argument_list|)
@@ -5444,11 +5371,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping file "
-operator|+
+literal|"Skipping file {} due to IOException"
+argument_list|,
 name|p
-operator|+
-literal|" due to IOException"
 argument_list|,
 name|ioe
 argument_list|)
@@ -5731,11 +5656,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping file "
-operator|+
+literal|"Skipping file {} due to IOException"
+argument_list|,
 name|p
-operator|+
-literal|" due to IOException"
 argument_list|,
 name|ioe
 argument_list|)
@@ -5864,11 +5787,9 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Skipping file "
-operator|+
+literal|"Skipping file {} due to IOException"
+argument_list|,
 name|p
-operator|+
-literal|" due to IOException"
 argument_list|,
 name|ioe
 argument_list|)
@@ -6058,7 +5979,7 @@ block|}
 end_function
 
 begin_comment
-comment|/*    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.  Note that because this method can be called    * on a 'live' HBase system that we will skip files that no longer exist by the time    * we traverse them and similarly the user of the result needs to consider that some    * entries in this map may not exist by the time this call completes.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param resultMap map to add values.  If null, this method will create and populate one    *   to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException    */
+comment|/**    * Runs through the HBase rootdir/tablename and creates a reverse lookup map for    * table StoreFile names to the full Path.  Note that because this method can be called    * on a 'live' HBase system that we will skip files that no longer exist by the time    * we traverse them and similarly the user of the result needs to consider that some    * entries in this map may not exist by the time this call completes.    *<br>    * Example...<br>    * Key = 3944417774205889744<br>    * Value = hdfs://localhost:51169/user/userid/-ROOT-/70236052/info/3944417774205889744    *    * @param resultMap map to add values.  If null, this method will create and populate one    *   to return    * @param fs  The file system to use.    * @param hbaseRootDir  The root directory to scan.    * @param tableName name of the table to scan.    * @param sfFilter optional path filter to apply to store files    * @param executor optional executor service to parallelize this operation    * @param progressReporter Instance or null; gets called every time we move to new region of    *   family dir and for each store file.    * @return Map keyed by StoreFile name with a value of the full Path.    * @throws IOException When scanning the directory fails.    * @throws InterruptedException the thread is interrupted, either before or during the activity.    */
 end_comment
 
 begin_function
@@ -6753,7 +6674,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Error Counting reference files."
+literal|"Error counting reference files"
 argument_list|,
 name|e
 argument_list|)
@@ -7175,37 +7096,29 @@ name|FileNotFoundException
 name|fnfe
 parameter_list|)
 block|{
-comment|// if directory doesn't exist, return null
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} does not exist"
+argument_list|,
 name|dir
-operator|+
-literal|" doesn't exist"
 argument_list|)
 expr_stmt|;
-block|}
+return|return
+literal|null
+return|;
 block|}
 if|if
 condition|(
-name|status
-operator|==
-literal|null
-operator|||
-name|status
+name|ArrayUtils
 operator|.
-name|length
-operator|<
-literal|1
+name|getLength
+argument_list|(
+name|status
+argument_list|)
+operator|==
+literal|0
 condition|)
 block|{
 return|return
@@ -7329,6 +7242,8 @@ block|}
 elseif|else
 if|if
 condition|(
+name|ArrayUtils
+operator|.
 name|contains
 argument_list|(
 name|ugi
@@ -7406,49 +7321,6 @@ name|getShortUserName
 argument_list|()
 argument_list|)
 throw|;
-block|}
-end_function
-
-begin_function
-specifier|private
-specifier|static
-name|boolean
-name|contains
-parameter_list|(
-name|String
-index|[]
-name|groups
-parameter_list|,
-name|String
-name|user
-parameter_list|)
-block|{
-for|for
-control|(
-name|String
-name|group
-range|:
-name|groups
-control|)
-block|{
-if|if
-condition|(
-name|group
-operator|.
-name|equals
-argument_list|(
-name|user
-argument_list|)
-condition|)
-block|{
-return|return
-literal|true
-return|;
-block|}
-block|}
-return|return
-literal|false
-return|;
 block|}
 end_function
 
@@ -8390,57 +8262,9 @@ block|}
 catch|catch
 parameter_list|(
 name|IllegalAccessException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed invoking method "
-operator|+
-name|name
-operator|+
-literal|" on dfsclient; no hedged read metrics: "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|IllegalArgumentException
-name|e
-parameter_list|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Failed invoking method "
-operator|+
-name|name
-operator|+
-literal|" on dfsclient; no hedged read metrics: "
-operator|+
-name|e
-operator|.
-name|getMessage
-argument_list|()
-argument_list|)
-expr_stmt|;
-return|return
-literal|null
-return|;
-block|}
-catch|catch
-parameter_list|(
+decl||
 name|InvocationTargetException
 name|e
 parameter_list|)
@@ -8581,7 +8405,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"copy snapshot reference files failed"
+literal|"Copy snapshot reference files failed"
 argument_list|,
 name|e
 argument_list|)
@@ -8691,7 +8515,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"create dir failed: "
+literal|"Create directory failed: "
 operator|+
 name|dst
 argument_list|)
