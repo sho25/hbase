@@ -183,6 +183,30 @@ name|VisibleForTesting
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
+name|ThreadFactoryBuilder
+import|;
+end_import
+
 begin_comment
 comment|/**  * LossyCounting utility, bounded data structure that maintains approximate high frequency  * elements in data stream.  *  * Bucket size is 1 / error rate.  (Error rate is 0.02 by default)  * Lemma If element
 comment|does not appear in set, then is frequency is less than e * N  *       (N is total element counts until now.)  * Based on paper:  * http://www.vldb.org/conf/2002/S10P03.pdf  */
@@ -379,7 +403,24 @@ operator|=
 name|Executors
 operator|.
 name|newSingleThreadExecutor
+argument_list|(
+operator|new
+name|ThreadFactoryBuilder
 argument_list|()
+operator|.
+name|setDaemon
+argument_list|(
+literal|true
+argument_list|)
+operator|.
+name|setNameFormat
+argument_list|(
+literal|"lossy-count-%d"
+argument_list|)
+operator|.
+name|build
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 specifier|public
