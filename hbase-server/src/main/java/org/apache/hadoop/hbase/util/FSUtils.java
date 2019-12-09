@@ -5715,6 +5715,14 @@ name|isHFile
 argument_list|(
 name|p
 argument_list|)
+operator|&&
+operator|!
+name|StoreFileInfo
+operator|.
+name|isMobFile
+argument_list|(
+name|p
+argument_list|)
 condition|)
 block|{
 return|return

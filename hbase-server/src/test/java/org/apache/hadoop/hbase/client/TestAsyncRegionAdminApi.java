@@ -2009,10 +2009,6 @@ operator|.
 name|majorCompact
 argument_list|(
 name|tableName
-argument_list|,
-name|CompactType
-operator|.
-name|MOB
 argument_list|)
 operator|.
 name|get
@@ -2026,10 +2022,6 @@ operator|.
 name|getCompactionState
 argument_list|(
 name|tableName
-argument_list|,
-name|CompactType
-operator|.
-name|MOB
 argument_list|)
 operator|.
 name|get

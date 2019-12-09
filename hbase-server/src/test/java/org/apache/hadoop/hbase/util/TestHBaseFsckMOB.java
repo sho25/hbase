@@ -618,6 +618,11 @@ expr_stmt|;
 block|}
 comment|/**    * This creates a table and then corrupts a mob file.  Hbck should quarantine the file.    */
 annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"deprecation"
+argument_list|)
+annotation|@
 name|Test
 specifier|public
 name|void

@@ -48,7 +48,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * The mob file name.  * It consists of a md5 of a start key, a date and an uuid.  * It looks like md5(start) + date + uuid.  *<ol>  *<li>characters 0-31: md5 hex string of a start key. Since the length of the start key is not  * fixed, have to use the md5 instead which has a fix length.</li>  *<li>characters 32-39: a string of a date with format yyyymmdd. The date is the latest timestamp  * of cells in this file</li>  *<li>the remaining characters: the uuid.</li>  *</ol>  * Using md5 hex string of start key as the prefix of file name makes files with the same start  * key unique, they're different from the ones with other start keys  * The cells come from different regions might be in the same mob file by region split,  * this is allowed.  * Has the latest timestamp of cells in the file name in order to clean the expired mob files by  * TTL easily. If this timestamp is older than the TTL, it's regarded as expired.  */
+comment|/**  * The mob file name.  * It consists of a md5 of a start key, a date, uuid and encoded region name.  * It looks like md5(start) + date + uuid+ "_" + encoded region name.  *<ol>  *<li>characters 0-31: md5 hex string of a start key. Since the length of the start key is not  * fixed, have to use the md5 instead which has a fix length.</li>  *<li>characters 32-39: a string of a date with format yyyymmdd. The date is the latest timestamp  * of cells in this file</li>  *<li>the remaining characters: the uuid.</li>  *</ol>  * Using md5 hex string of start key as the prefix of file name makes files with the same start  * key unique, they're different from the ones with other start keys  * The cells come from different regions might be in the same mob file by region split,  * this is allowed.  * Has the latest timestamp of cells in the file name in order to clean the expired mob files by  * TTL easily. If this timestamp is older than the TTL, it's regarded as expired.  */
 end_comment
 
 begin_class
@@ -81,6 +81,12 @@ specifier|final
 name|String
 name|fileName
 decl_stmt|;
+comment|// Name of a region this MOB file belongs to
+specifier|private
+specifier|final
+name|String
+name|regionName
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -105,7 +111,15 @@ name|UUID_END_INDEX
 init|=
 literal|72
 decl_stmt|;
-comment|/**    * @param startKey    *          The start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid    *          The uuid    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|REGION_SEP
+init|=
+literal|"_"
+decl_stmt|;
+comment|/**    * @param startKey    *          The start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid    *          The uuid    * @param regionName name of a region, where this file was created during flush or compaction.    */
 specifier|private
 name|MobFileName
 parameter_list|(
@@ -118,6 +132,9 @@ name|date
 parameter_list|,
 name|String
 name|uuid
+parameter_list|,
+name|String
+name|regionName
 parameter_list|)
 block|{
 name|this
@@ -151,6 +168,12 @@ name|date
 expr_stmt|;
 name|this
 operator|.
+name|regionName
+operator|=
+name|regionName
+expr_stmt|;
+name|this
+operator|.
 name|fileName
 operator|=
 name|this
@@ -164,9 +187,15 @@ operator|+
 name|this
 operator|.
 name|uuid
+operator|+
+name|REGION_SEP
+operator|+
+name|this
+operator|.
+name|regionName
 expr_stmt|;
 block|}
-comment|/**    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid    *          The uuid    */
+comment|/**    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid    *          The uuid    * @param regionName name of a region, where this file was created during flush or compaction.    */
 specifier|private
 name|MobFileName
 parameter_list|(
@@ -178,6 +207,9 @@ name|date
 parameter_list|,
 name|String
 name|uuid
+parameter_list|,
+name|String
+name|regionName
 parameter_list|)
 block|{
 name|this
@@ -200,6 +232,12 @@ name|date
 expr_stmt|;
 name|this
 operator|.
+name|regionName
+operator|=
+name|regionName
+expr_stmt|;
+name|this
+operator|.
 name|fileName
 operator|=
 name|this
@@ -213,9 +251,15 @@ operator|+
 name|this
 operator|.
 name|uuid
+operator|+
+name|REGION_SEP
+operator|+
+name|this
+operator|.
+name|regionName
 expr_stmt|;
 block|}
-comment|/**    * Creates an instance of MobFileName    *    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid The uuid.    * @return An instance of a MobFileName.    */
+comment|/**    * Creates an instance of MobFileName    *    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid The uuid.    * @param regionName name of a region, where this file was created during flush or compaction.    * @return An instance of a MobFileName.    */
 specifier|public
 specifier|static
 name|MobFileName
@@ -230,6 +274,9 @@ name|date
 parameter_list|,
 name|String
 name|uuid
+parameter_list|,
+name|String
+name|regionName
 parameter_list|)
 block|{
 return|return
@@ -241,10 +288,12 @@ argument_list|,
 name|date
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates an instance of MobFileName    *    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid The uuid.    * @return An instance of a MobFileName.    */
+comment|/**    * Creates an instance of MobFileName    *    * @param startKey    *          The md5 hex string of the start key.    * @param date    *          The string of the latest timestamp of cells in this file, the format is yyyymmdd.    * @param uuid The uuid.    * @param regionName name of a region, where this file was created during flush or compaction.    * @return An instance of a MobFileName.    */
 specifier|public
 specifier|static
 name|MobFileName
@@ -258,6 +307,9 @@ name|date
 parameter_list|,
 name|String
 name|uuid
+parameter_list|,
+name|String
+name|regionName
 parameter_list|)
 block|{
 return|return
@@ -269,6 +321,8 @@ argument_list|,
 name|date
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 return|;
 block|}
@@ -283,6 +337,7 @@ name|fileName
 parameter_list|)
 block|{
 comment|// The format of a file name is md5HexString(0-31bytes) + date(32-39bytes) + UUID
+comment|// + "_" + region
 comment|// The date format is yyyyMMdd
 name|String
 name|startKey
@@ -320,6 +375,18 @@ argument_list|,
 name|UUID_END_INDEX
 argument_list|)
 decl_stmt|;
+name|String
+name|regionName
+init|=
+name|fileName
+operator|.
+name|substring
+argument_list|(
+name|UUID_END_INDEX
+operator|+
+literal|1
+argument_list|)
+decl_stmt|;
 return|return
 operator|new
 name|MobFileName
@@ -329,7 +396,29 @@ argument_list|,
 name|date
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
+return|;
+block|}
+specifier|public
+specifier|static
+name|boolean
+name|isOldMobFileName
+parameter_list|(
+name|String
+name|name
+parameter_list|)
+block|{
+return|return
+name|name
+operator|.
+name|indexOf
+argument_list|(
+name|REGION_SEP
+argument_list|)
+operator|<
+literal|0
 return|;
 block|}
 comment|/**    * get startKey from MobFileName.    * @param fileName file name.    * @return startKey    */
@@ -384,6 +473,16 @@ parameter_list|()
 block|{
 return|return
 name|startKey
+return|;
+block|}
+comment|/**    * Gets region name    * @return name of a region, where this file was created during flush or compaction.    */
+specifier|public
+name|String
+name|getRegionName
+parameter_list|()
+block|{
+return|return
+name|regionName
 return|;
 block|}
 comment|/**    * Gets the date string. Its format is yyyymmdd.    * @return The date string.    */

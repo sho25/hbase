@@ -9874,6 +9874,7 @@ return|;
 block|}
 annotation|@
 name|VisibleForTesting
+specifier|public
 name|void
 name|setTableDescriptor
 parameter_list|(

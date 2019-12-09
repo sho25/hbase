@@ -654,6 +654,36 @@ argument_list|(
 literal|"MOB_CELLS_COUNT"
 argument_list|)
 decl_stmt|;
+comment|/** Null data */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|NULL_VALUE
+init|=
+operator|new
+name|byte
+index|[]
+block|{
+literal|0
+block|}
+decl_stmt|;
+comment|/** Key for the list of MOB file references */
+specifier|public
+specifier|static
+specifier|final
+name|byte
+index|[]
+name|MOB_FILE_REFS
+init|=
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+literal|"MOB_FILE_REFS"
+argument_list|)
+decl_stmt|;
 comment|/** Meta key set when store file is a result of a bulk load */
 specifier|public
 specifier|static

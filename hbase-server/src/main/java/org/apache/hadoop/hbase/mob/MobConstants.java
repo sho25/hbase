@@ -201,6 +201,14 @@ specifier|final
 name|String
 name|MOB_CLEANER_PERIOD
 init|=
+literal|"hbase.master.mob.cleaner.period"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|DEPRECATED_MOB_CLEANER_PERIOD
+init|=
 literal|"hbase.master.mob.ttl.cleaner.period"
 decl_stmt|;
 specifier|public
@@ -274,6 +282,147 @@ name|TEMP_DIR_NAME
 init|=
 literal|".tmp"
 decl_stmt|;
+comment|/**    * The max number of a MOB table regions that is allowed in a batch of the mob compaction. By    * setting this number to a custom value, users can control the overall effect of a major    * compaction of a large MOB-enabled table.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MOB_MAJOR_COMPACTION_REGION_BATCH_SIZE
+init|=
+literal|"hbase.mob.major.compaction.region.batch.size"
+decl_stmt|;
+comment|/**    * Default is 0 - means no limit - all regions of a MOB table will be compacted at once    */
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MOB_MAJOR_COMPACTION_REGION_BATCH_SIZE
+init|=
+literal|0
+decl_stmt|;
+comment|/**    * The period that MobCompactionChore runs. The unit is second. The default value is one week.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MOB_COMPACTION_CHORE_PERIOD
+init|=
+literal|"hbase.mob.compaction.chore.period"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
+init|=
+literal|24
+operator|*
+literal|60
+operator|*
+literal|60
+operator|*
+literal|7
+decl_stmt|;
+comment|// a week
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MOB_COMPACTOR_CLASS_KEY
+init|=
+literal|"hbase.mob.compactor.class"
+decl_stmt|;
+comment|/**    * Mob compaction type: "full", "optimized" "full" - run full major compaction (during migration)    * "optimized" - optimized version for use case with infrequent updates/deletes    */
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|OPTIMIZED_MOB_COMPACTION_TYPE
+init|=
+literal|"optimized"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|FULL_MOB_COMPACTION_TYPE
+init|=
+literal|"full"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|MOB_COMPACTION_TYPE_KEY
+init|=
+literal|"hbase.mob.compaction.type"
+decl_stmt|;
+specifier|public
+specifier|final
+specifier|static
+name|String
+name|DEFAULT_MOB_COMPACTION_TYPE
+init|=
+name|FULL_MOB_COMPACTION_TYPE
+decl_stmt|;
+comment|/**    * Maximum size of a MOB compaction selection    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MOB_COMPACTION_MAX_FILE_SIZE_KEY
+init|=
+literal|"hbase.mob.compactions.max.file.size"
+decl_stmt|;
+comment|/**    * Default maximum selection size = 1GB    */
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MOB_COMPACTION_MAX_FILE_SIZE
+init|=
+literal|1024
+operator|*
+literal|1024
+operator|*
+literal|1024
+decl_stmt|;
+comment|/**    * Use this configuration option with caution, only during upgrade procedure to handle missing MOB    * cells during compaction.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MOB_UNSAFE_DISCARD_MISS_KEY
+init|=
+literal|"hbase.unsafe.mob.discard.miss"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|DEFAULT_MOB_DISCARD_MISS
+init|=
+literal|false
+decl_stmt|;
+comment|/**    * Minimum MOB file age to archive, default (3600000 - 1h)    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MIN_AGE_TO_ARCHIVE_KEY
+init|=
+literal|"hbase.mob.min.age.archive"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|long
+name|DEFAULT_MIN_AGE_TO_ARCHIVE
+init|=
+literal|3600000
+decl_stmt|;
+comment|// 1h
+comment|/**    * Old configuration parameters (obsolete)    */
 specifier|public
 specifier|final
 specifier|static
@@ -327,7 +476,6 @@ literal|1024
 operator|*
 literal|1024
 decl_stmt|;
-comment|/**    * The max number of del files that is allowed in the mob file compaction. In the mob    * compaction, when the number of existing del files is larger than this value, they are merged    * until number of del files is not larger this value. The default value is 3.    */
 specifier|public
 specifier|static
 specifier|final
@@ -344,7 +492,7 @@ name|DEFAULT_MOB_DELFILE_MAX_COUNT
 init|=
 literal|3
 decl_stmt|;
-comment|/**    * The max number of the mob files that is allowed in a batch of the mob compaction.    * The mob compaction merges the small mob files to bigger ones. If the number of the    * small files is very large, it could lead to a "too many opened file handlers" in the merge.    * And the merge has to be split into batches. This value limits the number of mob files    * that are selected in a batch of the mob compaction. The default value is 100.    */
+comment|/**    * The max number of the mob files that is allowed in a batch of the mob compaction. The mob    * compaction merges the small mob files to bigger ones. If the number of the small files is very    * large, it could lead to a "too many opened file handlers" in the merge. And the merge has to be    * split into batches. This value limits the number of mob files that are selected in a batch of    * the mob compaction. The default value is 100. Default is 0 - means no limit - all regions of a    * MOB table will be compacted at once    */
 specifier|public
 specifier|static
 specifier|final
@@ -361,39 +509,6 @@ name|DEFAULT_MOB_COMPACTION_BATCH_SIZE
 init|=
 literal|100
 decl_stmt|;
-comment|/**    * The period that MobCompactionChore runs. The unit is second.    * The default value is one week.    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MOB_COMPACTION_CHORE_PERIOD
-init|=
-literal|"hbase.mob.compaction.chore.period"
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|int
-name|DEFAULT_MOB_COMPACTION_CHORE_PERIOD
-init|=
-literal|24
-operator|*
-literal|60
-operator|*
-literal|60
-operator|*
-literal|7
-decl_stmt|;
-comment|// a week
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MOB_COMPACTOR_CLASS_KEY
-init|=
-literal|"hbase.mob.compactor.class"
-decl_stmt|;
-comment|/**    * The max number of threads used in MobCompactor.    */
 specifier|public
 specifier|static
 specifier|final

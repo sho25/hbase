@@ -2550,6 +2550,8 @@ literal|"-"
 argument_list|,
 literal|""
 argument_list|)
+argument_list|,
+literal|"abcdef"
 argument_list|)
 operator|.
 name|getFileName

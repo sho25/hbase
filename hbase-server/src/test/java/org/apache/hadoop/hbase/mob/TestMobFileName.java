@@ -261,6 +261,12 @@ name|byte
 index|[]
 name|startKey
 decl_stmt|;
+specifier|private
+name|String
+name|regionName
+init|=
+literal|"region"
+decl_stmt|;
 annotation|@
 name|Before
 specifier|public
@@ -338,6 +344,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 operator|.
 name|hashCode
@@ -352,6 +360,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 operator|.
 name|hashCode
@@ -369,6 +379,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 argument_list|,
 name|MobFileName
@@ -380,6 +392,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 argument_list|)
 expr_stmt|;
@@ -403,6 +417,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -440,6 +456,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 decl_stmt|;
 name|assertEquals
@@ -496,6 +514,10 @@ operator|+
 name|dateStr
 operator|+
 name|uuid
+operator|+
+literal|"_"
+operator|+
+name|regionName
 argument_list|)
 expr_stmt|;
 block|}
@@ -518,6 +540,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 decl_stmt|;
 name|assertTrue
@@ -555,6 +579,8 @@ argument_list|,
 name|dateStr
 argument_list|,
 name|uuid
+argument_list|,
+name|regionName
 argument_list|)
 argument_list|)
 argument_list|)

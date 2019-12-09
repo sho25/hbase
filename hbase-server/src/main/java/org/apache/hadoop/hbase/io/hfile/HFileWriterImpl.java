@@ -1056,6 +1056,20 @@ name|startTime
 argument_list|)
 expr_stmt|;
 block|}
+specifier|public
+name|long
+name|getPos
+parameter_list|()
+throws|throws
+name|IOException
+block|{
+return|return
+name|outputStream
+operator|.
+name|getPos
+argument_list|()
+return|;
+block|}
 comment|/**    * Checks that the given Cell's key does not violate the key order.    *    * @param cell Cell whose key to check.    * @return true if the key is duplicate    * @throws IOException if the key or the key order is wrong    */
 specifier|protected
 name|boolean
