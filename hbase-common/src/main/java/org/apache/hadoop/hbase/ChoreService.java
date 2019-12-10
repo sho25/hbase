@@ -540,7 +540,6 @@ block|}
 block|}
 comment|/**    * @param chore The Chore to be rescheduled. If the chore is not scheduled with this ChoreService    *          yet then this call is equivalent to a call to scheduleChore.    */
 specifier|private
-specifier|synchronized
 name|void
 name|rescheduleChore
 parameter_list|(
@@ -548,13 +547,6 @@ name|ScheduledChore
 name|chore
 parameter_list|)
 block|{
-if|if
-condition|(
-name|chore
-operator|==
-literal|null
-condition|)
-return|return;
 if|if
 condition|(
 name|scheduledChores
@@ -756,15 +748,9 @@ block|{
 if|if
 condition|(
 name|chore
-operator|==
+operator|!=
 literal|null
 condition|)
-block|{
-return|return
-literal|false
-return|;
-block|}
-else|else
 block|{
 name|rescheduleChore
 argument_list|(
@@ -775,6 +761,9 @@ return|return
 literal|true
 return|;
 block|}
+return|return
+literal|false
+return|;
 block|}
 comment|/**    * @return number of chores that this service currently has scheduled    */
 name|int
@@ -1152,6 +1141,9 @@ name|boolean
 name|mayInterruptIfRunning
 parameter_list|)
 block|{
+comment|// Build list of chores to cancel so we can iterate through a set that won't change
+comment|// as chores are cancelled. If we tried to cancel each chore while iterating through
+comment|// keySet the results would be undefined because the keySet would be changing
 name|ArrayList
 argument_list|<
 name|ScheduledChore
@@ -1166,33 +1158,8 @@ name|scheduledChores
 operator|.
 name|keySet
 argument_list|()
-operator|.
-name|size
-argument_list|()
 argument_list|)
 decl_stmt|;
-comment|// Build list of chores to cancel so we can iterate through a set that won't change
-comment|// as chores are cancelled. If we tried to cancel each chore while iterating through
-comment|// keySet the results would be undefined because the keySet would be changing
-for|for
-control|(
-name|ScheduledChore
-name|chore
-range|:
-name|scheduledChores
-operator|.
-name|keySet
-argument_list|()
-control|)
-block|{
-name|choresToCancel
-operator|.
-name|add
-argument_list|(
-name|chore
-argument_list|)
-expr_stmt|;
-block|}
 for|for
 control|(
 name|ScheduledChore
@@ -1209,11 +1176,6 @@ name|mayInterruptIfRunning
 argument_list|)
 expr_stmt|;
 block|}
-name|choresToCancel
-operator|.
-name|clear
-argument_list|()
-expr_stmt|;
 block|}
 comment|/**    * Prints a summary of important details about the chore. Used for debugging purposes    */
 specifier|private
