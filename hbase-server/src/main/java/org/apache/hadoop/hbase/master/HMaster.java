@@ -10258,6 +10258,8 @@ argument_list|()
 operator|.
 name|getAssignmentsForBalancer
 argument_list|(
+name|tableStateManager
+argument_list|,
 name|isByTable
 argument_list|)
 decl_stmt|;
