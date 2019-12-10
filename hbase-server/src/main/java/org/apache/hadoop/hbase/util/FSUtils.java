@@ -245,18 +245,6 @@ name|util
 operator|.
 name|concurrent
 operator|.
-name|ArrayBlockingQueue
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|util
-operator|.
-name|concurrent
-operator|.
 name|ConcurrentHashMap
 import|;
 end_import
@@ -7571,8 +7559,6 @@ name|desiredTable
 argument_list|,
 name|threadPoolSize
 argument_list|,
-literal|null
-argument_list|,
 name|regionDegreeLocalityMapping
 argument_list|)
 expr_stmt|;
@@ -7583,7 +7569,7 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * This function is to scan the root path of the file system to get either the    * mapping between the region name and its best locality region server or the    * degree of locality of each region on each of the servers having at least    * one block of that region. The output map parameters are both optional.    *    * @param conf    *          the configuration to use    * @param desiredTable    *          the table you wish to scan locality for    * @param threadPoolSize    *          the thread pool size to use    * @param regionToBestLocalityRSMapping    *          the map into which to put the best locality mapping or null    * @param regionDegreeLocalityMapping    *          the map into which to put the locality degree mapping or null,    *          must be a thread-safe implementation    * @throws IOException    *           in case of file system errors or interrupts    */
+comment|/**    * This function is to scan the root path of the file system to get either the    * mapping between the region name and its best locality region server or the    * degree of locality of each region on each of the servers having at least    * one block of that region. The output map parameters are both optional.    *    * @param conf    *          the configuration to use    * @param desiredTable    *          the table you wish to scan locality for    * @param threadPoolSize    *          the thread pool size to use    * @param regionDegreeLocalityMapping    *          the map into which to put the locality degree mapping or null,    *          must be a thread-safe implementation    * @throws IOException    *           in case of file system errors or interrupts    */
 end_comment
 
 begin_function
@@ -7603,14 +7589,7 @@ parameter_list|,
 name|int
 name|threadPoolSize
 parameter_list|,
-name|Map
-argument_list|<
-name|String
-argument_list|,
-name|String
-argument_list|>
-name|regionToBestLocalityRSMapping
-parameter_list|,
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -7627,6 +7606,7 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+specifier|final
 name|FileSystem
 name|fs
 init|=
@@ -7637,6 +7617,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+specifier|final
 name|Path
 name|rootPath
 init|=
@@ -7647,6 +7628,7 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+specifier|final
 name|long
 name|startTime
 init|=
@@ -7655,6 +7637,7 @@ operator|.
 name|currentTime
 argument_list|()
 decl_stmt|;
+specifier|final
 name|Path
 name|queryPath
 decl_stmt|;
@@ -7828,30 +7811,37 @@ argument_list|)
 decl_stmt|;
 if|if
 condition|(
+name|LOG
+operator|.
+name|isDebugEnabled
+argument_list|()
+condition|)
+block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Query Path: {} ; # list of files: {}"
+argument_list|,
+name|queryPath
+argument_list|,
+name|Arrays
+operator|.
+name|toString
+argument_list|(
+name|statusList
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
+if|if
+condition|(
 literal|null
 operator|==
 name|statusList
 condition|)
 block|{
 return|return;
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|debug
-argument_list|(
-literal|"Query Path: "
-operator|+
-name|queryPath
-operator|+
-literal|" ; # list of files: "
-operator|+
-name|statusList
-operator|.
-name|length
-argument_list|)
-expr_stmt|;
 block|}
 comment|// lower the number of threads in case we have very few expected regions
 name|threadPoolSize
@@ -7868,30 +7858,15 @@ name|length
 argument_list|)
 expr_stmt|;
 comment|// run in multiple threads
-name|ThreadPoolExecutor
+specifier|final
+name|ExecutorService
 name|tpe
 init|=
-operator|new
-name|ThreadPoolExecutor
+name|Executors
+operator|.
+name|newFixedThreadPool
 argument_list|(
 name|threadPoolSize
-argument_list|,
-name|threadPoolSize
-argument_list|,
-literal|60
-argument_list|,
-name|TimeUnit
-operator|.
-name|SECONDS
-argument_list|,
-operator|new
-name|ArrayBlockingQueue
-argument_list|<>
-argument_list|(
-name|statusList
-operator|.
-name|length
-argument_list|)
 argument_list|,
 name|Threads
 operator|.
@@ -7917,12 +7892,7 @@ condition|(
 literal|null
 operator|==
 name|regionStatus
-condition|)
-block|{
-continue|continue;
-block|}
-if|if
-condition|(
+operator|||
 operator|!
 name|regionStatus
 operator|.
@@ -7932,6 +7902,7 @@ condition|)
 block|{
 continue|continue;
 block|}
+specifier|final
 name|Path
 name|regionPath
 init|=
@@ -7943,12 +7914,10 @@ decl_stmt|;
 if|if
 condition|(
 literal|null
-operator|==
+operator|!=
 name|regionPath
 condition|)
 block|{
-continue|continue;
-block|}
 name|tpe
 operator|.
 name|execute
@@ -7960,12 +7929,13 @@ name|fs
 argument_list|,
 name|regionPath
 argument_list|,
-name|regionToBestLocalityRSMapping
+literal|null
 argument_list|,
 name|regionDegreeLocalityMapping
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 finally|finally
@@ -7975,9 +7945,13 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-name|int
+specifier|final
+name|long
 name|threadWakeFrequency
 init|=
+operator|(
+name|long
+operator|)
 name|conf
 operator|.
 name|getInt
@@ -7986,9 +7960,9 @@ name|HConstants
 operator|.
 name|THREAD_WAKE_FREQUENCY
 argument_list|,
-literal|60
-operator|*
-literal|1000
+name|HConstants
+operator|.
+name|DEFAULT_THREAD_WAKE_FREQUENCY
 argument_list|)
 decl_stmt|;
 try|try
@@ -8018,14 +7992,24 @@ name|info
 argument_list|(
 literal|"Locality checking is underway: { Scanned Regions : "
 operator|+
+operator|(
+operator|(
+name|ThreadPoolExecutor
+operator|)
 name|tpe
+operator|)
 operator|.
 name|getCompletedTaskCount
 argument_list|()
 operator|+
 literal|"/"
 operator|+
+operator|(
+operator|(
+name|ThreadPoolExecutor
+operator|)
 name|tpe
+operator|)
 operator|.
 name|getTaskCount
 argument_list|()
@@ -8041,6 +8025,14 @@ name|InterruptedException
 name|e
 parameter_list|)
 block|{
+name|Thread
+operator|.
+name|currentThread
+argument_list|()
+operator|.
+name|interrupt
+argument_list|()
+expr_stmt|;
 throw|throw
 operator|(
 name|InterruptedIOException
@@ -8066,20 +8058,13 @@ argument_list|()
 operator|-
 name|startTime
 decl_stmt|;
-name|String
-name|overheadMsg
-init|=
-literal|"Scan DFS for locality info takes "
-operator|+
-name|overhead
-operator|+
-literal|" ms"
-decl_stmt|;
 name|LOG
 operator|.
 name|info
 argument_list|(
-name|overheadMsg
+literal|"Scan DFS for locality info takes {}ms"
+argument_list|,
+name|overhead
 argument_list|)
 expr_stmt|;
 block|}
