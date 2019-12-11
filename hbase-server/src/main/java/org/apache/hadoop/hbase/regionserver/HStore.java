@@ -6136,7 +6136,7 @@ condition|(
 name|isCompaction
 condition|)
 block|{
-comment|// Don't cache data on write on compactions, unless specifically configured to do so
+comment|// Don't cache data on write on compactions.
 name|writerCacheConf
 operator|=
 operator|new
@@ -6149,10 +6149,7 @@ name|writerCacheConf
 operator|.
 name|setCacheDataOnWrite
 argument_list|(
-name|cacheConf
-operator|.
-name|shouldCacheCompactedBlocksOnWrite
-argument_list|()
+literal|false
 argument_list|)
 expr_stmt|;
 block|}

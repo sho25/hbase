@@ -256,15 +256,6 @@ name|PREFETCH_BLOCKS_ON_OPEN_KEY
 init|=
 literal|"hbase.rs.prefetchblocksonopen"
 decl_stmt|;
-comment|/**    * Configuration key to cache blocks when a compacted file is written    */
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|CACHE_COMPACTED_BLOCKS_ON_WRITE_KEY
-init|=
-literal|"hbase.rs.cachecompactedblocksonwrite"
-decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -342,14 +333,6 @@ specifier|public
 specifier|static
 specifier|final
 name|boolean
-name|DEFAULT_CACHE_COMPACTED_BLOCKS_ON_WRITE
-init|=
-literal|false
-decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|boolean
 name|DROP_BEHIND_CACHE_COMPACTION_DEFAULT
 init|=
 literal|true
@@ -399,12 +382,6 @@ specifier|private
 specifier|final
 name|boolean
 name|prefetchOnOpen
-decl_stmt|;
-comment|/**    * Whether data blocks should be cached when compacted file is written    */
-specifier|private
-specifier|final
-name|boolean
-name|cacheCompactedDataOnWrite
 decl_stmt|;
 specifier|private
 specifier|final
@@ -680,19 +657,6 @@ operator|)
 expr_stmt|;
 name|this
 operator|.
-name|cacheCompactedDataOnWrite
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|CACHE_COMPACTED_BLOCKS_ON_WRITE_KEY
-argument_list|,
-name|DEFAULT_CACHE_COMPACTED_BLOCKS_ON_WRITE
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
 name|blockCache
 operator|=
 name|blockCache
@@ -803,14 +767,6 @@ name|prefetchOnOpen
 expr_stmt|;
 name|this
 operator|.
-name|cacheCompactedDataOnWrite
-operator|=
-name|cacheConf
-operator|.
-name|cacheCompactedDataOnWrite
-expr_stmt|;
-name|this
-operator|.
 name|dropBehindCompaction
 operator|=
 name|cacheConf
@@ -883,12 +839,6 @@ expr_stmt|;
 name|this
 operator|.
 name|prefetchOnOpen
-operator|=
-literal|false
-expr_stmt|;
-name|this
-operator|.
-name|cacheCompactedDataOnWrite
 operator|=
 literal|false
 expr_stmt|;
@@ -1129,18 +1079,6 @@ return|return
 name|this
 operator|.
 name|prefetchOnOpen
-return|;
-block|}
-comment|/**    * @return true if blocks should be cached while writing during compaction, false if not    */
-specifier|public
-name|boolean
-name|shouldCacheCompactedBlocksOnWrite
-parameter_list|()
-block|{
-return|return
-name|this
-operator|.
-name|cacheCompactedDataOnWrite
 return|;
 block|}
 comment|/**    * Return true if we may find this type of block in block cache.    *<p>    * TODO: today {@code family.isBlockCacheEnabled()} only means {@code cacheDataOnRead}, so here we    * consider lots of other configurations such as {@code cacheDataOnWrite}. We should fix this in    * the future, {@code cacheDataOnWrite} should honor the CF level {@code isBlockCacheEnabled}    * configuration.    */
