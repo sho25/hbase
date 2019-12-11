@@ -11625,7 +11625,7 @@ return|;
 block|}
 comment|// End helpers for Client
 comment|// Start helpers for Admin
-comment|/**    * A helper to retrieve region info given a region name    * using admin protocol.    *    * @param admin    * @param regionName    * @return the retrieved region info    * @throws IOException    */
+comment|/**    * A helper to retrieve region info given a region name or an    * encoded region name using admin protocol.    *    * @return the retrieved region info    */
 specifier|public
 specifier|static
 name|org
@@ -11664,6 +11664,45 @@ block|{
 name|GetRegionInfoRequest
 name|request
 init|=
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
+operator|.
+name|isEncodedRegionName
+argument_list|(
+name|regionName
+argument_list|)
+condition|?
+name|GetRegionInfoRequest
+operator|.
+name|newBuilder
+argument_list|()
+operator|.
+name|setRegion
+argument_list|(
+name|RequestConverter
+operator|.
+name|buildRegionSpecifier
+argument_list|(
+name|RegionSpecifierType
+operator|.
+name|ENCODED_REGION_NAME
+argument_list|,
+name|regionName
+argument_list|)
+argument_list|)
+operator|.
+name|build
+argument_list|()
+else|:
 name|RequestConverter
 operator|.
 name|buildGetRegionInfoRequest

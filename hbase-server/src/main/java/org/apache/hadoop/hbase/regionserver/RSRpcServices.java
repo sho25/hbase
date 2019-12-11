@@ -11740,6 +11740,9 @@ argument_list|)
 throw|;
 block|}
 block|}
+comment|// Master implementation of this Admin Service differs given it is not
+comment|// able to supply detail only known to RegionServer. See note on
+comment|// MasterRpcServers#getRegionInfo.
 annotation|@
 name|Override
 annotation|@

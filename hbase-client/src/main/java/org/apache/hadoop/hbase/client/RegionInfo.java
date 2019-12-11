@@ -249,20 +249,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
-operator|.
-name|util
-operator|.
-name|StringUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -1210,10 +1196,13 @@ literal|1
 index|]
 return|;
 block|}
+comment|/**    * Figure if the passed bytes represent an encoded region name or not.    * @param regionName A Region name either encoded or not.    * @return True if<code>regionName</code> represents an encoded name.    */
 annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
+comment|// For use by internals only.
+specifier|public
 specifier|static
 name|boolean
 name|isEncodedRegionName
@@ -1225,46 +1214,21 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-try|try
-block|{
-name|parseRegionName
+comment|// If not parseable as region name, presume encoded. TODO: add stringency; e.g. if hex.
+return|return
+name|parseRegionNameOrReturnNull
 argument_list|(
 name|regionName
 argument_list|)
-expr_stmt|;
-return|return
-literal|false
-return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-if|if
-condition|(
-name|StringUtils
+operator|==
+literal|null
+operator|&&
+name|regionName
 operator|.
-name|stringifyException
-argument_list|(
-name|e
-argument_list|)
-operator|.
-name|contains
-argument_list|(
-name|INVALID_REGION_NAME_FORMAT_MESSAGE
-argument_list|)
-condition|)
-block|{
-return|return
-literal|true
+name|length
+operator|<=
+name|MD5_HEX_LENGTH
 return|;
-block|}
-throw|throw
-name|e
-throw|;
-block|}
 block|}
 comment|/**    * @return A deserialized {@link RegionInfo}    * or null if we failed deserialize or passed bytes null    */
 annotation|@
@@ -2273,7 +2237,7 @@ name|build
 argument_list|()
 return|;
 block|}
-comment|/**    * Separate elements of a regionName.    * @return Array of byte[] containing tableName, startKey and id    */
+comment|/**    * Separate elements of a regionName.    * @return Array of byte[] containing tableName, startKey and id OR null if    *   not parseable as a region name.    * @throws IOException if not parseable as regionName.    */
 specifier|static
 name|byte
 index|[]
@@ -2288,10 +2252,57 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-comment|// Region name is of the format:
-comment|// tablename,startkey,regionIdTimestamp[_replicaId][.encodedName.]
-comment|// startkey can contain the delimiter (',') so we parse from the start and end
-comment|// parse from start
+name|byte
+index|[]
+index|[]
+name|result
+init|=
+name|parseRegionNameOrReturnNull
+argument_list|(
+name|regionName
+argument_list|)
+decl_stmt|;
+if|if
+condition|(
+name|result
+operator|==
+literal|null
+condition|)
+block|{
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|INVALID_REGION_NAME_FORMAT_MESSAGE
+operator|+
+literal|": "
+operator|+
+name|Bytes
+operator|.
+name|toStringBinary
+argument_list|(
+name|regionName
+argument_list|)
+argument_list|)
+throw|;
+block|}
+return|return
+name|result
+return|;
+block|}
+comment|/**    * Separate elements of a regionName.    * Region name is of the format:    *<code>tablename,startkey,regionIdTimestamp[_replicaId][.encodedName.]</code>.    * Startkey can contain the delimiter (',') so we parse from the start and then parse from    * the end.    * @return Array of byte[] containing tableName, startKey and id OR null if not parseable    * as a region name.    */
+specifier|static
+name|byte
+index|[]
+index|[]
+name|parseRegionNameOrReturnNull
+parameter_list|(
+specifier|final
+name|byte
+index|[]
+name|regionName
+parameter_list|)
+block|{
 name|int
 name|offset
 init|=
@@ -2342,22 +2353,9 @@ operator|-
 literal|1
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|INVALID_REGION_NAME_FORMAT_MESSAGE
-operator|+
-literal|": "
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|regionName
-argument_list|)
-argument_list|)
-throw|;
+return|return
+literal|null
+return|;
 block|}
 name|byte
 index|[]
@@ -2547,22 +2545,9 @@ operator|-
 literal|1
 condition|)
 block|{
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|INVALID_REGION_NAME_FORMAT_MESSAGE
-operator|+
-literal|": "
-operator|+
-name|Bytes
-operator|.
-name|toStringBinary
-argument_list|(
-name|regionName
-argument_list|)
-argument_list|)
-throw|;
+return|return
+literal|null
+return|;
 block|}
 name|byte
 index|[]
