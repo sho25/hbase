@@ -19446,6 +19446,17 @@ return|return
 name|asyncClusterConnection
 return|;
 block|}
+annotation|@
+name|VisibleForTesting
+specifier|public
+name|CompactedHFilesDischarger
+name|getCompactedHFilesDischarger
+parameter_list|()
+block|{
+return|return
+name|compactedFileDischarger
+return|;
+block|}
 block|}
 end_class
 
