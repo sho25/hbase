@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -452,7 +452,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Fetch the registry data from zookeeper.  */
+comment|/**  * Zookeeper based registry implementation.  */
 end_comment
 
 begin_class
@@ -1434,47 +1434,7 @@ return|;
 end_return
 
 begin_function
-unit|}    @
-name|Override
-specifier|public
-name|CompletableFuture
-argument_list|<
-name|Integer
-argument_list|>
-name|getCurrentNrHRS
-parameter_list|()
-block|{
-return|return
-name|zk
-operator|.
-name|exists
-argument_list|(
-name|znodePaths
-operator|.
-name|rsZNode
-argument_list|)
-operator|.
-name|thenApply
-argument_list|(
-name|s
-lambda|->
-name|s
-operator|!=
-literal|null
-condition|?
-name|s
-operator|.
-name|getNumChildren
-argument_list|()
-else|:
-literal|0
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_function
-specifier|private
+unit|}    private
 specifier|static
 name|ZooKeeperProtos
 operator|.
@@ -1613,48 +1573,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-argument_list|)
-return|;
-block|}
-end_function
-
-begin_function
-annotation|@
-name|Override
-specifier|public
-name|CompletableFuture
-argument_list|<
-name|Integer
-argument_list|>
-name|getMasterInfoPort
-parameter_list|()
-block|{
-return|return
-name|getAndConvert
-argument_list|(
-name|znodePaths
-operator|.
-name|masterAddressZNode
-argument_list|,
-name|ZKAsyncRegistry
-operator|::
-name|getMasterProto
-argument_list|)
-operator|.
-name|thenApply
-argument_list|(
-name|proto
-lambda|->
-name|proto
-operator|!=
-literal|null
-condition|?
-name|proto
-operator|.
-name|getInfoPort
-argument_list|()
-else|:
-literal|0
 argument_list|)
 return|;
 block|}
