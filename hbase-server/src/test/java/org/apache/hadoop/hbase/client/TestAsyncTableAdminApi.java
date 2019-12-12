@@ -85,16 +85,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -398,7 +388,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Class to test asynchronous table admin operations.  * @see TestAsyncTableAdminApi2 This test and it used to be joined it was taking longer than our  * ten minute timeout so they were split.  * @see TestAsyncTableAdminApi3 Another split out from this class so each runs under ten minutes.  */
+comment|/**  * Class to test asynchronous table admin operations.  * @see TestAsyncTableAdminApi2 This test and it used to be joined it was taking longer than our  *     ten minute timeout so they were split.  * @see TestAsyncTableAdminApi3 Another split out from this class so each runs under ten minutes.  */
 end_comment
 
 begin_class
@@ -3020,8 +3010,6 @@ parameter_list|,
 name|int
 name|expectedRegions
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|int
 name|numRS
@@ -3031,10 +3019,7 @@ operator|.
 name|getMiniHBaseCluster
 argument_list|()
 operator|.
-name|getRegionServerThreads
-argument_list|()
-operator|.
-name|size
+name|getNumLiveRegionServers
 argument_list|()
 decl_stmt|;
 name|Map

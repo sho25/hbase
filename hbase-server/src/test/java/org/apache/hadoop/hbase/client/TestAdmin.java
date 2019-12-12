@@ -3584,10 +3584,7 @@ operator|.
 name|getMiniHBaseCluster
 argument_list|()
 operator|.
-name|getRegionServerThreads
-argument_list|()
-operator|.
-name|size
+name|getNumLiveRegionServers
 argument_list|()
 decl_stmt|;
 name|List

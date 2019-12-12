@@ -3112,6 +3112,24 @@ block|}
 block|}
 block|}
 block|}
+comment|/**    * @return Number of live region servers in the cluster currently.    */
+specifier|public
+name|int
+name|getNumLiveRegionServers
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|hbaseCluster
+operator|.
+name|getLiveRegionServers
+argument_list|()
+operator|.
+name|size
+argument_list|()
+return|;
+block|}
 comment|/**    * @return List of region server threads. Does not return the master even though it is also    * a region server.    */
 specifier|public
 name|List
