@@ -82,13 +82,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * Reorder network packages on a random regionserver.  */
+comment|/**  * Action adds latency to communication on a random regionserver.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|ReorderPackagesCommandAction
+name|DelayPacketsCommandAction
 extends|extends
 name|TCCommandAction
 block|{
@@ -102,35 +102,28 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|ReorderPackagesCommandAction
+name|DelayPacketsCommandAction
 operator|.
 name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|float
-name|ratio
+name|long
+name|delay
 decl_stmt|;
 specifier|private
 name|long
 name|duration
 decl_stmt|;
-specifier|private
-name|long
-name|delay
-decl_stmt|;
-comment|/**    * Reorder network packages on a random regionserver.    *    * @param ratio the ratio of packages reordered    * @param duration the time this issue persists in milliseconds    * @param delay the delay between reordered and non-reordered packages in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
+comment|/**    * Adds latency to communication on a random region server    *    * @param delay the latency wil be delay +/-50% in milliseconds    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
 specifier|public
-name|ReorderPackagesCommandAction
+name|DelayPacketsCommandAction
 parameter_list|(
-name|float
-name|ratio
+name|long
+name|delay
 parameter_list|,
 name|long
 name|duration
-parameter_list|,
-name|long
-name|delay
 parameter_list|,
 name|long
 name|timeout
@@ -148,21 +141,15 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|ratio
+name|delay
 operator|=
-name|ratio
+name|delay
 expr_stmt|;
 name|this
 operator|.
 name|duration
 operator|=
 name|duration
-expr_stmt|;
-name|this
-operator|.
-name|delay
-operator|=
-name|delay
 expr_stmt|;
 block|}
 specifier|protected
@@ -176,7 +163,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to execute ReorderPackagesCommandAction"
+literal|"Starting to execute DelayPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 name|ServerName
@@ -259,7 +246,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to execute ReorderPackagesCommandAction"
+literal|"Finished to execute DelayPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 block|}
@@ -276,7 +263,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"tc qdisc %s dev %s root netem delay %sms reorder %s%% 50%%"
+literal|"tc qdisc %s dev %s root netem delay %sms %sms"
 argument_list|,
 name|operation
 argument_list|,
@@ -284,9 +271,9 @@ name|network
 argument_list|,
 name|delay
 argument_list|,
-name|ratio
-operator|*
-literal|100
+name|delay
+operator|/
+literal|2
 argument_list|)
 return|;
 block|}

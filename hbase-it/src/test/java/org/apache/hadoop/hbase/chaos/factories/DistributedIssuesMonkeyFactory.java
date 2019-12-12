@@ -69,7 +69,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|CorruptPackagesCommandAction
+name|CorruptPacketsCommandAction
 import|;
 end_import
 
@@ -87,7 +87,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|DelayPackagesCommandAction
+name|DelayPacketsCommandAction
 import|;
 end_import
 
@@ -123,7 +123,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|DuplicatePackagesCommandAction
+name|DuplicatePacketsCommandAction
 import|;
 end_import
 
@@ -159,7 +159,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|LosePackagesCommandAction
+name|LosePacketsCommandAction
 import|;
 end_import
 
@@ -177,7 +177,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|ReorderPackagesCommandAction
+name|ReorderPacketsCommandAction
 import|;
 end_import
 
@@ -327,7 +327,7 @@ name|networkIssueTimeout
 argument_list|)
 block|,
 operator|new
-name|CorruptPackagesCommandAction
+name|CorruptPacketsCommandAction
 argument_list|(
 name|networkIssueRation
 argument_list|,
@@ -339,7 +339,7 @@ name|networkIssueInterface
 argument_list|)
 block|,
 operator|new
-name|DuplicatePackagesCommandAction
+name|DuplicatePacketsCommandAction
 argument_list|(
 name|networkIssueRation
 argument_list|,
@@ -351,7 +351,7 @@ name|networkIssueInterface
 argument_list|)
 block|,
 operator|new
-name|LosePackagesCommandAction
+name|LosePacketsCommandAction
 argument_list|(
 name|networkIssueRation
 argument_list|,
@@ -363,7 +363,7 @@ name|networkIssueInterface
 argument_list|)
 block|,
 operator|new
-name|DelayPackagesCommandAction
+name|DelayPacketsCommandAction
 argument_list|(
 name|networkIssueDelay
 argument_list|,
@@ -375,7 +375,7 @@ name|networkIssueInterface
 argument_list|)
 block|,
 operator|new
-name|ReorderPackagesCommandAction
+name|ReorderPacketsCommandAction
 argument_list|(
 name|networkIssueRation
 argument_list|,

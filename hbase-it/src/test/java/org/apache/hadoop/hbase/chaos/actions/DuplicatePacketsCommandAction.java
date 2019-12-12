@@ -82,13 +82,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * Duplicate network packages on a random regionserver.  */
+comment|/**  *  * Duplicate network packets on a random regionserver.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|DuplicatePackagesCommandAction
+name|DuplicatePacketsCommandAction
 extends|extends
 name|TCCommandAction
 block|{
@@ -102,7 +102,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|DuplicatePackagesCommandAction
+name|DuplicatePacketsCommandAction
 operator|.
 name|class
 argument_list|)
@@ -115,9 +115,9 @@ specifier|private
 name|long
 name|duration
 decl_stmt|;
-comment|/**    * Duplicate network packages on a random regionserver.    *    * @param ratio the ratio of packages duplicated    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
+comment|/**    * Duplicate network packets on a random regionserver.    *    * @param ratio the ratio of packets duplicated    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
 specifier|public
-name|DuplicatePackagesCommandAction
+name|DuplicatePacketsCommandAction
 parameter_list|(
 name|float
 name|ratio
@@ -163,7 +163,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to execute DuplicatePackagesCommandAction"
+literal|"Starting to execute DuplicatePacketsCommandAction"
 argument_list|)
 expr_stmt|;
 name|ServerName
@@ -246,7 +246,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to execute DuplicatePackagesCommandAction"
+literal|"Finished to execute DuplicatePacketsCommandAction"
 argument_list|)
 expr_stmt|;
 block|}

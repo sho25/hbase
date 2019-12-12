@@ -82,13 +82,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * Corrupt network packages on a random regionserver.  */
+comment|/**  *  * Lose network packets on a random regionserver.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|CorruptPackagesCommandAction
+name|LosePacketsCommandAction
 extends|extends
 name|TCCommandAction
 block|{
@@ -102,7 +102,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|CorruptPackagesCommandAction
+name|LosePacketsCommandAction
 operator|.
 name|class
 argument_list|)
@@ -115,9 +115,9 @@ specifier|private
 name|long
 name|duration
 decl_stmt|;
-comment|/**    * Corrupt network packages on a random regionserver.    *    * @param ratio the ratio of packages corrupted    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
+comment|/**    * Lose network packets on a random regionserver.    *    * @param ratio the ratio of packets lost    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
 specifier|public
-name|CorruptPackagesCommandAction
+name|LosePacketsCommandAction
 parameter_list|(
 name|float
 name|ratio
@@ -163,7 +163,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to execute CorruptPackagesCommandAction"
+literal|"Starting to execute LosePacketsCommandAction"
 argument_list|)
 expr_stmt|;
 name|ServerName
@@ -246,7 +246,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to execute CorruptPackagesCommandAction"
+literal|"Finished to execute LosePacketsCommandAction"
 argument_list|)
 expr_stmt|;
 block|}
@@ -263,7 +263,7 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"tc qdisc %s dev %s root netem corrupt %s%%"
+literal|"tc qdisc %s dev %s root netem loss %s%%"
 argument_list|,
 name|operation
 argument_list|,

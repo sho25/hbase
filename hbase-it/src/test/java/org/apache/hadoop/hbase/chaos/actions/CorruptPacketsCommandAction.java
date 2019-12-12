@@ -82,13 +82,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Action adds latency to communication on a random regionserver.  */
+comment|/**  *  * Corrupt network packets on a random regionserver.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|DelayPackagesCommandAction
+name|CorruptPacketsCommandAction
 extends|extends
 name|TCCommandAction
 block|{
@@ -102,25 +102,25 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|DelayPackagesCommandAction
+name|CorruptPacketsCommandAction
 operator|.
 name|class
 argument_list|)
 decl_stmt|;
 specifier|private
-name|long
-name|delay
+name|float
+name|ratio
 decl_stmt|;
 specifier|private
 name|long
 name|duration
 decl_stmt|;
-comment|/**    * Adds latency to communication on a random region server    *    * @param delay the latency wil be delay +/-50% in milliseconds    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
+comment|/**    * Corrupt network packets on a random regionserver.    *    * @param ratio the ratio of packets corrupted    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
 specifier|public
-name|DelayPackagesCommandAction
+name|CorruptPacketsCommandAction
 parameter_list|(
-name|long
-name|delay
+name|float
+name|ratio
 parameter_list|,
 name|long
 name|duration
@@ -141,9 +141,9 @@ argument_list|)
 expr_stmt|;
 name|this
 operator|.
-name|delay
+name|ratio
 operator|=
-name|delay
+name|ratio
 expr_stmt|;
 name|this
 operator|.
@@ -163,7 +163,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to execute DelayPackagesCommandAction"
+literal|"Starting to execute CorruptPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 name|ServerName
@@ -246,7 +246,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to execute DelayPackagesCommandAction"
+literal|"Finished to execute CorruptPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 block|}
@@ -263,17 +263,15 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"tc qdisc %s dev %s root netem delay %sms %sms"
+literal|"tc qdisc %s dev %s root netem corrupt %s%%"
 argument_list|,
 name|operation
 argument_list|,
 name|network
 argument_list|,
-name|delay
-argument_list|,
-name|delay
-operator|/
-literal|2
+name|ratio
+operator|*
+literal|100
 argument_list|)
 return|;
 block|}

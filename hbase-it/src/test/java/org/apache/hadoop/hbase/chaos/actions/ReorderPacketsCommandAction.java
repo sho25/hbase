@@ -82,13 +82,13 @@ import|;
 end_import
 
 begin_comment
-comment|/**  *  * Lose network packages on a random regionserver.  */
+comment|/**  *  * Reorder network packets on a random regionserver.  */
 end_comment
 
 begin_class
 specifier|public
 class|class
-name|LosePackagesCommandAction
+name|ReorderPacketsCommandAction
 extends|extends
 name|TCCommandAction
 block|{
@@ -102,7 +102,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|LosePackagesCommandAction
+name|ReorderPacketsCommandAction
 operator|.
 name|class
 argument_list|)
@@ -115,15 +115,22 @@ specifier|private
 name|long
 name|duration
 decl_stmt|;
-comment|/**    * Lose network packages on a random regionserver.    *    * @param ratio the ratio of packages lost    * @param duration the time this issue persists in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
+specifier|private
+name|long
+name|delay
+decl_stmt|;
+comment|/**    * Reorder network packets on a random regionserver.    *    * @param ratio the ratio of packets reordered    * @param duration the time this issue persists in milliseconds    * @param delay the delay between reordered and non-reordered packets in milliseconds    * @param timeout the timeout for executing required commands on the region server in milliseconds    * @param network network interface the regionserver uses for communication    */
 specifier|public
-name|LosePackagesCommandAction
+name|ReorderPacketsCommandAction
 parameter_list|(
 name|float
 name|ratio
 parameter_list|,
 name|long
 name|duration
+parameter_list|,
+name|long
+name|delay
 parameter_list|,
 name|long
 name|timeout
@@ -151,6 +158,12 @@ name|duration
 operator|=
 name|duration
 expr_stmt|;
+name|this
+operator|.
+name|delay
+operator|=
+name|delay
+expr_stmt|;
 block|}
 specifier|protected
 name|void
@@ -163,7 +176,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Starting to execute LosePackagesCommandAction"
+literal|"Starting to execute ReorderPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 name|ServerName
@@ -246,7 +259,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Finished to execute LosePackagesCommandAction"
+literal|"Finished to execute ReorderPacketsCommandAction"
 argument_list|)
 expr_stmt|;
 block|}
@@ -263,11 +276,13 @@ name|String
 operator|.
 name|format
 argument_list|(
-literal|"tc qdisc %s dev %s root netem loss %s%%"
+literal|"tc qdisc %s dev %s root netem delay %sms reorder %s%% 50%%"
 argument_list|,
 name|operation
 argument_list|,
 name|network
+argument_list|,
+name|delay
 argument_list|,
 name|ratio
 operator|*
