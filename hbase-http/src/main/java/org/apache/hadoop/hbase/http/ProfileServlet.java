@@ -1317,7 +1317,13 @@ literal|" after "
 operator|+
 name|duration
 operator|+
-literal|" seconds.\n\nCommand:\n"
+literal|" seconds. "
+operator|+
+literal|"If empty diagram and Linux 4.6+, see 'Basic Usage' section on the Async "
+operator|+
+literal|"Profiler Home Page, https://github.com/jvm-profiling-tools/async-profiler."
+operator|+
+literal|"\n\nCommand:\n"
 operator|+
 name|Joiner
 operator|.
