@@ -1551,7 +1551,7 @@ name|startKey
 init|=
 name|locs
 operator|.
-name|getDefaultRegionLocation
+name|getRegionLocation
 argument_list|()
 operator|.
 name|getRegion
