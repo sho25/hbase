@@ -842,6 +842,19 @@ argument_list|(
 name|rsServerName
 argument_list|)
 expr_stmt|;
+name|master
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|getRegionStates
+argument_list|()
+operator|.
+name|removeServer
+argument_list|(
+name|rsServerName
+argument_list|)
+expr_stmt|;
 comment|// Kill the server. Nothing should happen since an 'Unknown Server' as far
 comment|// as the Master is concerned; i.e. no SCP.
 name|LOG

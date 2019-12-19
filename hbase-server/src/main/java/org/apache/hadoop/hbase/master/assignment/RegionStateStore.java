@@ -485,28 +485,6 @@ name|google
 operator|.
 name|common
 operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
 name|base
 operator|.
 name|Preconditions
@@ -904,8 +882,6 @@ init|=
 name|getRegionState
 argument_list|(
 name|result
-argument_list|,
-name|replicaId
 argument_list|,
 name|regionInfo
 argument_list|)
@@ -2162,9 +2138,7 @@ block|}
 comment|// ==========================================================================
 comment|//  Region State
 comment|// ==========================================================================
-comment|/**    * Pull the region state from a catalog table {@link Result}.    * @param r Result to pull the region state from    * @return the region state, or null if unknown.    */
-annotation|@
-name|VisibleForTesting
+comment|/**    * Pull the region state from a catalog table {@link Result}.    * @return the region state, or null if unknown.    */
 specifier|public
 specifier|static
 name|State
@@ -2173,9 +2147,6 @@ parameter_list|(
 specifier|final
 name|Result
 name|r
-parameter_list|,
-name|int
-name|replicaId
 parameter_list|,
 name|RegionInfo
 name|regionInfo
@@ -2194,7 +2165,10 @@ name|CATALOG_FAMILY
 argument_list|,
 name|getStateColumn
 argument_list|(
-name|replicaId
+name|regionInfo
+operator|.
+name|getReplicaId
+argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;

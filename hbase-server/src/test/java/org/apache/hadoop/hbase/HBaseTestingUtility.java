@@ -16499,11 +16499,6 @@ argument_list|(
 name|r
 argument_list|,
 name|info
-operator|.
-name|getReplicaId
-argument_list|()
-argument_list|,
-name|info
 argument_list|)
 operator|!=
 name|RegionState
