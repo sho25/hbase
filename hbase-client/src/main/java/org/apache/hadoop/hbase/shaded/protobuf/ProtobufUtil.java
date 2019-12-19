@@ -3749,9 +3749,11 @@ name|serverName
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|HBaseProtos
 operator|.
 name|ServerName
