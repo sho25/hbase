@@ -393,22 +393,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|regionserver
-operator|.
-name|HRegion
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|trace
 operator|.
 name|TraceUtil
@@ -772,11 +756,6 @@ specifier|final
 name|int
 name|minTolerableReplication
 decl_stmt|;
-specifier|private
-specifier|final
-name|boolean
-name|useHsync
-decl_stmt|;
 comment|// If live datanode count is lower than the default replicas value,
 comment|// RollWriter will be triggered in each sync(So the RollWriter will be
 comment|// triggered one by one in a short time). Using it as a workaround to slow
@@ -933,6 +912,8 @@ throw|;
 block|}
 block|}
 comment|/**    * Constructor.    * @param fs filesystem handle    * @param root path for stored and archived wals    * @param logDir dir where wals are stored    * @param conf configuration to use    */
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|FSHLog
 parameter_list|(
@@ -1092,23 +1073,6 @@ argument_list|(
 literal|"hbase.regionserver.logroll.errors.tolerated"
 argument_list|,
 literal|2
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|useHsync
-operator|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HRegion
-operator|.
-name|WAL_HSYNC_CONF_KEY
-argument_list|,
-name|HRegion
-operator|.
-name|DEFAULT_WAL_HSYNC
 argument_list|)
 expr_stmt|;
 comment|// This is the 'writer' -- a single threaded executor. This single thread 'consumes' what is
@@ -3084,10 +3048,7 @@ init|=
 name|getSyncFuture
 argument_list|(
 name|sequence
-argument_list|)
-operator|.
-name|setForceSync
-argument_list|(
+argument_list|,
 name|forceSync
 argument_list|)
 decl_stmt|;

@@ -258,7 +258,10 @@ argument_list|<
 name|Long
 argument_list|>
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 function_decl|;
 name|void
 name|append

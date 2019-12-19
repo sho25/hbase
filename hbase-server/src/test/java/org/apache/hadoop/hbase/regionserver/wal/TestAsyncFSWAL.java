@@ -1247,7 +1247,10 @@ argument_list|<
 name|Long
 argument_list|>
 name|sync
-parameter_list|()
+parameter_list|(
+name|boolean
+name|forceSync
+parameter_list|)
 block|{
 name|CompletableFuture
 argument_list|<
@@ -1258,7 +1261,9 @@ init|=
 name|writer
 operator|.
 name|sync
-argument_list|()
+argument_list|(
+name|forceSync
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
