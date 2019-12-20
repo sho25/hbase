@@ -10260,6 +10260,13 @@ name|getAssignmentsForBalancer
 argument_list|(
 name|tableStateManager
 argument_list|,
+name|this
+operator|.
+name|serverManager
+operator|.
+name|getOnlineServersList
+argument_list|()
+argument_list|,
 name|isByTable
 argument_list|)
 decl_stmt|;
