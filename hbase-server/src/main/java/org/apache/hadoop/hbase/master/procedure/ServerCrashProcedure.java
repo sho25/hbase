@@ -2438,6 +2438,41 @@ argument_list|()
 expr_stmt|;
 try|try
 block|{
+comment|// This is possible, as when a server is dead, TRSP will fail to schedule a RemoteProcedure
+comment|// to us and then try to assign the region to a new RS. And before it has updated the region
+comment|// location to the new RS, we may have already called the am.getRegionsOnServer so we will
+comment|// consider the region is still on us. And then before we arrive here, the TRSP could have
+comment|// updated the region location, or even finished itself, so the region is no longer on us
+comment|// any more, we should not try to assign it again. Please see HBASE-23594 for more details.
+if|if
+condition|(
+operator|!
+name|serverName
+operator|.
+name|equals
+argument_list|(
+name|regionNode
+operator|.
+name|getRegionLocation
+argument_list|()
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} found a region {} which is no longer on us {}, give up assigning..."
+argument_list|,
+name|this
+argument_list|,
+name|regionNode
+argument_list|,
+name|serverName
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
 if|if
 condition|(
 name|regionNode
@@ -2479,9 +2514,8 @@ name|getServerName
 argument_list|()
 argument_list|)
 expr_stmt|;
+continue|continue;
 block|}
-else|else
-block|{
 if|if
 condition|(
 name|env
@@ -2544,7 +2578,6 @@ argument_list|(
 name|proc
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 finally|finally
 block|{
