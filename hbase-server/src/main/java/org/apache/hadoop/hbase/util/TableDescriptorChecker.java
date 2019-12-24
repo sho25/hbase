@@ -375,7 +375,7 @@ name|sanityCheck
 parameter_list|(
 specifier|final
 name|Configuration
-name|conf
+name|c
 parameter_list|,
 specifier|final
 name|TableDescriptor
@@ -384,6 +384,26 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+name|CompoundConfiguration
+name|conf
+init|=
+operator|new
+name|CompoundConfiguration
+argument_list|()
+operator|.
+name|add
+argument_list|(
+name|c
+argument_list|)
+operator|.
+name|addBytesMap
+argument_list|(
+name|td
+operator|.
+name|getValues
+argument_list|()
+argument_list|)
+decl_stmt|;
 comment|// Setting this to true logs the warning instead of throwing exception
 name|boolean
 name|logWarn
@@ -1434,7 +1454,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|void
 name|checkCompression
@@ -1479,7 +1499,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|void
 name|checkEncryption
@@ -1525,7 +1545,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-specifier|private
+specifier|public
 specifier|static
 name|void
 name|checkClassLoading
