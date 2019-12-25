@@ -670,7 +670,7 @@ operator|.
 name|getMaster
 argument_list|()
 operator|.
-name|getWalProcedureStore
+name|getProcedureStore
 argument_list|()
 operator|.
 name|stop

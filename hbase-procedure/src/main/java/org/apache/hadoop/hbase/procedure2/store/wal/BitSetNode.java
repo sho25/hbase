@@ -16,6 +16,8 @@ operator|.
 name|procedure2
 operator|.
 name|store
+operator|.
+name|wal
 package|;
 end_package
 
@@ -79,6 +81,8 @@ name|procedure2
 operator|.
 name|store
 operator|.
+name|wal
+operator|.
 name|ProcedureStoreTracker
 operator|.
 name|DeleteState
@@ -120,10 +124,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A bitmap which can grow/merge with other {@link BitSetNode} (if certain conditions are met).  * Boundaries of bitmap are aligned to multiples of {@link BitSetNode#BITS_PER_WORD}. So the range  * of a {@link BitSetNode} is from [x * K, y * K) where x and y are integers, y> x and K is  * BITS_PER_WORD.  *<p/>  * We have two main bit sets to describe the state of procedures, the meanings are:  *  *<pre>  *  ----------------------  * | modified | deleted |  meaning  * |     0    |   0     |  proc exists, but hasn't been updated since last resetUpdates().  * |     1    |   0     |  proc was updated (but not deleted).  * |     1    |   1     |  proc was deleted.  * |     0    |   1     |  proc doesn't exist (maybe never created, maybe deleted in past).  * ----------------------  *</pre>  *  * The meaning of modified is that, we have modified the state of the procedure, no matter insert,  * update, or delete. And if it is an insert or update, we will set the deleted to 0, if not we will  * set the delete to 1.  *<p/>  * For a non-partial BitSetNode, the initial modified value is 0 and deleted value is 1. For the  * partial one, the initial modified value is 0 and the initial deleted value is also 0. In  * {@link #unsetPartialFlag()} we will reset the deleted to 1 if it is not modified.  */
+comment|/**  * A bitmap which can grow/merge with other {@link BitSetNode} (if certain conditions are met).  * Boundaries of bitmap are aligned to multiples of {@link BitSetNode#BITS_PER_WORD}. So the range  * of a {@link BitSetNode} is from [x * K, y * K) where x and y are integers, y> x and K is  * BITS_PER_WORD.  *<p/>  * We have two main bit sets to describe the state of procedures, the meanings are:  *  *<pre>  *  ----------------------  * | modified | deleted |  meaning  * |     0    |   0     |  proc exists, but hasn't been updated since last resetUpdates().  * |     1    |   0     |  proc was updated (but not deleted).  * |     1    |   1     |  proc was deleted.  * |     0    |   1     |  proc doesn't exist (maybe never created, maybe deleted in past).  * ----------------------  *</pre>  *  * The meaning of modified is that, we have modified the state of the procedure, no matter insert,  * update, or delete. And if it is an insert or update, we will set the deleted to 0, if not we will  * set the delete to 1.  *<p/>  * For a non-partial BitSetNode, the initial modified value is 0 and deleted value is 1. For the  * partial one, the initial modified value is 0 and the initial deleted value is also 0. In  * {@link #unsetPartialFlag()} we will reset the deleted to 1 if it is not modified.  * @deprecated Since 2.3.0, will be removed in 4.0.0. Keep here only for rolling upgrading, now we  *             use the new region based procedure store.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.

@@ -16,6 +16,8 @@ operator|.
 name|procedure2
 operator|.
 name|store
+operator|.
+name|wal
 package|;
 end_package
 

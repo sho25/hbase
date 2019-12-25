@@ -16,6 +16,8 @@ operator|.
 name|procedure2
 operator|.
 name|store
+operator|.
+name|wal
 package|;
 end_package
 
@@ -164,15 +166,16 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Keeps track of live procedures.  *  * It can be used by the ProcedureStore to identify which procedures are already  * deleted/completed to avoid the deserialization step on restart  */
+comment|/**  * Keeps track of live procedures.  *  * It can be used by the ProcedureStore to identify which procedures are already  * deleted/completed to avoid the deserialization step on restart  * @deprecated Since 2.3.0, will be removed in 4.0.0. Keep here only for rolling upgrading, now we  *             use the new region based procedure store.  */
 end_comment
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 class|class
 name|ProcedureStoreTracker
 block|{

@@ -393,6 +393,24 @@ name|procedure2
 operator|.
 name|store
 operator|.
+name|LeaseRecovery
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
 name|ProcedureStore
 import|;
 end_import
@@ -412,24 +430,6 @@ operator|.
 name|store
 operator|.
 name|ProcedureStoreBase
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
-name|store
-operator|.
-name|ProcedureStoreTracker
 import|;
 end_import
 
@@ -618,10 +618,12 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}.  * If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it. This is because that, every time we call  * {@link ProcedureStore#insert(Procedure[])} or {@link ProcedureStore#update(Procedure)}, we will  * persist the full state of a Procedure, so the earlier wal records for this procedure can all be  * deleted.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  */
+comment|/**  * WAL implementation of the ProcedureStore.  *<p/>  * When starting, the upper layer will first call {@link #start(int)}, then {@link #recoverLease()},  * then {@link #load(ProcedureLoader)}.  *<p/>  * In {@link #recoverLease()}, we will get the lease by closing all the existing wal files(by  * calling recoverFileLease), and creating a new wal writer. And we will also get the list of all  * the old wal files.  *<p/>  * FIXME: notice that the current recover lease implementation is problematic, it can not deal with  * the races if there are two master both wants to acquire the lease...  *<p/>  * In {@link #load(ProcedureLoader)} method, we will load all the active procedures. See the  * comments of this method for more details.  *<p/>  * The actual logging way is a bit like our FileSystem based WAL implementation as RS side. There is  * a {@link #slots}, which is more like the ring buffer, and in the insert, update and delete  * methods we will put thing into the {@link #slots} and wait. And there is a background sync  * thread(see the {@link #syncLoop()} method) which get data from the {@link #slots} and write them  * to the FileSystem, and notify the caller that we have finished.  *<p/>  * TODO: try using disruptor to increase performance and simplify the logic?  *<p/>  * The {@link #storeTracker} keeps track of the modified procedures in the newest wal file, which is  * also the one being written currently. And the deleted bits in it are for all the procedures, not  * only the ones in the newest wal file. And when rolling a log, we will first store it in the  * trailer of the current wal file, and then reset its modified bits, so that it can start to track  * the modified procedures for the new wal file.  *<p/>  * The {@link #holdingCleanupTracker} is used to test whether we are safe to delete the oldest wal  * file. When there are log rolling and there are more than 1 wal files, we will make use of it. It  * will first be initialized to the oldest file's tracker(which is stored in the trailer), using the  * method {@link ProcedureStoreTracker#resetTo(ProcedureStoreTracker, boolean)}, and then merge it  * with the tracker of every newer wal files, using the  * {@link ProcedureStoreTracker#setDeletedIfModifiedInBoth(ProcedureStoreTracker)}.  * If we find out  * that all the modified procedures for the oldest wal file are modified or deleted in newer wal  * files, then we can delete it. This is because that, every time we call  * {@link ProcedureStore#insert(Procedure[])} or {@link ProcedureStore#update(Procedure)}, we will  * persist the full state of a Procedure, so the earlier wal records for this procedure can all be  * deleted.  * @see ProcedureWALPrettyPrinter for printing content of a single WAL.  * @see #main(String[]) to parse a directory of MasterWALProcs.  * @deprecated Since 2.3.0, will be removed in 4.0.0. Keep here only for rolling upgrading, now we  *             use the new region based procedure store.  */
 end_comment
 
 begin_class
+annotation|@
+name|Deprecated
 annotation|@
 name|InterfaceAudience
 operator|.
@@ -664,23 +666,6 @@ name|MASTER_PROCEDURE_LOGDIR
 init|=
 literal|"MasterProcWALs"
 decl_stmt|;
-specifier|public
-interface|interface
-name|LeaseRecovery
-block|{
-name|void
-name|recoverFileLease
-parameter_list|(
-name|FileSystem
-name|fs
-parameter_list|,
-name|Path
-name|path
-parameter_list|)
-throws|throws
-name|IOException
-function_decl|;
-block|}
 specifier|public
 specifier|static
 specifier|final
@@ -1210,11 +1195,9 @@ block|}
 specifier|public
 name|WALProcedureStore
 parameter_list|(
-specifier|final
 name|Configuration
 name|conf
 parameter_list|,
-specifier|final
 name|LeaseRecovery
 name|leaseRecovery
 parameter_list|)
@@ -6778,8 +6761,6 @@ argument_list|,
 literal|null
 argument_list|,
 operator|new
-name|WALProcedureStore
-operator|.
 name|LeaseRecovery
 argument_list|()
 block|{

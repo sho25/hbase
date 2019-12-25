@@ -171,24 +171,6 @@ name|hbase
 operator|.
 name|procedure2
 operator|.
-name|store
-operator|.
-name|ProcedureStoreTracker
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|procedure2
-operator|.
 name|util
 operator|.
 name|ByteSlot
@@ -296,15 +278,16 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class that contains the WAL serialization utils.  */
+comment|/**  * Helper class that contains the WAL serialization utils.  * @deprecated Since 2.3.0, will be removed in 4.0.0. Keep here only for rolling upgrading, now we  *             use the new region based procedure store.  */
 end_comment
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 specifier|final
 class|class
 name|ProcedureWALFormat

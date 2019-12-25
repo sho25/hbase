@@ -16,8 +16,6 @@ operator|.
 name|procedure2
 operator|.
 name|store
-operator|.
-name|wal
 package|;
 end_package
 
@@ -311,7 +309,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestWALProcedureTree
+name|TestProcedureTree
 block|{
 annotation|@
 name|ClassRule
@@ -325,7 +323,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestWALProcedureTree
+name|TestProcedureTree
 operator|.
 name|class
 argument_list|)
@@ -695,10 +693,10 @@ argument_list|(
 literal|3
 argument_list|)
 expr_stmt|;
-name|WALProcedureTree
+name|ProcedureTree
 name|tree
 init|=
-name|WALProcedureTree
+name|ProcedureTree
 operator|.
 name|build
 argument_list|(
@@ -868,10 +866,10 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|WALProcedureTree
+name|ProcedureTree
 name|tree
 init|=
-name|WALProcedureTree
+name|ProcedureTree
 operator|.
 name|build
 argument_list|(
@@ -1060,10 +1058,10 @@ argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|WALProcedureTree
+name|ProcedureTree
 name|tree
 init|=
-name|WALProcedureTree
+name|ProcedureTree
 operator|.
 name|build
 argument_list|(

@@ -345,7 +345,7 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|ProcedureStore
+name|LeaseRecovery
 import|;
 end_import
 
@@ -363,7 +363,7 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|ProcedureStoreTracker
+name|ProcedureStore
 import|;
 end_import
 
@@ -4484,8 +4484,6 @@ argument_list|,
 literal|null
 argument_list|,
 operator|new
-name|WALProcedureStore
-operator|.
 name|LeaseRecovery
 argument_list|()
 block|{
@@ -5619,8 +5617,6 @@ argument_list|(
 name|conf
 argument_list|,
 operator|new
-name|WALProcedureStore
-operator|.
 name|LeaseRecovery
 argument_list|()
 block|{

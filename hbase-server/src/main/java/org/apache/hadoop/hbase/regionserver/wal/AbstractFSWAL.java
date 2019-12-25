@@ -1158,6 +1158,14 @@ operator|*
 literal|1000
 decl_stmt|;
 comment|// in ms, 5min
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MAX_LOGS
+init|=
+literal|"hbase.regionserver.maxlogs"
+decl_stmt|;
 comment|/**    * file system instance    */
 specifier|protected
 specifier|final
@@ -2315,7 +2323,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.maxlogs"
+name|MAX_LOGS
 argument_list|,
 name|Math
 operator|.

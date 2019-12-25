@@ -197,6 +197,24 @@ name|procedure2
 operator|.
 name|store
 operator|.
+name|LeaseRecovery
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
 name|NoopProcedureStore
 import|;
 end_import
@@ -450,8 +468,6 @@ argument_list|,
 literal|null
 argument_list|,
 operator|new
-name|WALProcedureStore
-operator|.
 name|LeaseRecovery
 argument_list|()
 block|{
@@ -969,11 +985,40 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+name|storeRestart
+argument_list|(
+name|procStore
+argument_list|,
+literal|false
+argument_list|,
+name|loader
+argument_list|)
+expr_stmt|;
+block|}
+specifier|public
+specifier|static
+name|void
+name|storeRestart
+parameter_list|(
+name|ProcedureStore
+name|procStore
+parameter_list|,
+name|boolean
+name|abort
+parameter_list|,
+name|ProcedureStore
+operator|.
+name|ProcedureLoader
+name|loader
+parameter_list|)
+throws|throws
+name|Exception
+block|{
 name|procStore
 operator|.
 name|stop
 argument_list|(
-literal|false
+name|abort
 argument_list|)
 expr_stmt|;
 name|procStore
@@ -2334,7 +2379,7 @@ else|:
 name|cause
 return|;
 block|}
-comment|/**    * Run through all procedure flow states TWICE while also restarting    * procedure executor at each step; i.e force a reread of procedure store.    *    *<p>It does    *<ol><li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *    *<p>This is a good test for finding state that needs persisting and steps that are not    * idempotent.    */
+comment|/**    * Run through all procedure flow states TWICE while also restarting procedure executor at each    * step; i.e force a reread of procedure store.    *<p>    * It does    *<ol>    *<li>Execute step N - kill the executor before store update    *<li>Restart executor/store    *<li>Execute step N - and then save to store    *</ol>    *<p>    * This is a good test for finding state that needs persisting and steps that are not idempotent.    */
 specifier|public
 specifier|static
 parameter_list|<
@@ -2582,7 +2627,7 @@ block|{
 specifier|public
 name|NoopProcedure
 parameter_list|()
-block|{}
+block|{     }
 annotation|@
 name|Override
 specifier|protected
@@ -2812,7 +2857,7 @@ decl_stmt|;
 specifier|public
 name|TestProcedure
 parameter_list|()
-block|{}
+block|{     }
 specifier|public
 name|TestProcedure
 parameter_list|(

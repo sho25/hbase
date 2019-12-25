@@ -233,9 +233,7 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|wal
-operator|.
-name|WALProcedureStore
+name|LeaseRecovery
 import|;
 end_import
 
@@ -388,10 +386,8 @@ name|Private
 specifier|public
 specifier|static
 class|class
-name|WALStoreLeaseRecovery
+name|FsUtilsLeaseRecovery
 implements|implements
-name|WALProcedureStore
-operator|.
 name|LeaseRecovery
 block|{
 specifier|private
@@ -400,7 +396,7 @@ name|MasterServices
 name|master
 decl_stmt|;
 specifier|public
-name|WALStoreLeaseRecovery
+name|FsUtilsLeaseRecovery
 parameter_list|(
 specifier|final
 name|MasterServices

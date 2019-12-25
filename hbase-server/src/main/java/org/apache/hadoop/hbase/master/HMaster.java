@@ -2248,6 +2248,24 @@ operator|.
 name|store
 operator|.
 name|ProcedureStore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|procedure2
+operator|.
+name|store
+operator|.
+name|ProcedureStore
 operator|.
 name|ProcedureStoreListener
 import|;
@@ -2267,9 +2285,9 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|wal
+name|region
 operator|.
-name|WALProcedureStore
+name|RegionProcedureStore
 import|;
 end_import
 
@@ -3692,6 +3710,24 @@ literal|5
 operator|*
 literal|60
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_MASTER_CLEANER_INTERVAL
+init|=
+literal|"hbase.master.cleaner.interval"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|DEFAULT_HBASE_MASTER_CLEANER_INTERVAL
+init|=
+literal|600
+operator|*
+literal|1000
+decl_stmt|;
 comment|// Metrics for the HMaster
 specifier|final
 name|MetricsMaster
@@ -3967,7 +4003,7 @@ argument_list|>
 name|procedureExecutor
 decl_stmt|;
 specifier|private
-name|WALProcedureStore
+name|ProcedureStore
 name|procedureStore
 decl_stmt|;
 comment|// handle table states
@@ -6034,21 +6070,10 @@ name|currentTimeMillis
 argument_list|()
 expr_stmt|;
 comment|// TODO: Do this using Dependency Injection, using PicoContainer, Guice or Spring.
-comment|// Only initialize the MemStoreLAB when master carry table
-if|if
-condition|(
-name|LoadBalancer
-operator|.
-name|isTablesOnMaster
-argument_list|(
-name|conf
-argument_list|)
-condition|)
-block|{
+comment|// always initialize the MemStoreLAB as we use a region to store procedure now.
 name|initializeMemStoreChunkCreator
 argument_list|()
 expr_stmt|;
-block|}
 name|this
 operator|.
 name|fileSystemManager
@@ -8481,7 +8506,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// We depend on there being only one instance of this executor running
-comment|// at a time.  To do concurrency, would need fencing of enable/disable of
+comment|// at a time. To do concurrency, would need fencing of enable/disable of
 comment|// tables.
 comment|// Any time changing this maxThreads to> 1, pls see the comment at
 comment|// AccessController#postCompletedCreateTableAction
@@ -8518,11 +8543,9 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.master.cleaner.interval"
+name|HBASE_MASTER_CLEANER_INTERVAL
 argument_list|,
-literal|600
-operator|*
-literal|1000
+name|DEFAULT_HBASE_MASTER_CLEANER_INTERVAL
 argument_list|)
 decl_stmt|;
 name|this
@@ -9072,14 +9095,14 @@ decl_stmt|;
 name|procedureStore
 operator|=
 operator|new
-name|WALProcedureStore
+name|RegionProcedureStore
 argument_list|(
-name|conf
+name|this
 argument_list|,
 operator|new
 name|MasterProcedureEnv
 operator|.
-name|WALStoreLeaseRecovery
+name|FsUtilsLeaseRecovery
 argument_list|(
 name|this
 argument_list|)
@@ -15085,18 +15108,6 @@ name|getNumWALFiles
 parameter_list|()
 block|{
 return|return
-name|procedureStore
-operator|!=
-literal|null
-condition|?
-name|procedureStore
-operator|.
-name|getActiveLogs
-argument_list|()
-operator|.
-name|size
-argument_list|()
-else|:
 literal|0
 return|;
 block|}
@@ -15104,8 +15115,8 @@ end_function
 
 begin_function
 specifier|public
-name|WALProcedureStore
-name|getWalProcedureStore
+name|ProcedureStore
+name|getProcedureStore
 parameter_list|()
 block|{
 return|return

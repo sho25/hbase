@@ -713,6 +713,13 @@ name|batchCount
 argument_list|)
 expr_stmt|;
 block|}
+comment|// let the store do some cleanup works, i.e, delete the place marker for preserving the max
+comment|// procedure id.
+name|store
+operator|.
+name|cleanup
+argument_list|()
+expr_stmt|;
 block|}
 block|}
 end_class

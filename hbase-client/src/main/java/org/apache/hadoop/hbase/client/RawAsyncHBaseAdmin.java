@@ -11532,8 +11532,6 @@ index|[]
 name|regionName
 parameter_list|)
 block|{
-try|try
-block|{
 return|return
 name|RegionInfo
 operator|.
@@ -11556,17 +11554,6 @@ name|regionName
 argument_list|)
 argument_list|)
 return|;
-block|}
-catch|catch
-parameter_list|(
-name|IOException
-name|e
-parameter_list|)
-block|{
-return|return
-name|regionName
-return|;
-block|}
 block|}
 end_function
 

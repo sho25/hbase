@@ -691,12 +691,14 @@ name|getProcId
 argument_list|()
 return|;
 block|}
-comment|/**    * Pattern used to validate a Procedure WAL file name see    * {@link #validateProcedureWALFilename(String)} for description.    */
+comment|/**    * Pattern used to validate a Procedure WAL file name see    * {@link #validateProcedureWALFilename(String)} for description.    * @deprecated Since 2.3.0, will be removed in 4.0.0. We do not use this style of procedure wal    *             file name any more.    */
+annotation|@
+name|Deprecated
 specifier|private
 specifier|static
 specifier|final
 name|Pattern
-name|pattern
+name|PATTERN
 init|=
 name|Pattern
 operator|.
@@ -704,6 +706,15 @@ name|compile
 argument_list|(
 literal|".*pv2-\\d{20}.log"
 argument_list|)
+decl_stmt|;
+comment|// Use the character $ to let the log cleaner know that this is not the normal wal file.
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ARCHIVED_PROC_WAL_SUFFIX
+init|=
+literal|"$masterproc$"
 decl_stmt|;
 comment|/**    * A Procedure WAL file name is of the format: pv-&lt;wal-id&gt;.log where wal-id is 20 digits.    * @param filename name of the file to validate    * @return<tt>true</tt> if the filename matches a Procedure WAL,<tt>false</tt> otherwise    */
 specifier|public
@@ -716,7 +727,7 @@ name|filename
 parameter_list|)
 block|{
 return|return
-name|pattern
+name|PATTERN
 operator|.
 name|matcher
 argument_list|(
@@ -725,6 +736,13 @@ argument_list|)
 operator|.
 name|matches
 argument_list|()
+operator|||
+name|filename
+operator|.
+name|endsWith
+argument_list|(
+name|ARCHIVED_PROC_WAL_SUFFIX
+argument_list|)
 return|;
 block|}
 comment|/**    * Return the priority for the given table. Now meta table is 3, other system tables are 2, and    * user tables are 1.    */

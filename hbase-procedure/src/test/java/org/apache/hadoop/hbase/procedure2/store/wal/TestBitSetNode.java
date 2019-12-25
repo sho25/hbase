@@ -16,6 +16,8 @@ operator|.
 name|procedure2
 operator|.
 name|store
+operator|.
+name|wal
 package|;
 end_package
 
@@ -98,6 +100,8 @@ operator|.
 name|procedure2
 operator|.
 name|store
+operator|.
+name|wal
 operator|.
 name|ProcedureStoreTracker
 operator|.

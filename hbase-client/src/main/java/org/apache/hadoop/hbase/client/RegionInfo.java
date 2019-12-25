@@ -1211,8 +1211,6 @@ name|byte
 index|[]
 name|regionName
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 comment|// If not parseable as region name, presume encoded. TODO: add stringency; e.g. if hex.
 return|return

@@ -25,7 +25,19 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
 import|;
 end_import
 
@@ -766,9 +778,11 @@ name|getNumDeadRegionServers
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// now we do not expose this information as WALProcedureStore is not the only ProcedureStore
+comment|// implementation any more.
 name|assertEquals
 argument_list|(
-literal|1
+literal|0
 argument_list|,
 name|info
 operator|.

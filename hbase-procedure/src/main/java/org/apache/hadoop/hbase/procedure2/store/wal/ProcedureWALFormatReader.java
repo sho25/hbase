@@ -59,7 +59,7 @@ name|procedure2
 operator|.
 name|store
 operator|.
-name|ProcedureStoreTracker
+name|ProcedureTree
 import|;
 end_import
 
@@ -160,15 +160,16 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Helper class that loads the procedures stored in a WAL.  */
+comment|/**  * Helper class that loads the procedures stored in a WAL.  * @deprecated Since 2.3.0, will be removed in 4.0.0. Keep here only for rolling upgrading, now we  *             use the new region based procedure store.  */
 end_comment
 
 begin_class
 annotation|@
+name|Deprecated
+annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|public
 class|class
 name|ProcedureWALFormatReader
 block|{
@@ -187,7 +188,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * We will use the localProcedureMap to track the active procedures for the current proc wal file,    * and when we finished reading one proc wal file, we will merge he localProcedureMap to the    * procedureMap, which tracks the global active procedures.    *<p/>    * See the comments of {@link WALProcedureMap} for more details.    *<p/>    * After reading all the proc wal files, we will use the procedures in the procedureMap to build a    * {@link WALProcedureTree}, and then give the result to the upper layer. See the comments of    * {@link WALProcedureTree} and the code in {@link #finish()} for more details.    */
+comment|/**    * We will use the localProcedureMap to track the active procedures for the current proc wal file,    * and when we finished reading one proc wal file, we will merge he localProcedureMap to the    * procedureMap, which tracks the global active procedures.    *<p/>    * See the comments of {@link WALProcedureMap} for more details.    *<p/>    * After reading all the proc wal files, we will use the procedures in the procedureMap to build a    * {@link ProcedureTree}, and then give the result to the upper layer. See the comments of    * {@link ProcedureTree} and the code in {@link #finish()} for more details.    */
 specifier|private
 specifier|final
 name|WALProcedureMap
@@ -531,10 +532,10 @@ argument_list|)
 expr_stmt|;
 comment|// build the procedure execution tree. When building we will verify that whether a procedure is
 comment|// valid.
-name|WALProcedureTree
+name|ProcedureTree
 name|tree
 init|=
-name|WALProcedureTree
+name|ProcedureTree
 operator|.
 name|build
 argument_list|(

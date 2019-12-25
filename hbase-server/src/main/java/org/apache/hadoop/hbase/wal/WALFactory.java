@@ -420,6 +420,17 @@ decl_stmt|;
 end_decl_stmt
 
 begin_decl_stmt
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WAL_ENABLED
+init|=
+literal|"hbase.regionserver.hlog.enabled"
+decl_stmt|;
+end_decl_stmt
+
+begin_decl_stmt
 specifier|final
 name|String
 name|factoryId
@@ -877,7 +888,7 @@ name|conf
 operator|.
 name|getBoolean
 argument_list|(
-literal|"hbase.regionserver.hlog.enabled"
+name|WAL_ENABLED
 argument_list|,
 literal|true
 argument_list|)
