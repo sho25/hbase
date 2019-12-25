@@ -439,6 +439,8 @@ argument_list|,
 name|onDiskDataSizeWithHeader
 argument_list|,
 name|fileContext
+argument_list|,
+name|allocator
 argument_list|)
 return|;
 block|}

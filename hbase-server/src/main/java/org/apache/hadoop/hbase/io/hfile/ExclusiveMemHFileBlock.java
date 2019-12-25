@@ -111,6 +111,9 @@ name|onDiskDataSizeWithHeader
 parameter_list|,
 name|HFileContext
 name|fileContext
+parameter_list|,
+name|ByteBuffAllocator
+name|alloc
 parameter_list|)
 block|{
 name|super
@@ -135,9 +138,7 @@ name|onDiskDataSizeWithHeader
 argument_list|,
 name|fileContext
 argument_list|,
-name|ByteBuffAllocator
-operator|.
-name|HEAP
+name|alloc
 argument_list|)
 expr_stmt|;
 block|}
