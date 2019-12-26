@@ -6525,9 +6525,8 @@ extends|extends
 name|FilterBase
 block|{
 specifier|private
-specifier|static
 name|int
-name|total
+name|cellCount
 init|=
 literal|0
 decl_stmt|;
@@ -6545,12 +6544,12 @@ name|IOException
 block|{
 if|if
 condition|(
-name|total
+name|cellCount
 operator|>=
 literal|6
 condition|)
 block|{
-name|total
+name|cellCount
 operator|++
 expr_stmt|;
 return|return
@@ -6559,7 +6558,7 @@ operator|.
 name|SKIP
 return|;
 block|}
-name|total
+name|cellCount
 operator|++
 expr_stmt|;
 return|return
@@ -6579,7 +6578,7 @@ name|IOException
 block|{
 if|if
 condition|(
-name|total
+name|cellCount
 operator|<
 literal|7
 condition|)
@@ -6588,7 +6587,7 @@ return|return
 literal|false
 return|;
 block|}
-name|total
+name|cellCount
 operator|++
 expr_stmt|;
 return|return
