@@ -4528,6 +4528,7 @@ extends|extends
 name|DefaultStoreFlusher
 block|{
 comment|// Switch between throw and not throw exception in flush
+specifier|public
 specifier|static
 specifier|final
 name|AtomicBoolean
@@ -8162,6 +8163,7 @@ name|sync
 argument_list|()
 expr_stmt|;
 block|}
+specifier|public
 specifier|static
 name|List
 argument_list|<

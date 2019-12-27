@@ -87,6 +87,18 @@ name|util
 operator|.
 name|concurrent
 operator|.
+name|ConcurrentMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|concurrent
+operator|.
 name|ExecutionException
 import|;
 end_import
@@ -128,6 +140,22 @@ operator|.
 name|fs
 operator|.
 name|Path
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Bytes
 import|;
 end_import
 
@@ -211,10 +239,9 @@ decl_stmt|;
 comment|// Since the splitting process may create multiple output files, we need a map
 comment|// to track the output count of each region.
 specifier|private
-name|ConcurrentHashMap
+name|ConcurrentMap
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|Long
 argument_list|>
@@ -361,9 +388,14 @@ name|regionEditsWrittenMap
 operator|.
 name|compute
 argument_list|(
+name|Bytes
+operator|.
+name|toString
+argument_list|(
 name|buffer
 operator|.
 name|encodedRegionName
+argument_list|)
 argument_list|,
 operator|(
 name|k
@@ -651,8 +683,7 @@ name|Override
 specifier|public
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|Long
 argument_list|>

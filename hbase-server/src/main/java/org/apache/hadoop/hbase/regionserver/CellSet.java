@@ -215,6 +215,7 @@ specifier|final
 name|int
 name|numUniqueKeys
 decl_stmt|;
+specifier|public
 name|CellSet
 parameter_list|(
 specifier|final

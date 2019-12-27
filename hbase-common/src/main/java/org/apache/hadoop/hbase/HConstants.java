@@ -214,7 +214,7 @@ init|=
 operator|-
 literal|2
 decl_stmt|;
-comment|/*      * Name of directory that holds recovered edits written by the wal log      * splitting code, one per region      */
+comment|/*    * Name of directory that holds recovered edits written by the wal log    * splitting code, one per region    */
 specifier|public
 specifier|static
 specifier|final
@@ -222,6 +222,15 @@ name|String
 name|RECOVERED_EDITS_DIR
 init|=
 literal|"recovered.edits"
+decl_stmt|;
+comment|/*    * Name of directory that holds recovered hfiles written by the wal log    * splitting code, one per region    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RECOVERED_HFILES_DIR
+init|=
+literal|"recovered.hfiles"
 decl_stmt|;
 comment|/**    * The first four bytes of Hadoop RPC connections    */
 specifier|public

@@ -6467,8 +6467,7 @@ expr_stmt|;
 comment|// Verify number of written edits per region
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|Long
 argument_list|>
@@ -6487,8 +6486,7 @@ name|Map
 operator|.
 name|Entry
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|Long
 argument_list|>
@@ -6513,15 +6511,10 @@ argument_list|()
 operator|+
 literal|" output edits for region "
 operator|+
-name|Bytes
-operator|.
-name|toString
-argument_list|(
 name|entry
 operator|.
 name|getKey
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|assertEquals

@@ -415,10 +415,11 @@ name|reporter
 expr_stmt|;
 block|}
 comment|/**    * Start the threads that will pump data from the entryBuffers to the output files.    */
-specifier|synchronized
 name|void
 name|startWriterThreads
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 for|for
 control|(
@@ -631,8 +632,7 @@ comment|/**    * @return a map from encoded region ID to the number of edits wri
 specifier|abstract
 name|Map
 argument_list|<
-name|byte
-index|[]
+name|String
 argument_list|,
 name|Long
 argument_list|>
