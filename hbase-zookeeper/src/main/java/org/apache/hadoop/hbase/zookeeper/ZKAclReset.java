@@ -275,8 +275,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|" - erase ACLs for "
-operator|+
+literal|" - erase ACLs for {}"
+argument_list|,
 name|znode
 argument_list|)
 expr_stmt|;
@@ -303,8 +303,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|" - set ACLs for "
-operator|+
+literal|" - set ACLs for {}"
+argument_list|,
 name|znode
 argument_list|)
 expr_stmt|;
@@ -374,15 +374,13 @@ else|:
 literal|"Set"
 operator|)
 operator|+
-literal|" HBase ACLs for "
-operator|+
+literal|" HBase ACLs for {} {}"
+argument_list|,
 name|zkw
 operator|.
 name|getQuorum
 argument_list|()
-operator|+
-literal|" "
-operator|+
+argument_list|,
 name|zkw
 operator|.
 name|getZNodePaths

@@ -515,12 +515,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Process identifier="
-operator|+
+literal|"Process identifier={} connecting to ZooKeeper ensemble={}"
+argument_list|,
 name|identifier
-operator|+
-literal|" connecting to ZooKeeper ensemble="
-operator|+
+argument_list|,
 name|quorumServers
 argument_list|)
 expr_stmt|;
@@ -828,12 +826,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Node "
-operator|+
+literal|"Node {} already deleted, retry={}"
+argument_list|,
 name|path
-operator|+
-literal|" already deleted, retry="
-operator|+
+argument_list|,
 name|isRetry
 argument_list|)
 expr_stmt|;
@@ -1109,18 +1105,14 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZooKeeper "
-operator|+
+literal|"ZooKeeper {} failed after {} attempts"
+argument_list|,
 name|opName
-operator|+
-literal|" failed after "
-operator|+
+argument_list|,
 name|retryCounter
 operator|.
 name|getMaxAttempts
 argument_list|()
-operator|+
-literal|" attempts"
 argument_list|)
 expr_stmt|;
 throw|throw
@@ -1131,14 +1123,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Retry, connectivity issue (JVM Pause?); quorum="
-operator|+
+literal|"Retry, connectivity issue (JVM Pause?); quorum={},exception{}="
+argument_list|,
 name|quorumServers
-operator|+
-literal|","
-operator|+
-literal|"exception="
-operator|+
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

@@ -382,8 +382,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Found new leader for znode: "
-operator|+
+literal|"Found new leader for znode: {}"
+argument_list|,
 name|leaderZNode
 argument_list|)
 expr_stmt|;
@@ -584,8 +584,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Found existing leader with ID: "
-operator|+
+literal|"Found existing leader with ID: {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary

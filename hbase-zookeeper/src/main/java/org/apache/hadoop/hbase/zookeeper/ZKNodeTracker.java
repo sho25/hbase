@@ -235,8 +235,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Try starting again because there is no data from "
-operator|+
+literal|"Try starting again because there is no data from {}"
+argument_list|,
 name|node
 argument_list|)
 expr_stmt|;
@@ -488,11 +488,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Node "
-operator|+
+literal|"Node {} now exists, resetting a watcher"
+argument_list|,
 name|node
-operator|+
-literal|" now exists, resetting a watcher"
 argument_list|)
 expr_stmt|;
 try|try

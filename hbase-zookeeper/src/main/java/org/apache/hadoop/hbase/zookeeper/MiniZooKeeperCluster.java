@@ -1197,10 +1197,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started MiniZooKeeperCluster and ran successful 'stat' "
-operator|+
-literal|"on client port="
-operator|+
+literal|"Started MiniZooKeeperCluster and ran successful 'stat' on client port={}"
+argument_list|,
 name|clientPort
 argument_list|)
 expr_stmt|;
@@ -1492,10 +1490,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Kill the current active ZK servers in the cluster "
-operator|+
-literal|"on client port: "
-operator|+
+literal|"Kill the current active ZK servers in the cluster on client port: {}"
+argument_list|,
 name|clientPort
 argument_list|)
 expr_stmt|;
@@ -1526,10 +1522,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Activate a backup zk server in the cluster "
-operator|+
-literal|"on client port: "
-operator|+
+literal|"Activate a backup zk server in the cluster on client port: {}"
+argument_list|,
 name|clientPort
 argument_list|)
 expr_stmt|;
@@ -1658,10 +1652,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Kill one backup ZK servers in the cluster "
-operator|+
-literal|"on client port: "
-operator|+
+literal|"Kill one backup ZK servers in the cluster on client port: {}"
+argument_list|,
 name|clientPort
 argument_list|)
 expr_stmt|;
@@ -1939,12 +1931,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"server localhost:"
-operator|+
+literal|"server localhost:{} not up {}"
+argument_list|,
 name|port
-operator|+
-literal|" not up "
-operator|+
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

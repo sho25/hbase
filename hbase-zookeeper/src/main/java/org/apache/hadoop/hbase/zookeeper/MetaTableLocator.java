@@ -973,12 +973,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting hbase:meta (replicaId="
-operator|+
+literal|"Setting hbase:meta (replicaId={}) location in ZooKeeper as {}"
+argument_list|,
 name|replicaId
-operator|+
-literal|") location in ZooKeeper as "
-operator|+
+argument_list|,
 name|serverName
 argument_list|)
 expr_stmt|;
@@ -1459,11 +1457,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Deleting hbase:meta for "
-operator|+
+literal|"Deleting hbase:meta for {} region location in ZooKeeper"
+argument_list|,
 name|replicaId
-operator|+
-literal|" region location in ZooKeeper"
 argument_list|)
 expr_stmt|;
 block|}
@@ -1599,8 +1595,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Got ZK exception "
-operator|+
+literal|"Got ZK exception {}"
+argument_list|,
 name|e
 argument_list|)
 expr_stmt|;

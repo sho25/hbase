@@ -288,8 +288,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Processing delete on "
-operator|+
+literal|"Processing delete on {}"
+argument_list|,
 name|pathToWatch
 argument_list|)
 expr_stmt|;

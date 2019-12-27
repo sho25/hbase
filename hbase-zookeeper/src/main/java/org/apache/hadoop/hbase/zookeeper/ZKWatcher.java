@@ -726,8 +726,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Encountered InterruptedException when closing "
-operator|+
+literal|"Encountered InterruptedException when closing {}"
+argument_list|,
 name|this
 operator|.
 name|recoverableZooKeeper
@@ -1044,12 +1044,10 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Setting ACLs for znode:"
-operator|+
+literal|"Setting ACLs for znode:{} , acl:{}"
+argument_list|,
 name|znode
-operator|+
-literal|" , acl:"
-operator|+
+argument_list|,
 name|acls
 argument_list|)
 expr_stmt|;
@@ -1427,8 +1425,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Unexpected shortname in SASL ACL: "
-operator|+
+literal|"Unexpected shortname in SASL ACL: {}"
+argument_list|,
 name|id
 argument_list|)
 expr_stmt|;
@@ -1452,11 +1450,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"unexpected ACL id '"
-operator|+
+literal|"unexpected ACL id '{}'"
+argument_list|,
 name|id
-operator|+
-literal|"'"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2175,11 +2171,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{} connected"
+argument_list|,
 name|this
 operator|.
 name|identifier
-operator|+
-literal|" connected"
 argument_list|)
 expr_stmt|;
 break|break;

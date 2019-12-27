@@ -256,8 +256,8 @@ name|LOG
 operator|.
 name|error
 argument_list|(
-literal|"ZK state for LoadBalancer could not be parsed "
-operator|+
+literal|"ZK state for LoadBalancer could not be parsed {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toStringBinary

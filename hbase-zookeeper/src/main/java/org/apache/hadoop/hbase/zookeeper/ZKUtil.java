@@ -955,10 +955,10 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} opening connection to ZooKeeper ensemble={}"
+argument_list|,
 name|identifier
-operator|+
-literal|" opening connection to ZooKeeper ensemble="
-operator|+
+argument_list|,
 name|ensemble
 argument_list|)
 expr_stmt|;
@@ -1204,8 +1204,8 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"no keytab specified for: "
-operator|+
+literal|"no keytab specified for: {}"
+argument_list|,
 name|keytabFileKey
 argument_list|)
 expr_stmt|;
@@ -1593,20 +1593,14 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"JaasConfiguration loginContextName="
-operator|+
+literal|"JaasConfiguration loginContextName={} principal={} useTicketCache={} keytabFile={}"
+argument_list|,
 name|loginContextName
-operator|+
-literal|" principal="
-operator|+
+argument_list|,
 name|principal
-operator|+
-literal|" useTicketCache="
-operator|+
+argument_list|,
 name|useTicketCache
-operator|+
-literal|" keytabFile="
-operator|+
+argument_list|,
 name|keytabFile
 argument_list|)
 expr_stmt|;
@@ -3950,11 +3944,11 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Znode ACL setting for group "
+literal|"Znode ACL setting for group {} is skipped, ZooKeeper doesn't support this "
 operator|+
+literal|"feature presently."
+argument_list|,
 name|groups
-operator|+
-literal|" is skipped, ZooKeeper doesn't support this feature presently."
 argument_list|)
 expr_stmt|;
 block|}
@@ -8894,8 +8888,8 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Parent znode exists: "
-operator|+
+literal|"Parent znode exists: {}"
+argument_list|,
 name|parentZNode
 argument_list|)
 expr_stmt|;
