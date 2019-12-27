@@ -728,8 +728,6 @@ specifier|public
 name|boolean
 name|cleanupTestDir
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|boolean
 name|ret

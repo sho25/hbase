@@ -383,8 +383,6 @@ specifier|public
 name|boolean
 name|advance
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -724,8 +722,6 @@ literal|1
 argument_list|)
 argument_list|,
 literal|1
-operator|*
-literal|1
 argument_list|)
 expr_stmt|;
 name|consume
@@ -737,8 +733,6 @@ argument_list|,
 literal|0
 argument_list|)
 argument_list|,
-literal|3
-operator|*
 literal|0
 argument_list|)
 expr_stmt|;
@@ -766,8 +760,6 @@ literal|1
 argument_list|)
 argument_list|,
 literal|0
-operator|*
-literal|1
 argument_list|)
 expr_stmt|;
 comment|// Do big number. See HBASE-11813 for why.
@@ -786,8 +778,6 @@ argument_list|,
 literal|0
 argument_list|)
 argument_list|,
-name|hundredK
-operator|*
 literal|0
 argument_list|)
 expr_stmt|;
@@ -871,8 +861,6 @@ name|cells
 argument_list|)
 argument_list|,
 name|hundredK
-operator|*
-literal|1
 argument_list|)
 expr_stmt|;
 name|NavigableMap
@@ -960,8 +948,6 @@ name|m
 argument_list|)
 argument_list|,
 name|hundredK
-operator|*
-literal|1
 argument_list|)
 expr_stmt|;
 block|}
@@ -1032,8 +1018,6 @@ specifier|final
 name|int
 name|itemsPerList
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|List
 argument_list|<
@@ -3902,15 +3886,13 @@ class|class
 name|CellForMockito
 implements|implements
 name|Cell
-block|{    }
+block|{   }
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testGetType
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 name|CellForMockito
 name|c

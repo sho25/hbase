@@ -202,7 +202,7 @@ name|className
 return|;
 block|}
 block|}
-comment|/**      * The value for the resource.      * @param phase      */
+comment|/**      * The value for the resource.      * @param phase the {@link Phase} to get the value for      */
 specifier|abstract
 specifier|public
 name|int
@@ -502,6 +502,7 @@ argument_list|()
 operator|>
 literal|0
 condition|)
+block|{
 name|sb
 operator|.
 name|append
@@ -509,6 +510,7 @@ argument_list|(
 literal|", "
 argument_list|)
 expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append
@@ -615,6 +617,7 @@ argument_list|()
 operator|>
 literal|0
 condition|)
+block|{
 name|sb
 operator|.
 name|append
@@ -622,6 +625,7 @@ argument_list|(
 literal|", "
 argument_list|)
 expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append

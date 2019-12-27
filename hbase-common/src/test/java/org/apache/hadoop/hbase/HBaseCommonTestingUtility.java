@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Common helpers for testing HBase that do not depend on specific server/etc. things.  * @see org.apache.hadoop.hbase.HBaseCommonTestingUtility  *  */
+comment|/**  * Common helpers for testing HBase that do not depend on specific server/etc. things.  * @see org.apache.hadoop.hbase.HBaseCommonTestingUtility  */
 end_comment
 
 begin_class
@@ -215,7 +215,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/** Compression algorithms to use in parameterized JUnit 4 tests */
+comment|/**    * Compression algorithms to use in parameterized JUnit 4 tests    */
 specifier|public
 specifier|static
 specifier|final
@@ -253,7 +253,7 @@ block|}
 block|}
 argument_list|)
 decl_stmt|;
-comment|/** This is for unit tests parameterized with a two booleans. */
+comment|/**    * This is for unit tests parameterized with a two booleans.    */
 specifier|public
 specifier|static
 specifier|final
@@ -283,7 +283,7 @@ block|}
 block|}
 argument_list|)
 decl_stmt|;
-comment|/** Compression algorithms to use in testing */
+comment|/**    * Compression algorithms to use in testing    */
 specifier|public
 specifier|static
 specifier|final
@@ -383,7 +383,7 @@ name|dataTestDir
 init|=
 literal|null
 decl_stmt|;
-comment|/**    * @return Where to write test data on local filesystem, specific to    * the test.  Useful for tests that do not use a cluster.    * Creates it if it does not exist already.    */
+comment|/**    * @return Where to write test data on local filesystem, specific to the test. Useful for tests    *    that do not use a cluster. Creates it if it does not exist already.    */
 specifier|public
 name|Path
 name|getDataTestDir
@@ -415,7 +415,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param subdirName    * @return Path to a subdirectory named<code>subdirName</code> under    * {@link #getDataTestDir()}.    * Does *NOT* create it if it does not exist.    */
+comment|/**    * @param subdirName the name of the subdirectory in the test data directory    * @return Path to a subdirectory named {code subdirName} under    *  {@link #getDataTestDir()}. Does *NOT* create it if it does not exist.    */
 specifier|public
 name|Path
 name|getDataTestDir
@@ -509,6 +509,7 @@ condition|(
 name|deleteOnExit
 argument_list|()
 condition|)
+block|{
 name|this
 operator|.
 name|dataTestDir
@@ -516,6 +517,7 @@ operator|.
 name|deleteOnExit
 argument_list|()
 expr_stmt|;
+block|}
 name|createSubDir
 argument_list|(
 literal|"hbase.local.dir"
@@ -622,11 +624,13 @@ condition|(
 name|deleteOnExit
 argument_list|()
 condition|)
+block|{
 name|newDir
 operator|.
 name|deleteOnExit
 argument_list|()
 expr_stmt|;
+block|}
 name|conf
 operator|.
 name|set
@@ -672,13 +676,11 @@ name|v
 argument_list|)
 return|;
 block|}
-comment|/**    * @return True if we removed the test dirs    * @throws IOException    */
+comment|/**    * @return True if we removed the test dirs    */
 specifier|public
 name|boolean
 name|cleanupTestDir
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -704,7 +706,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|/**    * @param subdir Test subdir name.    * @return True if we removed the test dir    * @throws IOException    */
+comment|/**    * @param subdir Test subdir name.    * @return True if we removed the test dir    */
 name|boolean
 name|cleanupTestDir
 parameter_list|(
@@ -712,8 +714,6 @@ specifier|final
 name|String
 name|subdir
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -743,7 +743,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Where to write test data on local filesystem; usually    * {@link #DEFAULT_BASE_TEST_DIRECTORY}    * Should not be used by the unit tests, hence its's private.    * Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    */
+comment|/**    * @return Where to write test data on local filesystem; usually    *    {@link #DEFAULT_BASE_TEST_DIRECTORY}    *    Should not be used by the unit tests, hence its's private.    *    Unit test will use a subdirectory of this directory.    * @see #setupDataTestDir()    */
 specifier|private
 name|Path
 name|getBaseTestDir
@@ -769,7 +769,7 @@ name|PathName
 argument_list|)
 return|;
 block|}
-comment|/**    * @param dir Directory to delete    * @return True if we deleted it.    * @throws IOException    */
+comment|/**    * @param dir Directory to delete    * @return True if we deleted it.    */
 name|boolean
 name|deleteDir
 parameter_list|(
@@ -777,8 +777,6 @@ specifier|final
 name|File
 name|dir
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 if|if
 condition|(
@@ -815,6 +813,7 @@ condition|(
 name|deleteOnExit
 argument_list|()
 condition|)
+block|{
 name|FileUtils
 operator|.
 name|deleteDirectory
@@ -822,6 +821,7 @@ argument_list|(
 name|dir
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 literal|true
 return|;
