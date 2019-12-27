@@ -391,6 +391,14 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|WAL_BLOCK_SIZE
+init|=
+literal|"hbase.regionserver.hlog.blocksize"
+decl_stmt|;
 specifier|private
 name|WALUtil
 parameter_list|()
@@ -1050,7 +1058,7 @@ name|conf
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.regionserver.hlog.blocksize"
+name|WAL_BLOCK_SIZE
 argument_list|,
 name|defaultBlockSize
 argument_list|)

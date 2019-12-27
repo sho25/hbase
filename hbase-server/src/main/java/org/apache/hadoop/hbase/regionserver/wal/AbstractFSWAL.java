@@ -1162,9 +1162,25 @@ specifier|public
 specifier|static
 specifier|final
 name|String
+name|WAL_ROLL_MULTIPLIER
+init|=
+literal|"hbase.regionserver.logroll.multiplier"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
 name|MAX_LOGS
 init|=
 literal|"hbase.regionserver.maxlogs"
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|RING_BUFFER_SLOT_COUNT
+init|=
+literal|"hbase.regionserver.wal.disruptor.event.count"
 decl_stmt|;
 comment|/**    * file system instance    */
 specifier|protected
@@ -1733,7 +1749,7 @@ name|conf
 operator|.
 name|getInt
 argument_list|(
-literal|"hbase.regionserver.wal.disruptor.event.count"
+name|RING_BUFFER_SLOT_COUNT
 argument_list|,
 literal|1024
 operator|*
@@ -1746,7 +1762,9 @@ name|preallocatedEventCount
 operator|>=
 literal|0
 argument_list|,
-literal|"hbase.regionserver.wal.disruptor.event.count must> 0"
+name|RING_BUFFER_SLOT_COUNT
+operator|+
+literal|" must> 0"
 argument_list|)
 expr_stmt|;
 name|int
@@ -2295,7 +2313,7 @@ name|conf
 operator|.
 name|getFloat
 argument_list|(
-literal|"hbase.regionserver.logroll.multiplier"
+name|WAL_ROLL_MULTIPLIER
 argument_list|,
 literal|0.5f
 argument_list|)
