@@ -47,28 +47,6 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|primitives
-operator|.
-name|Longs
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
 name|yetus
 operator|.
 name|audience
@@ -94,6 +72,28 @@ operator|.
 name|slf4j
 operator|.
 name|LoggerFactory
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|com
+operator|.
+name|google
+operator|.
+name|common
+operator|.
+name|primitives
+operator|.
+name|Longs
 import|;
 end_import
 
@@ -159,7 +159,6 @@ name|Object
 name|r
 parameter_list|)
 block|{
-comment|// LOG.info("ltype={} rtype={}", l, r);
 if|if
 condition|(
 operator|(
@@ -215,7 +214,6 @@ block|}
 comment|// TODO: Come back here. We get a few percentage points extra of throughput if this is a
 comment|// private method.
 specifier|static
-specifier|final
 name|int
 name|compare
 parameter_list|(

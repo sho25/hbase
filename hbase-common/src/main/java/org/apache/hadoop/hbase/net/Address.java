@@ -77,6 +77,7 @@ name|InterfaceAudience
 operator|.
 name|Public
 specifier|public
+specifier|final
 class|class
 name|Address
 implements|implements
@@ -196,7 +197,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * If hostname is a.b.c and the port is 123, return a:123 instead of a.b.c:123.    * @return if host looks like it is resolved -- not an IP -- then strip the domain portion    * otherwise returns same as {@link #toString()}}    */
+comment|/**    * If hostname is a.b.c and the port is 123, return a:123 instead of a.b.c:123.    * @return if host looks like it is resolved -- not an IP -- then strip the domain portion    *    otherwise returns same as {@link #toString()}}    */
 specifier|public
 name|String
 name|toStringWithoutDomain
@@ -391,9 +392,11 @@ name|compare
 operator|!=
 literal|0
 condition|)
+block|{
 return|return
 name|compare
 return|;
+block|}
 return|return
 name|this
 operator|.

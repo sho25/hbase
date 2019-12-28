@@ -751,19 +751,11 @@ name|getMethod
 argument_list|(
 literal|"getDefaultBlockSize"
 argument_list|,
-operator|new
-name|Class
-argument_list|<
-name|?
-argument_list|>
-index|[]
-block|{
 name|Path
 operator|.
 name|class
-block|}
-block|)
-empty_stmt|;
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -860,13 +852,7 @@ throw|;
 block|}
 block|}
 block|}
-end_class
-
-begin_comment
 comment|/*    * Get the default replication.    *    * use reflection to search for getDefaultReplication(Path f)    * if the method doesn't exist, fall back to using getDefaultReplication()    *    * @param fs filesystem object    * @param f path of file    * @return default replication for the path's filesystem    * @throws IOException e    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|short
@@ -911,23 +897,12 @@ name|getMethod
 argument_list|(
 literal|"getDefaultReplication"
 argument_list|,
-operator|new
-name|Class
-argument_list|<
-name|?
-argument_list|>
-index|[]
-block|{
 name|Path
 operator|.
 name|class
+argument_list|)
+expr_stmt|;
 block|}
-block|)
-empty_stmt|;
-block|}
-end_function
-
-begin_catch
 catch|catch
 parameter_list|(
 name|NoSuchMethodException
@@ -942,9 +917,6 @@ literal|"FileSystem doesn't support getDefaultReplication"
 argument_list|)
 expr_stmt|;
 block|}
-end_catch
-
-begin_catch
 catch|catch
 parameter_list|(
 name|SecurityException
@@ -966,9 +938,6 @@ literal|null
 expr_stmt|;
 comment|// could happen on setAccessible()
 block|}
-end_catch
-
-begin_if
 if|if
 condition|(
 name|m
@@ -1028,15 +997,9 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_if
-
-begin_comment
-unit|}
+block|}
 comment|/**    * Returns the default buffer size to use during writes.    *    * The size of the buffer should probably be a multiple of hardware    * page size (4096 on Intel x86), and it determines how much data is    * buffered during read and write operations.    *    * @param fs filesystem object    * @return default buffer size to use during writes    */
-end_comment
-
-begin_function
-unit|public
+specifier|public
 specifier|static
 name|int
 name|getDefaultBufferSize
@@ -1060,13 +1023,7 @@ literal|4096
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Create the specified file on the filesystem. By default, this will:    *<ol>    *<li>apply the umask in the configuration (if it is enabled)</li>    *<li>use the fs configured buffer size (or 4096 if not set)</li>    *<li>use the default replication</li>    *<li>use the default block size</li>    *<li>not track progress</li>    *</ol>    *    * @param fs {@link FileSystem} on which to write the file    * @param path {@link Path} to the file to write    * @param perm intial permissions    * @param overwrite Whether or not the created file should be overwritten.    * @return output stream to the created file    * @throws IOException if the file cannot be created    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -1099,16 +1056,12 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Creating file="
-operator|+
+literal|"Creating file={} with permission={}, overwrite={}"
+argument_list|,
 name|path
-operator|+
-literal|" with permission="
-operator|+
+argument_list|,
 name|perm
-operator|+
-literal|", overwrite="
-operator|+
+argument_list|,
 name|overwrite
 argument_list|)
 expr_stmt|;
@@ -1147,13 +1100,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get the file permissions specified in the configuration, if they are    * enabled.    *    * @param fs filesystem that the file will be created on.    * @param conf configuration to read for determining if permissions are    *          enabled and which to use    * @param permssionConfKey property key in the configuration to use when    *          finding the permission    * @return the permission to use when creating a new file on the fs. If    *         special permissions are not specified in the configuration, then    *         the default permissions on the the fs will be returned.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FsPermission
@@ -1285,13 +1232,7 @@ name|getFileDefault
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Verifies root directory path is a valid URI with a scheme    *    * @param root root directory path    * @return Passed<code>root</code> argument.    * @throws IOException if not a valid URI with a scheme    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -1369,13 +1310,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Checks for the presence of the WAL log root path (using the provided conf object) in the given    * path. If it exists, this method removes it and returns the String representation of remaining    * relative path.    * @param path must not be null    * @param conf must not be null    * @return String representation of the remaining relative path    * @throws IOException from underlying filesystem    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|String
@@ -1445,13 +1380,7 @@ argument_list|)
 return|;
 comment|// remove the "/" too.
 block|}
-end_function
-
-begin_comment
 comment|/**    * Return the 'path' component of a Path.  In Hadoop, Path is a URI.  This    * method returns the 'path' component of a Path's URI: e.g. If a Path is    *<code>hdfs://example.org:9000/hbase_trunk/TestTable/compaction.dir</code>,    * this method returns<code>/hbase_trunk/TestTable/compaction.dir</code>.    * This method is useful if you want to print out a Path without qualifying    * Filesystem instance.    * @param p Filesystem Path whose 'path' component we are to return.    * @return Path portion of the Filesystem    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|String
@@ -1471,13 +1400,7 @@ name|getPath
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param c configuration    * @return {@link Path} to hbase root directory from    *     configuration as a qualified Path.    * @throws IOException e    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -1533,9 +1456,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -1549,8 +1469,6 @@ specifier|final
 name|Path
 name|root
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|c
 operator|.
@@ -1567,9 +1485,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -1583,8 +1498,6 @@ specifier|final
 name|Path
 name|root
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|c
 operator|.
@@ -1600,9 +1513,6 @@ argument_list|)
 expr_stmt|;
 comment|// for hadoop 0.21+
 block|}
-end_function
-
-begin_function
 specifier|public
 specifier|static
 name|FileSystem
@@ -1632,13 +1542,7 @@ name|c
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param c configuration    * @return {@link Path} to hbase log root directory: e.g. {@value HBASE_WAL_DIR} from    *     configuration as a qualified Path. Defaults to HBase root dir.    * @throws IOException e    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -1719,9 +1623,6 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -1737,8 +1638,6 @@ specifier|final
 name|Path
 name|root
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|c
 operator|.
@@ -1753,9 +1652,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|public
 specifier|static
 name|FileSystem
@@ -1821,9 +1717,6 @@ return|return
 name|fs
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|boolean
@@ -1919,13 +1812,7 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the WAL region directory based on the given table name and region name    * @param conf configuration to determine WALRootDir    * @param tableName Table that the region is under    * @param encodedRegionName Region name used for creating the final region directory    * @return the region directory used to store WALs under the WALRootDir    * @throws IOException if there is an exception determining the WALRootDir    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -1961,13 +1848,7 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the Table directory under the WALRootDir for the specified table name    * @param conf configuration used to get the WALRootDir    * @param tableName Table to get the directory for    * @return a path to the WAL table directory for the specified table    * @throws IOException if there is an exception determining the WALRootDir    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -2022,13 +1903,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * For backward compatibility with HBASE-20734, where we store recovered edits in a wrong    * directory without BASE_NAMESPACE_DIR. See HBASE-22617 for more details.    * @deprecated For compatibility, will be removed in 4.0.0.    */
-end_comment
-
-begin_function
 annotation|@
 name|Deprecated
 specifier|public
@@ -2087,13 +1962,7 @@ name|encodedRegionName
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the {@link org.apache.hadoop.fs.Path} object representing the table directory under    * path rootdir    *    * @param rootdir qualified path of HBase root directory    * @param tableName name of table    * @return {@link org.apache.hadoop.fs.Path} for table    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -2128,13 +1997,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the {@link org.apache.hadoop.hbase.TableName} object representing    * the table directory under    * path rootdir    *    * @param tablePath path of table    * @return {@link org.apache.hadoop.fs.Path} for table    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|TableName
@@ -2164,13 +2027,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the {@link org.apache.hadoop.fs.Path} object representing    * the namespace directory under path rootdir    *    * @param rootdir qualified path of HBase root directory    * @param namespace namespace name    * @return {@link org.apache.hadoop.fs.Path} for table    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|Path
@@ -2206,21 +2063,9 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|// this mapping means that under a federated FileSystem implementation, we'll
-end_comment
-
-begin_comment
 comment|// only log the first failure from any of the underlying FileSystems at WARN and all others
-end_comment
-
-begin_comment
 comment|// will be at DEBUG.
-end_comment
-
-begin_decl_stmt
 specifier|private
 specifier|static
 specifier|final
@@ -2234,20 +2079,10 @@ name|warningMap
 init|=
 operator|new
 name|ConcurrentHashMap
-argument_list|<
-name|FileSystem
-argument_list|,
-name|Boolean
-argument_list|>
+argument_list|<>
 argument_list|()
 decl_stmt|;
-end_decl_stmt
-
-begin_comment
 comment|/**    * Sets storage policy for given path.    * If the passed path is a directory, we'll set the storage policy for all files    * created in the future in said directory. Note that this change in storage    * policy takes place at the FileSystem level; it will persist beyond this RS's lifecycle.    * If we're running on a version of FileSystem that doesn't support the given storage policy    * (or storage policies at all), then we'll issue a log message and continue.    *    * See http://hadoop.apache.org/docs/r2.6.0/hadoop-project-dist/hadoop-hdfs/ArchivalStorage.html    *    * @param fs We only do anything it implements a setStoragePolicy method    * @param path the Path whose storage policy is to be set    * @param storagePolicy Policy to set on<code>path</code>; see hadoop 2.6+    *   org.apache.hadoop.hdfs.protocol.HdfsConstants for possible list e.g    *   'COLD', 'WARM', 'HOT', 'ONE_SSD', 'ALL_SSD', 'LAZY_PERSIST'.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -2298,9 +2133,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|static
 name|void
 name|setStoragePolicy
@@ -2475,13 +2307,7 @@ throw|;
 block|}
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/*    * All args have been checked and are good. Run the setStoragePolicy invocation.    */
-end_comment
-
-begin_function
 specifier|private
 specifier|static
 name|void
@@ -2525,23 +2351,15 @@ name|getDeclaredMethod
 argument_list|(
 literal|"setStoragePolicy"
 argument_list|,
-operator|new
-name|Class
-argument_list|<
-name|?
-argument_list|>
-index|[]
-block|{
 name|Path
 operator|.
 name|class
-operator|,
+argument_list|,
 name|String
 operator|.
 name|class
-block|}
-block|)
-empty_stmt|;
+argument_list|)
+expr_stmt|;
 name|m
 operator|.
 name|setAccessible
@@ -2550,9 +2368,6 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_catch
 catch|catch
 parameter_list|(
 name|NoSuchMethodException
@@ -2625,9 +2440,6 @@ operator|=
 literal|null
 expr_stmt|;
 block|}
-end_catch
-
-begin_catch
 catch|catch
 parameter_list|(
 name|SecurityException
@@ -2707,9 +2519,6 @@ literal|null
 expr_stmt|;
 comment|// could happen on setAccessible() or getDeclaredMethod()
 block|}
-end_catch
-
-begin_if
 if|if
 condition|(
 name|m
@@ -2742,12 +2551,10 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Set storagePolicy="
-operator|+
+literal|"Set storagePolicy={} for path={}"
+argument_list|,
 name|storagePolicy
-operator|+
-literal|" for path="
-operator|+
+argument_list|,
 name|path
 argument_list|)
 expr_stmt|;
@@ -2947,9 +2754,6 @@ block|}
 block|}
 block|}
 block|}
-end_if
-
-begin_if
 if|if
 condition|(
 name|toThrow
@@ -2965,15 +2769,9 @@ name|toThrow
 argument_list|)
 throw|;
 block|}
-end_if
-
-begin_comment
-unit|}
+block|}
 comment|/**    * @param conf must not be null    * @return True if this filesystem whose scheme is 'hdfs'.    * @throws IOException from underlying FileSystem    */
-end_comment
-
-begin_function
-unit|public
+specifier|public
 specifier|static
 name|boolean
 name|isHDFS
@@ -3015,13 +2813,7 @@ literal|"hdfs"
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Checks if the given path is the one with 'recovered.edits' dir.    * @param path must not be null    * @return True if we recovered edits    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3045,13 +2837,7 @@ name|RECOVERED_EDITS_DIR
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @param conf must not be null    * @return Returns the filesystem of the hbase rootdir.    * @throws IOException from underlying FileSystem    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FileSystem
@@ -3075,13 +2861,7 @@ name|conf
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This accommodates differences between hadoop versions, where hadoop 1    * does not throw a FileNotFoundException, and return an empty FileStatus[]    * while Hadoop 2 will throw FileNotFoundException.    *    * Where possible, prefer FSUtils#listStatusWithStatusFilter(FileSystem,    * Path, FileStatusFilter) instead.    *    * @param fs file system    * @param dir directory    * @param filter path filter    * @return null if dir is empty or doesn't exist, otherwise FileStatus array    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FileStatus
@@ -3153,9 +2933,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} doesn't exist"
+argument_list|,
 name|dir
-operator|+
-literal|" doesn't exist"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3181,13 +2961,7 @@ return|return
 name|status
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Calls fs.listStatus() and treats FileNotFoundException as non-fatal    * This would accommodates differences between hadoop versions    *    * @param fs file system    * @param dir directory    * @return null if dir is empty or doesn't exist, otherwise FileStatus array    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FileStatus
@@ -3216,13 +2990,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Calls fs.listFiles() to get FileStatus and BlockLocations together for reducing rpc call    *    * @param fs file system    * @param dir directory    * @return LocatedFileStatus list    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|List
@@ -3321,9 +3089,9 @@ name|LOG
 operator|.
 name|trace
 argument_list|(
+literal|"{} doesn't exist"
+argument_list|,
 name|dir
-operator|+
-literal|" doesn't exist"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3332,13 +3100,7 @@ return|return
 name|status
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Calls fs.delete() and returns the value returned by the fs.delete()    *    * @param fs must not be null    * @param path must not be null    * @param recursive delete tree rooted at path    * @return the value returned by the fs.delete()    * @throws IOException from underlying FileSystem    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3370,13 +3132,7 @@ name|recursive
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Calls fs.exists(). Checks if the specified path exists    *    * @param fs must not be null    * @param path must not be null    * @return the value returned by fs.exists()    * @throws IOException from underlying FileSystem    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3402,13 +3158,7 @@ name|path
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
-comment|/**    * Log the current state of the filesystem from a certain root directory    * @param fs filesystem to investigate    * @param root root file/directory to start logging from    * @param LOG log to output information    * @throws IOException if an unexpected exception occurs    */
-end_comment
-
-begin_function
+comment|/**    * Log the current state of the filesystem from a certain root directory    * @param fs filesystem to investigate    * @param root root file/directory to start logging from    * @param log log to output information    * @throws IOException if an unexpected exception occurs    */
 specifier|public
 specifier|static
 name|void
@@ -3423,23 +3173,23 @@ name|Path
 name|root
 parameter_list|,
 name|Logger
-name|LOG
+name|log
 parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|LOG
+name|log
 operator|.
 name|debug
 argument_list|(
-literal|"File system contents for path "
-operator|+
+literal|"File system contents for path {}"
+argument_list|,
 name|root
 argument_list|)
 expr_stmt|;
 name|logFSTree
 argument_list|(
-name|LOG
+name|log
 argument_list|,
 name|fs
 argument_list|,
@@ -3449,20 +3199,14 @@ literal|"|-"
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Recursive helper to log the state of the FS    *    * @see #logFileSystemState(FileSystem, Path, Logger)    */
-end_comment
-
-begin_function
 specifier|private
 specifier|static
 name|void
 name|logFSTree
 parameter_list|(
 name|Logger
-name|LOG
+name|log
 parameter_list|,
 specifier|final
 name|FileSystem
@@ -3516,7 +3260,7 @@ name|isDirectory
 argument_list|()
 condition|)
 block|{
-name|LOG
+name|log
 operator|.
 name|debug
 argument_list|(
@@ -3535,7 +3279,7 @@ argument_list|)
 expr_stmt|;
 name|logFSTree
 argument_list|(
-name|LOG
+name|log
 argument_list|,
 name|fs
 argument_list|,
@@ -3552,7 +3296,7 @@ expr_stmt|;
 block|}
 else|else
 block|{
-name|LOG
+name|log
 operator|.
 name|debug
 argument_list|(
@@ -3570,9 +3314,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -3620,93 +3361,7 @@ name|dest
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
-comment|/**    * Do our short circuit read setup.    * Checks buffer size to use and whether to do checksumming in hbase or hdfs.    * @param conf must not be null    */
-end_comment
-
-begin_function
-specifier|public
-specifier|static
-name|void
-name|setupShortCircuitRead
-parameter_list|(
-specifier|final
-name|Configuration
-name|conf
-parameter_list|)
-block|{
-comment|// Check that the user has not set the "dfs.client.read.shortcircuit.skip.checksum" property.
-name|boolean
-name|shortCircuitSkipChecksum
-init|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-literal|"dfs.client.read.shortcircuit.skip.checksum"
-argument_list|,
-literal|false
-argument_list|)
-decl_stmt|;
-name|boolean
-name|useHBaseChecksum
-init|=
-name|conf
-operator|.
-name|getBoolean
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CHECKSUM_VERIFICATION
-argument_list|,
-literal|true
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|shortCircuitSkipChecksum
-condition|)
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Configuration \"dfs.client.read.shortcircuit.skip.checksum\" should not "
-operator|+
-literal|"be set to true."
-operator|+
-operator|(
-name|useHBaseChecksum
-condition|?
-literal|" HBase checksum doesn't require "
-operator|+
-literal|"it, see https://issues.apache.org/jira/browse/HBASE-6868."
-else|:
-literal|""
-operator|)
-argument_list|)
-expr_stmt|;
-assert|assert
-operator|!
-name|shortCircuitSkipChecksum
-assert|;
-comment|//this will fail if assertions are on
-block|}
-name|checkShortCircuitReadBufferSize
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
-block|}
-end_function
-
-begin_comment
 comment|/**    * Check if short circuit read buffer size is set and if not, set it to hbase value.    * @param conf must not be null    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -3793,9 +3448,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_class
 specifier|private
 specifier|static
 class|class
@@ -4373,13 +4025,7 @@ argument_list|)
 return|;
 block|}
 block|}
-end_class
-
-begin_comment
 comment|/**    * Attempt to use builder API via reflection to create a file with the given parameters and    * replication enabled.    *<p>    * Will not attempt to enable replication when passed an HFileSystem.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -4410,13 +4056,7 @@ name|overwritable
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Attempt to use builder API via reflection to create a file with the given parameters and    * replication enabled.    *<p>    * Will not attempt to enable replication when passed an HFileSystem.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|FSDataOutputStream
@@ -4467,17 +4107,8 @@ name|isRecursive
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|// Holder singleton idiom. JVM spec ensures this will be run at most once per Classloader, and
-end_comment
-
-begin_comment
 comment|// not until we attempt to reference it.
-end_comment
-
-begin_class
 specifier|private
 specifier|static
 class|class
@@ -4609,13 +4240,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_class
-
-begin_comment
 comment|/**    * If our FileSystem version includes the StreamCapabilities class, check if the given stream has    * a particular capability.    * @param stream capabilities are per-stream instance, so check this one specifically. must not be    *          null    * @param capability what to look for, per Hadoop Common's FileSystem docs    * @return true if there are no StreamCapabilities. false if there are, but this stream doesn't    *         implement it. return result of asking the stream otherwise.    * @throws NullPointerException if {@code stream} is {@code null}    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|boolean
@@ -4730,13 +4355,7 @@ return|return
 name|result
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Helper exception for those cases where the place where we need to check a stream capability    * is not where we have the needed context to explain the impact and mitigation for a lack.    */
-end_comment
-
-begin_class
 specifier|public
 specifier|static
 class|class
@@ -4776,8 +4395,8 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+block|}
 end_class
 
-unit|}
 end_unit
 

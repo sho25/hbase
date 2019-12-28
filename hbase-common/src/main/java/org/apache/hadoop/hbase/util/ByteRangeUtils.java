@@ -103,9 +103,14 @@ name|InterfaceAudience
 operator|.
 name|Public
 specifier|public
+specifier|final
 class|class
 name|ByteRangeUtils
 block|{
+specifier|private
+name|ByteRangeUtils
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|int
@@ -150,7 +155,10 @@ name|left
 operator|.
 name|getBytes
 argument_list|()
-decl_stmt|,
+decl_stmt|;
+specifier|final
+name|byte
+index|[]
 name|rbytes
 init|=
 name|right
@@ -166,7 +174,9 @@ name|left
 operator|.
 name|getOffset
 argument_list|()
-decl_stmt|,
+decl_stmt|;
+specifier|final
+name|int
 name|roffset
 init|=
 name|right

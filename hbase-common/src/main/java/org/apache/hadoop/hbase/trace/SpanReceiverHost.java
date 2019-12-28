@@ -163,7 +163,6 @@ init|=
 literal|false
 decl_stmt|;
 specifier|private
-specifier|static
 enum|enum
 name|SingletonHolder
 block|{
@@ -324,7 +323,7 @@ operator|=
 name|conf
 expr_stmt|;
 block|}
-comment|/**    * Reads the names of classes specified in the {@code hbase.trace.spanreceiver.classes} property    * and instantiates and registers them with the Tracer.    *    */
+comment|/**    * Reads the names of classes specified in the {@code hbase.trace.spanreceiver.classes} property    * and instantiates and registers them with the Tracer.    */
 specifier|public
 name|void
 name|loadSpanReceivers
@@ -419,11 +418,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"SpanReceiver "
-operator|+
+literal|"SpanReceiver {} was loaded successfully."
+argument_list|,
 name|className
-operator|+
-literal|" was loaded successfully."
 argument_list|)
 expr_stmt|;
 block|}
@@ -456,7 +453,9 @@ if|if
 condition|(
 name|closed
 condition|)
+block|{
 return|return;
+block|}
 name|closed
 operator|=
 literal|true

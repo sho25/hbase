@@ -259,12 +259,14 @@ name|span
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|createTrace
 argument_list|(
 name|description
 argument_list|)
 return|;
+block|}
 return|return
 operator|(
 name|tracer

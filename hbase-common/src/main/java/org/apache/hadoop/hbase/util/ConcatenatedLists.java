@@ -370,6 +370,7 @@ operator|.
 name|size
 argument_list|()
 condition|)
+block|{
 return|return
 name|src
 operator|.
@@ -378,6 +379,7 @@ argument_list|(
 name|indexWithinComponent
 argument_list|)
 return|;
+block|}
 if|if
 condition|(
 operator|++

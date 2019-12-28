@@ -100,7 +100,7 @@ name|Cell
 name|rightCell
 parameter_list|)
 function_decl|;
-comment|/**    * Compare cells.    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    * the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
+comment|/**    * Compare cells.    * @param ignoreSequenceid True if we are to compare the key portion only and ignore    *    the sequenceid. Set to false to compare key and consider sequenceid.    * @return 0 if equal, -1 if a&lt; b, and +1 if a&gt; b.    */
 name|int
 name|compare
 parameter_list|(
