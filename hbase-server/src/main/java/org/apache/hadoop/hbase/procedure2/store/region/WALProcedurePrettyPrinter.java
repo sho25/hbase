@@ -889,6 +889,26 @@ expr_stmt|;
 block|}
 block|}
 block|}
+specifier|public
+specifier|static
+name|void
+name|main
+parameter_list|(
+name|String
+index|[]
+name|args
+parameter_list|)
+block|{
+operator|new
+name|WALProcedurePrettyPrinter
+argument_list|()
+operator|.
+name|doStaticMain
+argument_list|(
+name|args
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 end_class
 
