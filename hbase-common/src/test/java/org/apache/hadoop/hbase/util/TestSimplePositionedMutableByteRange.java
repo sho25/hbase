@@ -529,8 +529,6 @@ specifier|public
 name|void
 name|testPutAndGetPrimitiveTypes
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|PositionedByteRange
 name|pbr
@@ -735,8 +733,6 @@ specifier|public
 name|void
 name|testPutGetAPIsCompareWithBBAPIs
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 comment|// confirm that the long/int/short writing is same as BBs
 name|PositionedByteRange

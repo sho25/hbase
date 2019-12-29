@@ -23,9 +23,14 @@ end_comment
 
 begin_class
 specifier|public
+specifier|final
 class|class
 name|EnvironmentEdgeManagerTestHelper
 block|{
+specifier|private
+name|EnvironmentEdgeManagerTestHelper
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 name|void

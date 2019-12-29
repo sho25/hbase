@@ -821,8 +821,8 @@ name|testVaruint64Boundaries
 parameter_list|()
 block|{
 name|long
-name|vals
 index|[]
+name|vals
 init|=
 block|{
 literal|239L
@@ -885,8 +885,8 @@ literal|1L
 block|}
 decl_stmt|;
 name|int
-name|lens
 index|[]
+name|lens
 init|=
 block|{
 literal|1
@@ -1568,6 +1568,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -1575,7 +1576,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -1588,6 +1591,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -1898,9 +1902,6 @@ name|D_VALS
 index|[
 name|i
 index|]
-operator|.
-name|doubleValue
-argument_list|()
 argument_list|,
 name|OrderedBytes
 operator|.
@@ -2060,6 +2061,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -2067,7 +2069,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -2080,6 +2084,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -2139,9 +2144,6 @@ name|sortedVals
 index|[
 name|i
 index|]
-operator|.
-name|doubleValue
-argument_list|()
 argument_list|,
 name|decoded
 argument_list|,
@@ -2764,19 +2766,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Byte
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -2827,10 +2820,7 @@ name|encodeInt8
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -2953,10 +2943,7 @@ name|assertEquals
 argument_list|(
 literal|"Deserialization failed."
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 operator|.
 name|byteValue
 argument_list|()
@@ -3102,6 +3089,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -3109,7 +3097,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -3122,6 +3112,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -3247,19 +3238,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Short
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -3310,10 +3292,7 @@ name|encodeInt16
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -3436,10 +3415,7 @@ name|assertEquals
 argument_list|(
 literal|"Deserialization failed."
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 operator|.
 name|shortValue
 argument_list|()
@@ -3585,6 +3561,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -3592,7 +3569,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -3605,6 +3584,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -3730,19 +3710,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Integer
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -3793,10 +3764,7 @@ name|encodeInt32
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -3919,10 +3887,7 @@ name|assertEquals
 argument_list|(
 literal|"Deserialization failed."
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 operator|.
 name|intValue
 argument_list|()
@@ -4068,6 +4033,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -4075,7 +4041,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -4088,6 +4056,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -4213,19 +4182,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Long
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -4276,10 +4236,7 @@ name|encodeInt64
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -4402,10 +4359,7 @@ name|assertEquals
 argument_list|(
 literal|"Deserialization failed."
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 operator|.
 name|longValue
 argument_list|()
@@ -4551,6 +4505,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -4558,7 +4513,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -4571,6 +4528,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -4696,19 +4654,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Float
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -4759,10 +4708,7 @@ name|encodeFloat32
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -4889,13 +4835,7 @@ name|Float
 operator|.
 name|floatToIntBits
 argument_list|(
-name|vals
-index|[
-name|i
-index|]
-operator|.
-name|floatValue
-argument_list|()
+name|val
 argument_list|)
 argument_list|,
 name|Float
@@ -5044,6 +4984,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -5051,7 +4992,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -5064,6 +5007,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -5125,9 +5069,6 @@ name|sortedVals
 index|[
 name|i
 index|]
-operator|.
-name|floatValue
-argument_list|()
 argument_list|)
 argument_list|,
 name|Float
@@ -5199,19 +5140,10 @@ control|)
 block|{
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|Double
+name|val
+range|:
 name|vals
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 comment|// allocate a buffer 3-bytes larger than necessary to detect over/underflow
@@ -5262,10 +5194,7 @@ name|encodeFloat64
 argument_list|(
 name|buf1
 argument_list|,
-name|vals
-index|[
-name|i
-index|]
+name|val
 argument_list|,
 name|ord
 argument_list|)
@@ -5392,13 +5321,7 @@ name|Double
 operator|.
 name|doubleToLongBits
 argument_list|(
-name|vals
-index|[
-name|i
-index|]
-operator|.
-name|doubleValue
-argument_list|()
+name|val
 argument_list|)
 argument_list|,
 name|Double
@@ -5547,6 +5470,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -5554,7 +5478,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -5567,6 +5493,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -5628,9 +5555,6 @@ name|sortedVals
 index|[
 name|i
 index|]
-operator|.
-name|doubleValue
-argument_list|()
 argument_list|)
 argument_list|,
 name|Double
@@ -5665,8 +5589,8 @@ literal|"bazz"
 block|}
 decl_stmt|;
 name|int
-name|expectedLengths
 index|[]
+name|expectedLengths
 init|=
 block|{
 literal|5
@@ -6066,6 +5990,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -6073,7 +5998,9 @@ argument_list|(
 name|sortedVals
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -6086,6 +6013,7 @@ name|reverseOrder
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -7117,6 +7045,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -7128,7 +7057,9 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -7145,6 +7076,7 @@ name|BYTES_COMPARATOR
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -7771,6 +7703,7 @@ name|Order
 operator|.
 name|ASCENDING
 condition|)
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -7782,7 +7715,9 @@ operator|.
 name|BYTES_COMPARATOR
 argument_list|)
 expr_stmt|;
+block|}
 else|else
+block|{
 name|Arrays
 operator|.
 name|sort
@@ -7799,6 +7734,7 @@ name|BYTES_COMPARATOR
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 for|for
 control|(
 name|int
@@ -8163,7 +8099,7 @@ decl_stmt|;
 name|long
 name|zero
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 name|BigDecimal
 name|posSmall
@@ -8221,7 +8157,7 @@ decl_stmt|;
 name|long
 name|int64
 init|=
-literal|100l
+literal|100L
 decl_stmt|;
 name|float
 name|float32
@@ -9140,7 +9076,7 @@ decl_stmt|;
 name|long
 name|zero
 init|=
-literal|0l
+literal|0L
 decl_stmt|;
 name|BigDecimal
 name|posSmall
@@ -9198,7 +9134,7 @@ decl_stmt|;
 name|long
 name|int64
 init|=
-literal|100l
+literal|100L
 decl_stmt|;
 name|float
 name|float32

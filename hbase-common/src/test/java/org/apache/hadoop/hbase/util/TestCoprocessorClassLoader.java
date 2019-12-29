@@ -383,11 +383,13 @@ operator|.
 name|exists
 argument_list|()
 condition|)
+block|{
 name|tmpJarFile
 operator|.
 name|delete
 argument_list|()
 expr_stmt|;
+block|}
 name|assertFalse
 argument_list|(
 literal|"tmp jar file should not exist"
@@ -862,27 +864,19 @@ name|clear
 argument_list|()
 expr_stmt|;
 comment|// So that clean up can be triggered
-name|CoprocessorClassLoader
-name|coprocessorClassLoader
-init|=
-literal|null
-decl_stmt|;
+comment|// Directory
 name|Path
 name|testPath
 init|=
-literal|null
-decl_stmt|;
-comment|// Directory
-name|testPath
-operator|=
 operator|new
 name|Path
 argument_list|(
 name|localDirContainingJar
 argument_list|)
-expr_stmt|;
+decl_stmt|;
+name|CoprocessorClassLoader
 name|coprocessorClassLoader
-operator|=
+init|=
 name|CoprocessorClassLoader
 operator|.
 name|getClassLoader
@@ -895,7 +889,7 @@ literal|"113_1"
 argument_list|,
 name|conf
 argument_list|)
-expr_stmt|;
+decl_stmt|;
 name|verifyCoprocessorClassLoader
 argument_list|(
 name|coprocessorClassLoader
@@ -970,7 +964,7 @@ name|testClassName
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Verify the coprocessorClassLoader is not null and the expected class can be loaded successfully    * @param coprocessorClassLoader the CoprocessorClassLoader to verify    * @param className the expected class to be loaded by the coprocessorClassLoader    * @throws ClassNotFoundException    */
+comment|/**    * Verify the coprocessorClassLoader is not null and the expected class can be loaded successfully    * @param coprocessorClassLoader the CoprocessorClassLoader to verify    * @param className the expected class to be loaded by the coprocessorClassLoader    * @throws ClassNotFoundException if the class, which should be loaded via the    *    coprocessorClassLoader, does not exist    */
 specifier|private
 name|void
 name|verifyCoprocessorClassLoader

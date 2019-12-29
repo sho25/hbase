@@ -30,18 +30,6 @@ import|;
 end_import
 
 begin_import
-import|import static
-name|org
-operator|.
-name|junit
-operator|.
-name|Assert
-operator|.
-name|assertTrue
-import|;
-end_import
-
-begin_import
 import|import
 name|org
 operator|.
@@ -392,7 +380,7 @@ block|}
 catch|catch
 parameter_list|(
 name|ClassCastException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 try|try
@@ -408,7 +396,7 @@ block|}
 catch|catch
 parameter_list|(
 name|ClassCastException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 if|if
@@ -417,6 +405,7 @@ literal|null
 operator|!=
 name|i
 condition|)
+block|{
 return|return
 literal|1
 operator|+
@@ -427,12 +416,14 @@ argument_list|(
 name|i
 argument_list|)
 return|;
+block|}
 if|if
 condition|(
 literal|null
 operator|!=
 name|s
 condition|)
+block|{
 return|return
 literal|1
 operator|+
@@ -443,6 +434,7 @@ argument_list|(
 name|s
 argument_list|)
 return|;
+block|}
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -487,7 +479,7 @@ block|}
 catch|catch
 parameter_list|(
 name|ClassCastException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 try|try
@@ -503,7 +495,7 @@ block|}
 catch|catch
 parameter_list|(
 name|ClassCastException
-name|e
+name|ignored
 parameter_list|)
 block|{}
 if|if
@@ -562,6 +554,7 @@ argument_list|)
 return|;
 block|}
 else|else
+block|{
 throw|throw
 operator|new
 name|IllegalArgumentException
@@ -569,6 +562,7 @@ argument_list|(
 literal|"val is not of a supported type."
 argument_list|)
 throw|;
+block|}
 block|}
 block|}
 annotation|@
@@ -581,12 +575,7 @@ block|{
 name|Integer
 name|intVal
 init|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 literal|10
-argument_list|)
 decl_stmt|;
 name|String
 name|strVal
@@ -625,10 +614,10 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|0
-operator|==
+argument_list|,
 name|intVal
 operator|.
 name|compareTo
@@ -665,10 +654,10 @@ argument_list|(
 literal|0
 argument_list|)
 expr_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|0
-operator|==
+argument_list|,
 name|strVal
 operator|.
 name|compareTo
@@ -693,12 +682,7 @@ block|{
 name|Integer
 name|intVal
 init|=
-name|Integer
-operator|.
-name|valueOf
-argument_list|(
 literal|10
-argument_list|)
 decl_stmt|;
 name|String
 name|strVal

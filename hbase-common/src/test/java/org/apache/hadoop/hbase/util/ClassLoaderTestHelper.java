@@ -30,6 +30,18 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|fail
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -243,6 +255,7 @@ end_comment
 
 begin_class
 specifier|public
+specifier|final
 class|class
 name|ClassLoaderTestHelper
 block|{
@@ -269,6 +282,10 @@ name|BUFFER_SIZE
 init|=
 literal|4096
 decl_stmt|;
+specifier|private
+name|ClassLoaderTestHelper
+parameter_list|()
+block|{   }
 comment|/**    * Jar a list of files into a jar archive.    *    * @param archiveFile the target jar archive    * @param tobeJared a list of files to be jared    * @return true if a jar archive is build, false otherwise    */
 specifier|private
 specifier|static
@@ -286,8 +303,8 @@ block|{
 try|try
 block|{
 name|byte
-name|buffer
 index|[]
+name|buffer
 init|=
 operator|new
 name|byte
@@ -320,43 +337,25 @@ argument_list|)
 decl_stmt|;
 for|for
 control|(
-name|int
-name|i
-init|=
-literal|0
-init|;
-name|i
-operator|<
+name|File
+name|file
+range|:
 name|tobeJared
-operator|.
-name|length
-condition|;
-name|i
-operator|++
 control|)
 block|{
 if|if
 condition|(
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 operator|==
 literal|null
 operator|||
 operator|!
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 operator|.
 name|exists
 argument_list|()
 operator|||
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 operator|.
 name|isDirectory
 argument_list|()
@@ -371,10 +370,7 @@ init|=
 operator|new
 name|JarEntry
 argument_list|(
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 operator|.
 name|getName
 argument_list|()
@@ -384,10 +380,7 @@ name|jarAdd
 operator|.
 name|setTime
 argument_list|(
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 operator|.
 name|lastModified
 argument_list|()
@@ -407,10 +400,7 @@ init|=
 operator|new
 name|FileInputStream
 argument_list|(
-name|tobeJared
-index|[
-name|i
-index|]
+name|file
 argument_list|)
 decl_stmt|;
 while|while
@@ -440,7 +430,9 @@ name|nRead
 operator|<=
 literal|0
 condition|)
+block|{
 break|break;
+block|}
 name|out
 operator|.
 name|write
@@ -503,7 +495,7 @@ literal|false
 return|;
 block|}
 block|}
-comment|/**    * Create a test jar for testing purpose for a given class    * name with specified code string: save the class to a file,    * compile it, and jar it up. If the code string passed in is    * null, a bare empty class will be created and used.    *    * @param testDir the folder under which to store the test class and jar    * @param className the test class name    * @param code the optional test class code, which can be null.    * If null, a bare empty class will be used    * @return the test jar file generated    */
+comment|/**    * Create a test jar for testing purpose for a given class    * name with specified code string: save the class to a file,    * compile it, and jar it up. If the code string passed in is    * null, a bare empty class will be created and used.    *    * @param testDir the folder under which to store the test class and jar    * @param className the test class name    * @param code the optional test class code, which can be null.    *    If null, a bare empty class will be used    * @return the test jar file generated    */
 specifier|public
 specifier|static
 name|File
@@ -534,7 +526,7 @@ name|testDir
 argument_list|)
 return|;
 block|}
-comment|/**    * Create a test jar for testing purpose for a given class    * name with specified code string.    *    * @param testDir the folder under which to store the test class    * @param className the test class name    * @param code the optional test class code, which can be null.    * If null, an empty class will be used    * @param folder the folder under which to store the generated jar    * @return the test jar file generated    */
+comment|/**    * Create a test jar for testing purpose for a given class    * name with specified code string.    *    * @param testDir the folder under which to store the test class    * @param className the test class name    * @param code the optional test class code, which can be null.    *    If null, an empty class will be used    * @param folder the folder under which to store the generated jar    * @return the test jar file generated    */
 specifier|public
 specifier|static
 name|File
@@ -889,11 +881,9 @@ block|}
 block|)
 block|)
 block|{
-name|assertTrue
+name|fail
 argument_list|(
 literal|"Build jar file failed."
-argument_list|,
-literal|false
 argument_list|)
 expr_stmt|;
 block|}
@@ -952,8 +942,8 @@ argument_list|()
 argument_list|)
 decl_stmt|;
 name|byte
-name|buffer
 index|[]
+name|buffer
 init|=
 operator|new
 name|byte
@@ -1038,7 +1028,9 @@ name|nRead
 operator|<=
 literal|0
 condition|)
+block|{
 break|break;
+block|}
 name|out
 operator|.
 name|write
