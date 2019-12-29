@@ -860,7 +860,6 @@ argument_list|(
 literal|"master:procedure"
 argument_list|)
 decl_stmt|;
-specifier|private
 specifier|static
 specifier|final
 name|byte
