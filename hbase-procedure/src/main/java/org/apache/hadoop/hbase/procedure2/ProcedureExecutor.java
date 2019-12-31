@@ -1051,6 +1051,14 @@ name|TEnvironment
 argument_list|>
 name|timeoutExecutor
 decl_stmt|;
+comment|/**    * WorkerMonitor check for stuck workers and new worker thread when necessary, for example if    * there is no worker to assign meta, it will new worker thread for it, so it is very important.    * TimeoutExecutor execute many tasks like DeadServerMetricRegionChore RegionInTransitionChore    * and so on, some tasks may execute for a long time so will block other tasks like    * WorkerMonitor, so use a dedicated thread for executing WorkerMonitor.    */
+specifier|private
+name|TimeoutExecutorThread
+argument_list|<
+name|TEnvironment
+argument_list|>
+name|workerMonitorExecutor
+decl_stmt|;
 specifier|private
 name|int
 name|corePoolSize
@@ -2798,6 +2806,23 @@ argument_list|(
 name|this
 argument_list|,
 name|threadGroup
+argument_list|,
+literal|"ProcExecTimeout"
+argument_list|)
+expr_stmt|;
+name|this
+operator|.
+name|workerMonitorExecutor
+operator|=
+operator|new
+name|TimeoutExecutorThread
+argument_list|<>
+argument_list|(
+name|this
+argument_list|,
+name|threadGroup
+argument_list|,
+literal|"WorkerMonitor"
 argument_list|)
 expr_stmt|;
 comment|// Create the workers
@@ -3014,6 +3039,11 @@ operator|.
 name|start
 argument_list|()
 expr_stmt|;
+name|workerMonitorExecutor
+operator|.
+name|start
+argument_list|()
+expr_stmt|;
 for|for
 control|(
 name|WorkerThread
@@ -3029,7 +3059,7 @@ argument_list|()
 expr_stmt|;
 block|}
 comment|// Internal chores
-name|timeoutExecutor
+name|workerMonitorExecutor
 operator|.
 name|add
 argument_list|(
@@ -3096,6 +3126,11 @@ operator|.
 name|sendStopSignal
 argument_list|()
 expr_stmt|;
+name|workerMonitorExecutor
+operator|.
+name|sendStopSignal
+argument_list|()
+expr_stmt|;
 block|}
 end_function
 
@@ -3116,6 +3151,12 @@ literal|"expected not running"
 assert|;
 comment|// stop the timeout executor
 name|timeoutExecutor
+operator|.
+name|awaitTermination
+argument_list|()
+expr_stmt|;
+comment|// stop the work monitor executor
+name|workerMonitorExecutor
 operator|.
 name|awaitTermination
 argument_list|()
