@@ -359,18 +359,6 @@ end_import
 
 begin_import
 import|import
-name|javax
-operator|.
-name|xml
-operator|.
-name|stream
-operator|.
-name|XMLStreamException
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -745,26 +733,6 @@ begin_import
 import|import
 name|org
 operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
 name|xml
 operator|.
 name|sax
@@ -814,21 +782,6 @@ init|=
 name|HBaseClassTestRule
 operator|.
 name|forClass
-argument_list|(
-name|TestTableScan
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-specifier|private
-specifier|static
-specifier|final
-name|Logger
-name|LOG
-init|=
-name|LoggerFactory
-operator|.
-name|getLogger
 argument_list|(
 name|TestTableScan
 operator|.
@@ -1161,8 +1114,6 @@ throws|throws
 name|IOException
 throws|,
 name|JAXBException
-throws|,
-name|XMLStreamException
 block|{
 comment|// Test scanning particular columns
 name|StringBuilder
@@ -1820,8 +1771,6 @@ name|testSimpleScannerJson
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 comment|// Test scanning particular columns with limit.
 name|StringBuilder
@@ -3400,8 +3349,6 @@ name|testScanningUnknownColumnJson
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 comment|// Test scanning particular columns with limit.
 name|StringBuilder
@@ -4944,8 +4891,6 @@ name|testColumnWithEmptyQualifier
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 comment|// Test scanning with empty qualifier
 name|StringBuilder
@@ -5517,7 +5462,6 @@ expr_stmt|;
 block|}
 comment|/**      * This listener is invoked every time a new row model is unmarshalled.      */
 specifier|public
-specifier|static
 interface|interface
 name|Listener
 block|{

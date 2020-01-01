@@ -1138,7 +1138,6 @@ argument_list|(
 name|ROW_1
 argument_list|)
 decl_stmt|;
-comment|//remoteTable.checkAndDelete(ROW_1, COLUMN_1, QUALIFIER_1,  VALUE_1, delete );
 name|remoteTable
 operator|.
 name|checkAndMutate
@@ -1272,7 +1271,6 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|private
-specifier|static
 interface|interface
 name|CallExecutor
 block|{

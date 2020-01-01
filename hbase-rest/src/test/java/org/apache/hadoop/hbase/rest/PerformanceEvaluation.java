@@ -267,6 +267,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|ArrayBackedTag
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|CompareOperator
 import|;
 end_import
@@ -366,20 +380,6 @@ operator|.
 name|hbase
 operator|.
 name|Tag
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|ArrayBackedTag
 import|;
 end_import
 
@@ -1339,7 +1339,6 @@ argument_list|)
 decl_stmt|;
 comment|/**    * Enum for map metrics.  Keep it out here rather than inside in the Map    * inner-class so we can find associated properties.    */
 specifier|protected
-specifier|static
 enum|enum
 name|Counter
 block|{
@@ -1534,7 +1533,7 @@ comment|/**    * Implementations can have their status set.    */
 interface|interface
 name|Status
 block|{
-comment|/**      * Sets status      * @param msg status message      * @throws IOException      */
+comment|/**      * Sets status      * @param msg status message      * @throws IOException if setting the status fails      */
 name|void
 name|setStatus
 parameter_list|(
@@ -1559,61 +1558,39 @@ block|{
 specifier|private
 name|TableName
 name|tableName
-init|=
-name|TABLE_NAME
 decl_stmt|;
 specifier|private
 name|int
 name|startRow
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 name|int
 name|rows
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 name|int
 name|totalRows
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 name|int
 name|clients
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 name|boolean
 name|flushCommits
-init|=
-literal|false
 decl_stmt|;
 specifier|private
 name|boolean
 name|writeToWAL
-init|=
-literal|true
 decl_stmt|;
 specifier|private
 name|boolean
 name|useTags
-init|=
-literal|false
 decl_stmt|;
 specifier|private
 name|int
 name|noOfTags
-init|=
-literal|0
 decl_stmt|;
-specifier|public
-name|PeInputSplit
-parameter_list|()
-block|{     }
 specifier|public
 name|PeInputSplit
 parameter_list|(
@@ -1923,10 +1900,6 @@ specifier|public
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 literal|0
@@ -1939,10 +1912,6 @@ name|String
 index|[]
 name|getLocations
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 operator|new
@@ -1986,15 +1955,6 @@ parameter_list|()
 block|{
 return|return
 name|totalRows
-return|;
-block|}
-specifier|public
-name|int
-name|getClients
-parameter_list|()
-block|{
-return|return
-name|clients
 return|;
 block|}
 specifier|public
@@ -2142,8 +2102,6 @@ argument_list|)
 decl_stmt|;
 name|int
 name|lineLen
-init|=
-literal|0
 decl_stmt|;
 while|while
 condition|(
@@ -2515,10 +2473,6 @@ parameter_list|,
 name|TaskAttemptContext
 name|context
 parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 name|this
 operator|.
@@ -2542,10 +2496,6 @@ specifier|public
 name|boolean
 name|nextKeyValue
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 if|if
 condition|(
@@ -2581,10 +2531,6 @@ specifier|public
 name|NullWritable
 name|getCurrentKey
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 name|key
@@ -2596,10 +2542,6 @@ specifier|public
 name|PeInputSplit
 name|getCurrentValue
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 name|value
@@ -2611,10 +2553,6 @@ specifier|public
 name|float
 name|getProgress
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 if|if
 condition|(
@@ -2638,8 +2576,6 @@ specifier|public
 name|void
 name|close
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 comment|// do nothing
 block|}
@@ -2702,10 +2638,6 @@ parameter_list|(
 name|Context
 name|context
 parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 name|this
 operator|.
@@ -2825,8 +2757,6 @@ extends|extends
 name|Type
 argument_list|>
 name|clazz
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -2891,29 +2821,9 @@ block|{
 name|Status
 name|status
 init|=
-operator|new
-name|Status
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setStatus
-parameter_list|(
-name|String
-name|msg
-parameter_list|)
-block|{
 name|context
-operator|.
+operator|::
 name|setStatus
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 decl_stmt|;
 comment|// Evaluation task
 name|pe
@@ -3044,7 +2954,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/*    * If table does not already exist, create.    * @param c Client to use checking.    * @return True if we created the table.    * @throws IOException    */
+comment|/**    * If table does not already exist, create.    * @param admin Client to use checking.    * @return True if we created the table.    * @throws IOException if an operation on the table fails    */
 specifier|private
 name|boolean
 name|checkTable
@@ -3213,9 +3123,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-name|boolean
-name|tableExists
-init|=
+return|return
 name|admin
 operator|.
 name|isTableAvailable
@@ -3228,9 +3136,6 @@ operator|.
 name|getName
 argument_list|()
 argument_list|)
-decl_stmt|;
-return|return
-name|tableExists
 return|;
 block|}
 specifier|protected
@@ -3317,6 +3222,7 @@ name|presplitRegions
 operator|==
 literal|0
 condition|)
+block|{
 return|return
 operator|new
 name|byte
@@ -3325,6 +3231,7 @@ literal|0
 index|]
 index|[]
 return|;
+block|}
 name|int
 name|numSplitPoints
 init|=
@@ -3396,7 +3303,7 @@ return|return
 name|splits
 return|;
 block|}
-comment|/*    * We're to run multiple clients concurrently.  Setup a mapreduce job.  Run    * one map per client.  Then run a single reduce to sum the elapsed times.    * @param cmd Command to run.    * @throws IOException    */
+comment|/**    * We're to run multiple clients concurrently.  Setup a mapreduce job.  Run    * one map per client.  Then run a single reduce to sum the elapsed times.    * @param cmd Command to run.    */
 specifier|private
 name|void
 name|runNIsMoreThanOne
@@ -3458,7 +3365,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/*    * Run all clients in this vm each to its own thread.    * @param cmd Command to run.    * @throws IOException    */
+comment|/**    * Run all clients in this vm each to its own thread.    * @param cmd Command to run    * @throws IOException if creating a connection fails    */
 specifier|private
 name|void
 name|doMultipleClients
@@ -3735,23 +3642,8 @@ name|noOfTags
 argument_list|,
 name|connection
 argument_list|,
-operator|new
-name|Status
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setStatus
-parameter_list|(
-specifier|final
-name|String
 name|msg
-parameter_list|)
-throws|throws
-name|IOException
-block|{
+lambda|->
 name|LOG
 operator|.
 name|info
@@ -3765,9 +3657,6 @@ literal|" "
 operator|+
 name|msg
 argument_list|)
-expr_stmt|;
-block|}
-block|}
 argument_list|)
 decl_stmt|;
 name|timings
@@ -3992,7 +3881,7 @@ literal|"ms"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Run a mapreduce job.  Run as many maps as asked-for clients.    * Before we start up the job, write out an input file with instruction    * per client regards which row they are to start on.    * @param cmd Command to run.    * @throws IOException    */
+comment|/**    * Run a mapreduce job.  Run as many maps as asked-for clients.    * Before we start up the job, write out an input file with instruction    * per client regards which row they are to start on.    * @param cmd Command to run.    */
 specifier|private
 name|void
 name|doMapReduce
@@ -4192,7 +4081,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/*    * Write input file of offsets-per-client for the mapreduce job.    * @param c Configuration    * @return Directory that contains file written.    * @throws IOException    */
+comment|/**    * Write input file of offsets-per-client for the mapreduce job.    * @param c Configuration    * @return Directory that contains file written.    * @throws IOException if creating the directory or the file fails    */
 specifier|private
 name|Path
 name|writeInputFile
@@ -4602,7 +4491,7 @@ name|description
 return|;
 block|}
 block|}
-comment|/**    * Wraps up options passed to {@link org.apache.hadoop.hbase.PerformanceEvaluation.Test    * tests}.  This makes the reflection logic a little easier to understand...    */
+comment|/**    * Wraps up options passed to {@link org.apache.hadoop.hbase.PerformanceEvaluation} tests    * This makes the reflection logic a little easier to understand...    */
 specifier|static
 class|class
 name|TestOptions
@@ -4620,10 +4509,6 @@ name|int
 name|totalRows
 decl_stmt|;
 specifier|private
-name|int
-name|numClientThreads
-decl_stmt|;
-specifier|private
 name|TableName
 name|tableName
 decl_stmt|;
@@ -4634,28 +4519,19 @@ decl_stmt|;
 specifier|private
 name|boolean
 name|writeToWAL
-init|=
-literal|true
 decl_stmt|;
 specifier|private
 name|boolean
 name|useTags
-init|=
-literal|false
 decl_stmt|;
 specifier|private
 name|int
 name|noOfTags
-init|=
-literal|0
 decl_stmt|;
 specifier|private
 name|Connection
 name|connection
 decl_stmt|;
-name|TestOptions
-parameter_list|()
-block|{     }
 name|TestOptions
 parameter_list|(
 name|int
@@ -4666,9 +4542,6 @@ name|perClientRunRows
 parameter_list|,
 name|int
 name|totalRows
-parameter_list|,
-name|int
-name|numClientThreads
 parameter_list|,
 name|TableName
 name|tableName
@@ -4706,12 +4579,6 @@ operator|.
 name|totalRows
 operator|=
 name|totalRows
-expr_stmt|;
-name|this
-operator|.
-name|numClientThreads
-operator|=
-name|numClientThreads
 expr_stmt|;
 name|this
 operator|.
@@ -4775,15 +4642,6 @@ parameter_list|()
 block|{
 return|return
 name|totalRows
-return|;
-block|}
-specifier|public
-name|int
-name|getNumClientThreads
-parameter_list|()
-block|{
-return|return
-name|numClientThreads
 return|;
 block|}
 specifier|public
@@ -5104,7 +4962,7 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
-comment|/*      * Run test      * @return Elapsed time.      * @throws IOException      */
+comment|/**      * Run test      * @return Elapsed time.      * @throws IOException if something in the test fails      */
 name|long
 name|test
 parameter_list|()
@@ -5250,7 +5108,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/*     * Test for individual row.     * @param i Row index.     */
+comment|/**      * Test for individual row.      * @param i Row index.      */
 specifier|abstract
 name|void
 name|testRow
@@ -6856,11 +6714,13 @@ name|scanner
 operator|!=
 literal|null
 condition|)
+block|{
 name|scanner
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 block|}
 specifier|protected
@@ -6871,8 +6731,6 @@ name|byte
 index|[]
 name|valuePrefix
 parameter_list|)
-throws|throws
-name|IOException
 block|{
 name|Filter
 name|filter
@@ -6923,7 +6781,7 @@ name|scan
 return|;
 block|}
 block|}
-comment|/*    * Format passed integer.    * @param number    * @return Returns zero-prefixed 10-byte wide decimal version of passed    * number (Does absolute in case number is negative).    */
+comment|/**    * Format passed integer.    * @param number the integer to format    * @return Returns zero-prefixed 10-byte wide decimal version of passed number (Does absolute in    *    case number is negative).    */
 specifier|public
 specifier|static
 name|byte
@@ -7029,8 +6887,6 @@ index|]
 decl_stmt|;
 name|int
 name|i
-init|=
-literal|0
 decl_stmt|;
 for|for
 control|(
@@ -7324,8 +7180,6 @@ argument_list|)
 expr_stmt|;
 name|long
 name|totalElapsedTime
-init|=
-literal|0
 decl_stmt|;
 name|TestOptions
 name|options
@@ -7338,8 +7192,6 @@ argument_list|,
 name|perClientRunRows
 argument_list|,
 name|totalRows
-argument_list|,
-name|N
 argument_list|,
 name|tableName
 argument_list|,
@@ -7501,36 +7353,12 @@ block|{
 name|Status
 name|status
 init|=
-operator|new
-name|Status
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|setStatus
-parameter_list|(
-name|String
-name|msg
-parameter_list|)
-throws|throws
-name|IOException
-block|{
 name|LOG
-operator|.
+operator|::
 name|info
-argument_list|(
-name|msg
-argument_list|)
-expr_stmt|;
-block|}
-block|}
 decl_stmt|;
 name|RemoteAdmin
 name|admin
-init|=
-literal|null
 decl_stmt|;
 try|try
 block|{
@@ -8816,7 +8644,6 @@ else|:
 literal|null
 return|;
 block|}
-comment|/**    * @param args    */
 specifier|public
 specifier|static
 name|void

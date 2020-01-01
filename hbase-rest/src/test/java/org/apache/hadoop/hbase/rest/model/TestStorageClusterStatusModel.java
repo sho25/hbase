@@ -226,25 +226,33 @@ literal|"<ClusterStatus averageLoad=\"1.0\" regions=\"2\" requests=\"0\">"
 operator|+
 literal|"<DeadNodes/><LiveNodes>"
 operator|+
-literal|"<Node heapSizeMB=\"128\" maxHeapSizeMB=\"1024\" name=\"test1\" requests=\"0\" startCode=\"1245219839331\">"
+literal|"<Node heapSizeMB=\"128\" maxHeapSizeMB=\"1024\" name=\"test1\" requests=\"0\" "
 operator|+
-literal|"<Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" name=\"aGJhc2U6cm9vdCwsMA==\" readRequestsCount=\"1\" "
+literal|"startCode=\"1245219839331\"><Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" "
 operator|+
-literal|"rootIndexSizeKB=\"1\" storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" storefiles=\"1\" stores=\"1\" "
+literal|"name=\"aGJhc2U6cm9vdCwsMA==\" readRequestsCount=\"1\" rootIndexSizeKB=\"1\" "
 operator|+
-literal|"totalCompactingKVs=\"1\" totalStaticBloomSizeKB=\"1\" totalStaticIndexSizeKB=\"1\" writeRequestsCount=\"2\"/>"
+literal|"storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" storefiles=\"1\" stores=\"1\" "
 operator|+
-literal|"</Node>"
+literal|"totalCompactingKVs=\"1\" totalStaticBloomSizeKB=\"1\" totalStaticIndexSizeKB=\"1\" "
 operator|+
-literal|"<Node heapSizeMB=\"512\" maxHeapSizeMB=\"1024\" name=\"test2\" requests=\"0\" startCode=\"1245239331198\">"
+literal|"writeRequestsCount=\"2\"/></Node>"
 operator|+
-literal|"<Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" name=\"aGJhc2U6bWV0YSwsMTI0NjAwMDA0MzcyNA==\" "
+literal|"<Node heapSizeMB=\"512\" maxHeapSizeMB=\"1024\" name=\"test2\" requests=\"0\" "
 operator|+
-literal|"readRequestsCount=\"1\" rootIndexSizeKB=\"1\" storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" "
+literal|"startCode=\"1245239331198\">"
+operator|+
+literal|"<Region currentCompactedKVs=\"1\" memstoreSizeMB=\"0\" "
+operator|+
+literal|"name=\"aGJhc2U6bWV0YSwsMTI0NjAwMDA0MzcyNA==\" readRequestsCount=\"1\" "
+operator|+
+literal|"rootIndexSizeKB=\"1\" storefileIndexSizeKB=\"0\" storefileSizeMB=\"0\" "
 operator|+
 literal|"storefiles=\"1\" stores=\"1\" totalCompactingKVs=\"1\" totalStaticBloomSizeKB=\"1\" "
 operator|+
-literal|"totalStaticIndexSizeKB=\"1\" writeRequestsCount=\"2\"/></Node></LiveNodes></ClusterStatus>"
+literal|"totalStaticIndexSizeKB=\"1\" writeRequestsCount=\"2\"/></Node></LiveNodes>"
+operator|+
+literal|"</ClusterStatus>"
 expr_stmt|;
 name|AS_PB
 operator|=

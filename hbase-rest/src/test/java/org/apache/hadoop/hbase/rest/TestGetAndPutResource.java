@@ -1112,8 +1112,6 @@ name|testMultipleCellCheckPutPB
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|Response
 name|response
@@ -1600,8 +1598,6 @@ name|testMultipleCellCheckDeletePB
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|Response
 name|response
@@ -2177,8 +2173,6 @@ name|testSingleCellGetJSON
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 specifier|final
 name|String
@@ -2297,8 +2291,6 @@ name|testLatestCellGetJSON
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 specifier|final
 name|String
@@ -2729,8 +2721,6 @@ name|testNoSuchCF
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 specifier|final
 name|String
@@ -4275,8 +4265,6 @@ name|testMetrics
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 specifier|final
 name|String
@@ -4402,7 +4390,7 @@ name|assertCounterGt
 argument_list|(
 literal|"requests"
 argument_list|,
-literal|2l
+literal|2L
 argument_list|,
 name|RESTServlet
 operator|.
@@ -4426,7 +4414,7 @@ name|assertCounterGt
 argument_list|(
 literal|"successfulGet"
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|RESTServlet
 operator|.
@@ -4450,7 +4438,7 @@ name|assertCounterGt
 argument_list|(
 literal|"successfulPut"
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|RESTServlet
 operator|.
@@ -4474,7 +4462,7 @@ name|assertCounterGt
 argument_list|(
 literal|"successfulDelete"
 argument_list|,
-literal|0l
+literal|0L
 argument_list|,
 name|RESTServlet
 operator|.

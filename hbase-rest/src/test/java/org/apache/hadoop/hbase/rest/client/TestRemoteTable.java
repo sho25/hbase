@@ -923,6 +923,7 @@ argument_list|(
 name|TABLE
 argument_list|)
 condition|)
+block|{
 name|admin
 operator|.
 name|disableTable
@@ -930,6 +931,7 @@ argument_list|(
 name|TABLE
 argument_list|)
 expr_stmt|;
+block|}
 name|admin
 operator|.
 name|deleteTable
@@ -4335,7 +4337,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests keeping a HBase scanner alive for long periods of time. Each call to next() should reset    * the ConnectionCache timeout for the scanner's connection    * @throws Exception    */
+comment|/**    * Tests keeping a HBase scanner alive for long periods of time. Each call to next() should reset    * the ConnectionCache timeout for the scanner's connection.    *    * @throws Exception if starting the servlet container or disabling or truncating the table fails    */
 annotation|@
 name|Test
 specifier|public
