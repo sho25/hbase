@@ -73,9 +73,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|ExceptionUtil
 block|{
+specifier|private
+name|ExceptionUtil
+parameter_list|()
+block|{   }
 comment|/**    * @return true if the throwable comes an interruption, false otherwise.    */
 specifier|public
 specifier|static
@@ -92,18 +97,22 @@ name|t
 operator|instanceof
 name|InterruptedException
 condition|)
+block|{
 return|return
 literal|true
 return|;
+block|}
 if|if
 condition|(
 name|t
 operator|instanceof
 name|SocketTimeoutException
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 operator|(
 name|t
@@ -142,9 +151,11 @@ name|iie
 operator|!=
 literal|null
 condition|)
+block|{
 throw|throw
 name|iie
 throw|;
+block|}
 block|}
 comment|/**    * @return an InterruptedIOException if t was an interruption, null otherwise    */
 specifier|public
@@ -162,21 +173,25 @@ name|t
 operator|instanceof
 name|SocketTimeoutException
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 if|if
 condition|(
 name|t
 operator|instanceof
 name|InterruptedIOException
 condition|)
+block|{
 return|return
 operator|(
 name|InterruptedIOException
 operator|)
 name|t
 return|;
+block|}
 if|if
 condition|(
 name|t
@@ -220,10 +235,6 @@ return|return
 literal|null
 return|;
 block|}
-specifier|private
-name|ExceptionUtil
-parameter_list|()
-block|{   }
 block|}
 end_class
 

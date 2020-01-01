@@ -55,9 +55,14 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|AtomicUtils
 block|{
+specifier|private
+name|AtomicUtils
+parameter_list|()
+block|{   }
 comment|/**    * Updates a AtomicLong which is supposed to maintain the minimum values. This method is not    * synchronized but is thread-safe.    */
 specifier|public
 specifier|static

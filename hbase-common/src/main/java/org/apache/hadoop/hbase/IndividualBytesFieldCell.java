@@ -88,6 +88,7 @@ name|ExtendedCell
 implements|,
 name|Cloneable
 block|{
+comment|// do alignment(padding gap)
 specifier|private
 specifier|static
 specifier|final
@@ -98,21 +99,21 @@ name|ClassSize
 operator|.
 name|align
 argument_list|(
-comment|// do alignment(padding gap)
 name|ClassSize
 operator|.
 name|OBJECT
 comment|// object header
+comment|// timestamp and type
 operator|+
 name|KeyValue
 operator|.
 name|TIMESTAMP_TYPE_SIZE
-comment|// timestamp and type
+comment|// sequence id
 operator|+
 name|Bytes
 operator|.
 name|SIZEOF_LONG
-comment|// sequence id
+comment|// references to all byte arrays: row, family, qualifier, value, tags
 operator|+
 literal|5
 operator|*
@@ -121,7 +122,6 @@ operator|.
 name|REFERENCE
 argument_list|)
 decl_stmt|;
-comment|// references to all byte arrays: row, family, qualifier, value, tags
 comment|// The following fields are backed by individual byte arrays
 specifier|private
 specifier|final
@@ -219,56 +219,6 @@ specifier|private
 name|long
 name|seqId
 decl_stmt|;
-specifier|public
-name|IndividualBytesFieldCell
-parameter_list|(
-name|byte
-index|[]
-name|row
-parameter_list|,
-name|byte
-index|[]
-name|family
-parameter_list|,
-name|byte
-index|[]
-name|qualifier
-parameter_list|,
-name|long
-name|timestamp
-parameter_list|,
-name|KeyValue
-operator|.
-name|Type
-name|type
-parameter_list|,
-name|byte
-index|[]
-name|value
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|row
-argument_list|,
-name|family
-argument_list|,
-name|qualifier
-argument_list|,
-name|timestamp
-argument_list|,
-name|type
-argument_list|,
-literal|0L
-comment|/* sequence id */
-argument_list|,
-name|value
-argument_list|,
-literal|null
-comment|/* tags */
-argument_list|)
-expr_stmt|;
-block|}
 specifier|public
 name|IndividualBytesFieldCell
 parameter_list|(
@@ -856,8 +806,9 @@ name|short
 name|getRowLength
 parameter_list|()
 block|{
-comment|// If row is null or rLength is invalid, the constructor will reject it, by {@link KeyValue#checkParameters()},
-comment|// so it is safe to call rLength and make the type conversion.
+comment|// If row is null or rLength is invalid, the constructor will reject it, by
+comment|// {@link KeyValue#checkParameters()}, so it is safe to call rLength and make the type
+comment|// conversion.
 return|return
 call|(
 name|short
@@ -1102,7 +1053,8 @@ name|long
 name|heapSize
 parameter_list|()
 block|{
-comment|// Size of array headers are already included into overhead, so do not need to include it for each byte array
+comment|// Size of array headers are already included into overhead, so do not need to include it for
+comment|// each byte array
 return|return
 name|heapOverhead
 argument_list|()

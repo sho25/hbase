@@ -109,6 +109,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|Methods
 block|{
@@ -127,6 +128,10 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+specifier|private
+name|Methods
+parameter_list|()
+block|{   }
 specifier|public
 specifier|static
 parameter_list|<

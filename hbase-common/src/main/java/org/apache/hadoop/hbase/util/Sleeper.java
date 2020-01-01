@@ -126,7 +126,7 @@ name|triggerWake
 init|=
 literal|false
 decl_stmt|;
-comment|/**    * @param sleep sleep time in milliseconds    * @param stopper When {@link Stoppable#isStopped()} is true, this thread will    * cleanup and exit cleanly.    */
+comment|/**    * @param sleep sleep time in milliseconds    * @param stopper When {@link Stoppable#isStopped()} is true, this thread will    *    cleanup and exit cleanly.    */
 specifier|public
 name|Sleeper
 parameter_list|(
@@ -245,7 +245,9 @@ if|if
 condition|(
 name|triggerWake
 condition|)
+block|{
 break|break;
+block|}
 name|sleepLock
 operator|.
 name|wait
@@ -283,21 +285,17 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"We slept "
-operator|+
-name|slept
-operator|+
-literal|"ms instead of "
-operator|+
-name|this
-operator|.
-name|period
-operator|+
-literal|"ms, this is likely due to a long "
+literal|"We slept {}ms instead of {}ms, this is likely due to a long "
 operator|+
 literal|"garbage collecting pause and it's usually bad, see "
 operator|+
 literal|"http://hbase.apache.org/book.html#trouble.rs.runtime.zkexpired"
+argument_list|,
+name|slept
+argument_list|,
+name|this
+operator|.
+name|period
 argument_list|)
 expr_stmt|;
 block|}

@@ -621,11 +621,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Class "
-operator|+
+literal|"Class {} already loaded"
+argument_list|,
 name|name
-operator|+
-literal|" already loaded"
 argument_list|)
 expr_stmt|;
 block|}
@@ -646,8 +644,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finding class: "
-operator|+
+literal|"Finding class: {}"
+argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
@@ -698,8 +696,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finding class again: "
-operator|+
+literal|"Finding class again: {}"
+argument_list|,
 name|name
 argument_list|)
 expr_stmt|;
@@ -796,15 +794,10 @@ name|put
 argument_list|(
 name|fileName
 argument_list|,
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|file
 operator|.
 name|lastModified
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 try|try
@@ -924,8 +917,10 @@ operator|.
 name|isDirectory
 argument_list|()
 condition|)
+block|{
 continue|continue;
 comment|// No recursive lookup
+block|}
 name|Path
 name|path
 init|=
@@ -965,8 +960,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Ignored non-jar file "
-operator|+
+literal|"Ignored non-jar file {}"
+argument_list|,
 name|fileName
 argument_list|)
 expr_stmt|;
@@ -1004,9 +999,6 @@ condition|(
 name|lastModified
 operator|<
 name|cachedLastModificationTime
-operator|.
-name|longValue
-argument_list|()
 condition|)
 block|{
 comment|// There could be some race, for example, someone uploads
@@ -1055,15 +1047,10 @@ name|put
 argument_list|(
 name|fileName
 argument_list|,
-name|Long
-operator|.
-name|valueOf
-argument_list|(
 name|dst
 operator|.
 name|lastModified
 argument_list|()
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|URL

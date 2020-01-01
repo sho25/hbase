@@ -55,25 +55,30 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|Strings
 block|{
 specifier|public
-specifier|final
 specifier|static
+specifier|final
 name|String
 name|DEFAULT_SEPARATOR
 init|=
 literal|"="
 decl_stmt|;
 specifier|public
-specifier|final
 specifier|static
+specifier|final
 name|String
 name|DEFAULT_KEYVALUE_SEPARATOR
 init|=
 literal|", "
 decl_stmt|;
+specifier|private
+name|Strings
+parameter_list|()
+block|{   }
 comment|/**    * Append to a StringBuilder a key/value.    * Uses default separators.    * @param sb StringBuilder to use    * @param key Key to append.    * @param value Value to append.    * @return Passed<code>sb</code> populated with key/value.    */
 specifier|public
 specifier|static
@@ -172,7 +177,7 @@ name|value
 argument_list|)
 return|;
 block|}
-comment|/**    * Given a PTR string generated via reverse DNS lookup, return everything    * except the trailing period. Example for host.example.com., return    * host.example.com    * @param dnPtr a domain name pointer (PTR) string.    * @return Sanitized hostname with last period stripped off.    *    */
+comment|/**    * Given a PTR string generated via reverse DNS lookup, return everything    * except the trailing period. Example for host.example.com., return    * host.example.com    * @param dnPtr a domain name pointer (PTR) string.    * @return Sanitized hostname with last period stripped off.    */
 specifier|public
 specifier|static
 name|String
@@ -188,9 +193,11 @@ name|dnPtr
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 return|return
 name|dnPtr
 operator|.

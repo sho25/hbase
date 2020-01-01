@@ -57,7 +57,7 @@ name|Cell
 name|current
 parameter_list|()
 function_decl|;
-comment|/**    * Advance the scanner 1 cell.    * @return true if the next cell is found and {@link #current()} will return a valid Cell    * @throws IOException    */
+comment|/**    * Advance the scanner 1 cell.    * @return true if the next cell is found and {@link #current()} will return a valid Cell    * @throws IOException if advancing the scanner fails    */
 name|boolean
 name|advance
 parameter_list|()
