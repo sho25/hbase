@@ -704,23 +704,23 @@ name|values
 argument_list|()
 control|)
 block|{
-comment|// For each region, each store file can have different ref counts
-comment|// We need to find maximum of all such ref counts and if that max count
-comment|// is beyond a threshold value, we should reopen the region.
-comment|// Here, we take max ref count of all store files and not the cumulative
-comment|// count of all store files
+comment|// For each region, each compacted store file can have different ref counts
+comment|// We need to find maximum of all such ref counts and if that max count of compacted
+comment|// store files is beyond a threshold value, we should reopen the region.
+comment|// Here, we take max ref count of all compacted store files and not the cumulative
+comment|// count of all compacted store files
 specifier|final
 name|int
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 init|=
 name|regionMetrics
 operator|.
-name|getMaxStoreFileRefCount
+name|getMaxCompactedStoreFileRefCount
 argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 operator|>
 name|storeFileRefCountThreshold
 condition|)
@@ -741,7 +741,7 @@ name|tableToReopenRegionsMap
 argument_list|,
 name|regionName
 argument_list|,
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 argument_list|)
 expr_stmt|;
 block|}

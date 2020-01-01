@@ -214,9 +214,9 @@ name|int
 name|getStoreRefCount
 parameter_list|()
 function_decl|;
-comment|/**    * @return the max reference count for any store file among all stores files    *   of this region    */
+comment|/**    * @return the max reference count for any store file among all compacted stores files    *   of this region    */
 name|int
-name|getMaxStoreFileRefCount
+name|getMaxCompactedStoreFileRefCount
 parameter_list|()
 function_decl|;
 block|}

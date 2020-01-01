@@ -13989,14 +13989,14 @@ name|sum
 argument_list|()
 return|;
 block|}
-comment|/**    * @return get maximum ref count of storeFile among all HStore Files    *   for the HStore    */
+comment|/**    * @return get maximum ref count of storeFile among all compacted HStore Files    *   for the HStore    */
 specifier|public
 name|int
-name|getMaxStoreFileRefCount
+name|getMaxCompactedStoreFileRefCount
 parameter_list|()
 block|{
 name|OptionalInt
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 init|=
 name|this
 operator|.
@@ -14005,7 +14005,7 @@ operator|.
 name|getStoreFileManager
 argument_list|()
 operator|.
-name|getStorefiles
+name|getCompactedfiles
 argument_list|()
 operator|.
 name|stream
@@ -14041,12 +14041,12 @@ name|max
 argument_list|()
 decl_stmt|;
 return|return
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 operator|.
 name|isPresent
 argument_list|()
 condition|?
-name|maxStoreFileRefCount
+name|maxCompactedStoreFileRefCount
 operator|.
 name|getAsInt
 argument_list|()

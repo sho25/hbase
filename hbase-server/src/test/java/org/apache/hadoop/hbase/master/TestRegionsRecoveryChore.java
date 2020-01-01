@@ -1787,7 +1787,7 @@ name|anyLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// default maxStoreFileRefCount is -1 (no regions to be reopened using AM)
+comment|// default maxCompactedStoreFileRefCount is -1 (no regions to be reopened using AM)
 name|Mockito
 operator|.
 name|verify
@@ -2361,7 +2361,7 @@ index|[]
 name|regionName
 parameter_list|,
 name|int
-name|storeRefCount
+name|compactedStoreRefCount
 parameter_list|)
 block|{
 name|RegionMetrics
@@ -2606,18 +2606,18 @@ name|getStoreRefCount
 parameter_list|()
 block|{
 return|return
-name|storeRefCount
+name|compactedStoreRefCount
 return|;
 block|}
 annotation|@
 name|Override
 specifier|public
 name|int
-name|getMaxStoreFileRefCount
+name|getMaxCompactedStoreFileRefCount
 parameter_list|()
 block|{
 return|return
-name|storeRefCount
+name|compactedStoreRefCount
 return|;
 block|}
 block|}

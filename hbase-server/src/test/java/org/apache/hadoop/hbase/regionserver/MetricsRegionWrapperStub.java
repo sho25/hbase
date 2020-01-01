@@ -126,7 +126,7 @@ annotation|@
 name|Override
 specifier|public
 name|long
-name|getMaxStoreFileRefCount
+name|getMaxCompactedStoreFileRefCount
 parameter_list|()
 block|{
 return|return
