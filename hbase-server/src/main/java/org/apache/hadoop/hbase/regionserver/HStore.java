@@ -6145,16 +6145,48 @@ argument_list|(
 name|cacheConf
 argument_list|)
 expr_stmt|;
-name|writerCacheConf
-operator|.
-name|setCacheDataOnWrite
-argument_list|(
+specifier|final
+name|boolean
+name|shouldCacheCompactedBlocksOnWrite
+init|=
 name|cacheConf
 operator|.
 name|shouldCacheCompactedBlocksOnWrite
 argument_list|()
+decl_stmt|;
+comment|// if data blocks are to be cached on write
+comment|// during compaction, we should forcefully
+comment|// cache index and bloom blocks as well
+if|if
+condition|(
+name|shouldCacheCompactedBlocksOnWrite
+condition|)
+block|{
+name|writerCacheConf
+operator|.
+name|enableCacheOnWrite
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"cacheCompactedBlocksOnWrite is true, hence enabled cacheOnWrite for "
+operator|+
+literal|"Data blocks, Index blocks and Bloom filter blocks"
 argument_list|)
 expr_stmt|;
+block|}
+else|else
+block|{
+name|writerCacheConf
+operator|.
+name|setCacheDataOnWrite
+argument_list|(
+literal|false
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -6162,6 +6194,35 @@ name|writerCacheConf
 operator|=
 name|cacheConf
 expr_stmt|;
+specifier|final
+name|boolean
+name|shouldCacheDataOnWrite
+init|=
+name|cacheConf
+operator|.
+name|shouldCacheDataOnWrite
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|shouldCacheDataOnWrite
+condition|)
+block|{
+name|writerCacheConf
+operator|.
+name|enableCacheOnWrite
+argument_list|()
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"cacheDataOnWrite is true, hence enabled cacheOnWrite for "
+operator|+
+literal|"Index blocks and Bloom filter blocks"
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 name|InetSocketAddress
 index|[]

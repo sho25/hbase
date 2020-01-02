@@ -43949,11 +43949,9 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 comment|// flush the data
-name|System
+name|LOG
 operator|.
-name|out
-operator|.
-name|println
+name|debug
 argument_list|(
 literal|"Flushing cache"
 argument_list|)
@@ -43965,13 +43963,14 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// expect one more block in cache, no change in hits/misses
+comment|// expect two more blocks in cache - DATA and ROOT_INDEX
+comment|// , no change in hits/misses
 name|long
 name|expectedBlockCount
 init|=
 name|startBlockCount
 operator|+
-literal|1
+literal|2
 decl_stmt|;
 name|long
 name|expectedBlockHits
@@ -44240,10 +44239,13 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+comment|// + 1 for Index Block
 name|assertEquals
 argument_list|(
 operator|++
 name|expectedBlockCount
+operator|+
+literal|1
 argument_list|,
 name|cache
 operator|.

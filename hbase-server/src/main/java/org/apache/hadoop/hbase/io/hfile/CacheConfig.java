@@ -373,13 +373,11 @@ name|cacheDataOnWrite
 decl_stmt|;
 comment|/** Whether index blocks should be cached when new files are written */
 specifier|private
-specifier|final
 name|boolean
 name|cacheIndexesOnWrite
 decl_stmt|;
 comment|/** Whether compound bloom filter blocks should be cached on write */
 specifier|private
-specifier|final
 name|boolean
 name|cacheBloomsOnWrite
 decl_stmt|;
@@ -1015,6 +1013,31 @@ operator|.
 name|cacheDataOnWrite
 operator|=
 name|cacheDataOnWrite
+expr_stmt|;
+block|}
+comment|/**    * Enable cache on write including:    * cacheDataOnWrite    * cacheIndexesOnWrite    * cacheBloomsOnWrite    */
+specifier|public
+name|void
+name|enableCacheOnWrite
+parameter_list|()
+block|{
+name|this
+operator|.
+name|cacheDataOnWrite
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|cacheIndexesOnWrite
+operator|=
+literal|true
+expr_stmt|;
+name|this
+operator|.
+name|cacheBloomsOnWrite
+operator|=
+literal|true
 expr_stmt|;
 block|}
 comment|/**    * @return true if index blocks should be written to the cache when an HFile    *         is written, false if not    */
