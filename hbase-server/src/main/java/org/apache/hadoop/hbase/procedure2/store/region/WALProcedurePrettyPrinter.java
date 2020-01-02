@@ -366,7 +366,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A tool to dump the procedures in the WAL files.  *<p/>  * The different between this and {@link WALPrettyPrinter} is that, this class will decode the  * procedure in the WALEdit for better debugging. You are free to use {@link WALPrettyPrinter} to  * dump the safe file as well.  */
+comment|/**  * A tool to dump the procedures in the WAL files.  *<p/>  * The different between this and {@link WALPrettyPrinter} is that, this class will decode the  * procedure in the WALEdit for better debugging. You are free to use {@link WALPrettyPrinter} to  * dump the same file as well.  */
 end_comment
 
 begin_class

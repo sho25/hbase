@@ -2108,6 +2108,7 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Returns all HFiles belonging to the given region directory. Could return an    * empty list.    *    * @param fs  The file system reference.    * @param regionDir  The region directory to scan.    * @return The list of files found.    * @throws IOException When scanning the files fails.    */
+specifier|public
 specifier|static
 name|List
 argument_list|<
