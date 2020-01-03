@@ -444,7 +444,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|AsyncRegistry
+name|ConnectionRegistry
 name|REGISTRY
 decl_stmt|;
 annotation|@
@@ -480,7 +480,7 @@ argument_list|)
 expr_stmt|;
 name|REGISTRY
 operator|=
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(

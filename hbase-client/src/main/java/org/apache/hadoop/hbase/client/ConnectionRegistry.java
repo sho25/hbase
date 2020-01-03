@@ -21,6 +21,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|io
+operator|.
+name|Closeable
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|concurrent
@@ -57,78 +67,67 @@ name|ServerName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
 begin_comment
-comment|/**  * Can be overridden in UT if you only want to implement part of the methods in  * {@link AsyncRegistry}.  */
+comment|/**  * Registry for meta information needed for connection setup to a HBase cluster. Implementations  * hold cluster information such as this cluster's id, location of hbase:meta, etc..  * Internal use only.  */
 end_comment
 
-begin_class
-specifier|public
-class|class
-name|DummyAsyncRegistry
-implements|implements
-name|AsyncRegistry
-block|{
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|REGISTRY_IMPL_CONF_KEY
-init|=
-name|AsyncRegistryFactory
-operator|.
-name|REGISTRY_IMPL_CONF_KEY
-decl_stmt|;
+begin_interface
 annotation|@
-name|Override
-specifier|public
+name|InterfaceAudience
+operator|.
+name|Private
+interface|interface
+name|ConnectionRegistry
+extends|extends
+name|Closeable
+block|{
+comment|/**    * Get the location of meta region(s).    */
 name|CompletableFuture
 argument_list|<
 name|RegionLocations
 argument_list|>
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
+function_decl|;
+comment|/**    * Should only be called once.    *<p>    * The upper layer should store this value somewhere as it will not be change any more.    */
 name|CompletableFuture
 argument_list|<
 name|String
 argument_list|>
 name|getClusterId
 parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
+function_decl|;
+comment|/**    * Get the address of active HMaster.    */
 name|CompletableFuture
 argument_list|<
 name|ServerName
 argument_list|>
-name|getMasterAddress
+name|getActiveMaster
 parameter_list|()
-block|{
-return|return
-literal|null
-return|;
-block|}
+function_decl|;
+comment|/**    * Closes this instance and releases any system resources associated with it    */
 annotation|@
 name|Override
-specifier|public
 name|void
 name|close
 parameter_list|()
-block|{   }
+function_decl|;
 block|}
-end_class
+end_interface
 
 end_unit
 

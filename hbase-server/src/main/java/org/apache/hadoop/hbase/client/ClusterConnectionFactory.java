@@ -167,10 +167,10 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 init|=
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(

@@ -257,7 +257,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestAsyncRegistryLeak
+name|TestConnectionRegistryLeak
 block|{
 annotation|@
 name|ClassRule
@@ -271,7 +271,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestAsyncRegistryLeak
+name|TestConnectionRegistryLeak
 operator|.
 name|class
 argument_list|)
@@ -280,9 +280,9 @@ specifier|public
 specifier|static
 specifier|final
 class|class
-name|AsyncRegistryForTest
+name|ConnectionRegistryForTest
 extends|extends
-name|DoNothingAsyncRegistry
+name|DoNothingConnectionRegistry
 block|{
 specifier|private
 name|boolean
@@ -291,7 +291,7 @@ init|=
 literal|false
 decl_stmt|;
 specifier|public
-name|AsyncRegistryForTest
+name|ConnectionRegistryForTest
 parameter_list|(
 name|Configuration
 name|conf
@@ -351,7 +351,7 @@ specifier|static
 specifier|final
 name|List
 argument_list|<
-name|AsyncRegistryForTest
+name|ConnectionRegistryForTest
 argument_list|>
 name|CREATED
 init|=
@@ -382,15 +382,15 @@ name|CONF
 operator|.
 name|setClass
 argument_list|(
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
-name|REGISTRY_IMPL_CONF_KEY
+name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
 argument_list|,
-name|AsyncRegistryForTest
+name|ConnectionRegistryForTest
 operator|.
 name|class
 argument_list|,
-name|AsyncRegistry
+name|ConnectionRegistry
 operator|.
 name|class
 argument_list|)

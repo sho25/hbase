@@ -461,9 +461,9 @@ name|InterfaceAudience
 operator|.
 name|Private
 class|class
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 implements|implements
-name|AsyncRegistry
+name|ConnectionRegistry
 block|{
 specifier|private
 specifier|static
@@ -475,7 +475,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 operator|.
 name|class
 argument_list|)
@@ -490,7 +490,7 @@ specifier|final
 name|ZNodePaths
 name|znodePaths
 decl_stmt|;
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 parameter_list|(
 name|Configuration
 name|conf
@@ -699,7 +699,7 @@ name|znodePaths
 operator|.
 name|clusterIdZNode
 argument_list|,
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 operator|::
 name|getClusterId
 argument_list|)
@@ -1030,7 +1030,7 @@ name|getAndConvert
 argument_list|(
 name|path
 argument_list|,
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 operator|::
 name|getMetaProto
 argument_list|)
@@ -1160,7 +1160,7 @@ name|getAndConvert
 argument_list|(
 name|path
 argument_list|,
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 operator|::
 name|getMetaProto
 argument_list|)
@@ -1337,7 +1337,7 @@ name|CompletableFuture
 argument_list|<
 name|RegionLocations
 argument_list|>
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 parameter_list|()
 block|{
 name|CompletableFuture
@@ -1510,7 +1510,7 @@ name|CompletableFuture
 argument_list|<
 name|ServerName
 argument_list|>
-name|getMasterAddress
+name|getActiveMaster
 parameter_list|()
 block|{
 return|return
@@ -1520,7 +1520,7 @@ name|znodePaths
 operator|.
 name|masterAddressZNode
 argument_list|,
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 operator|::
 name|getMasterProto
 argument_list|)

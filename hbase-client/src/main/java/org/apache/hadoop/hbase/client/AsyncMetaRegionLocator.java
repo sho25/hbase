@@ -225,7 +225,7 @@ name|AsyncMetaRegionLocator
 block|{
 specifier|private
 specifier|final
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 decl_stmt|;
 specifier|private
@@ -259,7 +259,7 @@ argument_list|()
 decl_stmt|;
 name|AsyncMetaRegionLocator
 parameter_list|(
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 parameter_list|)
 block|{
@@ -297,7 +297,7 @@ name|reload
 argument_list|,
 name|registry
 operator|::
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|,
 name|locs
 lambda|->

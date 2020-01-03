@@ -1231,7 +1231,7 @@ argument_list|(
 name|CONF
 argument_list|,
 operator|new
-name|DoNothingAsyncRegistry
+name|DoNothingConnectionRegistry
 argument_list|(
 name|CONF
 argument_list|)

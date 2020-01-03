@@ -775,7 +775,7 @@ name|User
 name|user
 decl_stmt|;
 specifier|final
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 decl_stmt|;
 specifier|private
@@ -930,7 +930,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 parameter_list|,
 name|String
@@ -1735,7 +1735,7 @@ name|addListener
 argument_list|(
 name|registry
 operator|.
-name|getMasterAddress
+name|getActiveMaster
 argument_list|()
 argument_list|,
 parameter_list|(
@@ -2231,7 +2231,7 @@ name|addListener
 argument_list|(
 name|registry
 operator|.
-name|getMasterAddress
+name|getActiveMaster
 argument_list|()
 argument_list|,
 parameter_list|(

@@ -616,10 +616,10 @@ name|CompletableFuture
 argument_list|<>
 argument_list|()
 decl_stmt|;
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 init|=
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(

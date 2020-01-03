@@ -473,7 +473,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 parameter_list|,
 name|String

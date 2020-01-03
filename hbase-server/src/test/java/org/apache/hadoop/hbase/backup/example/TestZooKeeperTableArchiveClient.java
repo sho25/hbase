@@ -323,7 +323,7 @@ name|hbase
 operator|.
 name|client
 operator|.
-name|DummyAsyncRegistry
+name|DummyConnectionRegistry
 import|;
 end_import
 
@@ -858,7 +858,7 @@ specifier|final
 class|class
 name|MockRegistry
 extends|extends
-name|DummyAsyncRegistry
+name|DummyConnectionRegistry
 block|{
 specifier|public
 name|MockRegistry
@@ -918,13 +918,15 @@ argument_list|()
 operator|.
 name|setClass
 argument_list|(
-literal|"hbase.client.registry.impl"
+name|MockRegistry
+operator|.
+name|REGISTRY_IMPL_CONF_KEY
 argument_list|,
 name|MockRegistry
 operator|.
 name|class
 argument_list|,
-name|DummyAsyncRegistry
+name|DummyConnectionRegistry
 operator|.
 name|class
 argument_list|)
@@ -1111,21 +1113,37 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+if|if
+condition|(
+name|CONNECTION
+operator|!=
+literal|null
+condition|)
+block|{
 name|CONNECTION
 operator|.
 name|close
 argument_list|()
 expr_stmt|;
+block|}
 name|UTIL
 operator|.
 name|shutdownMiniZKCluster
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+name|POOL
+operator|!=
+literal|null
+condition|)
+block|{
 name|POOL
 operator|.
 name|shutdownNow
 argument_list|()
 expr_stmt|;
+block|}
 block|}
 comment|/**    * Test turning on/off archiving    */
 annotation|@
@@ -2236,6 +2254,11 @@ argument_list|)
 return|;
 block|}
 comment|/**    * Start archiving table for given hfile cleaner    * @param tableName table to archive    * @param cleaner cleaner to check to make sure change propagated    * @return underlying {@link LongTermArchivingHFileCleaner} that is managing archiving    * @throws IOException on failure    * @throws KeeperException on failure    */
+annotation|@
+name|SuppressWarnings
+argument_list|(
+literal|"checkstyle:EmptyBlock"
+argument_list|)
 specifier|private
 name|List
 argument_list|<

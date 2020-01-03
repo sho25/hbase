@@ -8376,7 +8376,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|thenApply
@@ -9526,7 +9526,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|thenApply
@@ -10970,10 +10970,10 @@ argument_list|<>
 argument_list|()
 decl_stmt|;
 comment|// For meta table, we use zk to fetch all locations.
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 init|=
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(
@@ -10987,7 +10987,7 @@ name|addListener
 argument_list|(
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 argument_list|,
 parameter_list|(
@@ -11145,7 +11145,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMasterAddress
+name|getActiveMaster
 argument_list|()
 argument_list|,
 parameter_list|(
@@ -19581,7 +19581,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|thenApply
@@ -19662,7 +19662,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|thenApply
@@ -22739,7 +22739,7 @@ name|connection
 operator|.
 name|registry
 operator|.
-name|getMasterAddress
+name|getActiveMaster
 argument_list|()
 argument_list|,
 parameter_list|(

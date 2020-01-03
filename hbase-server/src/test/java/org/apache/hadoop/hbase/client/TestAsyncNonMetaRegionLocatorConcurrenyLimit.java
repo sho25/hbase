@@ -881,10 +881,10 @@ argument_list|,
 literal|true
 argument_list|)
 expr_stmt|;
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 init|=
-name|AsyncRegistryFactory
+name|ConnectionRegistryFactory
 operator|.
 name|getRegistry
 argument_list|(

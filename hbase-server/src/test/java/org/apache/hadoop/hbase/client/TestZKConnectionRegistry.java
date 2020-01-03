@@ -401,7 +401,7 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestZKAsyncRegistry
+name|TestZKConnectionRegistry
 block|{
 annotation|@
 name|ClassRule
@@ -415,7 +415,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestZKAsyncRegistry
+name|TestZKConnectionRegistry
 operator|.
 name|class
 argument_list|)
@@ -429,7 +429,7 @@ name|LoggerFactory
 operator|.
 name|getLogger
 argument_list|(
-name|TestZKAsyncRegistry
+name|TestZKConnectionRegistry
 operator|.
 name|class
 argument_list|)
@@ -445,7 +445,7 @@ argument_list|()
 decl_stmt|;
 specifier|private
 specifier|static
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 name|REGISTRY
 decl_stmt|;
 annotation|@
@@ -503,7 +503,7 @@ expr_stmt|;
 name|REGISTRY
 operator|=
 operator|new
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 argument_list|(
 name|conf
 argument_list|)
@@ -607,7 +607,7 @@ argument_list|()
 argument_list|,
 name|REGISTRY
 operator|.
-name|getMasterAddress
+name|getActiveMaster
 argument_list|()
 operator|.
 name|get
@@ -633,7 +633,7 @@ name|locs
 init|=
 name|REGISTRY
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|get
@@ -763,11 +763,11 @@ argument_list|)
 expr_stmt|;
 try|try
 init|(
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 name|otherRegistry
 init|=
 operator|new
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 argument_list|(
 name|otherConf
 argument_list|)
@@ -852,11 +852,11 @@ argument_list|)
 expr_stmt|;
 try|try
 init|(
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 name|registry
 init|=
 operator|new
-name|ZKAsyncRegistry
+name|ZKConnectionRegistry
 argument_list|(
 name|conf
 argument_list|)
@@ -866,7 +866,7 @@ try|try
 block|{
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|get

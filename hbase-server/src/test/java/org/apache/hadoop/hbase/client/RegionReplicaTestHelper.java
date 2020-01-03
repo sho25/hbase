@@ -271,7 +271,7 @@ parameter_list|(
 name|Configuration
 name|conf
 parameter_list|,
-name|AsyncRegistry
+name|ConnectionRegistry
 name|registry
 parameter_list|,
 name|int
@@ -335,7 +335,7 @@ name|locs
 init|=
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|get
@@ -397,7 +397,7 @@ name|Exception
 name|e
 parameter_list|)
 block|{
-name|TestZKAsyncRegistry
+name|TestZKConnectionRegistry
 operator|.
 name|LOG
 operator|.

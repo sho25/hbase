@@ -236,7 +236,7 @@ name|conn
 operator|.
 name|registry
 operator|.
-name|getMetaRegionLocation
+name|getMetaRegionLocations
 argument_list|()
 operator|.
 name|thenApply
