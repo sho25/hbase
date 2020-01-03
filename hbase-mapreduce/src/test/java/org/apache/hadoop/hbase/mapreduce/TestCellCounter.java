@@ -674,6 +674,8 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -685,8 +687,7 @@ name|sourceTable
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -991,11 +992,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|FileUtil
 operator|.
 name|fullyDelete
@@ -1044,6 +1040,8 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1055,8 +1053,7 @@ name|sourceTable
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -1361,11 +1358,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|FileUtil
 operator|.
 name|fullyDelete
@@ -1414,6 +1406,8 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1425,8 +1419,7 @@ name|sourceTable
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -1741,11 +1734,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|FileUtil
 operator|.
 name|fullyDelete
@@ -1794,6 +1782,8 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -1805,8 +1795,7 @@ name|sourceTable
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -2117,11 +2106,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|FileUtil
 operator|.
 name|fullyDelete
@@ -2170,6 +2154,8 @@ block|,
 name|FAMILY_B
 block|}
 decl_stmt|;
+try|try
+init|(
 name|Table
 name|t
 init|=
@@ -2181,8 +2167,7 @@ name|sourceTable
 argument_list|,
 name|families
 argument_list|)
-decl_stmt|;
-try|try
+init|)
 block|{
 name|Put
 name|p
@@ -2408,11 +2393,6 @@ expr_stmt|;
 block|}
 finally|finally
 block|{
-name|t
-operator|.
-name|close
-argument_list|()
-expr_stmt|;
 name|FileUtil
 operator|.
 name|fullyDelete

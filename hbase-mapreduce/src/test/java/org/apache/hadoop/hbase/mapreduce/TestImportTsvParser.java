@@ -1496,7 +1496,7 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|1234l
+literal|1234L
 argument_list|,
 name|parsed
 operator|.
@@ -2007,9 +2007,9 @@ block|}
 catch|catch
 parameter_list|(
 name|BadTsvLineException
-name|b
+name|ignored
 parameter_list|)
-block|{      }
+block|{     }
 name|parser
 operator|=
 operator|new
@@ -2111,9 +2111,9 @@ block|}
 catch|catch
 parameter_list|(
 name|BadTsvLineException
-name|b
+name|ignored
 parameter_list|)
-block|{      }
+block|{     }
 name|parser
 operator|=
 operator|new
@@ -2259,8 +2259,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|String
-name|attributes
 index|[]
+name|attributes
 init|=
 name|parse
 operator|.
@@ -2269,12 +2269,12 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"key=>value"
+argument_list|,
 name|attributes
 index|[
 literal|0
 index|]
-argument_list|,
-literal|"key=>value"
 argument_list|)
 expr_stmt|;
 try|try
@@ -2308,9 +2308,9 @@ block|}
 catch|catch
 parameter_list|(
 name|BadTsvLineException
-name|b
+name|ignored
 parameter_list|)
-block|{      }
+block|{     }
 name|parser
 operator|=
 operator|new
@@ -2382,12 +2382,12 @@ argument_list|()
 expr_stmt|;
 name|assertEquals
 argument_list|(
+literal|"key=>value"
+argument_list|,
 name|attributes
 index|[
 literal|0
 index|]
-argument_list|,
-literal|"key=>value"
 argument_list|)
 expr_stmt|;
 try|try
@@ -2424,9 +2424,9 @@ block|}
 catch|catch
 parameter_list|(
 name|BadTsvLineException
-name|b
+name|ignored
 parameter_list|)
-block|{      }
+block|{     }
 name|parser
 operator|=
 operator|new
@@ -2619,8 +2619,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 name|String
-name|attributes
 index|[]
+name|attributes
 init|=
 name|parse
 operator|.
@@ -2629,12 +2629,12 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"key=>value"
+argument_list|,
 name|attributes
 index|[
 literal|0
 index|]
-argument_list|,
-literal|"key=>value"
 argument_list|)
 expr_stmt|;
 name|assertEquals

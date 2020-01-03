@@ -41,16 +41,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|ArrayList
@@ -220,10 +210,6 @@ parameter_list|,
 name|TaskAttemptContext
 name|tac
 parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 operator|new
@@ -254,10 +240,6 @@ parameter_list|(
 name|JobContext
 name|context
 parameter_list|)
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 name|int
 name|count
@@ -369,10 +351,6 @@ specifier|public
 name|long
 name|getLength
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 literal|0
@@ -385,10 +363,6 @@ name|String
 index|[]
 name|getLocations
 parameter_list|()
-throws|throws
-name|IOException
-throws|,
-name|InterruptedException
 block|{
 return|return
 operator|new
@@ -406,8 +380,6 @@ parameter_list|(
 name|DataInput
 name|in
 parameter_list|)
-throws|throws
-name|IOException
 block|{     }
 annotation|@
 name|Override
@@ -418,8 +390,6 @@ parameter_list|(
 name|DataOutput
 name|out
 parameter_list|)
-throws|throws
-name|IOException
 block|{     }
 block|}
 specifier|private
@@ -540,9 +510,11 @@ if|if
 condition|(
 name|providedKey
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|providedKey
 operator|=
 literal|true
