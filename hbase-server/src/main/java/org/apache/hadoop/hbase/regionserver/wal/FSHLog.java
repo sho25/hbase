@@ -2466,11 +2466,6 @@ name|lastException
 init|=
 literal|null
 decl_stmt|;
-name|boolean
-name|wasRollRequested
-init|=
-literal|false
-decl_stmt|;
 try|try
 block|{
 name|TraceUtil
@@ -2484,7 +2479,10 @@ name|writer
 operator|.
 name|sync
 argument_list|(
-name|useHsync
+name|takeSyncFuture
+operator|.
+name|isForceSync
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|TraceUtil
