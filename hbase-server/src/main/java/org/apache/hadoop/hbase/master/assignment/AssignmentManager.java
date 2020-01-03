@@ -5644,7 +5644,7 @@ name|this
 operator|.
 name|master
 operator|.
-name|getClusterConnection
+name|getAsyncClusterConnection
 argument_list|()
 argument_list|,
 name|sn
