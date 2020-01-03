@@ -1942,7 +1942,7 @@ name|forEach
 argument_list|(
 name|deadservers
 operator|::
-name|add
+name|putIfAbsent
 argument_list|)
 expr_stmt|;
 name|liveServersFromWALDir
@@ -2087,7 +2087,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param what START or REPORT    */
+comment|/**    * Called when RegionServer first reports in for duty and thereafter each    * time it heartbeats to make sure it is has not been figured for dead.    * If this server is on the dead list, reject it with a YouAreDeadException.    * If it was dead but came back with a new start code, remove the old entry    * from the dead list.    * @param what START or REPORT    */
 specifier|private
 name|void
 name|checkIsDead
@@ -2115,8 +2115,8 @@ name|serverName
 argument_list|)
 condition|)
 block|{
-comment|// host name, port and start code all match with existing one of the
-comment|// dead servers. So, this server must be dead.
+comment|// Exact match: host name, port and start code all match with existing one of the
+comment|// dead servers. So, this server must be dead. Tell it to kill itself.
 name|String
 name|message
 init|=
@@ -2145,8 +2145,8 @@ name|message
 argument_list|)
 throw|;
 block|}
-comment|// remove dead server with same hostname and port of newly checking in rs after master
-comment|// initialization.See HBASE-5916 for more information.
+comment|// Remove dead server with same hostname and port of newly checking in rs after master
+comment|// initialization. See HBASE-5916 for more information.
 if|if
 condition|(
 operator|(
@@ -2180,17 +2180,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
+literal|"{} {} came back up, removed it from the dead servers list"
+argument_list|,
 name|what
-operator|+
-literal|":"
-operator|+
-literal|" Server "
-operator|+
+argument_list|,
 name|serverName
-operator|+
-literal|" came back up,"
-operator|+
-literal|" removed it from the dead servers list"
 argument_list|)
 expr_stmt|;
 block|}
@@ -3147,7 +3141,8 @@ return|return
 name|pid
 return|;
 block|}
-comment|// Note: this is currently invoked from RPC, not just tests. Locking in this class needs cleanup.
+comment|/**    * Called when server has expired.    */
+comment|// Locking in this class needs cleanup.
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -3191,7 +3186,7 @@ name|this
 operator|.
 name|deadservers
 operator|.
-name|add
+name|putIfAbsent
 argument_list|(
 name|sn
 argument_list|)
@@ -4277,7 +4272,7 @@ name|UNKNOWN
 operator|)
 return|;
 block|}
-comment|/**    * Check if a server is known to be dead.  A server can be online,    * or known to be dead, or unknown to this manager (i.e, not online,    * not known to be dead either. it is simply not tracked by the    * master any more, for example, a very old previous instance).    */
+comment|/**    * Check if a server is known to be dead.  A server can be online,    * or known to be dead, or unknown to this manager (i.e, not online,    * not known to be dead either; it is simply not tracked by the    * master any more, for example, a very old previous instance).    */
 specifier|public
 specifier|synchronized
 name|boolean

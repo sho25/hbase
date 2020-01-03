@@ -792,14 +792,11 @@ argument_list|,
 literal|0
 argument_list|)
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|rsServerName
-operator|.
-name|equals
-argument_list|(
+argument_list|,
 name|serverName
-argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// moveFrom adds to dead servers and adds it to processing list only we will
@@ -1184,22 +1181,6 @@ operator|.
 name|getDeadServers
 argument_list|()
 operator|.
-name|isProcessingServer
-argument_list|(
-name|rsServerName
-argument_list|)
-argument_list|)
-expr_stmt|;
-name|assertFalse
-argument_list|(
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|getDeadServers
-argument_list|()
-operator|.
 name|isDeadServer
 argument_list|(
 name|rsServerName
@@ -1208,6 +1189,7 @@ argument_list|)
 expr_stmt|;
 block|}
 comment|/**    * @return True if we find reference to<code>sn</code> in meta table.    */
+specifier|private
 name|boolean
 name|searchMeta
 parameter_list|(

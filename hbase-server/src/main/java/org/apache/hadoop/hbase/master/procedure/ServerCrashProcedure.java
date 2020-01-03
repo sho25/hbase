@@ -699,7 +699,7 @@ operator|.
 name|getDeadServers
 argument_list|()
 operator|.
-name|notifyServer
+name|processing
 argument_list|(
 name|serverName
 argument_list|)
