@@ -1646,6 +1646,10 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
+specifier|private
+name|boolean
+name|cacheOnWriteLogged
+decl_stmt|;
 comment|/**    * RWLock for store operations.    * Locked in shared mode when the list of component stores is looked at:    *   - all reads/writes to table data    *   - checking for split    * Locked in exclusive mode when the list of component stores is modified:    *   - closing    *   - completing a compaction    */
 specifier|final
 name|ReentrantReadWriteLock
@@ -2436,6 +2440,10 @@ operator|.
 name|getCompressionType
 argument_list|()
 argument_list|)
+expr_stmt|;
+name|cacheOnWriteLogged
+operator|=
+literal|false
 expr_stmt|;
 block|}
 comment|/**    * @return MemStore Instance to use in this store.    */
@@ -6147,7 +6155,7 @@ argument_list|)
 expr_stmt|;
 specifier|final
 name|boolean
-name|shouldCacheCompactedBlocksOnWrite
+name|cacheCompactedBlocksOnWrite
 init|=
 name|cacheConf
 operator|.
@@ -6159,7 +6167,7 @@ comment|// during compaction, we should forcefully
 comment|// cache index and bloom blocks as well
 if|if
 condition|(
-name|shouldCacheCompactedBlocksOnWrite
+name|cacheCompactedBlocksOnWrite
 condition|)
 block|{
 name|writerCacheConf
@@ -6167,15 +6175,29 @@ operator|.
 name|enableCacheOnWrite
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|cacheOnWriteLogged
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"cacheCompactedBlocksOnWrite is true, hence enabled cacheOnWrite for "
+literal|"For Store {} , cacheCompactedBlocksOnWrite is true, hence enabled "
 operator|+
-literal|"Data blocks, Index blocks and Bloom filter blocks"
+literal|"cacheOnWrite for Data blocks, Index blocks and Bloom filter blocks"
+argument_list|,
+name|getColumnFamilyName
+argument_list|()
 argument_list|)
 expr_stmt|;
+name|cacheOnWriteLogged
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -6213,15 +6235,29 @@ operator|.
 name|enableCacheOnWrite
 argument_list|()
 expr_stmt|;
+if|if
+condition|(
+operator|!
+name|cacheOnWriteLogged
+condition|)
+block|{
 name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"cacheDataOnWrite is true, hence enabled cacheOnWrite for "
+literal|"For Store {} , cacheDataOnWrite is true, hence enabled cacheOnWrite for "
 operator|+
 literal|"Index blocks and Bloom filter blocks"
+argument_list|,
+name|getColumnFamilyName
+argument_list|()
 argument_list|)
 expr_stmt|;
+name|cacheOnWriteLogged
+operator|=
+literal|true
+expr_stmt|;
+block|}
 block|}
 block|}
 name|InetSocketAddress
