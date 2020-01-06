@@ -8591,6 +8591,7 @@ block|}
 block|}
 comment|// should be called under the RegionStateNode lock
 comment|// for SCP
+specifier|public
 name|void
 name|regionClosedAbnormally
 parameter_list|(

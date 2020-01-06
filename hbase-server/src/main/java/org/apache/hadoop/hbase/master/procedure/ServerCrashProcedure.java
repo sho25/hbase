@@ -2538,6 +2538,51 @@ operator|.
 name|State
 operator|.
 name|DISABLING
+argument_list|)
+condition|)
+block|{
+comment|// We need to change the state here otherwise the TRSP scheduled by DTP will try to
+comment|// close the region from a dead server and will never succeed. Please see HBASE-23636
+comment|// for more details.
+name|env
+operator|.
+name|getAssignmentManager
+argument_list|()
+operator|.
+name|regionClosedAbnormally
+argument_list|(
+name|regionNode
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} found table disabling for region {}, set it state to ABNORMALLY_CLOSED."
+argument_list|,
+name|this
+argument_list|,
+name|regionNode
+argument_list|)
+expr_stmt|;
+continue|continue;
+block|}
+if|if
+condition|(
+name|env
+operator|.
+name|getMasterServices
+argument_list|()
+operator|.
+name|getTableStateManager
+argument_list|()
+operator|.
+name|isTableState
+argument_list|(
+name|regionNode
+operator|.
+name|getTable
+argument_list|()
 argument_list|,
 name|TableState
 operator|.
@@ -2547,6 +2592,18 @@ name|DISABLED
 argument_list|)
 condition|)
 block|{
+comment|// This should not happen, table disabled but has regions on server.
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Found table disabled for region {}, procDetails: {}"
+argument_list|,
+name|regionNode
+argument_list|,
+name|this
+argument_list|)
+expr_stmt|;
 continue|continue;
 block|}
 comment|// force to assign to a new candidate server, see HBASE-23035 for more details.
