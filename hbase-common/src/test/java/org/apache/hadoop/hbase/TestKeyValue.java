@@ -143,16 +143,6 @@ begin_import
 import|import
 name|java
 operator|.
-name|io
-operator|.
-name|IOException
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
 name|util
 operator|.
 name|Collections
@@ -351,8 +341,6 @@ specifier|public
 name|void
 name|testColumnCompare
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 specifier|final
 name|byte
@@ -572,15 +560,13 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test a corner case when the family qualifier is a prefix of the    *  column qualifier.    */
+comment|/**    * Test a corner case when the family qualifier is a prefix of the column qualifier.    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testColumnCompare_prefix
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 specifier|final
 name|byte
@@ -682,8 +668,6 @@ specifier|public
 name|void
 name|testBasics
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|LOG
 operator|.
@@ -954,8 +938,6 @@ specifier|public
 name|void
 name|testPlainCompare
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 specifier|final
 name|byte
@@ -1276,8 +1258,6 @@ specifier|public
 name|void
 name|testMoreComparisons
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|long
 name|now
@@ -1570,15 +1550,13 @@ literal|0
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests cases where rows keys have characters below the ','.    * See HBASE-832    * @throws IOException    */
+comment|/**    * Tests cases where rows keys have characters below the ','.    * See HBASE-832    */
 annotation|@
 name|Test
 specifier|public
 name|void
 name|testKeyValueBorderCases
 parameter_list|()
-throws|throws
-name|IOException
 block|{
 comment|// % sorts before , so if we don't do special comparator, rowB would
 comment|// come before rowA.
@@ -2117,8 +2095,6 @@ specifier|public
 name|void
 name|testBinaryKeys
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|Set
 argument_list|<
@@ -2321,11 +2297,11 @@ range|:
 name|set
 control|)
 block|{
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|count
 operator|++
-operator|==
+argument_list|,
 name|k
 operator|.
 name|getTimestamp
@@ -2388,11 +2364,11 @@ range|:
 name|set
 control|)
 block|{
-name|assertTrue
+name|assertEquals
 argument_list|(
 name|count
 operator|++
-operator|==
+argument_list|,
 name|k
 operator|.
 name|getTimestamp
@@ -2464,19 +2440,6 @@ literal|"qfA"
 argument_list|)
 decl_stmt|;
 specifier|private
-specifier|final
-name|byte
-index|[]
-name|qualB
-init|=
-name|Bytes
-operator|.
-name|toBytes
-argument_list|(
-literal|"qfB"
-argument_list|)
-decl_stmt|;
-specifier|private
 name|void
 name|assertKVLess
 parameter_list|(
@@ -2534,9 +2497,6 @@ name|assertKVLessWithoutRow
 parameter_list|(
 name|CellComparator
 name|c
-parameter_list|,
-name|int
-name|common
 parameter_list|,
 name|KeyValue
 name|less
@@ -2795,8 +2755,6 @@ name|assertKVLessWithoutRow
 argument_list|(
 name|c
 argument_list|,
-literal|0
-argument_list|,
 name|kv0_1
 argument_list|,
 name|kv0_2
@@ -2807,15 +2765,13 @@ name|assertKVLessWithoutRow
 argument_list|(
 name|c
 argument_list|,
-literal|0
-argument_list|,
 name|kv0_1
 argument_list|,
 name|kv1_0
 argument_list|)
 expr_stmt|;
 comment|// Test comparison by skipping the same prefix bytes.
-comment|/***      * KeyValue Format and commonLength:      * |_keyLen_|_valLen_|_rowLen_|_rowKey_|_famiLen_|_fami_|_Quali_|....      * ------------------|-------commonLength--------|--------------      */
+comment|/*      * KeyValue Format and commonLength:      * |_keyLen_|_valLen_|_rowLen_|_rowKey_|_famiLen_|_fami_|_Quali_|....      * ------------------|-------commonLength--------|--------------      */
 name|int
 name|commonLength
 init|=
@@ -2836,10 +2792,6 @@ name|assertKVLessWithoutRow
 argument_list|(
 name|c
 argument_list|,
-name|commonLength
-operator|+
-literal|2
-argument_list|,
 name|kv_0
 argument_list|,
 name|kv0_0
@@ -2849,10 +2801,6 @@ comment|// 'fami:'< 'fami:qf1'. They have commonPrefix + 4 same prefix bytes.
 name|assertKVLessWithoutRow
 argument_list|(
 name|c
-argument_list|,
-name|commonLength
-operator|+
-literal|4
 argument_list|,
 name|kv0_0
 argument_list|,
@@ -2864,10 +2812,6 @@ name|assertKVLessWithoutRow
 argument_list|(
 name|c
 argument_list|,
-name|commonLength
-operator|+
-literal|4
-argument_list|,
 name|kv0_1
 argument_list|,
 name|kv1_0
@@ -2877,10 +2821,6 @@ comment|// 'fami:qf1'< 'fami:qf2'. They have commonPrefix + 6 same prefix bytes.
 name|assertKVLessWithoutRow
 argument_list|(
 name|c
-argument_list|,
-name|commonLength
-operator|+
-literal|6
 argument_list|,
 name|kv0_1
 argument_list|,
@@ -3298,8 +3238,6 @@ specifier|public
 name|void
 name|testCreateKeyOnly
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|long
 name|ts
@@ -4109,7 +4047,6 @@ argument_list|(
 name|kv
 argument_list|)
 decl_stmt|;
-comment|//Iterator<Tag> tagItr = kv.tagsIterator();
 name|assertTrue
 argument_list|(
 name|tagItr
@@ -4816,8 +4753,6 @@ specifier|public
 name|void
 name|testEqualsAndHashCode
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|KeyValue
 name|kvA1
@@ -5382,13 +5317,10 @@ name|void
 name|testNullByteArrayKeyValueFailure
 parameter_list|()
 block|{
-comment|//can't add to testCheckKeyValueBytesFailureCase because it
-comment|//goes through the InputStream KeyValue API which can't produce a null buffer
+comment|// can't add to testCheckKeyValueBytesFailureCase because it
+comment|// goes through the InputStream KeyValue API which can't produce a null buffer
 try|try
 block|{
-name|KeyValue
-name|kv
-init|=
 operator|new
 name|KeyValue
 argument_list|(
@@ -5398,7 +5330,7 @@ literal|0
 argument_list|,
 literal|0
 argument_list|)
-decl_stmt|;
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -5851,7 +5783,7 @@ block|,
 literal|null
 block|,
 literal|null
-block|, }
+block|,     }
 decl_stmt|;
 name|assertEquals
 argument_list|(

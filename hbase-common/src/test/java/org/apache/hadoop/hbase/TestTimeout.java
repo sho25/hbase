@@ -79,11 +79,9 @@ begin_class
 annotation|@
 name|Category
 argument_list|(
-block|{
 name|SmallTests
 operator|.
 name|class
-block|}
 argument_list|)
 specifier|public
 class|class
@@ -123,7 +121,7 @@ literal|100
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Enable to check if timeout works.      * Can't enable as it waits 30seconds and expected doesn't do Exception catching      */
+comment|/**    * Enable to check if timeout works.    * Can't enable as it waits 30seconds and expected doesn't do Exception catching    */
 annotation|@
 name|Ignore
 annotation|@

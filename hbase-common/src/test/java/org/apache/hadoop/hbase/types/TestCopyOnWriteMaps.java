@@ -384,8 +384,6 @@ specifier|public
 name|void
 name|testSize
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -409,8 +407,6 @@ specifier|public
 name|void
 name|testIsEmpty
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|m
 operator|.
@@ -464,8 +460,6 @@ specifier|public
 name|void
 name|testFindOnEmpty
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|m
 operator|.
@@ -525,8 +519,6 @@ specifier|public
 name|void
 name|testLowerKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -615,8 +607,6 @@ specifier|public
 name|void
 name|testFloorEntry
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -669,8 +659,6 @@ specifier|public
 name|void
 name|testFloorKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -723,8 +711,6 @@ specifier|public
 name|void
 name|testCeilingKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -830,8 +816,6 @@ specifier|public
 name|void
 name|testHigherKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -937,8 +921,6 @@ specifier|public
 name|void
 name|testRemove
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -981,10 +963,8 @@ argument_list|()
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertEquals
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|m
 operator|.
 name|remove
@@ -1004,8 +984,6 @@ specifier|public
 name|void
 name|testReplace
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -1064,10 +1042,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|assertEquals
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|m
 operator|.
 name|replace
@@ -1093,8 +1069,6 @@ specifier|public
 name|void
 name|testReplace1
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -1242,10 +1216,8 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-name|assertEquals
+name|assertNull
 argument_list|(
-literal|null
-argument_list|,
 name|m
 operator|.
 name|replace
@@ -1309,16 +1281,8 @@ operator|=
 operator|new
 name|Thread
 argument_list|(
-operator|new
-name|Runnable
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|void
-name|run
 parameter_list|()
+lambda|->
 block|{
 for|for
 control|(
@@ -1356,7 +1320,6 @@ name|nextLong
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 argument_list|)
@@ -1397,8 +1360,6 @@ specifier|public
 name|void
 name|testFirstKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -1420,8 +1381,6 @@ specifier|public
 name|void
 name|testLastKey
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -1443,8 +1402,6 @@ specifier|public
 name|void
 name|testFirstEntry
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -1504,8 +1461,6 @@ specifier|public
 name|void
 name|testLastEntry
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|assertEquals
 argument_list|(
@@ -1565,8 +1520,6 @@ specifier|public
 name|void
 name|testKeys
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -1579,7 +1532,6 @@ name|keySet
 argument_list|()
 control|)
 block|{
-comment|//assertTrue(m.containsKey(key));
 name|assertNotNull
 argument_list|(
 name|m
@@ -1618,8 +1570,6 @@ specifier|public
 name|void
 name|testValues
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 for|for
 control|(
@@ -1636,10 +1586,7 @@ name|assertTrue
 argument_list|(
 name|csm
 operator|.
-name|values
-argument_list|()
-operator|.
-name|contains
+name|containsValue
 argument_list|(
 name|value
 argument_list|)
@@ -1663,8 +1610,6 @@ specifier|public
 name|void
 name|testTailMap
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|Map
 argument_list|<
@@ -1785,8 +1730,6 @@ specifier|public
 name|void
 name|testTailMapExclusive
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|m
 operator|.
@@ -1936,8 +1879,6 @@ specifier|public
 name|void
 name|testTailMapInclusive
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|m
 operator|.
@@ -2168,8 +2109,6 @@ specifier|public
 name|void
 name|testPut
 parameter_list|()
-throws|throws
-name|Exception
 block|{
 name|m
 operator|.

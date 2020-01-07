@@ -220,7 +220,7 @@ extends|extends
 name|Exception
 parameter_list|>
 block|{
-comment|/**      * Perform a predicate evaluation.      * @return the boolean result of the evaluation.      * @throws Exception thrown if the predicate evaluation could not evaluate.      */
+comment|/**      * Perform a predicate evaluation.      * @return the boolean result of the evaluation.      * @throws E thrown if the predicate evaluation could not evaluate.      */
 name|boolean
 name|evaluate
 parameter_list|()
@@ -336,8 +336,6 @@ name|E
 argument_list|>
 name|predicate
 parameter_list|)
-throws|throws
-name|E
 block|{
 return|return
 name|waitFor
@@ -380,8 +378,6 @@ name|E
 argument_list|>
 name|predicate
 parameter_list|)
-throws|throws
-name|E
 block|{
 return|return
 name|waitFor
@@ -427,8 +423,6 @@ name|E
 argument_list|>
 name|predicate
 parameter_list|)
-throws|throws
-name|E
 block|{
 name|long
 name|started
@@ -462,20 +456,14 @@ name|adjustedTimeout
 decl_stmt|;
 name|long
 name|remainderWait
-init|=
-literal|0
 decl_stmt|;
 name|long
 name|sleepInterval
-init|=
-literal|0
 decl_stmt|;
-name|Boolean
+name|boolean
 name|eval
-init|=
-literal|false
 decl_stmt|;
-name|Boolean
+name|boolean
 name|interrupted
 init|=
 literal|false
@@ -532,15 +520,14 @@ block|{
 comment|// handle tail case when remainder wait is less than one interval
 name|sleepInterval
 operator|=
-operator|(
+name|Math
+operator|.
+name|min
+argument_list|(
 name|remainderWait
-operator|>
+argument_list|,
 name|interval
-operator|)
-condition|?
-name|interval
-else|:
-name|remainderWait
+argument_list|)
 expr_stmt|;
 name|Thread
 operator|.
