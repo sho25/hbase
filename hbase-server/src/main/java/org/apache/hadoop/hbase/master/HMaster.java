@@ -9714,6 +9714,7 @@ name|int
 name|getMaxBalancingTime
 parameter_list|()
 block|{
+comment|// if max balancing time isn't set, defaulting it to period time
 name|int
 name|maxBalancingTime
 init|=
@@ -9726,21 +9727,6 @@ name|HConstants
 operator|.
 name|HBASE_BALANCER_MAX_BALANCING
 argument_list|,
-operator|-
-literal|1
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|maxBalancingTime
-operator|==
-operator|-
-literal|1
-condition|)
-block|{
-comment|// if max balancing time isn't set, defaulting it to period time
-name|maxBalancingTime
-operator|=
 name|getConfiguration
 argument_list|()
 operator|.
@@ -9754,8 +9740,8 @@ name|HConstants
 operator|.
 name|DEFAULT_HBASE_BALANCER_PERIOD
 argument_list|)
-expr_stmt|;
-block|}
+argument_list|)
+decl_stmt|;
 return|return
 name|maxBalancingTime
 return|;
@@ -10635,6 +10621,15 @@ comment|//rpCount records balance plans processed, does not care if a plan succe
 name|rpCount
 operator|++
 expr_stmt|;
+if|if
+condition|(
+name|this
+operator|.
+name|maxBlancingTime
+operator|>
+literal|0
+condition|)
+block|{
 name|balanceThrottling
 argument_list|(
 name|balanceStartTime
@@ -10648,9 +10643,16 @@ argument_list|,
 name|cutoffTime
 argument_list|)
 expr_stmt|;
+block|}
 comment|// if performing next balance exceeds cutoff time, exit the loop
 if|if
 condition|(
+name|this
+operator|.
+name|maxBlancingTime
+operator|>
+literal|0
+operator|&&
 name|rpCount
 argument_list|<
 name|plans
