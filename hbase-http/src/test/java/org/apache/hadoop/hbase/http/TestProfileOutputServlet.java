@@ -180,6 +180,8 @@ argument_list|,
 literal|"key1=value&key2=value2"
 argument_list|,
 literal|""
+argument_list|,
+literal|"host=host-1.example.com"
 argument_list|)
 decl_stmt|;
 for|for

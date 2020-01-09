@@ -177,7 +177,7 @@ name|REFRESH_PERIOD
 init|=
 literal|2
 decl_stmt|;
-comment|// Alphanumeric characters, plus percent (url-encoding), equals, and ampersand
+comment|// Alphanumeric characters, plus percent (url-encoding), equals, ampersand, dot and hyphen
 specifier|private
 specifier|static
 specifier|final
@@ -188,7 +188,7 @@ name|Pattern
 operator|.
 name|compile
 argument_list|(
-literal|"[a-zA-Z0-9\\%\\=\\&]*"
+literal|"[a-zA-Z0-9%=&.\\-]*"
 argument_list|)
 decl_stmt|;
 annotation|@
