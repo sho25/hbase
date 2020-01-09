@@ -2019,7 +2019,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The old procedure wal directory {} exists, start migrating"
+literal|"The old WALProcedureStore wal directory {} exists, migrating..."
 argument_list|,
 name|procWALDir
 argument_list|)
@@ -2244,7 +2244,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"The max pid is {}, and the max pid of all loaded procedures is {}"
+literal|"The WALProcedureStore max pid is {}, and the max pid of all loaded procedures is {}"
 argument_list|,
 name|maxProcIdSet
 operator|.
@@ -2331,7 +2331,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"The max pid is less than the max pid of all loaded procedures"
+literal|"The WALProcedureStore max pid is less than the max pid of all loaded procedures"
 argument_list|)
 expr_stmt|;
 block|}
@@ -2352,7 +2352,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Failed to delete the migrated proc wal directory "
+literal|"Failed to delete the WALProcedureStore migrated proc wal directory "
 operator|+
 name|procWALDir
 argument_list|)
@@ -2362,7 +2362,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Migration finished"
+literal|"Migration of WALProcedureStore finished"
 argument_list|)
 expr_stmt|;
 block|}
