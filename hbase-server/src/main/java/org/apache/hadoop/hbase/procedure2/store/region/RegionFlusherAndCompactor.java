@@ -643,7 +643,7 @@ name|info
 argument_list|(
 literal|"Constructor flushSize={}, flushPerChanges={}, flushIntervalMs={}, "
 operator|+
-literal|"compactMin="
+literal|"compactMin={}"
 argument_list|,
 name|flushSize
 argument_list|,
