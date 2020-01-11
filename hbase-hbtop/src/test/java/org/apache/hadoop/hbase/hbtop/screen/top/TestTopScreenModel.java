@@ -372,7 +372,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|TopScreenModelTest
+name|TestTopScreenModel
 block|{
 annotation|@
 name|ClassRule
@@ -386,7 +386,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TopScreenModelTest
+name|TestTopScreenModel
 operator|.
 name|class
 argument_list|)

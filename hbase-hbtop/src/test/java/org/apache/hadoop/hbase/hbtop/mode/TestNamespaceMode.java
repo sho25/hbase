@@ -179,9 +179,9 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|NamespaceModeTest
+name|TestNamespaceMode
 extends|extends
-name|ModeTestBase
+name|TestModeBase
 block|{
 annotation|@
 name|ClassRule
@@ -195,7 +195,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|NamespaceModeTest
+name|TestNamespaceMode
 operator|.
 name|class
 argument_list|)

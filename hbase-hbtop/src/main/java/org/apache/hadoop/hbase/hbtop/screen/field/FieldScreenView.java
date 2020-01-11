@@ -569,7 +569,7 @@ name|void
 name|showScreenDescription
 parameter_list|(
 name|String
-name|sortKeyHeader
+name|sortFieldHeader
 parameter_list|)
 block|{
 name|TerminalPrinter
@@ -608,7 +608,7 @@ argument_list|()
 operator|.
 name|print
 argument_list|(
-name|sortKeyHeader
+name|sortFieldHeader
 argument_list|)
 operator|.
 name|stopBold

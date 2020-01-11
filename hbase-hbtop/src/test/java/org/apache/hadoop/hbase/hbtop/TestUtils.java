@@ -1998,7 +1998,7 @@ name|Size
 name|memStoreSize
 parameter_list|,
 name|float
-name|Locality
+name|locality
 parameter_list|,
 name|String
 name|startKey
@@ -2345,7 +2345,7 @@ argument_list|()
 argument_list|,
 name|is
 argument_list|(
-name|Locality
+name|locality
 argument_list|)
 argument_list|)
 expr_stmt|;

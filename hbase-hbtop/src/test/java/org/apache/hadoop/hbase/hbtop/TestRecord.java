@@ -151,7 +151,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|RecordTest
+name|TestRecord
 block|{
 annotation|@
 name|ClassRule
@@ -165,7 +165,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|RecordTest
+name|TestRecord
 operator|.
 name|class
 argument_list|)

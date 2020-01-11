@@ -16,6 +16,8 @@ operator|.
 name|hbtop
 operator|.
 name|terminal
+operator|.
+name|impl
 package|;
 end_package
 
@@ -45,9 +47,25 @@ name|hbtop
 operator|.
 name|terminal
 operator|.
-name|impl
+name|KeyPress
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|TerminalImpl
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|hbtop
+operator|.
+name|terminal
+operator|.
+name|Terminal
 import|;
 end_import
 
@@ -55,10 +73,10 @@ begin_class
 specifier|public
 specifier|final
 class|class
-name|CursorTest
+name|TestCursor
 block|{
 specifier|private
-name|CursorTest
+name|TestCursor
 parameter_list|()
 block|{   }
 specifier|public

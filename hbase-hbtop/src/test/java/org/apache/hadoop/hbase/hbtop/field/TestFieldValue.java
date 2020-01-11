@@ -143,7 +143,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|FieldValueTest
+name|TestFieldValue
 block|{
 annotation|@
 name|ClassRule
@@ -157,7 +157,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|FieldValueTest
+name|TestFieldValue
 operator|.
 name|class
 argument_list|)

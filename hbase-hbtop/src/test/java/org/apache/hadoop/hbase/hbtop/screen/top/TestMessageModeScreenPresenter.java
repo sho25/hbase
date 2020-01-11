@@ -194,7 +194,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|MessageModeScreenPresenterTest
+name|TestMessageModeScreenPresenter
 block|{
 annotation|@
 name|ClassRule
@@ -208,7 +208,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|MessageModeScreenPresenterTest
+name|TestMessageModeScreenPresenter
 operator|.
 name|class
 argument_list|)

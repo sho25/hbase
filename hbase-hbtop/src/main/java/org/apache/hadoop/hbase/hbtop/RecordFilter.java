@@ -206,6 +206,7 @@ name|ignoreCase
 argument_list|)
 return|;
 block|}
+comment|/*    * Parse a filter string and build a RecordFilter instance.    */
 specifier|public
 specifier|static
 name|RecordFilter

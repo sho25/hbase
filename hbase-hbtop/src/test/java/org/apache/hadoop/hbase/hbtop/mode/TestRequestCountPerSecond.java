@@ -117,7 +117,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|RequestCountPerSecondTest
+name|TestRequestCountPerSecond
 block|{
 annotation|@
 name|ClassRule
@@ -131,7 +131,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|RequestCountPerSecondTest
+name|TestRequestCountPerSecond
 operator|.
 name|class
 argument_list|)

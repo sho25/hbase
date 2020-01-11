@@ -1332,7 +1332,7 @@ argument_list|,
 name|fieldDisplayMap
 argument_list|,
 parameter_list|(
-name|sortKey
+name|sortField
 parameter_list|,
 name|fields
 parameter_list|,
@@ -1344,7 +1344,7 @@ name|topScreenModel
 operator|.
 name|setSortFieldAndFields
 argument_list|(
-name|sortKey
+name|sortField
 argument_list|,
 name|fields
 argument_list|)

@@ -235,7 +235,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|RecordFilterTest
+name|TestRecordFilter
 block|{
 annotation|@
 name|ClassRule
@@ -249,7 +249,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|RecordFilterTest
+name|TestRecordFilter
 operator|.
 name|class
 argument_list|)

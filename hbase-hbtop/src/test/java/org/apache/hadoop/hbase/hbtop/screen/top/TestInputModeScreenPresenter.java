@@ -290,7 +290,7 @@ name|class
 argument_list|)
 specifier|public
 class|class
-name|InputModeScreenPresenterTest
+name|TestInputModeScreenPresenter
 block|{
 annotation|@
 name|ClassRule
@@ -304,7 +304,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|InputModeScreenPresenterTest
+name|TestInputModeScreenPresenter
 operator|.
 name|class
 argument_list|)
