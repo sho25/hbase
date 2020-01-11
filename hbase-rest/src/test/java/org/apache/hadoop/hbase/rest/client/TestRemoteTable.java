@@ -1215,11 +1215,7 @@ operator|.
 name|getDescriptor
 argument_list|()
 argument_list|,
-operator|new
-name|HTableDescriptor
-argument_list|(
 name|local
-argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
