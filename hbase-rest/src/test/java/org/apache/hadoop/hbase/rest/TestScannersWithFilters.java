@@ -2035,7 +2035,7 @@ operator|.
 name|size
 argument_list|()
 decl_stmt|;
-name|assertTrue
+name|assertEquals
 argument_list|(
 literal|"Scanned too many rows! Only expected "
 operator|+
@@ -2046,7 +2046,7 @@ operator|+
 name|rows
 argument_list|,
 name|expectedRows
-operator|==
+argument_list|,
 name|rows
 argument_list|)
 expr_stmt|;
@@ -2356,7 +2356,9 @@ condition|(
 operator|!
 name|done
 condition|)
+block|{
 break|break;
+block|}
 name|RowModel
 name|rowModel
 init|=
@@ -2383,7 +2385,9 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 break|break;
+block|}
 name|assertTrue
 argument_list|(
 literal|"Scanned too many keys! Only expected "
@@ -2805,7 +2809,9 @@ condition|(
 operator|!
 name|done
 condition|)
+block|{
 break|break;
+block|}
 name|RowModel
 name|rowModel
 init|=
@@ -2832,7 +2838,9 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 break|break;
+block|}
 name|assertTrue
 argument_list|(
 literal|"Scanned too many rows! Only expected "
@@ -4453,8 +4461,7 @@ argument_list|,
 name|expectedKeys
 argument_list|)
 expr_stmt|;
-comment|// Match keys less than or equal
-comment|// Expect four keys (two from each family) in half the rows
+comment|// Match keys less than or equal. Expect four keys (two from each family) in half the rows
 name|expectedRows
 operator|=
 name|numRows
@@ -4508,8 +4515,7 @@ argument_list|,
 name|expectedKeys
 argument_list|)
 expr_stmt|;
-comment|// Match keys not equal
-comment|// Expect four keys (two from each family)
+comment|// Match keys not equal. Expect four keys (two from each family)
 comment|// Only look in first group of rows
 name|expectedRows
 operator|=
@@ -4575,8 +4581,7 @@ argument_list|,
 name|expectedKeys
 argument_list|)
 expr_stmt|;
-comment|// Match keys greater or equal
-comment|// Expect four keys (two from each family)
+comment|// Match keys greater or equal. Expect four keys (two from each family)
 comment|// Only look in first group of rows
 name|expectedRows
 operator|=
@@ -4642,8 +4647,7 @@ argument_list|,
 name|expectedKeys
 argument_list|)
 expr_stmt|;
-comment|// Match keys greater
-comment|// Expect two keys (one from each family)
+comment|// Match keys greater. Expect two keys (one from each family)
 comment|// Only look in first group of rows
 name|expectedRows
 operator|=
@@ -4709,10 +4713,8 @@ argument_list|,
 name|expectedKeys
 argument_list|)
 expr_stmt|;
-comment|// Match keys not equal to
-comment|// Look across rows and fully validate the keys and ordering
-comment|// Expect varied numbers of keys, 4 per row in group one, 6 per row in
-comment|// group two
+comment|// Match keys not equal to. Look across rows and fully validate the keys and ordering
+comment|// Expect varied numbers of keys, 4 per row in group one, 6 per row in group two
 name|f
 operator|=
 operator|new
@@ -5484,8 +5486,7 @@ argument_list|,
 name|kvs
 argument_list|)
 expr_stmt|;
-comment|// Test across rows and groups with a regex
-comment|// Filter out "test*-2"
+comment|// Test across rows and groups with a regex. Filter out "test*-2"
 comment|// Expect 4 keys per row across both groups
 name|f
 operator|=

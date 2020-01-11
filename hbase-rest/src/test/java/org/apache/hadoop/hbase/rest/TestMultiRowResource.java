@@ -113,18 +113,6 @@ name|xml
 operator|.
 name|bind
 operator|.
-name|JAXBException
-import|;
-end_import
-
-begin_import
-import|import
-name|javax
-operator|.
-name|xml
-operator|.
-name|bind
-operator|.
 name|Marshaller
 import|;
 end_import
@@ -990,8 +978,6 @@ name|testMultiCellGetJSON
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|String
 name|row_5_url
@@ -1217,8 +1203,6 @@ name|testMultiCellGetXML
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|String
 name|row_5_url
@@ -1407,8 +1391,6 @@ name|testMultiCellGetWithColsJSON
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|String
 name|row_5_url
@@ -1759,8 +1741,6 @@ name|testMultiCellGetJSONNotFound
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|String
 name|row_5_url
@@ -1996,8 +1976,6 @@ name|testMultiCellGetWithColsInQueryPathJSON
 parameter_list|()
 throws|throws
 name|IOException
-throws|,
-name|JAXBException
 block|{
 name|String
 name|row_5_url

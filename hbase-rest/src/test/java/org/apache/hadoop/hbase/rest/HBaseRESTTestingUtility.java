@@ -204,6 +204,7 @@ name|server
 operator|!=
 literal|null
 condition|)
+block|{
 try|try
 block|{
 name|server
@@ -239,6 +240,7 @@ name|e
 argument_list|)
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
