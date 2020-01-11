@@ -1951,28 +1951,6 @@ name|google
 operator|.
 name|common
 operator|.
-name|annotations
-operator|.
-name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
 name|io
 operator|.
 name|Closeables
@@ -3111,11 +3089,7 @@ literal|"test-data"
 argument_list|)
 return|;
 block|}
-comment|/**    * @return META table descriptor builder    * @Deprecated    */
-annotation|@
-name|Deprecated
-annotation|@
-name|VisibleForTesting
+comment|/**    * @return META table descriptor    */
 specifier|public
 name|TableDescriptorBuilder
 name|getMetaTableDescriptorBuilder

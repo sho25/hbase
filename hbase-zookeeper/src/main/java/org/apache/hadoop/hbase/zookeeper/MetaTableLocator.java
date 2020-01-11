@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -378,6 +378,25 @@ specifier|private
 name|MetaTableLocator
 parameter_list|()
 block|{   }
+comment|/**    * Checks if the meta region location is available.    * @return true if meta region location is available, false if not    */
+specifier|public
+specifier|static
+name|boolean
+name|isLocationAvailable
+parameter_list|(
+name|ZKWatcher
+name|zkw
+parameter_list|)
+block|{
+return|return
+name|getMetaRegionLocation
+argument_list|(
+name|zkw
+argument_list|)
+operator|!=
+literal|null
+return|;
+block|}
 comment|/**    * @param zkw ZooKeeper watcher to be used    * @return meta table regions and their locations.    */
 specifier|public
 specifier|static
@@ -1118,7 +1137,7 @@ name|DEFAULT_REPLICA_ID
 argument_list|)
 return|;
 block|}
-comment|/**    * Load the meta region state from the meta region server ZNode.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return regionstate    * @throws KeeperException if a ZooKeeper operation fails    */
+comment|/**    * Load the meta region state from the meta server ZNode.    *    * @param zkw reference to the {@link ZKWatcher} which also contains configuration and operation    * @param replicaId the ID of the replica    * @return regionstate    * @throws KeeperException if a ZooKeeper operation fails    */
 specifier|public
 specifier|static
 name|RegionState

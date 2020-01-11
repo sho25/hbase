@@ -188,7 +188,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A subclass of TableStateManager that mirrors change in state out to zookeeper for hbase-1.x  * clients to pick up; hbase-1.x clients read table state of zookeeper rather than from hbase:meta  * as hbase-2.x clients do. Set "hbase.mirror.table.state.to.zookeeper" to false to disable  * mirroring. See in HMaster where we make the choice. The below does zk updates on a best-effort  * basis only. If we fail updating zk we keep going because only hbase1 clients suffer; we'll just  * log at WARN level.  * @deprecated Since 2.0.0. To be removed in 3.0.0. ZKRegistry#getMetaTableState reads  *   mirrored state so add alternative mechanism before purge else cannot disable hbase:meta table  */
+comment|/**  * A subclass of TableStateManager that mirrors change in state out to zookeeper for hbase-1.x  * clients to pick up; hbase-1.x clients read table state of zookeeper rather than from hbase:meta  * as hbase-2.x clients do. Set "hbase.mirror.table.state.to.zookeeper" to false to disable  * mirroring. See in HMaster where we make the choice. The below does zk updates on a best-effort  * basis only. If we fail updating zk we keep going because only hbase1 clients suffer; we'll just  * log at WARN level.  * @deprecated Since 2.0.0. To be removed in 3.0.0.  */
 end_comment
 
 begin_class
@@ -219,7 +219,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|/**    * Set this key to true in Configuration to enable mirroring of table state out to zookeeper so    * hbase-1.x clients can pick-up table state. Default value is 'true'.    */
+comment|/**    * Set this key to true in Configuration to enable mirroring of table state out to zookeeper so    * hbase-1.x clients can pick-up table state.    */
 specifier|static
 specifier|final
 name|String
