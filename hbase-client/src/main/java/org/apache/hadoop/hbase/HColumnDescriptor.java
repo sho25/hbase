@@ -824,6 +824,28 @@ specifier|final
 name|ModifyableColumnFamilyDescriptor
 name|delegatee
 decl_stmt|;
+comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    *   letter -- and may not contain a<code>:</code>    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18433">HBASE-18433</a>).    *             Use {@link ColumnFamilyDescriptorBuilder#of(String)}.    */
+annotation|@
+name|Deprecated
+specifier|public
+name|HColumnDescriptor
+parameter_list|(
+specifier|final
+name|String
+name|familyName
+parameter_list|)
+block|{
+name|this
+argument_list|(
+name|Bytes
+operator|.
+name|toBytes
+argument_list|(
+name|familyName
+argument_list|)
+argument_list|)
+expr_stmt|;
+block|}
 comment|/**    * Construct a column descriptor specifying only the family name    * The other attributes are defaulted.    *    * @param familyName Column family name. Must be 'printable' -- digit or    * letter -- and may not contain a<code>:</code>    * @deprecated As of release 2.0.0, this will be removed in HBase 3.0.0    *             (<a href="https://issues.apache.org/jira/browse/HBASE-18433">HBASE-18433</a>).    *             Use {@link ColumnFamilyDescriptorBuilder#of(byte[])}.    */
 annotation|@
 name|Deprecated
