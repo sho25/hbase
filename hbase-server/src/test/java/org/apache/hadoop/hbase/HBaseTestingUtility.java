@@ -5221,6 +5221,29 @@ name|getRsClass
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Populate the master address configuration from mini cluster configuration.
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_ADDRS_KEY
+argument_list|,
+name|c
+operator|.
+name|get
+argument_list|(
+name|HConstants
+operator|.
+name|MASTER_ADDRS_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|MASTER_ADDRS_DEFAULT
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// Don't leave here till we've done a successful scan of the hbase:meta
 name|Table
 name|t

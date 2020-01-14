@@ -13,23 +13,17 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|client
+name|exceptions
 package|;
 end_package
 
 begin_import
-import|import static
-name|org
+import|import
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HConstants
-operator|.
-name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
+name|Set
 import|;
 end_import
 
@@ -41,9 +35,23 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|conf
+name|hbase
 operator|.
-name|Configuration
+name|HBaseIOException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|ServerName
 import|;
 end_import
 
@@ -59,7 +67,7 @@ name|hbase
 operator|.
 name|util
 operator|.
-name|ReflectionUtils
+name|PrettyPrinter
 import|;
 end_import
 
@@ -78,7 +86,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Factory class to get the instance of configured connection registry.  */
+comment|/**  * Exception thrown when an master registry RPC fails in client. The exception includes the list of  * masters to which RPC was attempted and the last exception encountered. Prior exceptions are  * included in the logs.  */
 end_comment
 
 begin_class
@@ -86,56 +94,44 @@ annotation|@
 name|InterfaceAudience
 operator|.
 name|Private
-specifier|final
+specifier|public
 class|class
-name|ConnectionRegistryFactory
+name|MasterRegistryFetchException
+extends|extends
+name|HBaseIOException
 block|{
-specifier|private
-name|ConnectionRegistryFactory
-parameter_list|()
-block|{   }
-comment|/**    * @return The connection registry implementation to use.    */
-specifier|static
-name|ConnectionRegistry
-name|getRegistry
+specifier|public
+name|MasterRegistryFetchException
 parameter_list|(
-name|Configuration
-name|conf
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|masters
+parameter_list|,
+name|Throwable
+name|failure
 parameter_list|)
 block|{
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|ConnectionRegistry
-argument_list|>
-name|clazz
-init|=
-name|conf
-operator|.
-name|getClass
+name|super
 argument_list|(
-name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
-argument_list|,
-name|ZKConnectionRegistry
+name|String
 operator|.
-name|class
-argument_list|,
-name|ConnectionRegistry
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-return|return
-name|ReflectionUtils
-operator|.
-name|newInstance
+name|format
 argument_list|(
-name|clazz
+literal|"Exception making rpc to masters %s"
 argument_list|,
-name|conf
+name|PrettyPrinter
+operator|.
+name|toString
+argument_list|(
+name|masters
 argument_list|)
-return|;
+argument_list|)
+argument_list|,
+name|failure
+argument_list|)
+expr_stmt|;
 block|}
 block|}
 end_class

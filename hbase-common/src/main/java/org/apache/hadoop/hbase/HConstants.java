@@ -546,7 +546,7 @@ specifier|final
 name|String
 name|MASTER_ADDRS_KEY
 init|=
-literal|"hbase.master.addrs"
+literal|"hbase.masters"
 decl_stmt|;
 specifier|public
 specifier|static
@@ -557,6 +557,24 @@ init|=
 literal|"localhost:"
 operator|+
 name|DEFAULT_MASTER_PORT
+decl_stmt|;
+comment|/** Configuration to enable hedged reads on master registry **/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MASTER_REGISTRY_ENABLE_HEDGED_READS_KEY
+init|=
+literal|"hbase.client.master_registry.enable_hedged_reads"
+decl_stmt|;
+comment|/** Default value for enabling hedging reads on master registry **/
+specifier|public
+specifier|static
+specifier|final
+name|boolean
+name|MASTER_REGISTRY_ENABLE_HEDGED_READS_DEFAULT
+init|=
+literal|false
 decl_stmt|;
 comment|/** Parameter name for the master type being backup (waits for primary to go inactive). */
 specifier|public
@@ -2303,6 +2321,24 @@ name|HBASE_RPC_TIMEOUT_KEY
 init|=
 literal|"hbase.rpc.timeout"
 decl_stmt|;
+comment|/** Configuration key that controls the fan out of requests in hedged channel implementation. **/
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HBASE_RPCS_HEDGED_REQS_FANOUT_KEY
+init|=
+literal|"hbase.rpc.hedged.fanout"
+decl_stmt|;
+comment|/** Default value for the fan out of hedged requests. **/
+specifier|public
+specifier|static
+specifier|final
+name|int
+name|HBASE_RPCS_HEDGED_REQS_FANOUT_DEFAULT
+init|=
+literal|2
+decl_stmt|;
 comment|/**    * timeout for each read RPC    */
 specifier|public
 specifier|static
@@ -2357,6 +2393,15 @@ name|NO_SEQNUM
 init|=
 operator|-
 literal|1
+decl_stmt|;
+comment|/**    * Registry implementation to be used on the client side.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
+init|=
+literal|"hbase.client.registry.impl"
 decl_stmt|;
 comment|/*    * cluster replication constants.    */
 specifier|public
