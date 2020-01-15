@@ -175,7 +175,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TestTableName
+name|TableNameTestRule
 import|;
 end_import
 
@@ -572,11 +572,11 @@ decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
-name|TestTableName
-name|TEST_TABLE
+name|TableNameTestRule
+name|testTable
 init|=
 operator|new
-name|TestTableName
+name|TableNameTestRule
 argument_list|()
 decl_stmt|;
 specifier|public
@@ -831,7 +831,7 @@ block|{
 name|TableName
 name|tableName
 init|=
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()

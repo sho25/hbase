@@ -239,7 +239,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TableNotFoundException
+name|TableNameTestRule
 import|;
 end_import
 
@@ -253,7 +253,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|TestTableName
+name|TableNotFoundException
 import|;
 end_import
 
@@ -921,11 +921,11 @@ decl_stmt|;
 annotation|@
 name|Rule
 specifier|public
-name|TestTableName
-name|TEST_TABLE
+name|TableNameTestRule
+name|testTable
 init|=
 operator|new
-name|TestTableName
+name|TableNameTestRule
 argument_list|()
 decl_stmt|;
 specifier|private
@@ -1406,7 +1406,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -1476,7 +1476,7 @@ name|TEST_UTIL
 operator|.
 name|waitTableAvailable
 argument_list|(
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -1496,7 +1496,7 @@ name|getTablePermissions
 argument_list|(
 name|conf
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -1679,7 +1679,7 @@ init|=
 operator|new
 name|HTableDescriptor
 argument_list|(
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2027,7 +2027,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2051,7 +2051,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2075,7 +2075,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2099,7 +2099,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2196,7 +2196,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2221,7 +2221,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2246,7 +2246,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
@@ -2271,7 +2271,7 @@ operator|.
 name|getShortName
 argument_list|()
 argument_list|,
-name|TEST_TABLE
+name|testTable
 operator|.
 name|getTableName
 argument_list|()
