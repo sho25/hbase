@@ -117,6 +117,18 @@ end_import
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Collectors
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -650,13 +662,53 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
+if|if
+condition|(
+name|results
+operator|.
+name|isEmpty
+argument_list|()
+condition|)
+block|{
+return|return
+literal|0
+return|;
+block|}
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Old WAL files pending deletion: {}"
+literal|"Old WALs for delete: {}"
 argument_list|,
 name|results
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|map
+argument_list|(
+name|cc
+lambda|->
+name|cc
+operator|.
+name|target
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+operator|.
+name|collect
+argument_list|(
+name|Collectors
+operator|.
+name|joining
+argument_list|(
+literal|", "
+argument_list|)
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|pendingDelete
@@ -763,7 +815,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Creating {} OldWALs cleaner threads"
+literal|"Creating {} old WALs cleaner threads"
 argument_list|,
 name|size
 argument_list|)
@@ -917,7 +969,7 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Attempting to delete old WAL file: {}"
+literal|"Deleting {}"
 argument_list|,
 name|oldWalFile
 argument_list|)
@@ -958,7 +1010,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to clean old WAL file"
+literal|"Failed to delete old WAL file"
 argument_list|,
 name|e
 argument_list|)
@@ -1001,7 +1053,7 @@ return|return;
 block|}
 name|LOG
 operator|.
-name|debug
+name|trace
 argument_list|(
 literal|"Exiting"
 argument_list|)
@@ -1148,7 +1200,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Spend too much time [{}ms] to delete old WAL file: {}"
+literal|"Spent too much time [{}ms] deleting old WAL file: {}"
 argument_list|,
 name|waitIfNotFinished
 argument_list|,

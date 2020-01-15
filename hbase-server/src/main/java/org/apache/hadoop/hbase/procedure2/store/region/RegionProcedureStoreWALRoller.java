@@ -528,7 +528,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Successfully moved {} to {}"
+literal|"Moved {} to {}"
 argument_list|,
 name|file
 argument_list|,
