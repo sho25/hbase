@@ -204,6 +204,16 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
+comment|// Don't fail if there is a missing category
+if|if
+condition|(
+name|categories
+operator|.
+name|length
+operator|>
+literal|0
+condition|)
+block|{
 for|for
 control|(
 name|Class
@@ -231,6 +241,7 @@ name|class
 condition|)
 block|{
 return|return;
+block|}
 block|}
 block|}
 for|for
