@@ -1093,24 +1093,6 @@ name|master
 operator|.
 name|assignment
 operator|.
-name|AssignProcedure
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|assignment
-operator|.
 name|AssignmentManager
 import|;
 end_import
@@ -1130,24 +1112,6 @@ operator|.
 name|assignment
 operator|.
 name|MergeTableRegionsProcedure
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|assignment
-operator|.
-name|MoveRegionProcedure
 import|;
 end_import
 
@@ -1202,24 +1166,6 @@ operator|.
 name|assignment
 operator|.
 name|TransitRegionStateProcedure
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|assignment
-operator|.
-name|UnassignProcedure
 import|;
 end_import
 
@@ -1746,24 +1692,6 @@ operator|.
 name|procedure
 operator|.
 name|ProcedureSyncWait
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|master
-operator|.
-name|procedure
-operator|.
-name|RecoverMetaProcedure
 import|;
 end_import
 
@@ -3206,28 +3134,6 @@ operator|.
 name|annotations
 operator|.
 name|VisibleForTesting
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|com
-operator|.
-name|google
-operator|.
-name|common
-operator|.
-name|collect
-operator|.
-name|ImmutableSet
 import|;
 end_import
 
@@ -5816,201 +5722,7 @@ name|metricsMaster
 argument_list|)
 expr_stmt|;
 block|}
-specifier|private
-specifier|static
-specifier|final
-name|ImmutableSet
-argument_list|<
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Procedure
-argument_list|>
-argument_list|>
-name|UNSUPPORTED_PROCEDURES
-init|=
-name|ImmutableSet
-operator|.
-name|of
-argument_list|(
-name|RecoverMetaProcedure
-operator|.
-name|class
-argument_list|,
-name|AssignProcedure
-operator|.
-name|class
-argument_list|,
-name|UnassignProcedure
-operator|.
-name|class
-argument_list|,
-name|MoveRegionProcedure
-operator|.
-name|class
-argument_list|)
-decl_stmt|;
-comment|/**    * In HBASE-20811, we have introduced a new TRSP to assign/unassign/move regions, and it is    * incompatible with the old AssignProcedure/UnassignProcedure/MoveRegionProcedure. So we need to    * make sure that there are none these procedures when upgrading. If there are, the master will    * quit, you need to go back to the old version to finish these procedures first before upgrading.    */
-specifier|private
-name|void
-name|checkUnsupportedProcedure
-parameter_list|(
-name|Map
-argument_list|<
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Procedure
-argument_list|>
-argument_list|,
-name|List
-argument_list|<
-name|Procedure
-argument_list|<
-name|MasterProcedureEnv
-argument_list|>
-argument_list|>
-argument_list|>
-name|procsByType
-parameter_list|)
-throws|throws
-name|HBaseIOException
-block|{
-comment|// Confirm that we do not have unfinished assign/unassign related procedures. It is not easy to
-comment|// support both the old assign/unassign procedures and the new TransitRegionStateProcedure as
-comment|// there will be conflict in the code for AM. We should finish all these procedures before
-comment|// upgrading.
-for|for
-control|(
-name|Class
-argument_list|<
-name|?
-extends|extends
-name|Procedure
-argument_list|>
-name|clazz
-range|:
-name|UNSUPPORTED_PROCEDURES
-control|)
-block|{
-name|List
-argument_list|<
-name|Procedure
-argument_list|<
-name|MasterProcedureEnv
-argument_list|>
-argument_list|>
-name|procs
-init|=
-name|procsByType
-operator|.
-name|get
-argument_list|(
-name|clazz
-argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|procs
-operator|!=
-literal|null
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"Unsupported procedure type {} found, please rollback your master to the old"
-operator|+
-literal|" version to finish them, and then try to upgrade again. The full procedure list: {}"
-argument_list|,
-name|clazz
-argument_list|,
-name|procs
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|HBaseIOException
-argument_list|(
-literal|"Unsupported procedure type "
-operator|+
-name|clazz
-operator|+
-literal|" found"
-argument_list|)
-throw|;
-block|}
-block|}
-comment|// A special check for SCP, as we do not support RecoverMetaProcedure any more so we need to
-comment|// make sure that no one will try to schedule it but SCP does have a state which will schedule
-comment|// it.
-if|if
-condition|(
-name|procsByType
-operator|.
-name|getOrDefault
-argument_list|(
-name|ServerCrashProcedure
-operator|.
-name|class
-argument_list|,
-name|Collections
-operator|.
-name|emptyList
-argument_list|()
-argument_list|)
-operator|.
-name|stream
-argument_list|()
-operator|.
-name|map
-argument_list|(
-name|p
-lambda|->
-operator|(
-name|ServerCrashProcedure
-operator|)
-name|p
-argument_list|)
-operator|.
-name|anyMatch
-argument_list|(
-name|ServerCrashProcedure
-operator|::
-name|isInRecoverMetaState
-argument_list|)
-condition|)
-block|{
-name|LOG
-operator|.
-name|error
-argument_list|(
-literal|"At least one ServerCrashProcedure is going to schedule a RecoverMetaProcedure,"
-operator|+
-literal|" which is not supported any more. Please rollback your master to the old version to"
-operator|+
-literal|" finish them, and then try to upgrade again."
-argument_list|)
-block|;
-throw|throw
-argument_list|new
-name|HBaseIOException
-argument_list|(
-literal|"Unsupported procedure state found for ServerCrashProcedure"
-argument_list|)
-empty_stmt|;
-block|}
-block|}
-end_class
-
-begin_comment
 comment|// Will be overriden in test to inject customized AssignmentManager
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -6029,13 +5741,7 @@ name|master
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Finish initialization of HMaster after becoming the primary master.    *<p/>    * The startup order is a bit complicated but very important, do not change it unless you know    * what you are doing.    *<ol>    *<li>Initialize file system based components - file system manager, wal manager, table    * descriptors, etc</li>    *<li>Publish cluster id</li>    *<li>Here comes the most complicated part - initialize server manager, assignment manager and    * region server tracker    *<ol type='i'>    *<li>Create server manager</li>    *<li>Create procedure executor, load the procedures, but do not start workers. We will start it    * later after we finish scheduling SCPs to avoid scheduling duplicated SCPs for the same    * server</li>    *<li>Create assignment manager and start it, load the meta region state, but do not load data    * from meta region</li>    *<li>Start region server tracker, construct the online servers set and find out dead servers and    * schedule SCP for them. The online servers will be constructed by scanning zk, and we will also    * scan the wal directory to find out possible live region servers, and the differences between    * these two sets are the dead servers</li>    *</ol>    *</li>    *<li>If this is a new deploy, schedule a InitMetaProcedure to initialize meta</li>    *<li>Start necessary service threads - balancer, catalog janior, executor services, and also the    * procedure executor, etc. Notice that the balancer must be created first as assignment manager    * may use it when assigning regions.</li>    *<li>Wait for meta to be initialized if necesssary, start table state manager.</li>    *<li>Wait for enough region servers to check-in</li>    *<li>Let assignment manager load data from meta and construct region states</li>    *<li>Start all other things such as chore services, etc</li>    *</ol>    *<p/>    * Notice that now we will not schedule a special procedure to make meta online(unless the first    * time where meta has not been created yet), we will rely on SCP to bring meta online.    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|finishActiveMasterInitialization
@@ -6262,18 +5968,11 @@ block|}
 name|createProcedureExecutor
 argument_list|()
 expr_stmt|;
-annotation|@
-name|SuppressWarnings
-argument_list|(
-literal|"rawtypes"
-argument_list|)
 name|Map
 argument_list|<
 name|Class
 argument_list|<
 name|?
-extends|extends
-name|Procedure
 argument_list|>
 argument_list|,
 name|List
@@ -6309,11 +6008,6 @@ argument_list|()
 argument_list|)
 argument_list|)
 decl_stmt|;
-name|checkUnsupportedProcedure
-argument_list|(
-name|procsByType
-argument_list|)
-expr_stmt|;
 comment|// Create Assignment Manager
 name|this
 operator|.
@@ -7492,13 +7186,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Check hbase:meta is up and ready for reading. For use during Master startup only.    * @return True if meta is UP and online and startup can progress. Otherwise, meta is not online    *   and we will hold here until operator intervention.    */
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -7517,13 +7205,7 @@ name|FIRST_META_REGIONINFO
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return True if region is online and scannable else false if an error or shutdown (Otherwise    *   we just block in here holding up all forward-progess).    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|isRegionOnline
@@ -7681,13 +7363,7 @@ return|return
 literal|false
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Check hbase:namespace table is assigned. If not, startup will hang looking for the ns table    *<p/>    * This is for rolling upgrading, later we will migrate the data in ns table to the ns family of    * meta table. And if this is a new clsuter, this method will return immediately as there will be    * no namespace table/region.    * @return True if namespace table is up/online.    */
-end_comment
-
-begin_function
 specifier|private
 name|boolean
 name|waitForNamespaceOnline
@@ -7782,13 +7458,7 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Adds the {@code MasterQuotasObserver} to the list of configured Master observers to    * automatically remove quotas for a table when that table is deleted.    */
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -7907,9 +7577,6 @@ name|updatedCoprocs
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|initMobCleaner
@@ -7980,13 +7647,7 @@ name|this
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    *<p>    * Create a {@link MasterMetaBootstrap} instance.    *</p>    *<p>    * Will be overridden in tests.    *</p>    */
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -8004,13 +7665,7 @@ name|this
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    *<p>    * Create a {@link ServerManager} instance.    *</p>    *<p>    * Will be overridden in tests.    *</p>    */
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -8037,9 +7692,6 @@ name|master
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|waitForRegionServers
@@ -8063,13 +7715,7 @@ name|status
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|// Will be overridden in tests
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -8139,9 +7785,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|initQuotaManager
@@ -8170,9 +7813,6 @@ operator|=
 name|quotaManager
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|SpaceQuotaSnapshotNotifier
 name|createQuotaSnapshotNotifier
@@ -8196,9 +7836,6 @@ return|return
 name|notifier
 return|;
 block|}
-end_function
-
-begin_function
 name|boolean
 name|isCatalogJanitorEnabled
 parameter_list|()
@@ -8216,9 +7853,6 @@ else|:
 literal|false
 return|;
 block|}
-end_function
-
-begin_function
 name|boolean
 name|isCleanerChoreEnabled
 parameter_list|()
@@ -8270,9 +7904,6 @@ name|logCleanerFlag
 operator|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8286,9 +7917,6 @@ operator|.
 name|serverManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8302,9 +7930,6 @@ operator|.
 name|fileSystemManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8318,9 +7943,6 @@ operator|.
 name|walManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8332,9 +7954,6 @@ return|return
 name|splitWALManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -8346,13 +7965,7 @@ return|return
 name|tableStateManager
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/*    * Start up all services. If any of these threads gets an unhandled exception    * then they just die with a logged message.  This should be fine because    * in general, we do not expect the master to get such unhandled exceptions    *  as OOMEs; it should be lightly loaded. See what HRegionServer does if    *  need to install an unexpected exception handler.    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|startServiceThreads
@@ -8833,9 +8446,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|protected
@@ -9073,9 +8683,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|createProcedureExecutor
@@ -9254,9 +8861,6 @@ name|start
 argument_list|()
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|startProcedureExecutor
@@ -9270,13 +8874,7 @@ name|startWorkers
 argument_list|()
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Turn on/off Snapshot Cleanup Chore    *    * @param on indicates whether Snapshot Cleanup Chore is to be run    */
-end_comment
-
-begin_function
 name|void
 name|switchSnapshotCleanup
 parameter_list|(
@@ -9317,9 +8915,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|switchSnapshotCleanup
@@ -9402,9 +8997,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|stopProcedureExecutor
@@ -9474,9 +9066,6 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|stopChores
@@ -9623,13 +9212,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Get remote side's InetAddress    */
-end_comment
-
-begin_function
 name|InetAddress
 name|getRemoteInetAddress
 parameter_list|(
@@ -9702,13 +9285,7 @@ return|return
 name|ia
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Maximum time we should run balancer for    */
-end_comment
-
-begin_function
 specifier|private
 name|int
 name|getMaxBalancingTime
@@ -9746,13 +9323,7 @@ return|return
 name|maxBalancingTime
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Maximum number of regions in transition    */
-end_comment
-
-begin_function
 specifier|private
 name|int
 name|getMaxRegionsInTransition
@@ -9797,13 +9368,7 @@ literal|1
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * It first sleep to the next balance plan start time. Meanwhile, throttling by the max    * number regions in transition to protect availability.    * @param nextBalanceStartTime The next balance plan start time    * @param maxRegionsInTransition max number of regions in transition    * @param cutoffTime when to exit balancer    */
-end_comment
-
-begin_function
 specifier|private
 name|void
 name|balanceThrottling
@@ -9936,9 +9501,6 @@ name|interrupt
 argument_list|()
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|balance
@@ -9953,9 +9515,6 @@ literal|false
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|boolean
 name|balance
@@ -10465,9 +10024,6 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|List
 argument_list|<
@@ -10691,9 +10247,6 @@ return|return
 name|sucRPs
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 annotation|@
@@ -10709,13 +10262,7 @@ operator|.
 name|normalizer
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Perform normalization of cluster (invoked by {@link RegionNormalizerChore}).    *    * @return true if normalization step was performed successfully, false otherwise    *    (specifically, if HMaster hasn't been initialized properly or normalization    *    is globally disabled)    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|normalizeRegions
@@ -10996,13 +10543,7 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return Client info for use as prefix on an audit log string; who did an action    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11036,13 +10577,7 @@ literal|null
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Switch for the background CatalogJanitor thread.    * Used for testing.  The thread will continue to run.  It will just be a noop    * if disabled.    * @param b If false, the catalog janitor won't do anything.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|setCatalogJanitorEnabled
@@ -11062,9 +10597,6 @@ name|b
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11222,9 +10754,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -11341,9 +10870,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|warmUpRegion
@@ -11408,21 +10934,9 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|// Public so can be accessed by tests. Blocks until move is done.
-end_comment
-
-begin_comment
 comment|// Replace with an async implementation from which you can get
-end_comment
-
-begin_comment
 comment|// a success/failure result.
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -12002,9 +11516,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12223,9 +11734,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12332,9 +11840,6 @@ return|return
 name|procId
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|startActiveMasterManager
@@ -12618,9 +12123,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|private
 specifier|static
 name|boolean
@@ -12642,9 +12144,6 @@ name|META_TABLE_NAME
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12778,9 +12277,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -12920,9 +12416,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13044,13 +12537,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Implement to return TableDescriptor after pre-checks    */
-end_comment
-
-begin_interface
 specifier|protected
 interface|interface
 name|TableDescriptorGetter
@@ -13062,9 +12549,6 @@ throws|throws
 name|IOException
 function_decl|;
 block|}
-end_interface
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13183,9 +12667,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13331,9 +12812,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13576,9 +13054,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13719,9 +13194,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|long
 name|modifyTable
@@ -13904,9 +13376,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -13967,9 +13436,6 @@ literal|false
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|long
 name|restoreSnapshot
@@ -14086,9 +13552,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|void
 name|checkTableExists
@@ -14125,9 +13588,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -14197,9 +13657,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|ClusterMetrics
 name|getClusterMetricsWithoutCoprocessor
@@ -14221,9 +13678,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|ClusterMetrics
 name|getClusterMetricsWithoutCoprocessor
@@ -14661,13 +14115,7 @@ name|build
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return cluster status    */
-end_comment
-
-begin_function
 specifier|public
 name|ClusterMetrics
 name|getClusterMetrics
@@ -14689,9 +14137,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|ClusterMetrics
 name|getClusterMetrics
@@ -14745,9 +14190,6 @@ return|return
 name|status
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|List
 argument_list|<
@@ -15030,13 +14472,7 @@ return|return
 name|backupMasters
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * The set of loaded coprocessors is stored in a static set. Since it's    * statically allocated, it does not require that HMaster's cpHost be    * initialized prior to accessing it.    * @return a String representation of the set of names of the loaded coprocessors.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|String
@@ -15053,13 +14489,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return timestamp in millis when HMaster was started.    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMasterStartTime
@@ -15069,13 +14499,7 @@ return|return
 name|startcode
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return timestamp in millis when HMaster became the active master.    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMasterActiveTime
@@ -15085,13 +14509,7 @@ return|return
 name|masterActiveTime
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return timestamp in millis when HMaster finished becoming the active master    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMasterFinishedInitializationTime
@@ -15101,9 +14519,6 @@ return|return
 name|masterFinishedInitializationTime
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|int
 name|getNumWALFiles
@@ -15113,9 +14528,6 @@ return|return
 literal|0
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|ProcedureStore
 name|getProcedureStore
@@ -15125,9 +14537,6 @@ return|return
 name|procedureStore
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|int
 name|getRegionServerInfoPort
@@ -15170,9 +14579,6 @@ else|:
 name|port
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15196,9 +14602,6 @@ name|sn
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15212,13 +14615,7 @@ name|checkIfShouldMoveSystemRegionAsync
 argument_list|()
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return array of coprocessor SimpleNames.    */
-end_comment
-
-begin_function
 specifier|public
 name|String
 index|[]
@@ -15253,9 +14650,6 @@ index|]
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15377,9 +14771,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15391,9 +14782,6 @@ return|return
 name|zooKeeper
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15405,9 +14793,6 @@ return|return
 name|cpHost
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15419,9 +14804,6 @@ return|return
 name|quotaManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15436,9 +14818,6 @@ return|return
 name|procedureExecutor
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15452,9 +14831,6 @@ operator|.
 name|serverName
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15468,9 +14844,6 @@ operator|.
 name|assignmentManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15484,9 +14857,6 @@ operator|.
 name|catalogJanitorChore
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|MemoryBoundedLogMessageBuffer
 name|getRegionServerFatalLogBuffer
@@ -15496,13 +14866,7 @@ return|return
 name|rsFatals
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Shutdown the cluster.    * Master runs a coordinated stop of all RegionServers and then itself.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|shutdown
@@ -15621,9 +14985,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|stopMaster
@@ -15658,9 +15019,6 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15704,9 +15062,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|protected
@@ -15731,9 +15086,6 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_class
 specifier|public
 specifier|static
 class|class
@@ -15749,9 +15101,6 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_class
-
-begin_function
 name|void
 name|checkInitialized
 parameter_list|()
@@ -15795,13 +15144,7 @@ argument_list|()
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Report whether this master is currently the active master or not.    * If not active master, we are parked on ZK waiting to become active.    *    * This method is used for testing.    *    * @return true if active master, false if not.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15813,13 +15156,7 @@ return|return
 name|activeMaster
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Report whether this master has completed with its initialization and is    * ready.  If ready, the master is also the active master.  A standby master    * is never ready.    *    * This method is used for testing.    *    * @return true if master is ready to go, false if not.    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15834,13 +15171,7 @@ name|isReady
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Report whether this master is in maintenance mode.    *    * @return true if master is in maintenanceMode    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15852,9 +15183,6 @@ return|return
 name|maintenanceMode
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -15878,9 +15206,6 @@ name|isInitialized
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -15895,13 +15220,7 @@ return|return
 name|initialized
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Compute the average load across all region servers.    * Currently, this uses a very naive computation - just uses the number of    * regions being served, ignoring stats about number of requests.    * @return the average load    */
-end_comment
-
-begin_function
 specifier|public
 name|double
 name|getAverageLoad
@@ -15948,13 +15267,7 @@ name|getAverageLoad
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/*    * @return the count of region split plans executed    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getSplitPlanCount
@@ -15964,13 +15277,7 @@ return|return
 name|splitPlanCount
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/*    * @return the count of region merge plans executed    */
-end_comment
-
-begin_function
 specifier|public
 name|long
 name|getMergePlanCount
@@ -15980,9 +15287,6 @@ return|return
 name|mergePlanCount
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -16072,13 +15376,7 @@ return|return
 literal|true
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Utility for constructing an instance of the passed HMaster class.    * @param masterClass    * @return HMaster instance.    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|HMaster
@@ -16186,13 +15484,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * @see org.apache.hadoop.hbase.master.HMasterCommandLine    */
-end_comment
-
-begin_function
 specifier|public
 specifier|static
 name|void
@@ -16236,9 +15528,6 @@ name|args
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|HFileCleaner
 name|getHFileCleaner
@@ -16250,9 +15539,6 @@ operator|.
 name|hfileCleaner
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|LogCleaner
 name|getLogCleaner
@@ -16264,13 +15550,7 @@ operator|.
 name|logCleaner
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return the underlying snapshot manager    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -16284,13 +15564,7 @@ operator|.
 name|snapshotManager
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return the underlying MasterProcedureManagerHost    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -16302,9 +15576,6 @@ return|return
 name|mpmHost
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -16318,13 +15589,7 @@ operator|.
 name|clusterSchemaService
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Create a new Namespace.    * @param namespaceDescriptor descriptor for new Namespace    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    */
-end_comment
-
-begin_function
 name|long
 name|createNamespace
 parameter_list|(
@@ -16470,13 +15735,7 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Modify an existing Namespace.    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    */
-end_comment
-
-begin_function
 name|long
 name|modifyNamespace
 parameter_list|(
@@ -16637,13 +15896,7 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Delete an existing Namespace. Only empty Namespaces (no tables) can be removed.    * @param nonceGroup Identifier for the source of the request, a client or process.    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure id    */
-end_comment
-
-begin_function
 name|long
 name|deleteNamespace
 parameter_list|(
@@ -16779,13 +16032,7 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get a Namespace    * @param name Name of the Namespace    * @return Namespace descriptor for<code>name</code>    */
-end_comment
-
-begin_function
 name|NamespaceDescriptor
 name|getNamespace
 parameter_list|(
@@ -16848,13 +16095,7 @@ return|return
 name|nsd
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Get all Namespaces    * @return All Namespace descriptors    */
-end_comment
-
-begin_function
 name|List
 argument_list|<
 name|NamespaceDescriptor
@@ -16929,13 +16170,7 @@ return|return
 name|nsds
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * List namespace names    * @return All namespace names    */
-end_comment
-
-begin_function
 specifier|public
 name|List
 argument_list|<
@@ -17016,9 +16251,6 @@ return|return
 name|namespaces
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17048,9 +16280,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17082,9 +16311,6 @@ literal|true
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17153,9 +16379,6 @@ return|return
 name|result
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17231,9 +16454,6 @@ return|return
 name|procList
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17301,13 +16521,7 @@ return|return
 name|lockedResources
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the list of table descriptors that match the specified request    * @param namespace the namespace to query, or null if querying for all    * @param regex The regular expression to match against, or null if querying for all    * @param tableNameList the list of table names, or null if querying for all    * @param includeSysTables False to match only against userspace tables    * @return the list of table descriptors    */
-end_comment
-
-begin_function
 specifier|public
 name|List
 argument_list|<
@@ -17405,13 +16619,7 @@ return|return
 name|htds
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Returns the list of table names that match the specified request    * @param regex The regular expression to match against, or null if querying for all    * @param namespace the namespace to query, or null if querying for all    * @param includeSysTables False to match only against userspace tables    * @return the list of table names    */
-end_comment
-
-begin_function
 specifier|public
 name|List
 argument_list|<
@@ -17531,13 +16739,7 @@ return|return
 name|result
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return list of table table descriptors after filtering by regex and whether to include system    *    tables, etc.    * @throws IOException    */
-end_comment
-
-begin_function
 specifier|private
 name|List
 argument_list|<
@@ -17758,13 +16960,7 @@ return|return
 name|htds
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Removes the table descriptors that don't match the pattern.    * @param descriptors list of table descriptors to filter    * @param pattern the regex to use    */
-end_comment
-
-begin_function
 specifier|private
 specifier|static
 name|void
@@ -17893,9 +17089,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17927,9 +17120,6 @@ name|table
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -17962,13 +17152,7 @@ name|regionName
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Gets the mob file compaction state for a specific table.    * Whether all the mob files are selected is known during the compaction execution, but    * the statistic is done just before compaction starts, it is hard to know the compaction    * type at that time, so the rough statistics are chosen for the mob file compaction. Only two    * compaction states are available, CompactionState.MAJOR_AND_MINOR and CompactionState.NONE.    * @param tableName The current table name.    * @return If a given table is in mob file compaction now.    */
-end_comment
-
-begin_function
 specifier|public
 name|CompactionState
 name|getMobCompactionState
@@ -18013,9 +17197,6 @@ operator|.
 name|NONE
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|reportMobCompactionStart
@@ -18107,9 +17288,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|reportMobCompactionEnd
@@ -18203,13 +17381,7 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Requests mob compaction.    * @param tableName The table the compact.    * @param columns The compacted columns.    * @param allFiles Whether add all mob files into the compaction.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|requestMobCompaction
@@ -18246,13 +17418,7 @@ name|allFiles
 argument_list|)
 expr_stmt|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Queries the state of the {@link LoadBalancerTracker}. If the balancer is not initialized,    * false is returned.    *    * @return The state of the load balancer, or false if the load balancer isn't defined.    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|isBalancerOn
@@ -18273,13 +17439,7 @@ name|isBalancerOn
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Queries the state of the {@link RegionNormalizerTracker}. If it's not initialized,    * false is returned.    */
-end_comment
-
-begin_function
 specifier|public
 name|boolean
 name|isNormalizerOn
@@ -18300,13 +17460,7 @@ name|isNormalizerOn
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Queries the state of the {@link SplitOrMergeTracker}. If it is not initialized,    * false is returned. If switchType is illegal, false will return.    * @param switchType see {@link org.apache.hadoop.hbase.client.MasterSwitchType}    * @return The state of the switch    */
-end_comment
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18334,13 +17488,7 @@ name|switchType
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Fetch the configured {@link LoadBalancer} class name. If none is set, a default is returned.    *    * @return The name of the {@link LoadBalancer} in use.    */
-end_comment
-
-begin_function
 specifier|public
 name|String
 name|getLoadBalancerClassName
@@ -18365,13 +17513,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * @return RegionNormalizerTracker instance    */
-end_comment
-
-begin_function
 specifier|public
 name|RegionNormalizerTracker
 name|getRegionNormalizerTracker
@@ -18381,9 +17523,6 @@ return|return
 name|regionNormalizerTracker
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|SplitOrMergeTracker
 name|getSplitOrMergeTracker
@@ -18393,9 +17532,6 @@ return|return
 name|splitOrMergeTracker
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18407,9 +17543,6 @@ return|return
 name|balancer
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18421,9 +17554,6 @@ return|return
 name|favoredNodesManager
 return|;
 block|}
-end_function
-
-begin_function
 specifier|private
 name|long
 name|executePeerProcedure
@@ -18459,9 +17589,6 @@ return|return
 name|procId
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18523,9 +17650,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18563,9 +17687,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18603,9 +17724,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18643,9 +17761,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18729,9 +17844,6 @@ return|return
 name|peerConfig
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18778,9 +17890,6 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18875,9 +17984,6 @@ return|return
 name|peers
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -18922,13 +18028,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Mark region server(s) as decommissioned (previously called 'draining') to prevent additional    * regions from getting assigned to them. Also unload the regions on the servers asynchronously.0    * @param servers Region servers to decommission.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|decommissionRegionServers
@@ -19169,13 +18269,7 @@ block|}
 block|}
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * List region servers marked as decommissioned (previously called 'draining') to not get regions    * assigned to them.    * @return List of decommissioned servers.    */
-end_comment
-
-begin_function
 specifier|public
 name|List
 argument_list|<
@@ -19193,13 +18287,7 @@ name|getDrainingServersList
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * Remove decommission marker (previously called 'draining') from a region server to allow regions    * assignments. Load regions onto the server asynchronously if a list of regions is given    * @param server Region server to remove decommission marker from.    */
-end_comment
-
-begin_function
 specifier|public
 name|void
 name|recommissionRegionServer
@@ -19446,9 +18534,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -19460,9 +18545,6 @@ return|return
 name|lockManager
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|QuotaObserverChore
 name|getQuotaObserverChore
@@ -19474,9 +18556,6 @@ operator|.
 name|quotaObserverChore
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|SpaceQuotaSnapshotNotifier
 name|getSpaceQuotaSnapshotNotifier
@@ -19488,9 +18567,6 @@ operator|.
 name|spaceQuotaSnapshotNotifier
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|SuppressWarnings
 argument_list|(
@@ -19550,9 +18626,6 @@ operator|)
 name|procedure
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|remoteProcedureCompleted
@@ -19602,9 +18675,6 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|void
 name|remoteProcedureFailed
@@ -19661,13 +18731,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-end_function
-
-begin_comment
 comment|/**    * Reopen regions provided in the argument    *    * @param tableName The current table name    * @param regionNames The region names of the regions to reopen    * @param nonceGroup Identifier for the source of the request, a client or process    * @param nonce A unique identifier for this operation from the client or process identified by    *<code>nonceGroup</code> (the source must ensure each operation gets a unique id).    * @return procedure Id    * @throws IOException if reopening region fails while running procedure    */
-end_comment
-
-begin_function
 name|long
 name|reopenRegions
 parameter_list|(
@@ -19747,9 +18811,6 @@ block|}
 argument_list|)
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -19761,9 +18822,6 @@ return|return
 name|replicationPeerManager
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|HashMap
 argument_list|<
@@ -19981,13 +19039,7 @@ return|return
 name|replicationLoadSourceMap
 return|;
 block|}
-end_function
-
-begin_comment
 comment|/**    * This method modifies the master's configuration in order to inject replication-related features    */
-end_comment
-
-begin_function
 annotation|@
 name|VisibleForTesting
 specifier|public
@@ -20103,9 +19155,6 @@ expr_stmt|;
 block|}
 block|}
 block|}
-end_function
-
-begin_function
 specifier|public
 name|SnapshotQuotaObserverChore
 name|getSnapshotQuotaObserverChore
@@ -20117,9 +19166,6 @@ operator|.
 name|snapshotQuotaChore
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -20133,9 +19179,6 @@ operator|.
 name|syncReplicationReplayWALManager
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -20179,9 +19222,6 @@ name|getWalGroupsReplicationStatus
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 specifier|public
 name|HbckChore
 name|getHbckChore
@@ -20193,9 +19233,6 @@ operator|.
 name|hbckChore
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -20222,9 +19259,6 @@ name|getFromCacheOrFetch
 argument_list|()
 return|;
 block|}
-end_function
-
-begin_function
 annotation|@
 name|Override
 specifier|public
@@ -20253,8 +19287,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-end_function
+block|}
+end_class
 
-unit|}
 end_unit
 

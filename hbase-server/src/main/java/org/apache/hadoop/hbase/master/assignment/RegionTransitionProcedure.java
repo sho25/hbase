@@ -403,7 +403,9 @@ return|return
 name|regionInfo
 return|;
 block|}
-specifier|protected
+annotation|@
+name|VisibleForTesting
+specifier|public
 name|void
 name|setRegionInfo
 parameter_list|(
