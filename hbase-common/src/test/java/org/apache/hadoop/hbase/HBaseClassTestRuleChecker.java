@@ -204,14 +204,14 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-comment|// Don't fail if there is a missing category
+comment|// @Category is not repeatable -- it is only possible to get an array of length zero or one.
 if|if
 condition|(
 name|categories
 operator|.
 name|length
-operator|>
-literal|0
+operator|==
+literal|1
 condition|)
 block|{
 for|for
