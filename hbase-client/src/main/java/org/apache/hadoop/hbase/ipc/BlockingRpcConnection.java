@@ -491,6 +491,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|security
+operator|.
+name|provider
+operator|.
+name|SaslClientAuthenticationProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|trace
 operator|.
 name|TraceUtil
@@ -2168,11 +2186,19 @@ operator|=
 operator|new
 name|HBaseSaslRpcClient
 argument_list|(
-name|authMethod
+name|this
+operator|.
+name|rpcClient
+operator|.
+name|conf
+argument_list|,
+name|provider
 argument_list|,
 name|token
 argument_list|,
-name|serverPrincipal
+name|serverAddress
+argument_list|,
+name|securityInfo
 argument_list|,
 name|this
 operator|.
@@ -2230,7 +2256,7 @@ name|out2
 argument_list|)
 return|;
 block|}
-comment|/**    * If multiple clients with the same principal try to connect to the same server at the same time,    * the server assumes a replay attack is in progress. This is a feature of kerberos. In order to    * work around this, what is done is that the client backs off randomly and tries to initiate the    * connection again. The other problem is to do with ticket expiry. To handle that, a relogin is    * attempted.    *<p>    * The retry logic is governed by the {@link #shouldAuthenticateOverKrb} method. In case when the    * user doesn't have valid credentials, we don't need to retry (from cache or ticket). In such    * cases, it is prudent to throw a runtime exception when we receive a SaslException from the    * underlying authentication implementation, so there is no retry from other high level (for eg,    * HCM or HBaseAdmin).    *</p>    */
+comment|/**    * If multiple clients with the same principal try to connect to the same server at the same time,    * the server assumes a replay attack is in progress. This is a feature of kerberos. In order to    * work around this, what is done is that the client backs off randomly and tries to initiate the    * connection again. The other problem is to do with ticket expiry. To handle that, a relogin is    * attempted.    *<p>    * The retry logic is governed by the {@link SaslClientAuthenticationProvider#canRetry()}    * method. Some providers have the ability to obtain new credentials and then re-attempt to    * authenticate with HBase services. Other providers will continue to fail if they failed the    * first time -- for those, we want to fail-fast.    *</p>    */
 specifier|private
 name|void
 name|handleSaslConnectionFailure
@@ -2281,12 +2307,74 @@ name|IOException
 throws|,
 name|InterruptedException
 block|{
+comment|// A provider which failed authentication, but doesn't have the ability to relogin with
+comment|// some external system (e.g. username/password, the password either works or it doesn't)
 if|if
 condition|(
-name|shouldAuthenticateOverKrb
+operator|!
+name|provider
+operator|.
+name|canRetry
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Exception encountered while connecting to the server : "
+operator|+
+name|ex
+argument_list|)
+expr_stmt|;
+if|if
+condition|(
+name|ex
+operator|instanceof
+name|RemoteException
+condition|)
+block|{
+throw|throw
+operator|(
+name|RemoteException
+operator|)
+name|ex
+throw|;
+block|}
+if|if
+condition|(
+name|ex
+operator|instanceof
+name|SaslException
+condition|)
+block|{
+name|String
+name|msg
+init|=
+literal|"SASL authentication failed."
+operator|+
+literal|" The most likely cause is missing or invalid credentials."
+decl_stmt|;
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+name|msg
+argument_list|,
+name|ex
+argument_list|)
+throw|;
+block|}
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+name|ex
+argument_list|)
+throw|;
+block|}
+comment|// Other providers, like kerberos, could request a new ticket from a keytab. Let
+comment|// them try again.
 if|if
 condition|(
 name|currRetries
@@ -2294,35 +2382,22 @@ operator|<
 name|maxRetries
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Exception encountered while connecting to "
-operator|+
-literal|"the server : "
-operator|+
-name|StringUtils
-operator|.
-name|stringifyException
-argument_list|(
+literal|"Exception encountered while connecting to the server"
+argument_list|,
 name|ex
 argument_list|)
-argument_list|)
 expr_stmt|;
-block|}
-comment|// try re-login
+comment|// Invoke the provider to perform the relogin
+name|provider
+operator|.
 name|relogin
 argument_list|()
 expr_stmt|;
+comment|// Get rid of any old state on the SaslClient
 name|disposeSasl
 argument_list|()
 expr_stmt|;
@@ -2356,7 +2431,7 @@ block|{
 name|String
 name|msg
 init|=
-literal|"Couldn't setup connection for "
+literal|"Failed to initiate connection for "
 operator|+
 name|UserGroupInformation
 operator|.
@@ -2368,17 +2443,11 @@ argument_list|()
 operator|+
 literal|" to "
 operator|+
-name|serverPrincipal
-decl_stmt|;
-name|LOG
+name|securityInfo
 operator|.
-name|warn
-argument_list|(
-name|msg
-argument_list|,
-name|ex
-argument_list|)
-expr_stmt|;
+name|getServerPrincipal
+argument_list|()
+decl_stmt|;
 throw|throw
 operator|new
 name|IOException
@@ -2389,81 +2458,6 @@ name|ex
 argument_list|)
 throw|;
 block|}
-block|}
-else|else
-block|{
-name|LOG
-operator|.
-name|warn
-argument_list|(
-literal|"Exception encountered while connecting to "
-operator|+
-literal|"the server : "
-operator|+
-name|ex
-argument_list|)
-expr_stmt|;
-block|}
-if|if
-condition|(
-name|ex
-operator|instanceof
-name|RemoteException
-condition|)
-block|{
-throw|throw
-operator|(
-name|RemoteException
-operator|)
-name|ex
-throw|;
-block|}
-if|if
-condition|(
-name|ex
-operator|instanceof
-name|SaslException
-condition|)
-block|{
-name|String
-name|msg
-init|=
-literal|"SASL authentication failed."
-operator|+
-literal|" The most likely cause is missing or invalid credentials."
-operator|+
-literal|" Consider 'kinit'."
-decl_stmt|;
-name|LOG
-operator|.
-name|error
-argument_list|(
-name|HBaseMarkers
-operator|.
-name|FATAL
-argument_list|,
-name|msg
-argument_list|,
-name|ex
-argument_list|)
-expr_stmt|;
-throw|throw
-operator|new
-name|RuntimeException
-argument_list|(
-name|msg
-argument_list|,
-name|ex
-argument_list|)
-throw|;
-block|}
-throw|throw
-operator|new
-name|IOException
-argument_list|(
-name|ex
-argument_list|)
-throw|;
 block|}
 block|}
 argument_list|)
@@ -2631,8 +2625,14 @@ decl_stmt|;
 name|UserGroupInformation
 name|ticket
 init|=
-name|getUGI
-argument_list|()
+name|provider
+operator|.
+name|getRealUser
+argument_list|(
+name|remoteId
+operator|.
+name|ticket
+argument_list|)
 decl_stmt|;
 name|boolean
 name|continueSasl

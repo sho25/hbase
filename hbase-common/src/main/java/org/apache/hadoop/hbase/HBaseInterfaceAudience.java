@@ -119,6 +119,15 @@ name|HBCK
 init|=
 literal|"HBCK"
 decl_stmt|;
+comment|/**    * Denotes classes that can be used to build custom authentication solutions.    */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|AUTHENTICATION
+init|=
+literal|"Authentication"
+decl_stmt|;
 block|}
 end_class
 

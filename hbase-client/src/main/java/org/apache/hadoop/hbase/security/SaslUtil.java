@@ -294,6 +294,7 @@ literal|"[/@]"
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|String
 name|encodeIdentifier
@@ -315,6 +316,7 @@ name|identifier
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|byte
 index|[]
@@ -341,6 +343,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
+specifier|public
 specifier|static
 name|char
 index|[]
