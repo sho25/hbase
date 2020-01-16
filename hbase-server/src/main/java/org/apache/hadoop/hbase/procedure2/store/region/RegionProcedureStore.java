@@ -2358,6 +2358,13 @@ name|procWALDir
 argument_list|)
 throw|;
 block|}
+name|store
+operator|.
+name|stop
+argument_list|(
+literal|true
+argument_list|)
+expr_stmt|;
 name|LOG
 operator|.
 name|info
