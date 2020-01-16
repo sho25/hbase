@@ -5881,13 +5881,13 @@ argument_list|()
 argument_list|)
 throw|;
 block|}
-comment|/**    * Stops mini hbase, zk, and hdfs clusters.    * @throws IOException    * @see #startMiniCluster(int)    */
+comment|/**    * Stops mini hbase, zk, and hdfs clusters.    * @see #startMiniCluster(int)    */
 specifier|public
 name|void
 name|shutdownMiniCluster
 parameter_list|()
 throws|throws
-name|Exception
+name|IOException
 block|{
 name|LOG
 operator|.

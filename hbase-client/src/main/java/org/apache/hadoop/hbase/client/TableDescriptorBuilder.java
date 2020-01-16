@@ -356,7 +356,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * @since 2.0.0  */
+comment|/**  * Convenience class for composing an instance of {@link TableDescriptor}.  * @since 2.0.0  */
 end_comment
 
 begin_class
