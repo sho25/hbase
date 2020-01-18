@@ -1781,7 +1781,7 @@ block|}
 try|try
 block|{
 return|return
-name|T
+name|Enum
 operator|.
 name|valueOf
 argument_list|(
