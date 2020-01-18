@@ -641,9 +641,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Constructor flushSize={}, flushPerChanges={}, flushIntervalMs={}, "
-operator|+
-literal|"compactMin={}"
+literal|"Constructor flushSize={}, flushPerChanges={}, flushIntervalMs={}, compactMin={}"
 argument_list|,
 name|flushSize
 argument_list|,
@@ -760,6 +758,19 @@ name|compact
 argument_list|(
 literal|true
 argument_list|)
+expr_stmt|;
+name|Iterables
+operator|.
+name|getOnlyElement
+argument_list|(
+name|region
+operator|.
+name|getStores
+argument_list|()
+argument_list|)
+operator|.
+name|closeAndArchiveCompactedFiles
+argument_list|()
 expr_stmt|;
 block|}
 catch|catch

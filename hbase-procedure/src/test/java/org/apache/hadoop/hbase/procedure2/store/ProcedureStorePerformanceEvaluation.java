@@ -722,6 +722,16 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
+specifier|protected
+name|void
+name|postStop
+parameter_list|(
+name|T
+name|store
+parameter_list|)
+throws|throws
+name|IOException
+block|{   }
 specifier|private
 name|void
 name|tearDownProcedureStore
@@ -746,6 +756,11 @@ operator|.
 name|stop
 argument_list|(
 literal|false
+argument_list|)
+expr_stmt|;
+name|postStop
+argument_list|(
+name|store
 argument_list|)
 expr_stmt|;
 block|}

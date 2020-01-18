@@ -8139,15 +8139,6 @@ expr_stmt|;
 name|startProcedureExecutor
 argument_list|()
 expr_stmt|;
-comment|// Create cleaner thread pool
-name|cleanerPool
-operator|=
-operator|new
-name|DirScanPool
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 comment|// Start log cleaner thread
 name|int
 name|cleanerInterval
@@ -8699,12 +8690,23 @@ argument_list|(
 name|this
 argument_list|)
 decl_stmt|;
+comment|// Create cleaner thread pool
+name|cleanerPool
+operator|=
+operator|new
+name|DirScanPool
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|procedureStore
 operator|=
 operator|new
 name|RegionProcedureStore
 argument_list|(
 name|this
+argument_list|,
+name|cleanerPool
 argument_list|,
 operator|new
 name|MasterProcedureEnv
