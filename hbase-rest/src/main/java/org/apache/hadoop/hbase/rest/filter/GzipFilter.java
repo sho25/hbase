@@ -169,11 +169,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|HBaseInterfaceAudience
 import|;
 end_import
 
@@ -183,11 +183,11 @@ name|org
 operator|.
 name|apache
 operator|.
-name|hadoop
+name|yetus
 operator|.
-name|hbase
+name|audience
 operator|.
-name|HBaseInterfaceAudience
+name|InterfaceAudience
 import|;
 end_import
 
@@ -228,8 +228,6 @@ parameter_list|(
 name|FilterConfig
 name|filterConfig
 parameter_list|)
-throws|throws
-name|ServletException
 block|{
 name|String
 name|s
@@ -373,13 +371,10 @@ operator|.
 name|ROOT
 argument_list|)
 operator|.
-name|indexOf
+name|contains
 argument_list|(
 literal|"gzip"
 argument_list|)
-operator|>
-operator|-
-literal|1
 operator|)
 condition|)
 block|{
@@ -411,13 +406,10 @@ operator|.
 name|ROOT
 argument_list|)
 operator|.
-name|indexOf
+name|contains
 argument_list|(
 literal|"gzip"
 argument_list|)
-operator|>
-operator|-
-literal|1
 operator|)
 operator|)
 operator|||

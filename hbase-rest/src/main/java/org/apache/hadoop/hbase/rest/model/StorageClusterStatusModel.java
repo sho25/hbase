@@ -21,6 +21,20 @@ end_package
 
 begin_import
 import|import
+name|com
+operator|.
+name|fasterxml
+operator|.
+name|jackson
+operator|.
+name|annotation
+operator|.
+name|JsonProperty
+import|;
+end_import
+
+begin_import
+import|import
 name|java
 operator|.
 name|io
@@ -125,23 +139,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|util
+name|protobuf
 operator|.
-name|ByteStringer
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|ProtobufUtil
 import|;
 end_import
 
@@ -158,22 +158,6 @@ operator|.
 name|rest
 operator|.
 name|ProtobufMessageHandler
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|protobuf
-operator|.
-name|ProtobufUtil
 import|;
 end_import
 
@@ -211,21 +195,37 @@ name|hbase
 operator|.
 name|util
 operator|.
+name|ByteStringer
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
 name|Bytes
 import|;
 end_import
 
 begin_import
 import|import
-name|com
+name|org
 operator|.
-name|fasterxml
+name|apache
 operator|.
-name|jackson
+name|yetus
 operator|.
-name|annotation
+name|audience
 operator|.
-name|JsonProperty
+name|InterfaceAudience
 import|;
 end_import
 
@@ -1229,7 +1229,7 @@ operator|=
 name|regions
 expr_stmt|;
 block|}
-comment|/**      * @param requests the number of requests per second processed by the      * region server      */
+comment|/**      * @param requests the number of requests per second processed by the region server      */
 specifier|public
 name|void
 name|setRequests
@@ -1472,7 +1472,7 @@ return|return
 name|regions
 return|;
 block|}
-comment|/**    * @return the total number of requests per second handled by the cluster in    * the last reporting interval    */
+comment|/**    * @return the total number of requests per second handled by the cluster in the last reporting    *    interval    */
 annotation|@
 name|XmlAttribute
 specifier|public
@@ -1550,7 +1550,7 @@ operator|=
 name|regions
 expr_stmt|;
 block|}
-comment|/**    * @param requests the total number of requests per second handled by the    * cluster    */
+comment|/**    * @param requests the total number of requests per second handled by the cluster    */
 specifier|public
 name|void
 name|setRequests
@@ -1582,7 +1582,6 @@ operator|=
 name|averageLoad
 expr_stmt|;
 block|}
-comment|/*    * (non-Javadoc)    * @see java.lang.Object#toString()    */
 annotation|@
 name|Override
 specifier|public
