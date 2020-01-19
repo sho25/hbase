@@ -103,14 +103,9 @@ name|InterfaceAudience
 operator|.
 name|Public
 specifier|public
-specifier|final
 class|class
 name|ByteRangeUtils
 block|{
-specifier|private
-name|ByteRangeUtils
-parameter_list|()
-block|{   }
 specifier|public
 specifier|static
 name|int

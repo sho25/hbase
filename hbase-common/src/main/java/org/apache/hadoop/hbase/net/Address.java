@@ -77,7 +77,6 @@ name|InterfaceAudience
 operator|.
 name|Public
 specifier|public
-specifier|final
 class|class
 name|Address
 implements|implements
