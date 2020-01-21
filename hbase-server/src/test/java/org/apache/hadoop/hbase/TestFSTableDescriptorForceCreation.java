@@ -443,7 +443,7 @@ argument_list|()
 decl_stmt|;
 name|fstd
 operator|.
-name|add
+name|update
 argument_list|(
 name|htd
 argument_list|)

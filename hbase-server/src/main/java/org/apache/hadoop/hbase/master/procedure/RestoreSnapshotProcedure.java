@@ -2033,7 +2033,7 @@ operator|.
 name|getTableDescriptors
 argument_list|()
 operator|.
-name|add
+name|update
 argument_list|(
 name|modifiedTableDescriptor
 argument_list|)

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -106,20 +106,6 @@ operator|.
 name|regex
 operator|.
 name|Pattern
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|commons
-operator|.
-name|lang3
-operator|.
-name|ArrayUtils
 import|;
 end_import
 
@@ -3036,52 +3022,6 @@ name|HBASE_TEMP_DIRECTORY
 block|,
 name|MIGRATION_NAME
 block|}
-argument_list|)
-argument_list|)
-decl_stmt|;
-comment|/** Directories that are not HBase user table directories */
-specifier|public
-specifier|static
-specifier|final
-name|List
-argument_list|<
-name|String
-argument_list|>
-name|HBASE_NON_USER_TABLE_DIRS
-init|=
-name|Collections
-operator|.
-name|unmodifiableList
-argument_list|(
-name|Arrays
-operator|.
-name|asList
-argument_list|(
-operator|(
-name|String
-index|[]
-operator|)
-name|ArrayUtils
-operator|.
-name|addAll
-argument_list|(
-operator|new
-name|String
-index|[]
-block|{
-name|TableName
-operator|.
-name|META_TABLE_NAME
-operator|.
-name|getNameAsString
-argument_list|()
-block|}
-argument_list|,
-name|HBASE_NON_TABLE_DIRS
-operator|.
-name|toArray
-argument_list|()
-argument_list|)
 argument_list|)
 argument_list|)
 decl_stmt|;

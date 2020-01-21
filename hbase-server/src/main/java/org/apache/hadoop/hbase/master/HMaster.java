@@ -6404,6 +6404,10 @@ expr_stmt|;
 if|if
 condition|(
 name|rs
+operator|!=
+literal|null
+operator|&&
+name|rs
 operator|.
 name|isOffline
 argument_list|()

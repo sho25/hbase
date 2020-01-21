@@ -1375,13 +1375,13 @@ name|filter
 argument_list|(
 name|c
 lambda|->
-name|c
+name|this
 operator|.
-name|startsWith
-argument_list|(
 name|znodePaths
 operator|.
-name|metaZNodePrefix
+name|isMetaZNodePrefix
+argument_list|(
+name|c
 argument_list|)
 argument_list|)
 operator|.

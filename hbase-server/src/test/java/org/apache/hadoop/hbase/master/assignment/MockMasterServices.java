@@ -2039,7 +2039,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|add
+name|update
 parameter_list|(
 name|TableDescriptor
 name|htd

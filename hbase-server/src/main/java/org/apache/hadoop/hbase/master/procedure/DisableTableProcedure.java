@@ -1194,7 +1194,11 @@ argument_list|,
 operator|new
 name|ConstraintException
 argument_list|(
-literal|"Cannot disable catalog table"
+literal|"Cannot disable "
+operator|+
+name|this
+operator|.
+name|tableName
 argument_list|)
 argument_list|)
 expr_stmt|;
