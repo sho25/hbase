@@ -628,11 +628,23 @@ argument_list|)
 return|;
 block|}
 block|}
+comment|// Unwrap PROXY auth'n method if that's what we have coming in.
 if|if
 condition|(
 name|user
 operator|.
 name|getUGI
+argument_list|()
+operator|.
+name|hasKerberosCredentials
+argument_list|()
+operator|||
+name|user
+operator|.
+name|getUGI
+argument_list|()
+operator|.
+name|getRealUser
 argument_list|()
 operator|.
 name|hasKerberosCredentials
@@ -650,11 +662,18 @@ literal|null
 argument_list|)
 return|;
 block|}
+comment|// This indicates that a client is requesting some authentication mechanism which the servers
+comment|// don't know how to process (e.g. there is no provider which can support it). This may be
+comment|// a bug or simply a misconfiguration of client *or* server.
 name|LOG
 operator|.
-name|debug
+name|warn
 argument_list|(
-literal|"No matching SASL authentication provider and supporting token found from providers."
+literal|"No matching SASL authentication provider and supporting token found from providers"
+operator|+
+literal|" for user: {}"
+argument_list|,
+name|user
 argument_list|)
 expr_stmt|;
 return|return
