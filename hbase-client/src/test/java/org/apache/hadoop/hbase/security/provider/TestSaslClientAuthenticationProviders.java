@@ -604,6 +604,10 @@ operator|.
 name|SIMPLE
 argument_list|)
 decl_stmt|;
+specifier|public
+name|ConflictingProvider1
+parameter_list|()
+block|{     }
 annotation|@
 name|Override
 specifier|public
@@ -710,6 +714,10 @@ operator|.
 name|SIMPLE
 argument_list|)
 decl_stmt|;
+specifier|public
+name|ConflictingProvider2
+parameter_list|()
+block|{     }
 annotation|@
 name|Override
 specifier|public
