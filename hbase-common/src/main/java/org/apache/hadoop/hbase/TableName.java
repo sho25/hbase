@@ -1050,6 +1050,7 @@ return|return
 name|qualifierAsString
 return|;
 block|}
+comment|/**    * @return A pointer to TableName as String bytes.    */
 specifier|public
 name|byte
 index|[]

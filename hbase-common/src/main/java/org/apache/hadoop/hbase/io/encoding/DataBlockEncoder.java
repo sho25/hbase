@@ -150,7 +150,7 @@ name|DataBlockEncoder
 block|{
 comment|// TODO: This Interface should be deprecated and replaced. It presumes hfile and carnal knowledge of
 comment|// Cell internals. It was done for a different time. Remove. Purge.
-comment|/**    * Starts encoding for a block of KeyValues. Call    * {@link #endBlockEncoding(HFileBlockEncodingContext, DataOutputStream, byte[])} to finish    * encoding of a block.    * @param encodingCtx    * @param out    * @throws IOException    */
+comment|/**    * Starts encoding for a block of KeyValues. Call    * {@link #endBlockEncoding(HFileBlockEncodingContext, DataOutputStream, byte[])} to finish    * encoding of a block.    */
 name|void
 name|startBlockEncoding
 parameter_list|(
@@ -163,7 +163,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Encodes a KeyValue.    * @param cell    * @param encodingCtx    * @param out    * @return unencoded kv size written    * @throws IOException    */
+comment|/**    * Encodes a KeyValue.    * @return unencoded kv size written    */
 name|int
 name|encode
 parameter_list|(
@@ -179,7 +179,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Ends encoding for a block of KeyValues. Gives a chance for the encoder to do the finishing    * stuff for the encoded block. It must be called at the end of block encoding.    * @param encodingCtx    * @param out    * @param uncompressedBytesWithHeader    * @throws IOException    */
+comment|/**    * Ends encoding for a block of KeyValues. Gives a chance for the encoder to do the finishing    * stuff for the encoded block. It must be called at the end of block encoding.    */
 name|void
 name|endBlockEncoding
 parameter_list|(
@@ -196,7 +196,7 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Decode.    * @param source Compressed stream of KeyValues.    * @param decodingCtx    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
+comment|/**    * Decode.    * @param source Compressed stream of KeyValues.    * @return Uncompressed block of KeyValues.    * @throws IOException If there is an error in source.    */
 name|ByteBuffer
 name|decodeKeyValues
 parameter_list|(
@@ -217,13 +217,10 @@ name|ByteBuff
 name|block
 parameter_list|)
 function_decl|;
-comment|/**    * Create a HFileBlock seeker which find KeyValues within a block.    * @param comparator what kind of comparison should be used    * @param decodingCtx    * @return A newly created seeker.    */
+comment|/**    * Create a HFileBlock seeker which find KeyValues within a block.    * @return A newly created seeker.    */
 name|EncodedSeeker
 name|createSeeker
 parameter_list|(
-name|CellComparator
-name|comparator
-parameter_list|,
 name|HFileBlockDecodingContext
 name|decodingCtx
 parameter_list|)
@@ -299,7 +296,7 @@ name|boolean
 name|seekBefore
 parameter_list|)
 function_decl|;
-comment|/**      * Compare the given key against the current key      * @param comparator      * @param key      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
+comment|/**      * Compare the given key against the current key      * @return -1 is the passed key is smaller than the current key, 0 if equal and 1 if greater      */
 specifier|public
 name|int
 name|compareKey

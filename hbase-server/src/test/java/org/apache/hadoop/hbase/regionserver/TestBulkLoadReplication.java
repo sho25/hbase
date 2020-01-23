@@ -2561,7 +2561,10 @@ operator|.
 name|withFileContext
 argument_list|(
 operator|new
-name|HFileContext
+name|HFileContextBuilder
+argument_list|()
+operator|.
+name|build
 argument_list|()
 argument_list|)
 expr_stmt|;

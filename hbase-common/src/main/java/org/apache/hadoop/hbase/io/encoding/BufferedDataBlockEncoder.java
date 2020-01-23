@@ -3518,17 +3518,12 @@ decl_stmt|;
 specifier|public
 name|BufferedEncodedSeeker
 parameter_list|(
-name|CellComparator
-name|comparator
-parameter_list|,
 name|HFileBlockDecodingContext
 name|decodingCtx
 parameter_list|)
 block|{
 name|super
 argument_list|(
-name|comparator
-argument_list|,
 name|decodingCtx
 argument_list|)
 expr_stmt|;
@@ -4901,7 +4896,7 @@ name|decodeNext
 parameter_list|()
 function_decl|;
 block|}
-comment|/**    * @param cell    * @param out    * @param encodingCtx    * @return unencoded size added    * @throws IOException    */
+comment|/**    * @return unencoded size added    */
 specifier|protected
 specifier|final
 name|int

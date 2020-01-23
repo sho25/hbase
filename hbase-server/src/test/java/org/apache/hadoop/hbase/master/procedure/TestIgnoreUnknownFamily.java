@@ -209,7 +209,7 @@ name|io
 operator|.
 name|hfile
 operator|.
-name|HFileContext
+name|HFileContextBuilder
 import|;
 end_import
 
@@ -647,7 +647,10 @@ operator|.
 name|withFileContext
 argument_list|(
 operator|new
-name|HFileContext
+name|HFileContextBuilder
+argument_list|()
+operator|.
+name|build
 argument_list|()
 argument_list|)
 operator|.

@@ -351,20 +351,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -379,7 +365,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|PrivateCellUtil
+name|KeyValue
 import|;
 end_import
 
@@ -393,7 +379,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|KeyValue
+name|PrivateCellUtil
 import|;
 end_import
 
@@ -803,7 +789,7 @@ operator|.
 name|Writer
 name|writer
 decl_stmt|;
-comment|/**    * Creates an HFile.Writer that also write helpful meta data.    *    * @param fs                     file system to write to    * @param path                   file name to create    * @param conf                   user configuration    * @param comparator             key comparator    * @param bloomType              bloom filter setting    * @param maxKeys                the expected maximum number of keys to be added. Was used    *                               for Bloom filter size in {@link HFile} format version 1.    * @param favoredNodes           an array of favored nodes or possibly null    * @param fileContext            The HFile context    * @param shouldDropCacheBehind  Drop pages written to page cache after writing the store file.    * @param compactedFilesSupplier Returns the {@link HStore} compacted files which not archived    * @throws IOException problem writing to FS    */
+comment|/**    * Creates an HFile.Writer that also write helpful meta data.    *    * @param fs                     file system to write to    * @param path                   file name to create    * @param conf                   user configuration    * @param bloomType              bloom filter setting    * @param maxKeys                the expected maximum number of keys to be added. Was used    *                               for Bloom filter size in {@link HFile} format version 1.    * @param favoredNodes           an array of favored nodes or possibly null    * @param fileContext            The HFile context    * @param shouldDropCacheBehind  Drop pages written to page cache after writing the store file.    * @param compactedFilesSupplier Returns the {@link HStore} compacted files which not archived    * @throws IOException problem writing to FS    */
 specifier|private
 name|StoreFileWriter
 parameter_list|(
@@ -819,10 +805,6 @@ name|conf
 parameter_list|,
 name|CacheConfig
 name|cacheConf
-parameter_list|,
-specifier|final
-name|CellComparator
-name|comparator
 parameter_list|,
 name|BloomType
 name|bloomType
@@ -890,11 +872,6 @@ argument_list|(
 name|fs
 argument_list|,
 name|path
-argument_list|)
-operator|.
-name|withComparator
-argument_list|(
-name|comparator
 argument_list|)
 operator|.
 name|withFavoredNodes
@@ -1044,7 +1021,10 @@ name|RowBloomContext
 argument_list|(
 name|generalBloomFilterWriter
 argument_list|,
-name|comparator
+name|fileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -1058,7 +1038,10 @@ name|RowColBloomContext
 argument_list|(
 name|generalBloomFilterWriter
 argument_list|,
-name|comparator
+name|fileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 break|break;
@@ -1072,7 +1055,10 @@ name|RowPrefixFixedLengthBloomContext
 argument_list|(
 name|generalBloomFilterWriter
 argument_list|,
-name|comparator
+name|fileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|,
 name|Bytes
 operator|.
@@ -1158,7 +1144,10 @@ name|RowBloomContext
 argument_list|(
 name|deleteFamilyBloomFilterWriter
 argument_list|,
-name|comparator
+name|fileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
@@ -2045,7 +2034,7 @@ return|return
 name|writer
 return|;
 block|}
-comment|/**    * @param fs    * @param dir Directory to create file in.    * @return random filename inside passed<code>dir</code>    */
+comment|/**    * @param dir Directory to create file in.    * @return random filename inside passed<code>dir</code>    */
 specifier|static
 name|Path
 name|getUniqueFile
@@ -2156,15 +2145,6 @@ specifier|private
 specifier|final
 name|FileSystem
 name|fs
-decl_stmt|;
-specifier|private
-name|CellComparator
-name|comparator
-init|=
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
 decl_stmt|;
 specifier|private
 name|BloomType
@@ -2349,31 +2329,6 @@ operator|.
 name|favoredNodes
 operator|=
 name|favoredNodes
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|public
-name|Builder
-name|withComparator
-parameter_list|(
-name|CellComparator
-name|comparator
-parameter_list|)
-block|{
-name|Preconditions
-operator|.
-name|checkNotNull
-argument_list|(
-name|comparator
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
 expr_stmt|;
 return|return
 name|this
@@ -2650,21 +2605,6 @@ name|NONE
 expr_stmt|;
 block|}
 block|}
-if|if
-condition|(
-name|comparator
-operator|==
-literal|null
-condition|)
-block|{
-name|comparator
-operator|=
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
-expr_stmt|;
-block|}
 return|return
 operator|new
 name|StoreFileWriter
@@ -2676,8 +2616,6 @@ argument_list|,
 name|conf
 argument_list|,
 name|cacheConf
-argument_list|,
-name|comparator
 argument_list|,
 name|bloomType
 argument_list|,

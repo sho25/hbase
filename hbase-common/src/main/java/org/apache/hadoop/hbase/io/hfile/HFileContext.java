@@ -29,6 +29,34 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|CellComparator
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|CellComparatorImpl
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|HConstants
 import|;
 end_import
@@ -166,7 +194,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This carries the information on some of the meta data about the HFile. This  * meta data is used across the HFileWriter/Readers and the HFileBlocks.  * This helps to add new information to the HFile.  */
+comment|/**  * Read-only HFile Context Information. Meta data that is used by HFileWriter/Readers and by  * HFileBlocks. Create one using the {@link HFileContextBuilder} (See HFileInfo and the HFile  * Trailer class).  * @see HFileContextBuilder  */
 end_comment
 
 begin_class
@@ -234,7 +262,7 @@ operator|.
 name|REFERENCE
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 specifier|final
 name|int
@@ -346,12 +374,16 @@ name|byte
 index|[]
 name|tableName
 decl_stmt|;
+specifier|private
+name|CellComparator
+name|cellComparator
+decl_stmt|;
 comment|//Empty constructor.  Go with setters
 specifier|public
 name|HFileContext
 parameter_list|()
 block|{   }
-comment|/**    * Copy constructor    * @param context    */
+comment|/**    * Copy constructor    */
 specifier|public
 name|HFileContext
 parameter_list|(
@@ -471,6 +503,14 @@ name|context
 operator|.
 name|tableName
 expr_stmt|;
+name|this
+operator|.
+name|cellComparator
+operator|=
+name|context
+operator|.
+name|cellComparator
+expr_stmt|;
 block|}
 name|HFileContext
 parameter_list|(
@@ -521,6 +561,9 @@ parameter_list|,
 name|byte
 index|[]
 name|tableName
+parameter_list|,
+name|CellComparator
+name|cellComparator
 parameter_list|)
 block|{
 name|this
@@ -615,8 +658,40 @@ name|tableName
 operator|=
 name|tableName
 expr_stmt|;
+comment|// If no cellComparator specified, make a guess based off tablename. If hbase:meta, then should
+comment|// be the meta table comparator. Comparators are per table.
+name|this
+operator|.
+name|cellComparator
+operator|=
+name|cellComparator
+operator|!=
+literal|null
+condition|?
+name|cellComparator
+else|:
+name|this
+operator|.
+name|tableName
+operator|!=
+literal|null
+condition|?
+name|CellComparatorImpl
+operator|.
+name|getCellComparator
+argument_list|(
+name|this
+operator|.
+name|tableName
+argument_list|)
+else|:
+name|CellComparator
+operator|.
+name|getInstance
+argument_list|()
+expr_stmt|;
 block|}
-comment|/**    * @return true when on-disk blocks from this file are compressed, and/or encrypted;    * false otherwise.    */
+comment|/**    * @return true when on-disk blocks are compressed, and/or encrypted; false otherwise.    */
 specifier|public
 name|boolean
 name|isCompressedOrEncrypted
@@ -887,6 +962,17 @@ return|return
 name|this
 operator|.
 name|tableName
+return|;
+block|}
+specifier|public
+name|CellComparator
+name|getCellComparator
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|cellComparator
 return|;
 block|}
 comment|/**    * HeapSize implementation. NOTE : The heap size should be altered when new state variable are    * added.    * @return heap size of the HFileContext    */
@@ -1254,6 +1340,22 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
+name|sb
+operator|.
+name|append
+argument_list|(
+literal|", cellComparator="
+argument_list|)
+expr_stmt|;
+name|sb
+operator|.
+name|append
+argument_list|(
+name|this
+operator|.
+name|cellComparator
+argument_list|)
+expr_stmt|;
 name|sb
 operator|.
 name|append

@@ -167,11 +167,15 @@ name|org
 operator|.
 name|apache
 operator|.
-name|yetus
+name|hadoop
 operator|.
-name|audience
+name|hbase
 operator|.
-name|InterfaceAudience
+name|io
+operator|.
+name|compress
+operator|.
+name|Compression
 import|;
 end_import
 
@@ -185,11 +189,43 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
+name|util
 operator|.
-name|compress
+name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
 operator|.
-name|Compression
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -233,44 +269,8 @@ name|HFileProtos
 import|;
 end_import
 
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|util
-operator|.
-name|Bytes
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
 begin_comment
-comment|/**  * The {@link HFile} has a fixed trailer which contains offsets to other  * variable parts of the file. Also includes basic metadata on this file. The  * trailer size is fixed within a given {@link HFile} format version only, but  * we always store the version number as the last four-byte integer of the file.  * The version number itself is split into two portions, a major   * version and a minor version. The last three bytes of a file are the major  * version and a single preceding byte is the minor number. The major version  * determines which readers/writers to use to read/write a hfile while a minor  * version determines smaller changes in hfile format that do not need a new  * reader/writer type.  */
+comment|/**  * The {@link HFile} has a fixed trailer which contains offsets to other  * variable parts of the file. Also includes basic metadata on this file. The  * trailer size is fixed within a given {@link HFile} format version only, but  * we always store the version number as the last four-byte integer of the file.  * The version number itself is split into two portions, a major  * version and a minor version. The last three bytes of a file are the major  * version and a single preceding byte is the minor number. The major version  * determines which readers/writers to use to read/write a hfile while a minor  * version determines smaller changes in hfile format that do not need a new  * reader/writer type.  */
 end_comment
 
 begin_class
@@ -316,22 +316,22 @@ specifier|private
 name|long
 name|loadOnOpenDataOffset
 decl_stmt|;
-comment|/** The number of entries in the root data index. */
+comment|/**    * The number of entries in the root data index.    */
 specifier|private
 name|int
 name|dataIndexCount
 decl_stmt|;
-comment|/** Total uncompressed size of all blocks of the data index */
+comment|/**    * Total uncompressed size of all blocks of the data index    */
 specifier|private
 name|long
 name|uncompressedDataIndexSize
 decl_stmt|;
-comment|/** The number of entries in the meta index */
+comment|/**    * The number of entries in the meta index    */
 specifier|private
 name|int
 name|metaIndexCount
 decl_stmt|;
-comment|/** The total uncompressed size of keys/values stored in the file. */
+comment|/**    * The total uncompressed size of keys/values stored in the file.    */
 specifier|private
 name|long
 name|totalUncompressedBytes
@@ -341,7 +341,7 @@ specifier|private
 name|long
 name|entryCount
 decl_stmt|;
-comment|/** The compression codec used for all blocks. */
+comment|/**    * The compression codec used for all blocks.    */
 specifier|private
 name|Compression
 operator|.
@@ -359,7 +359,7 @@ specifier|private
 name|int
 name|numDataIndexLevels
 decl_stmt|;
-comment|/** The offset of the first data block. */
+comment|/**    * The offset of the first data block.    */
 specifier|private
 name|long
 name|firstDataBlockOffset
@@ -369,7 +369,7 @@ specifier|private
 name|long
 name|lastDataBlockOffset
 decl_stmt|;
-comment|/** Raw key comparator class name in version 3 */
+comment|/**    * Raw key comparator class name in version 3    */
 comment|// We could write the actual class name from 2.0 onwards and handle BC
 specifier|private
 name|String
@@ -386,19 +386,19 @@ operator|.
 name|getName
 argument_list|()
 decl_stmt|;
-comment|/** The encryption key */
+comment|/**    * The encryption key    */
 specifier|private
 name|byte
 index|[]
 name|encryptionKey
 decl_stmt|;
-comment|/** The {@link HFile} format major version. */
+comment|/**    * The {@link HFile} format major version.    */
 specifier|private
 specifier|final
 name|int
 name|majorVersion
 decl_stmt|;
-comment|/** The {@link HFile} format minor version. */
+comment|/**    * The {@link HFile} format minor version.    */
 specifier|private
 specifier|final
 name|int
@@ -441,8 +441,8 @@ name|computeTrailerSizeByVersion
 parameter_list|()
 block|{
 name|int
-name|versionToSize
 index|[]
+name|versionToSize
 init|=
 operator|new
 name|int
@@ -525,6 +525,7 @@ condition|;
 operator|++
 name|version
 control|)
+block|{
 name|maxSize
 operator|=
 name|Math
@@ -539,6 +540,7 @@ argument_list|,
 name|maxSize
 argument_list|)
 expr_stmt|;
+block|}
 return|return
 name|maxSize
 return|;
@@ -547,8 +549,8 @@ specifier|private
 specifier|static
 specifier|final
 name|int
-name|TRAILER_SIZE
 index|[]
+name|TRAILER_SIZE
 init|=
 name|computeTrailerSizeByVersion
 argument_list|()
@@ -603,7 +605,7 @@ name|majorVersion
 argument_list|)
 return|;
 block|}
-comment|/**    * Write the trailer to a data stream. We support writing version 1 for    * testing and for determining version 1 trailer size. It is also easy to see    * what fields changed in version 2.    *    * @param outputStream    * @throws IOException    */
+comment|/**    * Write the trailer to a data stream. We support writing version 1 for    * testing and for determining version 1 trailer size. It is also easy to see    * what fields changed in version 2.    */
 name|void
 name|serialize
 parameter_list|(
@@ -892,7 +894,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Deserialize the fixed file trailer from the given stream. The version needs    * to already be specified. Make sure this is consistent with    * {@link #serialize(DataOutputStream)}.    *    * @param inputStream    * @throws IOException    */
+comment|/**    * Deserialize the fixed file trailer from the given stream. The version needs    * to already be specified. Make sure this is consistent with    * {@link #serialize(DataOutputStream)}.    */
 name|void
 name|deserialize
 parameter_list|(
@@ -977,7 +979,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Deserialize the file trailer as protobuf    * @param inputStream    * @throws IOException    */
+comment|/**    * Deserialize the file trailer as protobuf    */
 name|void
 name|deserializeFromPB
 parameter_list|(
@@ -1270,7 +1272,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Deserialize the file trailer as writable data    * @param input    * @throws IOException    */
+comment|/**    * Deserialize the file trailer as writable data    */
 name|void
 name|deserializeFromWritable
 parameter_list|(
@@ -1403,6 +1405,7 @@ argument_list|()
 operator|>
 literal|0
 condition|)
+block|{
 name|sb
 operator|.
 name|append
@@ -1410,6 +1413,7 @@ argument_list|(
 literal|", "
 argument_list|)
 expr_stmt|;
+block|}
 name|sb
 operator|.
 name|append
@@ -1590,7 +1594,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * Reads a file trailer from the given file.    *    * @param istream the input stream with the ability to seek. Does not have to    *          be buffered, as only one read operation is made.    * @param fileSize the file size. Can be obtained using    *          {@link org.apache.hadoop.fs.FileSystem#getFileStatus(    *          org.apache.hadoop.fs.Path)}.    * @return the fixed file trailer read    * @throws IOException if failed to read from the underlying stream, or the    *           trailer is corrupted, or the version of the trailer is    *           unsupported    */
+comment|/**    * Reads a file trailer from the given file.    *    * @param istream  the input stream with the ability to seek. Does not have to    *                 be buffered, as only one read operation is made.    * @param fileSize the file size. Can be obtained using    *                 {@link org.apache.hadoop.fs.FileSystem#getFileStatus(    *org.apache.hadoop.fs.Path)}.    * @return the fixed file trailer read    * @throws IOException if failed to read from the underlying stream, or the    *                     trailer is corrupted, or the version of the trailer is    *                     unsupported    */
 specifier|public
 specifier|static
 name|FixedFileTrailer
@@ -2250,7 +2254,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**    * If a 'standard' Comparator, write the old name for the Comparator when we serialize rather    * than the new name; writing the new name will make it so newly-written hfiles are not parseable    * by hbase-1.x, a facility we'd like to preserve across rolling upgrade and hbase-1.x clusters    * reading hbase-2.x produce.    *    * The Comparators in hbase-2.x work the same as they did in hbase-1.x; they compare    * KeyValues. In hbase-2.x they were renamed making use of the more generic 'Cell'    * nomenclature to indicate that we intend to move away from KeyValues post hbase-2. A naming    * change is not reason enough to make it so hbase-1.x cannot read hbase-2.x files given the    * structure goes unchanged (hfile v3). So, lets write the old names for Comparators into the    * hfile tails in hbase-2. Here is where we do the translation.    * {@link #getComparatorClass(String)} does translation going the other way.    *    *<p>The translation is done on the serialized Protobuf only.</p>    *    * @param comparator String class name of the Comparator used in this hfile.    * @return What to store in the trailer as our comparator name.    * @since hbase-2.0.0.    * @deprecated Since hbase-2.0.0. Will be removed in hbase-3.0.0.    * @see #getComparatorClass(String)    */
+comment|/**    * If a 'standard' Comparator, write the old name for the Comparator when we serialize rather    * than the new name; writing the new name will make it so newly-written hfiles are not parseable    * by hbase-1.x, a facility we'd like to preserve across rolling upgrade and hbase-1.x clusters    * reading hbase-2.x produce.    *<p>    * The Comparators in hbase-2.x work the same as they did in hbase-1.x; they compare    * KeyValues. In hbase-2.x they were renamed making use of the more generic 'Cell'    * nomenclature to indicate that we intend to move away from KeyValues post hbase-2. A naming    * change is not reason enough to make it so hbase-1.x cannot read hbase-2.x files given the    * structure goes unchanged (hfile v3). So, lets write the old names for Comparators into the    * hfile tails in hbase-2. Here is where we do the translation.    * {@link #getComparatorClass(String)} does translation going the other way.    *    *<p>The translation is done on the serialized Protobuf only.</p>    *    * @param comparator String class name of the Comparator used in this hfile.    * @return What to store in the trailer as our comparator name.    * @see #getComparatorClass(String)    * @since hbase-2.0.0.    * @deprecated Since hbase-2.0.0. Will be removed in hbase-3.0.0.    */
 annotation|@
 name|Deprecated
 specifier|private
@@ -2510,7 +2514,6 @@ return|return
 name|comparatorKlass
 return|;
 block|}
-specifier|public
 specifier|static
 name|CellComparator
 name|createComparator
@@ -2521,6 +2524,55 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+if|if
+condition|(
+name|comparatorClassName
+operator|.
+name|equals
+argument_list|(
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+name|CellComparatorImpl
+operator|.
+name|COMPARATOR
+return|;
+block|}
+elseif|else
+if|if
+condition|(
+name|comparatorClassName
+operator|.
+name|equals
+argument_list|(
+name|CellComparatorImpl
+operator|.
+name|META_COMPARATOR
+operator|.
+name|getClass
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
+return|return
+name|CellComparatorImpl
+operator|.
+name|META_COMPARATOR
+return|;
+block|}
 try|try
 block|{
 name|Class

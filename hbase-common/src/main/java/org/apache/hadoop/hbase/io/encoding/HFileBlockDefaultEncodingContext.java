@@ -546,7 +546,7 @@ literal|"Please pass HConstants.HFILEBLOCK_DUMMY_HEADER instead of null for para
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * prepare to start a new encoding.    * @throws IOException    */
+comment|/**    * prepare to start a new encoding.    */
 specifier|public
 name|void
 name|prepareEncoding

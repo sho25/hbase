@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -266,20 +266,6 @@ operator|.
 name|hbase
 operator|.
 name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CellComparator
 import|;
 end_import
 
@@ -1017,7 +1003,7 @@ name|date
 argument_list|)
 return|;
 block|}
-comment|/**    * Parses the string to a date.    * @param dateString The string format of a date, it's yyyymmdd.    * @return A date.    * @throws ParseException    */
+comment|/**    * Parses the string to a date.    * @param dateString The string format of a date, it's yyyymmdd.    * @return A date.    */
 specifier|public
 specifier|static
 name|Date
@@ -1570,7 +1556,7 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Cleans the expired mob files.    * Cleans the files whose creation date is older than (current - columnFamily.ttl), and    * the minVersions of that column family is 0.    * @param fs The current file system.    * @param conf The current configuration.    * @param tableName The current table name.    * @param columnDescriptor The descriptor of the current column family.    * @param cacheConfig The cacheConfig that disables the block cache.    * @param current The current time.    * @throws IOException    */
+comment|/**    * Cleans the expired mob files.    * Cleans the files whose creation date is older than (current - columnFamily.ttl), and    * the minVersions of that column family is 0.    * @param fs The current file system.    * @param conf The current configuration.    * @param tableName The current table name.    * @param columnDescriptor The descriptor of the current column family.    * @param cacheConfig The cacheConfig that disables the block cache.    * @param current The current time.    */
 specifier|public
 specifier|static
 name|void
@@ -2073,7 +2059,7 @@ name|MOB_DIR_NAME
 argument_list|)
 return|;
 block|}
-comment|/**    * Gets the qualified root dir of the mob files.    * @param conf The current configuration.    * @return The qualified root dir.    * @throws IOException    */
+comment|/**    * Gets the qualified root dir of the mob files.    * @param conf The current configuration.    * @return The qualified root dir.    */
 specifier|public
 specifier|static
 name|Path
@@ -2441,7 +2427,7 @@ name|jobName
 argument_list|)
 return|;
 block|}
-comment|/**    * Archives the mob files.    * @param conf The current configuration.    * @param fs The current file system.    * @param tableName The table name.    * @param tableDir The table directory.    * @param family The name of the column family.    * @param storeFiles The files to be deleted.    * @throws IOException    */
+comment|/**    * Archives the mob files.    * @param conf The current configuration.    * @param fs The current file system.    * @param tableName The table name.    * @param tableDir The table directory.    * @param family The name of the column family.    * @param storeFiles The files to be deleted.    */
 specifier|public
 specifier|static
 name|void
@@ -2619,7 +2605,7 @@ argument_list|)
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The hex string of the start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The hex string of the start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -2717,7 +2703,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the ref file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the ref file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -2821,7 +2807,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -2920,7 +2906,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the del file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the del file.    * @throws IOException    */
+comment|/**    * Creates a writer for the del file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param date The date string, its format is yyyymmmdd.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param startKey The start key.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @return The writer for the del file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -3023,7 +3009,7 @@ literal|true
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param mobFileName The mob file name.    * @param basePath The basic path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -3121,7 +3107,7 @@ name|isCompaction
 argument_list|)
 return|;
 block|}
-comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param path The path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param checksumType The checksum type.    * @param bytesPerChecksum The bytes per checksum.    * @param blocksize The HFile block size.    * @param bloomType The bloom filter type.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    * @throws IOException    */
+comment|/**    * Creates a writer for the mob file in temp directory.    * @param conf The current configuration.    * @param fs The current file system.    * @param family The descriptor of the current column family.    * @param path The path for a temp directory.    * @param maxKeyCount The key count.    * @param compression The compression algorithm.    * @param cacheConfig The current cache config.    * @param cryptoContext The encryption context.    * @param checksumType The checksum type.    * @param bytesPerChecksum The bytes per checksum.    * @param blocksize The HFile block size.    * @param bloomType The bloom filter type.    * @param isCompaction If the writer is used in compaction.    * @return The writer for the mob file.    */
 specifier|public
 specifier|static
 name|StoreFileWriter
@@ -3313,14 +3299,6 @@ argument_list|(
 name|path
 argument_list|)
 operator|.
-name|withComparator
-argument_list|(
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
-argument_list|)
-operator|.
 name|withBloomType
 argument_list|(
 name|bloomType
@@ -3343,7 +3321,7 @@ return|return
 name|w
 return|;
 block|}
-comment|/**    * Commits the mob file.    * @param conf The current configuration.    * @param fs The current file system.    * @param sourceFile The path where the mob file is saved.    * @param targetPath The directory path where the source file is renamed to.    * @param cacheConfig The current cache config.    * @return The target file path the source file is renamed to.    * @throws IOException    */
+comment|/**    * Commits the mob file.    * @param conf The current configuration.    * @param fs The current file system.    * @param sourceFile The path where the mob file is saved.    * @param targetPath The directory path where the source file is renamed to.    * @param cacheConfig The current cache config.    * @return The target file path the source file is renamed to.    */
 specifier|public
 specifier|static
 name|Path

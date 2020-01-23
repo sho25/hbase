@@ -118,7 +118,7 @@ name|DataBlockEncoding
 name|getDataBlockEncoding
 parameter_list|()
 function_decl|;
-comment|/**    * Do any action that needs to be performed after the encoding.    * Compression is also included if a non-null compression algorithm is used    *    * @param blockType    * @throws IOException    */
+comment|/**    * Do any action that needs to be performed after the encoding.    * Compression is also included if a non-null compression algorithm is used    */
 name|void
 name|postEncoding
 parameter_list|(
@@ -138,7 +138,7 @@ name|HFileContext
 name|getHFileContext
 parameter_list|()
 function_decl|;
-comment|/**    * Sets the encoding state.    * @param state    */
+comment|/**    * Sets the encoding state.    */
 name|void
 name|setEncodingState
 parameter_list|(

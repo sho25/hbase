@@ -621,16 +621,6 @@ name|NoOpDataBlockEncoder
 operator|.
 name|INSTANCE
 decl_stmt|;
-comment|/** Key comparator */
-specifier|protected
-name|CellComparator
-name|comparator
-init|=
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
-decl_stmt|;
 comment|/** Block cache configuration. */
 specifier|protected
 specifier|final
@@ -802,16 +792,6 @@ operator|=
 name|fileInfo
 operator|.
 name|getTrailer
-argument_list|()
-expr_stmt|;
-comment|// Comparator class name is stored in the trailer in version 2.
-name|this
-operator|.
-name|comparator
-operator|=
-name|trailer
-operator|.
-name|createComparator
 argument_list|()
 expr_stmt|;
 name|this
@@ -1158,7 +1138,12 @@ name|getComparator
 parameter_list|()
 block|{
 return|return
-name|comparator
+name|this
+operator|.
+name|hfileContext
+operator|.
+name|getCellComparator
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -1741,6 +1726,7 @@ operator|!
 name|isSeeked
 argument_list|()
 condition|)
+block|{
 throw|throw
 operator|new
 name|NotSeekedException
@@ -1751,6 +1737,7 @@ name|getPath
 argument_list|()
 argument_list|)
 throw|;
+block|}
 block|}
 annotation|@
 name|Override
@@ -2052,7 +2039,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Read mvcc. Does checks to see if we even need to read the mvcc at all.      * @param offsetFromPos      */
+comment|/**      * Read mvcc. Does checks to see if we even need to read the mvcc at all.      */
 specifier|protected
 name|void
 name|readMvccVersion
@@ -2109,7 +2096,7 @@ name|offsetFromPos
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Actually do the mvcc read. Does no checks.      * @param offsetFromPos      */
+comment|/**      * Actually do the mvcc read. Does no checks.      */
 specifier|private
 name|void
 name|_readMvccVersion
@@ -2998,7 +2985,7 @@ literal|false
 argument_list|)
 return|;
 block|}
-comment|/**      * An internal API function. Seek to the given key, optionally rewinding to      * the first key of the block before doing the seek.      *      * @param key - a cell representing the key that we need to fetch      * @param rewind whether to rewind to the first key of the block before      *        doing the seek. If this is false, we are assuming we never go      *        back, otherwise the result is undefined.      * @return -1 if the key is earlier than the first key of the file,      *         0 if we are at the given key, 1 if we are past the given key      *         -2 if the key is earlier than the first key of the file while      *         using a faked index key      * @throws IOException      */
+comment|/**      * An internal API function. Seek to the given key, optionally rewinding to      * the first key of the block before doing the seek.      *      * @param key - a cell representing the key that we need to fetch      * @param rewind whether to rewind to the first key of the block before      *        doing the seek. If this is false, we are assuming we never go      *        back, otherwise the result is undefined.      * @return -1 if the key is earlier than the first key of the file,      *         0 if we are at the given key, 1 if we are past the given key      *         -2 if the key is earlier than the first key of the file while      *         using a faked index key      */
 specifier|public
 name|int
 name|seekTo
@@ -3281,7 +3268,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**      * Scans blocks in the "scanned" section of the {@link HFile} until the next      * data block is found.      *      * @return the next block, or null if there are no more data blocks      * @throws IOException      */
+comment|/**      * Scans blocks in the "scanned" section of the {@link HFile} until the next      * data block is found.      *      * @return the next block, or null if there are no more data blocks      */
 annotation|@
 name|edu
 operator|.
@@ -3379,7 +3366,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid block file offset: "
+literal|"Invalid block offset: "
 operator|+
 name|block
 operator|+
@@ -3499,9 +3486,11 @@ operator|!
 name|isSeeked
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|Cell
 name|ret
 decl_stmt|;
@@ -4046,7 +4035,7 @@ name|e
 throw|;
 block|}
 block|}
-comment|/**      * Set our selves up for the next 'next' invocation, set up next block.      * @return True is more to read else false if at the end.      * @throws IOException      */
+comment|/**      * Set our selves up for the next 'next' invocation, set up next block.      * @return True is more to read else false if at the end.      */
 specifier|private
 name|boolean
 name|positionForNextBlock
@@ -4182,7 +4171,7 @@ name|_next
 argument_list|()
 return|;
 block|}
-comment|/**      * Positions this scanner at the start of the file.      *      * @return false if empty file; i.e. a call to next would return false and      *         the current key and value are undefined.      * @throws IOException      */
+comment|/**      * Positions this scanner at the start of the file.      *      * @return false if empty file; i.e. a call to next would return false and      *         the current key and value are undefined.      */
 annotation|@
 name|Override
 specifier|public
@@ -4336,7 +4325,7 @@ throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Invalid block offset: "
+literal|"Invalid offset="
 operator|+
 name|newBlock
 operator|.
@@ -4435,7 +4424,7 @@ name|seekBefore
 argument_list|)
 return|;
 block|}
-comment|/**      * @param v      * @return True if v&lt;= 0 or v&gt; current block buffer limit.      */
+comment|/**      * @return True if v&lt;= 0 or v&gt; current block buffer limit.      */
 specifier|protected
 specifier|final
 name|boolean
@@ -4461,7 +4450,7 @@ name|limit
 argument_list|()
 return|;
 block|}
-comment|/**      * @param v      * @return True if v&lt; 0 or v&gt; current block buffer limit.      */
+comment|/**      * @return True if v&lt; 0 or v&gt; current block buffer limit.      */
 specifier|protected
 specifier|final
 name|boolean
@@ -5205,22 +5194,16 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Evicting cached block with key "
+literal|"Evicting cached block with key {} because data block encoding mismatch; "
 operator|+
+literal|"expected {}, actual {}, path={}"
+argument_list|,
 name|cacheKey
-operator|+
-literal|" because of a data block encoding mismatch"
-operator|+
-literal|"; expected: "
-operator|+
-name|expectedDataBlockEncoding
-operator|+
-literal|", actual: "
-operator|+
+argument_list|,
 name|actualDataBlockEncoding
-operator|+
-literal|", path="
-operator|+
+argument_list|,
+name|expectedDataBlockEncoding
+argument_list|,
 name|path
 argument_list|)
 expr_stmt|;
@@ -5275,7 +5258,7 @@ name|cacheKey
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @param metaBlockName    * @param cacheBlock Add block to cache, if found    * @return block wrapped in a ByteBuffer, with header skipped    * @throws IOException    */
+comment|/**    * @param cacheBlock Add block to cache, if found    * @return block wrapped in a ByteBuffer, with header skipped    */
 annotation|@
 name|Override
 specifier|public
@@ -5357,9 +5340,11 @@ operator|==
 operator|-
 literal|1
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 name|long
 name|blockSize
 init|=
@@ -6266,7 +6251,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @return Midkey for this file. We work with block boundaries only so    *         returned midkey is an approximation only.    * @throws IOException    */
+comment|/**    * @return Midkey for this file. We work with block boundaries only so    *         returned midkey is an approximation only.    */
 annotation|@
 name|Override
 specifier|public
@@ -6431,11 +6416,6 @@ name|dataBlockEncoder
 operator|.
 name|createSeeker
 argument_list|(
-name|reader
-operator|.
-name|getComparator
-argument_list|()
-argument_list|,
 name|decodingCtx
 argument_list|)
 expr_stmt|;
@@ -6464,7 +6444,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to the the first      * key/value pair.      * @param newBlock the block to make current, and read by {@link HFileReaderImpl#readBlock},      *          it's a totally new block with new allocated {@link ByteBuff}, so if no further      *          reference to this block, we should release it carefully.      * @throws CorruptHFileException      */
+comment|/**      * Updates the current block to be the given {@link HFileBlock}. Seeks to the the first      * key/value pair.      * @param newBlock the block to make current, and read by {@link HFileReaderImpl#readBlock},      *          it's a totally new block with new allocated {@link ByteBuff}, so if no further      *          reference to this block, we should release it carefully.      */
 annotation|@
 name|Override
 specifier|protected

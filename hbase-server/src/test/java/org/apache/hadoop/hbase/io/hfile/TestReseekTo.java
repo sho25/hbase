@@ -113,20 +113,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellComparatorImpl
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HBaseClassTestRule
 import|;
 end_import
@@ -460,14 +446,6 @@ operator|.
 name|withFileContext
 argument_list|(
 name|context
-argument_list|)
-comment|// NOTE: This test is dependent on this deprecated nonstandard comparator
-operator|.
-name|withComparator
-argument_list|(
-name|CellComparatorImpl
-operator|.
-name|COMPARATOR
 argument_list|)
 operator|.
 name|create

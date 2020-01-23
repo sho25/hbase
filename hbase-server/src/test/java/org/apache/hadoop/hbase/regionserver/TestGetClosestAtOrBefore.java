@@ -85,16 +85,6 @@ end_import
 
 begin_import
 import|import
-name|java
-operator|.
-name|util
-operator|.
-name|Objects
-import|;
-end_import
-
-begin_import
-import|import
 name|org
 operator|.
 name|apache
@@ -104,20 +94,6 @@ operator|.
 name|conf
 operator|.
 name|Configuration
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|fs
-operator|.
-name|FileSystem
 import|;
 end_import
 
@@ -320,6 +296,38 @@ operator|.
 name|client
 operator|.
 name|Put
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfo
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|RegionInfoBuilder
 import|;
 end_import
 
@@ -560,7 +568,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * TestGet is a medley of tests of get all done up as a single test.  * This class  */
+comment|/**  * TestGet is a medley of tests of get all done up as a single test.  * It was originally written to test a method since removed, getClosestAtOrBefore  * but the test is retained because it runs some interesting exercises.  */
 end_comment
 
 begin_class
@@ -777,16 +785,6 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-name|FileSystem
-name|filesystem
-init|=
-name|FileSystem
-operator|.
-name|get
-argument_list|(
-name|conf
-argument_list|)
-decl_stmt|;
 name|Path
 name|rootdir
 init|=
@@ -923,17 +921,21 @@ operator|+=
 name|interval
 control|)
 block|{
-name|HRegionInfo
+name|RegionInfo
 name|hri
 init|=
-operator|new
-name|HRegionInfo
+name|RegionInfoBuilder
+operator|.
+name|newBuilder
 argument_list|(
 name|htd
 operator|.
 name|getTableName
 argument_list|()
-argument_list|,
+argument_list|)
+operator|.
+name|setStartKey
+argument_list|(
 name|i
 operator|==
 literal|0
@@ -951,7 +953,10 @@ name|byte
 operator|)
 name|i
 argument_list|)
-argument_list|,
+argument_list|)
+operator|.
+name|setEndKey
+argument_list|(
 name|i
 operator|==
 name|last
@@ -972,6 +977,9 @@ operator|+
 name|interval
 argument_list|)
 argument_list|)
+operator|.
+name|build
+argument_list|()
 decl_stmt|;
 name|Put
 name|put
@@ -995,6 +1003,15 @@ argument_list|(
 name|Durability
 operator|.
 name|SKIP_WAL
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Put {}"
+argument_list|,
+name|put
 argument_list|)
 expr_stmt|;
 name|mr
@@ -1045,12 +1062,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-name|Objects
-operator|.
-name|toString
-argument_list|(
+literal|"Scan {}"
+argument_list|,
 name|keys
-argument_list|)
 argument_list|)
 expr_stmt|;
 name|keys
@@ -1168,7 +1182,7 @@ name|byte
 index|[]
 name|firstRowInC
 init|=
-name|HRegionInfo
+name|RegionInfo
 operator|.
 name|createRegionName
 argument_list|(
@@ -1197,6 +1211,9 @@ name|scan
 init|=
 operator|new
 name|Scan
+argument_list|()
+operator|.
+name|withStartRow
 argument_list|(
 name|firstRowInC
 argument_list|)
@@ -1233,6 +1250,15 @@ name|keys
 argument_list|)
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Delete {}"
+argument_list|,
+name|keys
+argument_list|)
+expr_stmt|;
 name|mr
 operator|.
 name|delete

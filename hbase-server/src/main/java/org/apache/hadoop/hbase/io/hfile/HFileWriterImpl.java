@@ -626,12 +626,6 @@ name|totalUncompressedBytes
 init|=
 literal|0
 decl_stmt|;
-comment|/** Key comparator. Used to ensure we write in order. */
-specifier|protected
-specifier|final
-name|CellComparator
-name|comparator
-decl_stmt|;
 comment|/** Meta block names. */
 specifier|protected
 name|List
@@ -813,9 +807,6 @@ parameter_list|,
 name|FSDataOutputStream
 name|outputStream
 parameter_list|,
-name|CellComparator
-name|comparator
-parameter_list|,
 name|HFileContext
 name|fileContext
 parameter_list|)
@@ -895,21 +886,6 @@ operator|.
 name|INSTANCE
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
-operator|!=
-literal|null
-condition|?
-name|comparator
-else|:
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
-expr_stmt|;
 name|closeOutputStream
 operator|=
 name|path
@@ -985,16 +961,6 @@ literal|" initialized with cacheConf: "
 operator|+
 name|cacheConf
 operator|+
-literal|" comparator: "
-operator|+
-name|comparator
-operator|.
-name|getClass
-argument_list|()
-operator|.
-name|getSimpleName
-argument_list|()
-operator|+
 literal|" fileContext: "
 operator|+
 name|fileContext
@@ -1034,7 +1000,7 @@ literal|true
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Sets the file info offset in the trailer, finishes up populating fields in    * the file info, and writes the file info into the given data output. The    * reason the data output is not always {@link #outputStream} is that we store    * file info as a block in version 2.    *    * @param trailer fixed file trailer    * @param out the data output to write the file info to    * @throws IOException    */
+comment|/**    * Sets the file info offset in the trailer, finishes up populating fields in    * the file info, and writes the file info into the given data output. The    * reason the data output is not always {@link #outputStream} is that we store    * file info as a block in version 2.    *    * @param trailer fixed file trailer    * @param out the data output to write the file info to    */
 specifier|protected
 specifier|final
 name|void
@@ -1136,7 +1102,12 @@ name|PrivateCellUtil
 operator|.
 name|compareKeyIgnoresMvcc
 argument_list|(
-name|comparator
+name|this
+operator|.
+name|hFileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|,
 name|lastCell
 argument_list|,
@@ -1353,11 +1324,13 @@ name|algoName
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|HFile
 operator|.
 name|DEFAULT_COMPRESSION_ALGORITHM
 return|;
+block|}
 return|return
 name|Compression
 operator|.
@@ -1535,24 +1508,17 @@ operator|.
 name|BlockIndexWriter
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"Initialized with "
-operator|+
+literal|"Initialized with {}"
+argument_list|,
 name|cacheConf
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * At a block boundary, write all the inline blocks and opens new block.    *    * @throws IOException    */
+comment|/**    * At a block boundary, write all the inline blocks and opens new block.    */
 specifier|protected
 name|void
 name|checkBlockBoundary
@@ -1560,8 +1526,8 @@ parameter_list|()
 throws|throws
 name|IOException
 block|{
-comment|//for encoder like prefixTree, encoded size is not available, so we have to compare both encoded size
-comment|//and unencoded size to blocksize limit.
+comment|// For encoder like prefixTree, encoded size is not available, so we have to compare both
+comment|// encoded size and unencoded size to blocksize limit.
 if|if
 condition|(
 name|blockWriter
@@ -1618,7 +1584,9 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 comment|// Update the first data block offset if UNSET; used scanning.
 if|if
 condition|(
@@ -1665,7 +1633,10 @@ name|getMidpoint
 argument_list|(
 name|this
 operator|.
-name|comparator
+name|hFileContext
+operator|.
+name|getCellComparator
+argument_list|()
 argument_list|,
 name|lastCellOfPreviousBlock
 argument_list|,
@@ -1710,7 +1681,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Try to return a Cell that falls between<code>left</code> and    *<code>right</code> but that is shorter; i.e. takes up less space. This    * trick is used building HFile block index. Its an optimization. It does not    * always work. In this case we'll just return the<code>right</code> cell.    *    * @param comparator    *          Comparator to use.    * @param left    * @param right    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
+comment|/**    * Try to return a Cell that falls between<code>left</code> and    *<code>right</code> but that is shorter; i.e. takes up less space. This    * trick is used building HFile block index. Its an optimization. It does not    * always work. In this case we'll just return the<code>right</code> cell.    * @return A cell that sorts between<code>left</code> and<code>right</code>.    */
 specifier|public
 specifier|static
 name|Cell
@@ -1943,9 +1914,11 @@ name|midRow
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|right
 return|;
+block|}
 return|return
 name|PrivateCellUtil
 operator|.
@@ -2111,9 +2084,11 @@ name|midRow
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|right
 return|;
+block|}
 comment|// Return new Cell where we use right row and then a mid sort family.
 return|return
 name|PrivateCellUtil
@@ -2288,9 +2263,11 @@ name|midRow
 operator|==
 literal|null
 condition|)
+block|{
 return|return
 name|right
 return|;
+block|}
 comment|// Return new Cell where we use right row and family and then a mid sort qualifier.
 return|return
 name|PrivateCellUtil
@@ -2314,7 +2291,7 @@ return|return
 name|right
 return|;
 block|}
-comment|/**    * @param leftArray    * @param leftOffset    * @param leftLength    * @param rightArray    * @param rightOffset    * @param rightLength    * @return Return a new array that is between left and right and minimally    *         sized else just return null as indicator that we could not create a    *         mid point.    */
+comment|/**    * @return Return a new array that is between left and right and minimally    *         sized else just return null as indicator that we could not create a    *         mid point.    */
 specifier|private
 specifier|static
 name|byte
@@ -2959,7 +2936,7 @@ block|}
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Ready a new block for writing.    *    * @throws IOException    */
+comment|/**    * Ready a new block for writing.    */
 specifier|protected
 name|void
 name|newBlock
@@ -3432,7 +3409,12 @@ name|trailer
 operator|.
 name|setComparatorClass
 argument_list|(
-name|comparator
+name|this
+operator|.
+name|hFileContext
+operator|.
+name|getCellComparator
+argument_list|()
 operator|.
 name|getClass
 argument_list|()
@@ -3545,7 +3527,9 @@ argument_list|()
 operator|<=
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|blockType
@@ -3631,6 +3615,7 @@ name|dataWriter
 operator|!=
 literal|null
 condition|)
+block|{
 name|dataWriter
 operator|.
 name|write
@@ -3638,6 +3623,7 @@ argument_list|(
 name|out
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 argument_list|)
@@ -3654,7 +3640,7 @@ return|return
 name|hFileContext
 return|;
 block|}
-comment|/**    * Add key/value to file. Keys must be added in an order that agrees with the    * Comparator passed on construction.    *    * @param cell    *          Cell to add. Cannot be empty nor null.    * @throws IOException    */
+comment|/**    * Add key/value to file. Keys must be added in an order that agrees with the    * Comparator passed on construction.    *    * @param cell    *          Cell to add. Cannot be empty nor null.    */
 annotation|@
 name|Override
 specifier|public

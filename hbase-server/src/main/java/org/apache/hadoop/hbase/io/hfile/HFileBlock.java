@@ -215,74 +215,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ByteBuffAllocator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|io
-operator|.
-name|util
-operator|.
-name|BlockIOUtils
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|Logger
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|slf4j
-operator|.
-name|LoggerFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|fs
 operator|.
 name|HFileSystem
@@ -302,6 +234,22 @@ operator|.
 name|io
 operator|.
 name|ByteArrayOutputStream
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|io
+operator|.
+name|ByteBuffAllocator
 import|;
 end_import
 
@@ -471,6 +419,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|io
+operator|.
+name|util
+operator|.
+name|BlockIOUtils
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|nio
 operator|.
 name|ByteBuff
@@ -570,6 +536,40 @@ operator|.
 name|util
 operator|.
 name|ClassSize
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
 import|;
 end_import
 
@@ -1497,7 +1497,7 @@ name|verifyChecksum
 argument_list|)
 return|;
 block|}
-comment|/**    * @return the on-disk size of the next block (including the header size and any checksums if    * present) read by peeking into the next block's header; use as a hint when doing    * a read of the next block when scanning or running over a file.    */
+comment|/**    * @return the on-disk size of the next block (including the header size and any checksums if    *   present) read by peeking into the next block's header; use as a hint when doing    *   a read of the next block when scanning or running over a file.    */
 name|int
 name|getNextBlockOnDiskSize
 parameter_list|()
@@ -2797,7 +2797,7 @@ operator|+
 name|headerSize
 return|;
 block|}
-comment|/**    * Cannot be {@link #UNSET}. Must be a legitimate value. Used re-making the {@link BlockCacheKey} when    * block is returned to the cache.    * @return the offset of this block in the file it was read from    */
+comment|/**    * Cannot be {@link #UNSET}. Must be a legitimate value. Used re-making the {@link BlockCacheKey}    * when block is returned to the cache.    * @return the offset of this block in the file it was read from    */
 name|long
 name|getOffset
 parameter_list|()
@@ -3264,7 +3264,7 @@ operator|=
 name|fileContext
 expr_stmt|;
 block|}
-comment|/**      * Starts writing into the block. The previous block's data is discarded.      *      * @return the stream the user can write their data into      * @throws IOException      */
+comment|/**      * Starts writing into the block. The previous block's data is discarded.      *      * @return the stream the user can write their data into      */
 name|DataOutputStream
 name|startWriting
 parameter_list|(
@@ -3376,7 +3376,7 @@ return|return
 name|userDataStream
 return|;
 block|}
-comment|/**      * Writes the Cell to this block      * @param cell      * @throws IOException      */
+comment|/**      * Writes the Cell to this block      */
 name|void
 name|write
 parameter_list|(
@@ -4015,7 +4015,7 @@ name|onDiskDataSize
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Similar to {@link #writeHeaderAndData(FSDataOutputStream)}, but records      * the offset of this block so that it can be referenced in the next block      * of the same type.      *      * @param out      * @throws IOException      */
+comment|/**      * Similar to {@link #writeHeaderAndData(FSDataOutputStream)}, but records      * the offset of this block so that it can be referenced in the next block      * of the same type.      */
 name|void
 name|writeHeaderAndData
 parameter_list|(
@@ -4074,7 +4074,7 @@ name|out
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Writes the header and the compressed data of this block (or uncompressed      * data when not using compression) into the given stream. Can be called in      * the "writing" state or in the "block ready" state. If called in the      * "writing" state, transitions the writer to the "block ready" state.      *      * @param out the output stream to write the      * @throws IOException      */
+comment|/**      * Writes the header and the compressed data of this block (or uncompressed      * data when not using compression) into the given stream. Can be called in      * the "writing" state or in the "block ready" state. If called in the      * "writing" state, transitions the writer to the "block ready" state.      * @param out the output stream to write the      */
 specifier|protected
 name|void
 name|finishBlockAndWriteHeaderAndData
@@ -4133,7 +4133,7 @@ name|startTime
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Returns the header or the compressed data (or uncompressed data when not      * using compression) as a byte array. Can be called in the "writing" state      * or in the "block ready" state. If called in the "writing" state,      * transitions the writer to the "block ready" state. This returns      * the header + data + checksums stored on disk.      *      * @return header and data as they would be stored on disk in a byte array      * @throws IOException      */
+comment|/**      * Returns the header or the compressed data (or uncompressed data when not      * using compression) as a byte array. Can be called in the "writing" state      * or in the "block ready" state. If called in the "writing" state,      * transitions the writer to the "block ready" state. This returns      * the header + data + checksums stored on disk.      *      * @return header and data as they would be stored on disk in a byte array      */
 name|byte
 index|[]
 name|getHeaderAndDataForTest
@@ -4359,18 +4359,15 @@ name|int
 name|encodedBlockSizeWritten
 parameter_list|()
 block|{
-if|if
-condition|(
+return|return
 name|state
 operator|!=
 name|State
 operator|.
 name|WRITING
-condition|)
-return|return
+condition|?
 literal|0
-return|;
-return|return
+else|:
 name|this
 operator|.
 name|encodedDataSizeWritten
@@ -4381,18 +4378,15 @@ name|int
 name|blockSizeWritten
 parameter_list|()
 block|{
-if|if
-condition|(
+return|return
 name|state
 operator|!=
 name|State
 operator|.
 name|WRITING
-condition|)
-return|return
+condition|?
 literal|0
-return|;
-return|return
+else|:
 name|this
 operator|.
 name|unencodedDataSizeWritten
@@ -4554,7 +4548,7 @@ argument_list|)
 throw|;
 block|}
 block|}
-comment|/**      * Takes the given {@link BlockWritable} instance, creates a new block of      * its appropriate type, writes the writable into this block, and flushes      * the block into the output stream. The writer is instructed not to buffer      * uncompressed bytes for cache-on-write.      *      * @param bw the block-writable object to write as a block      * @param out the file system output stream      * @throws IOException      */
+comment|/**      * Takes the given {@link BlockWritable} instance, creates a new block of      * its appropriate type, writes the writable into this block, and flushes      * the block into the output stream. The writer is instructed not to buffer      * uncompressed bytes for cache-on-write.      *      * @param bw the block-writable object to write as a block      * @param out the file system output stream      */
 name|void
 name|writeBlock
 parameter_list|(
@@ -5870,7 +5864,7 @@ return|return
 name|blk
 return|;
 block|}
-comment|/**      * @return Check<code>onDiskSizeWithHeaderL</code> size is healthy and then return it as an int      * @throws IOException      */
+comment|/**      * @return Check<code>onDiskSizeWithHeaderL</code> size is healthy and then return it as an int      */
 specifier|private
 specifier|static
 name|int
@@ -5936,7 +5930,7 @@ operator|)
 name|onDiskSizeWithHeaderL
 return|;
 block|}
-comment|/**      * Verify the passed in onDiskSizeWithHeader aligns with what is in the header else something      * is not right.      * @throws IOException      */
+comment|/**      * Verify the passed in onDiskSizeWithHeader aligns with what is in the header else something      * is not right.      */
 specifier|private
 name|void
 name|verifyOnDiskSizeMatchesHeader
@@ -6701,11 +6695,22 @@ block|{
 name|this
 operator|.
 name|fileContext
+operator|=
+operator|new
+name|HFileContextBuilder
+argument_list|(
+name|this
 operator|.
-name|setIncludesMvcc
+name|fileContext
+argument_list|)
+operator|.
+name|withIncludesMvcc
 argument_list|(
 name|includesMemstoreTS
 argument_list|)
+operator|.
+name|build
+argument_list|()
 expr_stmt|;
 block|}
 annotation|@
@@ -7608,7 +7613,7 @@ else|:
 name|DUMMY_HEADER_NO_CHECKSUM
 return|;
 block|}
-comment|/**    * @return This HFileBlocks fileContext which will a derivative of the    * fileContext for the file from which this block's data was originally read.    */
+comment|/**    * @return This HFileBlocks fileContext which will a derivative of the    *   fileContext for the file from which this block's data was originally read.    */
 name|HFileContext
 name|getHFileContext
 parameter_list|()

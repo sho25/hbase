@@ -1876,7 +1876,7 @@ operator|new
 name|AtomicLong
 argument_list|()
 decl_stmt|;
-comment|/**    * Constructor    * @param region    * @param family HColumnDescriptor for this column    * @param confParam configuration object    * failed.  Can be null.    * @throws IOException    */
+comment|/**    * Constructor    * @param family HColumnDescriptor for this column    * @param confParam configuration object failed.  Can be null.    */
 specifier|protected
 name|HStore
 parameter_list|(
@@ -2707,7 +2707,7 @@ name|comparator
 argument_list|)
 return|;
 block|}
-comment|/**    * @param family    * @return TTL in seconds of the specified family    */
+comment|/**    * @return TTL in seconds of the specified family    */
 specifier|public
 specifier|static
 name|long
@@ -3073,7 +3073,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param hri {@link RegionInfo} for the region.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    */
+comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param hri {@link RegionInfo} for the region.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    * @deprecated Since 05/05/2013, HBase-7808, hbase-1.0.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3109,7 +3109,7 @@ name|family
 argument_list|)
 return|;
 block|}
-comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param encodedName Encoded region name.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    */
+comment|/**    * @param tabledir {@link Path} to where the table is being stored    * @param encodedName Encoded region name.    * @param family {@link ColumnFamilyDescriptor} describing the column family    * @return Path to family/Store home directory.    * @deprecated Since 05/05/2013, HBase-7808, hbase-1.0.0    */
 annotation|@
 name|Deprecated
 specifier|public
@@ -3177,7 +3177,7 @@ operator|=
 name|blockEncoder
 expr_stmt|;
 block|}
-comment|/**    * Creates an unsorted list of StoreFile loaded in parallel    * from the given directory.    * @throws IOException    */
+comment|/**    * Creates an unsorted list of StoreFile loaded in parallel    * from the given directory.    */
 specifier|private
 name|List
 argument_list|<
@@ -3434,6 +3434,7 @@ name|ioe
 operator|==
 literal|null
 condition|)
+block|{
 name|ioe
 operator|=
 operator|new
@@ -3445,6 +3446,7 @@ name|getMessage
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -3458,6 +3460,7 @@ name|ioe
 operator|==
 literal|null
 condition|)
+block|{
 name|ioe
 operator|=
 operator|new
@@ -3469,6 +3472,7 @@ name|getCause
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -3707,7 +3711,7 @@ name|newFiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Replaces the store files that the store has with the given files. Mainly used by secondary    * region replicas to keep up to date with the primary region files.    * @throws IOException    */
+comment|/**    * Replaces the store files that the store has with the given files. Mainly used by secondary    * region replicas to keep up to date with the primary region files.    */
 specifier|public
 name|void
 name|refreshStoreFiles
@@ -3767,7 +3771,7 @@ name|storeFiles
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Checks the underlying store files, and opens the files that  have not    * been opened, and removes the store file readers for store files no longer    * available. Mainly used by secondary region replicas to keep up to date with    * the primary region files.    * @throws IOException    */
+comment|/**    * Checks the underlying store files, and opens the files that  have not    * been opened, and removes the store file readers for store files no longer    * available. Mainly used by secondary region replicas to keep up to date with    * the primary region files.    */
 specifier|private
 name|void
 name|refreshStoreFilesInternal
@@ -3817,6 +3821,7 @@ name|currentFiles
 operator|==
 literal|null
 condition|)
+block|{
 name|currentFiles
 operator|=
 name|Collections
@@ -3824,12 +3829,14 @@ operator|.
 name|emptySet
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|newFiles
 operator|==
 literal|null
 condition|)
+block|{
 name|newFiles
 operator|=
 name|Collections
@@ -3837,12 +3844,14 @@ operator|.
 name|emptySet
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|compactedFiles
 operator|==
 literal|null
 condition|)
+block|{
 name|compactedFiles
 operator|=
 name|Collections
@@ -3850,6 +3859,7 @@ operator|.
 name|emptySet
 argument_list|()
 expr_stmt|;
+block|}
 name|HashMap
 argument_list|<
 name|StoreFileInfo
@@ -5016,6 +5026,7 @@ name|reader
 operator|!=
 literal|null
 condition|)
+block|{
 name|reader
 operator|.
 name|close
@@ -5023,7 +5034,8 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * This method should only be called from Region. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param srcPathStr    * @param seqNum sequence Id associated with the HFile    */
+block|}
+comment|/**    * This method should only be called from Region. It is assumed that the ranges of values in the    * HFile fit within the stores assigned region. (assertBulkLoadHFileOk checks this)    *    * @param seqNum sequence Id associated with the HFile    */
 specifier|public
 name|Pair
 argument_list|<
@@ -5633,6 +5645,7 @@ name|ioe
 operator|==
 literal|null
 condition|)
+block|{
 name|ioe
 operator|=
 operator|new
@@ -5644,6 +5657,7 @@ name|getCause
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -5661,9 +5675,11 @@ name|ioe
 operator|!=
 literal|null
 condition|)
+block|{
 throw|throw
 name|ioe
 throw|;
+block|}
 block|}
 name|LOG
 operator|.
@@ -5738,7 +5754,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Write out current snapshot. Presumes {@link #snapshot()} has been called previously.    * @param logCacheFlushId flush sequence number    * @param snapshot    * @param status    * @param throughputController    * @return The path name of the tmp file to which the store was flushed    * @throws IOException if exception occurs during process    */
+comment|/**    * Write out current snapshot. Presumes {@link #snapshot()} has been called previously.    * @param logCacheFlushId flush sequence number    * @return The path name of the tmp file to which the store was flushed    * @throws IOException if exception occurs during process    */
 specifier|protected
 name|List
 argument_list|<
@@ -5974,7 +5990,7 @@ throw|throw
 name|lastException
 throw|;
 block|}
-comment|/**    * @param path The pathname of the tmp file into which the store was flushed    * @param logCacheFlushId    * @param status    * @return store file created.    * @throws IOException    */
+comment|/**    * @param path The pathname of the tmp file into which the store was flushed    * @return store file created.    */
 specifier|private
 name|HStoreFile
 name|commitFile
@@ -6105,7 +6121,7 @@ return|return
 name|sf
 return|;
 block|}
-comment|/**    * @param maxKeyCount    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint - whether to include MVCC or not    * @param includesTag - includesTag or not    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|/**    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint - whether to include MVCC or not    * @param includesTag - includesTag or not    * @return Writer for a new StoreFile in the tmp dir.    */
 comment|// TODO : allow the Writer factory to create Writers of ShipperListener type only in case of
 comment|// compaction
 specifier|public
@@ -6351,11 +6367,6 @@ argument_list|(
 name|familyTempDir
 argument_list|)
 operator|.
-name|withComparator
-argument_list|(
-name|comparator
-argument_list|)
-operator|.
 name|withBloomType
 argument_list|(
 name|family
@@ -6526,6 +6537,13 @@ name|getName
 argument_list|()
 argument_list|)
 operator|.
+name|withCellComparator
+argument_list|(
+name|this
+operator|.
+name|comparator
+argument_list|)
+operator|.
 name|build
 argument_list|()
 decl_stmt|;
@@ -6567,7 +6585,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-comment|/**    * Change storeFiles adding into place the Reader produced by this new flush.    * @param sfs Store files    * @param snapshotId    * @throws IOException    * @return Whether compaction is required.    */
+comment|/**    * Change storeFiles adding into place the Reader produced by this new flush.    * @param sfs Store files    * @return Whether compaction is required.    */
 specifier|private
 name|boolean
 name|updateStorefiles
@@ -6716,7 +6734,7 @@ name|needsCompaction
 argument_list|()
 return|;
 block|}
-comment|/**    * Notify all observers that set of Readers has changed.    * @throws IOException    */
+comment|/**    * Notify all observers that set of Readers has changed.    */
 specifier|private
 name|void
 name|notifyChangedReadersObservers
@@ -7420,7 +7438,7 @@ block|}
 comment|//////////////////////////////////////////////////////////////////////////////
 comment|// Compaction
 comment|//////////////////////////////////////////////////////////////////////////////
-comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    *<p> Compaction event should be idempotent, since there is no IO Fencing for    * the region directory in hdfs. A region server might still try to complete the    * compaction after it lost the region. That is why the following events are carefully    * ordered for a compaction:    *  1. Compaction writes new files under region/.tmp directory (compaction output)    *  2. Compaction atomically moves the temporary file under region directory    *  3. Compaction appends a WAL edit containing the compaction input and output files.    *  Forces sync on WAL.    *  4. Compaction deletes the input files from the region directory.    *    * Failure conditions are handled like this:    *  - If RS fails before 2, compaction wont complete. Even if RS lives on and finishes    *  the compaction later, it will only write the new data file to the region directory.    *  Since we already have this data, this will be idempotent but we will have a redundant    *  copy of the data.    *  - If RS fails between 2 and 3, the region will have a redundant copy of the data. The    *  RS that failed won't be able to finish snyc() for WAL because of lease recovery in WAL.    *  - If RS fails after 3, the region region server who opens the region will pick up the    *  the compaction marker from the WAL and replay it by removing the compaction input files.    *  Failed RS can also attempt to delete those files, but the operation will be idempotent    *    * See HBASE-2231 for details.    *    * @param compaction compaction details obtained from requestCompaction()    * @throws IOException    * @return Storefile we compacted into or null if we failed or opted out early.    */
+comment|/**    * Compact the StoreFiles.  This method may take some time, so the calling    * thread must be able to block for long periods.    *    *<p>During this time, the Store can work as usual, getting values from    * StoreFiles and writing new StoreFiles from the memstore.    *    * Existing StoreFiles are not destroyed until the new compacted StoreFile is    * completely written-out to disk.    *    *<p>The compactLock prevents multiple simultaneous compactions.    * The structureLock prevents us from interfering with other write operations.    *    *<p>We don't want to hold the structureLock for the whole time, as a compact()    * can be lengthy and we want to allow cache-flushes during this period.    *    *<p> Compaction event should be idempotent, since there is no IO Fencing for    * the region directory in hdfs. A region server might still try to complete the    * compaction after it lost the region. That is why the following events are carefully    * ordered for a compaction:    *  1. Compaction writes new files under region/.tmp directory (compaction output)    *  2. Compaction atomically moves the temporary file under region directory    *  3. Compaction appends a WAL edit containing the compaction input and output files.    *  Forces sync on WAL.    *  4. Compaction deletes the input files from the region directory.    *    * Failure conditions are handled like this:    *  - If RS fails before 2, compaction wont complete. Even if RS lives on and finishes    *  the compaction later, it will only write the new data file to the region directory.    *  Since we already have this data, this will be idempotent but we will have a redundant    *  copy of the data.    *  - If RS fails between 2 and 3, the region will have a redundant copy of the data. The    *  RS that failed won't be able to finish snyc() for WAL because of lease recovery in WAL.    *  - If RS fails after 3, the region region server who opens the region will pick up the    *  the compaction marker from the WAL and replay it by removing the compaction input files.    *  Failed RS can also attempt to delete those files, but the operation will be idempotent    *    * See HBASE-2231 for details.    *    * @param compaction compaction details obtained from requestCompaction()    * @return Storefile we compacted into or null if we failed or opted out early.    */
 specifier|public
 name|List
 argument_list|<
@@ -8646,7 +8664,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2231.    * @param compaction    */
+comment|/**    * Call to complete a compaction. Its for the case where we find in the WAL a compaction    * that was not finished.  We could find one recovering a WAL after a regionserver crash.    * See HBASE-2231.    */
 specifier|public
 name|void
 name|replayCompactionMarker
@@ -10002,7 +10020,9 @@ argument_list|,
 literal|true
 argument_list|)
 condition|)
+block|{
 return|return;
+block|}
 if|if
 condition|(
 name|getColumnFamilyDescriptor
@@ -10858,7 +10878,7 @@ name|readPt
 argument_list|)
 return|;
 block|}
-comment|/**    * Recreates the scanners on the current list of active store file scanners    * @param currentFileScanners the current set of active store file scanners    * @param cacheBlocks cache the blocks or not    * @param usePread use pread or not    * @param isCompaction is the scanner for compaction    * @param matcher the scan query matcher    * @param startRow the scan's start row    * @param includeStartRow should the scan include the start row    * @param stopRow the scan's stop row    * @param includeStopRow should the scan include the stop row    * @param readPt the read point of the current scane    * @param includeMemstoreScanner whether the current scanner should include memstorescanner    * @return list of scanners recreated on the current Scanners    * @throws IOException    */
+comment|/**    * Recreates the scanners on the current list of active store file scanners    * @param currentFileScanners the current set of active store file scanners    * @param cacheBlocks cache the blocks or not    * @param usePread use pread or not    * @param isCompaction is the scanner for compaction    * @param matcher the scan query matcher    * @param startRow the scan's start row    * @param includeStartRow should the scan include the start row    * @param stopRow the scan's stop row    * @param includeStopRow should the scan include the stop row    * @param readPt the read point of the current scane    * @param includeMemstoreScanner whether the current scanner should include memstorescanner    * @return list of scanners recreated on the current Scanners    */
 specifier|public
 name|List
 argument_list|<
@@ -11801,7 +11821,7 @@ name|getSmallestReadPoint
 argument_list|()
 return|;
 block|}
-comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param readpoint readpoint below which we can safely remove duplicate KVs    * @throws IOException    */
+comment|/**    * Adds or replaces the specified KeyValues.    *<p>    * For each KeyValue specified, if a cell with the same row, family, and qualifier exists in    * MemStore, it will be replaced. Otherwise, it will just be inserted to MemStore.    *<p>    * This operation is atomic on each KeyValue (row/family/qualifier) but not necessarily atomic    * across all of them.    * @param readpoint readpoint below which we can safely remove duplicate KVs    */
 specifier|public
 name|void
 name|upsert
@@ -12361,7 +12381,7 @@ return|return
 name|committedFiles
 return|;
 block|}
-comment|/**      * Similar to commit, but called in secondary region replicas for replaying the      * flush cache from primary region. Adds the new files to the store, and drops the      * snapshot depending on dropMemstoreSnapshot argument.      * @param fileNames names of the flushed files      * @param dropMemstoreSnapshot whether to drop the prepared memstore snapshot      * @throws IOException      */
+comment|/**      * Similar to commit, but called in secondary region replicas for replaying the      * flush cache from primary region. Adds the new files to the store, and drops the      * snapshot depending on dropMemstoreSnapshot argument.      * @param fileNames names of the flushed files      * @param dropMemstoreSnapshot whether to drop the prepared memstore snapshot      */
 annotation|@
 name|Override
 specifier|public
@@ -12578,7 +12598,7 @@ name|snapshotId
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**      * Abort the snapshot preparation. Drops the snapshot if any.      * @throws IOException      */
+comment|/**      * Abort the snapshot preparation. Drops the snapshot if any.      */
 annotation|@
 name|Override
 specifier|public

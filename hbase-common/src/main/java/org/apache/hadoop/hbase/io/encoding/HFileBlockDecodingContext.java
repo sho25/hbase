@@ -78,7 +78,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * A decoding context that is created by a reader's encoder, and is shared  * across the reader's all read operations.  *  * @see HFileBlockEncodingContext for encoding  */
+comment|/**  * A decoding context that is created by a reader's encoder, and is shared  * across all of the reader's read operations.  *  * @see HFileBlockEncodingContext for encoding  */
 end_comment
 
 begin_interface
@@ -90,7 +90,7 @@ specifier|public
 interface|interface
 name|HFileBlockDecodingContext
 block|{
-comment|/**    * Perform all actions that need to be done before the encoder's real decoding    * process. Decompression needs to be done if    * {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader    *          numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader    *          numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader    *          ByteBuffer pointed after the header but before the data    * @param onDiskBlock    *          on disk data to be decoded    * @throws IOException    */
+comment|/**    * Perform all actions that need to be done before the encoder's real decoding    * process. Decompression needs to be done if    * {@link HFileContext#getCompression()} returns a valid compression    * algorithm.    *    * @param onDiskSizeWithoutHeader    *          numBytes after block and encoding headers    * @param uncompressedSizeWithoutHeader    *          numBytes without header required to store the block after    *          decompressing (not decoding)    * @param blockBufferWithoutHeader    *          ByteBuffer pointed after the header but before the data    * @param onDiskBlock    *          on disk data to be decoded    */
 name|void
 name|prepareDecoding
 parameter_list|(

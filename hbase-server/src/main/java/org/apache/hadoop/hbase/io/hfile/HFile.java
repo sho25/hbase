@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -529,6 +529,7 @@ name|InterfaceAudience
 operator|.
 name|Private
 specifier|public
+specifier|final
 class|class
 name|HFile
 block|{
@@ -676,6 +677,11 @@ name|MetricsIOWrapperImpl
 argument_list|()
 argument_list|)
 decl_stmt|;
+comment|/**    * Shutdown constructor.    */
+specifier|private
+name|HFile
+parameter_list|()
+block|{}
 comment|/**    * Number of checksum verification failures. It also    * clears the counter.    */
 specifier|public
 specifier|static
@@ -815,10 +821,11 @@ name|InlineBlockWriter
 name|bloomWriter
 parameter_list|)
 function_decl|;
-comment|// The below three methods take Writables.  We'd like to undo Writables but undoing the below would be pretty
-comment|// painful.  Could take a byte [] or a Message but we want to be backward compatible around hfiles so would need
-comment|// to map between Message and Writable or byte [] and current Writable serialization.  This would be a bit of work
-comment|// to little gain.  Thats my thinking at moment.  St.Ack 20121129
+comment|// The below three methods take Writables.  We'd like to undo Writables but undoing the below
+comment|// would be pretty painful.  Could take a byte [] or a Message but we want to be backward
+comment|// compatible around hfiles so would need to map between Message and Writable or byte [] and
+comment|// current Writable serialization.  This would be a bit of work to little gain.  Thats my
+comment|// thinking at moment.  St.Ack 20121129
 name|void
 name|appendMetaBlock
 parameter_list|(
@@ -880,15 +887,6 @@ decl_stmt|;
 specifier|protected
 name|FSDataOutputStream
 name|ostream
-decl_stmt|;
-specifier|protected
-name|CellComparator
-name|comparator
-init|=
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
 decl_stmt|;
 specifier|protected
 name|InetSocketAddress
@@ -988,31 +986,6 @@ operator|.
 name|ostream
 operator|=
 name|ostream
-expr_stmt|;
-return|return
-name|this
-return|;
-block|}
-specifier|public
-name|WriterFactory
-name|withComparator
-parameter_list|(
-name|CellComparator
-name|comparator
-parameter_list|)
-block|{
-name|Preconditions
-operator|.
-name|checkNotNull
-argument_list|(
-name|comparator
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|comparator
-operator|=
-name|comparator
 expr_stmt|;
 return|return
 name|this
@@ -1196,8 +1169,6 @@ name|path
 argument_list|,
 name|ostream
 argument_list|,
-name|comparator
-argument_list|,
 name|fileContext
 argument_list|)
 return|;
@@ -1342,7 +1313,7 @@ specifier|public
 interface|interface
 name|CachingBlockReader
 block|{
-comment|/**      * Read in a file block.      * @param offset offset to read.      * @param onDiskBlockSize size of the block      * @param cacheBlock      * @param pread      * @param isCompaction is this block being read as part of a compaction      * @param expectedBlockType the block type we are expecting to read with this read operation,      *  or null to read whatever block type is available and avoid checking (that might reduce      *  caching efficiency of encoded data blocks)      * @param expectedDataBlockEncoding the data block encoding the caller is expecting data blocks      *  to be in, or null to not perform this check and return the block irrespective of the      *  encoding. This check only applies to data blocks and can be set to null when the caller is      *  expecting to read a non-data block and has set expectedBlockType accordingly.      * @return Block wrapped in a ByteBuffer.      * @throws IOException      */
+comment|/**      * Read in a file block.      * @param offset offset to read.      * @param onDiskBlockSize size of the block      * @param isCompaction is this block being read as part of a compaction      * @param expectedBlockType the block type we are expecting to read with this read operation,      *   or null to read whatever block type is available and avoid checking (that might reduce      *   caching efficiency of encoded data blocks)      * @param expectedDataBlockEncoding the data block encoding the caller is expecting data blocks      *   to be in, or null to not perform this check and return the block irrespective of the      *   encoding. This check only applies to data blocks and can be set to null when the caller is      *   expecting to read a non-data block and has set expectedBlockType accordingly.      * @return Block wrapped in a ByteBuffer.      */
 name|HFileBlock
 name|readBlock
 parameter_list|(

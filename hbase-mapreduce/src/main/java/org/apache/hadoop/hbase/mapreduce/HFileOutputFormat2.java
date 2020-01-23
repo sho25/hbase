@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -322,20 +322,6 @@ operator|.
 name|hbase
 operator|.
 name|Cell
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|CellComparator
 import|;
 end_import
 
@@ -1467,7 +1453,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"Configuration parameter "
+literal|""
 operator|+
 name|OUTPUT_TABLE_NAME_CONF_KEY
 operator|+
@@ -1549,31 +1535,20 @@ decl_stmt|;
 specifier|final
 name|Algorithm
 name|overriddenCompression
-decl_stmt|;
-if|if
-condition|(
+init|=
 name|compressionStr
 operator|!=
 literal|null
-condition|)
-block|{
-name|overriddenCompression
-operator|=
+condition|?
 name|Compression
 operator|.
 name|getCompressionAlgorithmByName
 argument_list|(
 name|compressionStr
 argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|overriddenCompression
-operator|=
+else|:
 literal|null
-expr_stmt|;
-block|}
+decl_stmt|;
 specifier|final
 name|boolean
 name|compactionExclude
@@ -1708,31 +1683,20 @@ decl_stmt|;
 specifier|final
 name|DataBlockEncoding
 name|overriddenEncoding
-decl_stmt|;
-if|if
-condition|(
+init|=
 name|dataBlockEncodingStr
 operator|!=
 literal|null
-condition|)
-block|{
-name|overriddenEncoding
-operator|=
+condition|?
 name|DataBlockEncoding
 operator|.
 name|valueOf
 argument_list|(
 name|dataBlockEncodingStr
 argument_list|)
-expr_stmt|;
-block|}
-else|else
-block|{
-name|overriddenEncoding
-operator|=
+else|:
 literal|null
-expr_stmt|;
-block|}
+decl_stmt|;
 return|return
 operator|new
 name|RecordWriter
@@ -1935,7 +1899,7 @@ throw|throw
 operator|new
 name|IllegalArgumentException
 argument_list|(
-literal|"TableName '"
+literal|"TableName "
 operator|+
 name|Bytes
 operator|.
@@ -1944,9 +1908,7 @@ argument_list|(
 name|tableNameBytes
 argument_list|)
 operator|+
-literal|"' not"
-operator|+
-literal|" expected"
+literal|" not expected"
 argument_list|)
 throw|;
 block|}
@@ -2194,17 +2156,15 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"There's something wrong when locating rowkey: "
-operator|+
+literal|"Something wrong locating rowkey {} in {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|rowKey
 argument_list|)
-operator|+
-literal|" for tablename: "
-operator|+
+argument_list|,
 name|tableName
 argument_list|,
 name|e
@@ -2223,20 +2183,12 @@ operator|==
 name|loc
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"failed to get region location, so use default writer for rowkey: "
-operator|+
+literal|"Failed get of location, use default writer {}"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
@@ -2245,7 +2197,6 @@ name|rowKey
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
 name|wl
 operator|=
 name|getNewWriter
@@ -2262,31 +2213,20 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"first rowkey: ["
-operator|+
+literal|"First rowkey: [{}]"
+argument_list|,
 name|Bytes
 operator|.
 name|toString
 argument_list|(
 name|rowKey
 argument_list|)
-operator|+
-literal|"]"
 argument_list|)
 expr_stmt|;
-block|}
 name|InetSocketAddress
 name|initialIsa
 init|=
@@ -2312,36 +2252,18 @@ name|isUnresolved
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isTraceEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|trace
 argument_list|(
-literal|"failed to resolve bind address: "
-operator|+
+literal|"Failed resolve address {}, use default writer"
+argument_list|,
 name|loc
 operator|.
-name|getHostname
+name|getHostnamePort
 argument_list|()
-operator|+
-literal|":"
-operator|+
-name|loc
-operator|.
-name|getPort
-argument_list|()
-operator|+
-literal|", so use default writer"
 argument_list|)
 expr_stmt|;
-block|}
 name|wl
 operator|=
 name|getNewWriter
@@ -2358,27 +2280,18 @@ expr_stmt|;
 block|}
 else|else
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"use favored nodes writer: "
-operator|+
+literal|"Use favored nodes writer: {}"
+argument_list|,
 name|initialIsa
 operator|.
 name|getHostString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|wl
 operator|=
 name|getNewWriter
@@ -2640,13 +2553,13 @@ operator|.
 name|writer
 argument_list|)
 expr_stmt|;
-block|}
 name|wl
 operator|.
 name|writer
 operator|=
 literal|null
 expr_stmt|;
+block|}
 name|wl
 operator|.
 name|written
@@ -2654,7 +2567,7 @@ operator|=
 literal|0
 expr_stmt|;
 block|}
-comment|/*        * Create a new StoreFile.Writer.        * @param family        * @return A WriterLength, containing a new StoreFile.Writer.        * @throws IOException        */
+comment|/*        * Create a new StoreFile.Writer.        * @return A WriterLength, containing a new StoreFile.Writer.        */
 annotation|@
 name|edu
 operator|.
@@ -3018,14 +2931,6 @@ argument_list|(
 name|bloomType
 argument_list|)
 operator|.
-name|withComparator
-argument_list|(
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
-argument_list|)
-operator|.
 name|withFileContext
 argument_list|(
 name|hFileContext
@@ -3067,14 +2972,6 @@ operator|.
 name|withBloomType
 argument_list|(
 name|bloomType
-argument_list|)
-operator|.
-name|withComparator
-argument_list|(
-name|CellComparator
-operator|.
-name|getInstance
-argument_list|()
 argument_list|)
 operator|.
 name|withFileContext
@@ -3469,11 +3366,11 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"SplitPoint startkey for table ["
+literal|"SplitPoint startkey for "
 operator|+
 name|tableName
 operator|+
-literal|"]: ["
+literal|": "
 operator|+
 name|Bytes
 operator|.
@@ -3481,8 +3378,6 @@ name|toStringBinary
 argument_list|(
 name|fullKey
 argument_list|)
-operator|+
-literal|"]"
 argument_list|)
 expr_stmt|;
 block|}
@@ -4216,7 +4111,8 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|// Record tablenames for creating writer by favored nodes, and decoding compression, block size and other attributes of columnfamily per table
+comment|// Record tablenames for creating writer by favored nodes, and decoding compression,
+comment|// block size and other attributes of columnfamily per table
 name|conf
 operator|.
 name|set
