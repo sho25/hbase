@@ -329,26 +329,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|procedure2
-operator|.
-name|store
-operator|.
-name|wal
-operator|.
-name|WALProcedureStore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|regionserver
 operator|.
 name|HRegion
@@ -843,6 +823,8 @@ operator|.
 name|MOB_DIR_NAME
 block|}
 decl_stmt|;
+comment|//With the introduction of RegionProcedureStore,
+comment|// there's no need to create MasterProcWAL dir here anymore. See HBASE-23715
 specifier|final
 name|String
 index|[]
@@ -863,10 +845,6 @@ block|,
 name|HConstants
 operator|.
 name|CORRUPT_DIR_NAME
-block|,
-name|WALProcedureStore
-operator|.
-name|MASTER_PROCEDURE_LOGDIR
 block|,
 name|ReplicationUtils
 operator|.
