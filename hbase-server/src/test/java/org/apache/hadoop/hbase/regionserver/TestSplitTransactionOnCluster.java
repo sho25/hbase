@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -972,6 +972,24 @@ operator|.
 name|compactions
 operator|.
 name|CompactionContext
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
+name|compactions
+operator|.
+name|CompactionProgress
 import|;
 end_import
 
@@ -2961,6 +2979,7 @@ argument_list|(
 name|tableName
 argument_list|)
 decl_stmt|;
+comment|// Now split one of the daughters.
 name|HRegion
 name|daughterRegion
 init|=
@@ -2971,7 +2990,6 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-comment|// Now split one of the daughters.
 name|RegionInfo
 name|daughter
 init|=
@@ -2989,8 +3007,9 @@ operator|+
 name|daughter
 argument_list|)
 expr_stmt|;
-comment|// Compact first to ensure we have cleaned up references -- else the split
-comment|// will fail.
+comment|// Compact first to ensure we have cleaned up references -- else the split will fail.
+comment|// May be a compaction going already so compact will return immediately; if so, wait until
+comment|// compaction completes.
 name|daughterRegion
 operator|.
 name|compact
@@ -2998,6 +3017,9 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+name|HStore
+name|store
+init|=
 name|daughterRegion
 operator|.
 name|getStores
@@ -3007,6 +3029,51 @@ name|get
 argument_list|(
 literal|0
 argument_list|)
+decl_stmt|;
+name|CompactionProgress
+name|progress
+init|=
+name|store
+operator|.
+name|getCompactionProgress
+argument_list|()
+decl_stmt|;
+if|if
+condition|(
+name|progress
+operator|!=
+literal|null
+condition|)
+block|{
+while|while
+condition|(
+name|progress
+operator|.
+name|getProgressPct
+argument_list|()
+operator|<
+literal|1
+condition|)
+block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Waiting {}"
+argument_list|,
+name|progress
+argument_list|)
+expr_stmt|;
+name|Threads
+operator|.
+name|sleep
+argument_list|(
+literal|1000
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+name|store
 operator|.
 name|closeAndArchiveCompactedFiles
 argument_list|()
@@ -3035,6 +3102,15 @@ name|hasReferences
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Break -- no references in {}"
+argument_list|,
+name|daughterRegion
+argument_list|)
+expr_stmt|;
 break|break;
 block|}
 name|Threads
@@ -3045,6 +3121,20 @@ literal|100
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Finished {} references={}"
+argument_list|,
+name|daughterRegion
+argument_list|,
+name|daughterRegion
+operator|.
+name|hasReferences
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|assertFalse
 argument_list|(
 literal|"Waiting for reference to be compacted"
