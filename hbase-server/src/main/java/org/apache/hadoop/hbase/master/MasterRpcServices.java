@@ -9925,11 +9925,10 @@ argument_list|()
 decl_stmt|;
 try|try
 block|{
-name|master
-operator|.
-name|checkInitialized
-argument_list|()
-expr_stmt|;
+comment|// We used to check if Master was up at this point but let this call proceed even if
+comment|// Master is initializing... else we shut out stuff like hbck2 tool from making progress
+comment|// since it queries this method to figure cluster version. hbck2 wants to be able to work
+comment|// against Master even if it is 'initializing' so it can do fixup.
 name|response
 operator|.
 name|setClusterStatus
