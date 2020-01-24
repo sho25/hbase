@@ -330,6 +330,30 @@ argument_list|(
 name|conf
 argument_list|)
 expr_stmt|;
+name|int
+name|overridePriority
+init|=
+name|Integer
+operator|.
+name|MAX_VALUE
+operator|-
+literal|1
+decl_stmt|;
+specifier|final
+name|String
+name|coprocessor_v3
+init|=
+name|SimpleRegionObserverV3
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+operator|+
+literal|"|"
+operator|+
+name|overridePriority
+decl_stmt|;
 comment|// Try and load a coprocessor three times
 name|conf
 operator|.
@@ -349,6 +373,8 @@ name|class
 operator|.
 name|getName
 argument_list|()
+argument_list|,
+name|coprocessor_v3
 argument_list|)
 expr_stmt|;
 name|host
@@ -360,12 +386,13 @@ argument_list|,
 name|key
 argument_list|)
 expr_stmt|;
-comment|// Two coprocessors(SimpleRegionObserver and SimpleRegionObserverV2) loaded
+comment|// Three coprocessors(SimpleRegionObserver, SimpleRegionObserverV2,
+comment|// SimpleRegionObserverV3) loaded
 name|Assert
 operator|.
 name|assertEquals
 argument_list|(
-literal|2
+literal|3
 argument_list|,
 name|host
 operator|.
@@ -412,6 +439,24 @@ name|getName
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|CoprocessorEnvironment
+argument_list|<
+name|?
+argument_list|>
+name|simpleEnv_v3
+init|=
+name|host
+operator|.
+name|findCoprocessorEnvironment
+argument_list|(
+name|SimpleRegionObserverV3
+operator|.
+name|class
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+decl_stmt|;
 name|assertNotNull
 argument_list|(
 name|simpleEnv
@@ -420,6 +465,11 @@ expr_stmt|;
 name|assertNotNull
 argument_list|(
 name|simpleEnv_v2
+argument_list|)
+expr_stmt|;
+name|assertNotNull
+argument_list|(
+name|simpleEnv_v3
 argument_list|)
 expr_stmt|;
 name|assertEquals
@@ -448,6 +498,16 @@ name|getPriority
 argument_list|()
 argument_list|)
 expr_stmt|;
+name|assertEquals
+argument_list|(
+name|overridePriority
+argument_list|,
+name|simpleEnv_v3
+operator|.
+name|getPriority
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 specifier|public
 specifier|static
@@ -456,6 +516,13 @@ name|SimpleRegionObserverV2
 extends|extends
 name|SimpleRegionObserver
 block|{ }
+specifier|public
+specifier|static
+class|class
+name|SimpleRegionObserverV3
+extends|extends
+name|SimpleRegionObserver
+block|{    }
 specifier|private
 specifier|static
 class|class
