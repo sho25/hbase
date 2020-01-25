@@ -1970,6 +1970,17 @@ name|UnsupportedOperationException
 argument_list|()
 throw|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getClusterId
+parameter_list|()
+block|{
+return|return
+literal|null
+return|;
+block|}
 block|}
 block|}
 end_class

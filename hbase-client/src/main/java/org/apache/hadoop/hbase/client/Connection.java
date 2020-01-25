@@ -301,6 +301,11 @@ name|AsyncConnection
 name|toAsyncConnection
 parameter_list|()
 function_decl|;
+comment|/**    * @return the cluster ID unique to this HBase cluster.    */
+name|String
+name|getClusterId
+parameter_list|()
+function_decl|;
 comment|/**    * Retrieve an Hbck implementation to fix an HBase cluster.    * The returned Hbck is not guaranteed to be thread-safe. A new instance should be created by    * each thread. This is a lightweight operation. Pooling or caching of the returned Hbck instance    * is not recommended.    *<br>    * The caller is responsible for calling {@link Hbck#close()} on the returned Hbck instance.    *<br>    * This will be used mostly by hbck tool.    *    * @return an Hbck instance for active master. Active master is fetched from the zookeeper.    */
 annotation|@
 name|InterfaceAudience

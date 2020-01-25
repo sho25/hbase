@@ -396,6 +396,20 @@ argument_list|()
 argument_list|)
 return|;
 block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|getClusterId
+parameter_list|()
+block|{
+return|return
+name|conn
+operator|.
+name|getClusterId
+argument_list|()
+return|;
+block|}
 block|}
 end_class
 
