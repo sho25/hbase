@@ -4250,9 +4250,6 @@ literal|" / "
 operator|+
 name|singleServerPlan
 operator|.
-name|getAssignmentMap
-argument_list|()
-operator|.
 name|size
 argument_list|()
 operator|+

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -183,15 +183,13 @@ end_import
 
 begin_import
 import|import
-name|org
+name|java
 operator|.
-name|apache
+name|util
 operator|.
-name|hadoop
+name|stream
 operator|.
-name|conf
-operator|.
-name|Configuration
+name|Collectors
 import|;
 end_import
 
@@ -203,9 +201,9 @@ name|apache
 operator|.
 name|hadoop
 operator|.
-name|hbase
+name|conf
 operator|.
-name|HBaseIOException
+name|Configuration
 import|;
 end_import
 
@@ -452,7 +450,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * FavoredNodesManager is responsible for maintaining favored nodes info in internal cache and  * META table. Its the centralized store for all favored nodes information. All reads and updates  * should be done through this class. There should only be one instance of  * {@link FavoredNodesManager} in Master. {@link FavoredNodesPlan} and favored node information  * from {@link SnapshotOfRegionAssignmentFromMeta} should not be used outside this class (except  * for may be tools that only read or test cases). All other classes including Favored balancers  * and {@link FavoredNodeAssignmentHelper} should use {@link FavoredNodesManager} for any  * read/write/deletes to favored nodes.  */
+comment|/**  * FavoredNodesManager is responsible for maintaining favored nodes info in internal cache and  * META table. Its the centralized store for all favored nodes information. All reads and updates  * should be done through this class. There should only be one instance of  * {@link FavoredNodesManager} in Master. {@link FavoredNodesPlan} and favored node information  * from {@link SnapshotOfRegionAssignmentFromMeta} should not be used outside this class (except  * for tools that only read or fortest cases). All other classes including Favored balancers  * and {@link FavoredNodeAssignmentHelper} should use {@link FavoredNodesManager} for any  * read/write/deletes to favored nodes.  */
 end_comment
 
 begin_class
@@ -480,10 +478,12 @@ name|class
 argument_list|)
 decl_stmt|;
 specifier|private
+specifier|final
 name|FavoredNodesPlan
 name|globalFavoredNodesAssignmentPlan
 decl_stmt|;
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|ServerName
@@ -496,6 +496,7 @@ argument_list|>
 name|primaryRSToRegionMap
 decl_stmt|;
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|ServerName
@@ -508,6 +509,7 @@ argument_list|>
 name|secondaryRSToRegionMap
 decl_stmt|;
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|ServerName
@@ -520,10 +522,12 @@ argument_list|>
 name|teritiaryRSToRegionMap
 decl_stmt|;
 specifier|private
+specifier|final
 name|MasterServices
 name|masterServices
 decl_stmt|;
 specifier|private
+specifier|final
 name|RackManager
 name|rackManager
 decl_stmt|;
@@ -595,42 +599,58 @@ argument_list|)
 expr_stmt|;
 block|}
 specifier|public
+specifier|synchronized
 name|void
 name|initialize
 parameter_list|(
 name|SnapshotOfRegionAssignmentFromMeta
-name|snapshotOfRegionAssignment
+name|snapshot
 parameter_list|)
-throws|throws
-name|HBaseIOException
 block|{
+comment|// Add snapshot to structures made on creation. Current structures may have picked
+comment|// up data between construction and the scan of meta needed before this method
+comment|// is called.  See HBASE-23737 "[Flakey Tests] TestFavoredNodeTableImport fails 30% of the time"
+name|this
+operator|.
 name|globalFavoredNodesAssignmentPlan
-operator|=
-name|snapshotOfRegionAssignment
+operator|.
+name|updateFavoredNodesMap
+argument_list|(
+name|snapshot
 operator|.
 name|getExistingAssignmentPlan
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|primaryRSToRegionMap
-operator|=
-name|snapshotOfRegionAssignment
+operator|.
+name|putAll
+argument_list|(
+name|snapshot
 operator|.
 name|getPrimaryToRegionInfoMap
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|secondaryRSToRegionMap
-operator|=
-name|snapshotOfRegionAssignment
+operator|.
+name|putAll
+argument_list|(
+name|snapshot
 operator|.
 name|getSecondaryToRegionInfoMap
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|teritiaryRSToRegionMap
-operator|=
-name|snapshotOfRegionAssignment
+operator|.
+name|putAll
+argument_list|(
+name|snapshot
 operator|.
 name|getTertiaryToRegionInfoMap
 argument_list|()
+argument_list|)
 expr_stmt|;
 name|datanodeDataTransferPort
 operator|=
@@ -638,6 +658,8 @@ name|getDataNodePort
 argument_list|()
 expr_stmt|;
 block|}
+annotation|@
+name|VisibleForTesting
 specifier|public
 name|int
 name|getDataNodePort
@@ -741,7 +763,7 @@ name|isSystemTable
 argument_list|()
 return|;
 block|}
-comment|/**    * Filter and return regions for which favored nodes is not applicable.    *    * @param regions - collection of regions    * @return set of regions for which favored nodes is not applicable    */
+comment|/**    * Filter and return regions for which favored nodes is not applicable.    * @return set of regions for which favored nodes is not applicable    */
 specifier|public
 specifier|static
 name|Set
@@ -757,45 +779,30 @@ argument_list|>
 name|regions
 parameter_list|)
 block|{
-name|Set
-argument_list|<
-name|RegionInfo
-argument_list|>
-name|fnRegions
-init|=
-name|Sets
-operator|.
-name|newHashSet
-argument_list|()
-decl_stmt|;
-for|for
-control|(
-name|RegionInfo
-name|regionInfo
-range|:
+return|return
 name|regions
-control|)
-block|{
-if|if
-condition|(
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|filter
+argument_list|(
+name|r
+lambda|->
 operator|!
 name|isFavoredNodeApplicable
 argument_list|(
-name|regionInfo
+name|r
 argument_list|)
-condition|)
-block|{
-name|fnRegions
+argument_list|)
 operator|.
-name|add
+name|collect
 argument_list|(
-name|regionInfo
+name|Collectors
+operator|.
+name|toSet
+argument_list|()
 argument_list|)
-expr_stmt|;
-block|}
-block|}
-return|return
-name|fnRegions
 return|;
 block|}
 comment|/*    * This should only be used when sending FN information to the region servers. Instead of    * sending the region server port, we use the datanode port. This helps in centralizing the DN    * port logic in Master. The RS uses the port from the favored node list as hints.    */
@@ -1216,7 +1223,10 @@ name|ordinal
 argument_list|()
 argument_list|)
 operator|.
-name|getHostAndPort
+name|getAddress
+argument_list|()
+operator|.
+name|toString
 argument_list|()
 argument_list|,
 name|NON_STARTCODE

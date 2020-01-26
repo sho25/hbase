@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -16,6 +16,16 @@ operator|.
 name|favored
 package|;
 end_package
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|ArrayList
+import|;
+end_import
 
 begin_import
 import|import
@@ -46,6 +56,18 @@ operator|.
 name|concurrent
 operator|.
 name|ConcurrentHashMap
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|util
+operator|.
+name|stream
+operator|.
+name|Collectors
 import|;
 end_import
 
@@ -106,8 +128,9 @@ specifier|public
 class|class
 name|FavoredNodesPlan
 block|{
-comment|/** the map between each region name and its favored region server list */
+comment|/** The map between each region name and its favored region server list */
 specifier|private
+specifier|final
 name|Map
 argument_list|<
 name|String
@@ -134,6 +157,8 @@ specifier|public
 name|FavoredNodesPlan
 parameter_list|()
 block|{
+name|this
+operator|.
 name|favoredNodesMap
 operator|=
 operator|new
@@ -142,7 +167,27 @@ argument_list|<>
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Update an assignment to the plan    * @param region    * @param servers    */
+comment|/**    * Add to existing Map of FavoredNodes.    */
+name|void
+name|updateFavoredNodesMap
+parameter_list|(
+name|FavoredNodesPlan
+name|fnp
+parameter_list|)
+block|{
+name|this
+operator|.
+name|favoredNodesMap
+operator|.
+name|putAll
+argument_list|(
+name|fnp
+operator|.
+name|favoredNodesMap
+argument_list|)
+expr_stmt|;
+block|}
+comment|/**    * Update an assignment to the plan    */
 specifier|public
 name|void
 name|updateFavoredNodesMap
@@ -190,8 +235,7 @@ name|servers
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Remove a favored node assignment    * @param region region    * @return the list of favored region server for this region based on the plan    */
-specifier|public
+comment|/**    * Remove a favored node assignment    * @return the list of favored region server for this region based on the plan    */
 name|List
 argument_list|<
 name|ServerName
@@ -214,7 +258,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * @param region    * @return the list of favored region server for this region based on the plan    */
+comment|/**    * @return the list of favored region server for this region based on the plan    */
 specifier|public
 name|List
 argument_list|<
@@ -238,7 +282,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Return the position of the server in the favoredNodes list. Assumes the    * favoredNodes list is of size 3.    * @param favoredNodes    * @param server    * @return position    */
+comment|/**    * Return the position of the server in the favoredNodes list. Assumes the    * favoredNodes list is of size 3.    * @return position    */
 specifier|public
 specifier|static
 name|Position
@@ -332,8 +376,60 @@ argument_list|>
 name|getAssignmentMap
 parameter_list|()
 block|{
+comment|// Make a deep copy so changes don't harm our copy of favoredNodesMap.
 return|return
+name|this
+operator|.
 name|favoredNodesMap
+operator|.
+name|entrySet
+argument_list|()
+operator|.
+name|stream
+argument_list|()
+operator|.
+name|collect
+argument_list|(
+name|Collectors
+operator|.
+name|toMap
+argument_list|(
+name|k
+lambda|->
+name|k
+operator|.
+name|getKey
+argument_list|()
+argument_list|,
+name|v
+lambda|->
+operator|new
+name|ArrayList
+argument_list|<
+name|ServerName
+argument_list|>
+argument_list|(
+name|v
+operator|.
+name|getValue
+argument_list|()
+argument_list|)
+argument_list|)
+argument_list|)
+return|;
+block|}
+specifier|public
+name|int
+name|size
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|favoredNodesMap
+operator|.
+name|size
+argument_list|()
 return|;
 block|}
 annotation|@
@@ -383,7 +479,7 @@ return|return
 literal|false
 return|;
 block|}
-comment|// To compare the map from objec o is identical to current assignment map.
+comment|// To compare the map from object o is identical to current assignment map.
 name|Map
 argument_list|<
 name|String
@@ -402,8 +498,7 @@ operator|)
 name|o
 operator|)
 operator|.
-name|getAssignmentMap
-argument_list|()
+name|favoredNodesMap
 decl_stmt|;
 comment|// compare the size
 if|if
@@ -420,9 +515,11 @@ operator|.
 name|size
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 comment|// compare each element in the assignment map
 for|for
 control|(
