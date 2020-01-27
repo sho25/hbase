@@ -179,6 +179,16 @@ operator|=
 name|miniClusterOptions
 expr_stmt|;
 block|}
+comment|/**    * @return the underlying instance of {@link HBaseTestingUtility}    */
+specifier|public
+name|HBaseTestingUtility
+name|getTestingUtility
+parameter_list|()
+block|{
+return|return
+name|testingUtility
+return|;
+block|}
 comment|/**    * Create a {@link AsyncConnection} to the managed {@link MiniHBaseCluster}. It's up to the caller    * to {@link AsyncConnection#close() close()} the connection when finished.    */
 specifier|public
 name|CompletableFuture

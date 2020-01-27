@@ -277,15 +277,6 @@ name|size
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// stop the old master, and start a new one
-name|TEST_UTIL
-operator|.
-name|getMiniHBaseCluster
-argument_list|()
-operator|.
-name|startMaster
-argument_list|()
-expr_stmt|;
 name|TEST_UTIL
 operator|.
 name|getMiniHBaseCluster

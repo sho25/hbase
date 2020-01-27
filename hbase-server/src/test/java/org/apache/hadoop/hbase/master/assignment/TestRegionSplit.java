@@ -955,6 +955,11 @@ argument_list|(
 literal|500
 argument_list|)
 expr_stmt|;
+name|UTIL
+operator|.
+name|invalidateConnection
+argument_list|()
+expr_stmt|;
 comment|// enable table
 name|UTIL
 operator|.

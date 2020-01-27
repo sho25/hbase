@@ -3894,7 +3894,7 @@ annotation|@
 name|Test
 specifier|public
 name|void
-name|testReplicaGetWithRpcClientImpl
+name|testReplicaGetWithAsyncRpcClientImpl
 parameter_list|()
 throws|throws
 name|IOException
@@ -3920,7 +3920,7 @@ name|set
 argument_list|(
 literal|"hbase.rpc.client.impl"
 argument_list|,
-literal|"org.apache.hadoop.hbase.ipc.RpcClientImpl"
+literal|"org.apache.hadoop.hbase.ipc.AsyncRpcClient"
 argument_list|)
 expr_stmt|;
 comment|// Create table then get the single region for our new table.
@@ -3931,7 +3931,7 @@ name|HTU
 operator|.
 name|createTableDescriptor
 argument_list|(
-literal|"testReplicaGetWithRpcClientImpl"
+literal|"testReplicaGetWithAsyncRpcClientImpl"
 argument_list|)
 decl_stmt|;
 name|hdt

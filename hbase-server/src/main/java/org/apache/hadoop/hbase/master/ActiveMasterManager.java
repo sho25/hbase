@@ -319,17 +319,14 @@ argument_list|(
 literal|false
 argument_list|)
 decl_stmt|;
-comment|// This server's information.
-specifier|private
+comment|// This server's information. Package-private for child implementations.
+name|int
+name|infoPort
+decl_stmt|;
 specifier|final
 name|ServerName
 name|sn
 decl_stmt|;
-specifier|private
-name|int
-name|infoPort
-decl_stmt|;
-specifier|private
 specifier|final
 name|Server
 name|master
@@ -337,7 +334,6 @@ decl_stmt|;
 comment|// Active master's server name. Invalidated anytime active master changes (based on ZK
 comment|// notifications) and lazily fetched on-demand.
 comment|// ServerName is immutable, so we don't need heavy synchronization around it.
-specifier|private
 specifier|volatile
 name|ServerName
 name|activeMasterServerName

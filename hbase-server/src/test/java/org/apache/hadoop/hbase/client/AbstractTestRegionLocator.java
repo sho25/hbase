@@ -402,16 +402,11 @@ init|)
 block|{
 name|RegionReplicaTestHelper
 operator|.
-name|waitUntilAllMetaReplicasHavingRegionLocation
+name|waitUntilAllMetaReplicasAreReady
 argument_list|(
 name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
 argument_list|,
 name|registry
-argument_list|,
-name|REGION_REPLICATION
 argument_list|)
 expr_stmt|;
 block|}

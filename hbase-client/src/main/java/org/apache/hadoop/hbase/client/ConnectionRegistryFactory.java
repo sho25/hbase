@@ -117,7 +117,7 @@ name|getClass
 argument_list|(
 name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
 argument_list|,
-name|ZKConnectionRegistry
+name|MasterRegistry
 operator|.
 name|class
 argument_list|,

@@ -344,6 +344,33 @@ name|HBASE_AUTH_TOKEN
 argument_list|)
 argument_list|)
 expr_stmt|;
+name|infos
+operator|.
+name|put
+argument_list|(
+name|MasterProtos
+operator|.
+name|ClientMetaService
+operator|.
+name|getDescriptor
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|,
+operator|new
+name|SecurityInfo
+argument_list|(
+name|SecurityConstants
+operator|.
+name|MASTER_KRB_PRINCIPAL
+argument_list|,
+name|Kind
+operator|.
+name|HBASE_AUTH_TOKEN
+argument_list|)
+argument_list|)
+expr_stmt|;
 comment|// NOTE: IF ADDING A NEW SERVICE, BE SURE TO UPDATE HBasePolicyProvider ALSO ELSE
 comment|// new Service will not be found when all is Kerberized!!!!
 block|}

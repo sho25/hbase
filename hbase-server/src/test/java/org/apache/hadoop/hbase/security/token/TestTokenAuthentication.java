@@ -321,6 +321,20 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|Server
 import|;
 end_import
@@ -2464,6 +2478,24 @@ operator|=
 operator|new
 name|HBaseTestingUtility
 argument_list|()
+expr_stmt|;
+comment|// Override the connection registry to avoid spinning up a mini cluster for the connection below
+comment|// to go through.
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|ZK_CONNECTION_REGISTRY_CLASS
+argument_list|)
 expr_stmt|;
 name|TEST_UTIL
 operator|.

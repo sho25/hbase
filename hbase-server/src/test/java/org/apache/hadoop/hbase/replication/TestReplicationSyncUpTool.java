@@ -725,9 +725,7 @@ argument_list|(
 literal|"mimicSyncUpAfterDelete"
 argument_list|)
 expr_stmt|;
-name|UTIL2
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownTargetHBaseCluster
 argument_list|()
 expr_stmt|;
 name|List
@@ -880,14 +878,10 @@ argument_list|,
 name|rowCount_ht2Source
 argument_list|)
 expr_stmt|;
-name|UTIL1
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownSourceHBaseCluster
 argument_list|()
 expr_stmt|;
-name|UTIL2
-operator|.
-name|restartHBaseCluster
+name|restartTargetHBaseCluster
 argument_list|(
 literal|1
 argument_list|)
@@ -990,9 +984,7 @@ literal|100
 condition|)
 block|{
 comment|// syncUP still failed. Let's look at the source in case anything wrong there
-name|UTIL1
-operator|.
-name|restartHBaseCluster
+name|restartSourceHBaseCluster
 argument_list|(
 literal|1
 argument_list|)
@@ -1114,16 +1106,12 @@ argument_list|(
 literal|"mimicSyncUpAfterPut"
 argument_list|)
 expr_stmt|;
-name|UTIL1
-operator|.
-name|restartHBaseCluster
+name|restartSourceHBaseCluster
 argument_list|(
 literal|1
 argument_list|)
 expr_stmt|;
-name|UTIL2
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownTargetHBaseCluster
 argument_list|()
 expr_stmt|;
 name|Put
@@ -1361,14 +1349,10 @@ argument_list|,
 name|rowCount_ht2Source
 argument_list|)
 expr_stmt|;
-name|UTIL1
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownSourceHBaseCluster
 argument_list|()
 expr_stmt|;
-name|UTIL2
-operator|.
-name|restartHBaseCluster
+name|restartTargetHBaseCluster
 argument_list|(
 literal|1
 argument_list|)
@@ -1471,9 +1455,7 @@ literal|200
 condition|)
 block|{
 comment|// syncUP still failed. Let's look at the source in case anything wrong there
-name|UTIL1
-operator|.
-name|restartHBaseCluster
+name|restartSourceHBaseCluster
 argument_list|(
 literal|1
 argument_list|)

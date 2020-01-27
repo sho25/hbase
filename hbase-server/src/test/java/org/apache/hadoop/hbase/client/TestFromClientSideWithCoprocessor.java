@@ -215,6 +215,14 @@ index|[]
 index|[]
 block|{
 block|{
+name|MasterRegistry
+operator|.
+name|class
+block|,
+literal|1
+block|}
+block|,
+block|{
 name|ZKConnectionRegistry
 operator|.
 name|class

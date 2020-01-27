@@ -673,9 +673,7 @@ argument_list|(
 literal|"mimicSyncUpAfterBulkLoad"
 argument_list|)
 expr_stmt|;
-name|UTIL2
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownTargetHBaseCluster
 argument_list|()
 expr_stmt|;
 name|loadAndReplicateHFiles
@@ -719,14 +717,10 @@ argument_list|,
 name|rowCount_ht2Source
 argument_list|)
 expr_stmt|;
-name|UTIL1
-operator|.
-name|shutdownMiniHBaseCluster
+name|shutDownSourceHBaseCluster
 argument_list|()
 expr_stmt|;
-name|UTIL2
-operator|.
-name|restartHBaseCluster
+name|restartTargetHBaseCluster
 argument_list|(
 literal|1
 argument_list|)
@@ -835,9 +829,7 @@ literal|400
 condition|)
 block|{
 comment|// syncUP still failed. Let's look at the source in case anything wrong there
-name|UTIL1
-operator|.
-name|restartHBaseCluster
+name|restartSourceHBaseCluster
 argument_list|(
 literal|1
 argument_list|)

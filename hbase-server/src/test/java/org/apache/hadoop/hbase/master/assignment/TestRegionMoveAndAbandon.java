@@ -794,6 +794,11 @@ argument_list|()
 expr_stmt|;
 name|UTIL
 operator|.
+name|invalidateConnection
+argument_list|()
+expr_stmt|;
+name|UTIL
+operator|.
 name|ensureSomeRegionServersAvailable
 argument_list|(
 literal|2

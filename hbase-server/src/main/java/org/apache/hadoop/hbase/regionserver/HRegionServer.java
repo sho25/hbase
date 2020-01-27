@@ -5385,7 +5385,7 @@ return|;
 block|}
 specifier|private
 name|Configuration
-name|unsetClientZookeeperQuorum
+name|cleanupConfiguration
 parameter_list|()
 block|{
 name|Configuration
@@ -5395,6 +5395,26 @@ name|this
 operator|.
 name|conf
 decl_stmt|;
+comment|// We use ZKConnectionRegistry for all the internal communication, primarily for these reasons:
+comment|// - Decouples RS and master life cycles. RegionServers can continue be up independent of
+comment|//   masters' availability.
+comment|// - Configuration management for region servers (cluster internal) is much simpler when adding
+comment|//   new masters or removing existing masters, since only clients' config needs to be updated.
+comment|// - We need to retain ZKConnectionRegistry for replication use anyway, so we just extend it for
+comment|//   other internal connections too.
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|ZK_CONNECTION_REGISTRY_CLASS
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 name|conf
@@ -5537,7 +5557,7 @@ block|{
 name|Configuration
 name|conf
 init|=
-name|unsetClientZookeeperQuorum
+name|cleanupConfiguration
 argument_list|()
 decl_stmt|;
 name|InetSocketAddress

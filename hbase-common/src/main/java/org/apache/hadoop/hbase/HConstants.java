@@ -558,6 +558,15 @@ literal|"localhost:"
 operator|+
 name|DEFAULT_MASTER_PORT
 decl_stmt|;
+comment|/** Full class name of the Zookeeper based connection registry implementation */
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|ZK_CONNECTION_REGISTRY_CLASS
+init|=
+literal|"org.apache.hadoop.hbase.client.ZKConnectionRegistry"
+decl_stmt|;
 comment|/** Configuration to enable hedged reads on master registry **/
 specifier|public
 specifier|static

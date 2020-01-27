@@ -989,7 +989,7 @@ return|return
 name|clusterConf
 return|;
 block|}
-comment|/**    * Apply the settings in the given key to the given configuration, this is    * used to communicate with distant clusters    * @param conf configuration object to configure    * @param key string that contains the 3 required configuratins    * @throws IOException    */
+comment|/**    * Apply the settings in the given key to the given configuration, this is    * used to communicate with distant clusters    * @param conf configuration object to configure    * @param key string that contains the 3 required configuratins    */
 specifier|private
 specifier|static
 name|void
@@ -1056,6 +1056,34 @@ name|zkClusterKey
 operator|.
 name|getZnodeParent
 argument_list|()
+argument_list|)
+expr_stmt|;
+comment|// Without the right registry, the above configs are useless. Also, we don't use setClass()
+comment|// here because the ConnectionRegistry* classes are not resolvable from this module.
+comment|// This will be broken if ZkConnectionRegistry class gets renamed or moved. Is there a better
+comment|// way?
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Overriding client registry implementation to {}"
+argument_list|,
+name|HConstants
+operator|.
+name|ZK_CONNECTION_REGISTRY_CLASS
+argument_list|)
+expr_stmt|;
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|CLIENT_CONNECTION_REGISTRY_IMPL_CONF_KEY
+argument_list|,
+name|HConstants
+operator|.
+name|ZK_CONNECTION_REGISTRY_CLASS
 argument_list|)
 expr_stmt|;
 block|}

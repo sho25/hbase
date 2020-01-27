@@ -296,10 +296,8 @@ operator|.
 name|shutdownMiniHBaseCluster
 argument_list|()
 expr_stmt|;
-name|restartHBaseCluster
+name|restartSourceCluster
 argument_list|(
-name|UTIL1
-argument_list|,
 literal|1
 argument_list|)
 expr_stmt|;
