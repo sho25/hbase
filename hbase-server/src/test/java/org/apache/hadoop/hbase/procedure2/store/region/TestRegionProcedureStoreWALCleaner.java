@@ -496,6 +496,21 @@ argument_list|,
 literal|false
 argument_list|)
 expr_stmt|;
+comment|// Runs on local filesystem. Test does not need sync. Turn off checks.
+name|htu
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setBoolean
+argument_list|(
+name|CommonFSUtils
+operator|.
+name|UNSAFE_STREAM_CAPABILITY_ENFORCE
+argument_list|,
+literal|false
+argument_list|)
+expr_stmt|;
 name|Path
 name|testDir
 init|=
