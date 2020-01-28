@@ -305,11 +305,6 @@ class|class
 name|HRegionInfo
 implements|implements
 name|RegionInfo
-implements|,
-name|Comparable
-argument_list|<
-name|HRegionInfo
-argument_list|>
 block|{
 specifier|private
 specifier|static
@@ -2273,32 +2268,6 @@ return|return
 name|this
 operator|.
 name|hashCode
-return|;
-block|}
-comment|//
-comment|// Comparable
-comment|//
-annotation|@
-name|Override
-specifier|public
-name|int
-name|compareTo
-parameter_list|(
-name|HRegionInfo
-name|o
-parameter_list|)
-block|{
-return|return
-name|RegionInfo
-operator|.
-name|COMPARATOR
-operator|.
-name|compare
-argument_list|(
-name|this
-argument_list|,
-name|o
-argument_list|)
 return|;
 block|}
 comment|/**    * @return Comparator to use comparing {@link KeyValue}s.    * @deprecated Use Region#getCellComparator().  deprecated for hbase 2.0, remove for hbase 3.0    */

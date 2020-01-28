@@ -5394,6 +5394,13 @@ argument_list|,
 name|table
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"CHECK"
+argument_list|)
+expr_stmt|;
 name|TestHDFSAclHelper
 operator|.
 name|canUserScanSnapshot

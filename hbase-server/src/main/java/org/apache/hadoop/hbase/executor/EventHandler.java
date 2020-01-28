@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -165,7 +165,7 @@ name|Runnable
 implements|,
 name|Comparable
 argument_list|<
-name|Runnable
+name|EventHandler
 argument_list|>
 block|{
 specifier|private
@@ -394,24 +394,27 @@ specifier|public
 name|int
 name|compareTo
 parameter_list|(
-name|Runnable
+name|EventHandler
 name|o
 parameter_list|)
 block|{
-name|EventHandler
-name|eh
-init|=
-operator|(
-name|EventHandler
-operator|)
+if|if
+condition|(
 name|o
-decl_stmt|;
+operator|==
+literal|null
+condition|)
+block|{
+return|return
+literal|1
+return|;
+block|}
 if|if
 condition|(
 name|getPriority
 argument_list|()
 operator|!=
-name|eh
+name|o
 operator|.
 name|getPriority
 argument_list|()
@@ -422,7 +425,7 @@ operator|(
 name|getPriority
 argument_list|()
 operator|<
-name|eh
+name|o
 operator|.
 name|getPriority
 argument_list|()
@@ -440,7 +443,7 @@ name|this
 operator|.
 name|seqid
 operator|<
-name|eh
+name|o
 operator|.
 name|seqid
 operator|)

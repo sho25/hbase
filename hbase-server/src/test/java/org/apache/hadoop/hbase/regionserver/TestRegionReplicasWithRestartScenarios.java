@@ -889,6 +889,15 @@ operator|.
 name|getOnlineRegionsLocalContext
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"ASSERT DISTRIBUTED {}"
+argument_list|,
+name|onlineRegions
+argument_list|)
+expr_stmt|;
 name|boolean
 name|res
 init|=

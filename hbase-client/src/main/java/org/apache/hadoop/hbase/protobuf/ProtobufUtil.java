@@ -8585,17 +8585,11 @@ condition|)
 block|{
 if|if
 condition|(
-operator|(
-name|values
-operator|!=
-literal|null
-operator|&&
 operator|!
 name|values
 operator|.
 name|isEmpty
 argument_list|()
-operator|)
 operator|||
 operator|(
 name|proto

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -561,11 +561,6 @@ class|class
 name|MutableRegionInfo
 implements|implements
 name|RegionInfo
-implements|,
-name|Comparable
-argument_list|<
-name|RegionInfo
-argument_list|>
 block|{
 comment|/**      * The new format for a region name contains its encodedName at the end.      * The encoded name also serves as the directory name for the region      * in the filesystem.      *      * New region name format:      *&lt;tablename>,,&lt;startkey>,&lt;regionIdTimestamp>.&lt;encodedName>.      * where,      *&lt;encodedName> is a hex version of the MD5 hash of      *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>      *      * The old region name format:      *&lt;tablename>,&lt;startkey>,&lt;regionIdTimestamp>      * For region names in the old format, the encoded name is a 32-bit      * JenkinsHash integer value (in its decimal notation, string form).      *<p>      * **NOTE**      *      * The first hbase:meta region, and regions created by an older      * version of HBase (0.20 or prior) will continue to use the      * old region name format.      */
 comment|// This flag is in the parent of a split while the parent is still referenced by daughter
@@ -1751,8 +1746,6 @@ literal|false
 return|;
 block|}
 return|return
-name|this
-operator|.
 name|compareTo
 argument_list|(
 operator|(
@@ -1776,29 +1769,6 @@ return|return
 name|this
 operator|.
 name|hashCode
-return|;
-block|}
-annotation|@
-name|Override
-specifier|public
-name|int
-name|compareTo
-parameter_list|(
-name|RegionInfo
-name|other
-parameter_list|)
-block|{
-return|return
-name|RegionInfo
-operator|.
-name|COMPARATOR
-operator|.
-name|compare
-argument_list|(
-name|this
-argument_list|,
-name|other
-argument_list|)
 return|;
 block|}
 block|}
