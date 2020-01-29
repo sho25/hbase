@@ -514,7 +514,7 @@ argument_list|)
 expr_stmt|;
 name|assertEquals
 argument_list|(
-literal|"localhost:2888:3888"
+literal|"127.0.0.1:2888:3888"
 argument_list|,
 name|properties
 operator|.

@@ -508,7 +508,7 @@ argument_list|()
 decl_stmt|;
 name|assertEquals
 argument_list|(
-literal|"localhost:"
+literal|"127.0.0.1:"
 operator|+
 name|c
 operator|.

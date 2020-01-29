@@ -18,6 +18,22 @@ package|;
 end_package
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|HConstants
+operator|.
+name|ZOOKEEPER_QUORUM
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -611,9 +627,12 @@ name|HConstants
 operator|.
 name|CLIENT_ZOOKEEPER_QUORUM
 argument_list|,
-name|HConstants
+name|conf
 operator|.
-name|LOCALHOST
+name|get
+argument_list|(
+name|ZOOKEEPER_QUORUM
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|conf

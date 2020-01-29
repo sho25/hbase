@@ -758,7 +758,7 @@ name|HConstants
 operator|.
 name|ZOOKEEPER_QUORUM
 argument_list|,
-literal|"127.0.0.1"
+literal|"localhost"
 argument_list|)
 expr_stmt|;
 try|try
