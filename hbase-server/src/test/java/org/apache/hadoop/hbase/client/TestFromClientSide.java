@@ -44239,13 +44239,14 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
-comment|// + 1 for Index Block
+comment|// + 1 for Index Block, +1 for data block
+name|expectedBlockCount
+operator|+=
+literal|2
+expr_stmt|;
 name|assertEquals
 argument_list|(
-operator|++
 name|expectedBlockCount
-operator|+
-literal|1
 argument_list|,
 name|cache
 operator|.
@@ -44336,11 +44337,11 @@ name|getStorefilesCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// evicted two data blocks and two index blocks and compaction does not cache new blocks
 name|expectedBlockCount
-operator|-=
-literal|2
+operator|=
+literal|0
 expr_stmt|;
-comment|// evicted two blocks, cached none
 name|assertEquals
 argument_list|(
 name|expectedBlockCount

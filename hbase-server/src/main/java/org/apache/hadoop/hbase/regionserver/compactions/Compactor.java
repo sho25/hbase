@@ -978,6 +978,13 @@ name|minSeqIdToKeep
 init|=
 literal|0
 decl_stmt|;
+comment|/** Total size of the compacted files **/
+specifier|private
+name|long
+name|totalCompactedFilesSize
+init|=
+literal|0
+decl_stmt|;
 block|}
 comment|/**    * Extracts some details about the files to compact that are commonly needed by compactors.    * @param filesToCompact Files.    * @param allFiles Whether all files are included for compaction    * @return The result.    */
 specifier|private
@@ -1157,6 +1164,16 @@ operator|.
 name|loadFileInfo
 argument_list|()
 decl_stmt|;
+comment|// calculate the total size of the compacted files
+name|fd
+operator|.
+name|totalCompactedFilesSize
+operator|+=
+name|r
+operator|.
+name|length
+argument_list|()
+expr_stmt|;
 name|byte
 index|[]
 name|tmp
@@ -1665,6 +1682,10 @@ operator|>
 literal|0
 argument_list|,
 name|shouldDropBehind
+argument_list|,
+name|fd
+operator|.
+name|totalCompactedFilesSize
 argument_list|)
 return|;
 block|}

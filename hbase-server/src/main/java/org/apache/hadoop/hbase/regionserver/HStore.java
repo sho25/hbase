@@ -6121,9 +6121,6 @@ return|return
 name|sf
 return|;
 block|}
-comment|/**    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint - whether to include MVCC or not    * @param includesTag - includesTag or not    * @return Writer for a new StoreFile in the tmp dir.    */
-comment|// TODO : allow the Writer factory to create Writers of ShipperListener type only in case of
-comment|// compaction
 specifier|public
 name|StoreFileWriter
 name|createWriterInTmp
@@ -6151,9 +6148,69 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
+return|return
+name|createWriterInTmp
+argument_list|(
+name|maxKeyCount
+argument_list|,
+name|compression
+argument_list|,
+name|isCompaction
+argument_list|,
+name|includeMVCCReadpoint
+argument_list|,
+name|includesTag
+argument_list|,
+name|shouldDropBehind
+argument_list|,
+operator|-
+literal|1
+argument_list|)
+return|;
+block|}
+comment|/**    * @param compression Compression algorithm to use    * @param isCompaction whether we are creating a new file in a compaction    * @param includeMVCCReadpoint - whether to include MVCC or not    * @param includesTag - includesTag or not    * @return Writer for a new StoreFile in the tmp dir.    */
+comment|// TODO : allow the Writer factory to create Writers of ShipperListener type only in case of
+comment|// compaction
+specifier|public
+name|StoreFileWriter
+name|createWriterInTmp
+parameter_list|(
+name|long
+name|maxKeyCount
+parameter_list|,
+name|Compression
+operator|.
+name|Algorithm
+name|compression
+parameter_list|,
+name|boolean
+name|isCompaction
+parameter_list|,
+name|boolean
+name|includeMVCCReadpoint
+parameter_list|,
+name|boolean
+name|includesTag
+parameter_list|,
+name|boolean
+name|shouldDropBehind
+parameter_list|,
+name|long
+name|totalCompactedFilesSize
+parameter_list|)
+throws|throws
+name|IOException
+block|{
+comment|// creating new cache config for each new writer
 specifier|final
 name|CacheConfig
 name|writerCacheConf
+init|=
+operator|new
+name|CacheConfig
+argument_list|(
+name|cacheConf
+argument_list|)
 decl_stmt|;
 if|if
 condition|(
@@ -6161,14 +6218,7 @@ name|isCompaction
 condition|)
 block|{
 comment|// Don't cache data on write on compactions, unless specifically configured to do so
-name|writerCacheConf
-operator|=
-operator|new
-name|CacheConfig
-argument_list|(
-name|cacheConf
-argument_list|)
-expr_stmt|;
+comment|// Cache only when total file size remains lower than configured threshold
 specifier|final
 name|boolean
 name|cacheCompactedBlocksOnWrite
@@ -6184,6 +6234,13 @@ comment|// cache index and bloom blocks as well
 if|if
 condition|(
 name|cacheCompactedBlocksOnWrite
+operator|&&
+name|totalCompactedFilesSize
+operator|<=
+name|cacheConf
+operator|.
+name|getCacheCompactedBlocksOnWriteThreshold
+argument_list|()
 condition|)
 block|{
 name|writerCacheConf
@@ -6224,14 +6281,41 @@ argument_list|(
 literal|false
 argument_list|)
 expr_stmt|;
+if|if
+condition|(
+name|totalCompactedFilesSize
+operator|>
+name|cacheConf
+operator|.
+name|getCacheCompactedBlocksOnWriteThreshold
+argument_list|()
+condition|)
+block|{
+comment|// checking condition once again for logging
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"For Store {}, setting cacheCompactedBlocksOnWrite as false as total size of compacted "
+operator|+
+literal|"files - {}, is greater than cacheCompactedBlocksOnWriteThreshold - {}"
+argument_list|,
+name|getColumnFamilyName
+argument_list|()
+argument_list|,
+name|totalCompactedFilesSize
+argument_list|,
+name|cacheConf
+operator|.
+name|getCacheCompactedBlocksOnWriteThreshold
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 else|else
 block|{
-name|writerCacheConf
-operator|=
-name|cacheConf
-expr_stmt|;
 specifier|final
 name|boolean
 name|shouldCacheDataOnWrite
