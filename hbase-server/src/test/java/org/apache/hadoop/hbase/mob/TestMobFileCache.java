@@ -685,9 +685,8 @@ name|Exception
 block|{
 name|UTIL
 operator|=
+operator|new
 name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
 argument_list|()
 expr_stmt|;
 name|conf

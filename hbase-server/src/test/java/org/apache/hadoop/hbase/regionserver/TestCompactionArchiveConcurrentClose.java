@@ -567,9 +567,8 @@ name|Exception
 block|{
 name|testUtil
 operator|=
+operator|new
 name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
 argument_list|()
 expr_stmt|;
 name|testDir

@@ -439,9 +439,8 @@ decl_stmt|;
 name|HBaseTestingUtility
 name|HTU
 init|=
+operator|new
 name|HBaseTestingUtility
-operator|.
-name|createLocalHTU
 argument_list|()
 decl_stmt|;
 specifier|private

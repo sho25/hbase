@@ -2523,7 +2523,7 @@ init|=
 name|bloomAndCompressionCombinations
 argument_list|()
 decl_stmt|;
-comment|/**    *<p>Create an HBaseTestingUtility using a default configuration.    *    *<p>Initially, all tmp files are written to a local test data directory.    * Once {@link #startMiniDFSCluster} is called, either directly or via    * {@link #startMiniCluster()}, tmp data will be written to the DFS directory instead.    *    *<p>Previously, there was a distinction between the type of utility returned by    * {@link #createLocalHTU()} and this constructor; this is no longer the case. All    * HBaseTestingUtility objects will behave as local until a DFS cluster is started,    * at which point they will switch to using mini DFS for storage.    */
+comment|/**    *<p>Create an HBaseTestingUtility using a default configuration.    *    *<p>Initially, all tmp files are written to a local test data directory.    * Once {@link #startMiniDFSCluster} is called, either directly or via    * {@link #startMiniCluster()}, tmp data will be written to the DFS directory instead.    */
 specifier|public
 name|HBaseTestingUtility
 parameter_list|()
@@ -2537,7 +2537,7 @@ argument_list|()
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    *<p>Create an HBaseTestingUtility using a given configuration.    *    *<p>Initially, all tmp files are written to a local test data directory.    * Once {@link #startMiniDFSCluster} is called, either directly or via    * {@link #startMiniCluster()}, tmp data will be written to the DFS directory instead.    *    *<p>Previously, there was a distinction between the type of utility returned by    * {@link #createLocalHTU()} and this constructor; this is no longer the case. All    * HBaseTestingUtility objects will behave as local until a DFS cluster is started,    * at which point they will switch to using mini DFS for storage.    *    * @param conf The configuration to use for further operations    */
+comment|/**    *<p>Create an HBaseTestingUtility using a given configuration.    *    *<p>Initially, all tmp files are written to a local test data directory.    * Once {@link #startMiniDFSCluster} is called, either directly or via    * {@link #startMiniCluster()}, tmp data will be written to the DFS directory instead.    *    * @param conf The configuration to use for further operations    */
 specifier|public
 name|HBaseTestingUtility
 parameter_list|(
@@ -2720,21 +2720,6 @@ literal|true
 argument_list|)
 argument_list|)
 expr_stmt|;
-block|}
-comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use {@link #HBaseTestingUtility()}    *   instead.    * @return a normal HBaseTestingUtility    * @see #HBaseTestingUtility()    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19841">HBASE-19841</a>    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|HBaseTestingUtility
-name|createLocalHTU
-parameter_list|()
-block|{
-return|return
-operator|new
-name|HBaseTestingUtility
-argument_list|()
-return|;
 block|}
 comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #HBaseTestingUtility(Configuration)} instead.    * @return a normal HBaseTestingUtility    * @see #HBaseTestingUtility(Configuration)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19841">HBASE-19841</a>    */
 annotation|@
