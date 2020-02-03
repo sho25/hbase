@@ -369,7 +369,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|MediumTests
 import|;
 end_import
 
@@ -454,7 +454,7 @@ name|FilterTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}

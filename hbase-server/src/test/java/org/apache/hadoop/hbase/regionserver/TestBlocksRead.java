@@ -389,7 +389,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -405,7 +405,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|SmallTests
 import|;
 end_import
 
@@ -546,7 +546,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}
@@ -698,7 +698,7 @@ name|reset
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Callers must afterward call {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)}    * @param tableName    * @param callingMethod    * @param conf    * @param family    * @throws IOException    * @return created and initialized region.    */
+comment|/**    * Callers must afterward call {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)}    * @return created and initialized region.    */
 specifier|private
 name|HRegion
 name|initHRegion
@@ -1033,8 +1033,8 @@ throws|throws
 name|IOException
 block|{
 name|byte
-name|columnBytes
 index|[]
+name|columnBytes
 init|=
 name|Bytes
 operator|.
@@ -1649,7 +1649,7 @@ name|sum
 argument_list|()
 return|;
 block|}
-comment|/**    * Test # of blocks read for some simple seek cases.    *    * @throws Exception    */
+comment|/**    * Test # of blocks read for some simple seek cases.    */
 annotation|@
 name|Test
 specifier|public
@@ -1676,8 +1676,8 @@ init|=
 literal|"cf1"
 decl_stmt|;
 name|Cell
-name|kvs
 index|[]
+name|kvs
 decl_stmt|;
 name|this
 operator|.
@@ -2005,7 +2005,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test # of blocks read (targeted at some of the cases Lazy Seek optimizes).    *    * @throws Exception    */
+comment|/**    * Test # of blocks read (targeted at some of the cases Lazy Seek optimizes).    */
 annotation|@
 name|Test
 specifier|public
@@ -2032,8 +2032,8 @@ init|=
 literal|"cf1"
 decl_stmt|;
 name|Cell
-name|kvs
 index|[]
+name|kvs
 decl_stmt|;
 name|this
 operator|.
@@ -2686,7 +2686,7 @@ literal|null
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test # of blocks read to ensure disabling cache-fill on Scan works.    * @throws Exception    */
+comment|/**    * Test # of blocks read to ensure disabling cache-fill on Scan works.    */
 annotation|@
 name|Test
 specifier|public
@@ -2984,8 +2984,8 @@ init|=
 literal|"cf1"
 decl_stmt|;
 name|Cell
-name|kvs
 index|[]
+name|kvs
 decl_stmt|;
 name|this
 operator|.

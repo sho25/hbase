@@ -709,7 +709,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -725,7 +725,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -956,7 +956,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -1096,7 +1096,7 @@ name|tearDown
 argument_list|()
 expr_stmt|;
 block|}
-comment|/**    * Write a file and then assert that we can read from top and bottom halves    * using two HalfMapFiles.    * @throws Exception    */
+comment|/**    * Write a file and then assert that we can read from top and bottom halves    * using two HalfMapFiles.    */
 annotation|@
 name|Test
 specifier|public
@@ -1414,7 +1414,7 @@ argument_list|()
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test that our mechanism of writing store files in one region to reference    * store files in other regions works.    * @throws IOException    */
+comment|/**    * Test that our mechanism of writing store files in one region to reference    * store files in other regions works.    */
 annotation|@
 name|Test
 specifier|public
@@ -4718,9 +4718,11 @@ condition|(
 operator|!
 name|exists
 condition|)
+block|{
 name|falseNeg
 operator|++
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -4728,9 +4730,11 @@ if|if
 condition|(
 name|exists
 condition|)
+block|{
 name|falsePos
 operator|++
 expr_stmt|;
+block|}
 block|}
 block|}
 name|reader
@@ -5311,9 +5315,11 @@ condition|(
 operator|!
 name|exists
 condition|)
+block|{
 name|falseNeg
 operator|++
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -5321,9 +5327,11 @@ if|if
 condition|(
 name|exists
 condition|)
+block|{
 name|falsePos
 operator|++
 expr_stmt|;
+block|}
 block|}
 block|}
 name|assertEquals
@@ -6301,9 +6309,11 @@ condition|(
 operator|!
 name|exists
 condition|)
+block|{
 name|falseNeg
 operator|++
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -6311,9 +6321,11 @@ if|if
 condition|(
 name|exists
 condition|)
+block|{
 name|falsePos
 operator|++
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -6804,7 +6816,7 @@ return|return
 name|mock
 return|;
 block|}
-comment|/**    * Generate a list of KeyValues for testing based on given parameters    * @param timestamps    * @param numRows    * @param qualifier    * @param family    * @return the rows key-value list    */
+comment|/**    * Generate a list of KeyValues for testing based on given parameters    * @return the rows key-value list    */
 name|List
 argument_list|<
 name|KeyValue
@@ -6921,7 +6933,7 @@ return|return
 name|kvList
 return|;
 block|}
-comment|/**    * Test to ensure correctness when using StoreFile with multiple timestamps    * @throws IOException    */
+comment|/**    * Test to ensure correctness when using StoreFile with multiple timestamps    */
 annotation|@
 name|Test
 specifier|public
@@ -7611,7 +7623,9 @@ argument_list|()
 operator|!=
 literal|null
 condition|)
-empty_stmt|;
+block|{
+continue|continue;
+block|}
 name|assertEquals
 argument_list|(
 name|startHit
@@ -7776,7 +7790,9 @@ argument_list|()
 operator|!=
 literal|null
 condition|)
-empty_stmt|;
+block|{
+continue|continue;
+block|}
 name|assertEquals
 argument_list|(
 name|startHit

@@ -337,7 +337,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -353,7 +353,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|SmallTests
 import|;
 end_import
 
@@ -504,7 +504,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}
@@ -530,7 +530,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 name|HBaseTestingUtility
 name|testUtil
 decl_stmt|;

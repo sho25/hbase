@@ -25,7 +25,31 @@ name|junit
 operator|.
 name|Assert
 operator|.
-name|*
+name|assertEquals
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertNull
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|junit
+operator|.
+name|Assert
+operator|.
+name|assertTrue
 import|;
 end_import
 
@@ -249,7 +273,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -265,7 +289,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -436,7 +460,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -1157,7 +1181,9 @@ name|size
 operator|==
 literal|0
 condition|)
+block|{
 continue|continue;
+block|}
 name|Map
 argument_list|<
 name|Integer

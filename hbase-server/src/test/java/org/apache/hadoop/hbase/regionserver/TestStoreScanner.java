@@ -425,7 +425,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -441,7 +441,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|SmallTests
 import|;
 end_import
 
@@ -592,7 +592,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}
@@ -3514,7 +3514,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test optimize in StoreScanner. Test that we skip to the next 'block' when we it makes sense    * reading the block 'index'.    * @throws IOException    */
+comment|/**    * Test optimize in StoreScanner. Test that we skip to the next 'block' when we it makes sense    * reading the block 'index'.    */
 annotation|@
 name|Test
 specifier|public
@@ -3648,7 +3648,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Ensure the optimize Scan method in StoreScanner does not get in the way of a Get doing minimum    * work... seeking to start of block and then SKIPPING until we find the wanted Cell.    * This 'simple' scenario mimics case of all Cells fitting inside a single HFileBlock.    * See HBASE-15392. This test is a little cryptic. Takes a bit of staring to figure what it up to.    * @throws IOException    */
+comment|/**    * Ensure the optimize Scan method in StoreScanner does not get in the way of a Get doing minimum    * work... seeking to start of block and then SKIPPING until we find the wanted Cell.    * This 'simple' scenario mimics case of all Cells fitting inside a single HFileBlock.    * See HBASE-15392. This test is a little cryptic. Takes a bit of staring to figure what it up to.    */
 annotation|@
 name|Test
 specifier|public
@@ -3764,7 +3764,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Ensure that optimize does not cause the Get to do more seeking than required. Optimize    * (see HBASE-15392) was causing us to seek all Cells in a block when a Get Scan if the next block    * index/start key was a different row to the current one. A bug. We'd call next too often    * because we had to exhaust all Cells in the current row making us load the next block just to    * discard what we read there. This test is a little cryptic. Takes a bit of staring to figure    * what it up to.    * @throws IOException    */
+comment|/**    * Ensure that optimize does not cause the Get to do more seeking than required. Optimize    * (see HBASE-15392) was causing us to seek all Cells in a block when a Get Scan if the next block    * index/start key was a different row to the current one. A bug. We'd call next too often    * because we had to exhaust all Cells in the current row making us load the next block just to    * discard what we read there. This test is a little cryptic. Takes a bit of staring to figure    * what it up to.    */
 annotation|@
 name|Test
 specifier|public

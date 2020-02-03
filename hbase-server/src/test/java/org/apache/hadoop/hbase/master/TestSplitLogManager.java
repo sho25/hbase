@@ -547,7 +547,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MasterTests
+name|LargeTests
 import|;
 end_import
 
@@ -563,7 +563,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|MasterTests
 import|;
 end_import
 
@@ -756,7 +756,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -1174,11 +1174,13 @@ name|slm
 operator|!=
 literal|null
 condition|)
+block|{
 name|slm
 operator|.
 name|stop
 argument_list|()
 expr_stmt|;
+block|}
 name|TEST_UTIL
 operator|.
 name|shutdownMiniZKCluster
@@ -1484,7 +1486,7 @@ return|return
 name|tasknode
 return|;
 block|}
-comment|/**    * Test whether the splitlog correctly creates a task in zookeeper    * @throws Exception    */
+comment|/**    * Test whether the splitlog correctly creates a task in zookeeper    */
 annotation|@
 name|Test
 specifier|public
@@ -3375,6 +3377,7 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 name|waitForCounter
 argument_list|(
 name|tot_mgr_heartbeat
@@ -3388,6 +3391,7 @@ operator|/
 literal|2
 argument_list|)
 expr_stmt|;
+block|}
 name|slm
 operator|.
 name|handleDeadWorker
@@ -3404,6 +3408,7 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 name|waitForCounter
 argument_list|(
 name|tot_mgr_resubmit
@@ -3419,6 +3424,7 @@ operator|/
 literal|2
 argument_list|)
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|tot_mgr_resubmit_dead_server_task
@@ -3582,6 +3588,7 @@ argument_list|()
 operator|==
 literal|0
 condition|)
+block|{
 name|waitForCounter
 argument_list|(
 name|tot_mgr_heartbeat
@@ -3595,6 +3602,7 @@ operator|/
 literal|2
 argument_list|)
 expr_stmt|;
+block|}
 comment|// Not yet resubmitted.
 name|Assert
 operator|.

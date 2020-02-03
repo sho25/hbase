@@ -281,7 +281,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|SmallTests
 import|;
 end_import
 
@@ -496,7 +496,7 @@ annotation|@
 name|Category
 argument_list|(
 block|{
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}

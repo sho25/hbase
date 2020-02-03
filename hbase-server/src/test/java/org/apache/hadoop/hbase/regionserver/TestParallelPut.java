@@ -688,6 +688,7 @@ name|region
 operator|!=
 literal|null
 condition|)
+block|{
 name|region
 operator|.
 name|close
@@ -695,6 +696,7 @@ argument_list|(
 literal|true
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 specifier|public
 name|String

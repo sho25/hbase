@@ -341,7 +341,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -357,7 +357,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -510,7 +510,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -1763,7 +1763,9 @@ argument_list|(
 name|kvs
 argument_list|)
 condition|)
-empty_stmt|;
+block|{
+continue|continue;
+block|}
 name|assertTrue
 argument_list|(
 name|kvs
@@ -5251,7 +5253,7 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test keeping deleted rows together with min versions set    * @throws Exception    */
+comment|/**    * Test keeping deleted rows together with min versions set    */
 annotation|@
 name|Test
 specifier|public
@@ -5736,7 +5738,7 @@ name|region
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test keeping deleted rows together with min versions set    * @throws Exception    */
+comment|/**    * Test keeping deleted rows together with min versions set    */
 annotation|@
 name|Test
 specifier|public
@@ -6173,9 +6175,11 @@ argument_list|(
 name|kv
 argument_list|)
 condition|)
+block|{
 name|res
 operator|++
 expr_stmt|;
+block|}
 block|}
 name|kvs
 operator|.

@@ -159,7 +159,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RPCTests
+name|MediumTests
 import|;
 end_import
 
@@ -175,7 +175,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RPCTests
 import|;
 end_import
 
@@ -212,7 +212,7 @@ name|RPCTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}

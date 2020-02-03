@@ -165,7 +165,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|LargeTests
 import|;
 end_import
 
@@ -181,7 +181,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -248,7 +248,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|LargeTests
 operator|.
 name|class
 block|}
@@ -274,7 +274,7 @@ operator|.
 name|class
 argument_list|)
 decl_stmt|;
-specifier|public
+specifier|private
 specifier|static
 name|MetricsAssertHelper
 name|HELPER

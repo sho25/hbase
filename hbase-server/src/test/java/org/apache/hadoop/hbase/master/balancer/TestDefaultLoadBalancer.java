@@ -227,7 +227,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|SmallTests
 import|;
 end_import
 
@@ -360,7 +360,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}

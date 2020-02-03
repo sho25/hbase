@@ -67,7 +67,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -83,7 +83,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -130,7 +130,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -224,7 +224,7 @@ name|max
 argument_list|)
 return|;
 block|}
-comment|/**    * Run a bunch of threads against a single TimeRangeTracker and ensure we arrive    * at right range.  Here we do ten threads each incrementing over 100k at an offset    * of the thread index; max is 10 * 10k and min is 0.    * @throws InterruptedException    */
+comment|/**    * Run a bunch of threads against a single TimeRangeTracker and ensure we arrive    * at right range.  Here we do ten threads each incrementing over 100k at an offset    * of the thread index; max is 10 * 10k and min is 0.    */
 annotation|@
 name|Test
 specifier|public
@@ -343,6 +343,7 @@ condition|;
 name|i
 operator|++
 control|)
+block|{
 name|trr
 operator|.
 name|includeTimestamp
@@ -350,6 +351,7 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
@@ -376,6 +378,7 @@ condition|;
 name|i
 operator|--
 control|)
+block|{
 name|trr
 operator|.
 name|includeTimestamp
@@ -383,6 +386,7 @@ argument_list|(
 name|i
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
@@ -540,6 +544,7 @@ index|]
 operator|<
 name|min
 condition|)
+block|{
 name|min
 operator|=
 name|keys
@@ -547,6 +552,7 @@ index|[
 name|i
 index|]
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|keys
@@ -556,6 +562,7 @@ index|]
 operator|>
 name|max
 condition|)
+block|{
 name|max
 operator|=
 name|keys
@@ -563,6 +570,7 @@ index|[
 name|i
 index|]
 expr_stmt|;
+block|}
 block|}
 block|}
 else|else
@@ -610,6 +618,7 @@ index|]
 operator|<
 name|min
 condition|)
+block|{
 name|min
 operator|=
 name|keys
@@ -617,6 +626,7 @@ index|[
 name|i
 index|]
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|keys
@@ -626,6 +636,7 @@ index|]
 operator|>
 name|max
 condition|)
+block|{
 name|max
 operator|=
 name|keys
@@ -633,6 +644,7 @@ index|[
 name|i
 index|]
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}

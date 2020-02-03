@@ -367,7 +367,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RPCTests
+name|MediumTests
 import|;
 end_import
 
@@ -383,7 +383,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RPCTests
 import|;
 end_import
 
@@ -718,7 +718,7 @@ name|RPCTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -3421,14 +3421,15 @@ argument_list|()
 return|;
 block|}
 block|}
-comment|// FIX. I don't get this test (St.Ack). When I time this test, the minDelay is> 2 * codel delay from the get go.
-comment|// So we are always overloaded. The test below would seem to complete the queuing of all the CallRunners inside
-comment|// the codel check interval. I don't think we are skipping codel checking. Second, I think this test has been
-comment|// broken since HBASE-16089 Add on FastPath for CoDel went in. The thread name we were looking for was the name
-comment|// BEFORE we updated: i.e. "RpcServer.CodelBQ.default.handler". But same patch changed the name of the codel
-comment|// fastpath thread to: new FastPathBalancedQueueRpcExecutor("CodelFPBQ.default", handlerCount, numCallQueues...
-comment|// Codel is hard to test. This test is going to be flakey given it all timer-based. Disabling for now till chat
-comment|// with authors.
+comment|// FIX. I don't get this test (St.Ack). When I time this test, the minDelay is> 2 * codel delay
+comment|// from the get go. So we are always overloaded. The test below would seem to complete the
+comment|// queuing of all the CallRunners inside the codel check interval. I don't think we are skipping
+comment|// codel checking. Second, I think this test has been broken since HBASE-16089 Add on FastPath for
+comment|// CoDel went in. The thread name we were looking for was the name BEFORE we updated: i.e.
+comment|// "RpcServer.CodelBQ.default.handler". But same patch changed the name of the codel fastpath
+comment|// thread to: new FastPathBalancedQueueRpcExecutor("CodelFPBQ.default", handlerCount,
+comment|// numCallQueues... Codel is hard to test. This test is going to be flakey given it all
+comment|// timer-based. Disabling for now till chat with authors.
 annotation|@
 name|Test
 specifier|public
@@ -3543,8 +3544,8 @@ argument_list|)
 decl_stmt|;
 try|try
 block|{
-comment|// Loading mocked call runner can take a good amount of time the first time through (haven't looked why).
-comment|// Load it for first time here outside of the timed loop.
+comment|// Loading mocked call runner can take a good amount of time the first time through
+comment|// (haven't looked why). Load it for first time here outside of the timed loop.
 name|getMockedCallRunner
 argument_list|(
 name|System
@@ -4540,7 +4541,9 @@ name|sleepTime
 operator|<=
 literal|0
 condition|)
+block|{
 return|return;
+block|}
 try|try
 block|{
 name|LOG

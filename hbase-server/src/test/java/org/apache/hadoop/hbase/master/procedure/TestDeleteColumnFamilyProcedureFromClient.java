@@ -263,7 +263,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|LargeTests
+name|MasterTests
 import|;
 end_import
 
@@ -279,7 +279,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MasterTests
+name|MediumTests
 import|;
 end_import
 
@@ -424,7 +424,7 @@ name|MasterTests
 operator|.
 name|class
 block|,
-name|LargeTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -508,7 +508,7 @@ literal|"cf3"
 argument_list|)
 block|}
 decl_stmt|;
-comment|/**    * Start up a mini cluster and put a small table of empty regions into it.    *    * @throws Exception    */
+comment|/**    * Start up a mini cluster and put a small table of empty regions into it.    */
 annotation|@
 name|BeforeClass
 specifier|public

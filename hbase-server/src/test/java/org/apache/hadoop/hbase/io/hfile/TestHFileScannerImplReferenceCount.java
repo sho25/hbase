@@ -467,7 +467,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|LargeTests
 import|;
 end_import
 
@@ -671,7 +671,7 @@ name|IOTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|LargeTests
 operator|.
 name|class
 block|}

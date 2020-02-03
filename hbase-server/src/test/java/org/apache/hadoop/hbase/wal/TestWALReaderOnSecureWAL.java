@@ -339,10 +339,6 @@ name|MultiVersionConcurrencyControl
 import|;
 end_import
 
-begin_comment
-comment|// imports for things that haven't moved from regionserver.wal yet.
-end_comment
-
 begin_import
 import|import
 name|org
@@ -481,7 +477,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -497,7 +493,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|SmallTests
 import|;
 end_import
 
@@ -628,7 +624,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|SmallTests
 operator|.
 name|class
 block|}

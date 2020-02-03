@@ -749,7 +749,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -765,7 +765,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -989,7 +989,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -1654,9 +1654,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|null
 return|;
+block|}
 return|return
 name|selectSingleStripeCompaction
 argument_list|(
@@ -1694,9 +1696,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 return|return
 name|needsSingleStripeCompaction
 argument_list|(
@@ -4865,9 +4869,11 @@ operator|.
 name|size
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 for|for
 control|(
 name|int
@@ -4908,9 +4914,11 @@ name|i
 argument_list|)
 argument_list|)
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 block|}
 return|return
 literal|true
@@ -6903,9 +6911,11 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return
 literal|false
 return|;
+block|}
 name|result
 operator|.
 name|add

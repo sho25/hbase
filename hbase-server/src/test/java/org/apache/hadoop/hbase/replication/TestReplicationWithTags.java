@@ -539,7 +539,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|LargeTests
+name|MediumTests
 import|;
 end_import
 
@@ -712,7 +712,7 @@ name|ReplicationTests
 operator|.
 name|class
 block|,
-name|LargeTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -1537,7 +1537,7 @@ literal|1
 argument_list|,
 name|TestCoprocessorForTagsAtSink
 operator|.
-name|tags
+name|TAGS
 operator|.
 name|size
 argument_list|()
@@ -1548,7 +1548,7 @@ name|tag
 init|=
 name|TestCoprocessorForTagsAtSink
 operator|.
-name|tags
+name|TAGS
 operator|.
 name|get
 argument_list|(
@@ -1573,7 +1573,7 @@ finally|finally
 block|{
 name|TestCoprocessorForTagsAtSink
 operator|.
-name|tags
+name|TAGS
 operator|=
 literal|null
 expr_stmt|;
@@ -1889,13 +1889,13 @@ name|RegionCoprocessor
 implements|,
 name|RegionObserver
 block|{
-specifier|public
+specifier|private
 specifier|static
 name|List
 argument_list|<
 name|Tag
 argument_list|>
-name|tags
+name|TAGS
 init|=
 literal|null
 decl_stmt|;
@@ -1972,7 +1972,7 @@ argument_list|(
 literal|0
 argument_list|)
 decl_stmt|;
-name|tags
+name|TAGS
 operator|=
 name|PrivateCellUtil
 operator|.

@@ -497,7 +497,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|RegionServerTests
+name|MediumTests
 import|;
 end_import
 
@@ -513,7 +513,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|SmallTests
+name|RegionServerTests
 import|;
 end_import
 
@@ -622,7 +622,7 @@ name|RegionServerTests
 operator|.
 name|class
 block|,
-name|SmallTests
+name|MediumTests
 operator|.
 name|class
 block|}
@@ -915,7 +915,7 @@ literal|"column1"
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Test basic stop row filter works.    * @throws Exception    */
+comment|/**    * Test basic stop row filter works.    */
 annotation|@
 name|Test
 specifier|public
@@ -1556,7 +1556,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Test that closing a scanner while a client is using it doesn't throw    * NPEs but instead a UnknownScannerException. HBASE-2503    * @throws Exception    */
+comment|/**    * Test that closing a scanner while a client is using it doesn't throw    * NPEs but instead a UnknownScannerException. HBASE-2503    */
 annotation|@
 name|Test
 specifier|public
@@ -1674,7 +1674,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/** The test!    * @throws IOException    */
+comment|/** The test!    */
 annotation|@
 name|Test
 specifier|public
@@ -2680,7 +2680,7 @@ name|bytes
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * Tests to do a sync flush during the middle of a scan. This is testing the StoreScanner    * update readers code essentially.  This is not highly concurrent, since its all 1 thread.    * HBase-910.    * @throws Exception    */
+comment|/**    * Tests to do a sync flush during the middle of a scan. This is testing the StoreScanner    * update readers code essentially.  This is not highly concurrent, since its all 1 thread.    * HBase-910.    */
 annotation|@
 name|Test
 specifier|public
@@ -2809,7 +2809,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Tests to do a concurrent flush (using a 2nd thread) while scanning.  This tests both    * the StoreScanner update readers and the transition from memstore -> snapshot -> store file.    *    * @throws Exception    */
+comment|/**    * Tests to do a concurrent flush (using a 2nd thread) while scanning.  This tests both    * the StoreScanner update readers and the transition from memstore -> snapshot -> store file.    */
 annotation|@
 name|Test
 specifier|public
@@ -2938,7 +2938,7 @@ argument_list|)
 expr_stmt|;
 block|}
 block|}
-comment|/**    * Make sure scanner returns correct result when we run a major compaction    * with deletes.    *    * @throws Exception    */
+comment|/**    * Make sure scanner returns correct result when we run a major compaction    * with deletes.    */
 annotation|@
 name|Test
 annotation|@
