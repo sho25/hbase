@@ -920,19 +920,6 @@ name|getSizeOfLogQueue
 argument_list|()
 return|;
 block|}
-comment|/**    * Get the timeStampsOfLastShippedOp, if there are multiple groups, return the latest one    * @return lastTimestampForAge    * @deprecated Since 2.0.0. Removed in 3.0.0.    * @see #getTimestampOfLastShippedOp()    */
-annotation|@
-name|Deprecated
-specifier|public
-name|long
-name|getTimeStampOfLastShippedOp
-parameter_list|()
-block|{
-return|return
-name|getTimestampOfLastShippedOp
-argument_list|()
-return|;
-block|}
 comment|/**    * Get the timestampsOfLastShippedOp, if there are multiple groups, return the latest one    * @return lastTimestampForAge    */
 specifier|public
 name|long
