@@ -467,16 +467,6 @@ name|org
 operator|.
 name|junit
 operator|.
-name|Ignore
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|junit
-operator|.
 name|Test
 import|;
 end_import
@@ -1697,10 +1687,6 @@ literal|30000
 argument_list|)
 expr_stmt|;
 block|}
-comment|// TODO: can not change meta group for now as we can not change the table descriptor of meta
-comment|// table, this has to be done before we merge back to master.
-annotation|@
-name|Ignore
 annotation|@
 name|Test
 specifier|public
@@ -1776,15 +1762,6 @@ name|TableName
 operator|.
 name|META_TABLE_NAME
 argument_list|)
-argument_list|)
-expr_stmt|;
-name|TEST_UTIL
-operator|.
-name|waitTableAvailable
-argument_list|(
-name|tableName
-argument_list|,
-literal|30000
 argument_list|)
 expr_stmt|;
 comment|// restart the regionserver in meta_group, and lower its version
