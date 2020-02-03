@@ -245,14 +245,6 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
-if|if
-condition|(
-name|TEST_UTIL
-operator|==
-literal|null
-condition|)
-block|{
-comment|// It is ok to initialize once because the test is parameterized for a single dimension.
 name|initialize
 argument_list|(
 name|registry
@@ -268,7 +260,6 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
-block|}
 block|}
 block|}
 end_class
