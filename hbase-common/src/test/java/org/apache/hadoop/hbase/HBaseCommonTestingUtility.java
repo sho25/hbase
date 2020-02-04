@@ -553,6 +553,7 @@ argument_list|)
 return|;
 block|}
 specifier|public
+specifier|static
 name|UUID
 name|getRandomUUID
 parameter_list|()
