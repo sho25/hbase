@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license  * agreements. See the NOTICE file distributed with this work for additional information regarding  * copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License. You may obtain a  * copy of the License at  *<p>  * http://www.apache.org/licenses/LICENSE-2.0  *<p>  * Unless required by applicable law or agreed to in writing, software distributed under the License  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express  * or implied. See the License for the specific language governing permissions and limitations under  * the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license  * agreements. See the NOTICE file distributed with this work for additional information regarding  * copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance with the License. You may obtain a  * copy of the License at  *<p>  * http://www.apache.org/licenses/LICENSE-2.0  *<p>  * Unless required by applicable law or agreed to in writing, software distributed under the License  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express  * or implied. See the License for the specific language governing permissions and limitations under  * the License.  */
 end_comment
 
 begin_package
@@ -165,6 +165,20 @@ name|apache
 operator|.
 name|hadoop
 operator|.
+name|fs
+operator|.
+name|FileSystem
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
 name|hbase
 operator|.
 name|HBaseClassTestRule
@@ -181,7 +195,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HBaseConfiguration
+name|HBaseTestingUtility
 import|;
 end_import
 
@@ -415,9 +429,24 @@ specifier|private
 specifier|static
 specifier|final
 name|double
-name|allowedWindow
+name|ALLOWED_WINDOW
 init|=
 literal|1.20
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|HBaseTestingUtility
+name|HTU
+init|=
+operator|new
+name|HBaseTestingUtility
+argument_list|()
+decl_stmt|;
+specifier|private
+specifier|static
+name|String
+name|RULES_FILE
 decl_stmt|;
 annotation|@
 name|BeforeClass
@@ -426,14 +455,16 @@ specifier|static
 name|void
 name|beforeAllTests
 parameter_list|()
+throws|throws
+name|IOException
 block|{
 name|BalancerTestBase
 operator|.
 name|conf
 operator|=
-name|HBaseConfiguration
+name|HTU
 operator|.
-name|create
+name|getConfiguration
 argument_list|()
 expr_stmt|;
 name|BalancerTestBase
@@ -498,6 +529,42 @@ name|getName
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// Need to ensure test dir has been created.
+name|assertTrue
+argument_list|(
+name|FileSystem
+operator|.
+name|get
+argument_list|(
+name|HTU
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+operator|.
+name|mkdirs
+argument_list|(
+name|HTU
+operator|.
+name|getDataTestDir
+argument_list|()
+argument_list|)
+argument_list|)
+expr_stmt|;
+name|RULES_FILE
+operator|=
+name|HTU
+operator|.
+name|getDataTestDir
+argument_list|(
+name|TestStochasticLoadBalancerHeterogeneousCostRules
+operator|.
+name|DEFAULT_RULES_FILE_NAME
+argument_list|)
+operator|.
+name|toString
+argument_list|()
+expr_stmt|;
 name|BalancerTestBase
 operator|.
 name|conf
@@ -508,9 +575,7 @@ name|HeterogeneousRegionCountCostFunction
 operator|.
 name|HBASE_MASTER_BALANCER_HETEROGENEOUS_RULES_FILE
 argument_list|,
-name|TestStochasticLoadBalancerHeterogeneousCostRules
-operator|.
-name|DEFAULT_RULES_TMP_LOCATION
+name|RULES_FILE
 argument_list|)
 expr_stmt|;
 name|BalancerTestBase
@@ -816,9 +881,9 @@ literal|60
 decl_stmt|;
 name|TestStochasticLoadBalancerHeterogeneousCostRules
 operator|.
-name|createSimpleRulesFile
+name|createRulesFile
 argument_list|(
-name|rules
+name|RULES_FILE
 argument_list|)
 expr_stmt|;
 specifier|final
@@ -900,8 +965,10 @@ name|IOException
 block|{
 name|TestStochasticLoadBalancerHeterogeneousCostRules
 operator|.
-name|createSimpleRulesFile
+name|createRulesFile
 argument_list|(
+name|RULES_FILE
+argument_list|,
 name|rules
 argument_list|)
 expr_stmt|;
@@ -1251,11 +1318,27 @@ name|cf
 operator|.
 name|overallUsage
 operator|*
-name|allowedWindow
+name|ALLOWED_WINDOW
 operator|*
 literal|100
 operator|+
-literal|"%"
+literal|"%; "
+operator|+
+name|cf
+operator|.
+name|overallUsage
+operator|+
+literal|", "
+operator|+
+name|usage
+operator|+
+literal|", "
+operator|+
+name|numberRegions
+operator|+
+literal|", "
+operator|+
+name|limit
 argument_list|,
 name|usage
 operator|<=
@@ -1263,7 +1346,7 @@ name|cf
 operator|.
 name|overallUsage
 operator|*
-name|allowedWindow
+name|ALLOWED_WINDOW
 argument_list|)
 expr_stmt|;
 block|}
