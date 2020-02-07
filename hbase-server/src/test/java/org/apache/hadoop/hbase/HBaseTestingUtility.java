@@ -2721,26 +2721,6 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link #HBaseTestingUtility(Configuration)} instead.    * @return a normal HBaseTestingUtility    * @see #HBaseTestingUtility(Configuration)    * @see<a href="https://issues.apache.org/jira/browse/HBASE-19841">HBASE-19841</a>    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|HBaseTestingUtility
-name|createLocalHTU
-parameter_list|(
-name|Configuration
-name|c
-parameter_list|)
-block|{
-return|return
-operator|new
-name|HBaseTestingUtility
-argument_list|(
-name|c
-argument_list|)
-return|;
-block|}
 comment|/**    * Close both the region {@code r} and it's underlying WAL. For use in tests.    */
 specifier|public
 specifier|static
