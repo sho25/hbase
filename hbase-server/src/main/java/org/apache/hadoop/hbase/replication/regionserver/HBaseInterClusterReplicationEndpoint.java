@@ -2264,9 +2264,15 @@ name|ExecutionException
 name|ee
 parameter_list|)
 block|{
-comment|// cause must be an IOException
 name|iox
 operator|=
+name|ee
+operator|.
+name|getCause
+argument_list|()
+operator|instanceof
+name|IOException
+condition|?
 operator|(
 name|IOException
 operator|)
@@ -2274,6 +2280,15 @@ name|ee
 operator|.
 name|getCause
 argument_list|()
+else|:
+operator|new
+name|IOException
+argument_list|(
+name|ee
+operator|.
+name|getCause
+argument_list|()
+argument_list|)
 expr_stmt|;
 block|}
 block|}
