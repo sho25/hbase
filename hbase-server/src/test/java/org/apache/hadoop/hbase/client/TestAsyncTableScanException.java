@@ -522,6 +522,14 @@ specifier|volatile
 name|boolean
 name|DO_NOT_RETRY
 decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
+name|ROW_COUNT
+init|=
+literal|100
+decl_stmt|;
 specifier|public
 specifier|static
 specifier|final
@@ -658,7 +666,7 @@ name|UTIL
 operator|.
 name|startMiniCluster
 argument_list|(
-literal|3
+literal|1
 argument_list|)
 expr_stmt|;
 name|UTIL
@@ -724,7 +732,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|100
+name|ROW_COUNT
 condition|;
 name|i
 operator|++
@@ -1002,7 +1010,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|100
+name|ROW_COUNT
 condition|;
 name|i
 operator|++

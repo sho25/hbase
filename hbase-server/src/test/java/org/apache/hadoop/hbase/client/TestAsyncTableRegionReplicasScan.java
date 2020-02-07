@@ -444,7 +444,7 @@ literal|0
 init|;
 name|i
 operator|<
-literal|1000
+name|ROW_COUNT
 condition|;
 name|i
 operator|++

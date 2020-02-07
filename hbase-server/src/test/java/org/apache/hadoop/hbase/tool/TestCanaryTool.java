@@ -1912,12 +1912,7 @@ name|argument
 parameter_list|)
 block|{
 return|return
-operator|(
-operator|(
-name|LoggingEvent
-operator|)
 name|argument
-operator|)
 operator|.
 name|getRenderedMessage
 argument_list|()

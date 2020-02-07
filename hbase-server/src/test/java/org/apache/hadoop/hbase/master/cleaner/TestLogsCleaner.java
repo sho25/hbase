@@ -1768,6 +1768,18 @@ operator|new
 name|ReplicationLogCleaner
 argument_list|()
 decl_stmt|;
+comment|// Subtract 1000 from current time so modtime is for sure older
+comment|// than 'now'.
+name|long
+name|modTime
+init|=
+name|System
+operator|.
+name|currentTimeMillis
+argument_list|()
+operator|-
+literal|1000
+decl_stmt|;
 name|List
 argument_list|<
 name|FileStatus
@@ -1789,10 +1801,7 @@ literal|3
 argument_list|,
 literal|100
 argument_list|,
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|modTime
 argument_list|,
 operator|new
 name|Path
@@ -1812,10 +1821,7 @@ literal|3
 argument_list|,
 literal|100
 argument_list|,
-name|System
-operator|.
-name|currentTimeMillis
-argument_list|()
+name|modTime
 argument_list|,
 operator|new
 name|Path
