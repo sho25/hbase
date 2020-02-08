@@ -1646,7 +1646,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"No more regions to move from {} to RSGroup"
+literal|"No more regions to move from {} to RSGroup {}"
 argument_list|,
 name|getOwnerName
 operator|.
@@ -1654,6 +1654,8 @@ name|apply
 argument_list|(
 name|owner
 argument_list|)
+argument_list|,
+name|targetGroupName
 argument_list|)
 expr_stmt|;
 name|iter
