@@ -1446,7 +1446,7 @@ annotation|@
 name|Override
 specifier|public
 name|void
-name|postDeleteTable
+name|postCompletedDeleteTableAction
 parameter_list|(
 name|ObserverContext
 argument_list|<
@@ -1462,10 +1462,14 @@ name|IOException
 block|{
 if|if
 condition|(
-name|needHandleTableHdfsAcl
-argument_list|(
+operator|!
 name|tableName
-argument_list|,
+operator|.
+name|isSystemTable
+argument_list|()
+operator|&&
+name|checkInitialized
+argument_list|(
 literal|"deleteTable "
 operator|+
 name|tableName
@@ -1509,6 +1513,16 @@ argument_list|,
 name|tableName
 argument_list|)
 decl_stmt|;
+if|if
+condition|(
+name|users
+operator|.
+name|size
+argument_list|()
+operator|>
+literal|0
+condition|)
+block|{
 comment|// 1. Remove table archive directory default ACLs
 name|hdfsAclHelper
 operator|.
@@ -1566,6 +1580,7 @@ argument_list|,
 literal|"delete"
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 block|}
 block|}
