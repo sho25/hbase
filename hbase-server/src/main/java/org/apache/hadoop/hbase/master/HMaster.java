@@ -66,6 +66,24 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|DNS
+operator|.
+name|MASTER_HOSTNAME_KEY
+import|;
+end_import
+
+begin_import
 import|import
 name|com
 operator|.

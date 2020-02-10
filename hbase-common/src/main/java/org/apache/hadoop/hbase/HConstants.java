@@ -548,16 +548,6 @@ name|MASTER_ADDRS_KEY
 init|=
 literal|"hbase.masters"
 decl_stmt|;
-specifier|public
-specifier|static
-specifier|final
-name|String
-name|MASTER_ADDRS_DEFAULT
-init|=
-literal|"localhost:"
-operator|+
-name|DEFAULT_MASTER_PORT
-decl_stmt|;
 comment|/** Full class name of the Zookeeper based connection registry implementation */
 specifier|public
 specifier|static

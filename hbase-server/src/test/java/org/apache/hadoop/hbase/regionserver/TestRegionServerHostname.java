@@ -231,6 +231,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|util
+operator|.
+name|DNS
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|zookeeper
 operator|.
 name|ZKUtil
@@ -461,7 +477,7 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-name|HRegionServer
+name|DNS
 operator|.
 name|RS_HOSTNAME_KEY
 argument_list|,
@@ -656,7 +672,7 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-name|HRegionServer
+name|DNS
 operator|.
 name|MASTER_HOSTNAME_KEY
 argument_list|,
@@ -670,7 +686,7 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-name|HRegionServer
+name|DNS
 operator|.
 name|RS_HOSTNAME_KEY
 argument_list|,
@@ -932,7 +948,7 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-name|HRegionServer
+name|DNS
 operator|.
 name|MASTER_HOSTNAME_KEY
 argument_list|,
@@ -948,7 +964,7 @@ argument_list|()
 operator|.
 name|set
 argument_list|(
-name|HRegionServer
+name|DNS
 operator|.
 name|RS_HOSTNAME_KEY
 argument_list|,
@@ -1054,7 +1070,7 @@ name|RS_HOSTNAME_DISABLE_MASTER_REVERSEDNS_KEY
 operator|+
 literal|" and "
 operator|+
-name|HRegionServer
+name|DNS
 operator|.
 name|RS_HOSTNAME_KEY
 operator|+

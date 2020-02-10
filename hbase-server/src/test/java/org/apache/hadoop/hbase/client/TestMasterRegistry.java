@@ -49,6 +49,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|net
+operator|.
+name|UnknownHostException
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|ArrayList
@@ -491,6 +501,8 @@ specifier|public
 name|void
 name|testMasterAddressParsing
 parameter_list|()
+throws|throws
+name|UnknownHostException
 block|{
 name|Configuration
 name|conf

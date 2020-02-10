@@ -82,6 +82,24 @@ import|;
 end_import
 
 begin_import
+import|import static
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|DNS
+operator|.
+name|RS_HOSTNAME_KEY
+import|;
+end_import
+
+begin_import
 import|import
 name|java
 operator|.
@@ -3967,42 +3985,6 @@ comment|/**    * hostname specified by hostname config    */
 specifier|protected
 name|String
 name|useThisHostnameInstead
-decl_stmt|;
-comment|// key to the config parameter of server hostname
-comment|// the specification of server hostname is optional. The hostname should be resolvable from
-comment|// both master and region server
-annotation|@
-name|InterfaceAudience
-operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|CONFIG
-argument_list|)
-specifier|final
-specifier|static
-name|String
-name|RS_HOSTNAME_KEY
-init|=
-literal|"hbase.regionserver.hostname"
-decl_stmt|;
-annotation|@
-name|InterfaceAudience
-operator|.
-name|LimitedPrivate
-argument_list|(
-name|HBaseInterfaceAudience
-operator|.
-name|CONFIG
-argument_list|)
-specifier|protected
-specifier|final
-specifier|static
-name|String
-name|MASTER_HOSTNAME_KEY
-init|=
-literal|"hbase.master.hostname"
 decl_stmt|;
 comment|/**    * HBASE-18226: This config and hbase.regionserver.hostname are mutually exclusive.    * Exception will be thrown if both are used.    */
 annotation|@
