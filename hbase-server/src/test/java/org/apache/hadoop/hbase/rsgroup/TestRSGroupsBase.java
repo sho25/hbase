@@ -772,7 +772,7 @@ name|conf
 operator|.
 name|get
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupUtil
 operator|.
 name|RS_GROUP_ENABLED
 argument_list|)
@@ -780,15 +780,11 @@ operator|==
 literal|null
 condition|)
 block|{
-name|conf
+name|RSGroupUtil
 operator|.
-name|setBoolean
+name|enableRSGroup
 argument_list|(
-name|RSGroupInfoManager
-operator|.
-name|RS_GROUP_ENABLED
-argument_list|,
-literal|true
+name|conf
 argument_list|)
 expr_stmt|;
 block|}

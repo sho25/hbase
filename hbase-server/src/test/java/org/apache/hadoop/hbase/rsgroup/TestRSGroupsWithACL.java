@@ -712,15 +712,11 @@ name|conf
 argument_list|)
 expr_stmt|;
 comment|// Enable rsgroup
-name|conf
+name|RSGroupUtil
 operator|.
-name|setBoolean
+name|enableRSGroup
 argument_list|(
-name|RSGroupInfoManager
-operator|.
-name|RS_GROUP_ENABLED
-argument_list|,
-literal|true
+name|conf
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

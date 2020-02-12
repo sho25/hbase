@@ -53,7 +53,7 @@ name|hbase
 operator|.
 name|rsgroup
 operator|.
-name|RSGroupInfoManager
+name|RSGroupUtil
 import|;
 end_import
 
@@ -196,18 +196,14 @@ name|setUpConfig
 argument_list|()
 expr_stmt|;
 comment|// enable rs group
+name|RSGroupUtil
+operator|.
+name|enableRSGroup
+argument_list|(
 name|TEST_UTIL
 operator|.
 name|getConfiguration
 argument_list|()
-operator|.
-name|setBoolean
-argument_list|(
-name|RSGroupInfoManager
-operator|.
-name|RS_GROUP_ENABLED
-argument_list|,
-literal|true
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL

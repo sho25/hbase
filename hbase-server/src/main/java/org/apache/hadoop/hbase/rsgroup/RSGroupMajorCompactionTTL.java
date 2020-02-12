@@ -352,7 +352,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * This script takes an rsgroup as argument and compacts part/all of regions of that table  * based on the table's TTL.  */
+comment|/**  * This script takes an rsgroup as argument and compacts part/all of regions of that table based on  * the table's TTL.  */
 end_comment
 
 begin_class
@@ -426,6 +426,8 @@ parameter_list|)
 throws|throws
 name|Exception
 block|{
+try|try
+init|(
 name|Connection
 name|conn
 init|=
@@ -435,28 +437,24 @@ name|createConnection
 argument_list|(
 name|conf
 argument_list|)
-decl_stmt|;
+init|;
 name|Admin
 name|admin
-init|=
+operator|=
 name|conn
 operator|.
 name|getAdmin
 argument_list|()
-decl_stmt|;
-name|RSGroupInfo
-name|rsGroupInfo
-init|=
+init|)
+block|{
+if|if
+condition|(
 name|admin
 operator|.
 name|getRSGroup
 argument_list|(
 name|rsgroup
 argument_list|)
-decl_stmt|;
-if|if
-condition|(
-name|rsGroupInfo
 operator|==
 literal|null
 condition|)
@@ -485,10 +483,12 @@ control|(
 name|TableName
 name|tableName
 range|:
-name|rsGroupInfo
+name|admin
 operator|.
-name|getTables
-argument_list|()
+name|listTablesInRSGroup
+argument_list|(
+name|rsgroup
+argument_list|)
 control|)
 block|{
 name|int
@@ -535,6 +535,7 @@ expr_stmt|;
 return|return
 name|status
 return|;
+block|}
 block|}
 block|}
 return|return

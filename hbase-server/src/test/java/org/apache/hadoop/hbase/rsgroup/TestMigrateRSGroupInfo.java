@@ -558,7 +558,7 @@ argument_list|()
 operator|.
 name|setBoolean
 argument_list|(
-name|RSGroupInfoManager
+name|RSGroupUtil
 operator|.
 name|RS_GROUP_ENABLED
 argument_list|,
