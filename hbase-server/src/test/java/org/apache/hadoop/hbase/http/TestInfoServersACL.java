@@ -1089,6 +1089,14 @@ operator|.
 name|startup
 argument_list|()
 expr_stmt|;
+name|CLUSTER
+operator|.
+name|getActiveMaster
+argument_list|()
+operator|.
+name|waitForMetaOnline
+argument_list|()
+expr_stmt|;
 block|}
 comment|/**    * Helper method to shut down the cluster (if running)    */
 annotation|@

@@ -1290,9 +1290,7 @@ operator|.
 name|toUri
 argument_list|()
 argument_list|,
-operator|new
-name|Configuration
-argument_list|()
+name|conf
 argument_list|)
 decl_stmt|;
 name|copyDir
@@ -1301,7 +1299,9 @@ name|copyDir
 operator|.
 name|makeQualified
 argument_list|(
-name|fs
+name|hdfsUri
+argument_list|,
+name|copyDir
 argument_list|)
 expr_stmt|;
 name|List
@@ -1384,6 +1384,20 @@ literal|"--overwrite"
 argument_list|)
 expr_stmt|;
 comment|// Export Snapshot
+name|ExportSnapshot
+name|es
+init|=
+operator|new
+name|ExportSnapshot
+argument_list|()
+decl_stmt|;
+name|es
+operator|.
+name|setConf
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|int
 name|res
 init|=
@@ -1391,9 +1405,7 @@ name|run
 argument_list|(
 name|conf
 argument_list|,
-operator|new
-name|ExportSnapshot
-argument_list|()
+name|es
 argument_list|,
 name|opts
 operator|.
@@ -1443,6 +1455,18 @@ argument_list|)
 decl_stmt|;
 name|assertFalse
 argument_list|(
+name|copyDir
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|" "
+operator|+
+name|targetDir
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|fs
 operator|.
 name|exists
@@ -1459,6 +1483,13 @@ argument_list|)
 expr_stmt|;
 return|return;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Exported snapshot"
+argument_list|)
+expr_stmt|;
 comment|// Verify File-System state
 name|FileStatus
 index|[]
@@ -1509,12 +1540,22 @@ name|assertTrue
 argument_list|(
 name|fileStatus
 operator|.
+name|toString
+argument_list|()
+argument_list|,
+name|fileStatus
+operator|.
 name|isDirectory
 argument_list|()
 argument_list|)
 expr_stmt|;
 name|assertTrue
 argument_list|(
+name|name
+operator|.
+name|toString
+argument_list|()
+argument_list|,
 name|name
 operator|.
 name|equals
@@ -1535,7 +1576,14 @@ argument_list|)
 argument_list|)
 expr_stmt|;
 block|}
-comment|// compare the snapshot metadata and verify the hfiles
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Verified filesystem state"
+argument_list|)
+expr_stmt|;
+comment|// Compare the snapshot metadata and verify the hfiles
 specifier|final
 name|FileSystem
 name|hdfs
@@ -2295,6 +2343,19 @@ name|HashSet
 argument_list|<>
 argument_list|()
 decl_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"List files in {} in root {} at {}"
+argument_list|,
+name|fs
+argument_list|,
+name|root
+argument_list|,
+name|dir
+argument_list|)
+expr_stmt|;
 name|int
 name|rootPrefix
 init|=
@@ -2303,6 +2364,11 @@ operator|.
 name|makeQualified
 argument_list|(
 name|fs
+operator|.
+name|getUri
+argument_list|()
+argument_list|,
+name|root
 argument_list|)
 operator|.
 name|toString
