@@ -1286,7 +1286,9 @@ argument_list|>
 name|isSplitEnabled
 parameter_list|()
 function_decl|;
-comment|/**    * Merge two regions.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
+comment|/**    * Merge two regions.    * @param nameOfRegionA encoded or full name of region a    * @param nameOfRegionB encoded or full name of region b    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    * @deprecated since 2.3.0 and will be removed in 4.0.0.Use {@link #mergeRegions(List, boolean)}    *             instead.    */
+annotation|@
+name|Deprecated
 specifier|default
 name|CompletableFuture
 argument_list|<
@@ -1322,7 +1324,7 @@ name|forcible
 argument_list|)
 return|;
 block|}
-comment|/**    * Merge regions.    *<p/>    * You may get a {@code DoNotRetryIOException} if you pass more than two regions in but the master    * does not support merging more than two regions. At least till 2.2.0, we still only support    * merging two regions.    * @param nameOfRegionsToMerge encoded or full name of daughter regions    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
+comment|/**    * Merge multiple regions (>=2).    * @param nameOfRegionsToMerge encoded or full name of daughter regions    * @param forcible true if do a compulsory merge, otherwise we will only merge two adjacent    *          regions    */
 name|CompletableFuture
 argument_list|<
 name|Void
