@@ -25,6 +25,18 @@ name|hamcrest
 operator|.
 name|CoreMatchers
 operator|.
+name|containsString
+import|;
+end_import
+
+begin_import
+import|import static
+name|org
+operator|.
+name|hamcrest
+operator|.
+name|CoreMatchers
+operator|.
 name|startsWith
 import|;
 end_import
@@ -442,7 +454,7 @@ operator|.
 name|toString
 argument_list|()
 argument_list|,
-name|startsWith
+name|containsString
 argument_list|(
 literal|"java.lang.Thread.getStackTrace"
 argument_list|)

@@ -2493,9 +2493,15 @@ literal|null
 operator|&&
 name|msg
 operator|.
+name|toLowerCase
+argument_list|()
+operator|.
 name|contains
 argument_list|(
 name|substr
+operator|.
+name|toLowerCase
+argument_list|()
 argument_list|)
 condition|)
 block|{
