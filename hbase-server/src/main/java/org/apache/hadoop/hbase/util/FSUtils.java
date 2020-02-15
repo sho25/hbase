@@ -603,6 +603,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionInfo
 import|;
 end_import
@@ -5393,9 +5409,9 @@ block|{
 try|try
 block|{
 comment|// throws IAE if invalid
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
 operator|.
-name|isLegalFamilyName
+name|isLegalColumnFamilyName
 argument_list|(
 name|Bytes
 operator|.

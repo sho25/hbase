@@ -926,30 +926,6 @@ operator|=
 name|delegate
 expr_stmt|;
 block|}
-comment|/**    * @param b Family name.    * @return<code>b</code>    * @throws IllegalArgumentException If not null and not a legitimate family    * name: i.e. 'printable' and ends in a ':' (Null passes are allowed because    *<code>b</code> can be null when deserializing).  Cannot start with a '.'    * either. Also Family can not be an empty value or equal "recovered.edits".    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@link ColumnFamilyDescriptorBuilder#isLegalColumnFamilyName(byte[])} instead.    * @see ColumnFamilyDescriptorBuilder#isLegalColumnFamilyName(byte[])    * @see<a href="https://issues.apache.org/jira/browse/HBASE-18008">HBASE-18008</a>    */
-annotation|@
-name|Deprecated
-specifier|public
-specifier|static
-name|byte
-index|[]
-name|isLegalFamilyName
-parameter_list|(
-specifier|final
-name|byte
-index|[]
-name|b
-parameter_list|)
-block|{
-return|return
-name|ColumnFamilyDescriptorBuilder
-operator|.
-name|isLegalColumnFamilyName
-argument_list|(
-name|b
-argument_list|)
-return|;
-block|}
 comment|/**    * @return Name of this column family    */
 annotation|@
 name|Override
