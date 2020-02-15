@@ -1299,9 +1299,15 @@ name|copyDir
 operator|.
 name|makeQualified
 argument_list|(
-name|hdfsUri
+name|fs
+operator|.
+name|getUri
+argument_list|()
 argument_list|,
-name|copyDir
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 expr_stmt|;
 name|List
@@ -1384,20 +1390,6 @@ literal|"--overwrite"
 argument_list|)
 expr_stmt|;
 comment|// Export Snapshot
-name|ExportSnapshot
-name|es
-init|=
-operator|new
-name|ExportSnapshot
-argument_list|()
-decl_stmt|;
-name|es
-operator|.
-name|setConf
-argument_list|(
-name|conf
-argument_list|)
-expr_stmt|;
 name|int
 name|res
 init|=
@@ -1405,7 +1397,9 @@ name|run
 argument_list|(
 name|conf
 argument_list|,
-name|es
+operator|new
+name|ExportSnapshot
+argument_list|()
 argument_list|,
 name|opts
 operator|.
@@ -1424,6 +1418,14 @@ argument_list|)
 decl_stmt|;
 name|assertEquals
 argument_list|(
+literal|"success "
+operator|+
+name|success
+operator|+
+literal|", res="
+operator|+
+name|res
+argument_list|,
 name|success
 condition|?
 literal|0
