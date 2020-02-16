@@ -518,32 +518,6 @@ specifier|public
 name|Scan
 parameter_list|()
 block|{}
-comment|/**    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@code new Scan().withStartRow(startRow).setFilter(filter)} instead.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
-annotation|@
-name|Deprecated
-specifier|public
-name|Scan
-parameter_list|(
-name|byte
-index|[]
-name|startRow
-parameter_list|,
-name|Filter
-name|filter
-parameter_list|)
-block|{
-name|this
-argument_list|(
-name|startRow
-argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|filter
-operator|=
-name|filter
-expr_stmt|;
-block|}
 comment|/**    * Create a Scan operation starting at the specified row.    *<p>    * If the specified row does not exist, the Scanner will start from the next closest row after the    * specified row.    * @param startRow row to start scanner at or after    * @deprecated since 2.0.0 and will be removed in 3.0.0. Use    *   {@code new Scan().withStartRow(startRow)} instead.    * @see<a href="https://issues.apache.org/jira/browse/HBASE-17320">HBASE-17320</a>    */
 annotation|@
 name|Deprecated
