@@ -6634,9 +6634,9 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"outputFs={}, outputRoot={}, outputFs.getUri().toString(), "
-operator|+
-literal|"initialOutputSnapshotDir={}"
+literal|"outputFs={}, outputRoot={}, skipTmp={}, initialOutputSnapshotDir={}"
+argument_list|,
+name|outputFs
 argument_list|,
 name|outputRoot
 operator|.

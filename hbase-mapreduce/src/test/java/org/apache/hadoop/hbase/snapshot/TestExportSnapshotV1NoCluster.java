@@ -759,7 +759,10 @@ operator|.
 name|getUri
 argument_list|()
 argument_list|,
-name|testDir
+name|fs
+operator|.
+name|getWorkingDirectory
+argument_list|()
 argument_list|)
 decl_stmt|;
 name|LOG

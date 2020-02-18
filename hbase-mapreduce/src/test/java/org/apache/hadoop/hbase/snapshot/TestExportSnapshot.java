@@ -663,44 +663,6 @@ argument_list|,
 literal|100
 argument_list|)
 expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"hbase.client.pause"
-argument_list|,
-literal|250
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-name|HConstants
-operator|.
-name|HBASE_CLIENT_RETRIES_NUMBER
-argument_list|,
-literal|6
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setBoolean
-argument_list|(
-literal|"hbase.master.enabletable.roundrobin"
-argument_list|,
-literal|true
-argument_list|)
-expr_stmt|;
-name|conf
-operator|.
-name|setInt
-argument_list|(
-literal|"mapreduce.map.maxattempts"
-argument_list|,
-literal|10
-argument_list|)
-expr_stmt|;
 comment|// If a single node has enough failures (default 3), resource manager will blacklist it.
 comment|// With only 2 nodes and tests injecting faults, we don't want that.
 name|conf
@@ -712,6 +674,7 @@ argument_list|,
 literal|100
 argument_list|)
 expr_stmt|;
+comment|/*     conf.setInt("hbase.client.pause", 250);     conf.setInt(HConstants.HBASE_CLIENT_RETRIES_NUMBER, 6);     conf.setBoolean("hbase.master.enabletable.roundrobin", true);     conf.setInt("mapreduce.map.maxattempts", 10);     */
 block|}
 annotation|@
 name|BeforeClass
@@ -1293,6 +1256,24 @@ argument_list|,
 name|conf
 argument_list|)
 decl_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"DEBUG FS {} {} {}, hdfsUri={}"
+argument_list|,
+name|fs
+argument_list|,
+name|copyDir
+argument_list|,
+name|copyDir
+operator|.
+name|toUri
+argument_list|()
+argument_list|,
+name|hdfsUri
+argument_list|)
+expr_stmt|;
 name|copyDir
 operator|=
 name|copyDir
