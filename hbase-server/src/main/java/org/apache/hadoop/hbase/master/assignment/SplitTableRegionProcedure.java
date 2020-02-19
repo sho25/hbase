@@ -2913,8 +2913,9 @@ return|return
 literal|false
 return|;
 block|}
-comment|// Since we have the lock and the master is coordinating the operation
-comment|// we are always able to split the region
+comment|// Mostly this check is not used because we already check the switch before submit a split
+comment|// procedure. Just for safe, check the switch again. This procedure can be rollbacked if
+comment|// the switch was set to false after submit.
 if|if
 condition|(
 operator|!
@@ -3028,6 +3029,8 @@ operator|.
 name|SPLITTING
 argument_list|)
 expr_stmt|;
+comment|// Since we have the lock and the master is coordinating the operation
+comment|// we are always able to split the region
 return|return
 literal|true
 return|;

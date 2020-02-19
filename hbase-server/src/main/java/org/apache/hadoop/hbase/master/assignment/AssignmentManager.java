@@ -341,6 +341,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|MasterSwitchType
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|RegionInfo
 import|;
 end_import
@@ -5201,6 +5217,43 @@ name|hriB
 argument_list|)
 throw|;
 block|}
+if|if
+condition|(
+operator|!
+name|master
+operator|.
+name|isSplitOrMergeEnabled
+argument_list|(
+name|MasterSwitchType
+operator|.
+name|SPLIT
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Split switch is off! skip split of "
+operator|+
+name|parent
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Split region "
+operator|+
+name|parent
+operator|.
+name|getRegionNameAsString
+argument_list|()
+operator|+
+literal|" failed due to split switch off"
+argument_list|)
+throw|;
+block|}
 comment|// Submit the Split procedure
 specifier|final
 name|byte
@@ -5359,6 +5412,48 @@ operator|+
 name|merged
 operator|+
 literal|" maybe an old RS (< 2.0) had the operation in progress"
+argument_list|)
+throw|;
+block|}
+if|if
+condition|(
+operator|!
+name|master
+operator|.
+name|isSplitOrMergeEnabled
+argument_list|(
+name|MasterSwitchType
+operator|.
+name|MERGE
+argument_list|)
+condition|)
+block|{
+name|LOG
+operator|.
+name|warn
+argument_list|(
+literal|"Merge switch is off! skip merge of regionA="
+operator|+
+name|hriA
+operator|+
+literal|" regionB="
+operator|+
+name|hriB
+argument_list|)
+expr_stmt|;
+throw|throw
+operator|new
+name|IOException
+argument_list|(
+literal|"Merge of regionA="
+operator|+
+name|hriA
+operator|+
+literal|" regionB="
+operator|+
+name|hriB
+operator|+
+literal|" failed because merge switch is off"
 argument_list|)
 throw|;
 block|}

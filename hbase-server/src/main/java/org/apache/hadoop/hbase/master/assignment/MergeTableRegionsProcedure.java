@@ -2533,6 +2533,9 @@ name|tn
 argument_list|)
 throw|;
 block|}
+comment|// Mostly this check is not used because we already check the switch before submit a merge
+comment|// procedure. Just for safe, check the switch again. This procedure can be rollbacked if
+comment|// the switch was set to false after submit.
 if|if
 condition|(
 operator|!
