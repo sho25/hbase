@@ -429,12 +429,12 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
-block|}
 name|CLUSTER
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
+block|}
 if|if
 condition|(
 name|KDC
