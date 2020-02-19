@@ -978,6 +978,14 @@ operator|*
 literal|1000
 decl_stmt|;
 comment|// 3 hours
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|MAX_CLOCK_SKEW_MS
+init|=
+literal|"hbase.master.maxclockskew"
+decl_stmt|;
 specifier|private
 specifier|static
 specifier|final
@@ -1174,7 +1182,7 @@ name|c
 operator|.
 name|getLong
 argument_list|(
-literal|"hbase.master.maxclockskew"
+name|MAX_CLOCK_SKEW_MS
 argument_list|,
 literal|30000
 argument_list|)

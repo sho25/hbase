@@ -87,6 +87,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|master
+operator|.
+name|ServerManager
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|security
 operator|.
 name|HBaseKerberosUtils
@@ -252,6 +268,22 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+comment|// Can take a long time for the mini kdc to come up on loaded test cluster. Tolerate this in
+comment|// test by upping the skew time allowed from 30s to 90s.
+name|TEST_UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+operator|.
+name|setLong
+argument_list|(
+name|ServerManager
+operator|.
+name|MAX_CLOCK_SKEW_MS
+argument_list|,
+literal|90000
+argument_list|)
+expr_stmt|;
 name|KDC
 operator|=
 name|TEST_UTIL
