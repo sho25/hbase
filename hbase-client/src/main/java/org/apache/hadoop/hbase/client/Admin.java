@@ -4053,6 +4053,44 @@ parameter_list|()
 throws|throws
 name|IOException
 function_decl|;
+comment|/**    * Retrieves online slow RPC logs from the provided list of    * RegionServers    *    * @param serverNames Server names to get slowlog responses from    * @param slowLogQueryFilter filter to be used if provided    * @return online slowlog response list    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|SlowLogRecord
+argument_list|>
+name|getSlowLogResponses
+parameter_list|(
+specifier|final
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
+parameter_list|,
+specifier|final
+name|SlowLogQueryFilter
+name|slowLogQueryFilter
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**    * Clears online slow RPC logs from the provided list of    * RegionServers    *    * @param serverNames Set of Server names to clean slowlog responses from    * @return List of booleans representing if online slowlog response buffer is cleaned    *   from each RegionServer    * @throws IOException if a remote or network exception occurs    */
+name|List
+argument_list|<
+name|Boolean
+argument_list|>
+name|clearSlowLogResponses
+parameter_list|(
+specifier|final
+name|Set
+argument_list|<
+name|ServerName
+argument_list|>
+name|serverNames
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
 block|}
 end_interface
 

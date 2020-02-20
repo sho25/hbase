@@ -47,23 +47,7 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|io
-operator|.
-name|ByteBuffAllocator
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|yetus
-operator|.
-name|audience
-operator|.
-name|InterfaceAudience
+name|CellScanner
 import|;
 end_import
 
@@ -77,7 +61,9 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|CellScanner
+name|io
+operator|.
+name|ByteBuffAllocator
 import|;
 end_import
 
@@ -123,6 +109,24 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|regionserver
+operator|.
+name|slowlog
+operator|.
+name|SlowLogRecorder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|util
 operator|.
 name|Pair
@@ -142,6 +146,20 @@ operator|.
 name|authorize
 operator|.
 name|PolicyProvider
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|yetus
+operator|.
+name|audience
+operator|.
+name|InterfaceAudience
 import|;
 end_import
 
@@ -403,6 +421,20 @@ parameter_list|(
 name|RSRpcServices
 name|rsRpcServices
 parameter_list|)
+function_decl|;
+comment|/**    * Set Online SlowLog Provider    *    * @param slowLogRecorder instance of {@link SlowLogRecorder}    */
+name|void
+name|setSlowLogRecorder
+parameter_list|(
+specifier|final
+name|SlowLogRecorder
+name|slowLogRecorder
+parameter_list|)
+function_decl|;
+comment|/**    * @return Retrieve instance of {@link SlowLogRecorder} maintained by RpcServer    */
+name|SlowLogRecorder
+name|getSlowLogRecorder
+parameter_list|()
 function_decl|;
 block|}
 end_interface

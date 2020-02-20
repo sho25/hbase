@@ -1767,6 +1767,24 @@ name|hbase
 operator|.
 name|regionserver
 operator|.
+name|slowlog
+operator|.
+name|SlowLogRecorder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|regionserver
+operator|.
 name|throttle
 operator|.
 name|FlushThroughputControllerFactory
@@ -4087,6 +4105,11 @@ specifier|final
 name|NettyEventLoopGroupConfig
 name|eventLoopGroupConfig
 decl_stmt|;
+comment|/**    * Provide online slow log responses from ringbuffer    */
+specifier|private
+name|SlowLogRecorder
+name|slowLogRecorder
+decl_stmt|;
 comment|/**    * True if this RegionServer is coming up in a cluster where there is no Master;    * means it needs to just come up and make do without a Master to talk to: e.g. in test or    * HRegionServer is doing other than its usual duties: e.g. as an hollowed-out host whose only    * purpose is as a Replication-stream sink; see HBASE-18846 for more.    * TODO: can this replace {@link #TEST_SKIP_REPORTING_TRANSITION} ?    */
 specifier|private
 specifier|final
@@ -4381,6 +4404,29 @@ name|stopped
 operator|=
 literal|false
 expr_stmt|;
+if|if
+condition|(
+operator|!
+operator|(
+name|this
+operator|instanceof
+name|HMaster
+operator|)
+condition|)
+block|{
+name|this
+operator|.
+name|slowLogRecorder
+operator|=
+operator|new
+name|SlowLogRecorder
+argument_list|(
+name|this
+operator|.
+name|conf
+argument_list|)
+expr_stmt|;
+block|}
 name|rpcServices
 operator|=
 name|createRpcServices
@@ -8550,7 +8596,19 @@ expr_stmt|;
 block|}
 block|}
 block|}
-comment|/**    * Run init. Sets up wal and starts up all server threads.    *    * @param c Extra configuration.    */
+comment|/**    * get Online SlowLog Provider to add slow logs to ringbuffer    *    * @return Online SlowLog Provider    */
+specifier|public
+name|SlowLogRecorder
+name|getSlowLogRecorder
+parameter_list|()
+block|{
+return|return
+name|this
+operator|.
+name|slowLogRecorder
+return|;
+block|}
+comment|/*    * Run init. Sets up wal and starts up all server threads.    *    * @param c Extra configuration.    */
 specifier|protected
 name|void
 name|handleReportForDutyResponse
