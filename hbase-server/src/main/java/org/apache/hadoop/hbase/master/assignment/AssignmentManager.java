@@ -5241,7 +5241,7 @@ argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Split region "
 operator|+
@@ -5443,7 +5443,7 @@ argument_list|)
 expr_stmt|;
 throw|throw
 operator|new
-name|IOException
+name|DoNotRetryIOException
 argument_list|(
 literal|"Merge of regionA="
 operator|+
