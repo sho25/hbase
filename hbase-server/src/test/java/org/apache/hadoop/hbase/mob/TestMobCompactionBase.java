@@ -524,11 +524,16 @@ name|HTU
 operator|.
 name|createTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 name|getClass
 argument_list|()
 operator|.
 name|getName
 argument_list|()
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|conf

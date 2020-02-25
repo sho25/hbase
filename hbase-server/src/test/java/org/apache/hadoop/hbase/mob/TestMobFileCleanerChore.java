@@ -579,7 +579,12 @@ name|HTU
 operator|.
 name|createTableDescriptor
 argument_list|(
+name|TableName
+operator|.
+name|valueOf
+argument_list|(
 literal|"testMobCompactTable"
+argument_list|)
 argument_list|)
 expr_stmt|;
 name|conf
