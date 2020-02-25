@@ -103,6 +103,22 @@ name|TableName
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|filter
+operator|.
+name|Filter
+import|;
+end_import
+
 begin_comment
 comment|/**  * Can be overridden in UT if you only want to implement part of the methods in {@link AsyncTable}.  */
 end_comment
@@ -337,6 +353,24 @@ parameter_list|,
 name|byte
 index|[]
 name|family
+parameter_list|)
+block|{
+return|return
+literal|null
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|CheckAndMutateWithFilterBuilder
+name|checkAndMutate
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|Filter
+name|filter
 parameter_list|)
 block|{
 return|return

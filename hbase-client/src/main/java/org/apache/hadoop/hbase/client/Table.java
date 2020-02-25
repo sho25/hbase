@@ -255,6 +255,22 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
+name|filter
+operator|.
+name|Filter
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
 name|io
 operator|.
 name|TimeRange
@@ -749,6 +765,70 @@ parameter_list|,
 name|byte
 index|[]
 name|value
+parameter_list|)
+function_decl|;
+comment|/**      * @param put data to put if check succeeds      * @return {@code true} if the new put was executed, {@code false} otherwise.      */
+name|boolean
+name|thenPut
+parameter_list|(
+name|Put
+name|put
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * @param delete data to delete if check succeeds      * @return {@code true} if the new delete was executed, {@code false} otherwise.      */
+name|boolean
+name|thenDelete
+parameter_list|(
+name|Delete
+name|delete
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+comment|/**      * @param mutation mutations to perform if check succeeds      * @return true if the new mutation was executed, false otherwise.      */
+name|boolean
+name|thenMutate
+parameter_list|(
+name|RowMutations
+name|mutation
+parameter_list|)
+throws|throws
+name|IOException
+function_decl|;
+block|}
+comment|/**    * Atomically checks if a row matches the specified filter. If it does, it adds the    * Put/Delete/RowMutations.    *<p>    * Use the returned {@link CheckAndMutateWithFilterBuilder} to construct your request and then    * execute it. This is a fluent style API, the code is like:    *    *<pre>    *<code>    * table.checkAndMutate(row, filter).thenPut(put);    *</code>    *</pre>    */
+specifier|default
+name|CheckAndMutateWithFilterBuilder
+name|checkAndMutate
+parameter_list|(
+name|byte
+index|[]
+name|row
+parameter_list|,
+name|Filter
+name|filter
+parameter_list|)
+block|{
+throw|throw
+operator|new
+name|NotImplementedException
+argument_list|(
+literal|"Add an implementation!"
+argument_list|)
+throw|;
+block|}
+comment|/**    * A helper class for sending checkAndMutate request with a filter.    */
+interface|interface
+name|CheckAndMutateWithFilterBuilder
+block|{
+comment|/**      * @param timeRange timeRange to check      */
+name|CheckAndMutateWithFilterBuilder
+name|timeRange
+parameter_list|(
+name|TimeRange
+name|timeRange
 parameter_list|)
 function_decl|;
 comment|/**      * @param put data to put if check succeeds      * @return {@code true} if the new put was executed, {@code false} otherwise.      */
