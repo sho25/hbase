@@ -63,6 +63,16 @@ begin_import
 import|import
 name|java
 operator|.
+name|time
+operator|.
+name|Instant
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
 name|util
 operator|.
 name|Arrays
@@ -143,14 +153,17 @@ implements|implements
 name|Writable
 block|{
 specifier|private
+specifier|volatile
 name|int
 name|id
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|long
 name|expirationDate
 decl_stmt|;
 specifier|private
+specifier|volatile
 name|SecretKey
 name|secret
 decl_stmt|;
@@ -400,7 +413,7 @@ name|buf
 operator|.
 name|append
 argument_list|(
-literal|"AuthenticationKey[ "
+literal|"AuthenticationKey["
 argument_list|)
 operator|.
 name|append
@@ -420,12 +433,32 @@ argument_list|)
 operator|.
 name|append
 argument_list|(
+name|Instant
+operator|.
+name|ofEpochMilli
+argument_list|(
+name|this
+operator|.
 name|expirationDate
+argument_list|)
 argument_list|)
 operator|.
 name|append
 argument_list|(
-literal|" ]"
+literal|", obj="
+argument_list|)
+operator|.
+name|append
+argument_list|(
+name|super
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+operator|.
+name|append
+argument_list|(
+literal|"]"
 argument_list|)
 expr_stmt|;
 return|return

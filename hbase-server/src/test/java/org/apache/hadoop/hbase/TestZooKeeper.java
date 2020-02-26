@@ -648,6 +648,13 @@ operator|.
 name|class
 argument_list|)
 expr_stmt|;
+name|TEST_UTIL
+operator|.
+name|startMiniDFSCluster
+argument_list|(
+literal|2
+argument_list|)
+expr_stmt|;
 block|}
 annotation|@
 name|AfterClass

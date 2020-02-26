@@ -535,6 +535,15 @@ argument_list|(
 name|id
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Node deleted id={}"
+argument_list|,
+name|id
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(

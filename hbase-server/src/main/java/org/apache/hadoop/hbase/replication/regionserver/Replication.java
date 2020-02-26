@@ -1265,6 +1265,20 @@ operator|.
 name|SECONDS
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"{} started"
+argument_list|,
+name|this
+operator|.
+name|server
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 comment|/**    * Get the replication sources manager    * @return the manager if replication is enabled, else returns false    */
 specifier|public

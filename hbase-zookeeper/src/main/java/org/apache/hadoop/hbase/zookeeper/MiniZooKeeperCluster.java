@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/*  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -18,12 +18,18 @@ package|;
 end_package
 
 begin_import
-import|import
-name|java
+import|import static
+name|org
 operator|.
-name|io
+name|apache
 operator|.
-name|BufferedReader
+name|zookeeper
+operator|.
+name|client
+operator|.
+name|FourLetterWordMain
+operator|.
+name|send4LetterWord
 import|;
 end_import
 
@@ -53,16 +59,6 @@ name|java
 operator|.
 name|io
 operator|.
-name|InputStreamReader
-import|;
-end_import
-
-begin_import
-import|import
-name|java
-operator|.
-name|io
-operator|.
 name|InterruptedIOException
 import|;
 end_import
@@ -73,7 +69,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|OutputStream
+name|PrintWriter
 import|;
 end_import
 
@@ -83,7 +79,7 @@ name|java
 operator|.
 name|io
 operator|.
-name|Reader
+name|StringWriter
 import|;
 end_import
 
@@ -103,7 +99,7 @@ name|java
 operator|.
 name|net
 operator|.
-name|InetSocketAddress
+name|ConnectException
 import|;
 end_import
 
@@ -113,7 +109,7 @@ name|java
 operator|.
 name|net
 operator|.
-name|Socket
+name|InetSocketAddress
 import|;
 end_import
 
@@ -188,6 +184,22 @@ operator|.
 name|util
 operator|.
 name|Bytes
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|util
+operator|.
+name|Threads
 import|;
 end_import
 
@@ -331,6 +343,14 @@ specifier|private
 specifier|static
 specifier|final
 name|int
+name|TIMEOUT
+init|=
+literal|1000
+decl_stmt|;
+specifier|private
+specifier|static
+specifier|final
+name|int
 name|DEFAULT_CONNECTION_TIMEOUT
 init|=
 literal|30000
@@ -358,7 +378,7 @@ specifier|private
 name|boolean
 name|started
 decl_stmt|;
-comment|/** The default port. If zero, we use a random port. */
+comment|/**    * The default port. If zero, we use a random port.    */
 specifier|private
 name|int
 name|defaultClientPort
@@ -807,7 +827,7 @@ name|numZooKeeperServers
 argument_list|)
 return|;
 block|}
-comment|/**    * @param baseDir the base directory to use    * @param numZooKeeperServers the number of ZooKeeper servers    * @return ClientPort server bound to, -1 if there was a binding problem and we couldn't pick    *         another port.    * @throws IOException if an operation fails during the startup    * @throws InterruptedException if the startup fails    */
+comment|/**    * @param baseDir             the base directory to use    * @param numZooKeeperServers the number of ZooKeeper servers    * @return ClientPort server bound to, -1 if there was a binding problem and we couldn't pick    *   another port.    * @throws IOException          if an operation fails during the startup    * @throws InterruptedException if the startup fails    */
 specifier|public
 name|int
 name|startup
@@ -1080,12 +1100,28 @@ continue|continue;
 block|}
 break|break;
 block|}
-comment|// Start up this ZK server
+comment|// Start up this ZK server. Dump its stats.
 name|standaloneServerFactory
 operator|.
 name|startup
 argument_list|(
 name|server
+argument_list|)
+expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Started connectionTimeout={}, dir={}, {}"
+argument_list|,
+name|connectionTimeout
+argument_list|,
+name|dir
+argument_list|,
+name|getServerConfigurationOnOneLine
+argument_list|(
+name|server
+argument_list|)
 argument_list|)
 expr_stmt|;
 comment|// Runs a 'stat' against the servers.
@@ -1100,11 +1136,29 @@ name|connectionTimeout
 argument_list|)
 condition|)
 block|{
+name|Threads
+operator|.
+name|printThreadInfo
+argument_list|(
+name|System
+operator|.
+name|out
+argument_list|,
+literal|"Why is zk standalone server not coming up?"
+argument_list|)
+expr_stmt|;
 throw|throw
 operator|new
 name|IOException
 argument_list|(
-literal|"Waiting for startup of standalone server"
+literal|"Waiting for startup of standalone server; "
+operator|+
+literal|"server isRunning="
+operator|+
+name|server
+operator|.
+name|isRunning
+argument_list|()
 argument_list|)
 throw|;
 block|}
@@ -1197,13 +1251,107 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"Started MiniZooKeeperCluster and ran successful 'stat' on client port={}"
+literal|"Started MiniZooKeeperCluster and ran 'stat' on client port={}"
 argument_list|,
 name|clientPort
 argument_list|)
 expr_stmt|;
 return|return
 name|clientPort
+return|;
+block|}
+specifier|private
+name|String
+name|getServerConfigurationOnOneLine
+parameter_list|(
+name|ZooKeeperServer
+name|server
+parameter_list|)
+block|{
+name|StringWriter
+name|sw
+init|=
+operator|new
+name|StringWriter
+argument_list|()
+decl_stmt|;
+try|try
+init|(
+name|PrintWriter
+name|pw
+init|=
+operator|new
+name|PrintWriter
+argument_list|(
+name|sw
+argument_list|)
+block|{
+annotation|@
+name|Override
+specifier|public
+name|void
+name|println
+parameter_list|(
+name|int
+name|x
+parameter_list|)
+block|{
+name|super
+operator|.
+name|print
+argument_list|(
+name|x
+argument_list|)
+expr_stmt|;
+name|super
+operator|.
+name|print
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|void
+name|println
+parameter_list|(
+name|String
+name|x
+parameter_list|)
+block|{
+name|super
+operator|.
+name|print
+argument_list|(
+name|x
+argument_list|)
+expr_stmt|;
+name|super
+operator|.
+name|print
+argument_list|(
+literal|", "
+argument_list|)
+expr_stmt|;
+block|}
+block|}
+init|)
+block|{
+name|server
+operator|.
+name|dumpConf
+argument_list|(
+name|pw
+argument_list|)
+expr_stmt|;
+block|}
+return|return
+name|sw
+operator|.
+name|toString
+argument_list|()
 return|;
 block|}
 specifier|private
@@ -1658,7 +1806,7 @@ name|clientPort
 argument_list|)
 expr_stmt|;
 block|}
-comment|// XXX: From o.a.zk.t.ClientBase
+comment|// XXX: From o.a.zk.t.ClientBase. We just dropped the check for ssl/secure.
 specifier|private
 specifier|static
 name|boolean
@@ -1688,41 +1836,20 @@ condition|)
 block|{
 try|try
 block|{
-try|try
-init|(
-name|Socket
-name|sock
-init|=
-operator|new
-name|Socket
+name|send4LetterWord
 argument_list|(
 literal|"localhost"
 argument_list|,
 name|port
-argument_list|)
-init|)
-block|{
-name|OutputStream
-name|outstream
-init|=
-name|sock
-operator|.
-name|getOutputStream
-argument_list|()
-decl_stmt|;
-name|outstream
-operator|.
-name|write
-argument_list|(
-name|STATIC_BYTES
+argument_list|,
+literal|"stat"
+argument_list|,
+operator|(
+name|int
+operator|)
+name|timeout
 argument_list|)
 expr_stmt|;
-name|outstream
-operator|.
-name|flush
-argument_list|()
-expr_stmt|;
-block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1754,7 +1881,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|250
+name|TIMEOUT
 argument_list|)
 expr_stmt|;
 block|}
@@ -1783,7 +1910,8 @@ return|return
 literal|false
 return|;
 block|}
-comment|// XXX: From o.a.zk.t.ClientBase
+comment|// XXX: From o.a.zk.t.ClientBase. Its in the test jar but we don't depend on zk test jar.
+comment|// We remove the SSL/secure bit. Not used in here.
 specifier|private
 specifier|static
 name|boolean
@@ -1813,83 +1941,38 @@ condition|)
 block|{
 try|try
 block|{
-name|Socket
-name|sock
+name|String
+name|result
 init|=
-operator|new
-name|Socket
+name|send4LetterWord
 argument_list|(
 literal|"localhost"
 argument_list|,
 name|port
+argument_list|,
+literal|"stat"
+argument_list|,
+operator|(
+name|int
+operator|)
+name|timeout
 argument_list|)
-decl_stmt|;
-name|BufferedReader
-name|reader
-init|=
-literal|null
-decl_stmt|;
-try|try
-block|{
-name|OutputStream
-name|outstream
-init|=
-name|sock
-operator|.
-name|getOutputStream
-argument_list|()
-decl_stmt|;
-name|outstream
-operator|.
-name|write
-argument_list|(
-name|STATIC_BYTES
-argument_list|)
-expr_stmt|;
-name|outstream
-operator|.
-name|flush
-argument_list|()
-expr_stmt|;
-name|Reader
-name|isr
-init|=
-operator|new
-name|InputStreamReader
-argument_list|(
-name|sock
-operator|.
-name|getInputStream
-argument_list|()
-argument_list|)
-decl_stmt|;
-name|reader
-operator|=
-operator|new
-name|BufferedReader
-argument_list|(
-name|isr
-argument_list|)
-expr_stmt|;
-name|String
-name|line
-init|=
-name|reader
-operator|.
-name|readLine
-argument_list|()
 decl_stmt|;
 if|if
 condition|(
-name|line
-operator|!=
-literal|null
-operator|&&
-name|line
+name|result
 operator|.
 name|startsWith
 argument_list|(
 literal|"Zookeeper version:"
+argument_list|)
+operator|&&
+operator|!
+name|result
+operator|.
+name|contains
+argument_list|(
+literal|"READ-ONLY"
 argument_list|)
 condition|)
 block|{
@@ -1897,28 +1980,40 @@ return|return
 literal|true
 return|;
 block|}
-block|}
-finally|finally
+else|else
 block|{
-name|sock
+name|LOG
 operator|.
-name|close
-argument_list|()
-expr_stmt|;
-if|if
-condition|(
-name|reader
-operator|!=
-literal|null
-condition|)
-block|{
-name|reader
-operator|.
-name|close
-argument_list|()
+name|debug
+argument_list|(
+literal|"Read {}"
+argument_list|,
+name|result
+argument_list|)
 expr_stmt|;
 block|}
 block|}
+catch|catch
+parameter_list|(
+name|ConnectException
+name|e
+parameter_list|)
+block|{
+comment|// ignore as this is expected, do not log stacktrace
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"localhost:{} not up: {}"
+argument_list|,
+name|port
+argument_list|,
+name|e
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 block|}
 catch|catch
 parameter_list|(
@@ -1931,7 +2026,7 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"server localhost:{} not up {}"
+literal|"localhost:{} not up"
 argument_list|,
 name|port
 argument_list|,
@@ -1959,7 +2054,7 @@ name|Thread
 operator|.
 name|sleep
 argument_list|(
-literal|250
+name|TIMEOUT
 argument_list|)
 expr_stmt|;
 block|}

@@ -973,6 +973,18 @@ operator|.
 name|stopMaster
 argument_list|()
 expr_stmt|;
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Stopped master {}"
+argument_list|,
+name|master
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 operator|!
@@ -990,6 +1002,18 @@ literal|200
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Shutdown master {}"
+argument_list|,
+name|master
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 while|while
 condition|(
 name|cluster
@@ -1009,6 +1033,30 @@ name|isInitialized
 argument_list|()
 condition|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Get master {}"
+argument_list|,
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|==
+literal|null
+condition|?
+literal|"null"
+else|:
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|Thread
 operator|.
 name|sleep
@@ -1017,6 +1065,21 @@ literal|200
 argument_list|)
 expr_stmt|;
 block|}
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"Got master {}"
+argument_list|,
+name|cluster
+operator|.
+name|getMaster
+argument_list|()
+operator|.
+name|getServerName
+argument_list|()
+argument_list|)
+expr_stmt|;
 comment|// confirm client access still works
 name|Assert
 operator|.

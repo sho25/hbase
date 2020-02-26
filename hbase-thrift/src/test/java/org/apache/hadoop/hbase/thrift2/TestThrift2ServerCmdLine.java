@@ -621,6 +621,10 @@ name|Assert
 operator|.
 name|assertTrue
 argument_list|(
+literal|"tableCreated "
+operator|+
+name|tableCreated
+argument_list|,
 name|client
 operator|.
 name|tableExists

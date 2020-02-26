@@ -2155,19 +2155,21 @@ name|getSnapshotsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
+comment|// NOTE: This is going to be flakey. Its timing based. For now made it more coarse
+comment|// so more likely to pass though we have to hang around longer.
 comment|// write one snapshot to the fs
 name|createSnapshotWithTtl
 argument_list|(
 literal|"snapshot_01"
 argument_list|,
-literal|1L
+literal|5L
 argument_list|)
 expr_stmt|;
 name|createSnapshotWithTtl
 argument_list|(
 literal|"snapshot_02"
 argument_list|,
-literal|10L
+literal|100L
 argument_list|)
 expr_stmt|;
 comment|// check that we get one snapshot
@@ -2197,12 +2199,13 @@ name|getSnapshotsCount
 argument_list|()
 argument_list|)
 expr_stmt|;
-comment|// check that 1 snapshot is auto cleaned after 1 sec of TTL expiration
+comment|// Check that 1 snapshot is auto cleaned after 5 sec of TTL expiration. Wait 10 seconds
+comment|// just in case.
 name|Uninterruptibles
 operator|.
 name|sleepUninterruptibly
 argument_list|(
-literal|2
+literal|10
 argument_list|,
 name|TimeUnit
 operator|.

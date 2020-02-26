@@ -954,50 +954,29 @@ name|isMaster
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Running as master, ignoring new key "
-operator|+
+literal|"Running as master, ignoring new key {}"
+argument_list|,
 name|key
-operator|.
-name|getKeyId
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 return|return;
 block|}
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Adding key "
-operator|+
+literal|"Adding key {}"
+argument_list|,
 name|key
 operator|.
 name|getKeyId
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|allKeys
 operator|.
 name|put
@@ -1069,24 +1048,15 @@ name|isMaster
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Running as master, ignoring removed key "
-operator|+
+literal|"Running as master, ignoring removed keyid={}"
+argument_list|,
 name|keyId
 argument_list|)
 expr_stmt|;
-block|}
 return|return
 literal|false
 return|;
@@ -1103,8 +1073,8 @@ name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing key "
-operator|+
+literal|"Removing keyid={}"
+argument_list|,
 name|keyId
 argument_list|)
 expr_stmt|;
@@ -1216,27 +1186,15 @@ operator|<
 name|now
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Removing expired key "
-operator|+
+literal|"Removing expired key {}"
+argument_list|,
 name|key
-operator|.
-name|getKeyId
-argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
 name|iter
 operator|.
 name|remove

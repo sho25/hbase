@@ -303,7 +303,7 @@ name|hbase
 operator|.
 name|testclassification
 operator|.
-name|MediumTests
+name|LargeTests
 import|;
 end_import
 
@@ -491,6 +491,10 @@ begin_comment
 comment|/**  * Testcase for HBASE-23098  */
 end_comment
 
+begin_comment
+comment|// LargeTest because spins up four clusters.
+end_comment
+
 begin_class
 annotation|@
 name|Category
@@ -500,7 +504,7 @@ name|ReplicationTests
 operator|.
 name|class
 block|,
-name|MediumTests
+name|LargeTests
 operator|.
 name|class
 block|}

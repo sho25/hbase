@@ -668,6 +668,12 @@ expr_stmt|;
 name|disableWriter
 argument_list|()
 expr_stmt|;
+specifier|final
+name|String
+name|prefix
+init|=
+literal|"testBlockInRamCache"
+decl_stmt|;
 try|try
 block|{
 for|for
@@ -700,7 +706,7 @@ name|key
 init|=
 name|createKey
 argument_list|(
-literal|"testHFile-00"
+name|prefix
 argument_list|,
 name|i
 argument_list|)
@@ -841,7 +847,7 @@ name|key
 init|=
 name|createKey
 argument_list|(
-literal|"testHFile-00"
+name|prefix
 argument_list|,
 name|i
 argument_list|)
