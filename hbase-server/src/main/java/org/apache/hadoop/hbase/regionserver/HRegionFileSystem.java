@@ -1175,18 +1175,40 @@ name|status
 argument_list|)
 condition|)
 block|{
+comment|// recovered.hfiles directory is expected inside CF path when hbase.wal.split.to.hfile to
+comment|// true, refer HBASE-23740
+if|if
+condition|(
+operator|!
+name|HConstants
+operator|.
+name|RECOVERED_HFILES_DIR
+operator|.
+name|equals
+argument_list|(
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Invalid StoreFile: "
-operator|+
+literal|"Invalid StoreFile: {}"
+argument_list|,
 name|status
 operator|.
 name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 continue|continue;
 block|}
 name|StoreFileInfo
@@ -1337,18 +1359,40 @@ name|status
 argument_list|)
 condition|)
 block|{
+comment|// recovered.hfiles directory is expected inside CF path when hbase.wal.split.to.hfile to
+comment|// true, refer HBASE-23740
+if|if
+condition|(
+operator|!
+name|HConstants
+operator|.
+name|RECOVERED_HFILES_DIR
+operator|.
+name|equals
+argument_list|(
+name|status
+operator|.
+name|getPath
+argument_list|()
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+condition|)
+block|{
 name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Invalid StoreFile: "
-operator|+
+literal|"Invalid StoreFile: {}"
+argument_list|,
 name|status
 operator|.
 name|getPath
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 block|}
 else|else
 block|{
