@@ -8241,11 +8241,12 @@ block|}
 end_function
 
 begin_comment
-comment|/**    * Performs an atomic multi-mutate operation against the given table.    */
+comment|/**    * Performs an atomic multi-mutate operation against the given table. Used by the likes of    * merge and split as these want to make atomic mutations across multiple rows.    * @throws IOException even if we encounter a RuntimeException, we'll still wrap it in an IOE.    */
 end_comment
 
 begin_function
-specifier|private
+annotation|@
+name|VisibleForTesting
 specifier|static
 name|void
 name|multiMutate
@@ -8283,28 +8284,8 @@ name|MutateRowsResponse
 argument_list|>
 name|callable
 init|=
-operator|new
-name|Batch
-operator|.
-name|Call
-argument_list|<
-name|MultiRowMutationService
-argument_list|,
-name|MutateRowsResponse
-argument_list|>
-argument_list|()
-block|{
-annotation|@
-name|Override
-specifier|public
-name|MutateRowsResponse
-name|call
-parameter_list|(
-name|MultiRowMutationService
 name|instance
-parameter_list|)
-throws|throws
-name|IOException
+lambda|->
 block|{
 name|MutateRowsRequest
 operator|.
@@ -8463,7 +8444,6 @@ return|return
 name|resp
 return|;
 block|}
-block|}
 decl_stmt|;
 try|try
 block|{
@@ -8489,9 +8469,14 @@ name|Throwable
 name|e
 parameter_list|)
 block|{
+comment|// Throw if an IOE else wrap in an IOE EVEN IF IT IS a RuntimeException (e.g.
+comment|// a RejectedExecutionException because the hosting exception is shutting down.
+comment|// This is old behavior worth reexamining. Procedures doing merge or split
+comment|// currently don't handle RuntimeExceptions coming up out of meta table edits.
+comment|// Would have to work on this at least. See HBASE-23904.
 name|Throwables
 operator|.
-name|propagateIfPossible
+name|throwIfInstanceOf
 argument_list|(
 name|e
 argument_list|,
