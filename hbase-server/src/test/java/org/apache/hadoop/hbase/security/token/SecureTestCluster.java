@@ -257,6 +257,36 @@ specifier|static
 name|String
 name|HTTP_PRINCIPAL
 decl_stmt|;
+comment|//When extending SecureTestCluster on downstream projects that refer SecureTestCluster via
+comment|//hbase-server jar, we need to provide a way for the implementation to refer to its own class
+comment|//definition, so that KeyStoreTestUtil.getClasspathDir can resolve a valid path in the local FS
+comment|//to place required SSL config files.
+specifier|private
+specifier|static
+name|Class
+name|testRunnerClass
+init|=
+name|SecureTestCluster
+operator|.
+name|class
+decl_stmt|;
+comment|/**    * SecureTestCluster extending classes can set their own<code>Class</code> reference type    * to be used as the target resource to be looked for on the class loader by    *<code>KeyStoreTestUtil</code>, when deciding where to place ssl related config files.    * @param testRunnerClass a<code>Class</code> reference from the    *<code>SecureTestCluster</code> extender.    */
+specifier|protected
+specifier|static
+name|void
+name|setTestRunner
+parameter_list|(
+name|Class
+name|testRunnerClass
+parameter_list|)
+block|{
+name|SecureTestCluster
+operator|.
+name|testRunnerClass
+operator|=
+name|testRunnerClass
+expr_stmt|;
+block|}
 comment|/**    * Setup and start kerberos, hbase    */
 annotation|@
 name|BeforeClass
@@ -367,9 +397,7 @@ name|setSSLConfiguration
 argument_list|(
 name|TEST_UTIL
 argument_list|,
-name|SecureTestCluster
-operator|.
-name|class
+name|testRunnerClass
 argument_list|)
 expr_stmt|;
 name|TEST_UTIL
@@ -449,6 +477,8 @@ parameter_list|()
 throws|throws
 name|Exception
 block|{
+try|try
+block|{
 if|if
 condition|(
 name|CLUSTER
@@ -461,12 +491,12 @@ operator|.
 name|shutdown
 argument_list|()
 expr_stmt|;
+block|}
 name|CLUSTER
 operator|.
 name|join
 argument_list|()
 expr_stmt|;
-block|}
 if|if
 condition|(
 name|KDC
@@ -485,6 +515,17 @@ operator|.
 name|shutdownMiniCluster
 argument_list|()
 expr_stmt|;
+block|}
+finally|finally
+block|{
+name|setTestRunner
+argument_list|(
+name|SecureTestCluster
+operator|.
+name|class
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 block|}
 end_class
