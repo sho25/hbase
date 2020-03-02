@@ -837,11 +837,15 @@ parameter_list|)
 block|{
 name|this
 argument_list|(
+operator|new
+name|ModifyableColumnFamilyDescriptor
+argument_list|(
 name|Bytes
 operator|.
 name|toBytes
 argument_list|(
 name|familyName
+argument_list|)
 argument_list|)
 argument_list|)
 expr_stmt|;

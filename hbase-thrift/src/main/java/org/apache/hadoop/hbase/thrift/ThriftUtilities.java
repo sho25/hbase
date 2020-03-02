@@ -169,6 +169,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Increment
 import|;
 end_import
@@ -393,10 +409,12 @@ specifier|private
 name|ThriftUtilities
 parameter_list|()
 block|{   }
-comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *    * @param in Thrift ColumnDescriptor object    * @return HColumnDescriptor    * @throws IllegalArgument if the column name is empty    */
+comment|/**    * This utility method creates a new Hbase HColumnDescriptor object based on a    * Thrift ColumnDescriptor "struct".    *    * @param in Thrift ColumnDescriptor object    * @return ModifyableColumnFamilyDescriptor    * @throws IllegalArgument if the column name is empty    */
 specifier|static
 specifier|public
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 name|colDescFromThrift
 parameter_list|(
 name|ColumnDescriptor
@@ -484,11 +502,15 @@ index|[
 literal|0
 index|]
 decl_stmt|;
-name|HColumnDescriptor
-name|col
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
+name|familyDescriptor
 init|=
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|parsedName
 argument_list|)
@@ -542,7 +564,7 @@ name|bt
 argument_list|)
 decl_stmt|;
 return|return
-name|col
+name|familyDescriptor
 return|;
 block|}
 comment|/**    * This utility method creates a new Thrift ColumnDescriptor "struct" based on    * an Hbase HColumnDescriptor object.    *    * @param in    *          Hbase HColumnDescriptor object    * @return Thrift ColumnDescriptor    */

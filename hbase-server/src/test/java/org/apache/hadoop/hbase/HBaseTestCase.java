@@ -101,6 +101,22 @@ name|hbase
 operator|.
 name|client
 operator|.
+name|ColumnFamilyDescriptorBuilder
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
 name|Durability
 import|;
 end_import
@@ -166,6 +182,38 @@ operator|.
 name|client
 operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptor
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -797,13 +845,13 @@ name|testName
 argument_list|)
 return|;
 block|}
-comment|/**    * You must call close on the returned region and then close on the log file it created. Do    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to close both the region and the WAL.    * @param desc    * @param startKey    * @param endKey    * @return An {@link HRegion}    * @throws IOException    */
+comment|/**    * You must call close on the returned region and then close on the log file it created. Do    * {@link HBaseTestingUtility#closeRegionAndWAL(HRegion)} to close both the region and the WAL.    * @param tableDescriptor TableDescriptor    * @param startKey Start Key    * @param endKey End Key    * @return An {@link HRegion}    * @throws IOException If thrown by    *   {@link #createNewHRegion(TableDescriptor, byte[], byte[], Configuration)}    */
 specifier|public
 name|HRegion
 name|createNewHRegion
 parameter_list|(
-name|HTableDescriptor
-name|desc
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|,
 name|byte
 index|[]
@@ -819,7 +867,7 @@ block|{
 return|return
 name|createNewHRegion
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|startKey
 argument_list|,
@@ -835,8 +883,8 @@ specifier|public
 name|HRegion
 name|createNewHRegion
 parameter_list|(
-name|HTableDescriptor
-name|desc
+name|TableDescriptor
+name|tableDescriptor
 parameter_list|,
 name|byte
 index|[]
@@ -858,7 +906,7 @@ init|=
 operator|new
 name|HRegionInfo
 argument_list|(
-name|desc
+name|tableDescriptor
 operator|.
 name|getTableName
 argument_list|()
@@ -879,7 +927,7 @@ name|testDir
 argument_list|,
 name|conf
 argument_list|,
-name|desc
+name|tableDescriptor
 argument_list|)
 return|;
 block|}
@@ -907,7 +955,7 @@ return|;
 block|}
 comment|/**    * Create a table of name {@code name} with {@link #COLUMNS} for    * families.    * @param name Name to give table.    * @return Column descriptor.    */
 specifier|protected
-name|HTableDescriptor
+name|TableDescriptor
 name|createTableDescriptor
 parameter_list|(
 specifier|final
@@ -926,7 +974,7 @@ return|;
 block|}
 comment|/**    * Create a table of name {@code name} with {@link #COLUMNS} for    * families.    * @param name Name to give table.    * @param versions How many versions to allow per column.    * @return Column descriptor.    */
 specifier|protected
-name|HTableDescriptor
+name|TableDescriptor
 name|createTableDescriptor
 parameter_list|(
 specifier|final
@@ -961,7 +1009,7 @@ return|;
 block|}
 comment|/**    * Create a table of name {@code name} with {@link #COLUMNS} for    * families.    * @param name Name to give table.    * @param versions How many versions to allow per column.    * @return Column descriptor.    */
 specifier|protected
-name|HTableDescriptor
+name|TableDescriptor
 name|createTableDescriptor
 parameter_list|(
 specifier|final
@@ -984,11 +1032,15 @@ name|KeepDeletedCells
 name|keepDeleted
 parameter_list|)
 block|{
-name|HTableDescriptor
-name|htd
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|TableName
 operator|.
@@ -1017,12 +1069,14 @@ name|fam3
 block|}
 control|)
 block|{
-name|htd
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|cfName
 argument_list|)
@@ -1055,7 +1109,7 @@ argument_list|)
 expr_stmt|;
 block|}
 return|return
-name|htd
+name|tableDescriptor
 return|;
 block|}
 comment|/**    * Add content to region<code>r</code> on the passed column    *<code>column</code>.    * Adds data of the from 'aaa', 'aab', etc where key and value are the same.    * @param r    * @param columnFamily    * @param column    * @throws IOException    * @return count of what we added.    */

@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -91,35 +91,23 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
-name|HTableDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|TableName
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|ColumnFamilyDescriptorBuilder
 import|;
 end_import
 
@@ -152,6 +140,22 @@ operator|.
 name|client
 operator|.
 name|Table
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|client
+operator|.
+name|TableDescriptorBuilder
 import|;
 end_import
 
@@ -470,11 +474,15 @@ name|Exception
 block|{
 comment|// create the table
 comment|// it would be nice if this was also a method on the util
-name|HTableDescriptor
-name|desc
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -496,12 +504,14 @@ name|test
 block|}
 control|)
 block|{
-name|desc
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|family
 argument_list|)
@@ -513,7 +523,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|CheckWasRunConstraint
 operator|.
@@ -527,7 +537,7 @@ argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|Table
@@ -633,11 +643,15 @@ name|Exception
 block|{
 comment|// create the table
 comment|// it would be nice if this was also a method on the util
-name|HTableDescriptor
-name|desc
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -659,12 +673,14 @@ name|test
 block|}
 control|)
 block|{
-name|desc
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|family
 argument_list|)
@@ -676,7 +692,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|AllFailConstraint
 operator|.
@@ -690,7 +706,7 @@ argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|Table
@@ -794,11 +810,15 @@ throws|throws
 name|Throwable
 block|{
 comment|// create the table
-name|HTableDescriptor
-name|desc
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -821,12 +841,14 @@ name|test
 block|}
 control|)
 block|{
-name|desc
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|family
 argument_list|)
@@ -838,7 +860,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|CheckWasRunConstraint
 operator|.
@@ -850,7 +872,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|AllFailConstraint
 operator|.
@@ -862,7 +884,7 @@ name|Constraints
 operator|.
 name|disableConstraint
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|AllFailConstraint
 operator|.
@@ -876,7 +898,7 @@ argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|Table
@@ -970,11 +992,15 @@ throws|throws
 name|Throwable
 block|{
 comment|// create the table
-name|HTableDescriptor
-name|desc
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -997,12 +1023,14 @@ name|test
 block|}
 control|)
 block|{
-name|desc
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|family
 argument_list|)
@@ -1014,7 +1042,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|CheckWasRunConstraint
 operator|.
@@ -1026,7 +1054,7 @@ name|Constraints
 operator|.
 name|disable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|util
@@ -1036,7 +1064,7 @@ argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|Table
@@ -1132,11 +1160,15 @@ throws|throws
 name|Exception
 block|{
 comment|// create the table
-name|HTableDescriptor
-name|desc
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
+name|tableDescriptor
 init|=
 operator|new
-name|HTableDescriptor
+name|TableDescriptorBuilder
+operator|.
+name|ModifyableTableDescriptor
 argument_list|(
 name|tableName
 argument_list|)
@@ -1159,12 +1191,14 @@ name|test
 block|}
 control|)
 block|{
-name|desc
+name|tableDescriptor
 operator|.
-name|addFamily
+name|setColumnFamily
 argument_list|(
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|family
 argument_list|)
@@ -1176,7 +1210,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|RuntimeFailConstraint
 operator|.
@@ -1188,7 +1222,7 @@ name|Constraints
 operator|.
 name|add
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|,
 name|CheckWasRunConstraint
 operator|.
@@ -1208,7 +1242,7 @@ argument_list|()
 operator|.
 name|createTable
 argument_list|(
-name|desc
+name|tableDescriptor
 argument_list|)
 expr_stmt|;
 name|Table

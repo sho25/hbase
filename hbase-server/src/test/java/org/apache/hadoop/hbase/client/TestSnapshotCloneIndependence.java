@@ -119,20 +119,6 @@ name|hadoop
 operator|.
 name|hbase
 operator|.
-name|HColumnDescriptor
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hadoop
-operator|.
-name|hbase
-operator|.
 name|HConstants
 import|;
 end_import
@@ -1568,11 +1554,13 @@ argument_list|(
 literal|"fam2"
 argument_list|)
 decl_stmt|;
-name|HColumnDescriptor
-name|hcd
+name|ColumnFamilyDescriptor
+name|familyDescriptor
 init|=
 operator|new
-name|HColumnDescriptor
+name|ColumnFamilyDescriptorBuilder
+operator|.
+name|ModifyableColumnFamilyDescriptor
 argument_list|(
 name|TEST_FAM_2
 argument_list|)
@@ -1590,7 +1578,7 @@ name|addColumnFamily
 argument_list|(
 name|originalTableName
 argument_list|,
-name|hcd
+name|familyDescriptor
 argument_list|)
 expr_stmt|;
 comment|// Verify that it is not in the snapshot
