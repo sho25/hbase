@@ -806,6 +806,16 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|FSTableDescriptors
+operator|.
+name|tryUpdateMetaTableDescriptor
+argument_list|(
+name|UTIL
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|TableDescriptor
 name|td
 init|=

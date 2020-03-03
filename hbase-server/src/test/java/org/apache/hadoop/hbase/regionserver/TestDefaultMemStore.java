@@ -6804,6 +6804,13 @@ argument_list|(
 name|conf
 argument_list|)
 decl_stmt|;
+name|FSTableDescriptors
+operator|.
+name|tryUpdateMetaTableDescriptor
+argument_list|(
+name|conf
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|meta
 init|=

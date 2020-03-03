@@ -321,11 +321,6 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|fs
 argument_list|,
 name|rootdir
@@ -413,11 +408,6 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|fs
 argument_list|,
 name|rootdir
@@ -516,11 +506,6 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
-name|UTIL
-operator|.
-name|getConfiguration
-argument_list|()
-argument_list|,
 name|fs
 argument_list|,
 name|rootdir

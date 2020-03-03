@@ -1553,8 +1553,6 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
-name|c
-argument_list|,
 name|fs
 argument_list|,
 name|rd
@@ -2112,6 +2110,13 @@ comment|// Bootstrapping, make sure blockcache is off.  Else, one will be
 comment|// created here in bootstrap and it'll need to be cleaned up.  Better to
 comment|// not make it in first place.  Turn off block caching for bootstrap.
 comment|// Enable after.
+name|FSTableDescriptors
+operator|.
+name|tryUpdateMetaTableDescriptor
+argument_list|(
+name|c
+argument_list|)
+expr_stmt|;
 name|TableDescriptor
 name|metaDescriptor
 init|=

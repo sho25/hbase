@@ -1038,8 +1038,6 @@ init|=
 operator|new
 name|FSTableDescriptors
 argument_list|(
-name|conf
-argument_list|,
 name|targetFs
 argument_list|,
 name|FSUtils

@@ -1265,6 +1265,16 @@ name|getConfiguration
 argument_list|()
 argument_list|)
 decl_stmt|;
+name|FSTableDescriptors
+operator|.
+name|tryUpdateMetaTableDescriptor
+argument_list|(
+name|htu
+operator|.
+name|getConfiguration
+argument_list|()
+argument_list|)
+expr_stmt|;
 name|HRegion
 name|r
 init|=
