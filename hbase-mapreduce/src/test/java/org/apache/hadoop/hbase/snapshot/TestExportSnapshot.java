@@ -1310,6 +1310,16 @@ argument_list|(
 literal|"--copy-to"
 argument_list|)
 expr_stmt|;
+name|opts
+operator|.
+name|add
+argument_list|(
+name|tgtDir
+operator|.
+name|toString
+argument_list|()
+argument_list|)
+expr_stmt|;
 if|if
 condition|(
 operator|!
