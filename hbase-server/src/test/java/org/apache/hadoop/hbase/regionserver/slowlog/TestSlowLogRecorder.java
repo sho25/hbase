@@ -3135,6 +3135,14 @@ argument_list|()
 expr_stmt|;
 break|break;
 block|}
+default|default:
+throw|throw
+operator|new
+name|RuntimeException
+argument_list|(
+literal|"Not supposed to get here?"
+argument_list|)
+throw|;
 block|}
 return|return
 name|message
