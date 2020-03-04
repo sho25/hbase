@@ -382,7 +382,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|void
 name|encode
 parameter_list|(
 name|Cell
@@ -415,14 +415,13 @@ name|state
 operator|.
 name|encoder
 decl_stmt|;
-return|return
 name|encoder
 operator|.
 name|write
 argument_list|(
 name|cell
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 annotation|@
 name|Override

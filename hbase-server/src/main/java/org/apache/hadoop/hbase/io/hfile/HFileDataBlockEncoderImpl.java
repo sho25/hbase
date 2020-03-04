@@ -435,7 +435,7 @@ block|}
 annotation|@
 name|Override
 specifier|public
-name|int
+name|void
 name|encode
 parameter_list|(
 name|Cell
@@ -450,7 +450,6 @@ parameter_list|)
 throws|throws
 name|IOException
 block|{
-return|return
 name|this
 operator|.
 name|encoding
@@ -466,7 +465,7 @@ name|encodingCtx
 argument_list|,
 name|out
 argument_list|)
-return|;
+expr_stmt|;
 block|}
 annotation|@
 name|Override

@@ -2998,18 +2998,6 @@ specifier|private
 name|DataOutputStream
 name|userDataStream
 decl_stmt|;
-comment|// Size of actual data being written. Not considering the block encoding/compression. This
-comment|// includes the header size also.
-specifier|private
-name|int
-name|unencodedDataSizeWritten
-decl_stmt|;
-comment|// Size of actual data being written. considering the block encoding. This
-comment|// includes the header size also.
-specifier|private
-name|int
-name|encodedDataSizeWritten
-decl_stmt|;
 comment|/**      * Bytes to be written to the file system, including the header. Compressed      * if compression is turned on. It also includes the checksum data that      * immediately follows the block data. (header + data + checksums)      */
 specifier|private
 name|ByteArrayOutputStream
@@ -3360,18 +3348,6 @@ name|userDataStream
 argument_list|)
 expr_stmt|;
 block|}
-name|this
-operator|.
-name|unencodedDataSizeWritten
-operator|=
-literal|0
-expr_stmt|;
-name|this
-operator|.
-name|encodedDataSizeWritten
-operator|=
-literal|0
-expr_stmt|;
 return|return
 name|userDataStream
 return|;
@@ -3393,20 +3369,6 @@ operator|.
 name|WRITING
 argument_list|)
 expr_stmt|;
-name|int
-name|posBeforeEncode
-init|=
-name|this
-operator|.
-name|userDataStream
-operator|.
-name|size
-argument_list|()
-decl_stmt|;
-name|this
-operator|.
-name|unencodedDataSizeWritten
-operator|+=
 name|this
 operator|.
 name|dataBlockEncoder
@@ -3421,19 +3383,6 @@ name|this
 operator|.
 name|userDataStream
 argument_list|)
-expr_stmt|;
-name|this
-operator|.
-name|encodedDataSizeWritten
-operator|+=
-name|this
-operator|.
-name|userDataStream
-operator|.
-name|size
-argument_list|()
-operator|-
-name|posBeforeEncode
 expr_stmt|;
 block|}
 comment|/**      * Transitions the block writer from the "writing" state to the "block      * ready" state.  Does nothing if a block is already finished.      */
@@ -4370,7 +4319,11 @@ literal|0
 else|:
 name|this
 operator|.
-name|encodedDataSizeWritten
+name|getEncodingState
+argument_list|()
+operator|.
+name|getEncodedDataSizeWritten
+argument_list|()
 return|;
 block|}
 comment|/**      * Returns the number of bytes written into the current block so far, or      * zero if not writing the block at the moment. Note that this will return      * zero in the "block ready" state as well.      *      * @return the number of bytes written      */
@@ -4389,7 +4342,11 @@ literal|0
 else|:
 name|this
 operator|.
-name|unencodedDataSizeWritten
+name|getEncodingState
+argument_list|()
+operator|.
+name|getUnencodedDataSizeWritten
+argument_list|()
 return|;
 block|}
 comment|/**      * Clones the header followed by the uncompressed data, even if using      * compression. This is needed for storing uncompressed blocks in the block      * cache. Can be called in the "writing" state or the "block ready" state.      * Returns only the header and data, does not include checksum data.      *      * @return Returns an uncompressed block ByteBuff for caching on write      */

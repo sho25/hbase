@@ -175,8 +175,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Encodes a KeyValue.    * @param cell    * @param encodingCtx    * @param out    * @return unencoded kv size    * @throws IOException    */
-name|int
+comment|/**    * Encodes a KeyValue.    * @param cell    * @param encodingCtx    * @param out    * @throws IOException    */
+name|void
 name|encode
 parameter_list|(
 name|Cell

@@ -163,8 +163,8 @@ parameter_list|)
 throws|throws
 name|IOException
 function_decl|;
-comment|/**    * Encodes a KeyValue.    * @return unencoded kv size written    */
-name|int
+comment|/**    * Encodes a KeyValue.    * After the encode, {@link EncodingState#postCellEncode(int, int)} needs to be called to keep    * track of the encoded and unencoded data size    */
+name|void
 name|encode
 parameter_list|(
 name|Cell
