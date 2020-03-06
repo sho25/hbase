@@ -1201,6 +1201,8 @@ argument_list|,
 name|splitLogWorkerCoordination
 argument_list|,
 name|factory
+argument_list|,
+name|server
 argument_list|)
 condition|)
 block|{

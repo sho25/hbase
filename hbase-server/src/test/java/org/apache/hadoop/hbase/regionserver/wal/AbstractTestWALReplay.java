@@ -6364,6 +6364,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|wals
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|FileStatus
@@ -7498,6 +7500,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|wals
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|WALSplitter
@@ -7519,6 +7523,8 @@ argument_list|,
 literal|null
 argument_list|,
 name|wals
+argument_list|,
+literal|null
 argument_list|)
 expr_stmt|;
 name|WAL

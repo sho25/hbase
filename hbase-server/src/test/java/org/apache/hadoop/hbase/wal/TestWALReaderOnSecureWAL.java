@@ -1396,6 +1396,12 @@ name|rootdir
 argument_list|,
 name|fs
 argument_list|,
+name|rootdir
+argument_list|,
+name|fs
+argument_list|,
+literal|null
+argument_list|,
 literal|null
 argument_list|,
 literal|null
@@ -1728,6 +1734,12 @@ argument_list|,
 name|rootdir
 argument_list|,
 name|fs
+argument_list|,
+name|rootdir
+argument_list|,
+name|fs
+argument_list|,
+literal|null
 argument_list|,
 literal|null
 argument_list|,
