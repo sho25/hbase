@@ -2273,11 +2273,6 @@ operator|=
 operator|new
 name|HBaseSaslRpcServer
 argument_list|(
-name|rpcServer
-operator|.
-name|getConf
-argument_list|()
-argument_list|,
 name|provider
 argument_list|,
 name|rpcServer
