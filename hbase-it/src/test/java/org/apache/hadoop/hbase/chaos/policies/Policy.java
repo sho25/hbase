@@ -21,6 +21,16 @@ end_package
 
 begin_import
 import|import
+name|java
+operator|.
+name|util
+operator|.
+name|Properties
+import|;
+end_import
+
+begin_import
+import|import
 name|org
 operator|.
 name|apache
@@ -163,12 +173,17 @@ decl_stmt|;
 specifier|public
 name|PolicyContext
 parameter_list|(
+name|Properties
+name|monkeyProps
+parameter_list|,
 name|IntegrationTestingUtility
 name|util
 parameter_list|)
 block|{
 name|super
 argument_list|(
+name|monkeyProps
+argument_list|,
 name|util
 argument_list|)
 expr_stmt|;

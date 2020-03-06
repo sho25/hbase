@@ -489,6 +489,8 @@ block|}
 block|}
 block|}
 comment|/**    * Loads entries from the provided {@code conf} into {@code props} when the configuration key    * is one that may be configuring ChaosMonkey actions.    */
+specifier|public
+specifier|static
 name|void
 name|loadMonkeyProperties
 parameter_list|(

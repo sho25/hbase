@@ -177,7 +177,7 @@ name|chaos
 operator|.
 name|actions
 operator|.
-name|RollingBatchRestartRsExceptMetaAction
+name|RollingBatchRestartRsAction
 import|;
 end_import
 
@@ -344,13 +344,15 @@ literal|5000
 argument_list|)
 block|,
 operator|new
-name|RollingBatchRestartRsExceptMetaAction
+name|RollingBatchRestartRsAction
 argument_list|(
 literal|5000
 argument_list|,
 literal|1.0f
 argument_list|,
 literal|2
+argument_list|,
+literal|true
 argument_list|)
 block|,
 comment|// only allow 2 servers to be dead.
@@ -403,6 +405,8 @@ return|return
 operator|new
 name|PolicyBasedChaosMonkey
 argument_list|(
+name|properties
+argument_list|,
 name|util
 argument_list|,
 operator|new

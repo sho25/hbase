@@ -920,6 +920,8 @@ return|return
 operator|new
 name|PolicyBasedChaosMonkey
 argument_list|(
+name|properties
+argument_list|,
 name|util
 argument_list|,
 operator|new

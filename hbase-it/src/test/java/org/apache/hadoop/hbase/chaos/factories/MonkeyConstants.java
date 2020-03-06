@@ -180,6 +180,11 @@ init|=
 literal|"rolling.batch.suspend.rs.ratio"
 decl_stmt|;
 name|String
+name|SKIP_META_RS
+init|=
+literal|"skip.meta.rs"
+decl_stmt|;
+name|String
 name|CPU_LOAD_DURATION
 init|=
 literal|"cpu.load.duration"
@@ -282,6 +287,8 @@ argument_list|,
 literal|"fill."
 argument_list|,
 literal|"data."
+argument_list|,
+literal|"skip"
 argument_list|)
 argument_list|)
 decl_stmt|;
@@ -433,6 +440,11 @@ name|float
 name|DEFAULT_ROLLING_BATCH_SUSPEND_RS_RATIO
 init|=
 literal|1.0f
+decl_stmt|;
+name|boolean
+name|DEFAULT_SKIP_META_RS
+init|=
+literal|false
 decl_stmt|;
 name|long
 name|DEFAULT_CPU_LOAD_DURATION
