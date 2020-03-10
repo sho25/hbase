@@ -162,7 +162,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Test all client operations with a coprocessor that just implements the default flush/compact/scan  * policy.  *  *<p>Base class was split into three so this class got split into three. See below for other parts.  * @see TestFromClientSide4  * @see TestFromClientSide5  */
+comment|/**  * Test all client operations with a coprocessor that just implements the default flush/compact/scan  * policy.  */
 end_comment
 
 begin_class
@@ -181,9 +181,9 @@ block|}
 argument_list|)
 specifier|public
 class|class
-name|TestFromClientSideWithCoprocessor
+name|TestFromClientSideWithCoprocessor5
 extends|extends
-name|TestFromClientSide
+name|TestFromClientSide5
 block|{
 annotation|@
 name|ClassRule
@@ -197,7 +197,7 @@ name|HBaseClassTestRule
 operator|.
 name|forClass
 argument_list|(
-name|TestFromClientSideWithCoprocessor
+name|TestFromClientSideWithCoprocessor5
 operator|.
 name|class
 argument_list|)
@@ -258,7 +258,7 @@ argument_list|()
 expr_stmt|;
 block|}
 specifier|public
-name|TestFromClientSideWithCoprocessor
+name|TestFromClientSideWithCoprocessor5
 parameter_list|(
 name|Class
 name|registry
