@@ -1324,7 +1324,7 @@ name|LOG
 operator|.
 name|warn
 argument_list|(
-literal|"Failed to create ClusterStatusListener, not a critical problem, ignoring..."
+literal|"Failed create of ClusterStatusListener, not a critical, ignoring..."
 argument_list|,
 name|e
 argument_list|)

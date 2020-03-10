@@ -1082,22 +1082,20 @@ name|toString
 parameter_list|()
 block|{
 return|return
-literal|"[ScheduledChore: Name: "
+literal|"ScheduledChore name="
 operator|+
 name|getName
 argument_list|()
 operator|+
-literal|" Period: "
+literal|", period="
 operator|+
 name|getPeriod
 argument_list|()
 operator|+
-literal|" Unit: "
+literal|", unit="
 operator|+
 name|getTimeUnit
 argument_list|()
-operator|+
-literal|"]"
 return|;
 block|}
 block|}

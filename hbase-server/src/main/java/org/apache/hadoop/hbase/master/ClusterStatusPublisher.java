@@ -1,6 +1,6 @@
 begin_unit|revision:0.9.5;language:Java;cregit-version:0.0.1
 begin_comment
-comment|/**  *  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
+comment|/*  * Licensed to the Apache Software Foundation (ASF) under one  * or more contributor license agreements.  See the NOTICE file  * distributed with this work for additional information  * regarding copyright ownership.  The ASF licenses this file  * to you under the Apache License, Version 2.0 (the  * "License"); you may not use this file except in compliance  * with the License.  You may obtain a copy of the License at  *  *     http://www.apache.org/licenses/LICENSE-2.0  *  * Unless required by applicable law or agreed to in writing, software  * distributed under the License is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  * See the License for the specific language governing permissions and  * limitations under the License.  */
 end_comment
 
 begin_package
@@ -419,26 +419,6 @@ name|io
 operator|.
 name|netty
 operator|.
-name|bootstrap
-operator|.
-name|ChannelFactory
-import|;
-end_import
-
-begin_import
-import|import
-name|org
-operator|.
-name|apache
-operator|.
-name|hbase
-operator|.
-name|thirdparty
-operator|.
-name|io
-operator|.
-name|netty
-operator|.
 name|buffer
 operator|.
 name|Unpooled
@@ -482,6 +462,26 @@ operator|.
 name|channel
 operator|.
 name|ChannelException
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hbase
+operator|.
+name|thirdparty
+operator|.
+name|io
+operator|.
+name|netty
+operator|.
+name|channel
+operator|.
+name|ChannelFactory
 import|;
 end_import
 
@@ -701,6 +701,26 @@ name|StringUtil
 import|;
 end_import
 
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|Logger
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|slf4j
+operator|.
+name|LoggerFactory
+import|;
+end_import
+
 begin_comment
 comment|/**  * Class to publish the cluster status to the client. This allows them to know immediately  *  the dead region servers, hence to cut the connection they have with them, eventually stop  *  waiting on the socket. This improves the mean time to recover, and as well allows to increase  *  on the client the different timeouts, as the dead servers will be detected separately.  */
 end_comment
@@ -716,6 +736,20 @@ name|ClusterStatusPublisher
 extends|extends
 name|ScheduledChore
 block|{
+specifier|private
+specifier|static
+name|Logger
+name|LOG
+init|=
+name|LoggerFactory
+operator|.
+name|getLogger
+argument_list|(
+name|ClusterStatusPublisher
+operator|.
+name|class
+argument_list|)
+decl_stmt|;
 comment|/**    * The implementation class used to publish the status. Default is null (no publish).    * Use org.apache.hadoop.hbase.master.ClusterStatusPublisher.MulticastPublisher to multicast the    * status.    */
 specifier|public
 specifier|static
@@ -853,7 +887,7 @@ name|IOException
 block|{
 name|super
 argument_list|(
-literal|"HBase clusterStatusPublisher for "
+literal|"ClusterStatusPublisher for="
 operator|+
 name|master
 operator|.
@@ -940,6 +974,32 @@ name|connected
 operator|=
 literal|true
 expr_stmt|;
+block|}
+annotation|@
+name|Override
+specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+name|super
+operator|.
+name|toString
+argument_list|()
+operator|+
+literal|", publisher="
+operator|+
+name|this
+operator|.
+name|publisher
+operator|+
+literal|", connected="
+operator|+
+name|this
+operator|.
+name|connected
+return|;
 block|}
 comment|// For tests only
 specifier|protected
@@ -1490,6 +1550,21 @@ block|{     }
 annotation|@
 name|Override
 specifier|public
+name|String
+name|toString
+parameter_list|()
+block|{
+return|return
+literal|"channel="
+operator|+
+name|this
+operator|.
+name|channel
+return|;
+block|}
+annotation|@
+name|Override
+specifier|public
 name|void
 name|connect
 parameter_list|(
@@ -1756,6 +1831,19 @@ argument_list|)
 expr_stmt|;
 try|try
 block|{
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Channel bindAddress={}, networkInterface={}, INA={}"
+argument_list|,
+name|bindAddress
+argument_list|,
+name|ni
+argument_list|,
+name|ina
+argument_list|)
+expr_stmt|;
 name|channel
 operator|=
 operator|(
@@ -1805,6 +1893,32 @@ operator|.
 name|sync
 argument_list|()
 expr_stmt|;
+comment|// Set into configuration in case many networks available. Do this for tests so that
+comment|// server and client use same Interface (presuming share same Configuration).
+comment|// TestAsyncTableRSCrashPublish was failing when connected to VPN because extra networks
+comment|// available with Master binding on one Interface and client on another so test failed.
+if|if
+condition|(
+name|ni
+operator|!=
+literal|null
+condition|)
+block|{
+name|conf
+operator|.
+name|set
+argument_list|(
+name|HConstants
+operator|.
+name|STATUS_MULTICAST_NI_NAME
+argument_list|,
+name|ni
+operator|.
+name|getName
+argument_list|()
+argument_list|)
+expr_stmt|;
+block|}
 block|}
 catch|catch
 parameter_list|(
@@ -1852,6 +1966,7 @@ argument_list|>
 name|clazz
 decl_stmt|;
 specifier|private
+specifier|final
 name|InternetProtocolFamily
 name|family
 decl_stmt|;
@@ -2044,6 +2159,15 @@ name|ClusterMetrics
 name|cs
 parameter_list|)
 block|{
+name|LOG
+operator|.
+name|info
+argument_list|(
+literal|"PUBLISH {}"
+argument_list|,
+name|cs
+argument_list|)
+expr_stmt|;
 name|channel
 operator|.
 name|writeAndFlush

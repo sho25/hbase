@@ -4573,6 +4573,17 @@ argument_list|,
 name|publisherClass
 argument_list|)
 expr_stmt|;
+name|LOG
+operator|.
+name|debug
+argument_list|(
+literal|"Created {}"
+argument_list|,
+name|this
+operator|.
+name|clusterStatusPublisherChore
+argument_list|)
+expr_stmt|;
 name|getChoreService
 argument_list|()
 operator|.
