@@ -1083,7 +1083,9 @@ operator|.
 name|isEmpty
 argument_list|()
 condition|)
+block|{
 return|return;
+block|}
 comment|// Very simple optimization where we batch sequences of rows going
 comment|// to the same table.
 try|try
@@ -1780,19 +1782,11 @@ name|isEmpty
 argument_list|()
 condition|)
 block|{
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Started replicating bulk loaded data from cluster ids: {}."
+literal|"Replicating {} bulk loaded data"
 argument_list|,
 name|entry
 operator|.
@@ -1803,13 +1797,9 @@ name|toString
 argument_list|()
 argument_list|)
 expr_stmt|;
-block|}
-name|HFileReplicator
-name|hFileReplicator
+name|Configuration
+name|providerConf
 init|=
-operator|new
-name|HFileReplicator
-argument_list|(
 name|this
 operator|.
 name|provider
@@ -1822,6 +1812,16 @@ name|conf
 argument_list|,
 name|replicationClusterId
 argument_list|)
+decl_stmt|;
+try|try
+init|(
+name|HFileReplicator
+name|hFileReplicator
+init|=
+operator|new
+name|HFileReplicator
+argument_list|(
+name|providerConf
 argument_list|,
 name|sourceBaseNamespaceDirPath
 argument_list|,
@@ -1839,25 +1839,18 @@ operator|.
 name|getKey
 argument_list|()
 argument_list|)
-decl_stmt|;
+init|)
+block|{
 name|hFileReplicator
 operator|.
 name|replicate
 argument_list|()
 expr_stmt|;
-if|if
-condition|(
-name|LOG
-operator|.
-name|isDebugEnabled
-argument_list|()
-condition|)
-block|{
 name|LOG
 operator|.
 name|debug
 argument_list|(
-literal|"Finished replicating bulk loaded data from cluster id: {}"
+literal|"Finished replicating {} bulk loaded data"
 argument_list|,
 name|entry
 operator|.
@@ -2501,7 +2494,7 @@ name|toString
 argument_list|()
 return|;
 block|}
-comment|/**    * @param previousCell    * @param cell    * @return True if we have crossed over onto a new row or type    */
+comment|/**    * @return True if we have crossed over onto a new row or type    */
 specifier|private
 name|boolean
 name|isNewRowOrType
@@ -2576,7 +2569,7 @@ argument_list|()
 argument_list|)
 return|;
 block|}
-comment|/**    * Simple helper to a map from key to (a list of) values    * TODO: Make a general utility method    * @param map    * @param key1    * @param key2    * @param value    * @return the list of values corresponding to key1 and key2    */
+comment|/**    * Simple helper to a map from key to (a list of) values    * TODO: Make a general utility method    * @return the list of values corresponding to key1 and key2    */
 specifier|private
 parameter_list|<
 name|K1
@@ -2969,7 +2962,7 @@ return|return
 name|connection
 return|;
 block|}
-comment|/**    * Get a string representation of this sink's metrics    * @return string with the total replicated edits count and the date    * of the last edit that was applied    */
+comment|/**    * Get a string representation of this sink's metrics    * @return string with the total replicated edits count and the date    *   of the last edit that was applied    */
 specifier|public
 name|String
 name|getStats

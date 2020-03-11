@@ -8764,7 +8764,7 @@ name|storeCloserThreadPool
 init|=
 name|getStoreOpenAndCloseThreadPool
 argument_list|(
-literal|"StoreCloserThread-"
+literal|"StoreCloser-"
 operator|+
 name|getRegionInfo
 argument_list|()

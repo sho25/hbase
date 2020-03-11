@@ -645,7 +645,7 @@ specifier|final
 name|int
 name|NUM_SLAVES1
 init|=
-literal|2
+literal|1
 decl_stmt|;
 specifier|protected
 specifier|static
@@ -653,7 +653,7 @@ specifier|final
 name|int
 name|NUM_SLAVES2
 init|=
-literal|4
+literal|1
 decl_stmt|;
 specifier|protected
 specifier|static

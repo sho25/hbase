@@ -592,7 +592,7 @@ name|getRegionOpenAndInitThreadPool
 argument_list|(
 name|conf
 argument_list|,
-literal|"RegionOpenAndInitThread-"
+literal|"RegionOpenAndInit-"
 operator|+
 name|tableDescriptor
 operator|.

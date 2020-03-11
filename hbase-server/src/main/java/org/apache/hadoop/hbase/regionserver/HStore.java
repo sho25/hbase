@@ -3260,7 +3260,7 @@ name|region
 operator|.
 name|getStoreFileOpenAndCloseThreadPool
 argument_list|(
-literal|"StoreFileOpenerThread-"
+literal|"StoreFileOpener-"
 operator|+
 name|this
 operator|.
@@ -5470,7 +5470,7 @@ name|region
 operator|.
 name|getStoreFileOpenAndCloseThreadPool
 argument_list|(
-literal|"StoreFileCloserThread-"
+literal|"StoreFileCloser-"
 operator|+
 name|this
 operator|.

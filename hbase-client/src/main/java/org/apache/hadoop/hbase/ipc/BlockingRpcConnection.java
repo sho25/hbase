@@ -1555,7 +1555,7 @@ name|this
 operator|.
 name|threadName
 operator|=
-literal|"IPC Client ("
+literal|"BRPC Connection ("
 operator|+
 name|this
 operator|.
@@ -1566,7 +1566,7 @@ operator|.
 name|hashCode
 argument_list|()
 operator|+
-literal|") connection to "
+literal|") to "
 operator|+
 name|remoteId
 operator|.

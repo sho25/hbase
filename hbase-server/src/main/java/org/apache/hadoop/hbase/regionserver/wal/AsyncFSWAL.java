@@ -1299,7 +1299,12 @@ argument_list|()
 operator|.
 name|setNameFormat
 argument_list|(
-literal|"AsyncFSWAL-%d"
+literal|"AsyncFSWAL-%d-"
+operator|+
+name|rootDir
+operator|.
+name|toString
+argument_list|()
 argument_list|)
 operator|.
 name|setDaemon

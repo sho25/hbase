@@ -1726,6 +1726,15 @@ argument_list|,
 literal|true
 argument_list|)
 operator|.
+name|childOption
+argument_list|(
+name|ChannelOption
+operator|.
+name|SO_REUSEADDR
+argument_list|,
+literal|true
+argument_list|)
+operator|.
 name|childHandler
 argument_list|(
 operator|new
