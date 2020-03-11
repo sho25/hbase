@@ -501,6 +501,15 @@ operator|new
 name|RegionStateStampComparator
 argument_list|()
 decl_stmt|;
+specifier|private
+specifier|final
+name|Object
+name|regionsMapLock
+init|=
+operator|new
+name|Object
+argument_list|()
+decl_stmt|;
 comment|// TODO: Replace the ConcurrentSkipListMaps
 comment|/**    * RegionName -- i.e. RegionInfo.getRegionName() -- as bytes to {@link RegionStateNode}    */
 specifier|private
@@ -709,7 +718,14 @@ name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
-return|return
+synchronized|synchronized
+init|(
+name|regionsMapLock
+init|)
+block|{
+name|RegionStateNode
+name|node
+init|=
 name|regionsMap
 operator|.
 name|computeIfAbsent
@@ -721,17 +737,13 @@ argument_list|()
 argument_list|,
 name|key
 lambda|->
-block|{
-specifier|final
-name|RegionStateNode
-name|node
-init|=
 operator|new
 name|RegionStateNode
 argument_list|(
 name|regionInfo
 argument_list|,
 name|regionInTransition
+argument_list|)
 argument_list|)
 decl_stmt|;
 name|encodedRegionsMap
@@ -750,8 +762,6 @@ return|return
 name|node
 return|;
 block|}
-argument_list|)
-return|;
 block|}
 specifier|public
 name|RegionStateNode
@@ -829,6 +839,11 @@ name|RegionInfo
 name|regionInfo
 parameter_list|)
 block|{
+synchronized|synchronized
+init|(
+name|regionsMapLock
+init|)
+block|{
 name|regionsMap
 operator|.
 name|remove
@@ -849,6 +864,7 @@ name|getEncodedName
 argument_list|()
 argument_list|)
 expr_stmt|;
+block|}
 comment|// See HBASE-20860
 comment|// After master restarts, merged regions' RIT state may not be cleaned,
 comment|// making sure they are cleaned here
