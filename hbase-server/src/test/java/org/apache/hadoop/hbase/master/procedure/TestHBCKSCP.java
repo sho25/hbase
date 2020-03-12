@@ -1171,22 +1171,6 @@ name|rsServerName
 argument_list|)
 argument_list|)
 expr_stmt|;
-name|assertFalse
-argument_list|(
-name|master
-operator|.
-name|getServerManager
-argument_list|()
-operator|.
-name|getDeadServers
-argument_list|()
-operator|.
-name|isDeadServer
-argument_list|(
-name|rsServerName
-argument_list|)
-argument_list|)
-expr_stmt|;
 block|}
 comment|/**    * @return True if we find reference to<code>sn</code> in meta table.    */
 specifier|private
