@@ -4513,7 +4513,7 @@ condition|)
 block|{
 name|scan2
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)

@@ -2072,7 +2072,7 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 operator|.
@@ -3772,7 +3772,7 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|splitEndRow
 argument_list|)

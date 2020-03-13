@@ -2116,7 +2116,7 @@ decl_stmt|;
 comment|// set a start row
 name|s
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|ROWS_FOUR
 index|[

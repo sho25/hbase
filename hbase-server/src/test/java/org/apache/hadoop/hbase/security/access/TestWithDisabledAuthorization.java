@@ -6127,7 +6127,7 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|TEST_ROW
 argument_list|)

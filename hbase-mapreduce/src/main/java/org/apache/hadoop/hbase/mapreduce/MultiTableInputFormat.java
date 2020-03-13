@@ -106,7 +106,7 @@ import|;
 end_import
 
 begin_comment
-comment|/**  * Convert HBase tabular data from multiple scanners into a format that  * is consumable by Map/Reduce.  *  *<p>  * Usage example  *</p>  *  *<pre>  * List&lt;Scan&gt; scans = new ArrayList&lt;Scan&gt;();  *  * Scan scan1 = new Scan();  * scan1.setStartRow(firstRow1);  * scan1.setStopRow(lastRow1);  * scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, table1);  * scans.add(scan1);  *  * Scan scan2 = new Scan();  * scan2.setStartRow(firstRow2);  * scan2.setStopRow(lastRow2);  * scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, table2);  * scans.add(scan2);  *  * TableMapReduceUtil.initTableMapperJob(scans, TableMapper.class, Text.class,  *     IntWritable.class, job);  *</pre>  */
+comment|/**  * Convert HBase tabular data from multiple scanners into a format that  * is consumable by Map/Reduce.  *  *<p>  * Usage example  *</p>  *  *<pre>  * List&lt;Scan&gt; scans = new ArrayList&lt;Scan&gt;();  *  * Scan scan1 = new Scan();  * scan1.withStartRow(firstRow1);  * scan1.setStopRow(lastRow1);  * scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, table1);  * scans.add(scan1);  *  * Scan scan2 = new Scan();  * scan2.withStartRow(firstRow2);  * scan2.setStopRow(lastRow2);  * scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, table2);  * scans.add(scan2);  *  * TableMapReduceUtil.initTableMapperJob(scans, TableMapper.class, Text.class,  *     IntWritable.class, job);  *</pre>  */
 end_comment
 
 begin_class

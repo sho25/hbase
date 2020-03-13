@@ -3327,7 +3327,7 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|row2
 argument_list|)
@@ -3536,7 +3536,7 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|row3
 argument_list|)
@@ -3679,7 +3679,7 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|row3
 argument_list|)
@@ -3894,7 +3894,7 @@ operator|new
 name|Scan
 argument_list|()
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|row4
 argument_list|)

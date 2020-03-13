@@ -5670,7 +5670,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|tScan
 operator|.
@@ -7427,7 +7427,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|row
 argument_list|)

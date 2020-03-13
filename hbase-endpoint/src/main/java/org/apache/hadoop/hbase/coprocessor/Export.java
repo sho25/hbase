@@ -2917,7 +2917,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|regionStartKey
 argument_list|)
@@ -2961,7 +2961,7 @@ condition|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|regionEndKey
 argument_list|)

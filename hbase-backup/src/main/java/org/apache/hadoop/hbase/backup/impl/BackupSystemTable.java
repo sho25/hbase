@@ -8328,7 +8328,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -8519,7 +8519,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -8714,7 +8714,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -10746,7 +10746,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -11090,7 +11090,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)
@@ -11223,7 +11223,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startRow
 argument_list|)

@@ -565,7 +565,7 @@ argument_list|()
 decl_stmt|;
 name|sc
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|tSplit
 operator|.

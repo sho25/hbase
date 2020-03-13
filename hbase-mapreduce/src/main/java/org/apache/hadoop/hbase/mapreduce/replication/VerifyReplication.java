@@ -1453,7 +1453,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|value
 operator|.
@@ -3359,7 +3359,7 @@ parameter_list|)
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|startPrefixRow
 argument_list|)

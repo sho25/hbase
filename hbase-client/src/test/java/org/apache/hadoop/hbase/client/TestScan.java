@@ -1739,14 +1739,14 @@ argument_list|()
 decl_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 literal|null
 argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 operator|new
 name|byte
@@ -1757,7 +1757,7 @@ argument_list|)
 expr_stmt|;
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 operator|new
 name|byte
@@ -1772,7 +1772,7 @@ try|try
 block|{
 name|scan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 operator|new
 name|byte

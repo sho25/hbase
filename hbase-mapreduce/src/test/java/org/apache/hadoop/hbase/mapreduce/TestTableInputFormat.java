@@ -1130,7 +1130,7 @@ argument_list|()
 decl_stmt|;
 name|s
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.

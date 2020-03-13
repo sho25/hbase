@@ -905,7 +905,7 @@ condition|)
 block|{
 name|tableScan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|prefixBytes
 argument_list|)
@@ -1013,7 +1013,7 @@ condition|)
 block|{
 name|tableScan
 operator|.
-name|setStartRow
+name|withStartRow
 argument_list|(
 name|Bytes
 operator|.
