@@ -279,6 +279,16 @@ name|org
 operator|.
 name|junit
 operator|.
+name|Ignore
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|junit
+operator|.
 name|Test
 import|;
 end_import
@@ -541,6 +551,9 @@ operator|.
 name|class
 block|}
 argument_list|)
+annotation|@
+name|Ignore
+comment|// Disabled until HBASE-23977 is addressed.
 specifier|public
 class|class
 name|TestSlowLogRecorder
