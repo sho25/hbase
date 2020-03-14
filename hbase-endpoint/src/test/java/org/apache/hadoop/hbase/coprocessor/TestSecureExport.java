@@ -2629,6 +2629,13 @@ expr_stmt|;
 block|}
 annotation|@
 name|Test
+annotation|@
+name|org
+operator|.
+name|junit
+operator|.
+name|Ignore
+comment|// See HBASE-23990
 specifier|public
 name|void
 name|testVisibilityLabels
