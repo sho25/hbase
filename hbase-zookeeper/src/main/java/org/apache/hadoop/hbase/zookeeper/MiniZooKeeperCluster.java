@@ -109,6 +109,16 @@ name|java
 operator|.
 name|net
 operator|.
+name|InetAddress
+import|;
+end_import
+
+begin_import
+import|import
+name|java
+operator|.
+name|net
+operator|.
 name|InetSocketAddress
 import|;
 end_import
@@ -168,6 +178,22 @@ operator|.
 name|hbase
 operator|.
 name|HConstants
+import|;
+end_import
+
+begin_import
+import|import
+name|org
+operator|.
+name|apache
+operator|.
+name|hadoop
+operator|.
+name|hbase
+operator|.
+name|net
+operator|.
+name|Address
 import|;
 end_import
 
@@ -373,6 +399,28 @@ specifier|private
 specifier|final
 name|int
 name|connectionTimeout
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|LOOPBACK_HOST
+init|=
+name|InetAddress
+operator|.
+name|getLoopbackAddress
+argument_list|()
+operator|.
+name|getHostName
+argument_list|()
+decl_stmt|;
+specifier|public
+specifier|static
+specifier|final
+name|String
+name|HOST
+init|=
+name|LOOPBACK_HOST
 decl_stmt|;
 specifier|private
 name|boolean
@@ -1035,6 +1083,8 @@ argument_list|(
 operator|new
 name|InetSocketAddress
 argument_list|(
+name|LOOPBACK_HOST
+argument_list|,
 name|currentClientPort
 argument_list|)
 argument_list|,
@@ -1838,7 +1888,7 @@ try|try
 block|{
 name|send4LetterWord
 argument_list|(
-literal|"localhost"
+name|HOST
 argument_list|,
 name|port
 argument_list|,
@@ -1946,7 +1996,7 @@ name|result
 init|=
 name|send4LetterWord
 argument_list|(
-literal|"localhost"
+name|HOST
 argument_list|,
 name|port
 argument_list|,
@@ -2004,7 +2054,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"localhost:{} not up: {}"
+literal|"{}:{} not up: {}"
+argument_list|,
+name|HOST
 argument_list|,
 name|port
 argument_list|,
@@ -2026,7 +2078,9 @@ name|LOG
 operator|.
 name|info
 argument_list|(
-literal|"localhost:{} not up"
+literal|"{}:{} not up"
+argument_list|,
+name|HOST
 argument_list|,
 name|port
 argument_list|,
@@ -2108,6 +2162,24 @@ operator|.
 name|get
 argument_list|(
 name|activeZKServerIndex
+argument_list|)
+return|;
+block|}
+comment|/**    * @return Address for this  cluster instance.    */
+specifier|public
+name|Address
+name|getAddress
+parameter_list|()
+block|{
+return|return
+name|Address
+operator|.
+name|fromParts
+argument_list|(
+name|HOST
+argument_list|,
+name|getClientPort
+argument_list|()
 argument_list|)
 return|;
 block|}
